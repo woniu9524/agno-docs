@@ -18,14 +18,14 @@
   "font": {
     "headings": {
       "family": "Inter",
-      "weight": 900
+      "weight": 750
     },
     "body": {
       "family": "Inter",
       "weight": 400
     }
   },
-  "layout": "topnav",
+  "layout": "sidenav",
   "sidebar": {
     "items": "undecorated"
   },
@@ -44,12 +44,12 @@
     },
     {
       "name": "Log In",
-      "url": "https://agno.app"
+      "url": "https://app.agno.com"
     }
   ],
   "topbarCtaButton": {
     "type": "github",
-    "url": "https://github.com/phidatahq/agno"
+    "url": "https://github.com/phidatahq/phidata"
   },
   "tabs": [
     {
@@ -74,8 +74,7 @@
       "group": "Getting Started",
       "pages": [
         "introduction",
-        "why-agno",
-        "first-agent",
+        "agents",
         "playground",
         "monitoring",
         "getting-help"
