@@ -2,7 +2,7 @@
   "$schema": "https://mintlify.com/schema.json",
   "name": "Agno",
   "logo": {
-    "dark": "/logo/orange.svg",
+    "dark": "/logo/white.svg",
     "light": "/logo/black.svg"
   },
   "favicon": "/favicon.png",
