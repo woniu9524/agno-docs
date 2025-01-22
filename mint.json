@@ -76,7 +76,7 @@
         "agents",
         "playground",
         "monitoring",
-        "getting-help"
+        "support"
       ]
     },
     {
@@ -375,21 +375,21 @@
       ]
     },
     {
-      "group": "Templates",
+      "group": "Workspaces",
       "pages": [
-        "templates/introduction",
+        "workspaces/introduction",
         {
           "group": "Agent App",
           "pages": [
-            "templates/agent-app/run-local",
-            "templates/agent-app/run-aws"
+            "workspaces/agent-app/run-local",
+            "workspaces/agent-app/run-aws"
           ]
         },
         {
           "group": "Agent API",
           "pages": [
-            "templates/agent-api/run-local",
-            "templates/agent-api/run-aws"
+            "workspaces/agent-api/run-local",
+            "workspaces/agent-api/run-aws"
           ]
         }
       ]
@@ -400,42 +400,42 @@
         {
           "group": "Manage Application",
           "pages": [
-            "templates/how-to/development-app",
-            "templates/how-to/production-app",
-            "templates/how-to/install",
-            "templates/how-to/secrets",
-            "templates/how-to/env-vars",
-            "templates/how-to/database-tables",
-            "templates/how-to/ci-cd",
-            "templates/how-to/domain-https",
-            "templates/how-to/ssh-access"
+            "workspaces/how-to/development-app",
+            "workspaces/how-to/production-app",
+            "workspaces/how-to/install",
+            "workspaces/how-to/secrets",
+            "workspaces/how-to/env-vars",
+            "workspaces/how-to/database-tables",
+            "workspaces/how-to/ci-cd",
+            "workspaces/how-to/domain-https",
+            "workspaces/how-to/ssh-access"
           ]
         },
         {
           "group": "Manage Workspace",
           "pages": [
-            "templates/how-to/workspace-settings",
-            "templates/how-to/git-repo",
-            "templates/how-to/new-users",
-            "templates/how-to/format-and-validate"
+            "workspaces/how-to/workspace-settings",
+            "workspaces/how-to/git-repo",
+            "workspaces/how-to/new-users",
+            "workspaces/how-to/format-and-validate"
           ]
         }
       ]
     },
     {
-      "group": "Workspace",
+      "group": "TBD-Workspace",
       "pages": [
-        "templates/workspace/introduction",
-        "templates/workspace/settings",
-        "templates/workspace/resources"
+        "workspaces/workspace/introduction",
+        "workspaces/workspace/settings",
+        "workspaces/workspace/resources"
       ]
     },
     {
-      "group": "Apps",
+      "group": "TBD-Apps",
       "pages": [
-        "templates/apps/introduction",
-        "templates/apps/examples",
-        "templates/apps/features"
+        "workspaces/apps/introduction",
+        "workspaces/apps/examples",
+        "workspaces/apps/features"
       ]
     },
     {
@@ -444,28 +444,28 @@
         {
           "group": "ag",
           "pages": [
-            "templates/cli/ag/init",
-            "templates/cli/ag/auth",
-            "templates/cli/ag/start",
-            "templates/cli/ag/stop",
-            "templates/cli/ag/patch",
-            "templates/cli/ag/restart",
-            "templates/cli/ag/config",
-            "templates/cli/ag/set",
-            "templates/cli/ag/reset"
+            "workspaces/cli/ag/init",
+            "workspaces/cli/ag/auth",
+            "workspaces/cli/ag/start",
+            "workspaces/cli/ag/stop",
+            "workspaces/cli/ag/patch",
+            "workspaces/cli/ag/restart",
+            "workspaces/cli/ag/config",
+            "workspaces/cli/ag/set",
+            "workspaces/cli/ag/reset"
           ]
         },
         {
           "group": "ag ws",
           "pages": [
-            "templates/cli/ws/create",
-            "templates/cli/ws/up",
-            "templates/cli/ws/down",
-            "templates/cli/ws/patch",
-            "templates/cli/ws/restart",
-            "templates/cli/ws/config",
-            "templates/cli/ws/delete",
-            "templates/cli/ws/setup"
+            "workspaces/cli/ws/create",
+            "workspaces/cli/ws/up",
+            "workspaces/cli/ws/down",
+            "workspaces/cli/ws/patch",
+            "workspaces/cli/ws/restart",
+            "workspaces/cli/ws/config",
+            "workspaces/cli/ws/delete",
+            "workspaces/cli/ws/setup"
           ]
         }
       ]
@@ -473,20 +473,20 @@
     {
       "group": "Resources",
       "pages": [
-        "templates/resources/introduction",
+        "workspaces/resources/introduction",
         {
           "group": "Docker",
           "pages": [
-            "templates/resources/docker/introduction",
-            "templates/resources/docker/container"
+            "workspaces/resources/docker/introduction",
+            "workspaces/resources/docker/container"
           ]
         },
         {
           "group": "AWS",
           "pages": [
-            "templates/resources/aws/introduction",
-            "templates/resources/aws/ecs",
-            "templates/resources/aws/rds"
+            "workspaces/resources/aws/introduction",
+            "workspaces/resources/aws/ecs",
+            "workspaces/resources/aws/rds"
           ]
         }
       ]
