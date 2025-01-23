@@ -474,7 +474,10 @@
         {
           "group": "DeepSeek",
           "pages": [
-            "examples/models/deepseek/coming-soon"
+            "examples/models/deepseek/basic",
+            "examples/models/deepseek/basic_stream",
+            "examples/models/deepseek/tool_use",
+            "examples/models/deepseek/structured_output"
           ]
         },
         {
