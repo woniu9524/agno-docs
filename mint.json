@@ -389,7 +389,11 @@
         {
           "group": "Async",
           "pages": [
-            "examples/concepts/async/basic"
+            "examples/concepts/async/basic",
+            "examples/concepts/async/data_analyst",
+            "examples/concepts/async/structured_output",
+            "examples/concepts/async/reasoning",
+            "examples/concepts/async/gather_agents"
           ]
         },
         {
