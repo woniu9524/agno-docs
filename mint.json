@@ -525,7 +525,9 @@
         {
           "group": "Hugging Face",
           "pages": [
-            "examples/models/huggingface/coming-soon"
+            "examples/models/huggingface/basic",
+            "examples/models/huggingface/basic_stream",
+            "examples/models/huggingface/llama_essay_writer"
           ]
         },
         {
