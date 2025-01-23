@@ -463,7 +463,12 @@
         {
           "group": "Cohere",
           "pages": [
-            "examples/models/cohere/coming-soon"
+            "examples/models/cohere/basic",
+            "examples/models/cohere/basic_stream",
+            "examples/models/cohere/tool_use",
+            "examples/models/cohere/structured_output",
+            "examples/models/cohere/storage",
+            "examples/models/cohere/knowledge"
           ]
         },
         {
