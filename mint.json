@@ -389,7 +389,7 @@
         {
           "group": "Async",
           "pages": [
-            "examples/concepts/async/coming-soon"
+            "examples/concepts/async/basic"
           ]
         },
         {
