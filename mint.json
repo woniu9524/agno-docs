@@ -295,81 +295,237 @@
     {
       "group": "Examples",
       "pages": [
-        "examples/introduction",
+        "examples/introduction"
+      ]
+    },
+    {
+      "group": "Use Cases",
+      "pages": [
         {
-          "group": "Use-Cases",
+          "group": "Simple",
           "pages": [
-            {
-              "group": "Simple",
-              "pages": [
-                "examples/use-cases/simple/books-recommendation-agent",
-                "examples/use-cases/simple/movie-recommendation-agent",
-                "examples/use-cases/simple/youtube-timestamp-agent",
-                "examples/use-cases/simple/travel-agent",
-                "examples/use-cases/simple/legal-advisor",
-                "examples/use-cases/simple/recipe-creator-agent",
-                "examples/use-cases/simple/shopping-partner-agent",
-                "examples/use-cases/simple/study-scout-agent",
-                "examples/use-cases/simple/timeout-agent",
-                "examples/use-cases/simple/calcom-agent",
-                "examples/use-cases/simple/slack-agent",
-                "examples/use-cases/simple/discord-agent",
-                "examples/use-cases/simple/data-analyst",
-                "examples/use-cases/simple/finance-agent",
-                "examples/use-cases/simple/research-agent",
-                "examples/use-cases/simple/github-agent",
-                "examples/use-cases/simple/baidu-search-agent"
-              ]
-            },
-            {
-              "group": "Advanced",
-              "pages": [
-                "examples/use-cases/advanced/blog-post-generator",
-                "examples/use-cases/advanced/coding-agent",
-                "examples/use-cases/advanced/reddit-post-generator",
-                "examples/use-cases/advanced/employee-recruiter",
-                "examples/use-cases/advanced/game-generator",
-                "examples/use-cases/advanced/investment-report-generator",
-                "examples/use-cases/advanced/news-report-generator",
-                "examples/use-cases/advanced/personalized-outreach-email-generator",
-                "examples/use-cases/advanced/self-evaluation-workflow",
-                "examples/use-cases/advanced/product-manager",
-                "examples/use-cases/advanced/content-creator"
-              ]
-            }
-          ]
-        },
-
-        {
-          "group": "Agent Concepts",
-          "pages": [
-            {
-              "group": "Multimodal Examples",
-              "pages": [
-                "examples/agent-concepts/generate-image-agent",
-                "examples/agent-concepts/image-agent",
-                "examples/agent-concepts/video-generation-agent"
-              ]
-            },
-            "examples/agent-concepts/rag-agent",
-            "examples/agent-concepts/structured-output",
-            "examples/agent-concepts/python-function-agent",
-            "examples/agent-concepts/agent-with-knowledge-and-cli",
-            "examples/agent-concepts/agent-team",
-            "examples/agent-concepts/reasoning-agent"
+            "examples/use-cases/simple/books-recommendation-agent",
+            "examples/use-cases/simple/movie-recommendation-agent",
+            "examples/use-cases/simple/youtube-timestamp-agent",
+            "examples/use-cases/simple/travel-agent",
+            "examples/use-cases/simple/legal-advisor",
+            "examples/use-cases/simple/recipe-creator-agent",
+            "examples/use-cases/simple/shopping-partner-agent",
+            "examples/use-cases/simple/study-scout-agent",
+            "examples/use-cases/simple/timeout-agent",
+            "examples/use-cases/simple/calcom-agent",
+            "examples/use-cases/simple/slack-agent",
+            "examples/use-cases/simple/discord-agent",
+            "examples/use-cases/simple/data-analyst",
+            "examples/use-cases/simple/finance-agent",
+            "examples/use-cases/simple/research-agent",
+            "examples/use-cases/simple/github-agent",
+            "examples/use-cases/simple/baidu-search-agent"
           ]
         },
         {
-          "group": "Integrations",
+          "group": "Advanced",
           "pages": [
-            "examples/integrations/composio",
-            "examples/integrations/pgvector",
-            "examples/integrations/singlestore",
-            "examples/integrations/lancedb",
-            "examples/integrations/pinecone",
-            "examples/integrations/qdrant",
-            "examples/integrations/chroma",
-            "examples/integrations/portkey"
+            "examples/use-cases/advanced/blog-post-generator",
+            "examples/use-cases/advanced/coding-agent",
+            "examples/use-cases/advanced/reddit-post-generator",
+            "examples/use-cases/advanced/employee-recruiter",
+            "examples/use-cases/advanced/game-generator",
+            "examples/use-cases/advanced/investment-report-generator",
+            "examples/use-cases/advanced/news-report-generator",
+            "examples/use-cases/advanced/personalized-outreach-email-generator",
+            "examples/use-cases/advanced/self-evaluation-workflow",
+            "examples/use-cases/advanced/product-manager",
+            "examples/use-cases/advanced/content-creator"
+          ]
+        },
+        {
+          "group": "Agentic Applications",
+          "pages": [
+            "examples/use-cases/apps/coming-soon"
+          ]
+        }
+      ]
+    },
+    {
+      "group": "Agent Concepts",
+      "pages": [
+        {
+          "group": "Multimodal",
+          "pages": [
+            "examples/concepts/multimodal/coming-soon"
+          ]
+        },
+        {
+          "group": "Structured Outputs",
+          "pages": [
+            "examples/concepts/structured-outputs/coming-soon"
+          ]
+        },
+        {
+          "group": "RAG",
+          "pages": [
+            "examples/concepts/rag/coming-soon"
+          ]
+        },
+        {
+          "group": "Knowledge",
+          "pages": [
+            "examples/concepts/knowledge/coming-soon"
+          ]
+        },
+        {
+          "group": "Teams",
+          "pages": [
+            "examples/concepts/teams/coming-soon"
+          ]
+        },
+        {
+          "group": "Workflows",
+          "pages": [
+            "examples/concepts/workflows/coming-soon"
+          ]
+        },
+        {
+          "group": "Async",
+          "pages": [
+            "examples/concepts/async/coming-soon"
+          ]
+        },
+        {
+          "group": "Hybrid Search",
+          "pages": [
+            "examples/concepts/hybrid-search/coming-soon"
+          ]
+        },
+        {
+          "group": "Memory",
+          "pages": [
+            "examples/concepts/memory/coming-soon"
+          ]
+        }
+      ]
+    },
+    {
+      "group": "Integrations",
+      "pages": [
+        {
+          "group": "Tools",
+          "pages": [
+            "examples/integrations/tools/coming-soon"
+          ]
+        },
+        {
+          "group": "Vector Databases",
+          "pages": [
+            "examples/integrations/vectordb/coming-soon"
+          ]
+        },
+        {
+          "group": "Storage",
+          "pages": [
+            "examples/integrations/storage/coming-soon"
+          ]
+        }
+      ]
+    },
+    {
+      "group": "Models",
+      "pages": [
+        {
+          "group": "OpenAI",
+          "pages": [
+            "examples/models/openai/coming-soon"
+          ]
+        },
+        {
+          "group": "Ollama",
+          "pages": [
+            "examples/models/ollama/coming-soon"
+          ]
+        },
+        {
+          "group": "Anthropic",
+          "pages": [
+            "examples/models/anthropic/coming-soon"
+          ]
+        },
+        {
+          "group": "Cohere",
+          "pages": [
+            "examples/models/cohere/coming-soon"
+          ]
+        },
+        {
+          "group": "DeepSeek",
+          "pages": [
+            "examples/models/deepseek/coming-soon"
+          ]
+        },
+        {
+          "group": "Gemini",
+          "pages": [
+            "examples/models/gemini/coming-soon"
+          ]
+        },
+        {
+          "group": "Groq",
+          "pages": [
+            "examples/models/groq/coming-soon"
+          ]
+        },
+        {
+          "group": "Mistral",
+          "pages": [
+            "examples/models/mistral/coming-soon"
+          ]
+        },
+        {
+          "group": "Azure",
+          "pages": [
+            "examples/models/azure/coming-soon"
+          ]
+        },
+        {
+          "group": "Fireworks",
+          "pages": [
+            "examples/models/fireworks/coming-soon"
+          ]
+        },
+        {
+          "group": "AWS",
+          "pages": [
+            "examples/models/aws/coming-soon"
+          ]
+        },
+        {
+          "group": "Hugging Face",
+          "pages": [
+            "examples/models/huggingface/coming-soon"
+          ]
+        },
+        {
+          "group": "NVIDIA",
+          "pages": [
+            "examples/models/nvidia/coming-soon"
+          ]
+        },
+        {
+          "group": "Together",
+          "pages": [
+            "examples/models/together/coming-soon"
+          ]
+        },
+        {
+          "group": "Vertex AI",
+          "pages": [
+            "examples/models/vertexai/coming-soon"
+          ]
+        },
+        {
+          "group": "xAI",
+          "pages": [
+            "examples/models/xai/coming-soon"
           ]
         }
       ]
