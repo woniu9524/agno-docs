@@ -76,7 +76,7 @@
         "agents",
         "playground",
         "monitoring",
-        "support"
+        "community"
       ]
     },
     {
@@ -451,7 +451,13 @@
         {
           "group": "Anthropic",
           "pages": [
-            "examples/models/anthropic/coming-soon"
+            "examples/models/anthropic/basic",
+            "examples/models/anthropic/basic_stream",
+            "examples/models/anthropic/structured_output",
+            "examples/models/anthropic/tool_use",
+            "examples/models/anthropic/storage",
+            "examples/models/anthropic/knowledge",
+            "examples/models/anthropic/image_agent"
           ]
         },
         {
