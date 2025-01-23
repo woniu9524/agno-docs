@@ -483,7 +483,16 @@
         {
           "group": "Gemini",
           "pages": [
-            "examples/models/gemini/coming-soon"
+            "examples/models/gemini/basic",
+            "examples/models/gemini/basic_stream",
+            "examples/models/gemini/structured_output",
+            "examples/models/gemini/tool_use",
+            "examples/models/gemini/storage",
+            "examples/models/gemini/knowledge",
+            "examples/models/gemini/image_input",
+            "examples/models/gemini/video_agent",
+            "examples/models/gemini/audio_input",
+            "examples/models/gemini/flash_thinking"
           ]
         },
         {
@@ -501,7 +510,10 @@
         {
           "group": "Fireworks",
           "pages": [
-            "examples/models/fireworks/coming-soon"
+            "examples/models/fireworks/basic",
+            "examples/models/fireworks/basic_stream",
+            "examples/models/fireworks/tool_use",
+            "examples/models/fireworks/structured_output"
           ]
         },
         {
