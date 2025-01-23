@@ -445,7 +445,14 @@
         {
           "group": "Ollama",
           "pages": [
-            "examples/models/ollama/coming-soon"
+            "examples/models/ollama/basic",
+            "examples/models/ollama/basic_stream",
+            "examples/models/ollama/tool_use",
+            "examples/models/ollama/structured_output",
+            "examples/models/ollama/storage",
+            "examples/models/ollama/knowledge",
+            "examples/models/ollama/image_agent",
+            "examples/models/ollama/set_client"
           ]
         },
         {
@@ -510,7 +517,10 @@
         {
           "group": "Mistral",
           "pages": [
-            "examples/models/mistral/coming-soon"
+            "examples/models/mistral/basic",
+            "examples/models/mistral/basic_stream",
+            "examples/models/mistral/tool_use",
+            "examples/models/mistral/structured_output"
           ]
         },
         {
@@ -533,13 +543,18 @@
         {
           "group": "NVIDIA",
           "pages": [
-            "examples/models/nvidia/coming-soon"
+            "examples/models/nvidia/basic",
+            "examples/models/nvidia/basic_stream",
+            "examples/models/nvidia/tool_use"
           ]
         },
         {
           "group": "Together",
           "pages": [
-            "examples/models/together/coming-soon"
+            "examples/models/together/basic",
+            "examples/models/together/basic_stream",
+            "examples/models/together/tool_use",
+            "examples/models/together/structured_output"
           ]
         },
         {
@@ -551,7 +566,9 @@
         {
           "group": "xAI",
           "pages": [
-            "examples/models/xai/coming-soon"
+            "examples/models/xai/basic",
+            "examples/models/xai/basic_stream",
+            "examples/models/xai/tool_use"
           ]
         },
         {
