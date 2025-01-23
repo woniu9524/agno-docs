@@ -498,7 +498,13 @@
         {
           "group": "Groq",
           "pages": [
-            "examples/models/groq/coming-soon"
+            "examples/models/groq/basic",
+            "examples/models/groq/basic_stream",
+            "examples/models/groq/tool_use",
+            "examples/models/groq/structured_output",
+            "examples/models/groq/storage",
+            "examples/models/groq/knowledge",
+            "examples/models/groq/image_agent"
           ]
         },
         {
