@@ -503,12 +503,6 @@
           ]
         },
         {
-          "group": "AWS",
-          "pages": [
-            "examples/models/aws/coming-soon"
-          ]
-        },
-        {
           "group": "Hugging Face",
           "pages": [
             "examples/models/huggingface/coming-soon"
@@ -536,6 +530,17 @@
           "group": "xAI",
           "pages": [
             "examples/models/xai/coming-soon"
+          ]
+        },
+        {
+          "group": "AWS Bedrock Claude",
+          "pages": [
+            "examples/models/aws/bedrock-claude/basic",
+            "examples/models/aws/bedrock-claude/basic_stream",
+            "examples/models/aws/bedrock-claude/tool_use",
+            "examples/models/aws/bedrock-claude/structured_output",
+            "examples/models/aws/bedrock-claude/storage",
+            "examples/models/aws/bedrock-claude/knowledge"
           ]
         }
       ]

@@ -4,11 +4,11 @@ title: Agent with Structured Outputs
 
 ## Code
 
-```python cookbook/models/anthropic/structured_output.py
+```python cookbook/models/aws/bedrock_claude/structured_output.py
 from typing import List
 
 from agno.agent import Agent, RunResponse  # noqa
-from agno.models.anthropic import Claude
+from agno.models.aws.claude import Claude
 from pydantic import BaseModel, Field
 from rich.pretty import pprint  # noqa
 
@@ -33,14 +33,16 @@ class MovieScript(BaseModel):
 
 
 movie_agent = Agent(
-    model=Claude(id="claude-3-5-sonnet-20240620"),
+    model=Claude(id="anthropic.claude-3-5-sonnet-20240620-v1:0"),
     description="You help people write movie scripts.",
     response_model=MovieScript,
 )
 
 # Get the response in a variable
-run: RunResponse = movie_agent.run("New York")
-pprint(run.content)
+# movie_agent: RunResponse = movie_agent.run("New York")
+# pprint(movie_agent.content)
+
+movie_agent.print_response("New York")
 ```
 
 ## Usage
@@ -48,26 +50,28 @@ pprint(run.content)
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="Set your AWS Credentials">
     ```bash
-    export ANTHROPIC_API_KEY=xxx
+    export AWS_ACCESS_KEY_ID=***
+    export AWS_SECRET_ACCESS_KEY=***
+    export AWS_DEFAULT_REGION=***
     ```
   </Step>
 
   <Step title="Install libraries">
     ```bash
-    pip install -U anthropic agno
+    pip install -U boto3 agno
     ```
   </Step>
 
   <Step title="Run Agent">
     <CodeGroup>
     ```bash Mac
-    python cookbook/models/anthropic/structured_output.py
+    python cookbook/models/aws/bedrock_claude/structured_output.py
     ```
 
     ```bash Windows
-    python cookbook/models/anthropic/structured_output.py
+    python cookbook/models/aws/bedrock_claude/structured_output.py
     ```
     </CodeGroup>
   </Step>
