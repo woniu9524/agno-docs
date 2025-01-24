@@ -475,7 +475,16 @@
         {
           "group": "Vector Databases",
           "pages": [
-            "examples/integrations/vectordb/coming-soon"
+            "examples/integrations/vectordb/cassandra",
+            "examples/integrations/vectordb/chromadb",
+            "examples/integrations/vectordb/clickhouse",
+            "examples/integrations/vectordb/lancedb",
+            "examples/integrations/vectordb/milvus",
+            "examples/integrations/vectordb/mongodb",
+            "examples/integrations/vectordb/pgvector",
+            "examples/integrations/vectordb/pinecone",
+            "examples/integrations/vectordb/qdrant",
+            "examples/integrations/vectordb/singlestore"
           ]
         },
         {
