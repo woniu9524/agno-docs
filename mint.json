@@ -287,6 +287,21 @@
             },
             "workflows/advanced"
           ]
+        },
+        {
+          "group": "Multimodal",
+          "pages": [
+            "examples/concepts/multimodal/audio-input-output",
+            "examples/concepts/multimodal/audio-multi-turn",
+            "examples/concepts/multimodal/generate-image",
+            "examples/concepts/multimodal/generate-video-models-lab",
+            "examples/concepts/multimodal/generate-video-replicate",
+            "examples/concepts/multimodal/image-to-audio",
+            "examples/concepts/multimodal/image-to-image",
+            "examples/concepts/multimodal/image-to-text",
+            "examples/concepts/multimodal/video-caption",
+            "examples/concepts/multimodal/video-to-shorts"
+          ]
         }
       ]
     },
