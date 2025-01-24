@@ -301,9 +301,10 @@
 				{
 					"group": "Simple",
 					"pages": [
+						"examples/use-cases/simple/finance-agent",
+						"examples/use-cases/simple/youtube-agent",
 						"examples/use-cases/simple/books-recommendation-agent",
 						"examples/use-cases/simple/movie-recommendation-agent",
-						"examples/use-cases/simple/youtube-timestamp-agent",
 						"examples/use-cases/simple/travel-agent",
 						"examples/use-cases/simple/legal-advisor",
 						"examples/use-cases/simple/recipe-creator-agent",
@@ -314,7 +315,6 @@
 						"examples/use-cases/simple/slack-agent",
 						"examples/use-cases/simple/discord-agent",
 						"examples/use-cases/simple/data-analyst",
-						"examples/use-cases/simple/finance-agent",
 						"examples/use-cases/simple/research-agent",
 						"examples/use-cases/simple/github-agent",
 						"examples/use-cases/simple/baidu-search-agent"
