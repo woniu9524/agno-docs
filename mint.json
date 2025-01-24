@@ -287,21 +287,6 @@
             },
             "workflows/advanced"
           ]
-        },
-        {
-          "group": "Multimodal",
-          "pages": [
-            "examples/concepts/multimodal/audio-input-output",
-            "examples/concepts/multimodal/audio-multi-turn",
-            "examples/concepts/multimodal/generate-image",
-            "examples/concepts/multimodal/generate-video-models-lab",
-            "examples/concepts/multimodal/generate-video-replicate",
-            "examples/concepts/multimodal/image-to-audio",
-            "examples/concepts/multimodal/image-to-image",
-            "examples/concepts/multimodal/image-to-text",
-            "examples/concepts/multimodal/video-caption",
-            "examples/concepts/multimodal/video-to-shorts"
-          ]
         }
       ]
     },
@@ -366,37 +351,59 @@
         {
           "group": "Multimodal",
           "pages": [
-            "examples/concepts/multimodal/coming-soon"
-          ]
-        },
-        {
-          "group": "Structured Outputs",
-          "pages": [
-            "examples/concepts/structured-outputs/coming-soon"
+            "examples/concepts/multimodal/audio-input-output",
+            "examples/concepts/multimodal/audio-multi-turn",
+            "examples/concepts/multimodal/generate-image",
+            "examples/concepts/multimodal/generate-video-models-lab",
+            "examples/concepts/multimodal/generate-video-replicate",
+            "examples/concepts/multimodal/image-to-audio",
+            "examples/concepts/multimodal/image-to-image",
+            "examples/concepts/multimodal/image-to-text",
+            "examples/concepts/multimodal/video-caption",
+            "examples/concepts/multimodal/video-to-shorts"
           ]
         },
         {
           "group": "RAG",
           "pages": [
-            "examples/concepts/rag/coming-soon"
+            "examples/concepts/rag/traditional-rag-pgvector",
+            "examples/concepts/rag/traditional-rag-lancedb",
+            "examples/concepts/rag/agentic-rag-pgvector",
+            "examples/concepts/rag/agentic-rag-lancedb",
+            "examples/concepts/rag/agentic-rag-with-reranking",
+            "examples/concepts/rag/agentic-rag-agent-ui",
+            "examples/concepts/rag/rag-with-lance-db-and-sqlite"
           ]
         },
         {
           "group": "Knowledge",
           "pages": [
-            "examples/concepts/knowledge/coming-soon"
+            "examples/concepts/knowledge/arxiv-kb",
+            "examples/concepts/knowledge/combined-kb",
+            "examples/concepts/knowledge/csv-kb",
+            "examples/concepts/knowledge/csv-url-kb",
+            "examples/concepts/knowledge/doc-kb",
+            "examples/concepts/knowledge/docx-kb",
+            {
+              "group": "Embedders",
+              "pages": [
+                "examples/concepts/knowledge/embedders/azure-embedder",
+                "examples/concepts/knowledge/embedders/cohere-embedder",
+                "examples/concepts/knowledge/embedders/fireworks-embedder",
+                "examples/concepts/knowledge/embedders/gemini-embedder",
+                "examples/concepts/knowledge/embedders/huggingface-embedder",
+                "examples/concepts/knowledge/embedders/mistral-embedder",
+                "examples/concepts/knowledge/embedders/ollama-embedder",
+                "examples/concepts/knowledge/embedders/openai-embedder",
+                "examples/concepts/knowledge/embedders/qdrant-fastembed"
+              ]
+            }
           ]
         },
         {
           "group": "Teams",
           "pages": [
             "examples/concepts/teams/coming-soon"
-          ]
-        },
-        {
-          "group": "Workflows",
-          "pages": [
-            "examples/concepts/workflows/coming-soon"
           ]
         },
         {
