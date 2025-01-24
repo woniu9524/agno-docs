@@ -303,8 +303,8 @@
 					"pages": [
 						"examples/use-cases/simple/finance-agent",
 						"examples/use-cases/simple/youtube-agent",
-						"examples/use-cases/simple/books-recommendation-agent",
 						"examples/use-cases/simple/movie-recommendation-agent",
+						"examples/use-cases/simple/books-recommendation-agent",
 						"examples/use-cases/simple/travel-agent",
 						"examples/use-cases/simple/legal-advisor",
 						"examples/use-cases/simple/recipe-creator-agent",
