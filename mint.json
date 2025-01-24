@@ -490,7 +490,13 @@
         {
           "group": "Storage",
           "pages": [
-            "examples/integrations/storage/coming-soon"
+            "examples/integrations/storage/dynamodb",
+            "examples/integrations/storage/json",
+            "examples/integrations/storage/mongodb",
+            "examples/integrations/storage/postgres",
+            "examples/integrations/storage/singlestore",
+            "examples/integrations/storage/sqlite",
+            "examples/integrations/storage/yaml"
           ]
         }
       ]
