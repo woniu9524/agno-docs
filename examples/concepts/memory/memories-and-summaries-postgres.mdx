@@ -4,7 +4,7 @@ title: Memories and Summaries with Postgres
 
 ## Code
 
-```python
+```python cookbook/agent_concepts/memory/05_memories_and_summaries_postgres.py
 from agno.agent import Agent, AgentMemory
 from agno.memory.db.postgres import PgMemoryDb
 from agno.models.openai import OpenAIChat
@@ -68,7 +68,7 @@ agent.print_response(
 
   <Step title="Install libraries">
     ```bash
-    pip install -U openai sqlalchemy "psycopg[binary]" agno
+    pip install -U openai sqlalchemy "psycopg[binary]" pgvector agno
     ```
   </Step>
 
