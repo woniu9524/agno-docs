@@ -439,7 +439,16 @@
         {
           "group": "OpenAI",
           "pages": [
-            "examples/models/openai/coming-soon"
+            "examples/models/openai/basic",
+            "examples/models/openai/basic_stream",
+            "examples/models/openai/tool_use",
+            "examples/models/openai/structured_output",
+            "examples/models/openai/storage",
+            "examples/models/openai/knowledge",
+            "examples/models/openai/image_agent",
+            "examples/models/openai/audio_input_agent",
+            "examples/models/openai/audio_output_agent",
+            "examples/models/openai/generate_images"
           ]
         },
         {
@@ -460,8 +469,8 @@
           "pages": [
             "examples/models/anthropic/basic",
             "examples/models/anthropic/basic_stream",
-            "examples/models/anthropic/structured_output",
             "examples/models/anthropic/tool_use",
+            "examples/models/anthropic/structured_output",
             "examples/models/anthropic/storage",
             "examples/models/anthropic/knowledge",
             "examples/models/anthropic/image_agent"
@@ -560,7 +569,12 @@
         {
           "group": "Vertex AI",
           "pages": [
-            "examples/models/vertexai/coming-soon"
+            "examples/models/vertexai/basic",
+            "examples/models/vertexai/basic_stream",
+            "examples/models/vertexai/tool_use",
+            "examples/models/vertexai/structured_output",
+            "examples/models/vertexai/storage",
+            "examples/models/vertexai/knowledge"
           ]
         },
         {
