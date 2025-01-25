@@ -296,7 +296,26 @@
 				{
 					"group": "Getting Started",
 					"pages": [
-						"examples/getting-started/introduction"
+						"examples/getting-started/introduction",
+						"examples/getting-started/basic-agent",
+						"examples/getting-started/agent-with-tools",
+						"examples/getting-started/agent-with-knowledge",
+						"examples/getting-started/agent-with-storage",
+						"examples/getting-started/agent-team",
+						"examples/getting-started/structured-output",
+						"examples/getting-started/custom-tools",
+						"examples/getting-started/research-agent",
+						"examples/getting-started/research-workflow",
+						"examples/getting-started/image-agent",
+						"examples/getting-started/image-generation",
+						"examples/getting-started/video-generation",
+						"examples/getting-started/audio-agent",
+						"examples/getting-started/agent-state",
+						"examples/getting-started/agent-context",
+						"examples/getting-started/agent-session",
+						"examples/getting-started/user-memories",
+						"examples/getting-started/retry-function",
+						"examples/getting-started/human-in-loop"
 					]
 				}
 			]
