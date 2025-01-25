@@ -292,7 +292,13 @@
 		{
 			"group": "Examples",
 			"pages": [
-				"examples/introduction"
+				"examples/introduction",
+				{
+					"group": "Getting Started",
+					"pages": [
+						"examples/getting-started/introduction"
+					]
+				}
 			]
 		},
 		{
@@ -305,32 +311,29 @@
 						"examples/use-cases/simple/youtube-agent",
 						"examples/use-cases/simple/research-agent",
 						"examples/use-cases/simple/research-agent-exa",
+						"examples/use-cases/simple/teaching-assistant",
+						"examples/use-cases/simple/recipe-creator",
 						"examples/use-cases/simple/movie-recommender",
 						"examples/use-cases/simple/books-recommender",
 						"examples/use-cases/simple/travel-planner",
-						"examples/use-cases/simple/recipe-creator"
+            "examples/use-cases/advanced/reddit-post-generator"
 					]
 				},
 				{
 					"group": "Advanced",
 					"pages": [
 						"examples/use-cases/advanced/blog-post-generator",
-						"examples/use-cases/advanced/coding-agent",
-						"examples/use-cases/advanced/reddit-post-generator",
-						"examples/use-cases/advanced/employee-recruiter",
-						"examples/use-cases/advanced/game-generator",
-						"examples/use-cases/advanced/investment-report-generator",
 						"examples/use-cases/advanced/news-report-generator",
+						"examples/use-cases/advanced/investment-report-generator",
 						"examples/use-cases/advanced/personalized-outreach-email-generator",
-						"examples/use-cases/advanced/self-evaluation-workflow",
-						"examples/use-cases/advanced/product-manager",
 						"examples/use-cases/advanced/content-creator"
 					]
 				},
 				{
 					"group": "Agentic Applications",
 					"pages": [
-						"examples/use-cases/apps/coming-soon"
+						"examples/use-cases/apps/coming-soon",
+						"examples/use-cases/advanced/game-generator"
 					]
 				}
 			]
@@ -367,13 +370,22 @@
 				{
 					"group": "Knowledge",
 					"pages": [
-						"examples/concepts/knowledge/arxiv-kb",
-						"examples/concepts/knowledge/combined-kb",
-						"examples/concepts/knowledge/csv-kb",
-						"examples/concepts/knowledge/csv-url-kb",
-						"examples/concepts/knowledge/doc-kb",
-						"examples/concepts/knowledge/docx-kb",
-						{
+            {
+              "group": "Vector Databases",
+              "pages": [
+                "examples/concepts/knowledge/vectordb/cassandra",
+                "examples/concepts/knowledge/vectordb/chromadb",
+                "examples/concepts/knowledge/vectordb/clickhouse",
+                "examples/concepts/knowledge/vectordb/lancedb",
+                "examples/concepts/knowledge/vectordb/milvus",
+                "examples/concepts/knowledge/vectordb/mongodb",
+                "examples/concepts/knowledge/vectordb/pgvector",
+                "examples/concepts/knowledge/vectordb/pinecone",
+                "examples/concepts/knowledge/vectordb/qdrant",
+                "examples/concepts/knowledge/vectordb/singlestore"
+              ]
+            },
+            {
 							"group": "Embedders",
 							"pages": [
 								"examples/concepts/knowledge/embedders/azure-embedder",
@@ -386,7 +398,26 @@
 								"examples/concepts/knowledge/embedders/openai-embedder",
 								"examples/concepts/knowledge/embedders/qdrant-fastembed"
 							]
-						}
+						},
+						"examples/concepts/knowledge/arxiv-kb",
+						"examples/concepts/knowledge/combined-kb",
+						"examples/concepts/knowledge/csv-kb",
+						"examples/concepts/knowledge/csv-url-kb",
+						"examples/concepts/knowledge/doc-kb",
+						"examples/concepts/knowledge/docx-kb"
+					]
+				},
+				{
+					"group": "Memory",
+					"pages": [
+						"examples/concepts/memory/builtin-memory",
+						"examples/concepts/memory/persistent-memory",
+						"examples/concepts/memory/memories-and-summaries",
+						"examples/concepts/memory/persistent-memory-postgres",
+						"examples/concepts/memory/memories-and-summaries-postgres",
+						"examples/concepts/memory/memories-and-summaries-sqlite-async",
+						"examples/concepts/memory/persistent-memory-mongodb",
+						"examples/concepts/memory/mem0-memory"
 					]
 				},
 				{
@@ -415,112 +446,79 @@
 					]
 				},
 				{
-					"group": "Memory",
+					"group": "Storage",
 					"pages": [
-						"examples/concepts/memory/builtin-memory",
-						"examples/concepts/memory/persistent-memory",
-						"examples/concepts/memory/memories-and-summaries",
-						"examples/concepts/memory/persistent-memory-postgres",
-						"examples/concepts/memory/memories-and-summaries-postgres",
-						"examples/concepts/memory/memories-and-summaries-sqlite-async",
-						"examples/concepts/memory/persistent-memory-mongodb",
-						"examples/concepts/memory/mem0-memory"
+						"examples/concepts/storage/dynamodb",
+						"examples/concepts/storage/json",
+						"examples/concepts/storage/mongodb",
+						"examples/concepts/storage/postgres",
+						"examples/concepts/storage/singlestore",
+						"examples/concepts/storage/sqlite",
+						"examples/concepts/storage/yaml"
 					]
-				}
-			]
-		},
-		{
-			"group": "Integrations",
-			"pages": [
+				},
 				{
 					"group": "Tools",
 					"pages": [
-						"examples/integrations/tools/duckduckgo",
-						"examples/integrations/tools/calculator",
-						"examples/integrations/tools/airflow",
-						"examples/integrations/tools/apify",
-						"examples/integrations/tools/arxiv",
-						"examples/integrations/tools/aws_lambda",
-						"examples/integrations/tools/baidusearch",
-						"examples/integrations/tools/calcom",
-						"examples/integrations/tools/composio",
-						"examples/integrations/tools/confluence",
-						"examples/integrations/tools/crawl4ai",
-						"examples/integrations/tools/csv",
-						"examples/integrations/tools/dalle",
-						"examples/integrations/tools/desi_vocal",
-						"examples/integrations/tools/discord",
-						"examples/integrations/tools/duckdb",
-						"examples/integrations/tools/email",
-						"examples/integrations/tools/exa",
-						"examples/integrations/tools/fal",
-						"examples/integrations/tools/file",
-						"examples/integrations/tools/firecrawl",
-						"examples/integrations/tools/giphy",
-						"examples/integrations/tools/github",
-						"examples/integrations/tools/google_calendar",
-						"examples/integrations/tools/google_search",
-						"examples/integrations/tools/hackernews",
-						"examples/integrations/tools/jina_reader",
-						"examples/integrations/tools/jira",
-						"examples/integrations/tools/linear",
-						"examples/integrations/tools/lumalabs",
-						"examples/integrations/tools/mlx_transcribe",
-						"examples/integrations/tools/models_labs",
-						"examples/integrations/tools/newspaper",
-						"examples/integrations/tools/newspaper4k",
-						"examples/integrations/tools/openbb",
-						"examples/integrations/tools/pandas",
-						"examples/integrations/tools/postgres",
-						"examples/integrations/tools/pubmed",
-						"examples/integrations/tools/python",
-						"examples/integrations/tools/replicate",
-						"examples/integrations/tools/resend",
-						"examples/integrations/tools/searxng",
-						"examples/integrations/tools/serpapi",
-						"examples/integrations/tools/shell",
-						"examples/integrations/tools/slack",
-						"examples/integrations/tools/sleep",
-						"examples/integrations/tools/spider",
-						"examples/integrations/tools/sql",
-						"examples/integrations/tools/tavily",
-						"examples/integrations/tools/twilio",
-						"examples/integrations/tools/twitter",
-						"examples/integrations/tools/website",
-						"examples/integrations/tools/wikipedia",
-						"examples/integrations/tools/yfinance",
-						"examples/integrations/tools/youtube",
-						"examples/integrations/tools/zendesk"
-					]
-				},
-				{
-					"group": "Vector Databases",
-					"pages": [
-						"examples/integrations/vectordb/cassandra",
-						"examples/integrations/vectordb/chromadb",
-						"examples/integrations/vectordb/clickhouse",
-						"examples/integrations/vectordb/lancedb",
-						"examples/integrations/vectordb/milvus",
-						"examples/integrations/vectordb/mongodb",
-						"examples/integrations/vectordb/pgvector",
-						"examples/integrations/vectordb/pinecone",
-						"examples/integrations/vectordb/qdrant",
-						"examples/integrations/vectordb/singlestore"
-					]
-				},
-				{
-					"group": "Storage",
-					"pages": [
-						"examples/integrations/storage/dynamodb",
-						"examples/integrations/storage/json",
-						"examples/integrations/storage/mongodb",
-						"examples/integrations/storage/postgres",
-						"examples/integrations/storage/singlestore",
-						"examples/integrations/storage/sqlite",
-						"examples/integrations/storage/yaml"
+						"examples/concepts/tools/duckduckgo",
+						"examples/concepts/tools/calculator",
+						"examples/concepts/tools/airflow",
+						"examples/concepts/tools/apify",
+						"examples/concepts/tools/arxiv",
+						"examples/concepts/tools/aws_lambda",
+						"examples/concepts/tools/baidusearch",
+						"examples/concepts/tools/calcom",
+						"examples/concepts/tools/composio",
+						"examples/concepts/tools/confluence",
+						"examples/concepts/tools/crawl4ai",
+						"examples/concepts/tools/csv",
+						"examples/concepts/tools/dalle",
+						"examples/concepts/tools/desi_vocal",
+						"examples/concepts/tools/discord",
+						"examples/concepts/tools/duckdb",
+						"examples/concepts/tools/email",
+						"examples/concepts/tools/exa",
+						"examples/concepts/tools/fal",
+						"examples/concepts/tools/file",
+						"examples/concepts/tools/firecrawl",
+						"examples/concepts/tools/giphy",
+						"examples/concepts/tools/github",
+						"examples/concepts/tools/google_calendar",
+						"examples/concepts/tools/google_search",
+						"examples/concepts/tools/hackernews",
+						"examples/concepts/tools/jina_reader",
+						"examples/concepts/tools/jira",
+						"examples/concepts/tools/linear",
+						"examples/concepts/tools/lumalabs",
+						"examples/concepts/tools/mlx_transcribe",
+						"examples/concepts/tools/models_labs",
+						"examples/concepts/tools/newspaper",
+						"examples/concepts/tools/newspaper4k",
+						"examples/concepts/tools/openbb",
+						"examples/concepts/tools/pandas",
+						"examples/concepts/tools/postgres",
+						"examples/concepts/tools/pubmed",
+						"examples/concepts/tools/python",
+						"examples/concepts/tools/replicate",
+						"examples/concepts/tools/resend",
+						"examples/concepts/tools/searxng",
+						"examples/concepts/tools/serpapi",
+						"examples/concepts/tools/shell",
+						"examples/concepts/tools/slack",
+						"examples/concepts/tools/sleep",
+						"examples/concepts/tools/spider",
+						"examples/concepts/tools/sql",
+						"examples/concepts/tools/tavily",
+						"examples/concepts/tools/twilio",
+						"examples/concepts/tools/twitter",
+						"examples/concepts/tools/website",
+						"examples/concepts/tools/wikipedia",
+						"examples/concepts/tools/yfinance",
+						"examples/concepts/tools/youtube",
+						"examples/concepts/tools/zendesk"
 					]
 				}
-			]
+      ]
 		},
 		{
 			"group": "Models",
