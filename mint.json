@@ -305,20 +305,10 @@
 						"examples/use-cases/simple/youtube-agent",
 						"examples/use-cases/simple/research-agent",
 						"examples/use-cases/simple/research-agent-exa",
-						"examples/use-cases/simple/movie-recommendation-agent",
-						"examples/use-cases/simple/books-recommendation-agent",
-						"examples/use-cases/simple/travel-agent",
-						"examples/use-cases/simple/legal-advisor",
-						"examples/use-cases/simple/recipe-creator-agent",
-						"examples/use-cases/simple/shopping-partner-agent",
-						"examples/use-cases/simple/study-scout-agent",
-						"examples/use-cases/simple/timeout-agent",
-						"examples/use-cases/simple/calcom-agent",
-						"examples/use-cases/simple/slack-agent",
-						"examples/use-cases/simple/discord-agent",
-						"examples/use-cases/simple/data-analyst",
-						"examples/use-cases/simple/github-agent",
-						"examples/use-cases/simple/baidu-search-agent"
+						"examples/use-cases/simple/movie-recommender",
+						"examples/use-cases/simple/books-recommender",
+						"examples/use-cases/simple/travel-planner",
+						"examples/use-cases/simple/recipe-creator"
 					]
 				},
 				{
