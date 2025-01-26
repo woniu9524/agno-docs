@@ -342,10 +342,8 @@
 					"group": "Advanced",
 					"pages": [
 						"examples/use-cases/advanced/blog-post-generator",
-						"examples/use-cases/advanced/news-report-generator",
 						"examples/use-cases/advanced/investment-report-generator",
-						"examples/use-cases/advanced/personalized-outreach-email-generator",
-						"examples/use-cases/advanced/content-creator"
+						"examples/use-cases/advanced/personalized-email-generator"
 					]
 				},
 				{
