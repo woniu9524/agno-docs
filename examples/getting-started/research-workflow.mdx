@@ -64,65 +64,70 @@ class ScrapedArticle(BaseModel):
 
 
 class ResearchReportGenerator(Workflow):
-    description: str = """🎓 Generate comprehensive research reports that combine academic rigor
+    description: str = dedent("""\
+    Generate comprehensive research reports that combine academic rigor
     with engaging storytelling. This workflow orchestrates multiple AI agents to search, analyze,
-    and synthesize information from diverse sources into well-structured reports."""
+    and synthesize information from diverse sources into well-structured reports.
+    """)
 
     web_searcher: Agent = Agent(
         model=OpenAIChat(id="gpt-4o-mini"),
         tools=[DuckDuckGoTools()],
         description="You are ResearchBot-X, an expert at discovering and evaluating academic and scientific sources.",
-        instructions=[
-            "You're a meticulous research assistant with expertise in source evaluation! 🔍",
-            "Search for 10-15 sources and identify the 5-7 most authoritative and relevant ones.",
-            "Prioritize:",
-            "- Peer-reviewed articles and academic publications",
-            "- Recent developments from reputable institutions",
-            "- Authoritative news sources and expert commentary",
-            "- Diverse perspectives from recognized experts",
-            "Avoid opinion pieces and non-authoritative sources.",
-        ],
+        instructions=(
+            "You're a meticulous research assistant with expertise in source evaluation! 🔍\n"
+            "Search for 10-15 sources and identify the 5-7 most authoritative and relevant ones.\n"
+            "Prioritize:\n"
+            "- Peer-reviewed articles and academic publications\n"
+            "- Recent developments from reputable institutions\n"
+            "- Authoritative news sources and expert commentary\n"
+            "- Diverse perspectives from recognized experts\n"
+            "Avoid opinion pieces and non-authoritative sources."
+        ),
         response_model=SearchResults,
+        structured_outputs=True,
     )
 
     article_scraper: Agent = Agent(
         model=OpenAIChat(id="gpt-4o-mini"),
         tools=[Newspaper4kTools()],
         description="You are ContentBot-X, an expert at extracting and structuring academic content.",
-        instructions=[
-            "You're a precise content curator with attention to academic detail! 📚",
-            "When processing content:",
-            "- Preserve academic citations and references",
-            "- Maintain technical accuracy in terminology",
-            "- Structure content logically with clear sections",
-            "- Extract key findings and methodology details",
-            "- Handle paywalled content gracefully",
-            "Format everything in clean markdown for optimal readability.",
-        ],
+        instructions=(
+            "You're a precise content curator with attention to academic detail! 📚\n"
+            "When processing content:\n"
+            "   - Extract content from the article\n"
+            "   - Preserve academic citations and references\n"
+            "   - Maintain technical accuracy in terminology\n"
+            "   - Structure content logically with clear sections\n"
+            "   - Extract key findings and methodology details\n"
+            "   - Handle paywalled content gracefully\n"
+            "Format everything in clean markdown for optimal readability."
+        ),
         response_model=ScrapedArticle,
+        structured_outputs=True,
     )
 
     writer: Agent = Agent(
         model=OpenAIChat(id="gpt-4o"),
         description="You are Professor X-2000, a distinguished AI research scientist combining academic rigor with engaging narrative style.",
-        instructions=[
-            "Channel the expertise of a world-class academic researcher!",
-            "🎯 Analysis Phase:",
-            "  - Evaluate source credibility and relevance",
-            "  - Cross-reference findings across sources",
-            "  - Identify key themes and breakthroughs",
-            "💡 Synthesis Phase:",
-            "  - Develop a coherent narrative framework",
-            "  - Connect disparate findings",
-            "  - Highlight contradictions or gaps",
-            "✍️ Writing Phase:",
-            "  - Begin with an engaging executive summary, hook the reader",
-            "  - Present complex ideas clearly",
-            "  - Support all claims with citations",
-            "  - Balance depth with accessibility",
-            "  - Maintain academic tone while ensuring readability",
-            "  - End with implications and future directions",
-        ],
+        instructions=(
+            "Channel the expertise of a world-class academic researcher!\n"
+            "🎯 Analysis Phase:\n"
+            "  - Evaluate source credibility and relevance\n"
+            "  - Cross-reference findings across sources\n"
+            "  - Identify key themes and breakthroughs\n"
+            "💡 Synthesis Phase:\n"
+            "  - Develop a coherent narrative framework\n"
+            "  - Connect disparate findings\n"
+            "  - Highlight contradictions or gaps\n"
+            "✍️ Writing Phase:\n"
+            "  - Begin with an engaging executive summary, hook the reader\n"
+            "  - Present complex ideas clearly\n"
+            "  - Support all claims with citations\n"
+            "  - Balance depth with accessibility\n"
+            "  - Maintain academic tone while ensuring readability\n"
+            "  - End with implications and future directions"
+        ),
         expected_output=dedent("""\
         # {Compelling Academic Title}
 
@@ -206,7 +211,7 @@ class ResearchReportGenerator(Workflow):
 
         # Use the cached report if use_cached_report is True
         if use_cached_report:
-            cached_report = self.get_report_from_cache(topic)
+            cached_report = self.get_cached_report(topic)
             if cached_report:
                 yield RunResponse(
                     content=cached_report, event=RunEvent.workflow_completed
@@ -233,55 +238,86 @@ class ResearchReportGenerator(Workflow):
         # Write a research report
         yield from self.write_research_report(topic, scraped_articles)
 
-    def get_report_from_cache(self, topic: str) -> Optional[str]:
+    def get_cached_report(self, topic: str) -> Optional[str]:
         logger.info("Checking if cached report exists")
         return self.session_state.get("reports", {}).get(topic)
 
-    def add_report_to_cache(self, topic: str, report: Optional[str]):
+    def add_report_to_cache(self, topic: str, report: str):
         logger.info(f"Saving report for topic: {topic}")
         self.session_state.setdefault("reports", {})
         self.session_state["reports"][topic] = report
+        # Save the report to the storage
+        self.write_to_storage()
+
+    def get_cached_search_results(self, topic: str) -> Optional[SearchResults]:
+        logger.info("Checking if cached search results exist")
+        return self.session_state.get("search_results", {}).get(topic)
+
+    def add_search_results_to_cache(self, topic: str, search_results: SearchResults):
+        logger.info(f"Saving search results for topic: {topic}")
+        self.session_state.setdefault("search_results", {})
+        self.session_state["search_results"][topic] = search_results.model_dump()
+        # Save the search results to the storage
+        self.write_to_storage()
+
+    def get_cached_scraped_articles(
+        self, topic: str
+    ) -> Optional[Dict[str, ScrapedArticle]]:
+        logger.info("Checking if cached scraped articles exist")
+        return self.session_state.get("scraped_articles", {}).get(topic)
+
+    def add_scraped_articles_to_cache(
+        self, topic: str, scraped_articles: Dict[str, ScrapedArticle]
+    ):
+        logger.info(f"Saving scraped articles for topic: {topic}")
+        self.session_state.setdefault("scraped_articles", {})
+        self.session_state["scraped_articles"][topic] = scraped_articles
+        # Save the scraped articles to the storage
+        self.write_to_storage()
 
     def get_search_results(
-        self, topic: str, use_search_cache: bool
+        self, topic: str, use_search_cache: bool, num_attempts: int = 3
     ) -> Optional[SearchResults]:
-        search_results: Optional[SearchResults] = None
-
         # Get cached search_results from the session state if use_search_cache is True
-        if (
-            use_search_cache
-            and "search_results" in self.session_state
-            and topic in self.session_state["search_results"]
-        ):
+        if use_search_cache:
             try:
-                search_results = SearchResults.model_validate(
-                    self.session_state["search_results"][topic]
-                )
-                logger.info(f"Found {len(search_results.articles)} articles in cache.")
+                search_results_from_cache = self.get_cached_search_results(topic)
+                if search_results_from_cache is not None:
+                    search_results = SearchResults.model_validate(
+                        search_results_from_cache
+                    )
+                    logger.info(
+                        f"Found {len(search_results.articles)} articles in cache."
+                    )
+                    return search_results
             except Exception as e:
                 logger.warning(f"Could not read search results from cache: {e}")
 
-        # If there are no cached search_results, ask the web_searcher to find the latest articles
-        if search_results is None:
-            web_searcher_response: RunResponse = self.web_searcher.run(topic)
-            if (
-                web_searcher_response
-                and web_searcher_response.content
-                and isinstance(web_searcher_response.content, SearchResults)
-            ):
-                logger.info(
-                    f"WebSearcher identified {len(web_searcher_response.content.articles)} articles."
-                )
-                search_results = web_searcher_response.content
+        # If there are no cached search_results, use the web_searcher to find the latest articles
+        for attempt in range(num_attempts):
+            try:
+                searcher_response: RunResponse = self.web_searcher.run(topic)
+                if (
+                    searcher_response is not None
+                    and searcher_response.content is not None
+                    and isinstance(searcher_response.content, SearchResults)
+                ):
+                    article_count = len(searcher_response.content.articles)
+                    logger.info(
+                        f"Found {article_count} articles on attempt {attempt + 1}"
+                    )
+                    # Cache the search results
+                    self.add_search_results_to_cache(topic, searcher_response.content)
+                    return searcher_response.content
+                else:
+                    logger.warning(
+                        f"Attempt {attempt + 1}/{num_attempts} failed: Invalid response type"
+                    )
+            except Exception as e:
+                logger.warning(f"Attempt {attempt + 1}/{num_attempts} failed: {str(e)}")
 
-        if search_results is not None:
-            # Initialize search_results dict if it doesn't exist
-            if "search_results" not in self.session_state:
-                self.session_state["search_results"] = {}
-            # Cache the search results
-            self.session_state["search_results"][topic] = search_results.model_dump()
-
-        return search_results
+        logger.error(f"Failed to get search results after {num_attempts} attempts")
+        return None
 
     def scrape_articles(
         self, search_results: SearchResults, use_scrape_cache: bool
@@ -289,22 +325,17 @@ class ResearchReportGenerator(Workflow):
         scraped_articles: Dict[str, ScrapedArticle] = {}
 
         # Get cached scraped_articles from the session state if use_scrape_cache is True
-        if (
-            use_scrape_cache
-            and "scraped_articles" in self.session_state
-            and isinstance(self.session_state["scraped_articles"], dict)
-        ):
-            for url, scraped_article in self.session_state["scraped_articles"].items():
-                try:
-                    validated_scraped_article = ScrapedArticle.model_validate(
-                        scraped_article
+        if use_scrape_cache:
+            try:
+                scraped_articles_from_cache = self.get_cached_scraped_articles(topic)
+                if scraped_articles_from_cache is not None:
+                    scraped_articles = scraped_articles_from_cache
+                    logger.info(
+                        f"Found {len(scraped_articles)} scraped articles in cache."
                     )
-                    scraped_articles[validated_scraped_article.url] = (
-                        validated_scraped_article
-                    )
-                except Exception as e:
-                    logger.warning(f"Could not read scraped article from cache: {e}")
-            logger.info(f"Found {len(scraped_articles)} scraped articles in cache.")
+                    return scraped_articles
+            except Exception as e:
+                logger.warning(f"Could not read scraped articles from cache: {e}")
 
         # Scrape the articles that are not in the cache
         for article in search_results.articles:
@@ -316,8 +347,8 @@ class ResearchReportGenerator(Workflow):
                 article.url
             )
             if (
-                article_scraper_response
-                and article_scraper_response.content
+                article_scraper_response is not None
+                and article_scraper_response.content is not None
                 and isinstance(article_scraper_response.content, ScrapedArticle)
             ):
                 scraped_articles[article_scraper_response.content.url] = (
@@ -326,11 +357,7 @@ class ResearchReportGenerator(Workflow):
                 logger.info(f"Scraped article: {article_scraper_response.content.url}")
 
         # Save the scraped articles in the session state
-        if "scraped_articles" not in self.session_state:
-            self.session_state["scraped_articles"] = {}
-        for url, scraped_article in scraped_articles.items():
-            self.session_state["scraped_articles"][url] = scraped_article.model_dump()
-
+        self.add_scraped_articles_to_cache(topic, scraped_articles)
         return scraped_articles
 
     def write_research_report(
