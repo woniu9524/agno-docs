@@ -56,8 +56,8 @@
 			"url": "examples"
 		},
 		{
-			"name": "Workspaces",
-			"url": "workspaces"
+			"name": "Reference",
+			"url": "reference"
 		},
 		{
 			"name": "Changelog",
@@ -387,35 +387,6 @@
 				{
 					"group": "Knowledge",
 					"pages": [
-            {
-              "group": "Vector Databases",
-              "pages": [
-                "examples/concepts/knowledge/vectordb/cassandra",
-                "examples/concepts/knowledge/vectordb/chromadb",
-                "examples/concepts/knowledge/vectordb/clickhouse",
-                "examples/concepts/knowledge/vectordb/lancedb",
-                "examples/concepts/knowledge/vectordb/milvus",
-                "examples/concepts/knowledge/vectordb/mongodb",
-                "examples/concepts/knowledge/vectordb/pgvector",
-                "examples/concepts/knowledge/vectordb/pinecone",
-                "examples/concepts/knowledge/vectordb/qdrant",
-                "examples/concepts/knowledge/vectordb/singlestore"
-              ]
-            },
-            {
-							"group": "Embedders",
-							"pages": [
-								"examples/concepts/knowledge/embedders/azure-embedder",
-								"examples/concepts/knowledge/embedders/cohere-embedder",
-								"examples/concepts/knowledge/embedders/fireworks-embedder",
-								"examples/concepts/knowledge/embedders/gemini-embedder",
-								"examples/concepts/knowledge/embedders/huggingface-embedder",
-								"examples/concepts/knowledge/embedders/mistral-embedder",
-								"examples/concepts/knowledge/embedders/ollama-embedder",
-								"examples/concepts/knowledge/embedders/openai-embedder",
-								"examples/concepts/knowledge/embedders/qdrant-fastembed"
-							]
-						},
 						"examples/concepts/knowledge/arxiv-kb",
 						"examples/concepts/knowledge/combined-kb",
 						"examples/concepts/knowledge/csv-kb",
@@ -534,7 +505,36 @@
 						"examples/concepts/tools/youtube",
 						"examples/concepts/tools/zendesk"
 					]
-				}
+				},
+        {
+          "group": "Vector Databases",
+          "pages": [
+            "examples/concepts/vectordb/cassandra",
+            "examples/concepts/vectordb/chromadb",
+            "examples/concepts/vectordb/clickhouse",
+            "examples/concepts/vectordb/lancedb",
+            "examples/concepts/vectordb/milvus",
+            "examples/concepts/vectordb/mongodb",
+            "examples/concepts/vectordb/pgvector",
+            "examples/concepts/vectordb/pinecone",
+            "examples/concepts/vectordb/qdrant",
+            "examples/concepts/vectordb/singlestore"
+          ]
+        },
+        {
+          "group": "Embedders",
+          "pages": [
+            "examples/concepts/embedders/azure-embedder",
+            "examples/concepts/embedders/cohere-embedder",
+            "examples/concepts/embedders/fireworks-embedder",
+            "examples/concepts/embedders/gemini-embedder",
+            "examples/concepts/embedders/huggingface-embedder",
+            "examples/concepts/embedders/mistral-embedder",
+            "examples/concepts/embedders/ollama-embedder",
+            "examples/concepts/embedders/openai-embedder",
+            "examples/concepts/embedders/qdrant-fastembed"
+          ]
+        }
       ]
 		},
 		{
