@@ -334,8 +334,7 @@
 						"examples/use-cases/simple/recipe-creator",
 						"examples/use-cases/simple/movie-recommender",
 						"examples/use-cases/simple/books-recommender",
-						"examples/use-cases/simple/travel-planner",
-            "examples/use-cases/advanced/reddit-post-generator"
+						"examples/use-cases/simple/travel-planner"
 					]
 				},
 				{
@@ -349,8 +348,8 @@
 				{
 					"group": "Agentic Applications",
 					"pages": [
-						"examples/use-cases/apps/coming-soon",
-						"examples/use-cases/advanced/game-generator"
+						"examples/use-cases/apps/text-to-sql",
+						"examples/use-cases/apps/game-generator"
 					]
 				}
 			]
