@@ -2,17 +2,26 @@
 title: SQL Agent
 ---
 
-### 🏎️ SQL Agent - Your AI Data Analyst!
+This example shows how to build a text-to-SQL system that:
+1. Uses Agentic RAG to search for table metadata, sample queries and rules for writing better SQL queries.
+2. Uses dynamic few-shot examples and rules to improve query construction.
+3. Provides an interactive Streamlit UI for users to query the database.
 
-This advanced example shows how to build a sophisticated text-to-SQL system that leverages Agentic RAG to provide deep insights into any data. We'll use the F1 dataset as an example, but the system is designed to be easily extensible to other datasets.
-
-The agent uses Agentic RAG to search for table metadata and rules, enabling it to write and run better SQL queries.
+We'll use the F1 dataset as an example, but you can easily extend it to other datasets.
 
 ### Key capabilities
 - Natural language to SQL conversion
-- Intelligent metadata retrieval
-- Query generation follows a set of rules
-- Interactive Streamlit interface
+- Retrieve table metadata, sample queries and rules using Agentic RAG
+- Better query construction with the help of dynamic few-shot examples and rules
+- Interactive Streamlit UI
+
+<video
+  autoPlay
+  muted
+  controls
+  className="w-full aspect-video"
+  src="/videos/sql_agent.mp4"
+></video>
 
 ### Simple queries to try
 - "Who are the top 5 drivers with the most race wins?"
@@ -52,7 +61,7 @@ The complete code is available in the [agno repository](https://github.com/agno-
 
   <Step title="Install dependencies">
     ```bash
-    pip install -r cookbook/use_cases/apps/sql/requirements.txt
+    pip install -r cookbook/examples/apps/sql/requirements.txt
     ```
   </Step>
 
@@ -80,7 +89,7 @@ The complete code is available in the [agno repository](https://github.com/agno-
 
   <Step title="Load F1 data">
     ```bash
-    python cookbook/use_cases/apps/sql/load_f1_data.py
+    python cookbook/examples/apps/sql/load_f1_data.py
     ```
   </Step>
 
@@ -88,12 +97,12 @@ The complete code is available in the [agno repository](https://github.com/agno-
     The knowledge base contains table metadata, rules and sample queries that help the Agent generate better responses.
 
     ```bash
-    python cookbook/use_cases/apps/sql/load_knowledge.py
+    python cookbook/examples/apps/sql/load_knowledge.py
     ```
 
     Pro tips for enhancing the knowledge base:
     - Add `table_rules` and `column_rules` to guide the Agent on query formats
-    - Add sample queries to `cookbook/use_cases/apps/sql/knowledge_base/sample_queries.sql`
+    - Add sample queries to `cookbook/examples/apps/sql/knowledge_base/sample_queries.sql`
   </Step>
 
   <Step title="Set up API keys">
@@ -111,7 +120,7 @@ The complete code is available in the [agno repository](https://github.com/agno-
 
   <Step title="Launch the app">
     ```bash
-    streamlit run cookbook/use_cases/apps/sql/app.py
+    streamlit run cookbook/examples/apps/sql/app.py
     ```
     Open [localhost:8501](http://localhost:8501) to start using the SQL Agent.
   </Step>
