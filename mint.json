@@ -909,6 +909,10 @@
             "hackathon/examples/image",
             "hackathon/examples/video"
           ]
+        },
+        {
+          "group": "Prizes",
+          "pages": ["hackathon/prizes/prizes"]
         }
       ]
     }
