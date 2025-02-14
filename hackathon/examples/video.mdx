@@ -1,0 +1,114 @@
+---
+title: Video Agents
+---
+
+## Generate Video using Models Lab
+
+This agent takes a text input and responds with a video output.
+
+<Note>
+
+This example uses the [Models Lab](https://models-lab.com/) to generate the video. Please export your API key as `MODELS_LAB_API_KEY`
+
+</Note>
+
+```python
+from agno.agent import Agent
+from agno.models.openai import OpenAIChat
+from agno.tools.models_labs import ModelsLabTools
+
+video_agent = Agent(
+    model=OpenAIChat(id="gpt-4o"),
+    tools=[ModelsLabTools()],
+    description="You are an AI agent that can generate videos using the ModelsLabs API.",
+    instructions=[
+        "When the user asks you to create a video, use the `generate_media` tool to create the video.",
+        "The video will be displayed in the UI automatically below your response, so you don't need to show the video URL in your response.",
+        "Politely and courteously let the user know that the video has been generated and will be displayed below as soon as its ready.",
+    ],
+    markdown=True,
+    debug_mode=True,
+    show_tool_calls=True,
+)
+
+video_agent.print_response("Generate a video of a cat playing with a ball")
+```
+
+## Generate Video using Replicate
+
+This agent takes a text input and responds with a video output.
+
+<Note>
+
+This example uses the [Replicate](https://replicate.com/) to generate the video. Please export your API key as `REPLICATE_API_KEY`.
+
+</Note>
+
+```python
+from agno.agent import Agent
+from agno.models.openai import OpenAIChat
+from agno.tools.replicate import ReplicateTools
+
+"""Create an agent specialized for Replicate AI content generation"""
+
+video_agent = Agent(
+    name="Video Generator Agent",
+    model=OpenAIChat(id="gpt-4o"),
+    tools=[
+        ReplicateTools(
+            model="tencent/hunyuan-video:847dfa8b01e739637fc76f480ede0c1d76408e1d694b830b5dfb8e547bf98405"
+        )
+    ],
+    description="You are an AI agent that can generate videos using the Replicate API.",
+    instructions=[
+        "When the user asks you to create a video, use the `generate_media` tool to create the video.",
+        "Return the URL as raw to the user.",
+        "Don't convert video URL to markdown or anything else.",
+    ],
+    markdown=True,
+    debug_mode=True,
+    show_tool_calls=True,
+)
+
+video_agent.print_response("Generate a video of a horse in the dessert.")
+```
+
+## Generate Video Caption
+
+This agent takes a video input and responds with a caption.
+
+```python
+from agno.agent import Agent
+from agno.models.openai import OpenAIChat
+from agno.tools.moviepy_video import MoviePyVideoTools
+from agno.tools.openai import OpenAITools
+
+video_tools = MoviePyVideoTools(
+    process_video=True, generate_captions=True, embed_captions=True
+)
+
+openai_tools = OpenAITools()
+
+video_caption_agent = Agent(
+    name="Video Caption Generator Agent",
+    model=OpenAIChat(
+        id="gpt-4o",
+    ),
+    tools=[video_tools, openai_tools],
+    description="You are an AI agent that can generate and embed captions for videos.",
+    instructions=[
+        "When a user provides a video, process it to generate captions.",
+        "Use the video processing tools in this sequence:",
+        "1. Extract audio from the video using extract_audio",
+        "2. Transcribe the audio using transcribe_audio",
+        "3. Generate SRT captions using create_srt",
+        "4. Embed captions into the video using embed_captions",
+    ],
+    markdown=True,
+)
+
+
+video_caption_agent.print_response(
+    "Generate captions for {video with location} and embed them in the video"
+)
+```

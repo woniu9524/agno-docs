@@ -66,6 +66,10 @@
     {
       "name": "FAQs",
       "url": "faq"
+    },
+    {
+      "name": "Hackathon",
+      "url": "hackathon"
     }
   ],
   "navigation": [
@@ -108,17 +112,11 @@
             "models/anthropic",
             {
               "group": "AWS",
-              "pages": [
-                "models/aws-bedrock",
-                "models/aws-claude"
-              ]
+              "pages": ["models/aws-bedrock", "models/aws-claude"]
             },
             {
               "group": "Azure",
-              "pages": [
-                "models/azure-ai-foundry",
-                "models/azure-openai"
-              ]
+              "pages": ["models/azure-ai-foundry", "models/azure-openai"]
             },
             "models/cohere",
             "models/deepseek",
@@ -774,7 +772,7 @@
             "reference/workflows/storage/postgres",
             "reference/workflows/storage/sqlite"
           ]
-		    },
+        },
         {
           "group": "Models",
           "pages": [
@@ -888,6 +886,31 @@
     {
       "group": "Changelog",
       "pages": ["changelog/overview"]
+    },
+    {
+      "group": "Hackathon",
+      "pages": [
+        "hackathon/overview",
+        {
+          "group": "Multimodal Models",
+          "pages": [
+            "hackathon/models/openai",
+            "hackathon/models/gemini",
+            "hackathon/models/anthropic",
+            "hackathon/models/groq",
+            "hackathon/models/mistral",
+            "hackathon/models/ollama"
+          ]
+        },
+        {
+          "group": "Examples",
+          "pages": [
+            "hackathon/examples/audio",
+            "hackathon/examples/image",
+            "hackathon/examples/video"
+          ]
+        }
+      ]
     }
   ],
   "footerSocials": {
