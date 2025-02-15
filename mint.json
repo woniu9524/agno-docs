@@ -68,7 +68,7 @@
       "url": "faq"
     },
     {
-      "name": "Hackathon",
+      "name": "Hackathon Resources",
       "url": "hackathon"
     }
   ],
@@ -892,11 +892,28 @@
       "pages": ["changelog/overview"]
     },
     {
-      "group": "Hackathon",
+      "group": "Hackathon Resources",
       "pages": [
-        "hackathon/overview",
+        "hackathon/introduction",
+        "hackathon/setup",
         {
-          "group": "Multimodal Models",
+          "group": "Examples",
+          "pages": [
+            "hackathon/examples/simple-text-agent",
+            "hackathon/examples/agent-with-tools",
+            "hackathon/examples/agent-with-knowledge",
+            "hackathon/examples/structured-outputs",
+            "hackathon/examples/research-agent",
+            "hackathon/examples/youtube-agent",
+            "hackathon/examples/image-input-with-tools",
+            "hackathon/examples/generate-image",
+            "hackathon/examples/image-to-structured-output",
+            "hackathon/examples/audio-input",
+            "hackathon/examples/video-input"
+          ]
+        },
+        {
+          "group": "Models",
           "pages": [
             "hackathon/models/openai",
             "hackathon/models/gemini",
@@ -906,18 +923,7 @@
             "hackathon/models/ollama"
           ]
         },
-        {
-          "group": "Examples",
-          "pages": [
-            "hackathon/examples/audio",
-            "hackathon/examples/image",
-            "hackathon/examples/video"
-          ]
-        },
-        {
-          "group": "Prizes",
-          "pages": ["hackathon/prizes/prizes"]
-        }
+        "hackathon/prizes"
       ]
     }
   ],
