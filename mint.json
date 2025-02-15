@@ -906,10 +906,19 @@
             "hackathon/examples/research-agent",
             "hackathon/examples/youtube-agent",
             "hackathon/examples/image-input-with-tools",
-            "hackathon/examples/generate-image",
+            "hackathon/examples/image-generate",
             "hackathon/examples/image-to-structured-output",
+            "hackathon/examples/image-generate-audio",
+            "hackathon/examples/image-input-output",
             "hackathon/examples/audio-input",
-            "hackathon/examples/video-input"
+            "hackathon/examples/audio-input-output",
+            "hackathon/examples/audio-sentiment",
+            "hackathon/examples/audio-transcript",
+            "hackathon/examples/audio-multi-turn",
+            "hackathon/examples/video-input",
+            "hackathon/examples/video-modelslab",
+            "hackathon/examples/video-replicate",
+            "hackathon/examples/video-captions"
           ]
         },
         {
