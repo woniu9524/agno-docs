@@ -934,6 +934,7 @@
             "hackathon/models/ollama"
           ]
         },
+        "hackathon/replit",
         "hackathon/prizes"
       ]
     }
