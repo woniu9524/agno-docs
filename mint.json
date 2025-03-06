@@ -205,8 +205,9 @@
                 "tools/toolkits/zoom"
               ]
             },
-            "tools/custom-toolkits",
-            "tools/functions"
+            "tools/mcp",
+            "tools/functions",
+            "tools/custom-toolkits"
           ]
         },
         {
@@ -907,7 +908,7 @@
             "reference/storage/postgres",
             "reference/storage/sqlite",
             "reference/storage/dynamodb",
-            "reference/storage/singlestore" 
+            "reference/storage/singlestore"
           ]
         },
         {
