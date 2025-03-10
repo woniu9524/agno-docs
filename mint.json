@@ -208,7 +208,8 @@
             },
             "tools/mcp",
             "tools/functions",
-            "tools/custom-toolkits"
+            "tools/custom-toolkits",
+            "tools/async-tools"
           ]
         },
         {
@@ -798,7 +799,11 @@
       "pages": [
         {
           "group": "Agents",
-          "pages": ["reference/agents/agent", "reference/agents/session", "reference/agents/memory"]
+          "pages": [
+            "reference/agents/agent",
+            "reference/agents/session",
+            "reference/agents/memory"
+          ]
         },
         {
           "group": "Workflows",
