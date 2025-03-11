@@ -126,6 +126,7 @@
             "models/groq",
             "models/huggingface",
             "models/ibm-watsonx",
+            "models/lmstudio",
             "models/mistral",
             "models/nvidia",
             "models/ollama",
@@ -782,6 +783,18 @@
             "examples/models/ibm/storage",
             "examples/models/ibm/knowledge",
             "examples/models/ibm/image_agent_bytes"
+          ]
+        },
+        {
+          "group": "LM Studio",
+          "pages": [
+            "examples/models/lmstudio/basic",
+            "examples/models/lmstudio/basic_stream",
+            "examples/models/lmstudio/tool_use",
+            "examples/models/lmstudio/structured_output",
+            "examples/models/lmstudio/storage",
+            "examples/models/lmstudio/knowledge",
+            "examples/models/lmstudio/image_agent"
           ]
         }
       ]
