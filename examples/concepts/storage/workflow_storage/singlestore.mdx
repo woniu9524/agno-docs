@@ -1,32 +1,31 @@
 ---
-title: MongoDB Workflow Storage
-sidebarTitle: MongoDB
+title: Singlestore Workflow Storage
+sidebarTitle: Singlestore
 ---
 
-Agno supports using MongoDB as a storage backend for Workflows using the `MongoDbWorkflowStorage` class.
+Agno supports using Singlestore as a storage backend for Workflows using the `SingleStoreStorage` class.
 
 ## Usage
 
-### Run MongoDB
+Obtain the credentials for Singlestore from [here](https://portal.singlestore.com/)
 
-Install [docker desktop](https://docs.docker.com/desktop/install/mac-install/) and run **MongoDB** on port **27017** using:
-
-```bash
-docker run --name mongodb -d -p 27017:27017 mongodb/mongodb-community-server:latest
-```
-
-```python storage.py
-
+```python singlestore_storage_for_workflow.py
 import json
+import os
+from os import getenv
 from typing import Iterator
 
 import httpx
-from agno.agent import Agent, RunResponse
+from agno.agent import Agent
+from agno.run.response import RunResponse
+from agno.storage.singlestore import SingleStoreStorage
 from agno.tools.newspaper4k import Newspaper4kTools
-from agno.storage.workflow.mongodb import MongoDbWorkflowStorage
+from agno.utils.certs import download_cert
 from agno.utils.log import logger
 from agno.utils.pprint import pprint_run_response
 from agno.workflow import Workflow
+from sqlalchemy.engine import create_engine
+
 
 class HackerNewsReporter(Workflow):
     description: str = (
@@ -95,17 +94,49 @@ class HackerNewsReporter(Workflow):
         logger.info("Reading each story and writing a report.")
         yield from self.writer.run(top_stories.content, stream=True)
 
-# Run workflow
-report: Iterator[RunResponse] = HackerNewsReporter(
-        storage=MongoDbWorkflowStorage(
-            collection_name="hacker_news_report",
-            db_url="mongodb://localhost:27017",
-        )).run(num_stories=5)
 
-# Print the report
-pprint_run_response(report, markdown=True, show_time=True)
+if __name__ == "__main__":
+    USERNAME = getenv("SINGLESTORE_USERNAME")
+    PASSWORD = getenv("SINGLESTORE_PASSWORD")
+    HOST = getenv("SINGLESTORE_HOST")
+    PORT = getenv("SINGLESTORE_PORT")
+    DATABASE = getenv("SINGLESTORE_DATABASE")
+    SSL_CERT = getenv("SINGLESTORE_SSL_CERT", None)
+
+    # Download the certificate if SSL_CERT is not provided
+    if not SSL_CERT:
+        SSL_CERT = download_cert(
+            cert_url="https://portal.singlestore.com/static/ca/singlestore_bundle.pem",
+            filename="singlestore_bundle.pem",
+        )
+        if SSL_CERT:
+            os.environ["SINGLESTORE_SSL_CERT"] = SSL_CERT
+
+    # SingleStore DB URL
+    db_url = f"mysql+pymysql://{USERNAME}:{PASSWORD}@{HOST}:{PORT}/{DATABASE}?charset=utf8mb4"
+    if SSL_CERT:
+        db_url += f"&ssl_ca={SSL_CERT}&ssl_verify_cert=true"
+
+    # Create a DB engine
+    db_engine = create_engine(db_url)
+    # Run workflow
+    report: Iterator[RunResponse] = HackerNewsReporter(
+        storage=SingleStoreStorage(
+            table_name="workflow_sessions",
+            mode="workflow",
+            db_engine=db_engine,
+            schema=DATABASE,
+        ),
+        debug_mode=False,
+    ).run(num_stories=5)
+    # Print the report
+    pprint_run_response(report, markdown=True, show_time=True)
 ```
 
 ## Params
 
-<Snippet file="workflow-storage-mongodb-params.mdx" />
+<Snippet file="storage-s2-params.mdx" />
+
+## Developer Resources
+
+- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/storage/singlestore_storage/singlestore_storage_for_workflow.py)
