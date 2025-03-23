@@ -59,10 +59,9 @@ deepseek_plus_claude.print_response("9.11 and 9.9 -- which is bigger?", stream=T
 
 ## Reasoning Tools
 
-Reasoning Tools is a simple, yet effective approach to add reasoning to non-reasoning models. By giving any model a "think" tool, we provide a dedicated space for structured thinking, improving the model's reasoning capabilities.
+By giving a model a **"think" tool**, we can greatly improve its reasoning capabilities by providing a dedicated space for structured thinking. This is a simple, yet effective approach to add reasoning to non-reasoning models.
 
 The research was first published by Anthropic in [this blog post](https://www.anthropic.com/engineering/claude-think-tool) but has been practiced by many AI Engineers (including our own team) long before it was published.
-
 
 ### Example
 
@@ -103,7 +102,9 @@ Read more about reasoning tools in the [Reasoning Tools Guide](/reasoning/reason
 
 ## Reasoning Agents
 
-Reasoning Agents are a new type of multi-agent system developed by Agno that combines chain of thought reasoning with tool use. You can enable reasoning on any Agent by setting `reasoning=True`.
+Reasoning Agents are a new type of multi-agent system developed by Agno that combines chain of thought reasoning with tool use.
+
+You can enable reasoning on any Agent by setting `reasoning=True`.
 
 When an Agent with `reasoning=True` is given a task, a separate "Reasoning Agent" first solves the problem using chain-of-thought. At each step, it calls tools to gather information, validate results, and iterate until it reaches a final answer. Once the Reasoning Agent has a final answer, it hands the results back to the original Agent to validate and provide a response.
 
