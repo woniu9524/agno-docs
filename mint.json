@@ -60,27 +60,27 @@
       "url": "workspaces"
     },
     {
+      "name": "FAQs",
+      "url": "faq"
+    },
+    {
       "name": "API reference",
       "url": "reference"
     },
     {
       "name": "Changelog",
       "url": "changelog"
-    },
-    {
-      "name": "FAQs",
-      "url": "faq"
     }
   ],
   "navigation": [
     {
-      "group": "Getting Started",
+      "group": "Introduction",
       "pages": [
         "introduction",
-        "get-started/agents",
-        "get-started/playground",
-        "get-started/monitoring",
-        "get-started/community"
+        "introduction/agents",
+        "introduction/playground",
+        "introduction/monitoring",
+        "introduction/community"
       ]
     },
     {
@@ -230,6 +230,14 @@
           ]
         },
         {
+          "group": "Reasoning",
+          "pages": [
+            "reasoning/introduction",
+            "reasoning/reasoning-models",
+            "reasoning/reasoning-tools",
+            "reasoning/reasoning-agents"
+          ]
+        },        {
           "group": "Knowledge",
           "pages": [
             "knowledge/introduction",
