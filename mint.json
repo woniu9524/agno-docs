@@ -276,17 +276,16 @@
         {
           "group": "VectorDbs",
           "pages": [
-            "vectordb/introduction",
             "vectordb/cassandra",
             "vectordb/chroma",
             "vectordb/clickhouse",
             "vectordb/lancedb",
             "vectordb/milvus",
+            "vectordb/mongodb",
             "vectordb/pgvector",
             "vectordb/pinecone",
             "vectordb/qdrant",
             "vectordb/singlestore",
-            "vectordb/mongodb",
             "vectordb/weaviate"
           ]
         },
