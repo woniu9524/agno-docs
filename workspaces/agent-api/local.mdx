@@ -1,12 +1,12 @@
 ---
-title: "Agent API: FastAPI, Postgres"
+title: "Agent API: FastAPI and Postgres"
 sidebarTitle: Running locally
 ---
 
-The Agent API is a workspace for building backend services for agentic systems. It contains:
+The Agent API workspace provides a simple RestAPI + database for serving agents. It contains:
 
-- A FastAPI server for serving agents.
-- A Postgres database for storing memory and knowledge.
+- A FastAPI server for serving Agents, Teams and Workflows.
+- A postgres database for session and vector storage.
 
 <Snippet file="setup.mdx" />
 
@@ -14,7 +14,7 @@ The Agent API is a workspace for building backend services for agentic systems. 
 
 <Snippet file="run-agent-api-local.mdx" />
 
-<Snippet file="agent-api-delete-local-resources.mdx" />
+<Snippet file="stop-local-workspace.mdx" />
 
 ## Next
 
