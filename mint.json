@@ -922,6 +922,17 @@
       ]
     },
     {
+      "group": "Other",
+      "pages": [
+        {
+          "group": "Agent UI",
+          "pages": [
+            "agent-ui/introduction"
+          ]
+        }
+      ]
+    },
+    {
       "group": "How to",
       "pages": [
         "how-to/install",
