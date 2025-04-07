@@ -91,6 +91,7 @@
           "pages": [
             "agents/introduction",
             "agents/run",
+            "agents/sessions",
             "agents/structured-output",
             "agents/multimodal",
             "agents/prompts",
