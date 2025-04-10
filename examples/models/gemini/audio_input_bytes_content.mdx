@@ -1,12 +1,10 @@
 ---
-title: Audio Agent
+title: Audio Input (Bytes Content)
 ---
 
 ## Code
 
-```python cookbook/models/google/gemini/audio_input.py
-from pathlib import Path
-
+```python cookbook/models/google/gemini/audio_input_bytes_content.py
 import requests
 from agno.agent import Agent
 from agno.media import Audio
@@ -26,7 +24,6 @@ audio_content = response.content
 agent.print_response(
     "Tell me about this audio",
     audio=[Audio(content=audio_content)],
-    stream=True,
 )
 ```
 
@@ -50,12 +47,12 @@ agent.print_response(
   <Step title="Run Agent">
     <CodeGroup>
     ```bash Mac
-    python cookbook/models/google/gemini/audio_input.py
+    python cookbook/models/google/gemini/audio_input_bytes_content.py
     ```
 
     ```bash Windows
-    python cookbook/models/google/gemini/audio_input.py
+    python cookbook/models/google/gemini/audio_input_bytes_content.py
     ```
     </CodeGroup>
   </Step>
-</Steps>
+</Steps> 
