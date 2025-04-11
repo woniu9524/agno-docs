@@ -92,12 +92,12 @@
             "agents/introduction",
             "agents/run",
             "agents/sessions",
+            "agents/memory",
             "agents/structured-output",
             "agents/multimodal",
             "agents/prompts",
             "agents/tools",
             "agents/knowledge",
-            "agents/memory",
             "agents/storage"
           ]
         },
@@ -105,9 +105,14 @@
           "group": "Teams",
           "pages": [
             "teams/introduction",
-            "teams/route",
-            "teams/coordinate",
-            "teams/collaborate"
+            {
+              "group": "Team Modes",
+              "pages": [
+                "teams/route",
+                "teams/coordinate",
+                "teams/collaborate"
+              ]
+            }
           ]
         },
         {
@@ -176,7 +181,6 @@
                 "tools/toolkits/docker",
                 "tools/toolkits/duckdb",
                 "tools/toolkits/duckduckgo",
-                "tools/toolkits/desi_vocal",
                 "tools/toolkits/e2b",
                 "tools/toolkits/email",
                 "tools/toolkits/exa",
@@ -190,7 +194,7 @@
                 "tools/toolkits/google_maps",
                 "tools/toolkits/googlecalendar",
                 "tools/toolkits/googlesearch",
-                "tools/toolkits/googlesheets",
+                "tools/toolkits/google_sheets",
                 "tools/toolkits/hackernews",
                 "tools/toolkits/jina_reader",
                 "tools/toolkits/jira",
@@ -243,6 +247,13 @@
             "reasoning/reasoning-models",
             "reasoning/reasoning-tools",
             "reasoning/reasoning-agents"
+          ]
+        },
+        {
+          "group": "Memory",
+          "pages": [
+            "memory/introduction",
+            "memory/storage"
           ]
         },
         {
@@ -508,13 +519,18 @@
         {
           "group": "Memory",
           "pages": [
-            "examples/concepts/memory/builtin-memory",
-            "examples/concepts/memory/persistent-memory",
-            "examples/concepts/memory/memories-and-summaries",
-            "examples/concepts/memory/persistent-memory-postgres",
-            "examples/concepts/memory/memories-and-summaries-postgres",
-            "examples/concepts/memory/memories-and-summaries-sqlite-async",
-            "examples/concepts/memory/persistent-memory-mongodb",
+            "examples/concepts/memory/01-basic-memory",
+            "examples/concepts/memory/02-persistent-memory",
+            "examples/concepts/memory/03-agentic-memory",
+            "examples/concepts/memory/04-memory-search",
+            "examples/concepts/memory/05-memory-search-semantic",
+            "examples/concepts/memory/06-agent-creates-memories",
+            "examples/concepts/memory/07-agent-manages-memories",
+            "examples/concepts/memory/08-agent-with-summaries",
+            "examples/concepts/memory/09-multiple-agents-share-memory",
+            "examples/concepts/memory/10-multi-user-multi-session-chat",
+            "examples/concepts/memory/mem-mongodb-memory",
+            "examples/concepts/memory/mem-postgres-memory",
             "examples/concepts/memory/mem0-memory"
           ]
         },
@@ -793,7 +809,6 @@
             "examples/models/gemini/audio_input_bytes_content",
             "examples/models/gemini/audio_input_file_upload",
             "examples/models/gemini/audio_input_local_file_upload",
-            "examples/models/gemini/pdf_input_bytes",
             "examples/models/gemini/pdf_input_local",
             "examples/models/gemini/pdf_input_url",
             "examples/models/gemini/video_input_bytes_content",
@@ -987,16 +1002,14 @@
           "group": "Agents",
           "pages": [
             "reference/agents/agent",
-            "reference/agents/session",
-            "reference/agents/memory"
+            "reference/agents/session"
           ]
         },
         {
           "group": "Teams",
           "pages": [
             "reference/teams/team",
-            "reference/teams/session",
-            "reference/teams/memory"
+            "reference/teams/session"
           ]
         },
         {
@@ -1095,9 +1108,15 @@
         {
           "group": "Memory",
           "pages": [
-            "reference/memory/mongo",
-            "reference/memory/postgres",
-            "reference/memory/sqlite"
+            "reference/memory/memory",
+            {
+              "group": "Storage",
+              "pages": [
+                "reference/memory/storage/mongo",
+                "reference/memory/storage/postgres",
+                "reference/memory/storage/sqlite"
+              ]
+            }
           ]
         },
         {

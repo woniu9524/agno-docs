@@ -2,15 +2,12 @@
 title: 
 ---
 
-Agents are able to maintain a conversation with one or more users. Before we dive in, let's understand the terminology:
+Agents are able to maintain a conversation with one or more users. It is important to understand the following concepts:
 
 - **Session:** Each conversation with an Agent is called a **session**. Sessions are identified by a `session_id` and should be unique for each user.
 - **Run:** Every interaction (i.e. chat) within a session is called a **run**. Runs are identified by a `run_id`.
 - **Messages:** are the individual messages sent to and received from the model. They have a `role` (`system`, `user` or `assistant`) and `content`.
 
-<Tip>
-**Sessions** are equivalent to **threads** in the OpenAI Assistant API.
-</Tip>
 
 Below is an example where a single run is created with an Agent. A `session_id` is automatically generated and added to the run. This won't be associated with any specific user.
 

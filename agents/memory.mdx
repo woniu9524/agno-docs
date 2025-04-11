@@ -8,209 +8,373 @@ Agno provides 3 types of memory for Agents:
 2. **User Memories:** Notes and insights about the user, this helps the model personalize the response to the user.
 3. **Summaries:** A summary of the conversation, which is added to the prompt when chat history gets too long.
 
-Before we dive in, let's understand the terminology:
-
-- **Session:** Each conversation with an Agent is called a **session**. Sessions are identified by a `session_id`.
-- **Run:** Every interaction (i.e. chat) within a session is called a **run**. Runs are identified by a `run_id`.
-- **Messages:** are the individual messages sent to and received from the model. They have a `role` (`system`, `user` or `assistant`) and `content`.
-
-<Tip>
-**Sessions** are equivalent to **threads** in the OpenAI Assistant API.
-</Tip>
-
 ## Built-in Memory
 
-Every Agent comes with built-in memory that can be used to access the historical **runs** and **messages**. Access it using `agent.memory`
+Every Agent comes with built-in memory that can be used to access the historical **runs** per session. 
 
-<Expandable title="AgentMemory">
-    <ResponseField name="runs" type="list[AgentRun]">
-        The list of runs between the user and agent. Each run contains the input message and output response.
-    </ResponseField>
-
-    <ResponseField name="messages" type="list[Message]">
-        The full list of messages sent to the model, including system prompt, tool calls etc.
-    </ResponseField>
-</Expandable>
-
-You can give your agent access to memory in the following ways:
+You can give your agent access to chat history in the following ways:
 
 - You can set `add_history_to_messages=True` and `num_history_responses=5` to add the previous 5 messages automatically to every message sent to the agent.
 - You can set `read_chat_history=True` to provide a `get_chat_history()` tool to your agent allowing it to read any message in the entire chat history.
 - You can set `read_tool_call_history=True` to provide a `get_tool_call_history()` tool to your agent allowing it to read tool calls in reverse chronological order.
 
-### Example
+<Steps>
+  <Step title="Built-in memory example">
+    ```python agent_memory.py
+    from agno.agent import Agent
+    from agno.models.google.gemini import Gemini
+    from rich.pretty import pprint
 
-```python agent_memory.py
-from agno.agent import Agent
-from agno.models.openai import OpenAIChat
-from rich.pretty import pprint
+    agent = Agent(
+        model=Gemini(id="gemini-2.0-flash-exp"),
+        # Set add_history_to_messages=true to add the previous chat history to the messages sent to the Model.
+        add_history_to_messages=True,
+        # Number of historical responses to add to the messages.
+        num_history_responses=3,
+        description="You are a helpful assistant that always responds in a polite, upbeat and positive manner.",
+    )
 
-agent = Agent(
-    model=OpenAIChat(id="gpt-4o"),
-    # Set add_history_to_messages=true to add the previous chat history to the messages sent to the Model.
-    add_history_to_messages=True,
-    # Number of historical responses to add to the messages.
-    num_history_responses=3,
-    description="You are a helpful assistant that always responds in a polite, upbeat and positive manner.",
-)
+    # -*- Create a run
+    agent.print_response("Share a 2 sentence horror story", stream=True)
+    # -*- Print the messages in the memory
+    pprint([m.model_dump(include={"role", "content"}) for m in agent.memory.messages])
 
-# -*- Create a run
-agent.print_response("Share a 2 sentence horror story", stream=True)
-# -*- Print the messages in the memory
-pprint([m.model_dump(include={"role", "content"}) for m in agent.memory.messages])
+    # -*- Ask a follow up question that continues the conversation
+    agent.print_response("What was my first message?", stream=True)
+    # -*- Print the messages in the memory
+    pprint([m.model_dump(include={"role", "content"}) for m in agent.memory.messages])
+    ```
+  </Step>
+  <Step title="Run the example">
+    Install libraries
 
-# -*- Ask a follow up question that continues the conversation
-agent.print_response("What was my first message?", stream=True)
-# -*- Print the messages in the memory
-pprint([m.model_dump(include={"role", "content"}) for m in agent.memory.messages])
-```
+    ```shell
+    pip install google-genai agno
+    ```
+
+    Export your key
+    ```shell
+    export GOOGLE_API_KEY=xxx
+    ```
+
+    Run the example
+
+    ```shell
+    python agent_memory.py
+    ```
+  </Step>
+</Steps>
 
 ## Persistent Memory
 
-The built-in memory only lasts while the session is active. To persist memory across sessions, we can store Agent sessions in a database using `AgentStorage`.
+The built-in memory only lasts while the session is active. To persist chat history across sessions, we can store agent sessions in a database using `AgentStorage`.
 
 Storage is a necessary component when building user facing AI products as any production application will require users to be able to "continue" their conversation with the Agent.
 
-Let's test this out, create a file `persistent_memory.py` with the following code:
+<Steps>
+  <Step title="Persistent memory example">
+        Let's test this out, create a file `persistent_memory.py` with the following code:
 
-```python persistent_memory.py
-import json
+        ```python persistent_memory.py
+        import json
 
-from rich.console import Console
-from rich.panel import Panel
-from rich.json import JSON
+        from rich.console import Console
+        from rich.panel import Panel
+        from rich.json import JSON
 
-from agno.agent import Agent
-from agno.models.openai import OpenAIChat
-from agno.storage.sqlite import SqliteStorage
+        from agno.agent import Agent
+        from agno.models.google.gemini import Gemini
+        from agno.storage.sqlite import SqliteStorage
 
-agent = Agent(
-    model=OpenAIChat(id="gpt-4o"),
-    # Store agent sessions in a database
-    storage=SqliteStorage(table_name="agent_sessions", db_file="tmp/agent_storage.db"),
-    # Set add_history_to_messages=true to add the previous chat history to the messages sent to the Model.
-    add_history_to_messages=True,
-    # Number of historical responses to add to the messages.
-    num_history_responses=3,
-    # The session_id is used to identify the session in the database
-    # You can resume any session by providing a session_id
-    # session_id="xxxx-xxxx-xxxx-xxxx",
-    # Description creates a system prompt for the agent
-    description="You are a helpful assistant that always responds in a polite, upbeat and positive manner.",
-)
-
-console = Console()
-
-def print_chat_history(agent):
-    # -*- Print history
-    console.print(
-        Panel(
-            JSON(json.dumps([m.model_dump(include={"role", "content"}) for m in agent.memory.messages]), indent=4),
-            title=f"Chat History for session_id: {agent.session_id}",
-            expand=True,
+        agent = Agent(
+            model=Gemini(id="gemini-2.0-flash-exp"),
+            # Store agent sessions in a database
+            storage=SqliteStorage(table_name="agent_sessions", db_file="tmp/agent_storage.db"),
+            # Set add_history_to_messages=true to add the previous chat history to the messages sent to the Model.
+            add_history_to_messages=True,
+            # Number of historical responses to add to the messages.
+            num_history_responses=3,
+            # Description creates a system prompt for the agent
+            description="You are a helpful assistant that always responds in a polite, upbeat and positive manner.",
         )
-    )
 
+        console = Console()
 
-# -*- Create a run
-agent.print_response("Share a 2 sentence horror story", stream=True)
-# -*- Print the chat history
-print_chat_history(agent)
+        def print_chat_history(agent):
+            # -*- Print history
+            console.print(
+                Panel(
+                    JSON(json.dumps([m.model_dump(include={"role", "content"}) for m in agent.memory.messages]), indent=4),
+                    title=f"Chat History for session_id: {agent.session_id}",
+                    expand=True,
+                )
+            )
 
-# -*- Ask a follow up question that continues the conversation
-agent.print_response("What was my first message?", stream=True)
-# -*- Print the chat history
-print_chat_history(agent)
-```
+        session_id = "xxxx-xxxx-xxxx-xxxx"
 
-### Run the agent
+        # -*- Create a run
+        agent.print_response("Share a 2 sentence horror story", stream=True, session_id=session_id)
+        # -*- Print the chat history
+        print_chat_history(agent)
 
-Install dependencies and run the agent:
+        # -*- Ask a follow up question that continues the conversation
+        agent.print_response("What was my first message?", stream=True, session_id=session_id)
+        # -*- Print the chat history
+        print_chat_history(agent)
+        ```
+  </Step>
 
-```shell
-pip install openai sqlalchemy agno
+  <Step title="Run the example">
+    Install libraries
 
-python persistent_memory.py
-```
+    ```shell
+    pip install google-genai agno
+    ```
+
+    Export your key
+    ```shell
+    export GOOGLE_API_KEY=xxx
+    ```
+
+    Run the example
+
+    ```shell
+    python persistent_memory.py
+    ```
+  </Step>
+</Steps>
+
 
 You can view the agent sessions in the sqlite database and continue any conversation by providing the same `session_id`.
 
 Read more in the [storage](/agents/storage) section.
 
-## User preferences and conversation summaries
+## Creating User Memories
 
-Along with storing chat history and run messages, `AgentMemory` can be extended to automatically classify and store user preferences and conversation summaries.
+Along with storing chat history and run messages, `Memory` can be used by the agent to create user memories based on the conversation history.
 
-To do this, add a `db` to `AgentMemory` and set `create_user_memories=True` and `create_session_summary=True`
-
-User memories are stored in the `AgentMemory` whereas session summaries are stored in the `AgentStorage` table with the rest of the session information.
+To enable user memory creation, create an `Agent` with `Memory` and a memory database, and set `enable_user_memories=True`.
 
 <Note>
-  User preferences and conversation summaries are currently only compatible with
-  `OpenAI` and `OpenAILike` models. While Persistent Memory is compatible with
-  all model providers.
+Enabling user memory will also add all existing user memories to the agent's system prompt.
 </Note>
 
-## Example
+<Steps>
+  <Step title="User memory example">
+    ```python user_memory.py
+    from agno.agent import Agent
+    from agno.memory.v2.db.sqlite import SqliteMemoryDb
+    from agno.memory.v2.memory import Memory
+    from agno.models.google.gemini import Gemini
+    from agno.storage.sqlite import SqliteStorage
 
-```python personalized_memories_and_summaries.py
-from rich.pretty import pprint
+    session_id = "session_1"
+    jon_hamm_id = "jon_hamm@example.com"
 
-from agno.agent import Agent, AgentMemory
-from agno.models.openai import OpenAIChat
-from agno.memory.db.postgres import PgMemoryDb
-from agno.storage.agent.postgres import PostgresAgentStorage
+    memory_db = SqliteMemoryDb(table_name="memory", db_file="tmp/memory.db")
+    memory = Memory(db=memory_db)
 
-db_url = "postgresql+psycopg://ai:ai@localhost:5532/ai"
-agent = Agent(
-    model=OpenAIChat(id="gpt-4o"),
-    # Store the memories and summary in a database
-    memory=AgentMemory(
-        db=PgMemoryDb(table_name="agent_memory", db_url=db_url), create_user_memories=True, create_session_summary=True
-    ),
-    # Store agent sessions in a database
-    storage=PostgresAgentStorage(table_name="personalized_agent_sessions", db_url=db_url),
-    # Show debug logs so you can see the memory being created
-    # debug_mode=True,
-)
+    agent = Agent(
+        model=Gemini(id="gemini-2.0-flash-exp"),
+        memory=memory,
+        storage=SqliteStorage(
+            table_name="agent_sessions", db_file="tmp/persistent_memory.db"
+        ),
+        enable_user_memories=True,
+    )
 
-# -*- Share personal information
-agent.print_response("My name is john billings?", stream=True)
-# -*- Print memories
-pprint(agent.memory.memories)
-# -*- Print summary
-pprint(agent.memory.summary)
+    agent.print_response(
+        "My name is Jon Hamm and I like to hike in the mountains on weekends.",
+        stream=True,
+        user_id=jon_hamm_id,
+        session_id=session_id,
+    )
 
-# -*- Share personal information
-agent.print_response("I live in nyc?", stream=True)
-# -*- Print memories
-pprint(agent.memory.memories)
-# -*- Print summary
-pprint(agent.memory.summary)
+    agent.print_response(
+        "What are my hobbies?", stream=True, user_id=jon_hamm_id, session_id=session_id
+    )
 
-# -*- Share personal information
-agent.print_response("I'm going to a concert tomorrow?", stream=True)
-# -*- Print memories
-pprint(agent.memory.memories)
-# -*- Print summary
-pprint(agent.memory.summary)
+    memories = memory.get_user_memories(user_id=jon_hamm_id)
+    print("Jon Hamm's memories:")
+    for i, m in enumerate(memories):
+        print(f"{i}: {m.memory}")
+    ```
+  </Step>
 
-# Ask about the conversation
-agent.print_response("What have we been talking about, do you know my name?", stream=True)
-```
+  <Step title="Run the example">
+    Install libraries
+
+    ```shell
+    pip install google-genai agno
+    ```
+
+    Export your key
+    ```shell
+    export GOOGLE_API_KEY=xxx
+    ```
+
+    Run the example
+
+    ```shell
+    python user_memory.py
+    ```
+  </Step>
+</Steps>
+
+User memories are stored in the `Memory` object and persisted in the `SqliteMemoryDb` to be used across multiple users and multiple sessions.
+
+
+## Creating Session Summaries
+
+To enable session summaries, set `enable_session_summaries=True` on the `Agent`.
+
+<Steps>
+  <Step title="Session summary example">
+    ```python session_summary.py
+        from agno.agent import Agent
+        from agno.memory.v2.db.sqlite import SqliteMemoryDb
+        from agno.memory.v2.memory import Memory
+        from agno.models.google.gemini import Gemini
+
+        memory_db = SqliteMemoryDb(table_name="memory", db_file="tmp/memory.db")
+        memory = Memory(db=memory_db)
+
+        user_id = "jon_hamm@example.com"
+        session_id = "1001"
+
+        agent = Agent(
+            model=Gemini(id="gemini-2.0-flash-exp"),
+            memory=memory,
+            enable_session_summaries=True,
+        )
+
+        agent.print_response(
+            "What can you tell me about quantum computing?",
+            stream=True,
+            user_id=user_id,
+            session_id=session_id,
+        )
+
+        agent.print_response(
+            "I would also like to know about LLMs?", 
+            stream=True, 
+            user_id=user_id, 
+            session_id=session_id
+        )
+
+        session_summary = memory.get_session_summary(
+            user_id=user_id, session_id=session_id
+        )
+        print(f"Session summary: {session_summary.summary}\n")
+    ```
+  </Step>
+
+  <Step title="Run the example">
+    Install libraries
+
+    ```shell
+    pip install google-genai agno
+    ```
+
+    Export your key
+    ```shell
+    export GOOGLE_API_KEY=xxx
+    ```
+
+    Run the example
+
+    ```shell
+    python session_summary.py
+    ```
+  </Step>
+</Steps>
+
+
+## Agentic Memory Management
+
+You can also enable an agent to manage the user memories for you. Enable agentic memory management by setting `enable_agentic_memory=True` on the `Agent`. 
+
+<Note>
+Enabling agentic memory will also add all existing user memories to the agent's system prompt.
+</Note>
+
+<Steps>
+  <Step title="Agentic memory management example">
+    ```python agentic_memory_management.py
+    from agno.agent import Agent
+    from agno.memory.v2.db.sqlite import SqliteMemoryDb
+    from agno.memory.v2.memory import Memory
+    from agno.models.google.gemini import Gemini
+
+    memory_db = SqliteMemoryDb(table_name="memory", db_file="tmp/memory.db")
+    memory = Memory(db=memory_db)
+
+    john_doe_id = "john_doe@example.com"
+
+    agent = Agent(
+        model=Gemini(id="gemini-2.0-flash-exp"),
+        memory=memory,
+        enable_agentic_memory=True,
+    )
+
+    # The agent can add new memories to the user's memory
+    agent.print_response(
+        "My name is John Doe and I like to hike in the mountains on weekends.",
+        stream=True,
+        user_id=john_doe_id,
+    )
+
+    agent.print_response("What are my hobbies?", stream=True, user_id=john_doe_id)
+
+    # The agent can also remove all memories from the user's memory
+    agent.print_response(
+        "Remove all existing memories of me. Completely clear the DB.",
+        stream=True,
+        user_id=john_doe_id,
+    )
+
+    agent.print_response(
+        "My name is John Doe and I like to paint.", stream=True, user_id=john_doe_id
+    )
+
+    # The agent can remove specific memories from the user's memory
+    agent.print_response("Remove any memory of my name.", stream=True, user_id=john_doe_id)
+
+    ```
+  </Step>
+  <Step title="Run the example">
+    Install libraries
+
+    ```shell
+    pip install google-genai agno
+    ```
+
+    Export your key
+    ```shell
+    export GOOGLE_API_KEY=xxx
+    ```
+
+    Run the example
+
+    ```shell
+    python agentic_memory_management.py
+    ```
+  </Step>
+</Steps>
+
 
 ## Attributes
 
 | Parameter                          | Type          | Default         | Description                                                                                                     |
 | ---------------------------------- | ------------- | --------------- | --------------------------------------------------------------------------------------------------------------- |
-| `memory`                           | `AgentMemory` | `AgentMemory()` | Agent's memory object used for storing and retrieving information.                                              |
+| `memory`                           | `Memory`      | `Memory()` | Agent's memory object used for storing and retrieving information.                                              |
 | `add_history_to_messages`          | `bool`        | `False`         | If true, adds the chat history to the messages sent to the Model. Also known as `add_chat_history_to_messages`. |
 | `num_history_responses`            | `int`         | `3`             | Number of historical responses to add to the messages.                                                          |
-| `create_user_memories`             | `bool`        | `False`         | If true, create and store personalized memories for the user.                                                   |
-| `update_user_memories_after_run`   | `bool`        | `True`          | If true, update memories for the user after each run.                                                           |
-| `create_session_summary`           | `bool`        | `False`         | If true, create and store session summaries.                                                                    |
-| `update_session_summary_after_run` | `bool`        | `True`          | If true, update session summaries after each run.                                                               |
+| `enable_user_memories`             | `bool`        | `False`         | If true, create and store personalized memories for the user.                                                   |
+| `enable_session_summaries`         | `bool`        | `False`         | If true, create and store session summaries.                                                                    |
+| `enable_agentic_memory`            | `bool`        | `False`         | If true, enables the agent to manage the user's memory.                                                         |
 
  ## Developer Resources
 
 - View [Cookbook](https://github.com/agno-agi/agno/tree/main/cookbook/agent_concepts/memory)
+- View [Examples](/examples/concepts/memory)
