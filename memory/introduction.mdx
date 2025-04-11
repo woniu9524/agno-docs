@@ -2,23 +2,29 @@
 title: Introduction
 ---
 
-# Memory in Agno
+# Memory for Agents
 
-Memory is a critical component of intelligent agents, allowing them to recall past interactions, store important information about users, and maintain context throughout conversations. Agno provides a powerful memory system that enables your agents to create, manage, and utilize different types of memories for more personalized and coherent interactions.
+If you're building intelligent agents, you need to give them memory which is the ability to **remember**, **reason** and **personalize** responses to users. Memory comes in 3 shapes:
 
-## Types of Memory
+1. **Chat History:** The current conversation between users and the agent, stored as sessions in chronological order. This is the most basic form of memory and **called "Storage" in Agno**.
+2. **User Memories:** Insights and facts about users extracted from conversations, helping agents personalize their responses to users. Think of this as adding a "ChatGPT like memory" to your agent. **This is called "Memory" in Agno**.
+3. **Session Summaries:** Condensed representations of conversations, useful when chat histories grow too long. **This is called "Summary" in Agno**.
 
-Agno's memory system supports three primary types of memory:
+Memory helps Agents:
+ - Manage conversation state (chat history)
+ - Personalize responses to users (user memories)
+ - Maintain long-session context (session summaries)
 
-1. **Chat History:** The conversation history between users and the agent, stored as sessions in chronological order.
-2. **User Memories:** Insights and facts about users extracted from conversations, helping agents personalize responses.
-3. **Session Summaries:** Condensed representations of conversations, useful when chat histories grow too long.
-
-Learn more about agent memory [here](/agents/memory). Learn more about managing sessions [here](/agents/sessions).
+Not only that, Agents can search over chat history and user memories to reason over time. This is critical for intelligence, it allows Agents to "Remember" and "Personalize" their responses to users. Learn more about agent memory [here](/agents/memory) and about managing sessions [here](/agents/sessions).
 
 ## Memory Architecture
 
-The `Memory` implementation in Agno provides a comprehensive solution for managing all aspects of user memory:
+The `Memory` class in Agno lets you manage all aspects of user memory. Let's start with some examples of using `Memory` outside of Agents. We will:
+
+- Add, update and delete memories
+- Store memories in a database
+- Create memories from conversations
+- Search over memories
 
 ```python
 from agno.memory.v2.memory import Memory
@@ -28,13 +34,6 @@ from agno.memory.v2.db.sqlite import SqliteMemoryDb
 memory_db = SqliteMemoryDb(table_name="memory", db_file="memory.db")
 memory = Memory(db=memory_db)
 ```
-
-The Memory class offers:
-
-- Easy addition, updating, and deletion of memories
-- Persistent storage through various database backends
-- Automatic creation of user memories from conversations
-- Semantic search capabilities across stored memories
 
 ## Managing Memory
 
@@ -55,7 +54,7 @@ memory = Memory()
 # Create a user memory manually
 memory_id = memory.add_user_memory(
     memory=UserMemory(
-        memory="The user's name is Jane Doe", 
+        memory="The user's name is Jane Doe",
         topics=["personal", "name"]
     ),
     user_id="jane_doe@example.com"
@@ -73,7 +72,7 @@ memory = Memory()
 memory_id = memory.replace_user_memory(
     memory_id=previous_memory_id,
     memory=UserMemory(
-        memory="The user's name is Verna Doe", 
+        memory="The user's name is Verna Doe",
         topics=["personal", "name"]
     ),
     user_id="jane_doe@example.com"
