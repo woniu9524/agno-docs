@@ -4,20 +4,24 @@ title: Your first Agent
 
 ## What are Agents?
 
-**Agents** are intelligent programs that solve problems autonomously.
+**Agents** are AI programs that operate autonomously.
 
-Agents have memory, domain knowledge and the ability to use tools (like searching the web, querying a database, making API calls). Unlike traditional programs that follow a predefined execution path, Agents dynamically adapt their approach based on the context and tool results.
+- The **brain** of an Agent is a model that it uses to reason, execute, and respond to the user.
+- The **body** of an Agent is the tools it uses to interact with the real world.
+- The **behavior** of an Agent is defined by instructions; the better the model, the better it is at following instructions.
 
-Instead of a rigid binary definition, let's think of Agents in terms of agency and autonomy.
+Agents also have **memory**, **knowledge**, **storage** and the ability to **reason**:
 
-- **Level 0**: Agents with no tools (basic inference tasks).
-- **Level 1**: Agents with tools for autonomous task execution.
-- **Level 2**: Agents with knowledge, combining memory and reasoning.
-- **Level 3**: Teams of specialized agents collaborating on complex workflows.
+- **knowledge:** is domain-specific information the Agent can **_search on demand_** to make better decisions and provide accurate responses. Knowledge is stored in a vector database and the **_search on demand_** pattern is known as Agentic RAG.
+- **storage:** is used by Agents to save session history and state in a database. Model APIs are stateless and storage enables multi-turn conversations by making Agents stateful.
+- **memory:** gives Agents the ability to store and recall users information from previous interactions, allowing them to learn user preferences and personalize their responses.
+- **reasoning:** enables Agents to "think" before responding and "analyze" the results of their actions (i.e. tool calls), this greatly improves the Agents capabilities.
+
+<Check>Let's build a few Agents to see how they work.</Check>
 
 ## Basic Agent
 
-The simplest Agent is just an inference task, no tools, no memory, no knowledge.
+The simplest Agent is just an inference task, no reasoning, tools, memory or knowledge.
 
 ```python basic_agent.py
 from agno.agent import Agent
