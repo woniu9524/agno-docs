@@ -97,7 +97,8 @@
             "agents/tools",
             "agents/knowledge",
             "agents/memory",
-            "agents/storage"
+            "agents/storage",
+            "agents/teams"
           ]
         },
         {
