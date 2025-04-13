@@ -98,7 +98,6 @@
             "agents/prompts",
             "agents/tools",
             "agents/knowledge",
-            "agents/memory",
             "agents/storage",
             "agents/teams"
           ]
