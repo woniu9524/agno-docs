@@ -128,6 +128,28 @@ team_with_memory.print_response("What are the key challenges in quantum computin
 team_with_memory.print_response("Elaborate on the second challenge you mentioned")
 ```
 
+The team can also manage user memories:
+
+```python
+from agno.team import Team
+from agno.memory.v2.db.sqlite import SqliteMemoryDb
+from agno.memory.v2.memory import Memory
+
+# Create a memory instance with persistent storage
+memory_db = SqliteMemoryDb(table_name="memory", db_file="memory.db")
+memory = Memory(db=memory_db)
+
+team_with_memory = Team(
+    name="Team with Memory",
+    members=[agent1, agent2],
+    memory=memory,
+    enable_user_memories=True,
+)
+
+team_with_memory.print_response("Hi! My name is John Doe.")
+team_with_memory.print_response("What is my name?")
+```
+
 ## Team Knowledge
 
 Teams can use a knowledge base to store and retrieve information:
@@ -183,6 +205,26 @@ if __name__ == "__main__":
         agno_docs_knowledge.load()
 
     team_with_knowledge.print_response("Tell me about the Agno framework", stream=True)
+The team can also manage user memories:
+
+```python
+from agno.team import Team
+from agno.memory.v2.db.sqlite import SqliteMemoryDb
+from agno.memory.v2.memory import Memory
+
+# Create a memory instance with persistent storage
+memory_db = SqliteMemoryDb(table_name="memory", db_file="memory.db")
+memory = Memory(db=memory_db)
+
+team_with_memory = Team(
+    name="Team with Memory",
+    members=[agent1, agent2],
+    memory=memory,
+    enable_user_memories=True,
+)
+
+team_with_memory.print_response("Hi! My name is John Doe.")
+team_with_memory.print_response("What is my name?")
 ```
 
 

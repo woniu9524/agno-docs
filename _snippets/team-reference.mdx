@@ -31,7 +31,7 @@
 | `response_model` | `Optional[Type[BaseModel]]` | `None` | Response model for the team response |
 | `use_json_mode` | `bool` | `False` | If `response_model` is set, sets the response "mode" of the model, i.e. if the model should explicitly respond with a JSON object instead of a Pydantic model |
 | `parse_response` | `bool` | `True` | If True, parse the response |
-| `memory` | `Optional[TeamMemory]` | `None` | Memory for the team |
+| `memory` | `Optional[Memory]` | `None` | Memory for the team |
 | `enable_team_history` | `bool` | `False` | If True, enable the team history |
 | `num_of_interactions_from_history` | `int` | `3` | Number of interactions from history |
 | `storage` | `Optional[Storage]` | `None` | Storage for the team |
