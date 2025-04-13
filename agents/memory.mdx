@@ -2,15 +2,22 @@
 title: Memory
 ---
 
-Agno provides 3 types of memory for Agents:
+If you're building intelligent agents, you need to give them memory which is the ability to **remember**, **reason** and **personalize** responses to users. Memory comes in 3 shapes:
 
-1. **Chat History:** The message history of the session. Agno will store the sessions in a database for you, and retrieve them when you resume a session.
-2. **User Memories:** Notes and insights about the user, this helps the model personalize the response to the user.
-3. **Summaries:** A summary of the conversation, which is added to the prompt when chat history gets too long.
+1. **Chat History:** This is the current conversation between users and the agent, stored as sessions in chronological order. This is the most basic form of memory and **called "Storage" in Agno**.
+2. **User Memories:** Insights and facts about users extracted from conversations, helping agents personalize their responses to users. Think of this as adding a "ChatGPT like memory" to your agent. **This is called "Memory" in Agno**.
+3. **Session Summaries:** Condensed representations of conversations, useful when chat histories grow too long. **This is called "Summary" in Agno**.
+
+Memory helps Agents:
+ - Manage conversation state (chat history)
+ - Personalize responses to users (user memories)
+ - Maintain long-session context (session summaries)
+
+Memory is critical for personal assistants, it allows Agents to "Remember" and "Personalize" their responses to users.
 
 ## Built-in Memory
 
-Every Agent comes with built-in memory that can be used to access the historical **runs** per session. 
+Every Agent comes with built-in memory that can be used to access the historical **runs** per session.
 
 You can give your agent access to chat history in the following ways:
 
@@ -256,9 +263,9 @@ To enable session summaries, set `enable_session_summaries=True` on the `Agent`.
         )
 
         agent.print_response(
-            "I would also like to know about LLMs?", 
-            stream=True, 
-            user_id=user_id, 
+            "I would also like to know about LLMs?",
+            stream=True,
+            user_id=user_id,
             session_id=session_id
         )
 
@@ -292,7 +299,7 @@ To enable session summaries, set `enable_session_summaries=True` on the `Agent`.
 
 ## Agentic Memory Management
 
-You can also enable an agent to manage the user memories for you. Enable agentic memory management by setting `enable_agentic_memory=True` on the `Agent`. 
+You can also enable an agent to manage the user memories for you. Enable agentic memory management by setting `enable_agentic_memory=True` on the `Agent`.
 
 <Note>
 Enabling agentic memory will also add all existing user memories to the agent's system prompt.
