@@ -1,10 +1,10 @@
 ---
-title: Semantic Memory Search
+title: Agentic Memory Search
 ---
 
 ## Code
 
-```python cookbook/agent_concepts/memory/05_memory_search_semantic.py
+```python cookbook/agent_concepts/memory/05_memory_search_agentic.py
 from agno.memory.v2.memory import Memory, UserMemory
 from agno.models.google.gemini import Gemini
 
@@ -27,7 +27,7 @@ memory.add_user_memory(
 memories = memory.search_user_memories(
     user_id=john_doe_id,
     query="What does the user like to do on weekends?",
-    retrieval_method="semantic",
+    retrieval_method="agentic",
 )
 print("John Doe's found memories:")
 for i, m in enumerate(memories):
@@ -54,11 +54,11 @@ for i, m in enumerate(memories):
   <Step title="Run Example">
     <CodeGroup>
     ```bash Mac
-    python cookbook/agent_concepts/memory/05_memory_search_semantic.py
+    python cookbook/agent_concepts/memory/05_memory_search_agentic.py
     ```
 
     ```bash Windows
-    python cookbook/agent_concepts/memory/05_memory_search_semantic.py
+    python cookbook/agent_concepts/memory/05_memory_search_agentic.py
     ```
     </CodeGroup>
   </Step>
