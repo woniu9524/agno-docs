@@ -4,6 +4,10 @@ title: Agent.run()
 
 Use the `Agent.run()` function to run the agent and return the response as a `RunResponse` object or a stream of `RunResponse` objects.
 
+<Tip>
+Many of our examples use `agent.print_response()` but that is just a helper utility to print the response in the terminal. In practice, you should always use `agent.run()`.
+</Tip>
+
 ```python
 from typing import Iterator
 from agno.agent import Agent, RunResponse
