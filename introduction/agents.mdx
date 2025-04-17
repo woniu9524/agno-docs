@@ -6,26 +6,24 @@ title: Your first Agents
 
 **Agents** are AI programs that operate autonomously.
 
-The core of an Agent is a model, the tools it has access to, and instructions to guide its behavior.
+- The **brain** of an Agent is the model that it uses to reason, act, and respond to the user.
+- The **body** of an Agent is the tools it uses to interact with the real world.
+- The **behavior** of an Agent is guided by instructions; the better the model, the better it is at following instructions.
 
-- The **model** acts as the **brain** of the Agent - helping it reason, act, and respond to the user. Better the model, smarter the Agent.
-- **Tools** are the **body** of the Agent - enabling it to interact with the real world. "Tool-use" is what makes these systems "Agentic".
-- **Instructions** guide the **behavior** of the Agent. Better the model, better it is at following instructions.
+Agents also have **memory**, **knowledge**, **storage** and the ability to **reason**:
 
-Agents also have **memory**, **knowledge**, **storage** and the ability to **reason**.
-
-- **reasoning:** lets Agents "think" before responding and "analyze" the results of their actions (i.e. tool calls). Reasoning improves the Agents ability to solve problems that require multi-step tool use. Reasoning improves quality, but also increases latency and cost.
-- **knowledge:** is domain-specific information the Agent can **_search on demand_** to make better decisions (dynamic few-shot learning) or provide accurate responses (agentic RAG). This knowledge is stored in a vector database and this _**Agent's searching on demand**_ pattern is known as Agentic Search. **Agno (is aiming to) have first class support for the popular Agentic Search pattern, Hybrid Search + Reranking, for every major vector database.**
-- **storage:** is used by Agents to save session history and state in a database. Model APIs are stateless and storage enables us to continue conversations across runs using a `session_id`. This makes Agents stateful and enables multi-turn conversations.
-- **memory:** gives Agents the ability to store and recall information from previous interactions, allowing them to learn user preferences and personalize their responses. This is an evolving field and Agno is aiming to support the popular Memory patterns.
+- **reasoning:** enables Agents to "think" before responding and "analyze" the results of their actions (i.e. tool calls), this improves the Agents' ability to solve problems that require sequential tool calls.
+- **knowledge:** is domain-specific information the Agent can **search on demand** to make better decisions and provide accurate responses. Knowledge is stored in a vector database and this **search on demand** pattern is known as Agentic RAG.
+- **storage:** is used by Agents to save session history and state in a database. Model APIs are stateless and storage enables us to continue conversations from where they left off. This makes Agents stateful, enabling multi-turn conversations.
+- **memory:** gives Agents the ability to store and recall information from previous interactions, allowing them to learn user preferences and personalize their responses.
 
 <Check>Let's build a few Agents to see how they work.</Check>
 
 ## Basic Agent
 
-The simplest Agent only contains a **model** and calls the model API to generate a response.
+The simplest Agent only contains a model and calls the model API to generate a response.
 
-Agno Agents can connect to 23+ model providers, so you can test different providers and switch models as needed. These examples use sonnet-3.7 but will work with any model.
+Agno provides a unified interface to 23+ model providers, so you can test different providers and switch models as needed.
 
 ```python basic_agent.py
 from agno.agent import Agent
@@ -35,7 +33,7 @@ agent = Agent(model=Claude(id="claude-3-7-sonnet-latest"), markdown=True)
 agent.print_response("What is the stock price of Apple?", stream=True)
 ```
 
-To run the agent, create a virtual environment and install dependencies.
+To run the agent, install dependencies and export your `ANTHROPIC_API_KEY`.
 
 <Steps>
   <Step title="Setup your virtual environment">
@@ -51,10 +49,6 @@ To run the agent, create a virtual environment and install dependencies.
     .venv/Scripts/activate
     ```
     </CodeGroup>
-
-    <Check>
-    Install [uv](https://docs.astral.sh/uv/getting-started/installation/#installing-uv) if needed.
-    </Check>
 
   </Step>
   <Step title="Install dependencies">
@@ -92,7 +86,7 @@ To run the agent, create a virtual environment and install dependencies.
   </Step>
 </Steps>
 
-<Note>This Agent won't be able to give you the latest stock price because it doesn't have access to it.</Note>
+<Note>This Agent will not be able to give you the latest stock price because it doesn't have access to it.</Note>
 
 ## Agent with tools
 
@@ -111,7 +105,7 @@ agent = Agent(
 agent.print_response("What is the stock price of Apple?", stream=True)
 ```
 
-Install new dependencies and run the Agent
+Install dependencies and run the Agent
 
 <Steps>
   <Step title="Install new dependencies">
@@ -168,12 +162,12 @@ python agent_with_instructions.py
 This will give you a much more concise response.
 
 <Note>
-Set `debug_mode=True` or `export AGNO_DEBUG=true` to see the system prompt, user messages and tool calls. Always verify the prompt manually before putting Agents into production.
+Set `debug_mode=True` or `export AGNO_DEBUG=true` to see the system prompt, user messages and tool calls.
 </Note>
 
 ## Agent with reasoning
 
-Agents can also **"think" & "analyze"** to solve problems that require more than one step. `ReasoningTools` is one of the best "hacks" to improve the Agents's response quality.
+Agents can also **"think" & "reason"** to solve problems that require more than one step. The `ReasoningTools` is one of the best "hacks" to improve the Agents's response quality.
 
 ```python agent_with_reasoning.py
 from agno.agent import Agent
@@ -194,6 +188,7 @@ agent = Agent(
     ],
     instructions=[
         "Use tables to display data.",
+        "Include sources in your response.",
         "Only include the report in your response. No other text.",
     ],
     markdown=True,
@@ -214,19 +209,17 @@ python agent_with_reasoning.py
 
 ## Agent with knowledge
 
-While models have a large amount of training data, Agents almost always need domain knowledge that teaches it how to best achieve its task.
-
-Knowledge isn't just used for RAG. The most common use of knowledge is to dynamically search for few-shot examples on how to solve particular problems. Opening the door to an Agent's ability to learn from experience.
+While models have a large corpus of training data, we almost always need to give Agents a specific set of knowledge related to our domain. This isn't just for RAG, but more importantly, its used to dynamically provide few-shot examples to the model.
 
 <Accordion title="Dynamic Few-Shot Learning: Text2Sql Agent" icon="database">
-Example: If we're building a Text2Sql Agent, we'll need to give the table schemas, column names, data types, example queries, common "gotchas" to help it generate the best-possible SQL query.
+Example: You're building a Text2Sql Agent and for best results, you'll need to give the Agent table schemas, column names, data types, example queries, common "gotchas", etc.
 
-We're obviously not going to put this all in the system prompt, instead we store this information in a vector database and let the Agent query it at runtime.
+You're not going to put this all in the system prompt, instead you'll store this information in a vector database and let the Agent query it at runtime, based on the user's question.
 
 Using this information, the Agent can then generate the best-possible SQL query. This is called dynamic few-shot learning.
 </Accordion>
 
-**Agno Agents use Agentic RAG** by default, meaning if you add `knowledge` to an Agent, it will search its knowledge base, at runtime, for the specific information it needs to achieve its task.
+**Agno Agents use Agentic RAG** by default, which means they will search their knowledge base, at runtime, for the specific information they need to achieve their task.
 
 Here's how the following example works:
 
@@ -269,8 +262,8 @@ agent = Agent(
 )
 
 if __name__ == "__main__":
-    # Load the knowledge base, comment out after the first run
-    # Set recreate to True to reload the knowledge base if needed
+    # Load the knowledge base, comment out after first run
+    # Set recreate to True to recreate the knowledge base if needed
     agent.knowledge.load(recreate=False)
     agent.print_response(
         "What are Agents?",
@@ -296,19 +289,6 @@ Install dependencies, export your `OPENAI_API_KEY` and run the Agent
     </CodeGroup>
 
   </Step>
-  <Step title="Export your OpenAI key">
-
-    <CodeGroup>
-    ```bash Mac
-    export OPENAI_API_KEY=sk-***
-    ```
-
-    ```bash Windows
-    setx OPENAI_API_KEY sk-***
-    ```
-    </CodeGroup>
-
-  </Step>
   <Step title="Run the agent">
 
     ```shell
@@ -320,15 +300,11 @@ Install dependencies, export your `OPENAI_API_KEY` and run the Agent
 
 ## Agent with storage
 
-`Storage` drivers enable Agents to save their session history and state in a database. Model APIs are stateless and storage enables us to continue runs using a `session_id`.
+`Storage` drivers will help you save Agent sessions and state in a database. Model APIs are stateless and storage enables us to continue conversations from where they left off, by storing chat history and state in a database.
 
 In this example, we'll use the `SqliteStorage` driver to save the Agent's session history and state in a database.
 
-We'll also set a fixed `session_id` to demo persistence. Run this example multiple times to see the conversation continue from where it left off.
-
-<Note>
-The `session_id` is usually auto-generated, it is only fixed for this example to demo persistence.
-</Note>
+We'll also set the `session_id` to a fixed value to demo persistence. Run this example multiple times to see the conversation continue from where it left off.
 
 ```python agent_with_storage.py
 from agno.agent import Agent
@@ -362,7 +338,7 @@ if __name__ == "__main__":
     pprint(messages_in_session)
 ```
 
-Install new dependencies and run the Agent
+Install dependencies and run the Agent
 
 <Steps>
   <Step title="Install new dependencies">
@@ -395,16 +371,6 @@ In this example, we'll use the v2 Memory driver to store user memories in a Sqli
 
 Because memories are tied to a user, we'll set the `user_id` to a fixed value to build a persona for the user.
 
-Agno Agents use Agentic Memory by default, meaning the Agent will dynamically create and manage user memories.
-
-<Accordion title="How does Agentic Memory work?" icon="code-branch">
-
-Behind the `Memory` class is a `MemoryManager` that will manage the creation, updating and deletion of user memories. The `Agent` is provided with a tool: `update_user_memory` and instruction on how to use this tool.
-
-Agentic Memory means the Agent manages the user memories, it will create new memories, update existing memories and delete memories as needed.
-
-</Accordion>
-
 ```python agent_with_memory.py
 from agno.agent import Agent
 from agno.memory.v2.db.sqlite import SqliteMemoryDb
@@ -414,18 +380,18 @@ from agno.models.anthropic import Claude
 from agno.models.openai import OpenAIChat
 from rich.pretty import pprint
 
-user_id = "peter_rabbit" # User ID to use for storing memories
+user_id = "peter_rabbit"
 memory = Memory(
     db=SqliteMemoryDb(table_name="memory", db_file="tmp/memory.db"),
-    model=OpenAIChat(id="gpt-4o-mini"),  # Model to use for Agentic Memory
+    model=OpenAIChat(id="gpt-4o-mini"),
 )
-memory.clear() # Clear the memory before running the script
+memory.clear()
 
 agent = Agent(
     model=Claude(id="claude-3-7-sonnet-latest"),
     user_id=user_id,
     memory=memory,
-    # Let the Agent dynamically create and manage user memories.
+    # Enable the Agent to dynamically create and manage user memories
     enable_agentic_memory=True,
     add_datetime_to_instructions=True,
     markdown=True,
@@ -453,7 +419,7 @@ python agent_with_memory.py
 
 Agents work best when they have a singular purpose, a narrow scope and a small number of tools. When the number of tools grows beyond what the language model can handle or the tools belong to different categories, use a team of agents to spread the load.
 
-Agno provides an industry leading multi-agent Architecture that allows you to build Agent Teams with reasoning. You can run the team in 3 modes: `route`, `coordinate` and `collaborate`.
+Agno provides an industry leading multi-agent Architecture that allows you to build Reasoning Agent Teams. You can run the team in 3 modes: `route`, `coordinate` and `collaborate`.
 
 In this example, we'll build a team of 2 agents to analyze the semiconductor market performance, reasoning step by step.
 

@@ -4,15 +4,17 @@ title: Sessions
 
 When we call `Agent.run()`, it creates a stateless, singular Agent run.
 
-But what if we want to continue this run i.e. have a multi-turn conversation? That's where `sessions` come in. A session is a multi-turn conversation between a user and an Agent. Using a `session_id`, we can maintain conversation history and state across multiple runs.
+But what if we want to continue this run i.e. have a multi-turn conversation? That's where `sessions` come in. A session is collection of consecutive runs.
+
+In practice, a session is a multi-turn conversation between a user and an Agent. Using a `session_id`, we can pass the conversation history and state across multiple runs.
 
 Let's outline some key concepts:
 
-- **Session:** A session is a multi-turn conversation between a user and an Agent. Sessions are identified by a `session_id` and each turn is called a **run**.
-- **Run:** Every interaction (i.e. chat or turn) with an Agent is called a **run**. Runs are identified by a `run_id`. `Agent.run()` creates a new `run_id` when called.
-- **Messages:** are the individual messages sent to and received from the model. They are the underlying data structure that the Agent and model communicate using. Each run contains a list of messages and each session contains a list of runs.
+- **Session:** A session is collection of consecutive runs like a multi-turn conversation between a user and an Agent. Sessions are identified by a `session_id` and each turn is a **run**.
+- **Run:** Every interaction (i.e. chat or turn) with an Agent is called a **run**. Runs are identified by a `run_id` and `Agent.run()` creates a new `run_id` when called.
+- **Messages:** are the individual messages sent between the model and the Agent. Messages are the communication protocol between the Agent and model.
 
-Let's start with an example where a single run is created with an Agent. A `run_id` is automatically generated, as well as a `session_id` (because we didn't provide one to continue the conversation). This run is not yet associated with a specific user.
+Let's start with an example where a single run is created with an Agent. A `run_id` is automatically generated, as well as a `session_id` (because we didn't provide one to continue the conversation). This run is not yet associated with a user.
 
 ```python
 from typing import Iterator
@@ -26,19 +28,19 @@ agent = Agent(model=OpenAIChat(id="gpt-4o-mini"))
 agent.print_response("Tell me a 5 second short story about a robot")
 ```
 
-## Each User gets a Unique Set of Sessions
+## Multi-user, multi-session Agents
 
-Each user that is interacting with an Agent maintains a unique set of sessions. Set a `user_id` to connect a user to their sessions.
+Each user that is interacting with an Agent gets a unique set of sessions and you can have multiple users interacting with the same Agent at the same time.
 
-In the examples below, we set a `session_id` to demo how you can continue multi-turn conversations with multiple users at the same time. In production, the `session_id` is automatically generated.
+Set a `user_id` to connect a user to their sessions with the Agent.
 
-Note: Multi-user, multi-session currently only works with `Memory.v2`.
+In the example below, we set a `session_id` to demo how to have multi-turn conversations with multiple users at the same time. In production, the `session_id` is auto generated.
 
-<Tip>
+<Note>
 
-`Memory.v2` will become the default memory implementation in the next release.
+Note: Multi-user, multi-session currently only works with `Memory.v2`, which will become the default memory implementation in the next release.
 
-</Tip>
+</Note>
 
 ```python
 from agno.agent import Agent
