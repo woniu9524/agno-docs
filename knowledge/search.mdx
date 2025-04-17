@@ -2,9 +2,11 @@
 title: Agentic Search
 ---
 
-Using an Agent to dynamically search for information at runtime is called **Agentic Search** and the process of **searching, reasoning and responding** is known as Agentic RAG.
+Using an Agent to dynamically search for information at runtime is called **Agentic Search** and this process of **searching, reasoning and responding** is known as **Agentic RAG**.
 
-The Model triggers the `search` query but it is the quality of the search results that determine the quality of the Agent's response. You may use semantic search, full text search or hybrid search. Combine Hybrid Search with Reranking and you get best in class knowledge retrieval.
+The Model interprets a user question, generates a set of keywords and uses them to search its knowledge base. The key point to note is that **the quality of the search results determines the quality of the Agent's response**.
+
+You can use semantic search, full text search or hybrid search. We recommend using **hybrid search with reranking** for best in class knowledge retrieval.
 
 Because the Agent is searching for the information it needs on demand, this pattern is called **Agentic Search** and is becoming very popular with Agent builders.
 
@@ -18,7 +20,11 @@ When we add a knowledge base to an Agent, behind the scenes, we give the model a
 
 The Model generates a set of keywords and calls the `search_knowledge_base()` tool to retrieve the relevant information or few-shot examples.
 
-Here's a working example that uses Hybrid Search + Reranking - which is state of the art for Agentic Search.
+Here's a working example that uses Hybrid Search + Reranking:
+
+<Tip>
+You may remove the reranking step if you don't need it.
+</Tip>
 
 ```python agentic_rag.py
 """This cookbook shows how to implement Agentic RAG using Hybrid Search and Reranking.
@@ -67,10 +73,6 @@ if __name__ == "__main__":
     # knowledge_base.load(recreate=True)
     agent.print_response("What are Agents?", stream=True)
 ```
-
-<Tip>
-You may remove the reranking step if you don't need it.
-</Tip>
 
 ## Agentic RAG with Reasoning
 
@@ -134,7 +136,3 @@ if __name__ == "__main__":
         stream_intermediate_steps=True,
     )
 ```
-
-<Tip>
-You may remove the reranking step if you don't need it.
-</Tip>
