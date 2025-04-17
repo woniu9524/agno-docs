@@ -6,7 +6,7 @@ title: Storage
 
 Agents come with built-in memory but it only lasts while the session is active.
 
-To persist history and state across runs, we can provide `AgentStorage` which saves an Agent's session to a database or file. Storage has typically been an under-discussed part of agentic infrastructure, but we see it as one of the most critical pieces of the stack.
+To persist session history and state across runs, we can provide `AgentStorage` which saves an Agent's session to a database or file. Storage has typically been an under-discussed part of agentic infrastructure, but we see it as one of the most critical pieces of the stack.
 
 While storage is absolutely necessary when building user facing AI products as any production application will need to be able to retrieve sessions, continue sessions, and save state between runs. There is so much more:
 - Storage saves our Agent's session data for inspection and evaluations.

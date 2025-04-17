@@ -4,7 +4,11 @@ title: Storage
 
 # Memory Storage
 
-Agno's memory system provides persistent storage options to ensure memories are retained across application restarts. This is critical for production applications where users expect consistent experiences over time.
+To persist memories across sessions and application restarts, store memories in a persistent storage like a database.
+
+If you're using Memory in production, persistent storage is critical as you'd want to retain user memories across application restarts.
+
+Agno's memory system supports multiple persistent storage options.
 
 ## Storage Options
 
@@ -115,14 +119,14 @@ from agno.storage.sqlite import SqliteStorage
 
 # Create memory storage
 memory_db = SqliteMemoryDb(
-    table_name="memories", 
+    table_name="memories",
     db_file="tmp/memory.db"
 )
 memory = Memory(db=memory_db)
 
 # Create agent storage
 agent_storage = SqliteStorage(
-    table_name="agent_sessions", 
+    table_name="agent_sessions",
     db_file="tmp/agent_storage.db"
 )
 
