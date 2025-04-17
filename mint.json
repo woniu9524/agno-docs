@@ -255,6 +255,7 @@
           "group": "Knowledge",
           "pages": [
             "knowledge/introduction",
+            "knowledge/search",
             "knowledge/arxiv",
             "knowledge/combined",
             "knowledge/csv",
