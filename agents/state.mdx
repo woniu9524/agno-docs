@@ -1,8 +1,67 @@
 ---
-title: Session State
+title: Agent State
 ---
 
-You can pass a state dictionary across multiple runs using `session_state`. The dictionary is passed to the Agent as a parameter, and is available to all tools. `session_state` is also stored with Agent sessions, so is persisted in a database. Meaning, it is available across multiple runs.
+A common use case for Agents is to maintain state across multiple runs and Agno's powerful state management system offers an elegant way to handle this. Here's how:
+
+1. Add a `session_state` dictionary to your Agent and it will be persisted across the entire session. This `session_state` is available to all tools, and the "keys" (i.e. the variable names) are available to use in instructions, descriptions, and more.
+2. If you add storage to your Agent, the `session_state` dictionary is persisted in the database so will be available across execution cycles as well.
+
+<Tip>
+This is as good and elegant as state management gets.
+</Tip>
+
+Here's an example of an Agent that maintains a shopping list:
+
+```python session_state.py
+from agno.agent import Agent
+from agno.models.openai import OpenAIChat
+
+# Define a tool that increments our counter and returns the new value
+def add_item(agent: Agent, item: str) -> str:
+    """Add an item to the shopping list."""
+    agent.session_state["shopping_list"].append(item)
+    return f"The shopping list is now {agent.session_state['shopping_list']}"
+
+
+# Create an Agent that maintains state
+agent = Agent(
+    model=OpenAIChat(id="gpt-4o-mini"),
+    # Initialize the session state with a counter starting at 0
+    session_state={"shopping_list": []},
+    tools=[add_item],
+    # You can use variables from the session state in the instructions
+    instructions="Current state (shopping list) is: {shopping_list}",
+    # Important: Add the state to the messages
+    add_state_in_messages=True,
+    markdown=True,
+)
+
+# Example usage
+agent.print_response("Add milk, eggs, and bread to the shopping list", stream=True)
+print(f"Final session state: {agent.session_state}")
+```
+
+## What is State?
+
+**State** is any kind of data the Agent needs access to and manage throughout runs.
+
+<Check>
+A simple, yet common use case for Agents is to manage lists, items and other "information" for a user. For example, a shopping list, a todo list, a wishlist, etc.
+
+This can be easily managed using the `session_state`. The Agent updates the `session_state` dictionary in tool calls and exposes them to the Model in the `description` and `instructions`.
+</Check>
+
+Here's how Agno's state management works:
+- The `Agent` object has a `session_state` parameter.
+- We add our state variables to this `session_state` dictionary.
+- We update the `session_state` dictionary in tool calls or other functions.
+- We expose the current `session_state` to the Model in the `description`, `instructions` and `user_messages`.
+- The `session_state` is also stored with Agent sessions, so is persisted in a database. Meaning, it is available across multiple runs.
+
+<Note>
+Make sure to only add `serializable` objects to `session_state` **if you're using storage**. The `session_state` is stored in a database and needs to be serializable.
+</Note>
 
 ## Maintaining state across multiple runs
 
