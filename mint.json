@@ -374,6 +374,12 @@
             "workflows/state",
             "workflows/advanced"
           ]
+        },
+        {
+          "group": "Evals",
+          "pages": [
+            "evals/introduction"
+          ]
         }
       ]
     },
