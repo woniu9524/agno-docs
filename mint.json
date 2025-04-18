@@ -94,12 +94,13 @@
             "agents/sessions",
             "agents/state",
             "agents/memory",
+            "agents/tools",
             "agents/structured-output",
             "agents/multimodal",
             "agents/prompts",
-            "agents/tools",
             "agents/knowledge",
             "agents/storage",
+            "agents/context",
             "agents/teams"
           ]
         },

@@ -2,14 +2,16 @@
 title: Session State
 ---
 
-You can pass state across multiple runs using `session_state` dictionary. The dictionary is passed to the Agent as a parameter, and is available to all tools. `session_state` is also stored with Agent sessions, so is persisted in a database. Meaning, it is available across multiple runs.
+You can pass a state dictionary across multiple runs using `session_state`. The dictionary is passed to the Agent as a parameter, and is available to all tools. `session_state` is also stored with Agent sessions, so is persisted in a database. Meaning, it is available across multiple runs.
 
 ## Maintaining state across multiple runs
 
 A big advantage of **sessions** is the ability to maintain state across multiple runs. For example, let's say the agent is helping a user keep track of their shopping list.
 
 <Note>
-The keys of the `session_state` dictionary are available in the `description` and `instructions` as variables. Use it to add the shopping_list to the instructions directly.
+By setting `add_state_in_messages=True`, the keys of the `session_state` dictionary are available in the `description` and `instructions` as variables.
+
+Use this pattern to add the shopping_list to the instructions directly.
 </Note>
 
 ```python shopping_list.py
