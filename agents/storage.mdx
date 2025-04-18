@@ -1,39 +1,64 @@
 ---
-title: Storage
+title: Session Storage
 ---
 
-**Agents use storage to save sessions in a database.**
+**Storage** help us save Agent sessions and state to a database or file.
 
-Agents come with built-in memory but it only lasts while the session is active.
+<Tip>
+**Why do we need storage?**
 
-To persist session history and state across runs, we can provide `AgentStorage` which saves an Agent's session to a database or file. Storage has typically been an under-discussed part of agentic infrastructure, but we see it as one of the most critical pieces of the stack.
+The built-in memory for Agents is ephemeral and only lasts for the current execution cycle.
 
-While storage is absolutely necessary when building user facing AI products as any production application will need to be able to retrieve sessions, continue sessions, and save state between runs. There is so much more:
-- Storage saves our Agent's session data for inspection and evaluations.
-- Storage helps us extract few-shot examples from session data, which can be used to improve the Agent.
-- Storage enables us to build internal monitoring tools and dashboards.
+In production environments, you'll be serving your Agents via an API and you'll need to continue the session in subsequent requests. Storage helps us save the session history and state in a database and pick up where we left off.
+</Tip>
 
-The general syntax for adding storage to an Agent looks like:
+Adding storage to an Agent is as simple as providing a `storage` driver and Agno handles the rest. You can use Sqllite, Postgres, Mongo or any other database you want.
+
+Here's a simple example that demostrates persistence across execution cycles:
 
 ```python storage.py
 from agno.agent import Agent
 from agno.models.openai import OpenAIChat
-from agno.tools.duckduckgo import DuckDuckGoTools
-from agno.storage.postgres import PostgresStorage
+from agno.storage.sqlite import SqliteStorage
+from rich.pretty import pprint
 
 agent = Agent(
-    model=OpenAIChat(id="gpt-4o"),
-    storage=PostgresStorage(table_name="agent_sessions", db_url="postgresql+psycopg://ai:ai@localhost:5532/ai"),
-    tools=[DuckDuckGoTools()],
-    show_tool_calls=True,
+    model=OpenAIChat(id="gpt-4o-mini"),
+    # Fix the session id to continue the same session across execution cycles
+    session_id="fixed_id_for_demo",
+    storage=SqliteStorage(table_name="agent_sessions", db_file="tmp/data.db"),
     add_history_to_messages=True,
+    num_history_runs=3,
 )
-agent.print_response("How many people live in Canada?")
-agent.print_response("What is their national anthem called?")
-agent.print_response("Which country are we speaking about?")
+agent.print_response("What was my last question?")
+agent.print_response("What is the capital of France?")
+agent.print_response("What was my last question?")
+pprint(agent.get_messages_for_session())
 ```
 
-## Example
+The first time you run this, the answer to "What was my last question?" will not be available. But run it again and the Agent will able to answer properly. Because we have fixed the session id, the Agent will continue from the same session every time you run the script.
+
+## Benefits of Storage
+
+Storage has typically been an under-discussed part of Agent Engineering -- but we see it as the unsung hero of production agentic applications.
+
+In production, you need storage to:
+
+- Continue sessions: retrieve sessions history and pick up where you left off.
+- Get list of sessions: To continue a previous session, you need to maintain a list of sessions available for that agent.
+- Save state between runs: save the Agent's state to a database or file so you can inspect it later.
+
+But there is so much more:
+
+- Storage saves our Agent's session data for inspection and evaluations.
+- Storage helps us extract few-shot examples, which can be used to improve the Agent.
+- Storage enables us to build internal monitoring tools and dashboards.
+
+<Warning>
+Storage is such a critical part of your Agentic infrastructure that it should never be offloaded to a third party. You should almost always use your own storage layer for your Agents.
+</Warning>
+
+## Example: Use Postgres for storage
 
 <Steps>
   <Step title="Run Postgres">
