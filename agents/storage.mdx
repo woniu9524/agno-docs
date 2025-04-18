@@ -12,7 +12,7 @@ The built-in memory for Agents is ephemeral and only lasts for the current execu
 In production environments, you'll be serving your Agents via an API and you'll need to continue the session in subsequent requests. Storage helps us save the session history and state in a database and pick up where we left off.
 </Tip>
 
-Adding storage to an Agent is as simple as providing a `storage` driver and Agno handles the rest. You can use Sqllite, Postgres, Mongo or any other database you want.
+Adding storage to an Agent is as simple as providing a `storage` driver and Agno handles the rest. You can use Sqlite, Postgres, Mongo or any other database you want.
 
 Here's a simple example that demostrates persistence across execution cycles:
 
