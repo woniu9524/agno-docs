@@ -371,7 +371,7 @@
           "group": "Workflows",
           "pages": [
             "workflows/introduction",
-            "workflows/session_state",
+            "workflows/state",
             "workflows/advanced"
           ]
         }

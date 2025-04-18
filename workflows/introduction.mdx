@@ -6,23 +6,69 @@ title: Introduction
 
 Workflows are deterministic, stateful, multi-agent programs that are built for production applications. They're battle-tested, incredibly powerful and offer the following benefits:
 
-- **Pure python**: Build your workflow logic using standard python. Having built 100s of agentic systems, **no framework or step based approach will give you the flexibility of pure-python**. Want loops - use while/for, want conditionals - use if/else, want exceptional handling - use try/except.
-- **Full control and flexibility**: Because your workflow logic is a python function, you have full control over the multi-agent process, like validating input before processing, spawning agents and running them in parallel, caching results and correcting any intermediate errors. **This control is critical for reliability.**
-- **Built-in storage and caching**: Store session state and cache intermediate results in a database. A big advantage of this is that you can trigger workflows in a separate process and ping for results later, meaning you don't run into request/response timeout issues.
+- **Pure python**: Build your workflow logic using standard python. Having built 100s of agentic systems, **no framework or step based approach will give you the flexibility and reliability of pure-python**. Want loops - use while/for, want conditionals - use if/else, want exceptional handling - use try/except.
+- **Full control and flexibility**: Because your workflow logic is a python function, you have full control over the process, like validating input before processing, spawning agents and running them in parallel, caching results as needed and correcting any intermediate errors. **This level of control is critical for reliability.**
+- **Built-in storage and caching**: Workflows come with built-in storage and state management. Use session_state to cache intermediate results. A big advantage of this approach is that you can trigger workflows in a separate process and ping for results later, meaning you don't run into request timeout issues which are very common with long running workflows.
 
 ### The best part
 
 There's nothing new to learn! You already know python, you already know how to build Agents and Teams -- now its just about putting them together.
 
+Here's a simple workflow that caches the outputs. You see the level of control you have over the process, even the "storing state" happens after the response is yielded.
+
+```python simple_cache_workflow.py
+from typing import Iterator
+
+from agno.agent import Agent, RunResponse
+from agno.models.openai import OpenAIChat
+from agno.utils.log import logger
+from agno.utils.pprint import pprint_run_response
+from agno.workflow import Workflow
+
+
+class CacheWorkflow(Workflow):
+    # Purely descriptive, not used by the workflow
+    description: str = "A workflow that caches previous outputs"
+
+    # Add agents or teams as attributes on the workflow
+    agent = Agent(model=OpenAIChat(id="gpt-4o-mini"))
+
+    # Write the logic in the `run()` method
+    def run(self, message: str) -> Iterator[RunResponse]:
+        logger.info(f"Checking cache for '{message}'")
+        # Check if the output is already cached
+        if self.session_state.get(message):
+            logger.info(f"Cache hit for '{message}'")
+            yield RunResponse(run_id=self.run_id, content=self.session_state.get(message))
+            return
+
+        logger.info(f"Cache miss for '{message}'")
+        # Run the agent and yield the response
+        yield from self.agent.run(message, stream=True)
+
+        # Cache the output after response is yielded
+        self.session_state[message] = self.agent.run_response.content
+
+
+if __name__ == "__main__":
+    workflow = CacheWorkflow()
+    # Run workflow (this is takes ~1s)
+    response: Iterator[RunResponse] = workflow.run(message="Tell me a joke.")
+    # Print the response
+    pprint_run_response(response, markdown=True, show_time=True)
+    # Run workflow again (this is immediate because of caching)
+    response: Iterator[RunResponse] = workflow.run(message="Tell me a joke.")
+    # Print the response
+    pprint_run_response(response, markdown=True, show_time=True)
+```
+
 ### How to build a workflow
 
-1. Define the workflow as a class by inheriting the `Workflow` class.
-2. Add agents or teams as attributes on the workflow.
-3. Implement the workflow logic in the `run()` method.
-4. Cache results in `session_state` as needed.
-5. Run the workflow using the `.run()` method.
+1. Define your workflow as a class by inheriting the `Workflow` class.
+2. Add agents or teams as attributes on the workflow. These isn't a strict requirement, just helps us map the session_id of the agent to the session_id of the workflow.
+3. Implement the workflow logic in the `run()` method. This is the main function that will be called when you run the workflow aka **the workflow entrypoint**. This function gives us so much control over the process, some agents can stream, other's can generate structured outputs, agents can be run in parallel using `async.gather()`, some agents can have validation logic that runs before returning the response.
 
-## Example: Blog Post Generator
+## Full Example: Blog Post Generator
 
 Let's create a blog post generator that can search the web, read the top links and write a blog post for us. We'll cache intermediate results in the database to improve performance.
 
@@ -478,14 +524,16 @@ Checkout more [usecases](/examples/workflows/) and [examples](/examples/concepts
 
 <Tip>
 
-**Why did we make the workflows logic a simple python function? Why didn't we create our own approach like `Graph`, `Chain`, `Flow` etc?**
+**Why did we implement workflow logic as a simple python function instead of creating a custom abstraction like Graph, Chain, or Flow?**
 
-In most AI products we built, the workflow logic was dynamic (i.e. determined at runtime) and almost all of the workflows needed extensive fine-grained control - over how we parallelize, how we cache, how we store state, how we handle errors, how we correct issues etc.
+In our experience building AI products, workflow logic typically needs to be dynamic (i.e. determined at runtime) and requires fine-grained control over parallelization, caching, state management, error handling, and issue resolution.
 
-It was simpler, just to use python.
+It was simpler just to use python.
 
-Another problem with long running workflows is that they run into request/response timeout issues. We needed to be able to trigger workflows in a separate process, respond to the frontend that the workflow was has started and let the frontend ping for results later. To provide the best experience, we needed to control how the workflow yields the "RunResponse" stream and have low-level control over the workflow's state.
+Another significant challenge with long-running workflows is managing request/response timeouts. We needed workflows to trigger asynchronously, respond to the client confirming initiation, and then allow the client to poll for results later. Achieving this UX required precise control over the workflow’s yielding of "RunResponse" objects and granular state management.
 
-There is NO chance that a framework based approach would provide the low-level control we were looking for, after all, the framework is built on top of python. Furthermore, the moment you need something custom, you need to learn the framework's "language" and the framework's "concepts". We didn't want to create our own language, we just wanted to use python.
+Framework-based approaches inherently abstract away low-level control, that is literally the point of the framework. Since these frameworks are themselves built upon Python, they can never offer more control than Python itself. Furthermore, the moment you need something custom, you need to learn the framework's "language", "concepts" and how to work around them.
+
+We didn't want to create our own language, we just wanted to use python.
 
 </Tip>
