@@ -2,14 +2,14 @@
 title: Introduction
 ---
 
-**Storage** help us save Agent sessions and state to a database or file.
+Use **Storage** to save Agent sessions and state to a database or file.
 
 <Tip>
-**Why do we need storage?**
+**Why we need Agent Storage?**
 
-The built-in memory for Agents is ephemeral and only lasts for the current execution cycle.
+Agents are ephemeral and the built-in memory only lasts for the current execution cycle.
 
-In production environments, you'll be serving your Agents via an API and you'll need to continue the session in subsequent requests. Storage helps us save the session history and state in a database and pick up where we left off.
+In production environments, you'll serve your Agents via an API and need to continue sessions in subsequent requests. Storage persists the session history and state in a database and enables us to pick up where we left off.
 </Tip>
 
 Adding storage to an Agent is as simple as providing a `storage` driver and Agno handles the rest. You can use Sqlite, Postgres, Mongo or any other database you want.
