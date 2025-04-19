@@ -1,10 +1,16 @@
 ---
-title: Python Functions as Tools
+title: Writing your own tools
 ---
 
-Any python function can be used as a tool by an Agent. **We highly recommend** creating functions specific to your workflow and adding them to your Agents.
+In most production cases, you will need to write your own tools. Which is why we're focused on provide the best tool-use experience in Agno.
 
-## Custom Python Function Example
+The rule is simple:
+
+- Any python function can be used as a tool by an Agent.
+- Use the `@tool` decorator to modify what happens before and after this tool is called.
+
+## Any python function can be used as a tool
+
 For example, here's how to use a `get_top_hackernews_stories` function as a tool:
 
 ```python hn_agent.py
@@ -42,12 +48,17 @@ agent = Agent(tools=[get_top_hackernews_stories], show_tool_calls=True, markdown
 agent.print_response("Summarize the top 5 stories on hackernews?", stream=True)
 ```
 
-## Using the @tool Decorator
+## Magic of the @tool decorator
 
-For more flexibility, you can use the `@tool` decorator to quickly create agent-ready functions without creating a full Toolkit class. 
-This approach is more concise and ideal for single-purpose tools.
+To modify what happens before and after a tool is called, use the `@tool` decorator. Some notable features:
 
-The `@tool` decorator supports several parameters to customize tool behavior:
+- `show_result=True`: Show the output of the tool call in the Agent's response. Without this flag, the result of the tool call is sent to the model for further processing.
+- `stop_after_tool_call=True`: Stop the agent after the tool call.
+- `pre_hook`: Run a function before this tool call.
+- `post_hook`: Run a function after this tool call.
+- `cache_results=True`: Cache the tool result to avoid repeating the same call.
+
+Here's an example that uses all possible parameters on the `@tool` decorator.
 
 ```python advanced_tool.py
 import httpx
@@ -76,10 +87,10 @@ def log_after_call(fc):
 def get_top_hackernews_stories(num_stories: int = 5) -> str:
     """
     Fetch the top stories from Hacker News.
-    
+
     Args:
         num_stories: Number of stories to fetch (default: 5)
-    
+
     Returns:
         str: The top stories in text format
     """

@@ -157,6 +157,9 @@
           "group": "Tools",
           "pages": [
             "tools/introduction",
+            "tools/tools",
+            "tools/exceptions",
+            "tools/hooks",
             {
               "group": "Toolkits",
               "pages": [
@@ -265,7 +268,6 @@
             },
             "tools/mcp",
             "tools/reasoning-tools",
-            "tools/functions",
             "tools/custom-toolkits",
             "tools/async-tools",
             "tools/caching"
