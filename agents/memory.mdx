@@ -2,7 +2,7 @@
 title: Memory
 ---
 
-If you're building intelligent agents, you need to give them memory **which is their ability to learn about the user they are interacting with**. Memory comes in 3 shapes:
+If you're building intelligent agents, you need to give them **the ability to learn about their user and personalize their responses**. Memory comes in 3 shapes:
 
 1. **Session Storage:** Session storage saves sessions in a database and enables Agents to have multi-turn conversations. Session storage also holds the session state, which is persisted across runs because it is saved to the database after each run. Session storage is a form of short-term memory **called "Storage" in Agno**.
 
@@ -17,15 +17,18 @@ Memory helps Agents:
 
 ## Default Memory
 
-Every Agent comes with built-in memory that keeps track of the session while the Agent is running.
+Every Agent comes with built-in memory which keeps track of the messages in the session. You can access theese messages using `agent.get_messages_for_session()`.
 
-You can access the messages in this session using `agent.get_messages_for_session()`.
+<Note>
+The default memory is not persisted across execution cycles. So after the script finishes running, or the request is over, the built-in memory is lost.
+</Note>
 
-You can give your agent access to chat history in the following ways:
+Because the Memory is managing the `messages` list for the Agent, we can give the Agent access to the chat history in the following ways:
 
-- You can set `add_history_to_messages=True` and `num_history_responses=5` to add the previous 5 messages automatically to every message sent to the agent.
-- You can set `read_chat_history=True` to provide a `get_chat_history()` tool to your agent allowing it to read any message in the entire chat history.
-- You can set `read_tool_call_history=True` to provide a `get_tool_call_history()` tool to your agent allowing it to read tool calls in reverse chronological order.
+- We can set `add_history_to_messages=True` and `num_history_runs=5` to add the messages from the last 5 runs automatically to every message sent to the agent.
+- We can set `read_chat_history=True` to provide a `get_chat_history()` tool to your agent allowing it to read any message in the entire chat history.
+- **We recommend setting all 3: `add_history_to_messages=True`, `num_history_runs=3` and `read_chat_history=True` for the best experience.**
+- We can also set `read_tool_call_history=True` to provide a `get_tool_call_history()` tool to your agent allowing it to read tool calls in reverse chronological order.
 
 <Steps>
   <Step title="Built-in memory example">
@@ -76,90 +79,35 @@ You can give your agent access to chat history in the following ways:
 
 ## Session Storage
 
-The built-in memory only lasts while the session is active.
+The built-in memory is only available during the current execution cycle. Once the script ends, or the request is over, the built-in memory is lost.
 
-To persist history and state across runs, we can provide `AgentStorage` which saves an Agent's session to a database or file. Storage has typically been an under-discussed part of agentic infrastructure, but we see it as one of the most critical pieces of the stack.
+**Storage** help us save Agent sessions and state to a database or file.
 
-While storage is absolutely necessary when building user facing AI products as any production application will need to be able to retrieve sessions, continue sessions, and save state between runs. There is so much more:
-- Storage saves our Agent's session data for inspection and evaluations.
-- Storage helps us extract few-shot examples from session data, which can be used to improve the Agent.
-- Storage enables us to build internal monitoring tools and dashboards.
+Adding storage to an Agent is as simple as providing a `storage` driver and Agno handles the rest. You can use Sqlite, Postgres, Mongo or any other database you want.
 
-<Steps>
-  <Step title="Storage example">
-        Let's test this out, create a file `persistent_memory.py` with the following code:
+Here's a simple example that demostrates persistence across execution cycles:
 
-        ```python persistent_memory.py
-        import json
+```python storage.py
+from agno.agent import Agent
+from agno.models.openai import OpenAIChat
+from agno.storage.sqlite import SqliteStorage
+from rich.pretty import pprint
 
-        from rich.console import Console
-        from rich.panel import Panel
-        from rich.json import JSON
+agent = Agent(
+    model=OpenAIChat(id="gpt-4o-mini"),
+    # Fix the session id to continue the same session across execution cycles
+    session_id="fixed_id_for_demo",
+    storage=SqliteStorage(table_name="agent_sessions", db_file="tmp/data.db"),
+    add_history_to_messages=True,
+    num_history_runs=3,
+)
+agent.print_response("What was my last question?")
+agent.print_response("What is the capital of France?")
+agent.print_response("What was my last question?")
+pprint(agent.get_messages_for_session())
+```
 
-        from agno.agent import Agent
-        from agno.models.google.gemini import Gemini
-        from agno.storage.sqlite import SqliteStorage
-
-        agent = Agent(
-            model=Gemini(id="gemini-2.0-flash-exp"),
-            # Store agent sessions in a database
-            storage=SqliteStorage(table_name="agent_sessions", db_file="tmp/agent_storage.db"),
-            # Set add_history_to_messages=true to add the previous chat history to the messages sent to the Model.
-            add_history_to_messages=True,
-            # Number of historical responses to add to the messages.
-            num_history_responses=3,
-            # Description creates a system prompt for the agent
-            description="You are a helpful assistant that always responds in a polite, upbeat and positive manner.",
-        )
-
-        console = Console()
-
-        def print_chat_history(agent):
-            # -*- Print history
-            console.print(
-                Panel(
-                    JSON(json.dumps([m.model_dump(include={"role", "content"}) for m in agent.memory.messages]), indent=4),
-                    title=f"Chat History for session_id: {agent.session_id}",
-                    expand=True,
-                )
-            )
-
-        session_id = "xxxx-xxxx-xxxx-xxxx"
-
-        # -*- Create a run
-        agent.print_response("Share a 2 sentence horror story", stream=True, session_id=session_id)
-        # -*- Print the chat history
-        print_chat_history(agent)
-
-        # -*- Ask a follow up question that continues the conversation
-        agent.print_response("What was my first message?", stream=True, session_id=session_id)
-        # -*- Print the chat history
-        print_chat_history(agent)
-        ```
-  </Step>
-
-  <Step title="Run the example">
-    Install libraries
-
-    ```shell
-    pip install google-genai agno
-    ```
-
-    Export your key
-    ```shell
-    export GOOGLE_API_KEY=xxx
-    ```
-
-    Run the example
-
-    ```shell
-    python persistent_memory.py
-    ```
-  </Step>
-</Steps>
-
-
-You can view the agent sessions in the sqlite database and continue any conversation by providing the same `session_id`.
+The first time you run this, the answer to "What was my last question?" will not be available. But run it again and the Agent will able to answer properly. Because we have fixed the session id, the Agent will continue from the same session every time you run the script.
 
 Read more in the [storage](/agents/storage) section.
 
@@ -170,7 +118,7 @@ Along with storing session history and state, Agents can also create user memori
 To enable user memories, give your Agent a `Memory` object and set `enable_agentic_memory=True`.
 
 <Note>
-Enabling user memory will also add all existing user memories to the agent's system prompt.
+Enabling agentic memory will also add all existing user memories to the agent's system prompt.
 </Note>
 
 <Steps>
