@@ -530,16 +530,20 @@ Checkout more [usecases](/examples/workflows/) and [examples](/examples/concepts
 
 <Tip>
 
-**Why did we implement workflow logic as a simple python function instead of creating a custom abstraction like Graph, Chain, or Flow?**
+**Why do we recommend writing your workflow logic as a python function instead of creating a custom abstraction like a Graph, Chain, or Flow?**
 
-In our experience building AI products, workflow logic generally needs to be dynamic (i.e. determined at runtime) and requires fine-grained control over parallelization, caching, state management, error handling, and issue resolution.
+In our experience building AI products, the workflow logic needs to be dynamic (i.e. determined at runtime) and requires fine-grained control over parallelization, caching, state management, error handling, and issue resolution.
 
-A custom abstraction would be a new DSL meaning new concepts to learn and more code to write.
+A custom abstraction (Graph, Chain, Flow) with a new DSL would mean learning new concepts and write more code. We would end up spending more time learning and fighting the DSL.
 
-Which project we've worked on, a simple python function always seems to do the trick. We also found that complex workflows can span multiple files, sometimes turning into modules in themselves. You know what works great here? Python.
+Every project we worked on, a simple python function always seems to do the trick. We also found that complex workflows can span multiple files, sometimes turning into modules in themselves. You know what works great here? Python.
+
+We keep coming back to the [Unix Philosophy](https://en.wikipedia.org/wiki/Unix_philosophy).
+
+If our workflow can't be written in vanilla python, then we should simplify and re-organize our workflow, not the other way around.
 
 Another significant challenge with long-running workflows is managing request/response timeouts. We need workflows to trigger asynchronously, respond to the client confirming initiation, and then allow the client to poll for results later. Achieving this UX requires running workflows in background tasks and closely managing state so the latest updates are available to the client.
 
-For these reasons, we recommend building workflows as simple python functions, the level of control, flexibility and reliability is unmatched.
+For these reasons, we recommend building workflows as vanilla python functions, the level of control, flexibility and reliability is unmatched.
 
 </Tip>
