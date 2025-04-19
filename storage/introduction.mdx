@@ -11,7 +11,7 @@ Agents are ephemeral and the built-in memory only lasts for the current executio
 
 In production environments, we serve (or trigger) Agents via an API and need to continue the same session across multiple requests. Storage persists the session history and state in a database and allows us to pick up where we left off.
 
-Storage is also useful for evaluating Agent sessions, extracting few-shot examples and building internal monitoring tools. It lets us **look at the data** which helps us build better Agents.
+Storage also let's us inspect and evaluate Agent sessions, extract few-shot examples and build internal monitoring tools. It lets us **look at the data** which helps us build better Agents.
 </Tip>
 
 Adding storage to an Agent, Team or Workflow is as simple as providing a `Storage` driver and Agno handles the rest. You can use Sqlite, Postgres, Mongo or any other database you want.
