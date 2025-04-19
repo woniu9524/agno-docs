@@ -160,6 +160,7 @@
             "tools/tools",
             "tools/exceptions",
             "tools/hooks",
+            "tools/hitl",
             {
               "group": "Toolkits",
               "pages": [
