@@ -4,7 +4,7 @@ title: Memory
 
 Memory is an Agent's ability to recall relavant information to provide the best, most personalized response. If the user tells the Agent they like to ski, then future responses can reference this information to provide a more personalized experience.
 
-In Agno, Memory covers chat history, user preferences and any supplemental information about the task at hand. **Here are 3 types of memory drivers out of the box:**
+In Agno, Memory covers chat history, user preferences and any supplemental information about the task at hand. **Agno supports 3 types of memory out of the box:**
 
 1. **Session Storage:** Session storage saves an Agent's sessions in a database and enables Agents to have multi-turn conversations. Session storage also holds the session state, which is persisted across runs because it is saved to the database after each run. Session storage is a form of short-term memory **called "Storage" in Agno**.
 
@@ -16,10 +16,13 @@ In Agno, Memory covers chat history, user preferences and any supplemental infor
 It is also relatively easy to use your own memory implementation using `Agent.context`.
 </Note>
 
-Agno's memory drivers help Agents:
- - Manage session history and state (session storage).
- - Personalize responses to users (user memories).
- - Maintain long-session context (session summaries).
+To become an expert in Agentic Memory, you need ot learn about:
+1. [Default, built-in Memory](/agents/memory#default-memory)
+2. [Session Storage](/agents/memory#session-storage)
+3. [User Memories](/agents/memory#user-memories)
+4. [Session Summaries](/agents/memory#session-summaries)
+
+> __You can also read about Memory in the [Memory](/memory) section.__
 
 ## Example: Memory & Storage in Action
 

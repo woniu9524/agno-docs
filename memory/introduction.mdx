@@ -6,7 +6,7 @@ title: Introduction
 
 Memory is an Agent's ability to recall relavant information to provide the best, most personalized response. If the user tells the Agent they like to ski, then future responses can reference this information to provide a more personalized experience.
 
-In Agno, Memory covers chat history, user preferences and any supplemental information about the task at hand. **Here are 3 types of memory drivers out of the box:**
+In Agno, Memory covers chat history, user preferences and any supplemental information about the task at hand. **Agno supports 3 types of memory out of the box:**
 
 1. **Session Storage:** Session storage saves an Agent's sessions in a database and enables Agents to have multi-turn conversations. Session storage also holds the session state, which is persisted across runs because it is saved to the database after each run. Session storage is a form of short-term memory **called "Storage" in Agno**.
 
@@ -15,13 +15,8 @@ In Agno, Memory covers chat history, user preferences and any supplemental infor
 3. **Session Summaries:** The Agent can store a condensed representations of the session, useful when chat histories gets too long. **This is called "Summary" in Agno**.
 
 <Note>
-It is also relatively easy to use your own memory implementation using `Agent.context`.
+If you haven't, we recommend reading the Memory section of the [Agents](/agents/memory) to get familiar with the basics.
 </Note>
-
-Agno's memory drivers help Agents:
- - Manage session history and state (session storage).
- - Personalize responses to users (user memories).
- - Maintain long-session context (session summaries).
 
 ## Managing User Memory
 
@@ -29,63 +24,61 @@ When we speak about Memory, the commonly agreed upon understanding of Memory is 
 
 ### Agentic Memory
 
-Agno Agents natively support Agentic Memory Management and recommend it as the best way to give Agents memory.
+Agno Agents natively support Agentic Memory Management and recommends it as the starting point for your memory journey.
 
 With Agentic Memory, The Agent itself creates, updates and deletes memories from user conversations.
 
-Set `enable_agentic_memory=True` to enable Agentic Memory.
+Set `enable_agentic_memory=True` to give the Agent a tool to manage memories of the user, this tool passes the task to the `MemoryManager` class.
+
+> You may also set `enable_user_memories=True` which always runs the `MemoryManager` after each user message. [See below for an example.](#create-memories-after-each-run)
 
 ```python agentic_memory.py
-from agno.agent.agent import Agent
+from agno.agent import Agent
 from agno.memory.v2.db.sqlite import SqliteMemoryDb
 from agno.memory.v2.memory import Memory
 from agno.models.openai import OpenAIChat
+from agno.storage.sqlite import SqliteStorage
 from rich.pretty import pprint
 
-memory_db = SqliteMemoryDb(table_name="memory", db_file="tmp/memory.db")
-# No need to set the model, it gets set to the model of the agent
-memory = Memory(db=memory_db, delete_memories=True, clear_memories=True)
-
-# Reset the memory for this example
+user_id = "ava"
+db_file = "tmp/memory.db"
+memory = Memory(
+    db=SqliteMemoryDb(table_name="user_memories", db_file=db_file),
+    delete_memories=True,
+    clear_memories=True,
+)
 memory.clear()
+storage = SqliteStorage(table_name="agent_sessions", db_file=db_file)
 
-# User ID for the memory
-john_doe_id = "john_doe@example.com"
-agent = Agent(
-    model=OpenAIChat(id="gpt-4o-mini"),
+memory_agent = Agent(
+    model=OpenAIChat(id="gpt-4.1"),
     memory=memory,
     enable_agentic_memory=True,
+    storage=storage,
+    add_history_to_messages=True,
+    num_history_runs=3,
+    read_chat_history=True,
 )
 
-# Send a message to the agent that would require the memory to be used
-agent.print_response(
-    "My name is John Doe and I like to hike in the mountains on weekends.",
-    stream=True,
-    user_id=john_doe_id,
+memory_agent.print_response("My name is Ava and I like to ski.", user_id=user_id)
+print("Memories about Ava:")
+pprint(memory.get_user_memories(user_id=user_id))
+
+memory_agent.print_response(
+    "I live in san francisco, shall i move to tahoe?", user_id=user_id
 )
-
-# Send a message to the agent that checks the memory is working
-agent.print_response("What are my hobbies?", stream=True, user_id=john_doe_id)
-
-# Print the memories for the user
-memories = memory.get_user_memories(user_id=john_doe_id)
-print("Memories about John Doe:")
-pprint(memories)
-
-# Send a message to the agent that removes all memories for the user
-agent.print_response(
-    "Remove all existing memories of me.",
-    stream=True,
-    user_id=john_doe_id,
-)
-memories = memory.get_user_memories(user_id=john_doe_id)
-print("Memories about John Doe:")
-pprint(memories)
+print("Memories about Ava:")
+pprint(memory.get_user_memories(user_id=user_id))
 ```
+
+- `add_history_to_messages=True` adds the chat history to the messages sent to the Model, the `num_history_runs` determines how many runs to add.
+- `read_chat_history=True` adds a tool to the Agent that allows it to read chat history, as it may be larger than what's included in the `num_history_runs`.
 
 ### Create Memories after each run
 
-Set `enable_user_memories=True` to trigger the `MemoryManager` after each run. We recommend using Agentic Memory but this option is there is you need it.
+While `enable_agentic_memory=True` gives the Agent a tool to manage memories of the user, we can also always "trigger" the `MemoryManagement` after each user message.
+
+Set `enable_user_memories=True` which always process memories after each user message.
 
 ```python create_memories_after_each_run.py
 from agno.agent.agent import Agent
@@ -308,7 +301,7 @@ for i, m in enumerate(memories):
     print(f"{i}: {m.memory}")
 ```
 
-### Agentic Search
+### Agentic Memory Search
 
 Agentic search allows you to find memories based on meaning rather than exact keyword matches. This is particularly useful for retrieving contextually relevant information:
 
