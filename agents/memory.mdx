@@ -72,18 +72,22 @@ pprint(memory.get_user_memories(user_id=user_id))
 
 ## Default Memory
 
-Every Agent comes with built-in memory which keeps track of the messages in the session. You can access theese messages using `agent.get_messages_for_session()`.
+Every Agent comes with built-in memory which keeps track of the messages in the session i.e. the chat history.
 
-<Note>
-The default memory is not persisted across execution cycles. So after the script finishes running, or the request is over, the built-in memory is lost.
-</Note>
+You can access these messages using `agent.get_messages_for_session()`.
 
-Because this "default memory" is managing the `messages` list for the Agent, we can give the Agent access to the chat history in the following ways:
+We can give the Agent access to the chat history in the following ways:
 
 - We can set `add_history_to_messages=True` and `num_history_runs=5` to add the messages from the last 5 runs automatically to every message sent to the agent.
 - We can set `read_chat_history=True` to provide a `get_chat_history()` tool to your agent allowing it to read any message in the entire chat history.
 - **We recommend setting all 3: `add_history_to_messages=True`, `num_history_runs=3` and `read_chat_history=True` for the best experience.**
 - We can also set `read_tool_call_history=True` to provide a `get_tool_call_history()` tool to your agent allowing it to read tool calls in reverse chronological order.
+
+<Note>
+The default memory is not persisted across execution cycles. So after the script finishes running, or the request is over, the built-in default memory is lost.
+
+You can persist this memory in a database by adding a `storage` driver to the Agent.
+</Note>
 
 <Steps>
   <Step title="Built-in memory example">
