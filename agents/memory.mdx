@@ -2,18 +2,73 @@
 title: Memory
 ---
 
-If you're building intelligent agents, you need to give them **the ability to learn about their user and personalize their responses**. Memory comes in 3 shapes:
+Memory is an Agent's ability to recall relavant information to provide the best, most personalized response. If the user tells the Agent they like to ski, then future responses can reference this information to provide a more personalized experience.
 
-1. **Session Storage:** Session storage saves sessions in a database and enables Agents to have multi-turn conversations. Session storage also holds the session state, which is persisted across runs because it is saved to the database after each run. Session storage is a form of short-term memory **called "Storage" in Agno**.
+In Agno, Memory covers chat history, user preferences and any supplemental information about the task at hand. **Here are 3 types of memory drivers out of the box:**
 
-2. **User Memories:** The Agent can also store insights and facts about the user it learns over time. This helps the agents personalize its response to the user it is interacting with. Think of this as adding "ChatGPT like memory" to your agent. **This is called "Memory" in Agno**.
+1. **Session Storage:** Session storage saves an Agent's sessions in a database and enables Agents to have multi-turn conversations. Session storage also holds the session state, which is persisted across runs because it is saved to the database after each run. Session storage is a form of short-term memory **called "Storage" in Agno**.
+
+2. **User Memories:** The Agent can store insights and facts about the user that it learns through conversation. This helps the agents personalize its response to the user it is interacting with. Think of this as adding "ChatGPT like memory" to your agent. **This is called "Memory" in Agno**.
 
 3. **Session Summaries:** The Agent can store a condensed representations of the session, useful when chat histories gets too long. **This is called "Summary" in Agno**.
 
-Memory helps Agents:
+<Note>
+It is also relatively easy to use your own memory implementation using `Agent.context`.
+</Note>
+
+Agno's memory drivers help Agents:
  - Manage session history and state (session storage).
  - Personalize responses to users (user memories).
  - Maintain long-session context (session summaries).
+
+## Example: Memory & Storage in Action
+
+Here's a simple but complete example of using Memory and Storage in an Agent.
+
+```python memory_demo.py
+from agno.agent import Agent
+from agno.memory.v2.db.sqlite import SqliteMemoryDb
+from agno.memory.v2.memory import Memory
+from agno.models.openai import OpenAIChat
+from agno.storage.sqlite import SqliteStorage
+from rich.pretty import pprint
+
+user_id = "ava"
+db_file = "tmp/memory.db"
+memory = Memory(
+    db=SqliteMemoryDb(table_name="user_memories", db_file=db_file),
+    delete_memories=True,
+    clear_memories=True,
+)
+memory.clear()
+storage = SqliteStorage(table_name="agent_sessions", db_file=db_file)
+
+memory_agent = Agent(
+    model=OpenAIChat(id="gpt-4.1"),
+    memory=memory,
+    enable_agentic_memory=True,
+    storage=storage,
+    add_history_to_messages=True,
+    num_history_runs=3,
+    read_chat_history=True,
+)
+
+memory_agent.print_response("My name is Ava and I like to ski.", user_id=user_id)
+print("Memories about Ava:")
+pprint(memory.get_user_memories(user_id=user_id))
+
+memory_agent.print_response(
+    "I live in san francisco, shall i move to tahoe?", user_id=user_id
+)
+print("Memories about Ava:")
+pprint(memory.get_user_memories(user_id=user_id))
+```
+
+### Notes
+
+- `enable_agentic_memory=True` gives the Agent a tool to manage memories of the user, this tool passes the task to the `MemoryManager` class. You may also set `enable_user_memories=True` which always runs the `MemoryManager` after each user message.
+- `add_history_to_messages=True` adds the chat history to the messages sent to the Model, the `num_history_runs` determines how many runs to add.
+- `read_chat_history=True` adds a tool to the Agent that allows it to read chat history, as it may be larger than what's included in the `num_history_runs`.
 
 ## Default Memory
 
@@ -23,7 +78,7 @@ Every Agent comes with built-in memory which keeps track of the messages in the 
 The default memory is not persisted across execution cycles. So after the script finishes running, or the request is over, the built-in memory is lost.
 </Note>
 
-Because the Memory is managing the `messages` list for the Agent, we can give the Agent access to the chat history in the following ways:
+Because this "default memory" is managing the `messages` list for the Agent, we can give the Agent access to the chat history in the following ways:
 
 - We can set `add_history_to_messages=True` and `num_history_runs=5` to add the messages from the last 5 runs automatically to every message sent to the agent.
 - We can set `read_chat_history=True` to provide a `get_chat_history()` tool to your agent allowing it to read any message in the entire chat history.
