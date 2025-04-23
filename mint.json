@@ -285,7 +285,7 @@
         },
         {
           "group": "Memory",
-          "pages": ["memory/introduction", "memory/storage"]
+          "pages": ["memory/introduction", "memory/memory", "memory/storage"]
         },
         {
           "group": "Knowledge",
