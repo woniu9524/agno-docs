@@ -377,7 +377,8 @@
             "embedder/qdrant_fastembed",
             "embedder/sentencetransformers",
             "embedder/together",
-            "embedder/voyageai"
+            "embedder/voyageai",
+            "embedder/aws_bedrock"
           ]
         },
         {
