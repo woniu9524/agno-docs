@@ -120,6 +120,9 @@ agent.print_response("What is currently trending on Twitter?")
 ## Notes
 
 - **Environment Variables**: Ensure your environment variables are correctly set for the API keys and OTLP endpoint.
-- **Data Regions**: Adjust the `OTEL_EXPORTER_OTLP_ENDPOINT` for your data region or local deployment as needed.
+- **Data Regions**: Adjust the `OTEL_EXPORTER_OTLP_ENDPOINT` for your data region or local deployment as needed. Available regions include:
+  - `https://us.cloud.langfuse.com/api/public/otel` for the US region
+  - `https://eu.cloud.langfuse.com/api/public/otel` for the EU region
+  - `http://localhost:3000/api/public/otel` for local deployment
 
 By following these steps, you can effectively integrate Agno with Langfuse, enabling comprehensive observability and monitoring of your AI agents.
