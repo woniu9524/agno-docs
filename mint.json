@@ -438,6 +438,17 @@
                 {
                     "group": "Evals",
                     "pages": ["evals/introduction"]
+                },
+                {
+                    "group": "Observability",
+                    "pages": [
+                        "observability/introduction",
+                        "observability/arize",
+                        "observability/langfuse",
+                        "observability/langsmith",
+                        "observability/langtrace",
+                        "observability/weave"
+                    ]
                 }
             ]
         },
