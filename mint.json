@@ -881,6 +881,28 @@
                         "examples/concepts/state/05-session-state-full-example",
                         "examples/concepts/state/06-team-session-state"
                     ]
+                },
+                {
+                    "group": "Observability",
+                    "pages": [
+                        {
+                            "group": "Arize Phoenix",
+                            "pages": [
+                                "examples/concepts/observability/arize-phoenix-via-openinference",
+                                "examples/concepts/observability/arize-phoenix-via-openinference-local"
+                            ]
+                        },
+                        {
+                            "group": "Langfuse",
+                            "pages": [
+                                "examples/concepts/observability/langfuse_via_openinference",
+                                "examples/concepts/observability/langfuse_via_openlit"
+                            ]
+                        },
+                        "examples/concepts/observability/langsmith-via-openinference",
+                        "examples/concepts/observability/langtrace-op",
+                        "examples/concepts/observability/weave-op"
+                    ]
                 }
             ]
         },
