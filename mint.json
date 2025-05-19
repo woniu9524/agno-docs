@@ -1228,6 +1228,10 @@
                 {
                     "group": "Agent UI",
                     "pages": ["agent-ui/introduction"]
+                },
+                {
+                    "group": "Agent API",
+                    "pages": ["agent-api/introduction"]
                 }
             ]
         },
