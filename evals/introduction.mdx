@@ -10,15 +10,11 @@ sidebarTitle: Introduction
 
 ## Accuracy
 
-Accuracy evals use input/output pairs to measure the Agent's performance against a gold-standard answer.
-
-<Tip>
-Use a powerful and larger model to score the Agent's responses (LLM-as-a-judge).
-</Tip>
+Accuracy evals use input/output pairs to measure the Agent's performance against a gold-standard answer. Use a larger model to score the Agent's responses (LLM-as-a-judge).
 
 #### Example
 
-In this example, the `AccuracyEval` will run the Agent with the input, then use a larger model (`o4-mini`) to score the Agent's response in adherence with the guidelines provided.
+In this example, the `AccuracyEval` will run the Agent with the input, then use a larger model (`o4-mini`) to score the Agent's response according to the guidelines provided.
 
 ```python calculate_accuracy.py
 from typing import Optional
@@ -29,10 +25,7 @@ from agno.tools.calculator import CalculatorTools
 
 evaluation = AccuracyEval(
     model=OpenAIChat(id="o4-mini"),
-    agent=Agent(
-        model=OpenAIChat(id="gpt-4o"),
-        tools=[CalculatorTools(enable_all=True)],
-    ),
+    agent=Agent(model=OpenAIChat(id="gpt-4o"), tools=[CalculatorTools(enable_all=True)]),
     input="What is 10*5 then to the power of 2? do it step by step",
     expected_output="2500",
     additional_guidelines="Agent output should include the steps and the final answer.",
