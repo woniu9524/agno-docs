@@ -258,7 +258,10 @@
                                 },
                                 {
                                     "group": "Models",
-                                    "pages": ["tools/toolkits/models/gemini"]
+                                    "pages": [
+                                        "tools/toolkits/models/gemini",
+                                        "tools/toolkits/models/groq"
+                                    ]
                                 },
                                 {
                                     "group": "Additional Toolkits",
