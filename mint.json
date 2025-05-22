@@ -360,6 +360,7 @@
                                 "filters/agentic-filters"
                             ]
                         },
+                        "knowledge/custom_retriever",
                         "knowledge/arxiv",
                         "knowledge/combined",
                         "knowledge/csv",
