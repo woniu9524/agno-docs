@@ -133,16 +133,7 @@
                     "pages": [
                         "models/introduction",
                         "models/compatibility",
-                        "models/openai",
                         "models/openai-like",
-                        "models/openai-responses",
-                        {
-                            "group": "Cerebras",
-                            "pages": [
-                                "models/cerebras",
-                                "models/cerebras_openai"
-                            ]
-                        },
                         "models/anthropic",
                         {
                             "group": "AWS",
@@ -153,6 +144,13 @@
                             "pages": [
                                 "models/azure-ai-foundry",
                                 "models/azure-openai"
+                            ]
+                        },
+                        {
+                            "group": "Cerebras",
+                            "pages": [
+                                "models/cerebras",
+                                "models/cerebras_openai"
                             ]
                         },
                         "models/cohere",
@@ -172,10 +170,13 @@
                         "models/mistral",
                         "models/nvidia",
                         "models/ollama",
+                        "models/openai",
+                        "models/openai-responses",
                         "models/openrouter",
                         "models/perplexity",
                         "models/sambanova",
                         "models/together",
+                        "models/vercel",
                         "models/xai"
                     ]
                 },
@@ -1418,6 +1419,14 @@
                         "examples/models/xai/basic_stream",
                         "examples/models/xai/tool_use"
                     ]
+                },
+                {
+                    "group": "Vercel",
+                    "pages": [
+                        "examples/models/vercel/basic",
+                        "examples/models/vercel/basic_stream",
+                        "examples/models/vercel/tool_use"
+                    ]
                 }
             ]
         },
@@ -1495,6 +1504,7 @@
                         "reference/models/perplexity",
                         "reference/models/together",
                         "reference/models/xai",
+                        "reference/models/vercel",
                         "reference/models/bedrock",
                         "reference/models/bedrock_claude",
                         "reference/models/azure",
