@@ -406,6 +406,7 @@
                         "vectordb/pgvector",
                         "vectordb/cassandra",
                         "vectordb/chroma",
+                        "vectordb/couchbase",
                         "vectordb/clickhouse",
                         "vectordb/lancedb",
                         "vectordb/milvus",
@@ -1026,6 +1027,7 @@
                     "pages": [
                         "examples/concepts/vectordb/cassandra",
                         "examples/concepts/vectordb/chromadb",
+                        "examples/concepts/vectordb/couchbase",
                         "examples/concepts/vectordb/clickhouse",
                         "examples/concepts/vectordb/lancedb",
                         "examples/concepts/vectordb/milvus",
@@ -1553,6 +1555,7 @@
                     "pages": [
                         "reference/vector_db/cassandra",
                         "reference/vector_db/chromadb",
+                        "reference/vector_db/couchbase",
                         "reference/vector_db/clickhouse",
                         "reference/vector_db/lancedb",
                         "reference/vector_db/milvus",
