@@ -137,6 +137,7 @@
                         "models/introduction",
                         "models/compatibility",
                         "models/openai-like",
+                        "models/aimlapi",
                         "models/anthropic",
                         {
                             "group": "AWS",
@@ -381,6 +382,7 @@
                         "knowledge/json",
                         "knowledge/langchain",
                         "knowledge/llamaindex",
+                        "knowledge/markdown",
                         "knowledge/pdf",
                         "knowledge/pdf-url",
                         "knowledge/s3_pdf",
@@ -596,7 +598,8 @@
                         "examples/workflows/startup-idea-validator",
                         "examples/workflows/content-creator",
                         "examples/workflows/product-manager",
-                        "examples/workflows/team-workflow"
+                        "examples/workflows/team-workflow",
+                        "examples/workflows/async-hackernews-reporter"
                     ]
                 },
                 {
@@ -657,7 +660,8 @@
                           "pages": [
                               "examples/evals/accuracy/basic",
                               "examples/evals/accuracy/accuracy_with_given_answer",
-                              "examples/evals/accuracy/accuracy_with_tools"
+                              "examples/evals/accuracy/accuracy_with_tools",
+                              "examples/evals/accuracy/accuracy_with_teams"
                           ]
                         },
                         {
@@ -666,14 +670,16 @@
                             "examples/evals/performance/performance_agent_instantiation",
                             "examples/evals/performance/performance_instantiation_with_tool",
                             "examples/evals/performance/performance_simple_response",
-                            "examples/evals/performance/performance_with_storage"
+                            "examples/evals/performance/performance_with_storage",
+                            "examples/evals/performance/performance_team_instantiation"
                           ]
                         },
                         {
                           "group": "Reliability",
                           "pages": [
                             "examples/evals/reliability/basic",
-                            "examples/evals/reliability/multiple_tools"
+                            "examples/evals/reliability/reliability_with_multiple_tools",
+                            "examples/evals/reliability/reliability_with_teams"
                           ]
                         }
                     ]
@@ -1139,15 +1145,18 @@
                     "pages": [
                         "examples/models/anthropic/basic",
                         "examples/models/anthropic/basic_stream",
+                        "examples/models/anthropic/code_execution",
                         "examples/models/anthropic/tool_use",
                         "examples/models/anthropic/structured_output",
                         "examples/models/anthropic/storage",
                         "examples/models/anthropic/knowledge",
+                        "examples/models/anthropic/file_upload",
                         "examples/models/anthropic/image_input_bytes",
                         "examples/models/anthropic/image_input_url",
                         "examples/models/anthropic/pdf_input_bytes",
                         "examples/models/anthropic/pdf_input_local",
-                        "examples/models/anthropic/pdf_input_url"
+                        "examples/models/anthropic/pdf_input_url",
+                        "examples/models/anthropic/prompt_caching"
                     ]
                 },
                 {
@@ -1515,6 +1524,7 @@
                     "pages": [
                         "reference/models/model",
                         "reference/models/openai",
+                        "reference/models/aimlapi",
                         "reference/models/ollama",
                         "reference/models/anthropic",
                         "reference/models/cohere",
