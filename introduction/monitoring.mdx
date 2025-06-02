@@ -1,21 +1,23 @@
 ---
 title: Agent Monitoring
-description: Track and monitor your Agno agents in real-time.
+description: Track and monitor your Agents in real-time.
 ---
 
-## Monitor Your Agents
+## Session Monitoring
 
-You can track your agents sessions and performance to ensure everything is working as expected. Agno provides built-in monitoring that you can access at [app.agno.com](https://app.agno.com).
+You can track your agent sessions and performance in real-time on [app.agno.com](https://app.agno.com).
 
 ## Authenticate & Enable Monitoring
 
 <Steps>
 <Step title="Authenticate using CLI or API key">
 
-
-To log agent sessions, you need to authenticate using one of these methods:
+To log agent sessions locally, you need to authenticate using one of these methods:
 
 **Method A: Log in using your command line interface**
+
+This will store your authentication token locally.
+
 ```bash
 ag setup
 ```
@@ -46,7 +48,7 @@ export AGNO_MONITOR=true
 
 <Step title="Track Your Agent Sessions">
 
-Once monitoring is enabled, you can run your agent and view its session data:
+Once monitoring is enabled, you can run your agent and view its session data.
 
 1. Create a file `monitoring.py` with this sample code:
    ```python monitoring.py
@@ -56,7 +58,8 @@ Once monitoring is enabled, you can run your agent and view its session data:
    agent.print_response("Share a 2 sentence horror story")
    ```
 
-2. Run your code locally
+2. Run your Agent
+
 3. View your sessions at [app.agno.com/sessions](https://app.agno.com/sessions)
 
 <img height="200" src="/images/monitoring.png" style={{ borderRadius: "8px" }} />
@@ -64,3 +67,11 @@ Once monitoring is enabled, you can run your agent and view its session data:
 </Steps>
 <Info>Facing issues? Check out our [troubleshooting guide](/faq/cli-auth)</Info>
 
+
+## Agent Registry
+
+Agents, Teams and Workflows are collectively referred to as "Components of your Agentic System". When you run them with monitoring enabled, they are registered with the Agno Platform. This means you can view their metadata, runs and configuration.
+
+The Registry acts as a unified dashboard where all your Agno Agents, Teams, Workflows and Apps are displayed, giving you full visibility into your operational environment.
+
+Start exploring your Agents, Teams and Workflows at [app.agno.com/registry](https://app.agno.com/registry).
