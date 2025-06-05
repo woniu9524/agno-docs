@@ -1146,6 +1146,7 @@
                   "examples/concepts/others/agent_extra_metrics",
                   "examples/concepts/others/agent_metrics",
                   "examples/concepts/others/datetime_instructions",
+                  "examples/concepts/others/location_instructions",
                   "examples/concepts/others/image_input_high_fidelity",
                   "examples/concepts/others/input_as_dict",
                   "examples/concepts/others/input_as_list",
