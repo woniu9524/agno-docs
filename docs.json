@@ -395,7 +395,10 @@
               },
               {
                 "group": "Evals",
-                "pages": ["evals/introduction", "evals/platform"]
+                "pages": [
+                  "evals/introduction",
+                  "evals/platform"
+                ]
               },
               {
                 "group": "Workflows",
@@ -438,6 +441,12 @@
                   "observability/langsmith",
                   "observability/langtrace",
                   "observability/weave"
+                ]
+              },
+              {
+                "group": "Testing",
+                "pages": [
+                  "testing/scenario-testing"
                 ]
               }
             ]
@@ -1147,6 +1156,12 @@
                 ]
               },
               {
+                "group": "Testing",
+                "pages": [
+                  "examples/testing/scenario/basic"
+                ]
+              },
+              {
                 "group": "Miscellaneous",
                 "pages": [
                   "examples/concepts/others/agent_extra_metrics",
@@ -1162,7 +1177,6 @@
                   "examples/concepts/others/instructions",
                   "examples/concepts/others/intermediate_steps",
                   "examples/concepts/others/response_as_variable",
-                  "examples/concepts/others/scenario_testing",
                   "examples/concepts/others/success_criteria"
                 ]
               }
