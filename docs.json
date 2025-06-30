@@ -395,10 +395,7 @@
               },
               {
                 "group": "Evals",
-                "pages": [
-                  "evals/introduction",
-                  "evals/platform"
-                ]
+                "pages": ["evals/introduction", "evals/platform"]
               },
               {
                 "group": "Workflows",
@@ -436,6 +433,7 @@
                 "group": "Observability",
                 "pages": [
                   "observability/introduction",
+                  "observability/agentops",
                   "observability/arize",
                   "observability/langfuse",
                   "observability/langsmith",
@@ -445,9 +443,7 @@
               },
               {
                 "group": "Testing",
-                "pages": [
-                  "testing/scenario-testing"
-                ]
+                "pages": ["testing/scenario-testing"]
               }
             ]
           },
@@ -1158,9 +1154,7 @@
               },
               {
                 "group": "Testing",
-                "pages": [
-                  "examples/testing/scenario/basic"
-                ]
+                "pages": ["examples/testing/scenario/basic"]
               },
               {
                 "group": "Miscellaneous",
@@ -1429,7 +1423,7 @@
                   "examples/models/nebius/storage",
                   "examples/models/nebius/knowledge"
                 ]
-                },
+              },
               {
                 "group": "NVIDIA",
                 "pages": [
