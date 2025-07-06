@@ -1,0 +1,188 @@
+name: Deploy Multi-Language Docs to GitHub Pages
+
+on:
+  push:
+    branches: [ Chinese, Japanese ]  # 监听中文和日文分支
+  pull_request:
+    branches: [ Chinese, Japanese ]
+  workflow_dispatch:  # 允许手动触发
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  # 构建作业
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Chinese Branch
+        uses: actions/checkout@v4
+        with:
+          ref: Chinese
+          path: chinese
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Checkout Japanese Branch
+        uses: actions/checkout@v4
+        with:
+          ref: Japanese
+          path: japanese
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install Mintlify CLI
+        run: npm install -g mintlify
+
+      - name: Build Chinese Branch
+        run: |
+          cd chinese
+          mintlify build
+          mkdir -p ../_site/zh
+          cp -r _site/* ../_site/zh/
+
+      - name: Build Japanese Branch
+        run: |
+          cd japanese
+          mintlify build
+          mkdir -p ../_site/ja
+          cp -r _site/* ../_site/ja/
+
+      - name: Create Multi-Language Index Page
+        run: |
+          cat > _site/index.html << 'EOF'
+          <!DOCTYPE html>
+          <html lang="zh-CN">
+          <head>
+              <meta charset="UTF-8">
+              <meta name="viewport" content="width=device-width, initial-scale=1.0">
+              <title>Agno 多语言文档</title>
+              <style>
+                  body {
+                      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'PingFang SC', 'Microsoft YaHei', 'Hiragino Sans', sans-serif;
+                      max-width: 900px;
+                      margin: 0 auto;
+                      padding: 2rem;
+                      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                      min-height: 100vh;
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;
+                  }
+                  .container {
+                      background: white;
+                      padding: 3rem;
+                      border-radius: 20px;
+                      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+                      text-align: center;
+                      width: 100%;
+                      max-width: 700px;
+                  }
+                  h1 {
+                      color: #FF4017;
+                      margin-bottom: 1rem;
+                      font-size: 2.5rem;
+                      font-weight: 700;
+                  }
+                  .subtitle {
+                      color: #666;
+                      margin-bottom: 3rem;
+                      font-size: 1.2rem;
+                      line-height: 1.6;
+                  }
+                  .language-buttons {
+                      display: flex;
+                      gap: 1.5rem;
+                      justify-content: center;
+                      flex-wrap: wrap;
+                      margin-bottom: 2rem;
+                  }
+                  .language-button {
+                      display: inline-block;
+                      padding: 1.2rem 2.5rem;
+                      background: #FF4017;
+                      color: white;
+                      text-decoration: none;
+                      border-radius: 12px;
+                      transition: all 0.3s ease;
+                      font-weight: 600;
+                      font-size: 1.2rem;
+                      border: 2px solid transparent;
+                      min-width: 180px;
+                  }
+                  .language-button:hover {
+                      background: #e63600;
+                      transform: translateY(-3px);
+                      box-shadow: 0 10px 20px rgba(255, 64, 23, 0.3);
+                  }
+                  .language-button.chinese {
+                      background: #FF4017;
+                  }
+                  .language-button.japanese {
+                      background: #FF6B47;
+                  }
+                  .language-button.japanese:hover {
+                      background: #e55a3c;
+                  }
+                  .footer {
+                      margin-top: 3rem;
+                      color: #999;
+                      font-size: 0.9rem;
+                  }
+                  @media (max-width: 600px) {
+                      .language-buttons {
+                          flex-direction: column;
+                          align-items: center;
+                      }
+                      .language-button {
+                          width: 100%;
+                          max-width: 300px;
+                      }
+                  }
+              </style>
+          </head>
+          <body>
+              <div class="container">
+                  <h1>🚀 Agno 多语言文档</h1>
+                  <p class="subtitle">AI 驱动的多智能体系统<br>构建下一代智能应用</p>
+                  <div class="language-buttons">
+                      <a href="./zh/introduction" class="language-button chinese">🇨🇳 中文文档</a>
+                      <a href="./ja/introduction" class="language-button japanese">🇯🇵 日本語ドキュメント</a>
+                  </div>
+                  <div class="footer">
+                      <p>AI-powered multi-agent systems documentation</p>
+                      <p>多语言支持 | Multi-language Support</p>
+                  </div>
+              </div>
+          </body>
+          </html>
+          EOF
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./_site
+
+  # 部署作业
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
