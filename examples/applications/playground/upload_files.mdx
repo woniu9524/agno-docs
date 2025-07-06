@@ -1,10 +1,6 @@
----
-title: Upload Files
----
+## 代码
 
-## Code
-
-```python cookbook/apps/playground/upload_files.py 
+```python cookbook/apps/playground/upload_files.py
 from agno.agent import Agent
 from agno.knowledge.combined import CombinedKnowledgeBase
 from agno.knowledge.csv import CSVKnowledgeBase
@@ -42,9 +38,9 @@ knowledge_base = CombinedKnowledgeBase(
 )
 
 file_agent = Agent(
-    name="File Upload Agent",
+    name="文件上传代理",
     agent_id="file-upload-agent",
-    role="Answer questions about the uploaded files",
+    role="回答关于已上传文件的问题",
     model=OpenAIChat(id="gpt-4o-mini"),
     storage=PostgresStorage(
         table_name="agent_sessions", db_url=db_url, auto_upgrade_schema=True
@@ -56,9 +52,9 @@ file_agent = Agent(
 
 
 audio_agent = Agent(
-    name="Audio Understanding Agent",
+    name="音频理解代理",
     agent_id="audio-understanding-agent",
-    role="Answer questions about audio files",
+    role="回答关于音频文件的问题",
     model=OpenAIChat(id="gpt-4o-audio-preview"),
     storage=PostgresStorage(
         table_name="agent_sessions", db_url=db_url, auto_upgrade_schema=True
@@ -70,10 +66,10 @@ audio_agent = Agent(
 )
 
 video_agent = Agent(
-    name="Video Understanding Agent",
+    name="视频理解代理",
     model=Gemini(id="gemini-2.0-flash"),
     agent_id="video-understanding-agent",
-    role="Answer questions about video files",
+    role="回答关于视频文件的问题",
     storage=PostgresStorage(
         table_name="agent_sessions", db_url=db_url, auto_upgrade_schema=True
     ),
@@ -85,30 +81,29 @@ video_agent = Agent(
 
 playground = Playground(
     agents=[file_agent, audio_agent, video_agent],
-    name="Upload Files Playground",
-    description="Upload files and ask questions about them",
+    name="上传文件 Playground",
+    description="上传文件并就其提问",
     app_id="upload-files-playground",
 )
 app = playground.get_app()
 
 if __name__ == "__main__":
     playground.serve(app="upload_files:app", reload=True)
-
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API keys">
+  <Step title="设置您的 API 密钥">
     ```bash
     export OPENAI_API_KEY=xxx
     export GOOGLE_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
   
     pip install -U agno "uvicorn[standard]" openai google-generativeai psycopg-binary
@@ -117,7 +112,7 @@ if __name__ == "__main__":
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行代理">
     <CodeGroup>
     ```bash Mac
     python cookbook/apps/playground/upload_files.py
@@ -128,4 +123,4 @@ if __name__ == "__main__":
     ```
     </CodeGroup>
   </Step>
-</Steps> 
+</Steps>

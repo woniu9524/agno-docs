@@ -1,9 +1,9 @@
 ---
-title: E2B Code Execution
-description: Learn to use Agno's E2B integration to run your Agent-generated code in a secure sandbox.
+title: E2B 代码执行
+description: 学习使用 Agno 的 E2B 集成在安全沙箱中运行 Agent 生成的代码。
 ---
 
-## Code
+## 代码
 
 ```python cookbook/tools/e2b_tools.py
 from agno.agent import Agent
@@ -11,7 +11,7 @@ from agno.models.openai import OpenAIChat
 from agno.tools.e2b import E2BTools
 
 e2b_tools = E2BTools(
-    timeout=600,  # 10 minutes timeout (in seconds)
+    timeout=600,  # 10 分钟超时（秒）
     filesystem=True,
     internet_access=True,
     sandbox_management=True,
@@ -19,60 +19,60 @@ e2b_tools = E2BTools(
 )
 
 agent = Agent(
-    name="Code Execution Sandbox",
+    name="代码执行沙箱",
     agent_id="e2b-sandbox",
     model=OpenAIChat(id="gpt-4o"),
     tools=[e2b_tools],
     markdown=True,
     show_tool_calls=True,
     instructions=[
-        "You are an expert at writing and validating Python code using a secure E2B sandbox environment.",
-        "Your primary purpose is to:",
-        "1. Write clear, efficient Python code based on user requests",
-        "2. Execute and verify the code in the E2B sandbox",
-        "3. Share the complete code with the user, as this is the main use case",
-        "4. Provide thorough explanations of how the code works",
+        "你是使用安全的 E2B 沙箱环境编写和验证 Python 代码的专家。",
+        "你的主要目的是：",
+        "1. 根据用户请求编写清晰、高效的 Python 代码",
+        "2. 在 E2B 沙箱中执行和验证代码",
+        "3. 与用户共享完整的代码，因为这是主要用例",
+        "4. 提供关于代码如何工作的详细解释",
     ],
 )
 
-# Example: Generate Fibonacci numbers
+# 示例：生成斐波那契数列
 agent.print_response(
-    "Write Python code to generate the first 10 Fibonacci numbers and calculate their sum and average"
+    "编写 Python 代码生成前 10 个斐波那契数并计算它们的总和与平均值"
 )
 
-# Example: Data visualization
+# 示例：数据可视化
 agent.print_response(
-    "Write a Python script that creates a sample dataset of sales by region and visualize it with matplotlib"
+    "编写一个 Python 脚本，创建按区域划分的销售额样本数据集，并使用 matplotlib 进行可视化"
 )
 
-# Example: Run a web server
+# 示例：运行 Web 服务器
 agent.print_response(
-    "Create a simple FastAPI web server that displays 'Hello from E2B Sandbox!' and run it to get a public URL"
+    "创建一个简单的 FastAPI Web 服务器，显示 'Hello from E2B Sandbox!' 并运行它以获取公共 URL"
 )
 
-# Example: Sandbox management
-agent.print_response("What's the current status of our sandbox and how much time is left before timeout?")
+# 示例：沙箱管理
+agent.print_response("我们沙箱的当前状态是什么？还剩多少时间？")
 
-# Example: File operations
-agent.print_response("Create a text file with the current date and time, then read it back")
+# 示例：文件操作
+agent.print_response("创建一个包含当前日期和时间文本文件，然后将其读回")
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Create an E2B account">
-    Create an account at [E2B](https://e2b.dev/) and get your API key from the dashboard.
+  <Step title="创建 E2B 账户">
+    在 [E2B](https://e2b.dev/) 创建一个账户，并从仪表板获取你的 API 密钥。
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install e2b_code_interpreter
     ```
   </Step>
 
-  <Step title="Set your API Key">
+  <Step title="设置你的 API 密钥">
     <CodeGroup>
     ```bash Mac/Linux
     export E2B_API_KEY=your_api_key_here
@@ -88,7 +88,7 @@ agent.print_response("Create a text file with the current date and time, then re
     </CodeGroup>
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行 Agent">
     <CodeGroup>
     ```bash Mac/Linux
     python cookbook/tools/e2b_tools.py

@@ -1,8 +1,4 @@
----
-title: Audio Input (Bytes Content)
----
-
-## Code
+## 代码
 
 ```python cookbook/models/google/gemini/audio_input_bytes_content.py
 import requests
@@ -17,34 +13,34 @@ agent = Agent(
 
 url = "https://openaiassets.blob.core.windows.net/$web/API/docs/audio/alloy.wav"
 
-# Download the audio file from the URL as bytes
+# 从URL下载音频文件为字节
 response = requests.get(url)
 audio_content = response.content
 
 agent.print_response(
-    "Tell me about this audio",
+    "告诉我关于这段音频的信息",
     audio=[Audio(content=audio_content)],
 )
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的API密钥">
     ```bash
     export GOOGLE_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U google-genai requests agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行Agent">
     <CodeGroup>
     ```bash Mac
     python cookbook/models/google/gemini/audio_input_bytes_content.py
@@ -55,4 +51,4 @@ agent.print_response(
     ```
     </CodeGroup>
   </Step>
-</Steps> 
+</Steps>

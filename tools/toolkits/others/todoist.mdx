@@ -2,10 +2,10 @@
 title: Todoist
 ---
 
-**TodoistTools** enables an Agent to interact with [Todoist](https://www.todoist.com/). 
+**TodoistTools** 使 Agent 能够与 [Todoist](https://www.todoist.com/) 进行交互。
 
-## Prerequisites
-The following example requires the `todoist-api-python` library. and a Todoist API token which can be obtained from the [Todoist Developer Portal](https://app.todoist.com/app/settings/integrations/developer).
+## 先决条件
+以下示例需要 `todoist-api-python` 库以及 Todoist API 令牌，该令牌可以从 [Todoist 开发者门户](https://app.todoist.com/app/settings/integrations/developer) 获取。
 
 ```shell
 pip install todoist-api-python
@@ -15,9 +15,9 @@ pip install todoist-api-python
 export TODOIST_API_TOKEN=***
 ```
 
-## Example
+## 示例
 
-The following agent will create a new task in Todoist.
+以下 Agent 将在 Todoist 中创建一个新任务。
 
 ```python cookbook/tools/todoist.py
 """
@@ -73,26 +73,26 @@ print("\n=== Get all tasks ===")
 todoist_agent.print_response("Get all the todoist tasks")
 ```
 
-## Toolkit Params
+## Toolkit 参数
 
-| Parameter | Type  | Default | Description                                       |
-| --------- | ----- | ------- | ------------------------------------------------- |
-| `api_token` | `str` | `None`  | If you want to manually supply the TODOIST_API_TOKEN. |
+| 参数 | 类型 | 默认值 | 描述 |
+| -------- | -------- | -------- | -------- |
+| `api_token` | `str` | `None` | 如果您想手动提供 TODOIST_API_TOKEN。 |
 
-## Toolkit Functions
+## Toolkit 函数
 
-| Function | Description |
-|----------|-------------|
-| `create_task` | Creates a new task in Todoist with optional project assignment, due date, priority, and labels. |
-| `get_task` | Fetches a specific task. |
-| `update_task` | Updates an existing task with new properties such as content, due date, priority, etc. |
-| `close_task` | Marks a task as completed. |
-| `delete_task` | Deletes a specific task from Todoist. |
-| `get_active_tasks` | Retrieves all active (non-completed) tasks. |
-| `get_projects` | Retrieves all projects in Todoist. |
+| 函数 | 描述 |
+| -------- | -------- |
+| `create_task` | 在 Todoist 中创建具有可选项目分配、截止日期、优先级和标签的新任务。 |
+| `get_task` | 获取特定任务。 |
+| `update_task` | 使用新属性（如内容、截止日期、优先级等）更新现有任务。 |
+| `close_task` | 将任务标记为已完成。 |
+| `delete_task` | 从 Todoist 中删除特定任务。 |
+| `get_active_tasks` | 检索所有活动（未完成）任务。 |
+| `get_projects` | 检索 Todoist 中的所有项目。 |
 
 
-## Developer Resources
+## 开发者资源
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/todoist.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/todoist_tool.py)
+- 查看 [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/todoist.py)
+- 查看 [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/todoist_tool.py)

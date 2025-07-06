@@ -1,8 +1,8 @@
 ---
-title: Clickhouse Integration
+title: Clickhouse 集成
 ---
 
-## Code
+## 代码
 
 ```python cookbook/agent_concepts/vector_dbs/clickhouse.py
 from agno.agent import Agent
@@ -31,12 +31,12 @@ agent.knowledge.load(recreate=False)  # type: ignore
 agent.print_response("How do I make pad thai?", markdown=True)
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Start Clickhouse">
+  <Step title="启动 Clickhouse">
     ```bash
     docker run -d \
       -e CLICKHOUSE_DB=ai \
@@ -53,13 +53,13 @@ agent.print_response("How do I make pad thai?", markdown=True)
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U clickhouse-connect pypdf openai agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行 Agent">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/vector_dbs/clickhouse.py

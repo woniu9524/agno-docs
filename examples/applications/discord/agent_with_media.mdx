@@ -1,8 +1,4 @@
----
-title: Agent with Media
----
-
-## Code
+## 代码
 
 ```python cookbook/apps/discord/agent_with_media.py
 from agno.agent import Agent
@@ -25,25 +21,25 @@ if __name__ == "__main__":
      discord_agent.serve()
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API keys">
+  <Step title="设置您的 API 密钥">
     ```bash
     export GOOGLE_API_KEY=xxx
     export DISCORD_BOT_TOKEN=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U agno google-generativeai discord.py
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行 Agent">
     <CodeGroup>
     ```bash Mac
     python cookbook/apps/discord/agent_with_media.py

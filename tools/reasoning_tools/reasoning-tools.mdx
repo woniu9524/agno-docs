@@ -3,18 +3,18 @@ title: Reasoning Tools
 sidebarTitle: Reasoning Tools
 ---
 
-The `ReasoningTools` toolkit allows an Agent to use reasoning like any other tool, at any point during execution. Unlike traditional approaches that reason once at the start to create a fixed plan, this enables the Agent to reflect after each step, adjust its thinking, and update its actions on the fly.
+`ReasoningTools` 工具包允许 Agent 在执行过程中的任何时候像使用其他工具一样使用推理。与在开始时进行一次推理以创建固定计划的传统方法不同，这使得 Agent 可以在每一步之后进行反思，调整其思考，并即时更新其操作。
 
-We've found that this approach significantly improves an Agent's ability to solve complex problems it would otherwise fail to handle. By giving the Agent space to "think" about its actions, it can examine its own responses more deeply, question its assumptions, and approach the problem from different angles.
+我们发现，这种方法显著提高了 Agent 解决其否则无法处理的复杂问题的能力。通过为 Agent 提供“思考”其操作的空间，它可以更深入地检查自己的响应，质疑其假设，并从不同角度处理问题。
 
-The toolkit includes the following tools:
+该工具包包含以下工具：
 
-- `think`: This tool is used as a scratchpad by the Agent to reason about the question and work through it step by step. It helps break down complex problems into smaller, manageable chunks and track the reasoning process.
-- `analyze`: This tool is used to analyze the results from a reasoning step and determine the next actions.
+- `think`：此工具用作 Agent 的便笺本来推理问题并逐步解决。它有助于将复杂问题分解为更小、可管理的部分，并跟踪推理过程。
+- `analyze`：此工具用于分析推理步骤的结果并确定下一步操作。
 
-## Example
+## 示例
 
-Here's an example of how to use the `ReasoningTools` toolkit:
+以下是如何使用 `ReasoningTools` 工具包的示例：
 
 ```python
 from agno.agent import Agent
@@ -41,7 +41,7 @@ thinking_agent = Agent(
 thinking_agent.print_response("Write a report comparing NVDA to TSLA", stream=True)
 ```
 
-The toolkit comes with default instructions and few-shot examples to help the Agent use the tool effectively. Here is how you can enable them:
+该工具包附带默认说明和少量示例，以帮助 Agent 有效地使用该工具。以下是如何启用它们的：
 
 ```python
 reasoning_agent = Agent(
@@ -57,7 +57,7 @@ reasoning_agent = Agent(
 )
 ```
 
-`ReasoningTools` can be used with any model provider that supports function calling. Here is an example with of a reasoning Agent using `OpenAIChat`:
+`ReasoningTools` 可与任何支持函数调用的模型提供商一起使用。以下是使用 `OpenAIChat` 的推理 Agent 的示例：
 
 ```python
 from textwrap import dedent
@@ -109,7 +109,7 @@ reasoning_agent = Agent(
 )
 ```
 
-This Agent can be used to ask questions that elicit thoughtful analysis, such as:
+此 Agent 可用于提出需要深思熟虑的分析的问题，例如：
 
 ```python
 reasoning_agent.print_response(
@@ -120,7 +120,7 @@ reasoning_agent.print_response(
 )
 ```
 
-or,
+或者，
 
 ```python
 reasoning_agent.print_response(
@@ -129,4 +129,3 @@ reasoning_agent.print_response(
     "eat the chicken, and the chicken will eat the grain. How can the man get everything across safely?",
     stream=True,
 )
-```

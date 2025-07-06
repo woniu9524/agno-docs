@@ -1,12 +1,4 @@
----
-title: Performance on Agent Instantiation with Tool
-description: Example showing how to analyze the runtime and memory usage of an Agent that is using tools.
----
-
-## Code
-
-```python
-"""Run `pip install agno openai memory_profiler` to install dependencies."""
+"""运行 `pip install agno openai memory_profiler` 来安装依赖项。"""
 
 from typing import Literal
 
@@ -16,7 +8,7 @@ from agno.models.openai import OpenAIChat
 
 
 def get_weather(city: Literal["nyc", "sf"]):
-    """Use this to get weather information."""
+    """使用此函数获取天气信息。"""
     if city == "nyc":
         return "It might be cloudy in nyc"
     elif city == "sf":
@@ -36,4 +28,3 @@ instantiation_perf = PerformanceEval(func=instantiate_agent, num_iterations=1000
 
 if __name__ == "__main__":
     instantiation_perf.run(print_results=True, print_summary=True)
-```

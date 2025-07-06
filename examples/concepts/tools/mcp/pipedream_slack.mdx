@@ -1,20 +1,20 @@
 ---
 title: "Pipedream Slack"
-description: "This example shows how to use the Slack Pipedream MCP server with Agno Agents."
+description: "此示例展示了如何将 Slack Pipedream MCP 服务器与 Agno Agents 结合使用。"
 ---
 
-## Code
+## 代码
 
 ```python
 """
 💬 Pipedream Slack MCP
 
-This example shows how to use Pipedream MCP servers (in this case the Slack one) with Agno Agents.
+此示例展示了如何将 Pipedream MCP 服务器（在此案例中为 Slack）与 Agno Agents 结合使用。
 
-1. Connect your Pipedream and Slack accounts: https://mcp.pipedream.com/app/slack
-2. Get your Pipedream MCP server url: https://mcp.pipedream.com/app/slack
-3. Set the MCP_SERVER_URL environment variable to the MCP server url you got above
-4. Install dependencies: pip install agno mcp-sdk
+1. 连接您的 Pipedream 和 Slack 账户：https://mcp.pipedream.com/app/slack
+2. 获取您的 Pipedream MCP 服务器 URL：https://mcp.pipedream.com/app/slack
+3. 将 MCP_SERVER_URL 环境变量设置为您上面获取的 MCP 服务器 URL
+4. 安装依赖项：pip install agno mcp-sdk
 
 """
 
@@ -48,11 +48,10 @@ async def run_agent(task: str) -> None:
 
 
 if __name__ == "__main__":
-    # The agent can read channels, users, messages, etc.
+    # 代理可以读取频道、用户、消息等
     asyncio.run(run_agent("Show me the latest message in the channel #general"))
 
-    # Use your real Slack name for this one to work!
+    # 要使此功能正常工作，请使用您的真实 Slack 姓名！
     asyncio.run(
         run_agent("Send a message to <YOUR_NAME> saying 'Hello, I'm your Agno Agent!'")
     )
-```

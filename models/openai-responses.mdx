@@ -1,14 +1,14 @@
 ---
 title: OpenAI Responses
-description: Learn how to use OpenAI Responses with Agno.
+description: 了解如何将 OpenAI Responses 与 Agno 结合使用。
 ---
 
-`OpenAIResponses` is a class for interacting with OpenAI models using the Responses API. This class provides a streamlined interface for working with OpenAI's newer Responses API, which is distinct from the traditional Chat API. It supports advanced features like tool use, file processing, and knowledge retrieval.
+`OpenAIResponses` 是一个用于通过 Responses API 与 OpenAI 模型进行交互的类。此类提供了一个简化的接口，用于使用 OpenAI 新的 Responses API，该 API 与传统的 Chat API 不同。它支持工具使用、文件处理和知识检索等高级功能。
 
 
-## Authentication
+## 身份验证
 
-Set your `OPENAI_API_KEY` environment variable. You can get one [from OpenAI here](https://platform.openai.com/account/api-keys).
+设置您的 `OPENAI_API_KEY` 环境变量。您可以在 [OpenAI 这里](https://platform.openai.com/account/api-keys) 获取一个。
 
 <CodeGroup>
 
@@ -22,9 +22,9 @@ setx OPENAI_API_KEY sk-***
 
 </CodeGroup>
 
-## Example
+## 示例
 
-Use `OpenAIResponses` with your `Agent`:
+将 `OpenAIResponses` 与您的 `Agent` 一起使用：
 
 <CodeGroup>
 
@@ -41,7 +41,7 @@ agent = Agent(
 )
 
 agent.print_response(
-    "Summarize the contents of the attached file and search the web for more information.",
+    "总结附件文件的内容，并搜索网络以获取更多信息。",
     files=[File(url="https://agno-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf")],
 )
 
@@ -49,12 +49,12 @@ agent.print_response(
 
 </CodeGroup>
 
-<Note> View more examples [here](../examples/models/openai/responses). </Note>
+<Note> 在 [这里](../examples/models/openai/responses) 查看更多示例。 </Note>
 
-## Params
+## 参数
 
-For more information, please refer to the [OpenAI Responses docs](https://platform.openai.com/docs/api-reference/responses) as well.
+有关更多信息，请参阅 [OpenAI Responses 文档](https://platform.openai.com/docs/api-reference/responses)。
 
 <Snippet file="model-openai-responses-params.mdx" />
 
-`OpenAIResponses` is a subclass of the [Model](/reference/models/model) class and has access to the same params.
+`OpenAIResponses` 是 [Model](/reference/models/model) 类的子类，并且可以访问相同的参数。

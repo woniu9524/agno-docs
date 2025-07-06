@@ -36,30 +36,30 @@ agent.print_response(
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set up Webex Bot">
-    1. Go to [Webex Developer Portal](https://developer.webex.com/)
-    2. Create a Bot:
-       - Navigate to My Webex Apps → Create a Bot
-       - Fill in the bot details and click Add Bot
-    3. Get your access token:
-       - Copy the token shown after bot creation
-       - Or regenerate via My Webex Apps → Edit Bot
+  <Step title="设置 Webex 机器人">
+    1. 前往 [Webex Developer Portal](https://developer.webex.com/)
+    2. 创建一个机器人：
+       - 导航至 My Webex Apps → Create a Bot
+       - 填写机器人详细信息并点击 Add Bot
+    3. 获取您的访问令牌：
+       - 复制机器人创建后显示的令牌
+       - 或通过 My Webex Apps → Edit Bot 重新生成
   </Step>
 
-  <Step title="Set your API keys">
+  <Step title="设置您的 API 密钥">
     ```bash
     export WEBEX_ACCESS_TOKEN=xxx
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U webexpythonsdk openai agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行 Agent">
     <CodeGroup>
     ```bash Mac
     python cookbook/tools/webex_tools.py
@@ -70,4 +70,4 @@ agent.print_response(
     ```
     </CodeGroup>
   </Step>
-</Steps> 
+</Steps>

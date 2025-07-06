@@ -1,8 +1,4 @@
----
-title: Streaming Agent
----
-
-## Code
+## 代码
 
 ```python cookbook/models/lmstudio/basic_stream.py
 from typing import Iterator  # noqa
@@ -20,19 +16,18 @@ agent = Agent(model=LMStudio(id="qwen2.5-7b-instruct-1m"), markdown=True)
 agent.print_response("Share a 2 sentence horror story", stream=True)
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-<Step title="Install LM Studio">
-  Install LM Studio from [here](https://lmstudio.ai/download) and download the
-  model you want to use.
+<Step title="安装 LM Studio">
+  从 [这里](https://lmstudio.ai/download) 安装 LM Studio 并下载您想使用的模型。
 </Step>
 
-<Step title="Install libraries">```bash pip install -U agno ```</Step>
+<Step title="安装库">```bash pip install -U agno ```</Step>
 
-  <Step title="Run Agent">
+  <Step title="运行 Agent">
     <CodeGroup>
     ```bash Mac
     python cookbook/models/lmstudio/basic_stream.py

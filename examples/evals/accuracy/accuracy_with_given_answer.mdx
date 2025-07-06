@@ -1,10 +1,10 @@
 ---
-title: Accuracy with Given Answer
-description: Learn how to evaluate the accuracy of an Agno Agent's response with a given answer.
+title: 准确性与给定答案
+description: 了解如何使用给定答案评估 Agno Agent 回答的准确性。
 ---
-For this example an agent won't be executed, but the given result will be evaluated against the expected output for correctness.
+在此示例中，代理不会被执行，但给定的结果将针对预期输出来评估其正确性。
 
-## Code
+## 代码
 
 ```python
 from typing import Optional
@@ -22,4 +22,3 @@ result_with_given_answer: Optional[AccuracyResult] = evaluation.run_with_output(
     output="2500", print_results=True
 )
 assert result_with_given_answer is not None and result_with_given_answer.avg_score >= 8
-```

@@ -2,11 +2,11 @@
 title: LangSmith
 ---
 
-## Overview
+## 概述
 
-This example demonstrates how to instrument your Agno agent with OpenInference and send traces to LangSmith.
+本示例演示了如何使用 OpenInference instrument 您的 Agno agent，并将 traces 发送到 LangSmith。
 
-## Code
+## 代码
 
 ```python
 import os
@@ -20,24 +20,24 @@ from opentelemetry.exporter.otlp.proto.http.trace_exporter import OTLPSpanExport
 from opentelemetry.sdk.trace import TracerProvider
 from opentelemetry.sdk.trace.export import SimpleSpanProcessor
 
-# Set the endpoint and headers for LangSmith
+# 设置 LangSmith 的 endpoint 和 headers
 endpoint = "https://eu.api.smith.langchain.com/otel/v1/traces"
 headers = {
     "x-api-key": os.getenv("LANGSMITH_API_KEY"),
     "Langsmith-Project": os.getenv("LANGSMITH_PROJECT"),
 }
 
-# Configure the tracer provider
+# 配置 tracer provider
 tracer_provider = TracerProvider()
 tracer_provider.add_span_processor(
     SimpleSpanProcessor(OTLPSpanExporter(endpoint=endpoint, headers=headers))
 )
 trace_api.set_tracer_provider(tracer_provider=tracer_provider)
 
-# Start instrumenting agno
+# 开始 instrument agno
 AgnoInstrumentor().instrument()
 
-# Create and configure the agent
+# 创建并配置 agent
 agent = Agent(
     name="Stock Market Agent",
     model=OpenAIChat(id="gpt-4o-mini"),
@@ -46,29 +46,29 @@ agent = Agent(
     debug_mode=True,
 )
 
-# Use the agent
+# 使用 agent
 agent.print_response("What is news on the stock market?")
 ```
 
-## Usage
+## 用法
 
 <Steps>
-  <Step title="Install Dependencies">
+  <Step title="安装依赖项">
     ```bash
     pip install agno openai openinference-instrumentation-agno opentelemetry-sdk opentelemetry-exporter-otlp
     ```
   </Step>
 
-  <Step title="Set Environment Variables">
+  <Step title="设置环境变量">
     ```bash
     export LANGSMITH_API_KEY=<your-key>
     export LANGSMITH_TRACING=true
-    export LANGSMITH_ENDPOINT=https://eu.api.smith.langchain.com  # or https://api.smith.langchain.com for US
+    export LANGSMITH_ENDPOINT=https://eu.api.smith.langchain.com  # 或美国区的 https://api.smith.langchain.com
     export LANGSMITH_PROJECT=<your-project-name>
     ```
   </Step>
 
-  <Step title="Run the Agent">
+  <Step title="运行 Agent">
     <CodeGroup>
     ```bash Mac
     python cookbook/observability/langsmith_via_openinference.py
@@ -81,6 +81,6 @@ agent.print_response("What is news on the stock market?")
   </Step>
 </Steps>
 
-## Notes
+## 注意事项
 
-- **Data Regions**: Choose the appropriate `LANGSMITH_ENDPOINT` based on your data region.
+- **数据区域**: 根据您的数据区域选择合适的 `LANGSMITH_ENDPOINT`。

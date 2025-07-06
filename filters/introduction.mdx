@@ -1,18 +1,18 @@
-# Knowledge Filters
+# 知识过滤器
 
-Knowledge filters allow you to restrict and refine searches within your knowledge base using metadata such as user IDs, document types, years, and more. This feature is especially useful when you have a large collection of documents and want to retrieve information relevant to specific users or contexts.
+知识过滤器允许您使用用户ID、文档类型、年份等元数据来限制和优化知识库内的搜索。当您拥有大量文档并希望检索与特定用户或上下文相关的信息时，此功能尤其有用。
 
-## Why Use Knowledge Filters?
+## 为什么使用知识过滤器？
 
-- **Personalization:** Retrieve information for a specific user or group.
-- **Security:** Restrict access to sensitive documents.
-- **Efficiency:** Reduce noise by narrowing down search results.
+- **个性化：** 为特定用户或用户组检索信息。
+- **安全性：** 限制对敏感文档的访问。
+- **效率：** 通过缩小搜索结果来减少噪音。
 
-## How Do Knowledge Filters Work?
+## 知识过滤器如何工作？
 
-When you load documents into your knowledge base, you can attach metadata (like user ID, document type, year, etc.). Later, when querying, you can specify filters to only search documents matching certain criteria.
+当您将文档加载到知识库时，您可以附加元数据（如用户ID、文档类型、年份等）。之后，在查询时，您可以指定过滤器，只搜索符合特定条件的文档。
 
-**Example Metadata:**
+**示例元数据：**
 ```python
 {
     "user_id": "jordan_mitchell",
@@ -21,48 +21,48 @@ When you load documents into your knowledge base, you can attach metadata (like 
 }
 ```
 
-## Ways to Apply Filters
+## 应用过滤器的几种方式
 
-You can apply knowledge filters in two main ways:
-1. **Manual Filters:** Explicitly pass filters when querying.
-2. **Agentic Filters:** Let the Agent automatically extract filters from your query.
+您可以通过两种主要方式应用知识过滤器：
+1. **手动过滤器：** 在查询时显式传递过滤器。
+2. **智能体过滤器：** 让智能体自动从您的查询中提取过滤器。
 
-> **Tip:** You can combine multiple filters for more precise results!
+> **提示：** 您可以组合使用多个过滤器以获得更精确的结果！
 
-## Filters in Traditional RAG vs. Agentic RAG
+## 传统 RAG 与智能体 RAG 中的过滤器
 
-When configuring your Agent it is important to choose the right approach for your use case. There are two broad approaches to RAG with Agno agents: traditional RAG and agentic RAG. With a traditional RAG approach you set `add_references=True` to ensure that references are included in the system message sent to the LLM. For Agentic RAG, you set `search_knowledge=True` to leverage the agent's ability search the knowledge base directly.
+在配置您的智能体时，为您的用例选择正确的方法非常重要。使用 Agno 智能体的 RAG 有两种广泛的方法：传统 RAG 和智能体 RAG。对于传统 RAG 方法，您设置 `add_references=True` 以确保将引用包含在发送到 LLM 的系统消息中。对于智能体 RAG，您设置 `search_knowledge=True` 以利用智能体直接搜索知识库的能力。
 
-Example:
+示例：
 ```python
 agent = Agent(
     name="KnowledgeFilterAgent",
-    search_knowledge=False,  # Do not use agentic search
-    add_references=True,     # Add knowledge base references to the system prompt
-    knowledge_filters={"user_id": "jordan_mitchell"}, # Pass filters like this
+    search_knowledge=False,  # 不使用智能体搜索
+    add_references=True,     # 将知识库引用添加到系统提示中
+    knowledge_filters={"user_id": "jordan_mitchell"}, # 像这样传递过滤器
 )
 ```
 
-<Check> 
-Remember to use only one of these configurations at a time, setting the other to false. By default, `search_knowledge=True` is preferred as it offers a more dynamic and interactive experience.
-Checkout an example [here](/examples/concepts/knowledge/filters/filtering-traditional-RAG) of how to set up knowledge filters in a Traditional RAG system
+<Check>
+请记住一次只使用其中一种配置，将另一种设置为 false。默认情况下，`search_knowledge=True` 是首选，因为它提供了更动态和交互式的体验。
+在此处 [here](/examples/concepts/knowledge/filters/filtering-traditional-RAG) 查看如何在传统 RAG 系统中设置知识过滤器的示例。
 </Check>
 
-## Best Practices
+## 最佳实践
 
-- Make your prompts descriptive (e.g., include user names, document types, years).
-- Use agentic filtering for interactive applications or chatbots.
+- 使您的提示具有描述性（例如，包含用户名、文档类型、年份）。
+- 为交互式应用程序或聊天机器人使用智能体过滤。
 
-## Manual vs. Agentic Filtering
+## 手动过滤与智能体过滤
 
-| Manual Filtering | Agentic Filtering |
-|------------------|------------------|
-| Explicit filters in code | Filters inferred from query text |
-| Full control | More natural, less code |
-| Good for automation | Good for user-facing apps |
+| 手动过滤 | 智能体过滤 |
+|---|---|
+| 代码中的显式过滤器 | 从查询文本中推断的过滤器 |
+| 完全控制 | 更自然，代码更少 |
+| 适用于自动化 | 适用于面向用户的应用程序 |
 
 <Note>
-🚦 **Currently, knowledge filtering is supported on the following vector databases:**
+🚦 **目前，以下向量数据库支持知识过滤：**
 
 - **Qdrant**
 - **LanceDB**

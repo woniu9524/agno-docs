@@ -2,26 +2,23 @@
 title: Research Agent
 ---
 
-This example shows how to create a sophisticated research agent that combines
-web search capabilities with professional journalistic writing skills. The agent performs
-comprehensive research using multiple sources, fact-checks information, and delivers
-well-structured, NYT-style articles on any topic.
+此示例展示了如何创建一个结合了网络搜索能力和专业新闻写作技巧的复杂研究代理。该代理使用多种来源进行全面研究，进行事实核查，并就任何主题交付结构良好、符合《纽约时报》风格的文章。
 
-Key capabilities:
-- Advanced web search across multiple sources
-- Content extraction and analysis
-- Cross-reference verification
-- Professional journalistic writing
-- Balanced and objective reporting
+主要功能：
+- 跨多个来源的高级网络搜索
+- 内容提取和分析
+- 交叉引用验证
+- 专业新闻写作
+- 平衡和客观的报道
 
-Example prompts to try:
-- "Analyze the impact of AI on healthcare delivery and patient outcomes"
-- "Report on the latest breakthroughs in quantum computing"
-- "Investigate the global transition to renewable energy sources"
-- "Explore the evolution of cybersecurity threats and defenses"
-- "Research the development of autonomous vehicle technology"
+可尝试的示例提示：
+- "分析人工智能对医疗服务和患者结果的影响"
+- "报道量子计算的最新突破"
+- "调查全球向可再生能源的转型"
+- "探讨网络安全威胁和防御的演变"
+- "研究自动驾驶汽车技术的发展"
 
-## Code
+## 代码
 
 ```python research_agent.py
 from textwrap import dedent
@@ -31,146 +28,146 @@ from agno.models.openai import OpenAIChat
 from agno.tools.duckduckgo import DuckDuckGoTools
 from agno.tools.newspaper4k import Newspaper4kTools
 
-# Initialize the research agent with advanced journalistic capabilities
+# 初始化具有高级新闻能力的调研代理
 research_agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
     tools=[DuckDuckGoTools(), Newspaper4kTools()],
     description=dedent("""\
-        You are an elite investigative journalist with decades of experience at the New York Times.
-        Your expertise encompasses: 📰
+        你是《纽约时报》拥有数十年经验的精英调查记者。
+        你的专长包括：📰
 
-        - Deep investigative research and analysis
-        - Meticulous fact-checking and source verification
-        - Compelling narrative construction
-        - Data-driven reporting and visualization
-        - Expert interview synthesis
-        - Trend analysis and future predictions
-        - Complex topic simplification
-        - Ethical journalism practices
-        - Balanced perspective presentation
-        - Global context integration\
+        - 深入的调查研究和分析
+        - 细致的事实核查和来源验证
+        - 引人入胜的叙事构建
+        - 数据驱动的报道和可视化
+        - 专家访谈综合
+        - 趋势分析和未来预测
+        - 复杂主题的简化
+        - 道德新闻实践
+        - 平衡观点的呈现
+        - 全球背景的整合\
     """),
     instructions=dedent("""\
-        1. Research Phase 🔍
-           - Search for 10+ authoritative sources on the topic
-           - Prioritize recent publications and expert opinions
-           - Identify key stakeholders and perspectives
+        1. 研究阶段 🔍
+           - 搜索主题的 10 多个权威来源
+           - 优先考虑近期出版物和专家意见
+           - 确定关键利益相关者和观点
 
-        2. Analysis Phase 📊
-           - Extract and verify critical information
-           - Cross-reference facts across multiple sources
-           - Identify emerging patterns and trends
-           - Evaluate conflicting viewpoints
+        2. 分析阶段 📊
+           - 提取和验证关键信息
+           - 跨多个来源交叉引用事实
+           - 识别新兴模式和趋势
+           - 评估冲突的观点
 
-        3. Writing Phase ✍️
-           - Craft an attention-grabbing headline
-           - Structure content in NYT style
-           - Include relevant quotes and statistics
-           - Maintain objectivity and balance
-           - Explain complex concepts clearly
+        3. 写作阶段 ✍️
+           - 撰写引人注目的标题
+           - 以《纽约时报》风格构建内容
+           - 包含相关引述和统计数据
+           - 保持客观和平衡
+           - 清晰解释复杂概念
 
-        4. Quality Control ✓
-           - Verify all facts and attributions
-           - Ensure narrative flow and readability
-           - Add context where necessary
-           - Include future implications
+        4. 质量控制 ✓
+           - 验证所有事实和归属
+           - 确保叙事流畅性和可读性
+           - 在必要时添加背景信息
+           - 包含未来影响
     """),
     expected_output=dedent("""\
-        # {Compelling Headline} 📰
+        # {引人注目的标题} 📰
 
-        ## Executive Summary
-        {Concise overview of key findings and significance}
+        ## 执行摘要
+        {关键发现和意义的简洁概述}
 
-        ## Background & Context
-        {Historical context and importance}
-        {Current landscape overview}
+        ## 背景与环境
+        {历史背景和重要性}
+        {当前格局概述}
 
-        ## Key Findings
-        {Main discoveries and analysis}
-        {Expert insights and quotes}
-        {Statistical evidence}
+        ## 主要发现
+        {主要发现和分析}
+        {专家见解和引述}
+        {统计证据}
 
-        ## Impact Analysis
-        {Current implications}
-        {Stakeholder perspectives}
-        {Industry/societal effects}
+        ## 影响分析
+        {当前影响}
+        {利益相关者观点}
+        {行业/社会影响}
 
-        ## Future Outlook
-        {Emerging trends}
-        {Expert predictions}
-        {Potential challenges and opportunities}
+        ## 未来展望
+        {新兴趋势}
+        {专家预测}
+        {潜在挑战和机遇}
 
-        ## Expert Insights
-        {Notable quotes and analysis from industry leaders}
-        {Contrasting viewpoints}
+        ## 专家见解
+        {行业领导者的重要引述和分析}
+        {对比观点}
 
-        ## Sources & Methodology
-        {List of primary sources with key contributions}
-        {Research methodology overview}
+        ## 来源与方法
+        {主要来源及其关键贡献列表}
+        {研究方法概述}
 
         ---
-        Research conducted by AI Investigative Journalist
-        New York Times Style Report
-        Published: {current_date}
-        Last Updated: {current_time}\
+        由人工智能调查记者进行的研究
+        《纽约时报》风格报告
+        发布日期：{current_date}
+        最后更新日期：{current_time}\
     """),
     markdown=True,
     show_tool_calls=True,
     add_datetime_to_instructions=True,
 )
 
-# Example usage with detailed research request
+# 使用详细研究请求的示例用法
 if __name__ == "__main__":
     research_agent.print_response(
-        "Analyze the current state and future implications of artificial intelligence regulation worldwide",
+        "分析人工智能监管在全球的现状和未来影响",
         stream=True,
     )
 
-# Advanced research topics to explore:
+# 可探索的高级研究主题：
 """
-Technology & Innovation:
-1. "Investigate the development and impact of large language models in 2024"
-2. "Research the current state of quantum computing and its practical applications"
-3. "Analyze the evolution and future of edge computing technologies"
-4. "Explore the latest advances in brain-computer interface technology"
+技术与创新：
+1. "调查 2024 年大型语言模型的发展和影响"
+2. "研究量子计算的现状及其应用"
+3. "分析边缘计算技术的演变和未来"
+4. "探讨脑机接口技术的最新进展"
 
-Environmental & Sustainability:
-1. "Report on innovative carbon capture technologies and their effectiveness"
-2. "Investigate the global progress in renewable energy adoption"
-3. "Analyze the impact of circular economy practices on global sustainability"
-4. "Research the development of sustainable aviation technologies"
+环境与可持续性：
+1. "报道创新的碳捕获技术及其有效性"
+2. "调查全球可再生能源采用的进展情况"
+3. "分析循环经济实践对全球可持续性的影响"
+4. "研究可持续航空技术的发展"
 
-Healthcare & Biotechnology:
-1. "Explore the latest developments in CRISPR gene editing technology"
-2. "Analyze the impact of AI on drug discovery and development"
-3. "Investigate the evolution of personalized medicine approaches"
-4. "Research the current state of longevity science and anti-aging research"
+医疗保健与生物技术：
+1. "探讨 CRISPR 基因编辑技术的最新发展"
+2. "分析人工智能对药物发现和开发的影响"
+3. "调查个性化医疗方法的演变"
+4. "研究寿命科学和抗衰老研究的现状"
 
-Societal Impact:
-1. "Examine the effects of social media on democratic processes"
-2. "Analyze the impact of remote work on urban development"
-3. "Investigate the role of blockchain in transforming financial systems"
-4. "Research the evolution of digital privacy and data protection measures"
+社会影响：
+1. "审查社交媒体对民主进程的影响"
+2. "分析远程工作对城市发展的影响"
+3. "调查区块链在变革金融系统中的作用"
+4. "研究数字隐私和数据保护措施的演变"
 """
 ```
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install openai duckduckgo-search newspaper4k lxml_html_clean agno
     ```
   </Step>
 
-  <Step title="Set environment variables">
+  <Step title="设置环境变量">
     ```bash
     export OPENAI_API_KEY=****
     ```
   </Step>
 
-  <Step title="Run the agent">
+  <Step title="运行代理">
     ```bash
     python research_agent.py
     ```

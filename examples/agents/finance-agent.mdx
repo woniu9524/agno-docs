@@ -1,20 +1,17 @@
 ---
-title: Finance Agent
+title: 金融代理
 ---
 
-This example shows how to create a sophisticated financial analyst that provides
-comprehensive market insights using real-time data. The agent combines stock market data,
-analyst recommendations, company information, and latest news to deliver professional-grade
-financial analysis.
+此示例展示了如何创建一个复杂的金融分析师，该分析师利用实时数据提供全面的市场洞察。该代理结合了股市数据、分析师建议、公司信息和最新新闻，以提供专业级的金融分析。
 
-Example prompts to try:
-- "What's the latest news and financial performance of Apple (AAPL)?"
-- "Give me a detailed analysis of Tesla's (TSLA) current market position"
-- "How are Microsoft's (MSFT) financials looking? Include analyst recommendations"
-- "Analyze NVIDIA's (NVDA) stock performance and future outlook"
-- "What's the market saying about Amazon's (AMZN) latest quarter?"
+可以尝试的示例提示：
+- “苹果（AAPL）的最新新闻和财务业绩如何？”
+- “请详细分析特斯拉（TSLA）当前的市场地位”
+- “微软（MSFT）的财务状况如何？请包含分析师的建议”
+- “分析英伟达（NVDA）的股票表现和未来前景”
+- “市场对亚马逊（AMZN）最新季度的评价如何？”
 
-## Code
+## 代码
 
 ```python finance_agent.py
 from textwrap import dedent
@@ -36,112 +33,112 @@ finance_agent = Agent(
         )
     ],
     instructions=dedent("""\
-        You are a seasoned Wall Street analyst with deep expertise in market analysis! 📊
+        你是一位经验丰富的华尔街分析师，在市场分析方面拥有深厚的专业知识！📊
 
-        Follow these steps for comprehensive financial analysis:
-        1. Market Overview
-           - Latest stock price
-           - 52-week high and low
-        2. Financial Deep Dive
-           - Key metrics (P/E, Market Cap, EPS)
-        3. Professional Insights
-           - Analyst recommendations breakdown
-           - Recent rating changes
+        请按照以下步骤进行全面的财务分析：
+        1. 市场概览
+           - 最新股价
+           - 52周高点和低点
+        2. 财务深度分析
+           - 关键指标（市盈率、市值、每股收益）
+        3. 专业洞察
+           - 分析师建议细分
+           - 近期评级变动
 
-        4. Market Context
-           - Industry trends and positioning
-           - Competitive analysis
-           - Market sentiment indicators
+        4. 市场背景
+           - 行业趋势和定位
+           - 竞争分析
+           - 市场情绪指标
 
-        Your reporting style:
-        - Begin with an executive summary
-        - Use tables for data presentation
-        - Include clear section headers
-        - Add emoji indicators for trends (📈 📉)
-        - Highlight key insights with bullet points
-        - Compare metrics to industry averages
-        - Include technical term explanations
-        - End with a forward-looking analysis
+        你的报告风格：
+        - 以执行摘要开头
+        - 使用表格展示数据
+        - 使用清晰的章节标题
+        - 添加表情符号指示趋势（📈 📉）
+        - 使用项目符号突出关键见解
+        - 将指标与行业平均水平进行比较
+        - 包含技术术语解释
+        - 以前瞻性分析结束
 
-        Risk Disclosure:
-        - Always highlight potential risk factors
-        - Note market uncertainties
-        - Mention relevant regulatory concerns
+        风险披露：
+        - 始终强调潜在风险因素
+        - 注意市场不确定性
+        - 提及相关的监管问题
     """),
     add_datetime_to_instructions=True,
     show_tool_calls=True,
     markdown=True,
 )
 
-# Example usage with detailed market analysis request
+# 使用详细市场分析请求的示例用法
 finance_agent.print_response(
     "What's the latest news and financial performance of Apple (AAPL)?", stream=True
 )
 
-# Semiconductor market analysis example
+# 半导体市场分析示例
 finance_agent.print_response(
     dedent("""\
-    Analyze the semiconductor market performance focusing on:
-    - NVIDIA (NVDA)
+    分析半导体市场的表现，重点关注：
+    - 英伟达 (NVDA)
     - AMD (AMD)
-    - Intel (INTC)
-    - Taiwan Semiconductor (TSM)
-    Compare their market positions, growth metrics, and future outlook."""),
+    - 英特尔 (INTC)
+    - 台湾积体电路制造 (TSM)
+    比较它们的市场地位、增长指标和未来前景。"""),
     stream=True,
 )
 
-# Automotive market analysis example
+# 汽车市场分析示例
 finance_agent.print_response(
     dedent("""\
-    Evaluate the automotive industry's current state:
-    - Tesla (TSLA)
-    - Ford (F)
-    - General Motors (GM)
-    - Toyota (TM)
-    Include EV transition progress and traditional auto metrics."""),
+    评估汽车行业的当前状况：
+    - 特斯拉 (TSLA)
+    - 福特 (F)
+    - 通用汽车 (GM)
+    - 丰田 (TM)
+    包括电动汽车转型进展和传统汽车指标。"""),
     stream=True,
 )
 
-# More example prompts to explore:
+# 更多示例提示可供探索：
 """
-Advanced analysis queries:
-1. "Compare Tesla's valuation metrics with traditional automakers"
-2. "Analyze the impact of recent product launches on AMD's stock performance"
-3. "How do Meta's financial metrics compare to its social media peers?"
-4. "Evaluate Netflix's subscriber growth impact on financial metrics"
-5. "Break down Amazon's revenue streams and segment performance"
+高级分析查询：
+1. “比较特斯拉的估值指标与传统汽车制造商”
+2. “分析近期产品发布对 AMD 股票表现的影响”
+3. “Meta 的财务指标与其社交媒体同行相比如何？”
+4. “评估 Netflix 的用户增长对财务指标的影响”
+5. “细分亚马逊的收入来源和部门表现”
 
-Industry-specific analyses:
-Semiconductor Market:
-1. "How is the chip shortage affecting TSMC's market position?"
-2. "Compare NVIDIA's AI chip revenue growth with competitors"
-3. "Analyze Intel's foundry strategy impact on stock performance"
-4. "Evaluate semiconductor equipment makers like ASML and Applied Materials"
+行业特定分析：
+半导体市场：
+1. “芯片短缺如何影响台积电的市场地位？”
+2. “比较英伟达 AI 芯片的收入增长与竞争对手”
+3. “分析英特尔代工厂战略对股票表现的影响”
+4. “评估 ASML 和 Applied Materials 等半导体设备制造商”
 
-Automotive Industry:
-1. "Compare EV manufacturers' production metrics and margins"
-2. "Analyze traditional automakers' EV transition progress"
-3. "How are rising interest rates impacting auto sales and stock performance?"
-4. "Compare Tesla's profitability metrics with traditional auto manufacturers"
+汽车行业：
+1. “比较电动汽车制造商的生产指标和利润率”
+2. “分析传统汽车制造商的电动汽车转型进展”
+3. “不断上升的利率如何影响汽车销售和股票表现？”
+4. “比较特斯拉的盈利能力指标与传统汽车制造商”
 """
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install openai yfinance agno
     ```
   </Step>
-  <Step title="Set environment variables">
+  <Step title="设置环境变量">
     ```bash
     export OPENAI_API_KEY=****
     ```
     </Step>
-  <Step title="Run the agent">
+  <Step title="运行代理">
     ```bash
     python finance_agent.py
     ```

@@ -1,27 +1,24 @@
 ---
-title: Research Agent using Exa
+title: 使用 Exa 的研究代理
 ---
 
-This example shows how to create a sophisticated research agent that combines
-academic search capabilities with scholarly writing expertise. The agent performs
-thorough research using Exa's academic search, analyzes recent publications, and delivers
-well-structured, academic-style reports on any topic.
+本示例展示了如何创建一个结合了学术搜索能力和学术写作专业知识的复杂研究代理。该代理使用 Exa 的学术搜索进行深入研究，分析最新出版物，并就任何主题交付结构良好、风格学术的报告。
 
-Key capabilities:
-- Advanced academic literature search
-- Recent publication analysis
-- Cross-disciplinary synthesis
-- Academic writing expertise
-- Citation management
+主要功能：
+- 高级学术文献搜索
+- 最新出版物分析
+- 跨学科综合
+- 学术写作专业知识
+- 引用管理
 
-Example prompts to try:
-- "Explore recent advances in quantum machine learning"
-- "Analyze the current state of fusion energy research"
-- "Investigate the latest developments in CRISPR gene editing"
-- "Research the intersection of blockchain and sustainable energy"
-- "Examine recent breakthroughs in brain-computer interfaces"
+可尝试的示例提示：
+- "探索量子机器学习的最新进展"
+- "分析聚变能源研究的现状"
+- "研究 CRISPR 基因编辑的最新发展"
+- "研究区块链与可持续能源的交叉点"
+- "考察脑机接口的最新突破"
 
-## Code
+## 代码
 
 ```python research_agent_exa.py
 from datetime import datetime
@@ -31,7 +28,7 @@ from agno.agent import Agent
 from agno.models.openai import OpenAIChat
 from agno.tools.exa import ExaTools
 
-# Initialize the academic research agent with scholarly capabilities
+# 初始化具有学术能力的学术研究代理
 research_scholar = Agent(
     model=OpenAIChat(id="gpt-4o"),
     tools=[
@@ -40,86 +37,85 @@ research_scholar = Agent(
         )
     ],
     description=dedent("""\
-        You are a distinguished research scholar with expertise in multiple disciplines.
-        Your academic credentials include: 📚
+        你是一位杰出的研究学者，精通多个学科。
+        你的学术资历包括：📚
 
-        - Advanced research methodology
-        - Cross-disciplinary synthesis
-        - Academic literature analysis
-        - Scientific writing excellence
-        - Peer review experience
-        - Citation management
-        - Data interpretation
-        - Technical communication
-        - Research ethics
-        - Emerging trends analysis\
+        - 高级研究方法
+        - 跨学科综合
+        - 学术文献分析
+        - 卓越的科学写作
+        - 同行评审经验
+        - 引用管理
+        - 数据解读
+        - 技术沟通
+        - 新兴趋势分析\
     """),
     instructions=dedent("""\
-        1. Research Methodology 🔍
-           - Conduct 3 distinct academic searches
-           - Focus on peer-reviewed publications
-           - Prioritize recent breakthrough findings
-           - Identify key researchers and institutions
+        1. 研究方法 🔍
+           - 进行 3 次独立学术搜索
+           - 专注于同行评审的出版物
+           - 优先考虑最新的突破性发现
+           - 识别关键研究人员和机构
 
-        2. Analysis Framework 📊
-           - Synthesize findings across sources
-           - Evaluate research methodologies
-           - Identify consensus and controversies
-           - Assess practical implications
+        2. 分析框架 📊
+           - 综合各来源的发现
+           - 评估研究方法
+           - 识别共识和争议
+           - 评估实际意义
 
-        3. Report Structure 📝
-           - Create an engaging academic title
-           - Write a compelling abstract
-           - Present methodology clearly
-           - Discuss findings systematically
-           - Draw evidence-based conclusions
+        3. 报告结构 📝
+           - 创建引人入胜的学术标题
+           - 撰写引人注目的摘要
+           - 清晰地呈现研究方法
+           - 系统地讨论研究结果
+           - 得出基于证据的结论
 
-        4. Quality Standards ✓
-           - Ensure accurate citations
-           - Maintain academic rigor
-           - Present balanced perspectives
-           - Highlight future research directions\
+        4. 质量标准 ✓
+           - 确保引用准确
+           - 保持学术严谨性
+           - 呈现平衡的观点
+           - 强调未来的研究方向\
     """),
     expected_output=dedent("""\
-        # {Engaging Title} 📚
+        # {引人入胜的标题} 📚
 
-        ## Abstract
-        {Concise overview of the research and key findings}
+        ## 摘要
+        {研究和主要发现的简洁概述}
 
-        ## Introduction
-        {Context and significance}
-        {Research objectives}
+        ## 引言
+        {背景和意义}
+        {研究目标}
 
-        ## Methodology
-        {Search strategy}
-        {Selection criteria}
+        ## 研究方法
+        {搜索策略}
+        {选择标准}
 
-        ## Literature Review
-        {Current state of research}
-        {Key findings and breakthroughs}
-        {Emerging trends}
+        ## 文献综述
+        {当前研究状况}
+        {关键发现和突破}
+        {新兴趋势}
 
-        ## Analysis
-        {Critical evaluation}
-        {Cross-study comparisons}
-        {Research gaps}
+        ## 分析
+        {批判性评估}
+        {跨研究比较}
+        {研究空白}
 
-        ## Future Directions
-        {Emerging research opportunities}
-        {Potential applications}
-        {Open questions}
+        ## 未来方向
+        {新兴研究机会}
+        {潜在应用}
+        {开放性问题}
 
-        ## Conclusions
-        {Summary of key findings}
-        {Implications for the field}
+        ## 结论
+        {主要发现总结}
+        {对该领域的意义}
 
-        ## References
-        {Properly formatted academic citations}
+        ## 参考文献
+        {格式正确的学术引用}
 
         ---
-        Research conducted by AI Academic Scholar
-        Published: {current_date}
-        Last Updated: {current_time}\
+        由人工智能学术学者进行的研究
+        发布日期：{current_date}
+        最后更新日期：{current_time}\
     """),
     markdown=True,
     show_tool_calls=True,
@@ -127,59 +123,59 @@ research_scholar = Agent(
     save_response_to_file="tmp/{message}.md",
 )
 
-# Example usage with academic research request
+# 使用学术研究请求的示例用法
 if __name__ == "__main__":
     research_scholar.print_response(
-        "Analyze recent developments in quantum computing architectures",
+        "分析量子计算架构的最新发展",
         stream=True,
     )
 
-# Advanced research topics to explore:
+# 可探索的高级研究主题：
 """
-Quantum Science & Computing:
-1. "Investigate recent breakthroughs in quantum error correction"
-2. "Analyze the development of topological quantum computing"
-3. "Research quantum machine learning algorithms and applications"
-4. "Explore advances in quantum sensing technologies"
+量子科学与计算：
+1. "调查量子纠错的最新突破"
+2. "分析拓扑量子计算的发展"
+3. "研究量子机器学习算法和应用"
+4. "探索量子传感技术的进展"
 
-Biotechnology & Medicine:
-1. "Examine recent developments in mRNA vaccine technology"
-2. "Analyze breakthroughs in organoid research"
-3. "Investigate advances in precision medicine"
-4. "Research developments in neurotechnology"
+生物技术与医学：
+1. "考察 mRNA 疫苗技术的最新发展"
+2. "分析类器官研究的突破"
+3. "研究精准医疗的进展"
+4. "研究神经技术的发展"
 
-Materials Science:
-1. "Explore recent advances in metamaterials"
-2. "Analyze developments in 2D materials beyond graphene"
-3. "Research progress in self-healing materials"
-4. "Investigate new battery technologies"
+材料科学：
+1. "探索超材料的最新进展"
+2. "分析石墨烯以外二维材料的发展"
+3. "研究自修复材料的进展"
+4. "调查新型电池技术"
 
-Artificial Intelligence:
-1. "Examine recent advances in foundation models"
-2. "Analyze developments in AI safety research"
-3. "Research progress in neuromorphic computing"
-4. "Investigate advances in explainable AI"
+人工智能：
+1. "考察基础模型的最新进展"
+2. "分析人工智能安全研究的发展"
+3. "研究神经形态计算的进展"
+4. "调查可解释人工智能的进展"
 """
 ```
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install openai exa_py agno
     ```
   </Step>
 
-    <Step title="Set environment variables">
+    <Step title="设置环境变量">
         ```bash
         export OPENAI_API_KEY=****
         export EXA_API_KEY=****
         ```
     </Step>
 
-  <Step title="Run the agent">
+  <Step title="运行代理">
     ```bash
     python research_agent_exa.py
     ```

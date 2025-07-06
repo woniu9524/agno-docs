@@ -1,20 +1,20 @@
 ---
 title: "Pipedream Google Calendar"
-description: "This example shows how to use the Google Calendar Pipedream MCP server with Agno Agents."
+description: "本示例展示了如何将 Pipedream MCP 服务器（此处为 Google Calendar）与 Agno Agents 一起使用。"
 ---
 
-## Code
+## 代码
 
 ```python
 """
 🗓️ Pipedream Google Calendar MCP
 
-This example shows how to use Pipedream MCP servers (in this case the Google Calendar one) with Agno Agents.
+本示例展示了如何将 Pipedream MCP 服务器（此处为 Google Calendar）与 Agno Agents 一起使用。
 
-1. Connect your Pipedream and Google Calendar accounts: https://mcp.pipedream.com/app/google-calendar
-2. Get your Pipedream MCP server url: https://mcp.pipedream.com/app/google-calendar
-3. Set the MCP_SERVER_URL environment variable to the MCP server url you got above
-4. Install dependencies: pip install agno mcp-sdk
+1. 连接您的 Pipedream 和 Google Calendar 账户：https://mcp.pipedream.com/app/google-calendar
+2. 获取您的 Pipedream MCP 服务器 URL：https://mcp.pipedream.com/app/google-calendar
+3. 将 MCP_SERVER_URL 环境变量设置为您上面获取的 MCP 服务器 URL
+4. 安装依赖项：pip install agno mcp-sdk
 """
 
 import asyncio
@@ -48,6 +48,5 @@ async def run_agent(task: str) -> None:
 
 if __name__ == "__main__":
     asyncio.run(
-        run_agent("Tell me about all events I have in my calendar for tomorrow")
+        run_agent("告诉我明天日历上我所有的日程安排")
     )
-```

@@ -3,12 +3,11 @@ title: Streamable HTTP Transport
 sidebarTitle: Streamable HTTP
 ---
 
-The new [Streamable HTTP transport](https://modelcontextprotocol.io/specification/draft/basic/transports#streamable-http) replaces the HTTP+SSE transport from protocol version 2024-11-05.
+新的 [Streamable HTTP transport](https://modelcontextprotocol.io/specification/draft/basic/transports#streamable-http) 取代了 2024-11-05 协议版本中的 HTTP+SSE transport。
 
-This transport enables the MCP server to handle multiple client connections, and can also use SSE for server-to-client streaming.
+此 transport 使 MCP 服务器能够处理多个客户端连接，并且还可以使用 SSE 进行服务器到客户端的流式传输。
 
-To use it, initialize the `MCPTools` passing the URL of the MCP server and setting the transport to `streamable-http`:
-
+要使用它，请初始化 `MCPTools`，传入 MCP 服务器的 URL 并将 transport 设置为 `streamable-http`：
 
 ```python
 from agno.agent import Agent
@@ -22,8 +21,7 @@ from agno.agent import Agent
         await agent.aprint_response("What is the license for this project?", stream=True)
 ```
 
-
-You can also use the `server_params` argument to define the MCP connection. This way you can specify the headers to send to the MCP server with every request, and the timeout values:
+您还可以使用 `server_params` 参数来定义 MCP 连接。这样，您可以指定要与每个请求一起发送到 MCP 服务器的标头以及超时值：
 
 ```python
 from agno.tools.mcp import MCPTools, StreamableHTTPClientParams
@@ -41,11 +39,9 @@ async with MCPTools(server_params=server_params) as mcp_tools:
     ...
 ```
 
+## 完整示例
 
-## Complete example
-
-Let's set up a simple local server and connect to it using the Streamable HTTP transport:
-
+让我们设置一个简单的本地服务器并使用 Streamable HTTP transport 连接到它：
 
 <Steps>
     <Step title="Setup the server">

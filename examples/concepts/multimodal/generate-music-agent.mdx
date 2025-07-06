@@ -1,10 +1,3 @@
----
-title: Generate Music using Models Lab
----
-
-## Code
-
-```python
 import os
 from uuid import uuid4
 
@@ -48,25 +41,25 @@ if music.audio is not None and len(music.audio) > 0:
     logger.info(f"Music saved to {filename}")
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">
     ```bash
     export OPENAI_API_KEY=xxx
     export MODELS_LAB_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U openai agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行 Agent">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/multimodal/generate_music_agent.py

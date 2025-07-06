@@ -1,9 +1,9 @@
 ---
-title: Filtering on PgVector
-description: Learn how to filter knowledge base searches using Pdf documents with user-specific metadata in PgVector.
+title: 在 PgVector 中进行筛选
+description: 了解如何使用具有用户特定元数据的 PDF 文档在 PgVector 中筛选知识库搜索。
 ---
 
-## Code
+## 代码
 
 ```python
 from agno.agent import Agent
@@ -14,20 +14,20 @@ from agno.utils.media import (
 )
 from agno.vectordb.pgvector import PgVector
 
-# Download all sample CVs and get their paths
+# 下载所有样本简历并获取其路径
 downloaded_cv_paths = download_knowledge_filters_sample_data(
     num_files=5, file_extension=SampleDataFileExtension.PDF
 )
 
-# Initialize PgVector
+# 初始化 PgVector
 db_url = "postgresql+psycopg://ai:ai@localhost:5532/ai"
 
 vector_db = PgVector(table_name="recipes", db_url=db_url)
 
-# Step 1: Initialize knowledge base with documents and metadata
+# 步骤 1：使用文档和元数据初始化知识库
 # ------------------------------------------------------------------------------
-# When initializing the knowledge base, we can attach metadata that will be used for filtering
-# This metadata can include user IDs, document types, dates, or any other attributes
+# 在初始化知识库时，我们可以附加用于筛选的元数据
+# 此元数据可以包括用户 ID、文档类型、日期或任何其他属性
 
 knowledge_base = PDFKnowledgeBase(
     path=[
@@ -75,10 +75,10 @@ knowledge_base = PDFKnowledgeBase(
     vector_db=vector_db,
 )
 
-# Load all documents into the vector database
+# 将所有文档加载到向量数据库中
 knowledge_base.load(recreate=True)
 
-# Step 2: Query the knowledge base with different filter combinations
+# 步骤 2：使用不同的筛选组合查询知识库
 # ------------------------------------------------------------------------------
 
 agent = Agent(
@@ -87,22 +87,22 @@ agent = Agent(
 )
 
 agent.print_response(
-    "Tell me about Jordan Mitchell's experience and skills",
+    "告诉我关于 Jordan Mitchell 的经验和技能",
     knowledge_filters={"user_id": "jordan_mitchell"},
     markdown=True,
 )
 ```
 
-## Usage
+## 用法
 
 <Steps>
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U agno sqlalchemy psycopg openai
     ```
   </Step>
 
-  <Step title="Run the example">
+  <Step title="运行示例">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/knowledge/filters/filtering_pgvector.py

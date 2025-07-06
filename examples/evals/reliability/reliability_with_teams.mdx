@@ -1,9 +1,9 @@
 ---
-title: Reliability with Teams
-description: Learn how to assert an Agno Team is making the expected tool calls.
+title: 团队可靠性
+description: 了解如何断言一个 Agno 团队正在进行预期的工具调用。
 ---
 
-## Code
+## 代码
 
 ```python
 from typing import Optional
@@ -31,8 +31,8 @@ team = Team(
 )
 
 expected_tool_calls = [
-    "transfer_task_to_member",  # Tool call used to transfer a task to a Team member
-    "get_current_stock_price",  # Tool call used to get the current stock price of a stock
+    "transfer_task_to_member",  # 用于将任务转移给团队成员的工具调用
+    "get_current_stock_price",  # 用于获取股票当前价格的工具调用
 ]
 
 
@@ -48,4 +48,3 @@ def evaluate_team_reliability():
 
 if __name__ == "__main__":
     evaluate_team_reliability()
-```

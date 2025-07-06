@@ -1,23 +1,23 @@
 ---
-title: What is Reasoning?
-sidebarTitle: Overview
-description: Reasoning gives Agents the ability to "think" before responding and "analyze" the results of their actions (i.e. tool calls), greatly improving the Agents' ability to solve problems that require sequential tool calls.
+title: 什么是推理？
+sidebarTitle: 概述
+description: 推理使代理能够“思考”后再响应，并“分析”其操作（例如工具调用）的结果，从而大大提高代理解决需要顺序工具调用的问题的能力。
 ---
 
-Reasoning Agents go through an internal chain of thought before responding, working through different ideas, validating and correcting as needed. Agno supports 3 approaches to reasoning:
-1. [Reasoning Models](#reasoning-models)
-2. [Reasoning Tools](#reasoning-tools)
-3. [Reasoning Agents](#reasoning-agents)
+推理代理在响应前会经历一个内部的思维链，尝试不同的想法，并进行验证和纠正。Agno 支持 3 种推理方法：
+1. [推理模型](#reasoning-models)
+2. [推理工具](#reasoning-tools)
+3. [推理代理](#reasoning-agents)
 
-Which approach works best will depend on your use case, we recommend trying them all and immersing yourself in this new era of Reasoning Agents.
+哪种方法最适合取决于您的用例，我们建议您尝试所有方法，并沉浸在这个推理代理的新时代。
 
-## Reasoning Models
+## 推理模型
 
-Reasoning models are a separate class of large language models trained with reinforcement learning to think before they answer. They produce an internal chain of thought before responding. Examples of reasoning models include OpenAI o-series, Claude 3.7 sonnet in extended-thinking mode, Gemini 2.0 flash thinking and DeepSeek-R1.
+推理模型是一类独立的、经过强化学习训练的、在回答前进行思考的大型语言模型。它们在响应前会产生一个内部的思维链。推理模型的例子包括 OpenAI o 系列、扩展思考模式下的 Claude 3.7 Sonnet、Gemini 2.0 Flash Thinking 和 DeepSeek-R1。
 
-Reasoning at the model layer is all about what the model does **before it starts generating a response**. Reasoning models excel at single-shot use-cases. They're perfect for solving hard problems (coding, math, physics) that don't require multiple turns, or calling tools sequentially.
+模型层面的推理主要关注模型在**开始生成响应之前**所做的事情。推理模型在单次调用用例中表现出色。它们非常适合解决不需要多次交互的难题（编码、数学、物理）或顺序调用工具。
 
-### Example
+### 示例
 
 ```python o3_mini.py
 from agno.agent import Agent
@@ -25,23 +25,23 @@ from agno.models.openai import OpenAIChat
 
 agent = Agent(model=OpenAIChat(id="o3-mini"))
 agent.print_response(
-    "Solve the trolley problem. Evaluate multiple ethical frameworks. "
-    "Include an ASCII diagram of your solution.",
+    "解决电车难题。评估多种伦理框架。 "
+    "包含解决方案的 ASCII 图。",
     stream=True,
 )
 ```
 
-Read more about reasoning models in the [Reasoning Models Guide](/reasoning/reasoning-models).
+在 [推理模型指南](/reasoning/reasoning-models) 中了解更多关于推理模型的信息。
 
-## Reasoning Model + Response Model
+## 推理模型 + 响应模型
 
-What if we wanted to use a Reasoning Model to reason but a different model to generate the response? It is well known that reasoning models are great at solving problems but not that great at responding in a natural way (like claude sonnet or gpt-4o).
+如果我们想使用一个推理模型进行推理，但使用另一个模型来生成响应，会怎么样？众所周知，推理模型在解决问题方面非常出色，但在自然地响应方面（如 Claude Sonnet 或 GPT-4o）却不那么擅长。
 
-By using a separate model for reasoning and a different model for responding, we can have the best of both worlds.
+通过为推理和响应使用不同的模型，我们可以兼顾两者的优点。
 
-### Example
+### 示例
 
-Let's use deepseek-r1 from Groq for reasoning and claude sonnet for a natural response.
+让我们使用 Groq 的 deepseek-r1 进行推理，并使用 Claude Sonnet 进行自然响应。
 
 ```python deepseek_plus_claude.py
 from agno.agent import Agent
@@ -54,16 +54,16 @@ deepseek_plus_claude = Agent(
         id="deepseek-r1-distill-llama-70b", temperature=0.6, max_tokens=1024, top_p=0.95
     ),
 )
-deepseek_plus_claude.print_response("9.11 and 9.9 -- which is bigger?", stream=True)
+deepseek_plus_claude.print_response("9.11 和 9.9 -- 哪个更大？", stream=True)
 ```
 
-## Reasoning Tools
+## 推理工具
 
-By giving a model a **"think" tool**, we can greatly improve its reasoning capabilities by providing a dedicated space for structured thinking. This is a simple, yet effective approach to add reasoning to non-reasoning models.
+通过为模型提供一个 **“思考”工具**，我们可以通过提供一个专门的结构化思考空间来极大地提高其推理能力。这是一种简单而有效的方法，可以为非推理模型添加推理能力。
 
-The research was first published by Anthropic in [this blog post](https://www.anthropic.com/engineering/claude-think-tool) but has been practiced by many AI Engineers (including our own team) long before it was published.
+该研究最初由 Anthropic 在[这篇博文](https://www.anthropic.com/engineering/claude-think-tool)中发表，但在此之前已被许多 AI 工程师（包括我们自己的团队）实践。
 
-### Example
+### 示例
 
 ```python claude_thinking_tools.py
 from agno.agent import Agent
@@ -82,30 +82,30 @@ reasoning_agent = Agent(
             company_news=True,
         ),
     ],
-    instructions="Use tables where possible",
+    instructions="尽可能使用表格",
     markdown=True,
 )
 
 if __name__ == "__main__":
     reasoning_agent.print_response(
-        "Write a report on NVDA. Only the report, no other text.",
+        "撰写一份关于 NVDA 的报告。仅报告，无其他文本。",
         stream=True,
         show_full_reasoning=True,
         stream_intermediate_steps=True,
     )
 ```
 
-Read more about reasoning tools in the [Reasoning Tools Guide](/reasoning/reasoning-tools).
+在 [推理工具指南](/reasoning/reasoning-tools) 中了解更多关于推理工具的信息。
 
-## Reasoning Agents
+## 推理代理
 
-Reasoning Agents are a new type of multi-agent system developed by Agno that combines chain of thought reasoning with tool use.
+推理代理是 Agno 开发的一种新型多代理系统，它将思维链推理与工具使用相结合。
 
-You can enable reasoning on any Agent by setting `reasoning=True`.
+您可以通过设置 `reasoning=True` 来为任何代理启用推理。
 
-When an Agent with `reasoning=True` is given a task, a separate "Reasoning Agent" first solves the problem using chain-of-thought. At each step, it calls tools to gather information, validate results, and iterate until it reaches a final answer. Once the Reasoning Agent has a final answer, it hands the results back to the original Agent to validate and provide a response.
+当一个启用了 `reasoning=True` 的代理被赋予任务时，一个单独的“推理代理”首先使用思维链来解决问题。在每一步，它都会调用工具来收集信息、验证结果并进行迭代，直到得出最终答案。一旦推理代理得出最终答案，它会将结果交还给原始代理进行验证并提供响应。
 
-### Example
+### 示例
 
 ```python reasoning_agent.py
 from agno.agent import Agent
@@ -117,11 +117,11 @@ reasoning_agent = Agent(
     markdown=True,
 )
 reasoning_agent.print_response(
-    "Solve the trolley problem. Evaluate multiple ethical frameworks. "
-    "Include an ASCII diagram of your solution.",
+    "解决电车难题。评估多种伦理框架。 "
+    "包含解决方案的 ASCII 图。",
     stream=True,
     show_full_reasoning=True,
 )
 ```
 
-Read more about reasoning agents in the [Reasoning Agents Guide](/reasoning/reasoning-agents).
+在 [推理代理指南](/reasoning/reasoning-agents) 中了解更多关于推理代理的信息。

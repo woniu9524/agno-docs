@@ -1,14 +1,11 @@
 ---
-title: Reasoning Agent with Reasoning Tools
+title: 使用推理工具的推理代理
 ---
 
-This example shows how to create an agent that uses the ReasoningTools to solve
-complex problems through step-by-step reasoning. The agent breaks down questions,
-analyzes intermediate results, and builds structured reasoning paths to arrive at
-well-justified conclusions.
+本示例展示了如何创建一个使用 ReasoningTools 的代理，通过循序渐进的推理来解决复杂问题。该代理会分解问题，分析中间结果，并构建结构化的推理路径，以得出有充分依据的结论。
 
 
-## Code
+## 代码
 
 ```python cookbook/reasoning/tools/reasoning_tools.py
 
@@ -23,36 +20,36 @@ reasoning_agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
     tools=[ReasoningTools(add_instructions=True)],
     instructions=dedent("""\
-        You are an expert problem-solving assistant with strong analytical skills! 🧠
-        
-        Your approach to problems:
-        1. First, break down complex questions into component parts
-        2. Clearly state your assumptions
-        3. Develop a structured reasoning path
-        4. Consider multiple perspectives
-        5. Evaluate evidence and counter-arguments
-        6. Draw well-justified conclusions
-        
-        When solving problems:
-        - Use explicit step-by-step reasoning
-        - Identify key variables and constraints
-        - Explore alternative scenarios
-        - Highlight areas of uncertainty
-        - Explain your thought process clearly
-        - Consider both short and long-term implications
-        - Evaluate trade-offs explicitly
-        
-        For quantitative problems:
-        - Show your calculations
-        - Explain the significance of numbers
-        - Consider confidence intervals when appropriate
-        - Identify source data reliability
-        
-        For qualitative reasoning:
-        - Assess how different factors interact
-        - Consider psychological and social dynamics
-        - Evaluate practical constraints
-        - Address value considerations
+        你是一位拥有强大分析能力的专家问题解决助手！🧠
+
+        你的问题处理方法：
+        1. 首先，将复杂问题分解为组成部分
+        2. 清楚地说明你的假设
+        3. 制定结构化的推理路径
+        4. 考虑多方面视角
+        5. 评估证据和反驳论点
+        6. 得出有充分依据的结论
+
+        在解决问题时：
+        - 使用明确的循序渐进的推理
+        - 识别关键变量和约束条件
+        - 探索替代场景
+        - 突出不确定性领域
+        - 清晰地解释你的思考过程
+        - 考虑短期和长期影响
+        - 明确评估权衡取舍
+
+        对于定量问题：
+        - 展示你的计算过程
+        - 解释数字的意义
+        - 在适当的时候考虑置信区间
+        - 识别源数据可靠性
+
+        对于定性推理：
+        - 评估不同因素如何相互作用
+        - 考虑心理和社会动态
+        - 评估实际约束条件
+        - 处理价值考量
         \
     """),
     add_datetime_to_instructions=True,
@@ -61,11 +58,10 @@ reasoning_agent = Agent(
     markdown=True,
 )
 
-# Example usage with a complex reasoning problem
+# 使用复杂的推理问题进行示例
 reasoning_agent.print_response(
-    "Solve this logic puzzle: A man has to take a fox, a chicken, and a sack of grain across a river. "
-    "The boat is only big enough for the man and one item. If left unattended together, the fox will "
-    "eat the chicken, and the chicken will eat the grain. How can the man get everything across safely?",
+    "解决这个逻辑谜题：一个人必须带一只狐狸、一只鸡和一袋谷物过河。 "
+    "船只仅够容纳人和一件物品。如果无人看管，狐狸会吃掉鸡，鸡会吃掉谷物。这个人如何才能安全地将所有东西都运过去？",
     stream=True,
 )
 
@@ -74,24 +70,24 @@ reasoning_agent.print_response(
 
 
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U openai agno
     ```
   </Step>
 
-  <Step title="Run Example">
+  <Step title="运行示例">
     <CodeGroup>
     ```bash Mac
     python cookbook/reasoning/tools/reasoning_tools.py

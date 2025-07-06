@@ -3,35 +3,35 @@ title: Azure OpenAI
 description: Learn how to use Azure OpenAI models in Agno.
 ---
 
-Use OpenAI models through Azure's infrastructure. Learn more [here](https://learn.microsoft.com/azure/ai-services/openai/overview).
+通过 Azure 的基础设施使用 OpenAI 模型。在此处了解更多信息：[https://learn.microsoft.com/azure/ai-services/openai/overview](https://learn.microsoft.com/azure/ai-services/openai/overview)。
 
-Azure OpenAI provides access to OpenAI's models like `GPT-4o`, `o3-mini`, and more.
+Azure OpenAI 提供对 OpenAI 模型（如 `GPT-4o`、`o3-mini` 等）的访问。
 
-## Authentication
+## 身份验证
 
-Navigate to Azure OpenAI on the [Azure Portal](https://portal.azure.com/) and create a service. Then, using the Azure AI Studio portal, create a deployment and set your environment variables:
+导航到 [Azure Portal](https://portal.azure.com/) 中的 Azure OpenAI 并创建一个服务。然后，使用 Azure AI Studio 门户创建部署并设置您的环境变量：
 
 <CodeGroup>
 
 ```bash Mac
 export AZURE_OPENAI_API_KEY=***
-export AZURE_OPENAI_ENDPOINT=***  # Of the form https://<your-resource-name>.openai.azure.com/openai/deployments/<your-deployment-name>
-# Optional:
+export AZURE_OPENAI_ENDPOINT=***  # 格式为 https://<your-resource-name>.openai.azure.com/openai/deployments/<your-deployment-name>
+# 可选：
 # export AZURE_OPENAI_DEPLOYMENT=***
 ```
 
 ```bash Windows
-setx AZURE_OPENAI_API_KEY ***  # Of the form https://<your-resource-name>.openai.azure.com/openai/deployments/<your-deployment-name>
+setx AZURE_OPENAI_API_KEY ***  # 格式为 https://<your-resource-name>.openai.azure.com/openai/deployments/<your-deployment-name>
 setx AZURE_OPENAI_ENDPOINT ***
-# Optional:
+# 可选：
 # setx AZURE_OPENAI_DEPLOYMENT ***
 ```
 
 </CodeGroup>
 
-## Example
+## 示例
 
-Use `AzureOpenAI` with your `Agent`:
+在您的 `Agent` 中使用 `AzureOpenAI`：
 
 <CodeGroup>
 
@@ -45,22 +45,22 @@ agent = Agent(
     markdown=True
 )
 
-# Print the response on the terminal
+# 在终端打印响应
 agent.print_response("Share a 2 sentence horror story.")
 ```
 
 </CodeGroup>
 
-## Prompt caching
+## Prompt 缓存
 
-Prompt caching will happen automatically using our `AzureOpenAI` model. You can read more about how OpenAI handle caching in [their docs](https://platform.openai.com/docs/guides/prompt-caching).
+Prompt 缓存将自动使用我们的 `AzureOpenAI` 模型进行。您可以在[他们的文档](https://platform.openai.com/docs/guides/prompt-caching)中了解更多关于 OpenAI 如何处理缓存的信息。
 
-## Advanced Examples
+## 高级示例
 
-View more examples [here](../examples/models/azure/openai).
+在此处查看更多示例：[../examples/models/azure/openai](../examples/models/azure/openai)。
 
-## Parameters
+## 参数
 
 <Snippet file="model-azure-openai-params.mdx" />
 
-`AzureOpenAI` also supports the parameters of [OpenAI](/reference/models/openai).
+`AzureOpenAI` 还支持 [OpenAI](/reference/models/openai) 的参数。

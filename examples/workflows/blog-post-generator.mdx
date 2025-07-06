@@ -2,30 +2,28 @@
 title: Blog Post Generator
 ---
 
-This advanced example demonstrates how to build a sophisticated blog post generator that combines
-web research capabilities with professional writing expertise. The workflow uses a multi-stage
-approach:
-1. Intelligent web research and source gathering
-2. Content extraction and processing
-3. Professional blog post writing with proper citations
+此高级示例演示了如何构建一个复杂的博客文章生成器，该生成器结合了网络研究能力和专业写作技能。该工作流采用多阶段方法：
+1. 智能网络研究和来源收集
+2. 内容提取和处理
+3. 专业博客文章写作及正确引用
 
-Key capabilities:
-- Advanced web research and source evaluation
-- Content scraping and processing
-- Professional writing with SEO optimization
-- Automatic content caching for efficiency
-- Source attribution and fact verification
+主要功能：
+- 高级网络研究和来源评估
+- 内容抓取和处理
+- 专业写作及 SEO 优化
+- 自动内容缓存以提高效率
+- 来源归属和事实核查
 
-Example blog topics to try:
-- "The Rise of Artificial General Intelligence: Latest Breakthroughs"
-- "How Quantum Computing is Revolutionizing Cybersecurity"
-- "Sustainable Living in 2024: Practical Tips for Reducing Carbon Footprint"
-- "The Future of Work: AI and Human Collaboration"
-- "Space Tourism: From Science Fiction to Reality"
-- "Mindfulness and Mental Health in the Digital Age"
-- "The Evolution of Electric Vehicles: Current State and Future Trends"
+尝试示例博客主题：
+- "通用人工智能的崛起：最新突破"
+- "量子计算如何彻底改变网络安全"
+- "2024 年可持续生活：减少碳足迹的实用技巧"
+- "工作的未来：人工智能与人类协作"
+- "太空旅游：从科幻到现实"
+- "数字时代的正念与心理健康"
+- "电动汽车的演变：现状与未来趋势"
 
-Run `pip install openai duckduckgo-search newspaper4k lxml_html_clean sqlalchemy agno` to install dependencies.
+运行 `pip install openai duckduckgo-search newspaper4k lxml_html_clean sqlalchemy agno` 来安装依赖项。
 """
 
 ```python blog_post_generator.py
@@ -45,10 +43,10 @@ from pydantic import BaseModel, Field
 
 
 class NewsArticle(BaseModel):
-    title: str = Field(..., description="Title of the article.")
-    url: str = Field(..., description="Link to the article.")
+    title: str = Field(..., description="文章标题。")
+    url: str = Field(..., description="文章链接。")
     summary: Optional[str] = Field(
-        ..., description="Summary of the article if available."
+        ..., description="文章摘要（如果可用）。"
     )
 
 
@@ -57,151 +55,147 @@ class SearchResults(BaseModel):
 
 
 class ScrapedArticle(BaseModel):
-    title: str = Field(..., description="Title of the article.")
-    url: str = Field(..., description="Link to the article.")
+    title: str = Field(..., description="文章标题。")
+    url: str = Field(..., description="文章链接。")
     summary: Optional[str] = Field(
-        ..., description="Summary of the article if available."
+        ..., description="文章摘要（如果可用）。"
     )
     content: Optional[str] = Field(
         ...,
-        description="Full article content in markdown format. None if content is unavailable.",
+        description="文章的完整 markdown 格式内容。如果内容不可用则为 None。",
     )
 
 
 class BlogPostGenerator(Workflow):
-    """Advanced workflow for generating professional blog posts with proper research and citations."""
+    """用于生成具有专业研究和引用的高级博客文章的工作流。"""
 
     description: str = dedent("""\
-    An intelligent blog post generator that creates engaging, well-researched content.
-    This workflow orchestrates multiple AI agents to research, analyze, and craft
-    compelling blog posts that combine journalistic rigor with engaging storytelling.
-    The system excels at creating content that is both informative and optimized for
-    digital consumption.
+    一个智能博客文章生成器，可创建引人入胜、研究深入的内容。
+    此工作流协调多个 AI 代理来研究、分析和撰写引人入胜的博客文章，
+    将新闻严谨性与引人入胜的故事讲述相结合。
+    该系统擅长创建信息丰富且针对数字消费进行优化的内容。
     """)
 
-    # Search Agent: Handles intelligent web searching and source gathering
+    # 搜索代理：处理智能网络搜索和来源收集
     searcher: Agent = Agent(
         model=OpenAIChat(id="gpt-4o-mini"),
         tools=[DuckDuckGoTools()],
         description=dedent("""\
-        You are BlogResearch-X, an elite research assistant specializing in discovering
-        high-quality sources for compelling blog content. Your expertise includes:
+        你是 BlogResearch-X，一位专注于为引人入胜的博客内容发现高质量来源的精英研究助理。你的专业知识包括：
 
-        - Finding authoritative and trending sources
-        - Evaluating content credibility and relevance
-        - Identifying diverse perspectives and expert opinions
-        - Discovering unique angles and insights
-        - Ensuring comprehensive topic coverage\
+        - 查找权威和趋势来源
+        - 评估内容的可信度和相关性
+        - 识别不同的观点和专家意见
+        - 发现独特的角度和见解
+        - 确保全面的主题覆盖\
         """),
         instructions=dedent("""\
-        1. Search Strategy 🔍
-           - Find 10-15 relevant sources and select the 5-7 best ones
-           - Prioritize recent, authoritative content
-           - Look for unique angles and expert insights
-        2. Source Evaluation 📊
-           - Verify source credibility and expertise
-           - Check publication dates for timeliness
-           - Assess content depth and uniqueness
-        3. Diversity of Perspectives 🌐
-           - Include different viewpoints
-           - Gather both mainstream and expert opinions
-           - Find supporting data and statistics\
+        1. 搜索策略 🔍
+           - 查找 10-15 个相关来源，并选择 5-7 个最佳来源
+           - 优先考虑最新的、权威的内容
+           - 寻找独特的角度和专家见解
+        2. 来源评估 📊
+           - 验证来源的可信度和专业性
+           - 检查出版日期以确保时效性
+           - 评估内容的深度和独特性
+        3. 观点多样性 🌐
+           - 包括不同的观点
+           - 收集主流和专家意见
+           - 查找支持性数据和统计信息\
         """),
         response_model=SearchResults,
     )
 
-    # Content Scraper: Extracts and processes article content
+    # 内容抓取器：提取和处理文章内容
     article_scraper: Agent = Agent(
         model=OpenAIChat(id="gpt-4o-mini"),
         tools=[Newspaper4kTools()],
         description=dedent("""\
-        You are ContentBot-X, a specialist in extracting and processing digital content
-        for blog creation. Your expertise includes:
+        你是 ContentBot-X，一个专门提取和处理数字内容以供博客创建的专家。你的专业知识包括：
 
-        - Efficient content extraction
-        - Smart formatting and structuring
-        - Key information identification
-        - Quote and statistic preservation
-        - Maintaining source attribution\
+        - 高效的内容提取
+        - 智能格式化和结构化
+        - 关键信息识别
+        - 引用和统计数据的保留
+        - 维护来源归属\
         """),
         instructions=dedent("""\
-        1. Content Extraction 📑
-           - Extract content from the article
-           - Preserve important quotes and statistics
-           - Maintain proper attribution
-           - Handle paywalls gracefully
-        2. Content Processing 🔄
-           - Format text in clean markdown
-           - Preserve key information
-           - Structure content logically
-        3. Quality Control ✅
-           - Verify content relevance
-           - Ensure accurate extraction
-           - Maintain readability\
+        1. 内容提取 📑
+           - 从文章中提取内容
+           - 保留重要的引用和统计数据
+           - 维护正确的归属
+           - 优雅地处理付费墙
+        2. 内容处理 🔄
+           - 以干净的 markdown 格式化文本
+           - 保留关键信息
+           - 合理地组织内容
+        3. 质量控制 ✅
+           - 验证内容相关性
+           - 确保提取准确
+           - 保持可读性\
         """),
         response_model=ScrapedArticle,
     )
 
-    # Content Writer Agent: Crafts engaging blog posts from research
+    # 内容撰写代理：根据研究撰写引人入胜的博客文章
     writer: Agent = Agent(
         model=OpenAIChat(id="gpt-4o"),
         description=dedent("""\
-        You are BlogMaster-X, an elite content creator combining journalistic excellence
-        with digital marketing expertise. Your strengths include:
+        你是 BlogMaster-X，一位结合了新闻卓越性和数字营销专业知识的精英内容创作者。你的优势包括：
 
-        - Crafting viral-worthy headlines
-        - Writing engaging introductions
-        - Structuring content for digital consumption
-        - Incorporating research seamlessly
-        - Optimizing for SEO while maintaining quality
-        - Creating shareable conclusions\
+        - 创作病毒式传播的标题
+        - 撰写引人入胜的介绍
+        - 为数字消费组织内容
+        - 无缝整合研究
+        - 在保持质量的同时进行 SEO 优化
+        - 创建可分享的结论\
         """),
         instructions=dedent("""\
-        1. Content Strategy 📝
-           - Craft attention-grabbing headlines
-           - Write compelling introductions
-           - Structure content for engagement
-           - Include relevant subheadings
-        2. Writing Excellence ✍️
-           - Balance expertise with accessibility
-           - Use clear, engaging language
-           - Include relevant examples
-           - Incorporate statistics naturally
-        3. Source Integration 🔍
-           - Cite sources properly
-           - Include expert quotes
-           - Maintain factual accuracy
-        4. Digital Optimization 💻
-           - Structure for scanability
-           - Include shareable takeaways
-           - Optimize for SEO
-           - Add engaging subheadings\
+        1. 内容策略 📝
+           - 创作吸引人的标题
+           - 撰写引人入胜的介绍
+           - 为吸引读者而组织内容
+           - 包括相关的副标题
+        2. 写作卓越 ✍️
+           - 平衡专业知识与易懂性
+           - 使用清晰、引人入胜的语言
+           - 包括相关示例
+           - 自然地包含统计数据
+        3. 来源整合 🔍
+           - 正确引用来源
+           - 包括专家引述
+           - 保持事实准确性
+        4. 数字优化 💻
+           - 为易于浏览而组织
+           - 包括可分享的要点
+           - 针对 SEO 进行优化
+           - 添加引人入胜的副标题\
         """),
         expected_output=dedent("""\
-        # {Viral-Worthy Headline}
+        # {病毒式传播的标题}
 
-        ## Introduction
-        {Engaging hook and context}
+        ## 引言
+        {引人入胜的开场白和背景}
 
-        ## {Compelling Section 1}
-        {Key insights and analysis}
-        {Expert quotes and statistics}
+        ## {引人入胜的部分 1}
+        {关键见解和分析}
+        {专家引述和统计数据}
 
-        ## {Engaging Section 2}
-        {Deeper exploration}
-        {Real-world examples}
+        ## {引人入胜的部分 2}
+        {深入探讨}
+        {实际示例}
 
-        ## {Practical Section 3}
-        {Actionable insights}
-        {Expert recommendations}
+        ## {实用部分 3}
+        {可操作的见解}
+        {专家建议}
 
-        ## Key Takeaways
-        - {Shareable insight 1}
-        - {Practical takeaway 2}
-        - {Notable finding 3}
+        ## 主要收获
+        - {可分享的见解 1}
+        - {实用的收获 2}
+        - {值得注意的发现 3}
 
-        ## Sources
-        {Properly attributed sources with links}\
+        ## 来源
+        {正确归属的来源及链接}\
         """),
         markdown=True,
     )
@@ -213,9 +207,9 @@ class BlogPostGenerator(Workflow):
         use_scrape_cache: bool = True,
         use_cached_report: bool = True,
     ) -> Iterator[RunResponse]:
-        logger.info(f"Generating a blog post on: {topic}")
+        logger.info(f"正在生成关于以下主题的博客文章：{topic}")
 
-        # Use the cached blog post if use_cache is True
+        # 如果 use_cache 为 True，则使用缓存的博客文章
         if use_cached_report:
             cached_blog_post = self.get_cached_blog_post(topic)
             if cached_blog_post:
@@ -224,47 +218,47 @@ class BlogPostGenerator(Workflow):
                 )
                 return
 
-        # Search the web for articles on the topic
+        # 搜索关于该主题的文章
         search_results: Optional[SearchResults] = self.get_search_results(
             topic, use_search_cache
         )
-        # If no search_results are found for the topic, end the workflow
+        # 如果找不到该主题的 search_results，则结束工作流
         if search_results is None or len(search_results.articles) == 0:
             yield RunResponse(
                 event=RunEvent.workflow_completed,
-                content=f"Sorry, could not find any articles on the topic: {topic}",
+                content=f"抱歉，未能找到关于主题的文章：{topic}",
             )
             return
 
-        # Scrape the search results
+        # 抓取搜索结果
         scraped_articles: Dict[str, ScrapedArticle] = self.scrape_articles(
             topic, search_results, use_scrape_cache
         )
 
-        # Prepare the input for the writer
+        # 为撰写器准备输入
         writer_input = {
             "topic": topic,
             "articles": [v.model_dump() for v in scraped_articles.values()],
         }
 
-        # Run the writer and yield the response
+        # 运行撰写器并产生响应
         yield from self.writer.run(json.dumps(writer_input, indent=4), stream=True)
 
-        # Save the blog post in the cache
+        # 将博客文章保存在缓存中
         self.add_blog_post_to_cache(topic, self.writer.run_response.content)
 
     def get_cached_blog_post(self, topic: str) -> Optional[str]:
-        logger.info("Checking if cached blog post exists")
+        logger.info("正在检查缓存的博客文章是否存在")
 
         return self.session_state.get("blog_posts", {}).get(topic)
 
     def add_blog_post_to_cache(self, topic: str, blog_post: str):
-        logger.info(f"Saving blog post for topic: {topic}")
+        logger.info(f"正在为主题保存博客文章：{topic}")
         self.session_state.setdefault("blog_posts", {})
         self.session_state["blog_posts"][topic] = blog_post
 
     def get_cached_search_results(self, topic: str) -> Optional[SearchResults]:
-        logger.info("Checking if cached search results exist")
+        logger.info("正在检查缓存的搜索结果是否存在")
         search_results = self.session_state.get("search_results", {}).get(topic)
         return (
             SearchResults.model_validate(search_results)
@@ -273,14 +267,14 @@ class BlogPostGenerator(Workflow):
         )
 
     def add_search_results_to_cache(self, topic: str, search_results: SearchResults):
-        logger.info(f"Saving search results for topic: {topic}")
+        logger.info(f"正在为主题保存搜索结果：{topic}")
         self.session_state.setdefault("search_results", {})
         self.session_state["search_results"][topic] = search_results
 
     def get_cached_scraped_articles(
         self, topic: str
     ) -> Optional[Dict[str, ScrapedArticle]]:
-        logger.info("Checking if cached scraped articles exist")
+        logger.info("正在检查缓存的抓取文章是否存在")
         scraped_articles = self.session_state.get("scraped_articles", {}).get(topic)
         return (
             ScrapedArticle.model_validate(scraped_articles)
@@ -291,14 +285,14 @@ class BlogPostGenerator(Workflow):
     def add_scraped_articles_to_cache(
         self, topic: str, scraped_articles: Dict[str, ScrapedArticle]
     ):
-        logger.info(f"Saving scraped articles for topic: {topic}")
+        logger.info(f"正在为主题保存抓取文章：{topic}")
         self.session_state.setdefault("scraped_articles", {})
         self.session_state["scraped_articles"][topic] = scraped_articles
 
     def get_search_results(
         self, topic: str, use_search_cache: bool, num_attempts: int = 3
     ) -> Optional[SearchResults]:
-        # Get cached search_results from the session state if use_search_cache is True
+        # 如果 use_search_cache 为 True，则从会话状态获取缓存的 search_results
         if use_search_cache:
             try:
                 search_results_from_cache = self.get_cached_search_results(topic)
@@ -307,13 +301,13 @@ class BlogPostGenerator(Workflow):
                         search_results_from_cache
                     )
                     logger.info(
-                        f"Found {len(search_results.articles)} articles in cache."
+                        f"在缓存中找到 {len(search_results.articles)} 篇文章。"
                     )
                     return search_results
             except Exception as e:
-                logger.warning(f"Could not read search results from cache: {e}")
+                logger.warning(f"无法从缓存读取搜索结果：{e}")
 
-        # If there are no cached search_results, use the searcher to find the latest articles
+        # 如果没有缓存的 search_results，则使用搜索器查找最新文章
         for attempt in range(num_attempts):
             try:
                 searcher_response: RunResponse = self.searcher.run(topic)
@@ -324,19 +318,19 @@ class BlogPostGenerator(Workflow):
                 ):
                     article_count = len(searcher_response.content.articles)
                     logger.info(
-                        f"Found {article_count} articles on attempt {attempt + 1}"
+                        f"在第 {attempt + 1} 次尝试中找到 {article_count} 篇文章"
                     )
-                    # Cache the search results
+                    # 缓存搜索结果
                     self.add_search_results_to_cache(topic, searcher_response.content)
                     return searcher_response.content
                 else:
                     logger.warning(
-                        f"Attempt {attempt + 1}/{num_attempts} failed: Invalid response type"
+                        f"第 {attempt + 1}/{num_attempts} 次尝试失败：响应类型无效"
                     )
             except Exception as e:
-                logger.warning(f"Attempt {attempt + 1}/{num_attempts} failed: {str(e)}")
+                logger.warning(f"第 {attempt + 1}/{num_attempts} 次尝试失败：{str(e)}")
 
-        logger.error(f"Failed to get search results after {num_attempts} attempts")
+        logger.error(f"在 {num_attempts} 次尝试后未能获取搜索结果")
         return None
 
     def scrape_articles(
@@ -344,23 +338,23 @@ class BlogPostGenerator(Workflow):
     ) -> Dict[str, ScrapedArticle]:
         scraped_articles: Dict[str, ScrapedArticle] = {}
 
-        # Get cached scraped_articles from the session state if use_scrape_cache is True
+        # 如果 use_scrape_cache 为 True，则从会话状态获取缓存的 scraped_articles
         if use_scrape_cache:
             try:
                 scraped_articles_from_cache = self.get_cached_scraped_articles(topic)
                 if scraped_articles_from_cache is not None:
                     scraped_articles = scraped_articles_from_cache
                     logger.info(
-                        f"Found {len(scraped_articles)} scraped articles in cache."
+                        f"在缓存中找到 {len(scraped_articles)} 篇抓取文章。"
                     )
                     return scraped_articles
             except Exception as e:
-                logger.warning(f"Could not read scraped articles from cache: {e}")
+                logger.warning(f"无法从缓存读取抓取文章：{e}")
 
-        # Scrape the articles that are not in the cache
+        # 抓取不在缓存中的文章
         for article in search_results.articles:
             if article.url in scraped_articles:
-                logger.info(f"Found scraped article in cache: {article.url}")
+                logger.info(f"在缓存中找到抓取文章：{article.url}")
                 continue
 
             article_scraper_response: RunResponse = self.article_scraper.run(
@@ -374,43 +368,43 @@ class BlogPostGenerator(Workflow):
                 scraped_articles[article_scraper_response.content.url] = (
                     article_scraper_response.content
                 )
-                logger.info(f"Scraped article: {article_scraper_response.content.url}")
+                logger.info(f"抓取文章：{article_scraper_response.content.url}")
 
-        # Save the scraped articles in the session state
+        # 将抓取文章保存在会话状态中
         self.add_scraped_articles_to_cache(topic, scraped_articles)
         return scraped_articles
 
 
-# Run the workflow if the script is executed directly
+# 如果脚本直接执行，则运行工作流
 if __name__ == "__main__":
     import random
 
     from rich.prompt import Prompt
 
-    # Fun example prompts to showcase the generator's versatility
+    # 有趣的示例提示，展示了生成器的多功能性
     example_prompts = [
-        "Why Cats Secretly Run the Internet",
-        "The Science Behind Why Pizza Tastes Better at 2 AM",
-        "Time Travelers' Guide to Modern Social Media",
-        "How Rubber Ducks Revolutionized Software Development",
-        "The Secret Society of Office Plants: A Survival Guide",
-        "Why Dogs Think We're Bad at Smelling Things",
-        "The Underground Economy of Coffee Shop WiFi Passwords",
-        "A Historical Analysis of Dad Jokes Through the Ages",
+        "猫为什么秘密经营互联网",
+        "披萨在凌晨 2 点更好吃背后的科学原理",
+        "时间旅行者现代社交媒体指南",
+        "橡胶鸭如何革新软件开发",
+        "办公室植物秘密社团：生存指南",
+        "为什么狗认为我们闻东西不厉害",
+        "咖啡店 WiFi 密码的地下经济",
+        "历代父亲笑话的历史分析",
     ]
 
-    # Get topic from user
+    # 从用户处获取主题
     topic = Prompt.ask(
-        "[bold]Enter a blog post topic[/bold] (or press Enter for a random example)\n✨",
+        "[bold]请输入博客文章主题[/bold]（或按 Enter 获取随机示例）\n✨",
         default=random.choice(example_prompts),
     )
 
-    # Convert the topic to a URL-safe string for use in session_id
+    # 将主题转换为 URL 安全字符串以用作 session_id
     url_safe_topic = topic.lower().replace(" ", "-")
 
-    # Initialize the blog post generator workflow
-    # - Creates a unique session ID based on the topic
-    # - Sets up SQLite storage for caching results
+    # 初始化博客文章生成器工作流
+    # - 基于主题创建唯一的 session ID
+    # - 设置 SQLite 存储以缓存结果
     generate_blog_post = BlogPostGenerator(
         session_id=f"generate-blog-post-on-{url_safe_topic}",
         storage=SqliteStorage(
@@ -420,8 +414,8 @@ if __name__ == "__main__":
         debug_mode=True,
     )
 
-    # Execute the workflow with caching enabled
-    # Returns an iterator of RunResponse objects containing the generated content
+    # 执行启用了缓存的工作流
+    # 返回一个 RunResponse 对象迭代器，其中包含生成的文章
     blog_post: Iterator[RunResponse] = generate_blog_post.run(
         topic=topic,
         use_search_cache=True,
@@ -429,7 +423,7 @@ if __name__ == "__main__":
         use_cached_report=True,
     )
 
-    # Print the response
+    # 打印响应
     pprint_run_response(blog_post, markdown=True)
 ```
 
@@ -438,13 +432,13 @@ if __name__ == "__main__":
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
-    openai duckduckgo-search newspaper4k lxml_html_clean sqlalchemy agno
+    pip install openai duckduckgo-search newspaper4k lxml_html_clean sqlalchemy agno
     ```
   </Step>
 
-  <Step title="Run the workflow">
+  <Step title="运行工作流">
     ```bash
     python blog_post_generator.py
     ```

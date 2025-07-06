@@ -2,19 +2,19 @@
 title: Google Search
 ---
 
-**GoogleSearch** enables an Agent to perform web crawling and scraping tasks.
+**GoogleSearch** 使 Agent 能够执行网络爬取和抓取任务。
 
-## Prerequisites
+## 先决条件
 
-The following examples requires the `googlesearch` and `pycountry` libraries.
+以下示例需要 `googlesearch` 和 `pycountry` 库。
 
 ```shell
 pip install -U googlesearch-python pycountry
 ```
 
-## Example
+## 示例
 
-The following agent will search Google for the latest news about "Mistral AI":
+下面的 Agent 将在 Google 上搜索关于“Mistral AI”的最新新闻：
 
 ```python cookbook/tools/googlesearch_tools.py
 from agno.agent import Agent
@@ -35,23 +35,23 @@ agent = Agent(
 agent.print_response("Mistral AI", markdown=True)
 ```
 
-## Toolkit Params
+## Toolkit 参数
 
-| Parameter           | Type  | Default | Description                                         |
-| ------------------- | ----- | ------- | --------------------------------------------------- |
-| `fixed_max_results` | `int` | `None`  | Optional fixed maximum number of results to return. |
-| `fixed_language`    | `str` | `None`  | Optional fixed language for the requests.           |
-| `headers`           | `Any` | `None`  | Optional headers to include in the requests.        |
-| `proxy`             | `str` | `None`  | Optional proxy to be used for the requests.         |
-| `timeout`           | `int` | `None`  | Optional timeout for the requests, in seconds.      |
+| 参数           | 类型  | 默认值 | 描述                                         |
+| -------------- | ----- | ------ | -------------------------------------------- |
+| `fixed_max_results` | `int` | `None` | 可选的固定最大返回结果数。                   |
+| `fixed_language`    | `str` | `None` | 可选的固定请求语言。                         |
+| `headers`           | `Any` | `None` | 可选的包含在请求中的头部信息。               |
+| `proxy`             | `str` | `None` | 可选的用于请求的代理。                     |
+| `timeout`           | `int` | `None` | 可选的请求超时时间（秒）。                   |
 
-## Toolkit Functions
+## Toolkit 函数
 
-| Function        | Description                                                                                                                                                                                                                                                                            |
-| --------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `google_search` | Searches Google for a specified query. Parameters include `query` for the search term, `max_results` for the maximum number of results (default is 5), and `language` for the language of the search results (default is "en"). Returns the search results as a JSON formatted string. |
+| 函数        | 描述                                                                                                                                                                                                                                                                           |
+| ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `google_search` | 搜索 Google 指定的查询。参数包括用于搜索词的 `query`，最大结果数的 `max_results`（默认为 5），以及搜索结果语言的 `language`（默认为 "en"）。将搜索结果以 JSON 格式的字符串返回。 |
 
-## Developer Resources
+## 开发者资源
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/googlesearch.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/googlesearch_tools.py)
+- 查看 [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/googlesearch.py)
+- 查看 [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/googlesearch_tools.py)

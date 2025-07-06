@@ -1,8 +1,4 @@
----
-title: Audio Input (Upload the file)
----
-
-## Code
+## 代码
 
 ```python cookbook/models/google/gemini/audio_input_file_upload.py
 from pathlib import Path
@@ -17,7 +13,7 @@ agent = Agent(
     markdown=True,
 )
 
-# Please download a sample audio file to test this Agent and upload using:
+# 请下载一个示例音频文件来测试此 Agent，并使用以下方式上传：
 audio_path = Path(__file__).parent.joinpath("sample.mp3")
 audio_file = None
 
@@ -25,7 +21,7 @@ remote_file_name = f"files/{audio_path.stem.lower()}"
 try:
     audio_file = model.get_client().files.get(name=remote_file_name)
 except Exception as e:
-    print(f"Error getting file {audio_path.stem}: {e}")
+    print(f"获取文件 {audio_path.stem} 时出错：{e}")
     pass
 
 if not audio_file:
@@ -34,35 +30,35 @@ if not audio_file:
             file=audio_path,
             config=dict(name=audio_path.stem, display_name=audio_path.stem),
         )
-        print(f"Uploaded audio: {audio_file}")
+        print(f"已上传音频：{audio_file}")
     except Exception as e:
-        print(f"Error uploading audio: {e}")
+        print(f"上传音频时出错：{e}")
 
 agent.print_response(
-    "Tell me about this audio",
+    "告诉我关于这个音频的信息",
     audio=[Audio(content=audio_file)],
     stream=True,
 )
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">
     ```bash
     export GOOGLE_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U google-genai agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行 Agent">
     <CodeGroup>
     ```bash Mac
     python cookbook/models/google/gemini/audio_input_file_upload.py
@@ -73,4 +69,4 @@ agent.print_response(
     ```
     </CodeGroup>
   </Step>
-</Steps> 
+</Steps>

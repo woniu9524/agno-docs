@@ -2,16 +2,16 @@
 title: Agent State
 ---
 
-This example shows how to create an agent that maintains state across interactions. It demonstrates a simple counter mechanism, but this pattern can be extended to more complex state management like maintaining conversation context, user preferences, or tracking multi-step processes.
+此示例展示了如何创建一个在交互中维护状态的代理。它演示了一个简单的计数器机制，但此模式可以扩展到更复杂的状体管理，例如维护对话上下文、用户偏好或跟踪多步流程。
 
-Example prompts to try:
-- "Increment the counter 3 times and tell me the final count"
-- "What's our current count? Add 2 more to it"
-- "Let's increment the counter 5 times, but tell me each step"
-- "Add 4 to our count and remind me where we started"
-- "Increase the counter twice and summarize our journey"
+可尝试的示例提示：
+- "将计数器增加 3 次并告诉我最终计数"
+- "我们当前的计数是多少？再加 2"
+- "将计数器增加 5 次，但告诉我每一步"
+- "在我们的计数上加 4，并提醒我我们从哪里开始"
+- "将计数器增加两次并总结我们的历程"
 
-## Code
+## 代码
 
 ```python agent_state.py
 from textwrap import dedent
@@ -20,71 +20,71 @@ from agno.agent import Agent
 from agno.models.openai import OpenAIChat
 
 
-# Define a tool that increments our counter and returns the new value
+# 定义一个增加计数器并返回新值的工具
 def increment_counter(agent: Agent) -> str:
-    """Increment the session counter and return the new value."""
+    """增加会话计数器并返回新值。"""
     agent.session_state["count"] += 1
-    return f"The count is now {agent.session_state['count']}"
+    return f"计数现在是 {agent.session_state['count']}"
 
 
-# Create a State Manager Agent that maintains state
+# 创建一个维护状态的状态管理器代理
 agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
-    # Initialize the session state with a counter starting at 0
+    # 初始化会话状态，计数器从 0 开始
     session_state={"count": 0},
     tools=[increment_counter],
-    # You can use variables from the session state in the instructions
+    # 您可以在指令中使用会话状态中的变量
     instructions=dedent("""\
-        You are the State Manager, an enthusiastic guide to state management! 🔄
-        Your job is to help users understand state management through a simple counter example.
+        你是状态管理器，一个热情的状态管理指南！🔄
+        你的工作是通过一个简单的计数器示例帮助用户理解状态管理。
 
-        Follow these guidelines for every interaction:
-        1. Always acknowledge the current state (count) when relevant
-        2. Use the increment_counter tool to modify the state
-        3. Explain state changes in a clear and engaging way
+        每次交互都遵循以下指南：
+        1. 在相关时始终确认当前状态（计数）
+        2. 使用 increment_counter 工具修改状态
+        3. 以清晰且引人入胜的方式解释状态更改
 
-        Structure your responses like this:
-        - Current state status
-        - State transformation actions
-        - Final state and observations
+        请按以下格式组织你的回复：
+        - 当前状态状态
+        - 状态转换操作
+        - 最终状态和观察
 
-        Starting state (count) is: {count}\
+        起始状态（计数）是：{count}\
     """),
     show_tool_calls=True,
     markdown=True,
 )
 
-# Example usage
+# 示例用法
 agent.print_response(
-    "Let's increment the counter 3 times and observe the state changes!",
+    "让我们将计数器增加 3 次并观察状态变化！",
     stream=True,
 )
 
-# More example prompts to try:
+# 更多可尝试的示例提示：
 """
-Try these engaging state management scenarios:
-1. "Update our state 4 times and track the changes"
-2. "Modify the counter twice and explain the state transitions"
-3. "Increment 3 times and show how state persists"
-4. "Let's perform 5 state updates with observations"
-5. "Add 3 to our count and explain the state management concept"
+尝试这些引人入胜的状态管理场景：
+1. "更新我们的状态 4 次并跟踪更改"
+2. "修改计数器两次并解释状态转换"
+3. "增加 3 次并展示状态如何持久"
+4. "进行 5 次状态更新并附带观察"
+5. "在我们的计数上加 3 并解释状态管理概念"
 """
 
-print(f"Final session state: {agent.session_state}")
+print(f"最终会话状态：{agent.session_state}")
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install openai agno
     ```
   </Step>
 
-  <Step title="Run the agent">
+  <Step title="运行代理">
     ```bash
     python agent_state.py
     ```

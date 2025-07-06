@@ -1,14 +1,14 @@
 ---
-title: Writing your own Toolkit
+title: 编写自己的工具包
 ---
 
-Many advanced use-cases will require writing custom Toolkits. Here's the general flow:
+许多高级用例都需要编写自定义的工具包。以下是通用流程：
 
-1. Create a class inheriting the `agno.tools.Toolkit` class.
-2. Add your functions to the class.
-3. **Important:** Include all the functions in the `tools` argument to the `Toolkit` constructor.
+1. 创建一个继承自 `agno.tools.Toolkit` 类的类。
+2. 将你的函数添加到该类中。
+3. **重要提示：** 在 `Toolkit` 构造函数的 `tools` 参数中包含所有函数。
 
-Now your Toolkit is ready to use with an Agent. For example:
+现在你的工具包已准备好与 Agent 一起使用。例如：
 
 ```python shell_toolkit.py
 from typing import List
@@ -23,31 +23,29 @@ class ShellTools(Toolkit):
 
     def run_shell_command(self, args: List[str], tail: int = 100) -> str:
         """
-        Runs a shell command and returns the output or error.
+        运行 shell 命令并返回输出或错误。
 
         Args:
-            args (List[str]): The command to run as a list of strings.
-            tail (int): The number of lines to return from the output.
+            args (List[str]): 要作为字符串列表运行的命令。
+            tail (int): 要从输出中返回的行数。
         Returns:
-            str: The output of the command.
+            str: 命令的输出。
         """
         import subprocess
 
-        logger.info(f"Running shell command: {args}")
+        logger.info(f"运行 shell 命令: {args}")
         try:
-            logger.info(f"Running shell command: {args}")
+            logger.info(f"运行 shell 命令: {args}")
             result = subprocess.run(args, capture_output=True, text=True)
-            logger.debug(f"Result: {result}")
-            logger.debug(f"Return code: {result.returncode}")
+            logger.debug(f"结果: {result}")
+            logger.debug(f"返回码: {result.returncode}")
             if result.returncode != 0:
-                return f"Error: {result.stderr}"
-            # return only the last n lines of the output
+                return f"错误: {result.stderr}"
+            # 只返回输出的最后 n 行
             return "\n".join(result.stdout.split("\n")[-tail:])
         except Exception as e:
-            logger.warning(f"Failed to run shell command: {e}")
-            return f"Error: {e}"
+            logger.warning(f"无法运行 shell 命令: {e}")
+            return f"错误: {e}"
 
 agent = Agent(tools=[ShellTools()], show_tool_calls=True, markdown=True)
-agent.print_response("List all the files in my home directory.")
-
-```
+agent.print_response("列出我主目录中的所有文件。")

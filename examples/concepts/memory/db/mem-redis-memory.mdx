@@ -69,25 +69,25 @@ for i, m in enumerate(memories):
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set environment variables">
+  <Step title="设置环境变量">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U agno openai redis
     ```
   </Step>
 
-  <Step title="Run Redis">
+  <Step title="运行 Redis">
     ```bash
     docker run --name my-redis -p 6379:6379 -d redis
     ```
   </Step>
 
-  <Step title="Run Example">
+  <Step title="运行示例">
     <CodeGroup>
     ```bash Mac/Linux
     python cookbook/agent_concepts/memory/redis_memory.py

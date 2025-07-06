@@ -1,6 +1,6 @@
-## Local Web App
+## 本地 Web 应用
 
-Your codebase comes with a pre-configured [Django](https://www.djangoproject.com/) application connected to a [Postgres](https://www.postgresql.org/) database. Run it using:
+您的代码库包含一个预先配置好的 [Django](https://www.djangoproject.com/) 应用，该应用已连接到 [Postgres](https://www.postgresql.org/) 数据库。请运行以下命令来启动它：
 
 <CodeGroup>
 
@@ -18,22 +18,22 @@ ag ws up dev:docker
 
 </CodeGroup>
 
-**Press Enter** to confirm and give a few minutes for the image to download (only the first time). Verify container status and view logs on the docker dashboard.
+**按 Enter 键** 进行确认，首次运行时需要几分钟时间下载镜像。您可以在 Docker 仪表板上查看容器状态和日志。
 
-### View your Django App
+### 查看您的 Django 应用
 
-Open [localhost:8000](http://localhost:8000) to view the Django App running locally.
+打开 [localhost:8000](http://localhost:8000) 以查看本地运行的 Django 应用。
 
 ![django-app-django-local](/images/django-app-django-local.png)
 
-### Django Admin
+### Django 管理后台
 
-Open [localhost:8000/admin](http://localhost:8000/admin) to view the Django admin site. Create an admin user by running:
+打开 [localhost:8000/admin](http://localhost:8000/admin) 以查看 Django 管理后台。请运行以下命令创建一个管理员用户：
 
 ```bash
 docker exec -it django-dev-app python manage.py createsuperuser
 ```
 
-Log in to the admin panel:
+登录管理后台：
 
 ![django-app-django-admin-local](/images/django-app-django-admin-local.png)

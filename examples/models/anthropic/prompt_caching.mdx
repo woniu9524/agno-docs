@@ -64,10 +64,10 @@ system_message = txt_path.read_text()
 agent = Agent(
     model=Claude(
         id="claude-sonnet-4-20250514",
-        default_headers={"anthropic-beta": "extended-cache-ttl-2025-04-11"}, # Set the beta header to use the extended cache time
+        default_headers={"anthropic-beta": "extended-cache-ttl-2025-04-11"}, # 设置 beta 头以使用扩展缓存时间
         system_prompt=system_message,
-        cache_system_prompt=True,  # Activate prompt caching for Anthropic to cache the system prompt
-        extended_cache_time=True,  # Extend the cache time from the default to 1 hour
+        cache_system_prompt=True,  # 激活系统提示的缓存，以便 Anthropic 缓存系统提示
+        extended_cache_time=True,  # 将缓存时间从默认的 5 分钟延长到 1 小时
     ),
     system_message=system_message,
     markdown=True,
@@ -85,4 +85,3 @@ response = agent.run(
     "What are the key principles of clean code and how do I apply them in Python?"
 )
 print(f"Second run cache read tokens = {response.metrics['cached_tokens']}")  # type: ignore
-```

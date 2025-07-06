@@ -1,18 +1,17 @@
 ---
-title: Custom Tools
+title: 自定义工具
 ---
 
-This example shows how to create and use your own custom tool with Agno.
-You can replace the Hacker News functionality with any API or service you want!
+本示例展示了如何使用 Agno 创建和使用自己的自定义工具。您可以将 Hacker News 的功能替换为您想要的任何 API 或服务！
 
-Some ideas for your own tools:
-- Weather data fetcher
-- Stock price analyzer
-- Personal calendar integration
-- Custom database queries
-- Local file operations
+您自己工具的一些想法：
+- 天气数据获取器
+- 股票价格分析器
+- 个人日历集成
+- 自定义数据库查询
+- 本地文件操作
 
-## Code
+## 代码
 
 ```python custom_tools.py
 import json
@@ -24,20 +23,20 @@ from agno.models.openai import OpenAIChat
 
 
 def get_top_hackernews_stories(num_stories: int = 10) -> str:
-    """Use this function to get top stories from Hacker News.
+    """使用此函数获取 Hacker News 的热门故事。
 
     Args:
-        num_stories (int): Number of stories to return. Defaults to 10.
+        num_stories (int): 要返回的故事数量。默认为 10。
 
     Returns:
-        str: JSON string of top stories.
+        str: 热门故事的 JSON 字符串。
     """
 
-    # Fetch top story IDs
+    # 获取热门故事 ID
     response = httpx.get("https://hacker-news.firebaseio.com/v0/topstories.json")
     story_ids = response.json()
 
-    # Fetch story details
+    # 获取故事详情
     stories = []
     for story_id in story_ids[:num_stories]:
         story_response = httpx.get(
@@ -50,46 +49,46 @@ def get_top_hackernews_stories(num_stories: int = 10) -> str:
     return json.dumps(stories)
 
 
-# Create a Tech News Reporter Agent with a Silicon Valley personality
+# 创建一个具有硅谷个性的 Tech News Reporter Agent
 agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
     instructions=dedent("""\
-        You are a tech-savvy Hacker News reporter with a passion for all things technology! 🤖
-        Think of yourself as a mix between a Silicon Valley insider and a tech journalist.
+        你是一位热衷于一切科技的、懂行的 Hacker News 记者！🤖
+        你可以将自己想象成硅谷内部人士和科技记者的结合体。
 
-        Your style guide:
-        - Start with an attention-grabbing tech headline using emoji
-        - Present Hacker News stories with enthusiasm and tech-forward attitude
-        - Keep your responses concise but informative
-        - Use tech industry references and startup lingo when appropriate
-        - End with a catchy tech-themed sign-off like 'Back to the terminal!' or 'Pushing to production!'
+        你的风格指南：
+        - 以引人注目的科技标题和表情符号开头
+        - 以热情和前沿的科技态度呈现 Hacker News 故事
+        - 保持回应简洁但信息丰富
+        - 在适当的时候使用科技行业参考和创业公司行话
+        - 以朗朗上口的科技主题结束语结尾，例如“回到终端！”或“正在推送到生产环境！”
 
-        Remember to analyze the HN stories thoroughly while keeping the tech enthusiasm high!\
+        记住要彻底分析 HN 故事，同时保持高昂的科技热情！\
     """),
     tools=[get_top_hackernews_stories],
     show_tool_calls=True,
     markdown=True,
 )
 
-# Example questions to try:
-# - "What are the trending tech discussions on HN right now?"
-# - "Summarize the top 5 stories on Hacker News"
-# - "What's the most upvoted story today?"
+# 尝试的示例问题：
+# - "目前 HN 上流行的科技讨论是什么？"
+# - "总结 Hacker News 的前 5 个故事"
+# - "今天哪个故事获得的票数最多？"
 agent.print_response("Summarize the top 5 stories on hackernews?", stream=True)
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install openai httpx agno
     ```
   </Step>
 
-  <Step title="Run the agent">
+  <Step title="运行代理">
     ```bash
     python custom_tools.py
     ```

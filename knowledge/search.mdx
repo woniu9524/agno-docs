@@ -2,32 +2,32 @@
 title: Agentic Search
 ---
 
-Using an Agent to iteratively search for information is called **Agentic Search** and the process of **searching, reasoning and responding** is known as **Agentic RAG**.
+使用 Agent 迭代搜索信息称为 **Agentic Search**，而 **搜索、推理和响应** 的过程称为 **Agentic RAG**。
 
-The model interprets your query, generates relevant keywords and searches its knowledge.
+模型会解析你的查询，生成相关关键词并搜索其知识库。
 
 <Tip>
-The Agent's response is only as good as its search. **Better search = Better responses**
+Agent 的响应质量取决于其搜索质量。**更好的搜索 = 更好的响应**
 </Tip>
 
-You can use semantic search, keyword search or hybrid search. We recommend using **hybrid search with reranking** for best in class agentic search.
+你可以使用语义搜索、关键词搜索或混合搜索。我们推荐使用 **带重排的混合搜索** 来获得最佳的 Agentic Search 效果。
 
-Because the Agent is searching for the information it needs, this pattern is called **Agentic Search** and is becoming very popular with Agent builders.
+由于 Agent 会搜索它所需的信息，因此这种模式被称为 **Agentic Search**，并且在 Agent 构建者中越来越受欢迎。
 
 <Check>
-Let's build some examples to see Agentic Search in action.
+让我们构建一些示例来实际体验 Agentic Search。
 </Check>
 
 ## Agentic RAG
 
-When we add a knowledge base to an Agent, behind the scenes, we give the model a tool to search that knowledge base for the information it needs.
+当我们向 Agent 添加知识库时，在后台，我们会为模型提供一个工具来搜索该知识库以获取所需信息。
 
-The Model generates a set of keywords and calls the `search_knowledge_base()` tool to retrieve the relevant information or few-shot examples.
+模型会生成一组关键词并调用 `search_knowledge_base()` 工具来检索相关信息或少量示例。
 
-Here's a working example that uses Hybrid Search + Reranking:
+这是一个使用混合搜索 + 重排的工作示例：
 
 <Tip>
-You may remove the reranking step if you don't need it.
+如果不需要，可以移除重排步骤。
 </Tip>
 
 ```python agentic_rag.py
@@ -80,11 +80,11 @@ if __name__ == "__main__":
 
 ## Agentic RAG with Reasoning
 
-We can further improve the Agents search capabilities by giving it the ability to reason about the search results.
+我们可以通过让 Agent 能够推理搜索结果来进一步提高其搜索能力。
 
-By adding reasoning, the Agent "thinks" first about what to search and then "analyzes" the results of the search.
+通过添加推理功能，Agent 会先“思考”要搜索什么，然后“分析”搜索结果。
 
-Here's an example of an Agentic RAG Agent that uses reasoning to improve the quality of the search results.
+这是一个使用推理来提高搜索结果质量的 Agentic RAG Agent 示例。
 
 ```python agentic_rag_reasoning.py
 """This cookbook shows how to implement Agentic RAG with Reasoning.
@@ -139,4 +139,3 @@ if __name__ == "__main__":
         show_full_reasoning=True,
         stream_intermediate_steps=True,
     )
-```

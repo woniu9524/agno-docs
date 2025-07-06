@@ -1,35 +1,31 @@
 ---
-title: Movie Recommender
+title: 电影推荐器
 ---
 
-This example shows how to create an intelligent movie recommendation system that provides
-comprehensive film suggestions based on your preferences. The agent combines movie databases,
-ratings, reviews, and upcoming releases to deliver personalized movie recommendations.
+本示例展示了如何创建一个智能电影推荐系统，该系统可根据您的偏好提供全面的电影建议。该代理结合了电影数据库、评分、评论和即将上映的影片，以提供个性化的电影推荐。
 
-Example prompts to try:
-- "Suggest thriller movies similar to Inception and Shutter Island"
-- "What are the top-rated comedy movies from the last 2 years?"
-- "Find me Korean movies similar to Parasite and Oldboy"
-- "Recommend family-friendly adventure movies with good ratings"
-- "What are the upcoming superhero movies in the next 6 months?"
+可尝试的示例提示：
+- "推荐类似《盗梦空间》和《禁闭岛》的惊悚片"
+- "过去两年评分最高的喜剧片是什么？"
+- "找一些类似《寄生虫》和《老男孩》的韩国电影"
+- "推荐评分高的适合家庭观看的冒险电影"
+- "未来 6 个月有哪些即将上映的超级英雄电影？"
 
-## Code
+## 代码
 
 ```python movie_recommender.py
-"""🎬 Movie Recommender - Your Personal Cinema Curator!
+"""🎬 电影推荐器 - 您的专属电影策展人！
 
-This example shows how to create an intelligent movie recommendation system that provides
-comprehensive film suggestions based on your preferences. The agent combines movie databases,
-ratings, reviews, and upcoming releases to deliver personalized movie recommendations.
+本示例展示了如何创建一个智能电影推荐系统，该系统可根据您的偏好提供全面的电影建议。该代理结合了电影数据库、评分、评论和即将上映的影片，以提供个性化的电影推荐。
 
-Example prompts to try:
-- "Suggest thriller movies similar to Inception and Shutter Island"
-- "What are the top-rated comedy movies from the last 2 years?"
-- "Find me Korean movies similar to Parasite and Oldboy"
-- "Recommend family-friendly adventure movies with good ratings"
-- "What are the upcoming superhero movies in the next 6 months?"
+可尝试的示例提示：
+- "推荐类似《盗梦空间》和《禁闭岛》的惊悚片"
+- "过去两年评分最高的喜剧片是什么？"
+- "找一些类似《寄生虫》和《老男孩》的韩国电影"
+- "推荐评分高的适合家庭观看的冒险电影"
+- "未来 6 个月有哪些即将上映的超级英雄电影？"
 
-Run: `pip install openai exa_py agno` to install the dependencies
+运行：`pip install openai exa_py agno` 安装依赖项
 """
 
 from textwrap import dedent
@@ -43,104 +39,100 @@ movie_recommendation_agent = Agent(
     tools=[ExaTools()],
     model=OpenAIChat(id="gpt-4o"),
     description=dedent("""\
-        You are PopcornPal, a passionate and knowledgeable film curator with expertise in cinema worldwide! 🎥
+        您是 PopcornPal，一位充满热情且知识渊博的电影策展人，精通全球电影！🎥
 
-        Your mission is to help users discover their next favorite movies by providing detailed,
-        personalized recommendations based on their preferences, viewing history, and the latest
-        in cinema. You combine deep film knowledge with current ratings and reviews to suggest
-        movies that will truly resonate with each viewer."""),
+        您的使命是通过根据用户的偏好、观看历史和最新电影动态，提供详细的个性化推荐，帮助用户发现他们下一部最喜欢的电影。您将深厚的电影知识与当前的评分和评论相结合，为每位观众推荐真正能引起共鸣的电影。"""),
     instructions=dedent("""\
-        Approach each recommendation with these steps:
-        1. Analysis Phase
-           - Understand user preferences from their input
-           - Consider mentioned favorite movies' themes and styles
-           - Factor in any specific requirements (genre, rating, language)
+        在每次推荐时都遵循以下步骤：
+        1. 分析阶段
+           - 理解用户输入中的偏好
+           - 考虑提到的喜爱电影的主题和风格
+           - 考虑任何特定要求（类型、评分、语言）
 
-        2. Search & Curate
-           - Use Exa to search for relevant movies
-           - Ensure diversity in recommendations
-           - Verify all movie data is current and accurate
+        2. 搜索与策展
+           - 使用 Exa 搜索相关电影
+           - 确保推荐的多样性
+           - 验证所有电影数据是否最新且准确
 
-        3. Detailed Information
-           - Movie title and release year
-           - Genre and subgenres
-           - IMDB rating (focus on 7.5+ rated films)
-           - Runtime and primary language
-           - Brief, engaging plot summary
-           - Content advisory/age rating
-           - Notable cast and director
+        3. 详细信息
+           - 电影名称和发行年份
+           - 类型和子类型
+           - IMDB 评分（重点关注评分 7.5+ 的影片）
+           - 片长和主要语言
+           - 简短、引人入胜的情节摘要
+           - 内容咨询/年龄分级
+           - 主要演员和导演
 
-        4. Extra Features
-           - Include relevant trailers when available
-           - Suggest upcoming releases in similar genres
-           - Mention streaming availability when known
+        4. 附加功能
+           - 在可用时包含相关预告片
+           - 推荐相似类型的即将上映的影片
+           - 在已知时提及流媒体可用性
 
-        Presentation Style:
-        - Use clear markdown formatting
-        - Present main recommendations in a structured table
-        - Group similar movies together
-        - Add emoji indicators for genres (🎭 🎬 🎪)
-        - Minimum 5 recommendations per query
-        - Include a brief explanation for each recommendation
+        呈现风格：
+        - 使用清晰的 Markdown 格式
+        - 以结构化的表格呈现主要推荐
+        - 将相似的电影分组
+        - 使用表情符号指示类型（🎭 🎬 🎪）
+        - 每条查询至少推荐 5 部电影
+        - 为每次推荐包含简要说明
     """),
     markdown=True,
     add_datetime_to_instructions=True,
     show_tool_calls=True,
 )
 
-# Example usage with different types of movie queries
+# 使用不同类型的电影查询进行示例用法
 movie_recommendation_agent.print_response(
-    "Suggest some thriller movies to watch with a rating of 8 or above on IMDB. "
-    "My previous favourite thriller movies are The Dark Knight, Venom, Parasite, Shutter Island.",
+    "推荐一些 IMDB 评分在 8 分及以上的惊悚片。我之前最喜欢的惊悚片是《蝙蝠侠：黑暗骑士》、《毒液》、《寄生虫》、《禁闭岛》。",
     stream=True,
 )
 
-# More example prompts to explore:
+# 更多示例提示供探索：
 """
-Genre-specific queries:
-1. "Find me psychological thrillers similar to Black Swan and Gone Girl"
-2. "What are the best animated movies from Studio Ghibli?"
-3. "Recommend some mind-bending sci-fi movies like Inception and Interstellar"
-4. "What are the highest-rated crime documentaries from the last 5 years?"
+特定类型查询：
+1. "找一些类似《黑天鹅》和《消失的爱人》的心理惊悚片"
+2. "吉卜力工作室有哪些最佳动画电影？"
+3. "推荐一些类似《盗梦空间》和《星际穿越》的烧脑科幻片"
+4. "过去 5 年评分最高的犯罪纪录片是什么？"
 
-International Cinema:
-1. "Suggest Korean movies similar to Parasite and Train to Busan"
-2. "What are the must-watch French films from the last decade?"
-3. "Recommend Japanese animated movies for adults"
-4. "Find me award-winning European drama films"
+国际电影：
+1. "推荐一些类似《寄生虫》和《釜山行》的韩国电影"
+2. "过去十年必看的法国电影有哪些？"
+3. "推荐适合成人的日本动画电影"
+4. "找一些获奖的欧洲剧情片"
 
-Family & Group Watching:
-1. "What are good family movies for kids aged 8-12?"
-2. "Suggest comedy movies perfect for a group movie night"
-3. "Find educational documentaries suitable for teenagers"
-4. "Recommend adventure movies that both adults and children would enjoy"
+家庭与团体观看：
+1. "有哪些适合 8-12 岁儿童的家庭电影？"
+2. "推荐适合团体电影之夜的喜剧片"
+3. "找一些适合青少年的教育纪录片"
+4. "推荐适合成人和儿童一起观看的冒险电影"
 
-Upcoming Releases:
-1. "What are the most anticipated movies coming out next month?"
-2. "Show me upcoming superhero movie releases"
-3. "What horror movies are releasing this Halloween season?"
-4. "List upcoming book-to-movie adaptations"
+即将上映的影片：
+1. "下个月即将上映的最受期待的电影有哪些？"
+2. "展示即将上映的超级英雄电影"
+3. "这个万圣节季有哪些恐怖电影上映？"
+4. "列出即将改编自书籍的电影"
 """
 ```
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install openai exa_py agno
     ```
   </Step>
 
-  <Step title="Set environment variables">
+  <Step title="设置环境变量">
     ```bash
     export OPENAI_API_KEY=****
     export EXA_API_KEY=****
     ```
   </Step>
 
-  <Step title="Run the agent">
+  <Step title="运行代理">
     ```bash
     python movie_recommender.py
     ```

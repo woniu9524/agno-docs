@@ -1,9 +1,9 @@
 ---
-title: User Confirmation Required
-description: This example demonstrates how to implement human-in-the-loop functionality by requiring user confirmation before executing tool calls.
+title: 需要用户确认
+description: 此示例演示了如何在执行工具调用之前通过要求用户确认来实现人工干预功能。
 ---
 
-## Code
+## 代码
 
 ```python cookbook/agent_concepts/user_control_flows/confirmation_required.py
 import json
@@ -72,24 +72,24 @@ run_response = agent.continue_run()
 pprint.pprint_run_response(run_response)
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U agno httpx rich openai
     ```
   </Step>
 
-  <Step title="Run Example">
+  <Step title="运行示例">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/user_control_flows/confirmation_required.py
@@ -102,11 +102,11 @@ pprint.pprint_run_response(run_response)
   </Step>
 </Steps>
 
-## Key Features
+## 主要功能
 
-- Uses `@tool(requires_confirmation=True)` to mark tools that need user confirmation
-- Demonstrates how to continue agent execution after user input
+- 使用 `@tool(requires_confirmation=True)` 标记需要用户确认的工具
+- 演示了如何在用户输入后继续代理执行
 
-## Use Cases
+## 用例
 
-- Confirming sensitive operations before execution
+- 在执行前确认敏感操作

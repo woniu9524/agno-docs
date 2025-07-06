@@ -3,13 +3,13 @@ title: JSON Team Storage
 sidebarTitle: JSON
 ---
 
-Agno supports using local JSON files as a storage backend for Teams using the `JsonStorage` class.
+Agno 支持使用本地 JSON 文件作为 Teams 的存储后端，通过 `JsonStorage` 类实现。
 
-## Usage
+## 用法
 
 ```python json_storage_for_team.py
 """
-Run: `pip install openai duckduckgo-search newspaper4k lxml_html_clean agno` to install the dependencies
+运行: `pip install openai duckduckgo-search newspaper4k lxml_html_clean agno` 来安装依赖
 """
 
 from typing import List
@@ -66,10 +66,10 @@ hn_team = Team(
 hn_team.print_response("Write an article about the top 2 stories on hackernews")
 ```
 
-## Params
+## 参数
 
 <Snippet file="storage-json-params.mdx" />
 
-## Developer Resources
+## 开发者资源
 
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/storage/json_storage/json_storage_for_team.py)
+- 查看 [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/storage/json_storage/json_storage_for_team.py)

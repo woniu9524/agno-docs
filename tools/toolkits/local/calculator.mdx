@@ -2,11 +2,11 @@
 title: Calculator
 ---
 
-**Calculator** enables an Agent to perform mathematical calculations.
+**Calculator** 使 Agent 能够执行数学计算。
 
-## Example
+## 示例
 
-The following agent will calculate the result of `10*5` and then raise it to the power of `2`:
+以下 Agent 将计算 `10*5` 的结果，然后将其提升到 `2` 的幂：
 
 ```python cookbook/tools/calculator_tools.py
 from agno.agent import Agent
@@ -32,33 +32,33 @@ agent = Agent(
 agent.print_response("What is 10*5 then to the power of 2, do it step by step")
 ```
 
-## Toolkit Params
+## Toolkit 参数
 
-| Parameter      | Type   | Default | Description                                                         |
-| -------------- | ------ | ------- | ------------------------------------------------------------------- |
-| `add`          | `bool` | `True`  | Enables the functionality to perform addition.                      |
-| `subtract`     | `bool` | `True`  | Enables the functionality to perform subtraction.                   |
-| `multiply`     | `bool` | `True`  | Enables the functionality to perform multiplication.                |
-| `divide`       | `bool` | `True`  | Enables the functionality to perform division.                      |
-| `exponentiate` | `bool` | `False` | Enables the functionality to perform exponentiation.                |
-| `factorial`    | `bool` | `False` | Enables the functionality to calculate the factorial of a number.   |
-| `is_prime`     | `bool` | `False` | Enables the functionality to check if a number is prime.            |
-| `square_root`  | `bool` | `False` | Enables the functionality to calculate the square root of a number. |
+| 参数      | 类型   | 默认值 | 描述                                                         |
+| -------------- | ------ | ------- | ------------------------------------------------------------ |
+| `add`          | `bool` | `True`  | 启用执行加法的功能。                      |
+| `subtract`     | `bool` | `True`  | 启用执行减法的功能。                   |
+| `multiply`     | `bool` | `True`  | 启用执行乘法的功能。                |
+| `divide`       | `bool` | `True`  | 启用执行除法的功能。                      |
+| `exponentiate` | `bool` | `False` | 启用执行指数运算的功能。                |
+| `factorial`    | `bool` | `False` | 启用计算数字阶乘的功能。   |
+| `is_prime`     | `bool` | `False` | 启用检查数字是否为素数的功能。            |
+| `square_root`  | `bool` | `False` | 启用计算数字平方根的功能。 |
 
-## Toolkit Functions
+## Toolkit 函数
 
-| Function       | Description                                                                              |
+| 函数       | 描述                                                                              |
 | -------------- | ---------------------------------------------------------------------------------------- |
-| `add`          | Adds two numbers and returns the result.                                                 |
-| `subtract`     | Subtracts the second number from the first and returns the result.                       |
-| `multiply`     | Multiplies two numbers and returns the result.                                           |
-| `divide`       | Divides the first number by the second and returns the result. Handles division by zero. |
-| `exponentiate` | Raises the first number to the power of the second number and returns the result.        |
-| `factorial`    | Calculates the factorial of a number and returns the result. Handles negative numbers.   |
-| `is_prime`     | Checks if a number is prime and returns the result.                                      |
-| `square_root`  | Calculates the square root of a number and returns the result. Handles negative numbers. |
+| `add`          | 将两个数字相加并返回结果。                                                 |
+| `subtract`     | 从第一个数字中减去第二个数字并返回结果。                       |
+| `multiply`     | 将两个数字相乘并返回结果。                                           |
+| `divide`       | 将第一个数字除以第二个数字并返回结果。 处理零除法。 |
+| `exponentiate` | 将第一个数字提升到第二个数字的幂并返回结果。        |
+| `factorial`    | 计算数字的阶乘并返回结果。 处理负数。   |
+| `is_prime`     | 检查数字是否为素数并返回结果。                                      |
+| `square_root`  | 计算数字的平方根并返回结果。 处理负数。                                      |
 
-## Developer Resources
+## 开发者资源
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/calculator.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/calculator_tools.py)
+- 查看 [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/calculator.py)
+- 查看 [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/calculator_tools.py)

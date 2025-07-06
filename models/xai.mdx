@@ -3,16 +3,16 @@ title: xAI
 description: Learn how to use xAI with Agno.
 ---
 
-xAI is a platform for providing endpoints for Large Language models.
-See their list of models [here](https://docs.x.ai/docs/models).
+xAI 是一个为大型语言模型提供端点的平台。
+在此处查看他们的模型列表：[https://docs.x.ai/docs/models](https://docs.x.ai/docs/models)。
 
-We recommend experimenting to find the best-suited model for your use-case. `grok-beta` model is good for most use-cases.
+我们建议进行实验，以找到最适合您用例的模型。`grok-beta` 模型适用于大多数用例。
 
-xAI has rate limits on their APIs. See the [docs](https://docs.x.ai/docs/usage-tiers-and-rate-limits) for more information.
+xAI 对其 API 有速率限制。有关更多信息，请参阅[文档](https://docs.x.ai/docs/usage-tiers-and-rate-limits)。
 
-## Authentication
+## 身份验证
 
-Set your `XAI_API_KEY` environment variable. You can get one [from xAI here](https://console.x.ai/).
+设置您的 `XAI_API_KEY` 环境变量。您可以在[此处从 xAI 获取](https://console.x.ai/)。
 
 <CodeGroup>
 
@@ -26,9 +26,9 @@ setx XAI_API_KEY sk-***
 
 </CodeGroup>
 
-## Example
+## 示例
 
-Use `xAI` with your `Agent`:
+将 `xAI` 与您的 `Agent` 一起使用：
 
 <CodeGroup>
 
@@ -49,14 +49,14 @@ agent.print_response("Share a 2 sentence horror story.")
 
 </CodeGroup>
 
-<Note> View more examples [here](../examples/models/xai). </Note>
+<Note> 在此处查看更多示例：[../examples/models/xai](../examples/models/xai)。 </Note>
 
-## Params
+## 参数
 
-For more information, please refer to the [xAI docs](https://docs.x.ai/docs) as well.
+有关更多信息，请参阅[xAI 文档](https://docs.x.ai/docs)。
 
-## Params
+## 参数
 
 <Snippet file="model-xai-params.mdx" />
 
-`xAI` also supports the params of [OpenAI](/reference/models/openai).
+`xAI` 还支持[OpenAI](/reference/models/openai) 的参数。

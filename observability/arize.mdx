@@ -3,120 +3,120 @@ title: Arize
 description: Integrate Agno with Arize Phoenix to send traces and gain insights into your agent's performance.
 ---
 
-## Integrating Agno with Arize Phoenix
+## 将 Agno 与 Arize Phoenix 集成
 
-[Arize Phoenix](https://phoenix.arize.com/) is a powerful platform for monitoring and analyzing AI models. By integrating Agno with Arize Phoenix, you can leverage OpenInference to send traces and gain insights into your agent's performance.
+[Arize Phoenix](https://phoenix.arize.com/) 是一个强大的 AI 模型监控和分析平台。通过将 Agno 与 Arize Phoenix 集成，您可以利用 OpenInference 发送跟踪信息，并深入了解您的代理性能。
 
-## Prerequisites
+## 先决条件
 
-1. **Install Dependencies**
+1. **安装依赖项**
 
-   Ensure you have the necessary packages installed:
+   确保您已安装必要的软件包：
 
    ```bash
    pip install arize-phoenix openai openinference-instrumentation-agno opentelemetry-sdk opentelemetry-exporter-otlp
    ```
 
-2. **Setup Arize Phoenix Account**
+2. **设置 Arize Phoenix 账户**
 
-   - Create an account at [Arize Phoenix](https://phoenix.arize.com/).
-   - Obtain your API key from the Arize Phoenix dashboard.
+   - 在 [Arize Phoenix](https://phoenix.arize.com/) 创建一个账户。
+   - 从 Arize Phoenix 控制面板获取您的 API 密钥。
 
-3. **Set Environment Variables**
+3. **设置环境变量**
 
-   Configure your environment with the Arize Phoenix API key:
+   使用 Arize Phoenix API 密钥配置您的环境：
 
    ```bash
    export ARIZE_PHOENIX_API_KEY=<your-key>
    ```
 
-## Sending Traces to Arize Phoenix
+## 发送跟踪信息到 Arize Phoenix
 
-- ### Example: Using Arize Phoenix with OpenInference
+- ### 示例：将 Arize Phoenix 与 OpenInference 结合使用
 
-This example demonstrates how to instrument your Agno agent with OpenInference and send traces to Arize Phoenix.
+   此示例演示了如何使用 OpenInference 为您的 Agno 代理进行仪器化，并将跟踪信息发送到 Arize Phoenix。
 
-```python
-import asyncio
-import os
+   ```python
+   import asyncio
+   import os
 
-from agno.agent import Agent
-from agno.models.openai import OpenAIChat
-from agno.tools.yfinance import YFinanceTools
-from phoenix.otel import register
+   from agno.agent import Agent
+   from agno.models.openai import OpenAIChat
+   from agno.tools.yfinance import YFinanceTools
+   from phoenix.otel import register
 
-# Set environment variables for Arize Phoenix
-os.environ["PHOENIX_CLIENT_HEADERS"] = f"api_key={os.getenv('ARIZE_PHOENIX_API_KEY')}"
-os.environ["PHOENIX_COLLECTOR_ENDPOINT"] = "https://app.phoenix.arize.com"
+   # 设置 Arize Phoenix 的环境变量
+   os.environ["PHOENIX_CLIENT_HEADERS"] = f"api_key={os.getenv('ARIZE_PHOENIX_API_KEY')}"
+   os.environ["PHOENIX_COLLECTOR_ENDPOINT"] = "https://app.phoenix.arize.com"
 
-# Configure the Phoenix tracer
-tracer_provider = register(
-    project_name="agno-stock-price-agent",  # Default is 'default'
-    auto_instrument=True,  # Automatically use the installed OpenInference instrumentation
-)
+   # 配置 Phoenix Tracer
+   tracer_provider = register(
+       project_name="agno-stock-price-agent",  # 默认为 'default'
+       auto_instrument=True,  # 自动使用已安装的 OpenInference 仪器化
+   )
 
-# Create and configure the agent
-agent = Agent(
-    name="Stock Price Agent",
-    model=OpenAIChat(id="gpt-4o-mini"),
-    tools=[YFinanceTools()],
-    instructions="You are a stock price agent. Answer questions in the style of a stock analyst.",
-    debug_mode=True,
-)
+   # 创建并配置代理
+   agent = Agent(
+       name="Stock Price Agent",
+       model=OpenAIChat(id="gpt-4o-mini"),
+       tools=[YFinanceTools()],
+       instructions="You are a stock price agent. Answer questions in the style of a stock analyst.",
+       debug_mode=True,
+   )
 
-# Use the agent
-agent.print_response("What is the current price of Tesla?")
-```
+   # 使用代理
+   agent.print_response("What is the current price of Tesla?")
+   ```
 
-Now go to the [phoenix cloud](https://app.phoenix.arize.com) and view the traces created by your agent. You can visualize the execution flow, monitor performance, and debug issues directly from the Arize Phoenix dashboard.
-<Frame caption="Arize Phoenix Trace">
-  <img
-    src="/images/arize-phoenix-trace.png"
-    style={{ borderRadius: '10px', width: '100%', maxWidth: '800px' }}
-    alt="arize-agno observability"
-  />
-</Frame>
+   现在访问 [phoenix cloud](https://app.phoenix.arize.com) 查看由您的代理创建的跟踪信息。您可以直接从 Arize Phoenix 控制面板可视化执行流程、监控性能和调试问题。
+   <Frame caption="Arize Phoenix Trace">
+     <img
+       src="/images/arize-phoenix-trace.png"
+       style={{ borderRadius: '10px', width: '100%', maxWidth: '800px' }}
+       alt="arize-agno observability"
+     />
+   </Frame>
 
-- ### Example: Local Collector Setup
+- ### 示例：本地收集器设置
 
-For local development, you can run a local collector using
-```bash
-phoenix serve
-```
+   对于本地开发，您可以使用以下命令运行本地收集器：
+   ```bash
+   phoenix serve
+   ```
 
-```python
-import os
+   ```python
+   import os
 
-from agno.agent import Agent
-from agno.models.openai import OpenAIChat
-from agno.tools.yfinance import YFinanceTools
-from phoenix.otel import register
+   from agno.agent import Agent
+   from agno.models.openai import OpenAIChat
+   from agno.tools.yfinance import YFinanceTools
+   from phoenix.otel import register
 
-# Set the local collector endpoint
-os.environ["PHOENIX_COLLECTOR_ENDPOINT"] = "http://localhost:6006"
+   # 设置本地收集器端点
+   os.environ["PHOENIX_COLLECTOR_ENDPOINT"] = "http://localhost:6006"
 
-# Configure the Phoenix tracer
-tracer_provider = register(
-    project_name="agno-stock-price-agent",  # Default is 'default'
-    auto_instrument=True,  # Automatically use the installed OpenInference instrumentation
-)
+   # 配置 Phoenix Tracer
+   tracer_provider = register(
+       project_name="agno-stock-price-agent",  # 默认为 'default'
+       auto_instrument=True,  # 自动使用已安装的 OpenInference 仪器化
+   )
 
-# Create and configure the agent
-agent = Agent(
-    name="Stock Price Agent",
-    model=OpenAIChat(id="gpt-4o-mini"),
-    tools=[YFinanceTools()],
-    instructions="You are a stock price agent. Answer questions in the style of a stock analyst.",
-    debug_mode=True,
-)
+   # 创建并配置代理
+   agent = Agent(
+       name="Stock Price Agent",
+       model=OpenAIChat(id="gpt-4o-mini"),
+       tools=[YFinanceTools()],
+       instructions="You are a stock price agent. Answer questions in the style of a stock analyst.",
+       debug_mode=True,
+   )
 
-# Use the agent
-agent.print_response("What is the current price of Tesla?")
-```
+   # 使用代理
+   agent.print_response("What is the current price of Tesla?")
+   ```
 
-## Notes
+## 注意事项
 
-- **Environment Variables**: Ensure your environment variables are correctly set for the API key and collector endpoint.
-- **Local Development**: Use `phoenix serve` to start a local collector for development purposes.
+- **环境变量**: 确保您的 API 密钥和收集器端点的环境变量已正确设置。
+- **本地开发**: 使用 `phoenix serve` 启动本地收集器以进行开发。
 
-By following these steps, you can effectively integrate Agno with Arize Phoenix, enabling comprehensive observability and monitoring of your AI agents.
+通过遵循这些步骤，您可以有效地将 Agno 与 Arize Phoenix 集成，从而实现对您的 AI 代理进行全面的可观测性和监控。

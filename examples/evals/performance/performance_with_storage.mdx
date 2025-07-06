@@ -1,12 +1,12 @@
 ---
-title: Performance on Agent with Storage
-description: Example showing how to analyze the runtime and memory usage of an Agent that is using storage.
+title: 具有存储的 Agent 的性能
+description: 展示如何分析使用存储的 Agent 的运行时和内存使用情况的示例。
 ---
 
-## Code
+## 代码
 
 ```python
-"""Run `pip install openai agno` to install dependencies."""
+"""运行 `pip install openai agno` 来安装依赖项。"""
 
 from agno.agent import Agent
 from agno.eval.performance import PerformanceEval
@@ -32,4 +32,3 @@ simple_response_perf = PerformanceEval(
 
 if __name__ == "__main__":
     simple_response_perf.run(print_results=True, print_summary=True)
-```

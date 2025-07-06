@@ -36,14 +36,13 @@ agent.print_response("How to make Thai curry?", markdown=True)
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install LM Studio">
+  <Step title="安装 LM Studio">
 
-    Install LM Studio from [here](https://lmstudio.ai/download) and download the
-    model you want to use.
+    从 [这里](https://lmstudio.ai/download) 安装 LM Studio 并下载您想使用的模型。
 
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
 
     ```bash
     pip install -U sqlalchemy pgvector pypdf agno
@@ -51,7 +50,7 @@ agent.print_response("How to make Thai curry?", markdown=True)
 
   </Step>
 
-  <Step title="Run PgVector">
+  <Step title="运行 PgVector">
 
     ```bash
     docker run -d \
@@ -67,7 +66,7 @@ agent.print_response("How to make Thai curry?", markdown=True)
 
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行 Agent">
 
     <CodeGroup>
     ```bash Mac

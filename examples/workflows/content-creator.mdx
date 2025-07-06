@@ -1,9 +1,9 @@
 ---
 title: Content Creator
 ---
-**ContentCreator** streamlines the process of planning, creating, and distributing engaging content across LinkedIn and Twitter.
+**ContentCreator** 旨在简化在 LinkedIn 和 Twitter 上规划、创建和分发引人入胜的内容的过程。
 
-Create a file `config.py` with the following code:
+创建一个名为 `config.py` 的文件，其中包含以下代码：
 
 ```python config.py
 import os
@@ -19,12 +19,12 @@ TYPEFULLY_API_KEY = os.getenv("TYPEFULLY_API_KEY")
 HEADERS = {"X-API-KEY": f"Bearer {TYPEFULLY_API_KEY}"}
 
 
-# Define the enums
+# 定义枚举
 class PostType(Enum):
     TWITTER = "Twitter"
     LINKEDIN = "LinkedIn"
 ```
-Add prompts in `prompts.py`
+在 `prompts.py` 中添加提示
 
 ```python prompts.py
 # Planner Agents Configuration
@@ -137,7 +137,7 @@ tasks_config = {
 }
 ```
 
-For Scheduling logic, create `scheduler.py`
+为调度逻辑创建 `scheduler.py`
 
 ```python scheduler.py
 import datetime
@@ -158,7 +158,7 @@ load_dotenv()
 
 
 def json_to_typefully_content(thread_json: Dict[str, Any]) -> str:
-    """Convert JSON thread format to Typefully's format with 4 newlines between tweets."""
+    """将 JSON 线程格式转换为 Typefully 格式，推文之间有 4 个换行符。"""
     tweets = thread_json["tweets"]
     formatted_tweets = []
     for tweet in tweets:
@@ -171,7 +171,7 @@ def json_to_typefully_content(thread_json: Dict[str, Any]) -> str:
 
 
 def json_to_linkedin_content(thread_json: Dict[str, Any]) -> str:
-    """Convert JSON thread format to Typefully's format."""
+    """将 JSON 线程格式转换为 Typefully 格式。"""
     content = thread_json["content"]
     if "url" in thread_json and thread_json["url"]:
         content += f"\n{thread_json['url']}"
@@ -186,7 +186,7 @@ def schedule_thread(
     auto_retweet_enabled: bool = False,
     auto_plug_enabled: bool = False,
 ) -> Optional[Dict[str, Any]]:
-    """Schedule a thread on Typefully."""
+    """在 Typefully 上调度线程。"""
     payload = {
         "content": content,
         "schedule-date": schedule_date,
@@ -215,35 +215,35 @@ def schedule(
     post_type: PostType = PostType.TWITTER,
 ) -> Optional[Dict[str, Any]]:
     """
-    Schedule a thread from a Pydantic model.
+    从 Pydantic 模型调度线程。
 
     Args:
-        thread_model: Pydantic model containing thread data
-        hours_from_now: Hours from now to schedule the thread (default: 1)
-        threadify: Whether to let Typefully split the content (default: False)
-        share: Whether to get a share URL in response (default: True)
+        thread_model: 包含线程数据的 Pydantic 模型
+        hours_from_now: 从现在开始调度线程的小时数（默认为 1）
+        threadify: 是否让 Typefully 分割内容（默认为 False）
+        share: 是否在响应中获取共享 URL（默认为 True）
 
     Returns:
-        API response dictionary or None if failed
+        API 响应字典或在失败时返回 None
     """
     try:
         thread_content = ""
-        # Convert Pydantic model to dict
+        # 将 Pydantic 模型转换为字典
         thread_json = thread_model.model_dump()
         logger.info("######## Thread JSON: ", thread_json)
-        # Convert to Typefully format
+        # 转换为 Typefully 格式
         if post_type == PostType.TWITTER:
             thread_content = json_to_typefully_content(thread_json)
         elif post_type == PostType.LINKEDIN:
             thread_content = json_to_linkedin_content(thread_json)
 
-        # Calculate schedule time
+        # 计算调度时间
         schedule_date = (
             datetime.datetime.utcnow() + datetime.timedelta(hours=hours_from_now)
         ).isoformat() + "Z"
 
         if thread_content:
-            # Schedule the thread
+            # 调度线程
             response = schedule_thread(
                 content=thread_content,
                 schedule_date=schedule_date,
@@ -263,7 +263,7 @@ def schedule(
         logger.error(f"Error: {str(e)}")
         return None
 ```
-Define workflow in `workflow.py`:
+在 `workflow.py` 中定义工作流：
 
 ```python workflow.py
 import json
@@ -285,15 +285,15 @@ from cookbook.workflows.content_creator_workflow.prompts import (
 )
 from cookbook.workflows.content_creator_workflow.scheduler import schedule
 
-# Load environment variables
+# 加载环境变量
 load_dotenv()
 
 
-# Define Pydantic models to structure responses
+# 定义 Pydantic 模型来组织响应
 class BlogAnalyzer(BaseModel):
     """
-    Represents the response from the Blog Analyzer agent.
-    Includes the blog title and content in Markdown format.
+    表示来自 Blog Analyzer Agent 的响应。
+    包含博客标题和 Markdown 格式的内容。
     """
 
     title: str
@@ -302,21 +302,21 @@ class BlogAnalyzer(BaseModel):
 
 class Tweet(BaseModel):
     """
-    Represents an individual tweet within a Twitter thread.
+    表示 Twitter 线程中的单个推文。
     """
 
     content: str
     is_hook: bool = Field(
-        default=False, description="Marks if this tweet is the 'hook' (first tweet)"
+        default=False, description="标记此推文是否为“钩子”（第一条推文）"
     )
     media_urls: Optional[List[str]] = Field(
-        default_factory=list, description="Associated media URLs, if any"
+        default_factory=list, description="关联的媒体 URL，如果有"
     )  # type: ignore
 
 
 class Thread(BaseModel):
     """
-    Represents a complete Twitter thread containing multiple tweets.
+    表示包含多条推文的完整 Twitter 线程。
     """
 
     topic: str
@@ -325,44 +325,44 @@ class Thread(BaseModel):
 
 class LinkedInPost(BaseModel):
     """
-    Represents a LinkedIn post.
+    表示一个 LinkedIn 帖子。
     """
 
     content: str
-    media_url: Optional[List[str]] = None  # Optional media attachment URL
+    media_url: Optional[List[str]] = None  # 可选的媒体附件 URL
 
 
 class ContentPlanningWorkflow(Workflow):
     """
-    This workflow automates the process of:
-    1. Scraping a blog post using the Blog Analyzer agent.
-    2. Generating a content plan for either Twitter or LinkedIn based on the scraped content.
-    3. Scheduling and publishing the planned content.
+    此工作流自动化以下过程：
+    1. 使用 Blog Analyzer Agent 抓取博客文章。
+    2. 根据抓取的内容为 Twitter 或 LinkedIn 生成内容计划。
+    3. 调度和发布计划内容。
     """
 
-    # This description is used only in workflow UI
+    # 此描述仅用于工作流 UI
     description: str = (
-        "Plan, schedule, and publish social media content based on a blog post."
+        "根据博客文章规划、调度和发布社交媒体内容。"
     )
 
-    # Blog Analyzer Agent: Extracts blog content (title, sections) and converts it into Markdown format for further use.
+    # Blog Analyzer Agent：提取博客内容（标题、部分）并将其转换为 Markdown 格式以供进一步使用。
     blog_analyzer: Agent = Agent(
         model=OpenAIChat(id="gpt-4o"),
         tools=[
             FirecrawlTools(scrape=True, crawl=False)
-        ],  # Enables blog scraping capabilities
+        ],  # 启用博客抓取功能
         description=f"{agents_config['blog_analyzer']['role']} - {agents_config['blog_analyzer']['goal']}",
         instructions=[
             f"{agents_config['blog_analyzer']['backstory']}",
             tasks_config["analyze_blog"][
                 "description"
-            ],  # Task-specific instructions for blog analysis
+            ],  # 用于博客分析的任务特定说明
         ],
-        response_model=BlogAnalyzer,  # Expects response to follow the BlogAnalyzer Pydantic model
+        response_model=BlogAnalyzer,  # 期望响应遵循 BlogAnalyzer Pydantic 模型
     )
 
-    # Twitter Thread Planner: Creates a Twitter thread from the blog content, each tweet is concise, engaging,
-    # and logically connected with relevant media.
+    # Twitter Thread Planner：从博客内容创建 Twitter 线程，每条推文都简洁、引人入胜，
+    # 并与相关媒体逻辑连接。
     twitter_thread_planner: Agent = Agent(
         model=OpenAIChat(id="gpt-4o"),
         description=f"{agents_config['twitter_thread_planner']['role']} - {agents_config['twitter_thread_planner']['goal']}",
@@ -370,11 +370,11 @@ class ContentPlanningWorkflow(Workflow):
             f"{agents_config['twitter_thread_planner']['backstory']}",
             tasks_config["create_twitter_thread_plan"]["description"],
         ],
-        response_model=Thread,  # Expects response to follow the Thread Pydantic model
+        response_model=Thread,  # 期望响应遵循 Thread Pydantic 模型
     )
 
-    # LinkedIn Post Planner: Converts blog content into a structured LinkedIn post, optimized for a professional
-    # audience with relevant hashtags.
+    # LinkedIn Post Planner：将博客内容转换为结构化的 LinkedIn 帖子，针对专业受众进行了优化，
+    # 并包含相关标签。
     linkedin_post_planner: Agent = Agent(
         model=OpenAIChat(id="gpt-4o"),
         description=f"{agents_config['linkedin_post_planner']['role']} - {agents_config['linkedin_post_planner']['goal']}",
@@ -382,7 +382,7 @@ class ContentPlanningWorkflow(Workflow):
             f"{agents_config['linkedin_post_planner']['backstory']}",
             tasks_config["create_linkedin_post_plan"]["description"],
         ],
-        response_model=LinkedInPost,  # Expects response to follow the LinkedInPost Pydantic model
+        response_model=LinkedInPost,  # 期望响应遵循 LinkedInPost Pydantic 模型
     )
 
     def scrape_blog_post(self, blog_post_url: str, use_cache: bool = True):
@@ -423,14 +423,14 @@ class ContentPlanningWorkflow(Workflow):
 
     def schedule_and_publish(self, plan, post_type: PostType) -> RunResponse:
         """
-        Schedules and publishes the content leveraging Typefully api.
+        利用 Typefully API 调度和发布内容。
         """
         logger.info(f"# Publishing content for post type: {post_type}")
 
-        # Use the `scheduler` module directly to schedule the content
+        # 直接使用 `scheduler` 模块来调度内容
         response = schedule(
             thread_model=plan,
-            post_type=post_type,  # Either "Twitter" or "LinkedIn"
+            post_type=post_type,  # “Twitter”或“LinkedIn”
         )
 
         logger.info(f"Response: {response}")
@@ -445,28 +445,28 @@ class ContentPlanningWorkflow(Workflow):
     def run(self, blog_post_url, post_type) -> RunResponse:
         """
         Args:
-            blog_post_url: URL of the blog post to analyze.
-            post_type: Type of post to generate (e.g., Twitter or LinkedIn).
+            blog_post_url: 要分析的博客文章的 URL。
+            post_type: 要生成的帖子类型（例如，Twitter 或 LinkedIn）。
         """
-        # Scrape the blog post
+        # 抓取博客文章
         blog_content = self.scrape_blog_post(blog_post_url)
 
-        # Generate the plan based on the blog and post type
+        # 根据博客和帖子类型生成计划
         plan = self.generate_plan(blog_content, post_type)
 
-        # Schedule and publish the content
+        # 调度和发布内容
         response = self.schedule_and_publish(plan, post_type)
 
         return response
 
 
 if __name__ == "__main__":
-    # Initialize and run the workflow
+    # 初始化并运行工作流
     blogpost_url = "https://blog.dailydoseofds.com/p/5-chunking-strategies-for-rag"
     workflow = ContentPlanningWorkflow()
     post_response = workflow.run(
         blog_post_url=blogpost_url, post_type=PostType.TWITTER
-    )  # PostType.LINKEDIN for LinkedIn post
+    )  # PostType.LINKEDIN 用于 LinkedIn 帖子
     logger.info(post_response.content)
 ```
 ## Usage

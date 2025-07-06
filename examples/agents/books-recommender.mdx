@@ -1,19 +1,17 @@
 ---
-title: Books Recommender
+title: 图书推荐器
 ---
 
-This example shows how to create an intelligent book recommendation system that provides
-comprehensive literary suggestions based on your preferences. The agent combines book databases,
-ratings, reviews, and upcoming releases to deliver personalized reading recommendations.
+此示例展示了如何创建一个智能图书推荐系统，该系统可根据您的偏好提供全面的文学建议。该代理结合了图书数据库、评分、评论和即将发布的图书信息，以提供个性化的阅读推荐。
 
-Example prompts to try:
-- "I loved 'The Seven Husbands of Evelyn Hugo' and 'Daisy Jones & The Six', what should I read next?"
-- "Recommend me some psychological thrillers like 'Gone Girl' and 'The Silent Patient'"
-- "What are the best fantasy books released in the last 2 years?"
-- "I enjoy historical fiction with strong female leads, any suggestions?"
-- "Looking for science books that read like novels, similar to 'The Immortal Life of Henrietta Lacks'"
+可尝试的示例提示：
+- “我喜欢《艾芙琳·雨果的七任丈夫》和《戴茜·琼斯和六个人》，接下来我应该读什么？”
+- “推荐一些像《消失的爱人》和《沉默的病人》这样的心理惊悚小说”
+- “过去两年里最好的奇幻小说有哪些？”
+- “我喜欢以坚强女性为主角的历史小说，有什么建议吗？”
+- “我想找一些读起来像小说一样的科学书籍，类似于《亨丽埃塔·拉克斯的永生》”
 
-## Code
+## 代码
 
 ```python books_recommender.py
 from textwrap import dedent
@@ -27,109 +25,106 @@ book_recommendation_agent = Agent(
     tools=[ExaTools()],
     model=OpenAIChat(id="gpt-4o"),
     description=dedent("""\
-        You are Shelfie, a passionate and knowledgeable literary curator with expertise in books worldwide! 📚
+        你是 Shelfie，一位充满热情且知识渊博的文学策展人，精通世界各地的图书！📚
 
-        Your mission is to help readers discover their next favorite books by providing detailed,
-        personalized recommendations based on their preferences, reading history, and the latest
-        in literature. You combine deep literary knowledge with current ratings and reviews to suggest
-        books that will truly resonate with each reader."""),
+        你的使命是通过提供基于读者偏好、阅读历史和最新文学作品的详细、个性化推荐，帮助读者发现他们下一本喜爱的图书。你结合了深厚的文学知识和当前的评分及评论，以推荐真正能引起读者共鸣的图书。"""),
     instructions=dedent("""\
-        Approach each recommendation with these steps:
+        在每次推荐时，请遵循以下步骤：
 
-        1. Analysis Phase 📖
-           - Understand reader preferences from their input
-           - Consider mentioned favorite books' themes and styles
-           - Factor in any specific requirements (genre, length, content warnings)
+        1. 分析阶段 📖
+           - 理解读者输入中的偏好
+           - 考虑提及的喜爱图书的主题和风格
+           - 考虑任何具体要求（类型、篇幅、内容警告）
 
-        2. Search & Curate 🔍
-           - Use Exa to search for relevant books
-           - Ensure diversity in recommendations
-           - Verify all book data is current and accurate
+        2. 搜索与策划 🔍
+           - 使用 Exa 搜索相关图书
+           - 确保推荐的多样性
+           - 验证所有图书数据都是最新的且准确的
 
-        3. Detailed Information 📝
-           - Book title and author
-           - Publication year
-           - Genre and subgenres
-           - Goodreads/StoryGraph rating
-           - Page count
-           - Brief, engaging plot summary
-           - Content advisories
-           - Awards and recognition
+        3. 详细信息 📝
+           - 图书名称和作者
+           - 出版年份
+           - 类型和子类型
+           - Goodreads/StoryGraph 评分
+           - 页数
+           - 简短、引人入胜的情节摘要
+           - 内容提示
+           - 奖项和认可
 
-        4. Extra Features ✨
-           - Include series information if applicable
-           - Suggest similar authors
-           - Mention audiobook availability
-           - Note any upcoming adaptations
+        4. 附加功能 ✨
+           - 如适用，包含系列信息
+           - 推荐相似作者
+           - 注意有声书的可用性
+           - 提及任何即将改编的影视作品
 
-        Presentation Style:
-        - Use clear markdown formatting
-        - Present main recommendations in a structured table
-        - Group similar books together
-        - Add emoji indicators for genres (📚 🔮 💕 🔪)
-        - Minimum 5 recommendations per query
-        - Include a brief explanation for each recommendation
-        - Highlight diversity in authors and perspectives
-        - Note trigger warnings when relevant"""),
+        呈现风格：
+        - 使用清晰的 Markdown 格式
+        - 以结构化的表格呈现主要推荐
+        - 将相似的图书分组
+        - 添加类型的表情符号指示器（📚 🔮 💕 🔪）
+        - 每条查询至少推荐 5 本书
+        - 为每项推荐添加简要说明
+        - 强调作者和观点的多样性
+        - 在相关时注明触发警告"""),
     markdown=True,
     add_datetime_to_instructions=True,
     show_tool_calls=True,
 )
 
-# Example usage with different types of book queries
+# 使用不同类型的图书查询进行示例用法
 book_recommendation_agent.print_response(
-    "I really enjoyed 'Anxious People' and 'Lessons in Chemistry', can you suggest similar books?",
+    "我真的很喜欢《焦虑的人》和《化学课》，你能推荐一些类似的图书吗？",
     stream=True,
 )
 
-# More example prompts to explore:
+# 更多可探索的示例提示：
 """
-Genre-specific queries:
-1. "Recommend contemporary literary fiction like 'Beautiful World, Where Are You'"
-2. "What are the best fantasy series completed in the last 5 years?"
-3. "Find me atmospheric gothic novels like 'Mexican Gothic' and 'Ninth House'"
-4. "What are the most acclaimed debut novels from this year?"
+特定类型查询：
+1. “推荐一些像《美妙世界，你在哪里》这样的当代文学小说”
+2. “过去 5 年里有哪些已完成的优秀奇幻系列？”
+3. “找一些像《墨西哥哥特》和《第九号公馆》这样的哥特式氛围小说”
+4. “今年最受好评的处女作小说有哪些？”
 
-Contemporary Issues:
-1. "Suggest books about climate change that aren't too depressing"
-2. "What are the best books about artificial intelligence for non-technical readers?"
-3. "Recommend memoirs about immigrant experiences"
-4. "Find me books about mental health with hopeful endings"
+当代议题：
+1. “推荐一些关于气候变化但不至于太悲观的书籍”
+2. “有哪些适合非技术读者的关于人工智能的优秀书籍？”
+3. “推荐关于移民经历的回忆录”
+4. “找一些结局充满希望的关于心理健康的书籍”
 
-Book Club Selections:
-1. "What are good book club picks that spark discussion?"
-2. "Suggest literary fiction under 350 pages"
-3. "Find thought-provoking novels that tackle current social issues"
-4. "Recommend books with multiple perspectives/narratives"
+读书俱乐部精选：
+1. “有哪些适合读书俱乐部讨论的好书？”
+2. “推荐篇幅在 350 页以下的文学小说”
+3. “找一些能引发思考、探讨当前社会问题的长篇小说”
+4. “推荐一些具有多视角/叙事的小说”
 
-Upcoming Releases:
-1. "What are the most anticipated literary releases next month?"
-2. "Show me upcoming releases from my favorite authors"
-3. "What debut novels are getting buzz this season?"
-4. "List upcoming books being adapted for screen"
+即将出版的作品：
+1. “下个月最受期待的文学作品有哪些？”
+2. “展示我最喜欢的作者即将出版的作品”
+3. “这个季度有哪些备受关注的处女作？”
+4. “列出即将被改编成影视作品的书籍”
 """
 ```
 
-## Usage
+## 用法
 
 <Steps>
 
     <Snippet file="create-venv-step.mdx" />
 
-    <Step title="Install required libraries">
+    <Step title="安装所需库">
         ```bash
         pip install openai exa_py agno
         ```
     </Step>
 
-    <Step title="Set environment variables">
+    <Step title="设置环境变量">
         ```bash
         export OPENAI_API_KEY=****
         export EXA_API_KEY=****
         ```
     </Step>
 
-    <Step title="Run the agent">
+    <Step title="运行代理">
         ```bash
         python books_recommender.py
         ```

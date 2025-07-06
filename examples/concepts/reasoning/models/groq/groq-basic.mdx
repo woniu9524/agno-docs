@@ -1,10 +1,3 @@
----
-title: Groq DeepSeek R1
----
-
-## Code
-
-```python cookbook/reasoning/models/groq/9_11_or_9_9.py
 from agno.agent import Agent
 from agno.models.groq import Groq
 
@@ -14,28 +7,28 @@ agent = Agent(
     ),
     markdown=True,
 )
-agent.print_response("9.11 and 9.9 -- which is bigger?", stream=True)
+agent.print_response("9.11 和 9.9 -- 哪个更大?", stream=True)
 
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">
     ```bash
     export GROQ_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U groq agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行 Agent">
     <CodeGroup>
     ```bash Mac
     python cookbook/reasoning/models/groq/9_11_or_9_9.py

@@ -1,12 +1,12 @@
-# Manual Knowledge Filters
+# 手动知识过滤器
 
-Manual filtering gives you full control over which documents are searched by specifying filters directly in your code.
+手动过滤可让您通过在代码中直接指定过滤器来完全控制要搜索的文档。
 
-## Step 1: Attach Metadata
+## 步骤 1：附加元数据
 
-There are two ways to attach metadata to your documents:
+有两种方法可以为文档附加元数据：
 
-1. **Attach Metadata When Initializing the Knowledge Base**
+1. **在初始化知识库时附加元数据**
 
     ```python
     knowledge_base = PDFKnowledgeBase(
@@ -19,30 +19,30 @@ There are two ways to attach metadata to your documents:
                     "year": 2025,
                 },
             },
-            # ... more documents ...
+            # ... 更多文档 ...
         ],
         vector_db=vector_db,
     )
     knowledge_base.load(recreate=True)
     ```
 
-2. **Attach Metadata When Loading Documents One by One**
+2. **逐个加载文档时附加元数据**
 
     ```python
-    # Initialize the PDFKnowledgeBase
+    # 初始化 PDFKnowledgeBase
     knowledge_base = PDFKnowledgeBase(
         vector_db=vector_db,
         num_documents=5,
     )
 
-    # Load first document with user_1 metadata
+    # 加载带有 user_1 元数据的第一个文档
     knowledge_base.load_document(
         path=path/to/cv1.pdf,
         metadata={"user_id": "jordan_mitchell", "document_type": "cv", "year": 2025},
-        recreate=True,  # Set to True only for the first run, then set to False
+        recreate=True,  # 仅在首次运行时设置为 True，然后设置为 False
     )
 
-    # Load second document with user_2 metadata
+    # 加载带有 user_2 元数据的第二个文档
     knowledge_base.load_document(
         path=path/to/cv2.pdf,
         metadata={"user_id": "taylor_brooks", "document_type": "cv", "year": 2025},
@@ -51,15 +51,15 @@ There are two ways to attach metadata to your documents:
 
 ---
 
-> 💡 **Tips:**  
-> • Use **Option 1** if you have all your documents and metadata ready at once.  
-> • Use **Option 2** if you want to add documents incrementally or as they become available.
+> 💡 **提示：**
+> • 如果您一次性准备好所有文档和元数据，请使用**选项 1**。
+> • 如果您想逐步添加文档或在文档可用时添加，请使用**选项 2**。
 
-## Step 2: Query with Filters
+## 步骤 2：使用过滤器查询
 
-You can pass filters in two ways:
+您可以通过两种方式传递过滤器：
 
-### 1. On the Agent (applies to all queries)
+### 1. 在 Agent 上设置（应用于所有查询）
 
 ```python
 agent = Agent(
@@ -73,7 +73,7 @@ agent.print_response(
 )
 ```
 
-### 2. On Each Query (overrides Agent filters for that run)
+### 2. 在每次查询时设置（覆盖该次运行的 Agent 过滤器）
 
 ```python
 agent = Agent(
@@ -87,11 +87,11 @@ agent.print_response(
 )
 ```
 
-<Note>If you pass filters both on the Agent and on the query, the query-level filters take precedence.</Note>
+<Note>如果您同时在 Agent 和查询中都传递了过滤器，则查询级别的过滤器具有优先权。</Note>
 
-## Combining Multiple Filters
+## 组合多个过滤器
 
-You can filter by multiple fields:
+您可以按多个字段进行过滤：
 
 ```python
 agent = Agent(
@@ -109,14 +109,14 @@ agent.print_response(
 )
 ```
 
-## Try It Yourself!
+## 自己动手试试！
 
-- Load documents with different metadata.
-- Query with different filter combinations.
-- Observe how the results change!
+- 加载具有不同元数据的文档。
+- 使用不同的过滤器组合进行查询。
+- 观察结果如何变化！
 
 ---
 
-## Developer Resources
-- [Manual filtering](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/filters/pdf/filtering.py)
-- [Manual filtering on load](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/filters/pdf/filtering_on_load.py)
+## 开发者资源
+- [手动过滤](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/filters/pdf/filtering.py)
+- [加载时手动过滤](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/filters/pdf/filtering_on_load.py)

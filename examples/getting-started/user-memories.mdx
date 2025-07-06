@@ -2,25 +2,25 @@
 title: User Memories
 ---
 
-This example shows how to create an agent with persistent memory that stores:
-1. Personalized user memories - facts and preferences learned about specific users
-2. Session summaries - key points and context from conversations
-3. Chat history - stored in SQLite for persistence
+此示例展示了如何创建一个具有持久化内存的代理，该内存存储：
+1. 个性化用户记忆 - 关于特定用户的学习到的事实和偏好
+2. 会话摘要 - 对话的关键点和上下文
+3. 聊天记录 - 存储在 SQLite 中以实现持久化
 
-Key features:
-- Stores user-specific memories in SQLite database
-- Maintains session summaries for context
-- Continues conversations across sessions with memory
-- References previous context and user information in responses
+主要特点：
+- 将用户特定的记忆存储在 SQLite 数据库中
+- 维护会话摘要以获取上下文
+- 通过记忆跨会话继续对话
+- 在响应中引用先前的上下文和用户信息
 
-Examples:
-User: "My name is John and I live in NYC"
-Agent: *Creates memory about John's location*
+示例：
+用户：“我叫 John，住在纽约市”
+代理：*创建关于 John 位置的记忆*
 
-User: "What do you remember about me?"
-Agent: *Recalls previous memories about John*
+用户：“你记得我什么？”
+代理：*回忆关于 John 的先前记忆*
 
-## Code
+## 代码
 
 ```python user_memories.py
 import json
@@ -42,10 +42,10 @@ from rich.prompt import Prompt
 def create_agent(user: str = "user"):
     session_id: Optional[str] = None
 
-    # Ask if user wants to start new session or continue existing one
+    # 询问用户是想开始新会话还是继续现有会话
     new = typer.confirm("Do you want to start a new session?")
 
-    # Initialize storage for both agent sessions and memories
+    # 初始化代理会话和记忆的存储
     agent_storage = SqliteStorage(table_name="agent_memories", db_file="tmp/agents.db")
 
     if not new:
@@ -57,7 +57,7 @@ def create_agent(user: str = "user"):
         model=OpenAIChat(id="gpt-4o"),
         user_id=user,
         session_id=session_id,
-        # Configure memory system with SQLite storage
+        # 使用 SQLite 存储配置内存系统
         memory=Memory(
             db=SqliteMemoryDb(
                 table_name="agent_memory",
@@ -69,7 +69,7 @@ def create_agent(user: str = "user"):
         storage=agent_storage,
         add_history_to_messages=True,
         num_history_responses=3,
-        # Enhanced system prompt for better personality and memory usage
+        # 增强的系统提示，以获得更好的个性和内存使用
         description=dedent("""\
         You are a helpful and friendly AI assistant with excellent memory.
         - Remember important details about users and reference them naturally
@@ -91,7 +91,7 @@ def create_agent(user: str = "user"):
 
 
 def print_agent_memory(agent):
-    """Print the current state of agent's memory systems"""
+    """打印代理内存的当前状态"""
     console = Console()
 
     messages = []
@@ -102,7 +102,7 @@ def print_agent_memory(agent):
         messages.append(message_dict)
 
 
-    # Print chat history
+    # 打印聊天记录
     console.print(
         Panel(
             JSON(
@@ -116,7 +116,7 @@ def print_agent_memory(agent):
         )
     )
 
-    # Print user memories
+    # 打印用户记忆
     for user_id in list(agent.memory.memories.keys()):
         console.print(
             Panel(
@@ -134,7 +134,7 @@ def print_agent_memory(agent):
             )
         )
 
-    # Print session summary
+    # 打印会话摘要
     for user_id in list(agent.memory.summaries.keys()):
         console.print(
             Panel(
@@ -155,7 +155,7 @@ def print_agent_memory(agent):
 
 
 def main(user: str = "user"):
-    """Interactive chat loop with memory display"""
+    """具有内存显示的交互式聊天循环"""
     agent = create_agent(user)
 
     print("Try these example inputs:")
@@ -179,18 +179,18 @@ if __name__ == "__main__":
 
 ```
 
-## Usage
+## 使用
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install openai sqlalchemy agno
     ```
   </Step>
 
-  <Step title="Run the agent">
+  <Step title="运行代理">
     ```bash
     python user_memories.py
     ```

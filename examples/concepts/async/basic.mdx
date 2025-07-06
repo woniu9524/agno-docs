@@ -1,8 +1,4 @@
----
-title: Basic Async
----
-
-## Code
+## 代码
 
 ```python cookbook/agent_concepts/async/basic.py
 import asyncio
@@ -20,12 +16,12 @@ agent = Agent(
 asyncio.run(agent.aprint_response("Share a breakfast recipe.", stream=True))
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install libraries">
+  <Step title="安装库">
 
     ```bash
     pip install -U openai agno
@@ -33,7 +29,7 @@ asyncio.run(agent.aprint_response("Share a breakfast recipe.", stream=True))
 
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行 Agent">
 
     <CodeGroup>
 

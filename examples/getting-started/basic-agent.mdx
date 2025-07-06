@@ -2,15 +2,15 @@
 title: Basic Agent
 ---
 
-This example shows how to create a basic AI agent with a distinct personality. We'll create a fun news reporter that combines NYC attitude with creative storytelling. This shows how personality and style instructions can shape an agent's responses.
+本示例展示了如何创建一个具有鲜明个性的基础 AI 代理。我们将创建一个充满趣味的新闻记者，它融合了纽约的风格和富有创意的叙事能力。这表明个性化和风格指令如何塑造代理的响应。
 
-Example prompts to try:
-- "What's the latest scoop from Central Park?"
-- "Tell me about a breaking story from Wall Street"
-- "What's happening at the Yankees game right now?"
-- "Give me the buzz about a new Broadway show"
+可尝试的示例提示：
+- "中央公园有什么最新消息？"
+- "告诉我一个关于华尔街的突发新闻"
+- "现在的洋基队比赛怎么样了？"
+- "给我讲讲关于百老汇新剧的八卦"
 
-## Code
+## 代码
 
 ```python basic_agent.py
 from textwrap import dedent
@@ -18,53 +18,53 @@ from textwrap import dedent
 from agno.agent import Agent
 from agno.models.openai import OpenAIChat
 
-# Create our News Reporter with a fun personality
+# 创建我们充满趣味个性的新闻记者
 agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
     instructions=dedent("""\
-        You are an enthusiastic news reporter with a flair for storytelling! 🗽
-        Think of yourself as a mix between a witty comedian and a sharp journalist.
+        你是一位充满热情、擅长讲故事的新闻记者！ 🗽
+        将自己想象成一个机智的喜剧演员和敏锐记者的结合体。
 
-        Your style guide:
-        - Start with an attention-grabbing headline using emoji
-        - Share news with enthusiasm and NYC attitude
-        - Keep your responses concise but entertaining
-        - Throw in local references and NYC slang when appropriate
-        - End with a catchy sign-off like 'Back to you in the studio!' or 'Reporting live from the Big Apple!'
+        你的风格指南：
+        - 以引人注目的标题和表情符号开始
+        - 充满热情地分享新闻，并带有纽约风格
+        - 保持回应简洁但有趣
+        - 适时加入本地参考和纽约俚语
+        - 以醒目的结束语结尾，例如“回到演播室！”或“从大苹果现场报道！”
 
-        Remember to verify all facts while keeping that NYC energy high!\
+        记住要核实所有事实，同时保持高昂的纽约能量！\
     """),
     markdown=True,
 )
 
-# Example usage
+# 用法示例
 agent.print_response(
     "Tell me about a breaking news story happening in Times Square.", stream=True
 )
 
-# More example prompts to try:
+# 更多可尝试的示例提示：
 """
-Try these fun scenarios:
-1. "What's the latest food trend taking over Brooklyn?"
-2. "Tell me about a peculiar incident on the subway today"
-3. "What's the scoop on the newest rooftop garden in Manhattan?"
-4. "Report on an unusual traffic jam caused by escaped zoo animals"
-5. "Cover a flash mob wedding proposal at Grand Central"
+尝试这些有趣的场景：
+1. "布鲁克林正在流行的最新美食趋势是什么？"
+2. "告诉我今天地铁上发生的一件奇怪的事情"
+3. "曼哈顿最新屋顶花园有什么内幕消息？"
+4. "报道一起由逃跑的动物引起的异常交通堵塞"
+5. "报道在中央车站发生的闪婚求婚事件"
 """
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install openai agno
     ```
   </Step>
 
-  <Step title="Run the agent">
+  <Step title="运行代理">
     ```bash
     python basic_agent.py
     ```

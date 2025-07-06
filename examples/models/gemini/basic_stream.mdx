@@ -1,8 +1,4 @@
----
-title: Streaming Agent
----
-
-## Code
+## 代码
 
 ```python cookbook/models/google/gemini/basic_stream.py
 from typing import Iterator  # noqa
@@ -20,24 +16,24 @@ agent = Agent(model=Gemini(id="gemini-2.0-flash-exp"), markdown=True)
 agent.print_response("Share a 2 sentence horror story", stream=True)
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">
     ```bash
     export GOOGLE_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U google-genai agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行 Agent">
     <CodeGroup>
     ```bash Mac
     python cookbook/models/google/gemini/basic_stream.py

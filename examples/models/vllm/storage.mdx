@@ -1,10 +1,3 @@
----
-title: Agent with Storage
----
-
-## Code
-
-```python cookbook/models/vllm/storage.py
 from agno.agent import Agent
 from agno.models.vllm import vLLM
 from agno.storage.postgres import PostgresStorage
@@ -32,19 +25,19 @@ agent.print_response("What is their national anthem called?")
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install Libraries">
+  <Step title="安装库">
     ```bash
     pip install -U agno openai vllm sqlalchemy psycopg[binary] duckduckgo-search
     ```
   </Step>
 
-  <Step title="Start Postgres database">
+  <Step title="启动 Postgres 数据库">
     ```bash
     ./cookbook/scripts/run_pgvector.sh
     ```
   </Step>
   
-  <Step title="Start vLLM server">
+  <Step title="启动 vLLM 服务器">
     ```bash
     vllm serve Qwen/Qwen2.5-7B-Instruct \
         --enable-auto-tool-choice \
@@ -55,9 +48,9 @@ agent.print_response("What is their national anthem called?")
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行 Agent">
     ```bash
     python cookbook/models/vllm/storage.py
     ```
   </Step>
-</Steps> 
+</Steps>

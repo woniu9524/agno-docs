@@ -2,11 +2,11 @@
 title: Langfuse via OpenInference
 ---
 
-## Overview
+## 概述
 
-This example demonstrates how to instrument your Agno agent with OpenInference and send traces to Langfuse.
+本示例演示了如何使用 OpenInference 对 Agno 代理进行仪表化，并将跟踪信息发送到 Langfuse。
 
-## Code
+## 代码
 
 ```python
 import base64
@@ -36,7 +36,7 @@ tracer_provider = TracerProvider()
 tracer_provider.add_span_processor(SimpleSpanProcessor(OTLPSpanExporter()))
 trace_api.set_tracer_provider(tracer_provider=tracer_provider)
 
-# Start instrumenting agno
+# 开始仪表化 agno
 AgnoInstrumentor().instrument()
 
 agent = Agent(
@@ -50,23 +50,23 @@ agent = Agent(
 agent.print_response("What is the current price of Tesla?")
 ```
 
-## Usage
+## 用法
 
 <Steps>
-  <Step title="Install Dependencies">
+  <Step title="安装依赖项">
     ```bash
     pip install agno openai langfuse opentelemetry-sdk opentelemetry-exporter-otlp openinference-instrumentation-agno
     ```
   </Step>
 
-  <Step title="Set Environment Variables">
+  <Step title="设置环境变量">
     ```bash
     export LANGFUSE_PUBLIC_KEY=<your-public-key>
     export LANGFUSE_SECRET_KEY=<your-secret-key>
     ```
   </Step>
 
-  <Step title="Run the Agent">
+  <Step title="运行代理">
     <CodeGroup>
     ```bash Mac
     python cookbook/observability/langfuse_via_openinference.py
@@ -79,9 +79,9 @@ agent.print_response("What is the current price of Tesla?")
   </Step>
 </Steps>
 
-## Notes
+## 注意事项
 
-- **Data Regions**: Adjust the `OTEL_EXPORTER_OTLP_ENDPOINT` for your data region or local deployment as needed:
-  - `https://us.cloud.langfuse.com/api/public/otel` for the US region
-  - `https://cloud.langfuse.com/api/public/otel` for the EU region
-  - `http://localhost:3000/api/public/otel` for local deployment
+- **数据区域**: 根据需要调整 `OTEL_EXPORTER_OTLP_ENDPOINT` 以匹配您的数据区域或本地部署：
+  - `https://us.cloud.langfuse.com/api/public/otel` 适用于美国区域
+  - `https://cloud.langfuse.com/api/public/otel` 适用于欧盟区域
+  - `http://localhost:3000/api/public/otel` 适用于本地部署

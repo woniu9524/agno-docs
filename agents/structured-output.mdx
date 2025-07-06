@@ -1,12 +1,12 @@
 ---
-title: Structured Output
+title: 结构化输出
 ---
 
-One of our favorite features is using Agents to generate structured data (i.e. a pydantic model). Use this feature to extract features, classify data, produce fake data etc. The best part is that they work with function calls, knowledge bases and all other features.
+我们最喜欢的功能之一是使用 Agent 来生成结构化数据（即 pydantic 模型）。使用此功能可以提取特征、对数据进行分类、生成假数据等。最棒的是，它们可以与函数调用、知识库以及所有其他功能协同工作。
 
-## Example
+## 示例
 
-Let's create an Movie Agent to write a `MovieScript` for us.
+让我们创建一个电影 Agent 来为我们编写 `MovieScript`。
 
 ```python movie_agent.py
 from typing import List
@@ -16,35 +16,35 @@ from agno.agent import Agent, RunResponse
 from agno.models.openai import OpenAIChat
 
 class MovieScript(BaseModel):
-    setting: str = Field(..., description="Provide a nice setting for a blockbuster movie.")
-    ending: str = Field(..., description="Ending of the movie. If not available, provide a happy ending.")
+    setting: str = Field(..., description="为一部大片提供一个不错的场景。")
+    ending: str = Field(..., description="电影的结局。如果不可用，请提供一个快乐的结局。")
     genre: str = Field(
-        ..., description="Genre of the movie. If not available, select action, thriller or romantic comedy."
+        ..., description="电影的类型。如果不可用，请选择动作、惊悚或浪漫喜剧。"
     )
-    name: str = Field(..., description="Give a name to this movie")
-    characters: List[str] = Field(..., description="Name of characters for this movie.")
-    storyline: str = Field(..., description="3 sentence storyline for the movie. Make it exciting!")
+    name: str = Field(..., description="给这部电影起个名字")
+    characters: List[str] = Field(..., description="这部电影的角色名字。")
+    storyline: str = Field(..., description="电影的3句话剧情简介。要令人兴奋！")
 
-# Agent that uses JSON mode
+# 使用 JSON 模式的 Agent
 json_mode_agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
-    description="You write movie scripts.",
+    description="你编写电影剧本。",
     response_model=MovieScript,
     use_json_mode=True,
 )
-json_mode_agent.print_response("New York")
+json_mode_agent.print_response("纽约")
 
-# Agent that uses structured outputs
+# 使用结构化输出的 Agent
 structured_output_agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
-    description="You write movie scripts.",
+    description="你编写电影剧本。",
     response_model=MovieScript,
 )
 
-structured_output_agent.print_response("New York")
+structured_output_agent.print_response("纽约")
 ```
 
-Run the script to see the output.
+运行脚本即可查看输出。
 
 ```bash
 pip install -U agno openai
@@ -52,10 +52,10 @@ pip install -U agno openai
 python movie_agent.py
 ```
 
-The output is an object of the `MovieScript` class, here's how it looks:
+输出是 `MovieScript` 类的一个对象，看起来是这样的：
 
 ```python
-# Using JSON mode
+# 使用 JSON 模式
 MovieScript(
 │   setting='The bustling streets of New York City, filled with skyscrapers, secret alleyways, and hidden underground passages.',
 │   ending='The protagonist manages to thwart an international conspiracy, clearing his name and winning the love of his life back.',
@@ -65,7 +65,7 @@ MovieScript(
 │   storyline="When Alex Monroe, an ex-CIA operative, is framed for a crime he didn't commit, he must navigate the dangerous streets of New York to clear his name. As he uncovers a labyrinth of deceit involving the city's most notorious crime syndicate, he enlists the help of an old flame, Eva Parker. Together, they race against time to expose the true villain before it's too late."
 )
 
-# Use the structured output
+# 使用结构化输出
 MovieScript(
 │   setting='In the bustling streets and iconic skyline of New York City.',
 │   ending='Isabella and Alex, having narrowly escaped the clutches of the Syndicate, find themselves standing at the top of the Empire State Building. As the glow of the setting sun bathes the city, they share a victorious kiss. Newly emboldened and as an unstoppable duo, they vow to keep NYC safe from any future threats.',
@@ -76,24 +76,24 @@ MovieScript(
 )
 ```
 
-## Using a Parser Model
+## 使用解析器模型
 
-You can use an additional model to parse and structure the output from your primary model. This approach is particularly effective when the primary model is optimized for reasoning tasks, as such models may not consistently produce detailed structured responses.
+您可以使用额外的模型来解析和结构化主模型生成的输出。当主模型针对推理任务进行了优化，但可能无法始终生成详细的结构化响应时，这种方法尤其有效。
 
 ```python
 agent = Agent(
     model=Claude(id="claude-sonnet-4-20250514"),
-    description="You write movie scripts.",
+    description="你编写电影剧本。",
     response_model=MovieScript,
     parser_model=OpenAIChat(id="gpt-4o"),
 )
 ```
 
-You can also provide a custom `parser_model_prompt` to your Parser Model.
+您还可以为解析器模型提供自定义的 `parser_model_prompt`。
 
-## Streaming Structured Output
+## 流式传输结构化输出
 
-Streaming can be used in combination with `response_model`. This returns the structured output as a single event in the stream of events.
+流式传输可以与 `response_model` 结合使用。这将在事件流中将结构化输出作为单个事件返回。
 
 ```python streaming_agent.py
 import asyncio
@@ -106,41 +106,41 @@ from pydantic import BaseModel, Field
 
 class MovieScript(BaseModel):
     setting: str = Field(
-        ..., description="Provide a nice setting for a blockbuster movie."
+        ..., description="为一部大片提供一个不错的场景。"
     )
     ending: str = Field(
         ...,
-        description="Ending of the movie. If not available, provide a happy ending.",
+        description="电影的结局。如果不可用，请提供一个快乐的结局。",
     )
     genre: str = Field(
         ...,
-        description="Genre of the movie. If not available, select action, thriller or romantic comedy.",
+        description="电影的类型。如果不可用，请选择动作、惊悚或浪漫喜剧。",
     )
-    name: str = Field(..., description="Give a name to this movie")
-    characters: List[str] = Field(..., description="Name of characters for this movie.")
+    name: str = Field(..., description="给这部电影起个名字")
+    characters: List[str] = Field(..., description="这部电影的角色名字。")
     storyline: str = Field(
-        ..., description="3 sentence storyline for the movie. Make it exciting!"
+        ..., description="电影的3句话剧情简介。要令人兴奋！"
     )
     rating: Dict[str, int] = Field(
         ...,
-        description="Your own rating of the movie. 1-10. Return a dictionary with the keys 'story' and 'acting'.",
+        description="你对电影的评分。1-10。返回一个包含 'story' 和 'acting' 键的字典。",
     )
 
 
-# Agent that uses structured outputs with streaming
+# 使用结构化输出和流式传输的 Agent
 structured_output_agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
-    description="You write movie scripts.",
+    description="你编写电影剧本。",
     response_model=MovieScript,
 )
 
 structured_output_agent.print_response(
-    "New York", stream=True, stream_intermediate_steps=True
+    "纽约", stream=True, stream_intermediate_steps=True
 )
 ```
 
-## Developer Resources
+## 开发者资源
 
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/async/structured_output.py)
-- View [Parser Model Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/other/parse_model.py)
-- View [Streaming Structured Output](https://github.com/agno-agi/agno/blob/main/cookbook/models/openai/chat/structured_output_stream.py)
+- 查看 [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/async/structured_output.py)
+- 查看 [Parser Model Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/other/parse_model.py)
+- 查看 [Streaming Structured Output](https://github.com/agno-agi/agno/blob/main/cookbook/models/openai/chat/structured_output_stream.py)

@@ -1,20 +1,20 @@
 ---
 title: Meta
-description: Learn how to use Meta models in Agno.
+description: 了解如何在 Agno 中使用 Meta 模型。
 ---
 
-Meta offers a suite of powerful multi-modal language models known for their strong performance across a wide range of tasks, including superior text understanding and visual intelligence. 
+Meta 提供了一套强大的多模态语言模型，在广泛的任务中表现出色，包括卓越的文本理解和视觉智能。
 
-We recommend experimenting to find the best-suited model for your use-case. Here are some general recommendations:
+我们建议您进行实验，以找到最适合您用例的模型。以下是一些通用建议：
 
-- `Llama-4-Scout-17B`: Excellent performance for most general tasks, including multi-modal scenarios.
-- `Llama-3.3-70B`: Powerful instruction-following model for complex reasoning tasks.
+- `Llama-4-Scout-17B`：在大多数通用任务（包括多模态场景）中表现出色。
+- `Llama-3.3-70B`：强大的指令遵循模型，适用于复杂的推理任务。
 
-Explore all the models [here](https://llama.developer.meta.com/docs/models).
+在此处 [Explore all the models](https://llama.developer.meta.com/docs/models) 探索所有模型。
 
-## Authentication
+## 身份验证
 
-Set your `LLAMA_API_KEY` environment variable:
+设置您的 `LLAMA_API_KEY` 环境变量：
 
 <CodeGroup>
 ```bash Mac
@@ -25,9 +25,9 @@ setx LLAMA_API_KEY YOUR_API_KEY
 ```
 </CodeGroup>
 
-## Example
+## 示例
 
-Use `Llama` with your `Agent`:
+在您的 `Agent` 中使用 `Llama`：
 
 <CodeGroup>
 ```python agent.py
@@ -45,17 +45,17 @@ agent.print_response("Share a 2 sentence horror story.")
 ```
 </CodeGroup>
 
-<Note> View more examples [here](../examples/models/meta). </Note>
+<Note> 在此处 [here](../examples/models/meta) 查看更多示例。 </Note>
 
-## Parameters
+## 参数
 
 <Snippet file="model-meta-params.mdx" />
 
-### OpenAI-like Parameters
+### 类似 OpenAI 的参数
 
-`LlamaOpenAI` supports all parameters from [OpenAI Like](/reference/models/openai_like).
+`LlamaOpenAI` 支持来自 [OpenAI Like](/reference/models/openai_like) 的所有参数。
 
-## Resources
+## 资源
 
 - [Meta AI Models](https://llama.developer.meta.com/docs/models)
 - [Llama API Documentation](https://llama.developer.meta.com/docs/overview)
