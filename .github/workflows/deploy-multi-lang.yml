@@ -1,10 +1,10 @@
-name: Deploy Multi-Language Docs to GitHub Pages
+name: Deploy Chinese Docs to GitHub Pages
 
 on:
   push:
-    branches: [ Chinese, Japanese ]  # 监听中文和日文分支
+    branches: [ Chinese ]  # 只监听中文分支
   pull_request:
-    branches: [ Chinese, Japanese ]
+    branches: [ Chinese ]
   workflow_dispatch:  # 允许手动触发
 
 permissions:
@@ -28,13 +28,6 @@ jobs:
           path: chinese
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Checkout Japanese Branch
-        uses: actions/checkout@v4
-        with:
-          ref: Japanese
-          path: japanese
-          token: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
@@ -43,21 +36,30 @@ jobs:
       - name: Install Mintlify CLI
         run: npm install -g mintlify
 
-      - name: Build Chinese Branch
+      - name: Validate Mintlify Configuration
         run: |
           cd chinese
-          mintlify build
-          mkdir -p ../_site/zh
-          cp -r _site/* ../_site/zh/
+          # 检查是否存在 docs.json 配置文件
+          if [ ! -f "docs.json" ]; then
+            echo "错误: 未找到 docs.json 配置文件"
+            exit 1
+          fi
+          
+          # 检查断链（可选）
+          mintlify broken-links || echo "警告: 发现断链，但继续构建"
 
-      - name: Build Japanese Branch
+      - name: Create Static Site Structure
         run: |
-          cd japanese
-          mintlify build
-          mkdir -p ../_site/ja
-          cp -r _site/* ../_site/ja/
+          cd chinese
+          mkdir -p ../_site
+          
+          # 复制所有文档文件到 _site 目录
+          cp -r . ../_site/
+          
+          # 创建一个简单的静态站点结构
+          # 注意：这是一个简化的方法，实际的 Mintlify 部署应该使用他们的托管服务
 
-      - name: Create Multi-Language Index Page
+      - name: Create Documentation Browser
         run: |
           cat > _site/index.html << 'EOF'
           <!DOCTYPE html>
@@ -65,104 +67,263 @@ jobs:
           <head>
               <meta charset="UTF-8">
               <meta name="viewport" content="width=device-width, initial-scale=1.0">
-              <title>Agno 多语言文档</title>
+              <title>Agno 中文文档</title>
               <style>
+                  * {
+                      margin: 0;
+                      padding: 0;
+                      box-sizing: border-box;
+                  }
+                  
                   body {
-                      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'PingFang SC', 'Microsoft YaHei', 'Hiragino Sans', sans-serif;
-                      max-width: 900px;
-                      margin: 0 auto;
-                      padding: 2rem;
-                      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-                      min-height: 100vh;
-                      display: flex;
-                      align-items: center;
-                      justify-content: center;
-                  }
-                  .container {
-                      background: white;
-                      padding: 3rem;
-                      border-radius: 20px;
-                      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-                      text-align: center;
-                      width: 100%;
-                      max-width: 700px;
-                  }
-                  h1 {
-                      color: #FF4017;
-                      margin-bottom: 1rem;
-                      font-size: 2.5rem;
-                      font-weight: 700;
-                  }
-                  .subtitle {
-                      color: #666;
-                      margin-bottom: 3rem;
-                      font-size: 1.2rem;
+                      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+                      background: #f8fafc;
+                      color: #334155;
                       line-height: 1.6;
                   }
-                  .language-buttons {
-                      display: flex;
-                      gap: 1.5rem;
-                      justify-content: center;
-                      flex-wrap: wrap;
-                      margin-bottom: 2rem;
+                  
+                  .header {
+                      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                      color: white;
+                      padding: 2rem 0;
+                      text-align: center;
+                      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
                   }
-                  .language-button {
+                  
+                  .header h1 {
+                      font-size: 2.5rem;
+                      font-weight: 700;
+                      margin-bottom: 0.5rem;
+                  }
+                  
+                  .header p {
+                      font-size: 1.2rem;
+                      opacity: 0.9;
+                  }
+                  
+                  .container {
+                      max-width: 1200px;
+                      margin: 0 auto;
+                      padding: 2rem;
+                  }
+                  
+                  .warning {
+                      background: #fff3cd;
+                      border: 1px solid #ffeaa7;
+                      color: #856404;
+                      padding: 1rem;
+                      border-radius: 8px;
+                      margin-bottom: 2rem;
+                      display: flex;
+                      align-items: center;
+                      gap: 0.5rem;
+                  }
+                  
+                  .grid {
+                      display: grid;
+                      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                      gap: 1.5rem;
+                      margin-top: 2rem;
+                  }
+                  
+                  .card {
+                      background: white;
+                      border-radius: 12px;
+                      padding: 1.5rem;
+                      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+                      transition: transform 0.2s ease, box-shadow 0.2s ease;
+                      border: 1px solid #e2e8f0;
+                  }
+                  
+                  .card:hover {
+                      transform: translateY(-2px);
+                      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+                  }
+                  
+                  .card h3 {
+                      color: #FF4017;
+                      margin-bottom: 0.5rem;
+                      font-size: 1.25rem;
+                  }
+                  
+                  .card p {
+                      color: #64748b;
+                      margin-bottom: 1rem;
+                  }
+                  
+                  .btn {
                       display: inline-block;
-                      padding: 1.2rem 2.5rem;
+                      padding: 0.75rem 1.5rem;
                       background: #FF4017;
                       color: white;
                       text-decoration: none;
-                      border-radius: 12px;
-                      transition: all 0.3s ease;
+                      border-radius: 8px;
+                      transition: all 0.2s ease;
                       font-weight: 600;
-                      font-size: 1.2rem;
-                      border: 2px solid transparent;
-                      min-width: 180px;
                   }
-                  .language-button:hover {
+                  
+                  .btn:hover {
                       background: #e63600;
-                      transform: translateY(-3px);
-                      box-shadow: 0 10px 20px rgba(255, 64, 23, 0.3);
+                      transform: translateY(-1px);
                   }
-                  .language-button.chinese {
-                      background: #FF4017;
+                  
+                  .btn-secondary {
+                      background: #6366f1;
                   }
-                  .language-button.japanese {
-                      background: #FF6B47;
+                  
+                  .btn-secondary:hover {
+                      background: #4f46e5;
                   }
-                  .language-button.japanese:hover {
-                      background: #e55a3c;
-                  }
+                  
                   .footer {
+                      text-align: center;
                       margin-top: 3rem;
-                      color: #999;
-                      font-size: 0.9rem;
+                      padding: 2rem;
+                      color: #64748b;
+                      border-top: 1px solid #e2e8f0;
                   }
-                  @media (max-width: 600px) {
-                      .language-buttons {
-                          flex-direction: column;
-                          align-items: center;
-                      }
-                      .language-button {
-                          width: 100%;
-                          max-width: 300px;
-                      }
+                  
+                  .file-browser {
+                      background: white;
+                      border-radius: 12px;
+                      padding: 1.5rem;
+                      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+                      margin-top: 2rem;
+                  }
+                  
+                  .file-browser h3 {
+                      color: #334155;
+                      margin-bottom: 1rem;
+                      font-size: 1.25rem;
+                  }
+                  
+                  .file-list {
+                      list-style: none;
+                  }
+                  
+                  .file-list li {
+                      padding: 0.75rem;
+                      border-bottom: 1px solid #e2e8f0;
+                      display: flex;
+                      align-items: center;
+                      gap: 0.5rem;
+                  }
+                  
+                  .file-list li:last-child {
+                      border-bottom: none;
+                  }
+                  
+                  .file-list a {
+                      color: #6366f1;
+                      text-decoration: none;
+                      font-weight: 500;
+                  }
+                  
+                  .file-list a:hover {
+                      color: #4f46e5;
+                      text-decoration: underline;
+                  }
+                  
+                  .file-icon {
+                      width: 16px;
+                      height: 16px;
+                      opacity: 0.6;
                   }
               </style>
           </head>
           <body>
+              <div class="header">
+                  <h1>🚀 Agno 中文文档</h1>
+                  <p>AI 驱动的多智能体系统 - 构建下一代智能应用</p>
+              </div>
+              
               <div class="container">
-                  <h1>🚀 Agno 多语言文档</h1>
-                  <p class="subtitle">AI 驱动的多智能体系统<br>构建下一代智能应用</p>
-                  <div class="language-buttons">
-                      <a href="./zh/introduction" class="language-button chinese">🇨🇳 中文文档</a>
-                      <a href="./ja/introduction" class="language-button japanese">🇯🇵 日本語ドキュメント</a>
+                  <div class="warning">
+                      <span>⚠️</span>
+                      <div>
+                          <strong>注意：</strong> 这是一个临时的静态部署。完整的 Mintlify 功能需要使用官方托管服务。
+                          <br>如需完整的交互式文档体验，请访问 <a href="https://mintlify.com" target="_blank">Mintlify 官网</a>。
+                      </div>
                   </div>
-                  <div class="footer">
-                      <p>AI-powered multi-agent systems documentation</p>
-                      <p>多语言支持 | Multi-language Support</p>
+                  
+                  <div class="grid">
+                      <div class="card">
+                          <h3>📄 配置文件</h3>
+                          <p>查看 Mintlify 文档的配置文件，了解项目结构和设置。</p>
+                          <a href="./docs.json" class="btn">查看 docs.json</a>
+                      </div>
+                      
+                      <div class="card">
+                          <h3>🔧 开发环境</h3>
+                          <p>了解如何在本地设置和运行 Mintlify 开发环境。</p>
+                          <a href="https://mintlify.com/docs/development" class="btn btn-secondary" target="_blank">查看指南</a>
+                      </div>
+                      
+                      <div class="card">
+                          <h3>🌐 官方托管</h3>
+                          <p>使用 Mintlify 官方托管服务获得完整的文档体验。</p>
+                          <a href="https://mintlify.com" class="btn btn-secondary" target="_blank">访问 Mintlify</a>
+                      </div>
+                  </div>
+                  
+                  <div class="file-browser">
+                      <h3>📁 文档文件</h3>
+                      <ul class="file-list" id="fileList">
+                          <li>
+                              <span class="file-icon">📄</span>
+                              <a href="./docs.json">docs.json - 配置文件</a>
+                          </li>
+                      </ul>
                   </div>
               </div>
+              
+              <div class="footer">
+                  <p>© 2025 Agno 中文文档 - AI-powered multi-agent systems documentation</p>
+                  <p>使用 <a href="https://mintlify.com" target="_blank">Mintlify</a> 构建</p>
+              </div>
+              
+              <script>
+                  // 动态加载文档文件列表
+                  async function loadFileList() {
+                      try {
+                          const response = await fetch('./docs.json');
+                          const config = await response.json();
+                          
+                          const fileList = document.getElementById('fileList');
+                          
+                          // 添加导航页面
+                          if (config.navigation) {
+                              const addPages = (pages, prefix = '') => {
+                                  pages.forEach(page => {
+                                      if (typeof page === 'string') {
+                                          const li = document.createElement('li');
+                                          li.innerHTML = `
+                                              <span class="file-icon">📝</span>
+                                              <a href="./${page}.mdx">${prefix}${page}.mdx</a>
+                                          `;
+                                          fileList.appendChild(li);
+                                      } else if (page.group && page.pages) {
+                                          addPages(page.pages, `${page.group}/ `);
+                                      }
+                                  });
+                              };
+                              
+                              if (Array.isArray(config.navigation)) {
+                                  addPages(config.navigation);
+                              } else if (config.navigation.groups) {
+                                  config.navigation.groups.forEach(group => {
+                                      addPages(group.pages, `${group.group}/ `);
+                                  });
+                              }
+                          }
+                      } catch (error) {
+                          console.error('加载文件列表失败:', error);
+                      }
+                  }
+                  
+                  // 页面加载完成后执行
+                  document.addEventListener('DOMContentLoaded', loadFileList);
+              </script>
           </body>
           </html>
           EOF
@@ -185,4 +346,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v4 
