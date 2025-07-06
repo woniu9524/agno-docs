@@ -1,16 +1,16 @@
 ---
-title: CSV URL Knowledge Base
-description: Learn how to use remote CSV files in your knowledge base.
-sidebarTitle: CSV URLs
+title: CSV URLナレッジベース
+description: リモートCSVファイルをナレッジベースで使用する方法を学びます。
+sidebarTitle: CSV URL
 ---
 
-The **CSVUrlKnowledgeBase** reads **CSVs from urls**, converts them into vector embeddings and loads them to a vector database.
+**CSVUrlKnowledgeBase** は、**URLからCSVを読み込み**、ベクトル埋め込みに変換して、ベクトルデータベースにロードします。
 
-## Usage
+## 使用方法
 
 <Note>
 
-We are using a local PgVector database for this example. [Make sure it's running](https://docs.agno.com/vectordb/pgvector)
+この例では、ローカルのPgVectorデータベースを使用しています。[実行されていることを確認してください](https://docs.agno.com/vectordb/pgvector)
 
 </Note>
 
@@ -20,7 +20,7 @@ from agno.vectordb.pgvector import PgVector
 
 knowledge_base = CSVUrlKnowledgeBase(
     urls=["csv_url"],
-    # Table name: ai.csv_documents
+    # テーブル名: ai.csv_documents
     vector_db=PgVector(
         table_name="csv_documents",
         db_url="postgresql+psycopg://ai:ai@localhost:5532/ai",
@@ -28,7 +28,7 @@ knowledge_base = CSVUrlKnowledgeBase(
 )
 ```
 
-Then use the `knowledge_base` with an Agent:
+次に、`knowledge_base` をエージェントで使用します。
 
 ```python agent.py
 from agno.agent import Agent
@@ -40,15 +40,15 @@ agent = Agent(
 )
 agent.knowledge.load(recreate=False)
 
-agent.print_response("Ask me about something from the knowledge base")
+agent.print_response("ナレッジベースについて何か質問してください")
 ```
 
-#### CSVUrlKnowledgeBase also supports async loading.
+#### CSVUrlKnowledgeBase は非同期ロードもサポートしています。
 
 ```shell
 pip install qdrant-client
 ```
-We are using a local Qdrant database for this example. [Make sure it's running](https://docs.agno.com/vectordb/qdrant)
+この例では、ローカルのQdrantデータベースを使用しています。[実行されていることを確認してください](https://docs.agno.com/vectordb/qdrant)
 
 ```python async_knowledge_base.py
 import asyncio
@@ -65,35 +65,35 @@ vector_db = Qdrant(collection=COLLECTION_NAME, url="http://localhost:6333")
 knowledge_base = CSVUrlKnowledgeBase(
     urls=["https://agno-public.s3.amazonaws.com/demo_data/IMDB-Movie-Data.csv"],
     vector_db=vector_db,
-    num_documents=5,  # Number of documents to return on search
+    num_documents=5,  # 検索時に返されるドキュメント数
 )
 
-# Initialize the Agent with the knowledge_base
+# ナレッジベースでエージェントを初期化します
 agent = Agent(
     knowledge=knowledge_base,
     search_knowledge=True,
 )
 
 if __name__ == "__main__":
-    # Comment out after first run
+    # 初回実行後にコメントアウトしてください
     asyncio.run(knowledge_base.aload(recreate=False))
 
-    # Create and use the agent
+    # エージェントを作成して使用します
     asyncio.run(
-        agent.aprint_response("What genre of movies are present here?", markdown=True)
+        agent.aprint_response("ここにはどのようなジャンルの映画がありますか？", markdown=True)
     )
 ```
 
-## Params
+## パラメータ
 
-| Parameter | Type           | Default          | Description                                                                                                    |
-| --------- | -------------- | ---------------- | -------------------------------------------------------------------------------------------------------------- |
-| `urls`    | `List[str]`    | -                | URLs for `PDF` files.                                                                                          |
-| `reader`  | `CSVUrlReader` | `CSVUrlReader()` | A `CSVUrlReader` that reads the CSV file from the URL and converts it into `Documents` for the vector database |
+| パラメータ | タイプ           | デフォルト          | 説明                                                                                             |
+| --------- | -------------- | ---------------- | ------------------------------------------------------------------------------------------------ |
+| `urls`    | `List[str]`    | -                | `PDF` ファイルのURL。                                                                            |
+| `reader`  | `CSVUrlReader` | `CSVUrlReader()` | URLからCSVファイルを読み込み、ベクトルデータベース用の`Documents`に変換する `CSVUrlReader`。 |
 
-`CSVUrlKnowledgeBase` is a subclass of the [AgentKnowledge](/reference/knowledge/base) class and has access to the same params.
+`CSVUrlKnowledgeBase` は [AgentKnowledge](/reference/knowledge/base) クラスのサブクラスであり、同じパラメータにアクセスできます。
 
-## Developer Resources
+## 開発者向けリソース
 
-- View [Sync loading Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/csv_url_kb.py)
-- View [Async loading Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/csv_url_kb_async.py)
+- [同期ロードクックブック](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/csv_url_kb.py) を表示
+- [非同期ロードクックブック](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/csv_url_kb_async.py) を表示

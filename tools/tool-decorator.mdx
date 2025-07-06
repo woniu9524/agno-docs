@@ -1,18 +1,18 @@
 ---
-title: Writing your own tools
-description: Learn how to write your own tools and how to use the `@tool` decorator to modify the behavior of a tool.
+title: 独自のツールを作成する
+description: 独自のツールを作成する方法と、`@tool` デコレータを使用してツールの動作を変更する方法を学びます。
 ---
 
-In most production cases, you will need to write your own tools. Which is why we're focused on provide the best tool-use experience in Agno.
+ほとんどの本番環境では、独自のツールを作成する必要があります。そのため、Agno では最高のツール利用体験を提供することに注力しています。
 
-The rule is simple:
+ルールは簡単です。
 
-- Any python function can be used as a tool by an Agent.
-- Use the `@tool` decorator to modify what happens before and after this tool is called.
+- 任意の Python 関数をエージェントのツールとして使用できます。
+- `@tool` デコレータを使用して、このツールが呼び出される前後に何が起こるかを変更します。
 
-## Any python function can be used as a tool
+## 任意の Python 関数をツールとして使用する
 
-For example, here's how to use a `get_top_hackernews_stories` function as a tool:
+たとえば、`get_top_hackernews_stories` 関数をツールとして使用する方法は次のとおりです。
 
 ```python hn_agent.py
 import json
@@ -22,20 +22,20 @@ from agno.agent import Agent
 
 def get_top_hackernews_stories(num_stories: int = 10) -> str:
     """
-    Use this function to get top stories from Hacker News.
+    この関数を使用して、Hacker News のトップストーリーを取得します。
 
     Args:
-        num_stories (int): Number of stories to return. Defaults to 10.
+        num_stories (int): 返されるストーリーの数。デフォルトは 10 です。
 
     Returns:
-        str: JSON string of top stories.
+        str: トップストーリーの JSON 文字列。
     """
 
-    # Fetch top story IDs
+    # トップストーリー ID を取得
     response = httpx.get('https://hacker-news.firebaseio.com/v0/topstories.json')
     story_ids = response.json()
 
-    # Fetch story details
+    # ストーリーの詳細を取得
     stories = []
     for story_id in story_ids[:num_stories]:
         story_response = httpx.get(f'https://hacker-news.firebaseio.com/v0/item/{story_id}.json')
@@ -49,19 +49,19 @@ agent = Agent(tools=[get_top_hackernews_stories], show_tool_calls=True, markdown
 agent.print_response("Summarize the top 5 stories on hackernews?", stream=True)
 ```
 
-## Magic of the @tool decorator
+## `@tool` デコレータのマジック
 
-To modify the behavior of a tool, use the `@tool` decorator. Some notable features:
+ツールの動作を変更するには、`@tool` デコレータを使用します。主な機能は次のとおりです。
 
-- `requires_confirmation=True`: Requires user confirmation before execution.
-- `requires_user_input=True`: Requires user input before execution. Use `user_input_fields` to specify which fields require user input.
-- `external_execution=True`: The tool will be executed outside of the agent's control.
-- `show_result=True`: Show the output of the tool call in the Agent's response. Without this flag, the result of the tool call is sent to the model for further processing.
-- `stop_after_tool_call=True`: Stop the agent run after the tool call.
-- `tool_hooks`: Run custom logic before and after this tool call.
-- `cache_results=True`: Cache the tool result to avoid repeating the same call. Use `cache_dir` and `cache_ttl` to configure the cache.
+- `requires_confirmation=True`: 実行前にユーザーの確認が必要です。
+- `requires_user_input=True`: 実行前にユーザーの入力が必要です。`user_input_fields` を使用して、どのフィールドにユーザー入力が必要かを指定します。
+- `external_execution=True`: ツールはエージェントの制御外で実行されます。
+- `show_result=True`: エージェントの応答でツール呼び出しの結果を表示します。このフラグがない場合、ツール呼び出しの結果はモデルに送信され、さらに処理されます。
+- `stop_after_tool_call=True`: ツール呼び出し後にエージェントの実行を停止します。
+- `tool_hooks`: このツール呼び出しの前後にカスタムロジックを実行します。
+- `cache_results=True`: 同じ呼び出しを繰り返さないように、ツール結果をキャッシュします。`cache_dir` と `cache_ttl` を使用してキャッシュを設定します。
 
-Here's an example that uses many possible parameters on the `@tool` decorator.
+ここでは、`@tool` デコレータで可能な多くのパラメータを使用した例を示します。
 
 ```python advanced_tool.py
 import httpx
@@ -70,38 +70,38 @@ from agno.tools import tool
 from typing import Any, Callable, Dict
 
 def logger_hook(function_name: str, function_call: Callable, arguments: Dict[str, Any]):
-    """Hook function that wraps the tool execution"""
+    """ツール実行をラップするフック関数"""
     print(f"About to call {function_name} with arguments: {arguments}")
     result = function_call(**arguments)
     print(f"Function call completed with result: {result}")
     return result
 
 @tool(
-    name="fetch_hackernews_stories",                # Custom name for the tool (otherwise the function name is used)
-    description="Get top stories from Hacker News",  # Custom description (otherwise the function docstring is used)
-    show_result=True,                               # Show result after function call
-    stop_after_tool_call=True,                      # Return the result immediately after the tool call and stop the agent
-    tool_hooks=[logger_hook],                       # Hook to run before and after execution
-    requires_confirmation=True,                     # Requires user confirmation before execution
-    cache_results=True,                             # Enable caching of results
-    cache_dir="/tmp/agno_cache",                    # Custom cache directory
-    cache_ttl=3600                                  # Cache TTL in seconds (1 hour)
+    name="fetch_hackernews_stories",                # ツールのカスタム名 (指定しない場合は関数名が使用されます)
+    description="Get top stories from Hacker News",  # カスタム説明 (指定しない場合は関数の docstring が使用されます)
+    show_result=True,                               # 関数呼び出し後に結果を表示
+    stop_after_tool_call=True,                      # ツール呼び出し後にすぐに結果を返し、エージェントを停止
+    tool_hooks=[logger_hook],                       # 実行前後に実行するフック
+    requires_confirmation=True,                     # 実行前にユーザーの確認が必要
+    cache_results=True,                             # 結果のキャッシュを有効化
+    cache_dir="/tmp/agno_cache",                    # カスタムキャッシュディレクトリ
+    cache_ttl=3600                                  # キャッシュ TTL (秒単位、1時間)
 )
 def get_top_hackernews_stories(num_stories: int = 5) -> str:
     """
-    Fetch the top stories from Hacker News.
+    Hacker News のトップストーリーを取得します。
 
     Args:
-        num_stories: Number of stories to fetch (default: 5)
+        num_stories: 取得するストーリーの数 (デフォルト: 5)
 
     Returns:
-        str: The top stories in text format
+        str: トップストーリーをテキスト形式で返します
     """
-    # Fetch top story IDs
+    # トップストーリー ID を取得
     response = httpx.get("https://hacker-news.firebaseio.com/v0/topstories.json")
     story_ids = response.json()
 
-    # Get story details
+    # ストーリーの詳細を取得
     stories = []
     for story_id in story_ids[:num_stories]:
         story_response = httpx.get(f"https://hacker-news.firebaseio.com/v0/item/{story_id}.json")
@@ -114,21 +114,21 @@ agent = Agent(tools=[get_top_hackernews_stories])
 agent.print_response("Show me the top news from Hacker News")
 ```
 
-### @tool Parameters Reference
+### `@tool` パラメータのリファレンス
 
-| Parameter | Type | Description |
+| パラメータ | タイプ | 説明 |
 |-----------|------|-------------|
-| `name` | `str` | Override for the function name |
-| `description` | `str` | Override for the function description |
-| `show_result` | `bool` | If True, shows the result after function call |
-| `stop_after_tool_call` | `bool` | If True, the agent will stop after the function call |
-| `tool_hooks` | `list[Callable]` | List of hooks that wrap the function execution |
-| `pre_hook` | `Callable` | Hook to run before the function is executed |
-| `post_hook` | `Callable` | Hook to run after the function is executed |
-| `requires_confirmation` | `bool` | If True, requires user confirmation before execution |
-| `requires_user_input` | `bool` | If True, requires user input before execution |
-| `user_input_fields` | `list[str]` | List of fields that require user input |
-| `external_execution` | `bool` | If True, the tool will be executed outside of the agent's control |
-| `cache_results` | `bool` | If True, enable caching of function results |
-| `cache_dir` | `str` | Directory to store cache files |
-| `cache_ttl` | `int` | Time-to-live for cached results in seconds (default: 3600) |
+| `name` | `str` | 関数名のオーバーライド |
+| `description` | `str` | 関数説明のオーバーライド |
+| `show_result` | `bool` | True の場合、関数呼び出し後に結果を表示します |
+| `stop_after_tool_call` | `bool` | True の場合、エージェントは関数呼び出し後に停止します |
+| `tool_hooks` | `list[Callable]` | 関数実行をラップするフックのリスト |
+| `pre_hook` | `Callable` | 関数実行前に実行するフック |
+| `post_hook` | `Callable` | 関数実行後に実行するフック |
+| `requires_confirmation` | `bool` | True の場合、実行前にユーザーの確認が必要です |
+| `requires_user_input` | `bool` | True の場合、実行前にユーザーの入力が必要です |
+| `user_input_fields` | `list[str]` | ユーザー入力が必要なフィールドのリスト |
+| `external_execution` | `bool` | True の場合、ツールはエージェントの制御外で実行されます |
+| `cache_results` | `bool` | True の場合、関数結果のキャッシュを有効にします |
+| `cache_dir` | `str` | キャッシュファイルを格納するディレクトリ |
+| `cache_ttl` | `int` | キャッシュ結果の有効期間 (秒単位、デフォルト: 3600) |

@@ -1,9 +1,9 @@
 ---
-title: Filtering on load with Json
-description: Learn how to filter knowledge base at load time using Json documents with user-specific metadata.
+title: Json でロード時にフィルタリングする
+description: ユーザー固有のメタデータを持つ Json ドキュメントを使用して、ロード時にナレッジベースをフィルタリングする方法を学びます。
 ---
 
-## Code
+## コード
 
 ```python
 from agno.agent import Agent
@@ -14,24 +14,24 @@ from agno.utils.media import (
 )
 from agno.vectordb.lancedb import LanceDb
 
-# Download all sample CVs and get their paths
+# すべてのサンプル CV をダウンロードし、そのパスを取得します
 downloaded_cv_paths = download_knowledge_filters_sample_data(
     num_files=5, file_extension=SampleDataFileExtension.JSON
 )
 
-# Initialize LanceDB
-# By default, it stores data in /tmp/lancedb
+# LanceDB を初期化します
+# デフォルトでは、データは /tmp/lancedb に保存されます
 vector_db = LanceDb(
     table_name="recipes",
-    uri="tmp/lancedb",  # You can change this path to store data elsewhere
+    uri="tmp/lancedb",  # データを別の場所に保存するには、このパスを変更できます
 )
 
-# Step 1: Initialize knowledge base with documents and metadata
+# ステップ 1: ドキュメントとメタデータでナレッジベースを初期化します
 # ------------------------------------------------------------------------------
-# When loading the knowledge base, we can attach metadata that will be used for filtering
-# This metadata can include user IDs, document types, dates, or any other attributes
+# ナレッジベースをロードする際に、フィルタリングに使用されるメタデータを添付できます
+# このメタデータには、ユーザー ID、ドキュメントの種類、日付、またはその他の属性を含めることができます
 
-# Initialize the JSONKnowledgeBase
+# JSONKnowledgeBase を初期化します
 knowledge_base = JSONKnowledgeBase(
     vector_db=vector_db,
     num_documents=5,
@@ -40,46 +40,46 @@ knowledge_base = JSONKnowledgeBase(
 knowledge_base.load_document(
     path=downloaded_cv_paths[0],
     metadata={"user_id": "jordan_mitchell", "document_type": "cv", "year": 2025},
-    recreate=True,  # Set to True only for the first run, then set to False
+    recreate=True,  # 最初の実行時のみ True に設定し、その後 False に設定します
 )
 
-# Load second document with user_2 metadata
+# ユーザー 2 のメタデータで 2 番目のドキュメントをロードします
 knowledge_base.load_document(
     path=downloaded_cv_paths[1],
     metadata={"user_id": "taylor_brooks", "document_type": "cv", "year": 2025},
 )
 
-# Load second document with user_3 metadata
+# ユーザー 3 のメタデータで 2 番目のドキュメントをロードします
 knowledge_base.load_document(
     path=downloaded_cv_paths[2],
     metadata={"user_id": "morgan_lee", "document_type": "cv", "year": 2025},
 )
 
-# Load second document with user_4 metadata
+# ユーザー 4 のメタデータで 2 番目のドキュメントをロードします
 knowledge_base.load_document(
     path=downloaded_cv_paths[3],
     metadata={"user_id": "casey_jordan", "document_type": "cv", "year": 2025},
 )
 
-# Load second document with user_5 metadata
+# ユーザー 5 のメタデータで 2 番目のドキュメントをロードします
 knowledge_base.load_document(
     path=downloaded_cv_paths[4],
     metadata={"user_id": "alex_rivera", "document_type": "cv", "year": 2025},
 )
 
-# Step 2: Query the knowledge base with different filter combinations
+# ステップ 2: さまざまなフィルタの組み合わせでナレッジベースをクエリします
 # ------------------------------------------------------------------------------
-# Uncomment the example you want to run
+# 実行したい例のコメントを解除します
 
-# Option 1: Filters on the Agent
-# Initialize the Agent with the knowledge base
+# オプション 1: エージェントでのフィルタリング
+# ナレッジベースでエージェントを初期化します
 agent = Agent(
     knowledge=knowledge_base,
     search_knowledge=True,
     knowledge_filters={"user_id": "jordan_mitchell"},
 )
 agent.print_response(
-    "Tell me about Jordan Mitchell's experience and skills",
+    "Jordan Mitchell の経験とスキルについて教えてください",
     markdown=True,
 )
 
@@ -88,22 +88,22 @@ agent.print_response(
 #     search_knowledge=True,
 # )
 # agent.print_response(
-#     "Tell me about Jordan Mitchell's experience and skills",
+#     "Jordan Mitchell の経験とスキルについて教えてください",
 #     knowledge_filters = {"user_id": "jordan_mitchell"},
 #     markdown=True,
 # )
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
-  <Step title="Install libraries">
+  <Step title="ライブラリのインストール">
     ```bash
     pip install -U agno openai lancedb
     ```
   </Step>
 
-  <Step title="Run the example">
+  <Step title="例の実行">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/knowledge/filters/json/filtering_on_load.py

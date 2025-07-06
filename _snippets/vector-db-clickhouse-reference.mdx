@@ -1,14 +1,14 @@
-| Parameter | Type | Default | Description |
-| --------- | ---- | ------- | ----------- |
-| `table_name` | `str` | `None` | Name of the table to store vectors and metadata in Clickhouse |
-| `host` | `str` | `None` | Hostname of the Clickhouse server |
-| `username` | `Optional[str]` | `None` | Username for Clickhouse authentication |
-| `password` | `str` | `""` | Password for Clickhouse authentication |
-| `port` | `int` | `0` | Port number for Clickhouse connection |
-| `database_name` | `str` | `"ai"` | Name of the database to use in Clickhouse |
-| `dsn` | `Optional[str]` | `None` | DSN string for Clickhouse connection |
-| `compress` | `str` | `"lz4"` | Compression algorithm to use |
-| `client` | `Optional[Client]` | `None` | Optional pre-configured Clickhouse client |
-| `embedder` | `Optional[Embedder]` | `OpenAIEmbedder()` | Embedder instance to generate embeddings |
-| `distance` | `Distance` | `Distance.cosine` | Distance metric to use for similarity search |
-| `index` | `Optional[HNSW]` | `HNSW()` | HNSW index configuration for vector similarity search |
+| パラメータ | タイプ | デフォルト | 説明 |
+| -------- | ---- | ------- | ----------- |
+| `table_name` | `str` | `None` | Clickhouse にベクトルとメタデータを格納するテーブル名 |
+| `host` | `str` | `None` | Clickhouse サーバーのホスト名 |
+| `username` | `Optional[str]` | `None` | Clickhouse 認証用のユーザー名 |
+| `password` | `str` | `""` | Clickhouse 認証用のパスワード |
+| `port` | `int` | `0` | Clickhouse 接続用のポート番号 |
+| `database_name` | `str` | `"ai"` | Clickhouse で使用するデータベース名 |
+| `dsn` | `Optional[str]` | `None` | Clickhouse 接続用の DSN 文字列 |
+| `compress` | `str` | `"lz4"` | 使用する圧縮アルゴリズム |
+| `client` | `Optional[Client]` | `None` | 事前に設定された Clickhouse クライアント (オプション) |
+| `embedder` | `Optional[Embedder]` | `OpenAIEmbedder()` | Embedding を生成するための Embedder インスタンス |
+| `distance` | `Distance` | `Distance.cosine` | Similarity Search に使用する距離メトリック |
+| `index` | `Optional[HNSW]` | `HNSW()` | ベクトル Similarity Search 用の HNSW インデックス設定 |

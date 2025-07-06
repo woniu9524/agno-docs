@@ -3,52 +3,52 @@ title: Personalized Email Generator
 ---
 
 
-This workflow helps sales professionals craft highly personalized cold emails by:
-1. Researching target companies through their websites
-2. Analyzing their business model, tech stack, and unique attributes
-3. Generating personalized email drafts
-4. Sending test emails to yourself for review before actual outreach
+このワークフローは、営業担当者が以下のステップを通じて、高度にパーソナライズされたコールドメールを作成するのに役立ちます。
+1. ウェブサイトを通じてターゲット企業をリサーチする
+2. ビジネスモデル、技術スタック、固有の属性を分析する
+3. パーソナライズされたメールの下書きを生成する
+4. 実際の連絡前にレビューするために、テストメールを自分自身に送信する
 
-Why is this helpful?
+なぜこれが役立つのか？
 --------------------------------------------------------------------------------
-• You always have an extra review step—emails are sent to you first.
-  This ensures you can fine-tune messaging before reaching your actual prospect.
-• Ideal for iterating on tone, style, and personalization en masse.
+• 常に余分なレビュー手順があります—メールは最初にあなたに送信されます。
+  これにより、実際の潜在顧客に連絡する前にメッセージングを微調整できます。
+• トーン、スタイル、パーソナライゼーションを大量に反復処理するのに理想的です。
 
-Who should use this?
+誰が使うべきか？
 --------------------------------------------------------------------------------
-• SDRs, Account Executives, Business Development Managers
-• Founders, Marketing Professionals, B2B Sales Representatives
-• Anyone building relationships or conducting outreach at scale
+• SDR、アカウントエグゼクティブ、事業開発マネージャー
+• 創業者、マーケティング担当者、B2B営業担当者
+• 関係構築や大規模なアウトリーチを行っているすべての人
 
-Example use cases:
+使用例：
 --------------------------------------------------------------------------------
-• SaaS sales outreach
-• Consulting service proposals
-• Partnership opportunities
-• Investor relations
-• Recruitment outreach
-• Event invitations
+• SaaSセールスアウトリーチ
+• コンサルティングサービス提案
+• パートナーシップ機会
+• 投資家関係
+• 採用アウトリーチ
+• イベント招待
 
-Quick Start:
+クイックスタート：
 --------------------------------------------------------------------------------
-1. Install dependencies:
+1. 依存関係をインストールします：
    pip install openai agno
 
-2. Set environment variables:
+2. 環境変数を設定します：
    - export OPENAI_API_KEY="xxxx"
 
-3. Update sender_details_dict with YOUR info.
+3. sender_details_dict を YOUR 情報で更新します。
 
-4. Add target companies to "leads" dictionary.
+4. ターゲット企業を "leads" ディクショナリに追加します。
 
-5. Run:
+5. 実行します：
    python personalized_email_generator.py
 
-The script will send draft emails to your email first if DEMO_MODE=False.
-If DEMO_MODE=True, it prints the email to the console for review.
+スクリプトは、DEMO_MODE=False の場合、最初にメールをコンソールに送信します。
+DEMO_MODE=True の場合、レビューのためにコンソールにメールを出力します。
 
-Then you can confidently send the refined emails to your prospects!
+その後、洗練されたメールを自信を持って潜在顧客に送信できます！
 
 ## Code
 

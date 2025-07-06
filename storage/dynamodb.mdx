@@ -1,13 +1,13 @@
 ---
-title: DynamoDB Storage
+title: DynamoDB ストレージ
 sidebarTitle: DynamoDB
 ---
 
-Agno supports using DynamoDB as a storage backend for Agents, Teams and Workflows using the `DynamoDbStorage` class.
+Agno は、`DynamoDbStorage` クラスを使用して、エージェント、チーム、ワークフローのストレージバックエンドとして DynamoDB をサポートしています。
 
-## Usage
+## 使用方法
 
-You need to provide `aws_access_key_id` and `aws_secret_access_key` parameters to the `DynamoDbStorage` class.
+`DynamoDbStorage` クラスに `aws_access_key_id` および `aws_secret_access_key` パラメータを提供する必要があります。
 
 ```python dynamodb_storage_for_agent.py
 from agno.storage.dynamodb import DynamoDbStorage
@@ -17,24 +17,24 @@ AWS_ACCESS_KEY_ID = getenv("AWS_ACCESS_KEY_ID")
 AWS_SECRET_ACCESS_KEY = getenv("AWS_SECRET_ACCESS_KEY")
 
 storage = DynamoDbStorage(
-    # store sessions in the ai.sessions table
+    # セッションを ai.sessions テーブルに保存
     table_name="agent_sessions",
-    # region_name: DynamoDB region name
+    # region_name: DynamoDB のリージョン名
     region_name="us-east-1",
-    # aws_access_key_id: AWS access key id
+    # aws_access_key_id: AWS アクセスキーID
     aws_access_key_id=AWS_ACCESS_KEY_ID,
-    # aws_secret_access_key: AWS secret access key
+    # aws_secret_access_key: AWS シークレットアクセスキー
     aws_secret_access_key=AWS_SECRET_ACCESS_KEY,
 )
 
-# Add storage to the Agent
+# Agent にストレージを追加
 agent = Agent(storage=storage)
 ```
 
-## Params
+## パラメータ
 
 <Snippet file="storage-dynamodb-params.mdx" />
 
-## Developer Resources
+## 開発者向けリソース
 
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/storage/dynamodb_storage/dynamodb_storage_for_agent.py)
+- [クックブック](https://github.com/agno-agi/agno/blob/main/cookbook/storage/dynamodb_storage/dynamodb_storage_for_agent.py) を表示

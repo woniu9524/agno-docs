@@ -1,17 +1,17 @@
 ---
-title: Recipe RAG Image Agent
+title: レシピ RAG 画像エージェント
 ---
 
-This example demonstrates a multi-modal RAG agent that uses Groq and OpenAITools to search a PDF recipe knowledge base and generate a step-by-step visual guide for recipes.
+この例では、Groq と OpenAITools を使用して PDF レシピナレッジベースを検索し、ステップバイステップのビジュアルガイドを生成するマルチモーダル RAG エージェントを紹介します。
 
-## Code
+## コード
 
 ```python ref/recipe_rag_image.py
-"""Example: Multi-Modal RAG & Image Agent
+"""例: マルチモーダル RAG & 画像エージェント
 
-An agent that uses Llama 4 for multi-modal RAG and OpenAITools to create a visual, step-by-step image manual for a recipe.
+Llama 4 をマルチモーダル RAG に使用し、OpenAITools を使用してレシピのビジュアルでステップバイステップの画像マニュアルを作成するエージェント。
 
-Run: `pip install openai agno groq cohere` to install the dependencies
+実行: `pip install openai agno groq cohere` で依存関係をインストールしてください
 """
 
 from pathlib import Path
@@ -43,19 +43,19 @@ agent = Agent(
     tools=[OpenAITools()],
     knowledge=knowledge_base,
     instructions=[
-        "You are a specialized recipe assistant.",
-        "When asked for a recipe:",
-        "1. Search the knowledge base to retrieve the relevant recipe details.",
-        "2. Analyze the retrieved recipe steps carefully.",
-        "3. Use the `generate_image` tool to create a visual, step-by-step image manual for the recipe.",
-        "4. Present the recipe text clearly and mention that you have generated an accompanying image manual. Add instructions while generating the image.",
+        "あなたは専門のレシピアシスタントです。",
+        "レシピを求められたら:",
+        "1. ナレッジベースを検索して、関連するレシピの詳細を取得します。",
+        "2. 取得したレシピのステップを注意深く分析します。",
+        "3. `generate_image` ツールを使用して、レシピのビジュアルでステップバイステップの画像マニュアルを作成します。",
+        "4. レシピのテキストを明確に提示し、付属の画像マニュアルを生成したことを言及します。画像生成中に指示を追加します。",
     ],
     markdown=True,
     debug_mode=True,
 )
 
 agent.print_response(
-    "What is the recipe for a Thai curry?",
+    "タイカレーのレシピは何ですか？",
 )
 
 response = agent.run_response
@@ -63,20 +63,20 @@ if response.images:
     download_image(response.images[0].url, Path("tmp/recipe_image.png"))
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
-  <Step title="Install dependencies">
+  <Step title="依存関係のインストール">
     ```bash
     pip install openai agno groq cohere
     ```
   </Step>
 
-  <Step title="Run the example">
+  <Step title="例の実行">
     ```bash
     python ref/recipe_rag_image.py
     ```
   </Step>
 </Steps>
 
-By default, the generated image will be saved to `tmp/recipe_image.png`.
+デフォルトでは、生成された画像は `tmp/recipe_image.png` に保存されます。

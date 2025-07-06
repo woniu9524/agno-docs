@@ -1,12 +1,12 @@
-## Run your Agent Api locally
+## Agent API をローカルで実行する
 
-`cd` into the `agent-api` folder
+`agent-api` フォルダに `cd` します。
 
 ```bash
 cd agent-api
 ```
 
-Start your Agent Api using the following command:
+以下のコマンドを使用して Agent API を起動します。
 
 <CodeGroup>
 
@@ -24,11 +24,11 @@ ag ws up --env dev --infra docker
 
 </CodeGroup>
 
-**Press Enter** to confirm and give a few seconds for the image to download (only the first time). Verify container status and view logs on the docker dashboard.
+確認するために **Enter キーを押します**。イメージのダウンロードには数秒かかります（初回のみ）。Docker ダッシュボードでコンテナのステータスを確認し、ログを表示します。
 
-- Open [localhost:8000/docs](http://localhost:8000/docs) to view the FastAPI routes.
+- [localhost:8000/docs](http://localhost:8000/docs) を開いて、FastAPI ルートを表示します。
 
-Notes:
+注記:
 
-- The `Agents` are defined in the `agents` folder.
-- The api routes are defined in the `api` folder.
+- `Agents` は `agents` フォルダで定義されています。
+- api ルートは `api` フォルダで定義されています。

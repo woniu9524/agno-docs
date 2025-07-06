@@ -2,31 +2,31 @@
 title: Docker
 ---
 
-[Docker](https://docs.docker.com/get-started/overview/) is a game-changing technology that enables us to run applications locally. We package our [Apps](/workspaces/apps/introduction) into **Containers** that include everything needed to run the application
+[Docker](https://docs.docker.com/get-started/overview/) は、アプリケーションをローカルで実行できるようにする画期的なテクノロジーです。アプリケーションを実行するために必要なすべてを含む**コンテナ**に[アプリ](/workspaces/apps/introduction)をパッケージ化します。
 
-## Docker Resources
+## Docker リソース
 
-Agno enables us to define docker resources as pydantic objects so we can build our application layer purely in python. In most cases you will not be creating the **Docker Resources** directly, instead we'll use [Apps](/workspaces/apps/introduction) to create the resources for us.
+Agno を使用すると、Docker リソースを Pydantic オブジェクトとして定義できるため、Python のみでアプリケーションレイヤーを構築できます。ほとんどの場合、**Docker リソース**を直接作成することはありません。代わりに、[アプリ](/workspaces/apps/introduction)を使用してリソースを作成します。
 
-<Accordion title="difference from docker-compose">
+<Accordion title="docker-compose との違い">
 
-Docker Compose is more mature and defines resources as a "yaml configuration" whereas agno allows us to define resources as "python objects".
+Docker Compose はより成熟しており、リソースを「YAML 設定」として定義しますが、Agno ではリソースを「Python オブジェクト」として定義できます。
 
-We still love docker-compose, just want to elevate the experience. With agno we rarely define the resources directly, instead we use Apps to create the resources for us.
+私たちは Docker Compose を引き続き愛していますが、エクスペリエンスを向上させたいと考えています。Agno では、リソースを直接定義することはほとんどありません。代わりに、アプリを使用してリソースを作成します。
 
 </Accordion>
 
-### Benefits
+### 利点
 
-- Define containers and images as pydantic objects with input and type validation.
-- Allows re-use and testing of resources.
-- Import them in software layer like regular python objects.
-- Package multiple resources into [Apps](/workspaces/apps/introduction) so we can define **"Applications as Code"**.
-- Enable AI features that interact with the resource from python code.
+- 入力および型検証を備えた Pydantic オブジェクトとしてコンテナとイメージを定義します。
+- リソースの再利用とテストを可能にします。
+- 通常の Python オブジェクトのようにソフトウェアレイヤーにインポートします。
+- 複数のリソースを[アプリ](/workspaces/apps/introduction)にパッケージ化して、**「コードとしてのアプリケーション」**を定義できるようにします。
+- Python コードからリソースと対話する AI 機能を有効にします。
 
-## Container
+## コンテナ
 
-The `DockerContainer` class defines a container, for example use the following code to define a container running the [whoami](https://github.com/traefik/whoami) image. Start it using `ag start resources.py`
+`DockerContainer` クラスはコンテナを定義します。たとえば、次のコードを使用して [whoami](https://github.com/traefik/whoami) イメージを実行するコンテナを定義します。`ag start resources.py` を使用して起動します。
 
 ```python resources.py
 from agno.docker.resource.container import DockerContainer
@@ -38,13 +38,13 @@ whoami = DockerContainer(
 )
 ```
 
-Test it by opening [http://localhost:80](http://localhost:80) or using:
+[http://localhost:80](http://localhost:80) を開くか、次を使用してテストします。
 
 ```bash
 curl -X POST http://localhost:80
 ```
 
-The same can be defined as an `App`:
+同様のものを `App` として定義することもできます。
 
 ```python resources.py
 from agno.docker.app.whoami import Whoami
@@ -52,11 +52,11 @@ from agno.docker.app.whoami import Whoami
 whoami = Whoami()
 ```
 
-Stop resources using `ag stop resources.py`
+`ag stop resources.py` を使用してリソースを停止します。
 
-## Image
+## イメージ
 
-The `DockerImage` class defines an image, for example use the following code create your own python image and run it in a container. Build it using `ag start resources.py`
+`DockerImage` クラスはイメージを定義します。たとえば、次のコードを使用して独自の Python イメージを作成し、コンテナで実行します。`ag start resources.py` を使用してビルドします。
 
 <CodeGroup>
 
@@ -89,6 +89,6 @@ CMD ["chill"]
 
 <Note>
 
-Make sure to add the `Dockerfile` in the current directory.
+`Dockerfile` を現在のディレクトリに追加してください。
 
 </Note>

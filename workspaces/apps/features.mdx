@@ -2,9 +2,9 @@
 title: Features
 ---
 
-## Install requirements on startup
+## インストール要件の起動時インストール
 
-Apps can install requirements on container startup. Update the `Jupyter` app to:
+アプリはコンテナ起動時に要件をインストールできます。`Jupyter` アプリを以下のように更新してください。
 
 ```python resources.py
 ...
@@ -18,13 +18,13 @@ jupyter = Jupyter(
 ...
 ```
 
-Create a `requirements.txt` file in the same directory
+同じディレクトリに `requirements.txt` ファイルを作成してください。
 
 ```python requirements.txt
 openai
 ```
 
-## Patch resources
+## リソースのパッチ適用
 
 <CodeGroup>
 

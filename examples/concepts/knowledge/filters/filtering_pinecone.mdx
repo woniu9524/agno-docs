@@ -1,9 +1,9 @@
 ---
-title: Filtering on Pinecone
-description: Learn how to filter knowledge base searches using Pdf documents with user-specific metadata in Pinecone.
+title: Pinecone でのフィルタリング
+description: Pinecone でユーザー固有のメタデータを持つ PDF ドキュメントを使用して、ナレッジベースの検索をフィルタリングする方法を学びます。
 ---
 
-## Code
+## コード
 
 ```python
 from os import getenv
@@ -16,12 +16,12 @@ from agno.utils.media import (
 )
 from agno.vectordb.pineconedb import PineconeDb
 
-# Download all sample CVs and get their paths
+# すべてのサンプル CV をダウンロードし、そのパスを取得します
 downloaded_cv_paths = download_knowledge_filters_sample_data(
     num_files=5, file_extension=SampleDataFileExtension.PDF
 )
 
-# Initialize Pinecone
+# Pinecone を初期化します
 api_key = getenv("PINECONE_API_KEY")
 index_name = "thai-recipe-index"
 
@@ -34,7 +34,7 @@ vector_db = PineconeDb(
 )
 
 
-# Step 1: Initialize knowledge base with documents and metadata
+# ステップ 1: ドキュメントとメタデータでナレッジベースを初期化します
 knowledge_base = PDFKnowledgeBase(
     path=[
         {
@@ -81,10 +81,10 @@ knowledge_base = PDFKnowledgeBase(
     vector_db=vector_db,
 )
 
-# Load all documents into the vector database
+# すべてのドキュメントをベクトルデータベースにロードします
 knowledge_base.load(recreate=True, upsert=True)
 
-# Step 2: Query the knowledge base with different filter combinations
+# ステップ 2: さまざまなフィルタの組み合わせでナレッジベースをクエリします
 # ------------------------------------------------------------------------------
 
 agent = Agent(
@@ -93,22 +93,22 @@ agent = Agent(
 )
 
 agent.print_response(
-    "Tell me about Jordan Mitchell's experience and skills",
+    "Jordan Mitchell の経験とスキルについて教えてください",
     knowledge_filters={"user_id": "hey"},
     markdown=True,
 )
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
-  <Step title="Install libraries">
+  <Step title="ライブラリのインストール">
     ```bash
     pip install -U agno pinecone pinecone-text openai
     ```
   </Step>
 
-  <Step title="Run the example">
+  <Step title="例の実行">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/knowledge/filters/filtering_pinecone.py

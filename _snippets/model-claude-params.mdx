@@ -1,18 +1,18 @@
-| Parameter                       | Type                        | Default                        | Description                                                     |
+| パラメータ                       | タイプ                        | デフォルト                        | 説明                                                              |
 | ------------------------------ | --------------------------- | ------------------------------ | --------------------------------------------------------------- |
-| `id`                           | `str`                       | `"claude-3-5-sonnet-20241022"` | The id of the Anthropic Claude model to use                     |
-| `name`                         | `str`                       | `"Claude"`                     | The name of the model                                           |
-| `provider`                     | `str`                       | `"Anthropic"`                  | The provider of the model                                       |
-| `max_tokens`                   | `Optional[int]`             | `1024`                         | Maximum number of tokens to generate in the chat completion     |
-| `temperature`                  | `Optional[float]`           | `None`                         | Controls randomness in the model's output                       |
-| `stop_sequences`               | `Optional[List[str]]`       | `None`                         | A list of strings that the model should stop generating text at |
-| `top_p`                        | `Optional[float]`           | `None`                         | Controls diversity via nucleus sampling                         |
-| `top_k`                        | `Optional[int]`             | `None`                         | Controls diversity via top-k sampling                           |
-| `request_params`               | `Optional[Dict[str, Any]]`  | `None`                         | Additional parameters to include in the request                 |
-| `api_key`                      | `Optional[str]`             | `None`                         | The API key for authenticating with Anthropic                   |
-| `client_params`                | `Optional[Dict[str, Any]]`  | `None`                         | Additional parameters for client configuration                  |
-| `client`                       | `Optional[AnthropicClient]` | `None`                         | A pre-configured instance of the Anthropic client               |
-| `structured_outputs`           | `bool`                      | `False`                        | Whether to use structured outputs with this Model               |
-| `add_images_to_message_content`| `bool`                      | `True`                         | Whether to add images to the message content                    |
-| `override_system_role`         | `bool`                      | `True`                         | Whether to override the system role                             |
-| `system_message_role`          | `str`                       | `"assistant"`                  | The role to map the system message to                           |
+| `id`                           | `str`                       | `"claude-3-5-sonnet-20241022"` | 使用するAnthropic ClaudeモデルのID                                |
+| `name`                         | `str`                       | `"Claude"`                     | モデルの名前                                                        |
+| `provider`                     | `str`                       | `"Anthropic"`                  | モデルのプロバイダー                                                  |
+| `max_tokens`                   | `Optional[int]`             | `1024`                         | チャット補完で生成する最大トークン数                                      |
+| `temperature`                  | `Optional[float]`           | `None`                         | モデルの出力におけるランダム性を制御                                    |
+| `stop_sequences`               | `Optional[List[str]]`       | `None`                         | モデルがテキスト生成を停止すべき文字列のリスト                                |
+| `top_p`                        | `Optional[float]`           | `None`                         |Nucleusサンプリングによる多様性の制御                                  |
+| `top_k`                        | `Optional[int]`             | `None`                         | top-kサンプリングによる多様性の制御                                  |
+| `request_params`               | `Optional[Dict[str, Any]]`  | `None`                         | リクエストに含める追加パラメータ                                      |
+| `api_key`                      | `Optional[str]`             | `None`                         | Anthropicとの認証に使用するAPIキー                                |
+| `client_params`                | `Optional[Dict[str, Any]]`  | `None`                         | クライアント設定用の追加パラメータ                                    |
+| `client`                       | `Optional[AnthropicClient]` | `None`                         | 事前に設定されたAnthropicクライアントインスタンス                        |
+| `structured_outputs`           | `bool`                      | `False`                        | このモデルで構造化出力を利用するかどうか                                  |
+| `add_images_to_message_content`| `bool`                      | `True`                         | メッセージコンテンツに画像を追加するかどうか                                |
+| `override_system_role`         | `bool`                      | `True`                         | システムロールを上書きするかどうか                                    |
+| `system_message_role`          | `str`                       | `"assistant"`                  | システムメッセージをマッピングするロール                                |

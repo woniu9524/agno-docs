@@ -1,24 +1,24 @@
 ---
-title: What is Storage?
-sidebarTitle: Overview
-description: Storage is a way to persist Agent sessions and state to a database or file.
+title: Storageとは
+sidebarTitle: 概要
+description: Storageは、エージェントのセッションと状態をデータベースまたはファイルに永続化する方法です。
 ---
 
-Use **Session Storage** to persist Agent sessions and state to a database or file.
+**Session Storage** を使用して、エージェントのセッションと状態をデータベースまたはファイルに永続化します。
 
 <Tip>
-**Why do we need Session Storage?**
+**セッションストレージが必要な理由**
 
-Agents are ephemeral and the built-in memory only lasts for the current execution cycle.
+エージェントは一時的なものであり、組み込みのメモリは現在の実行サイクルでのみ持続します。
 
-In production environments, we serve (or trigger) Agents via an API and need to continue the same session across multiple requests. Storage persists the session history and state in a database and allows us to pick up where we left off.
+本番環境では、API経由でエージェントを提供（またはトリガー）し、複数のリクエストにわたって同じセッションを継続する必要があります。ストレージはセッション履歴と状態をデータベースに永続化し、中断したところから再開できるようにします。
 
-Storage also let's us inspect and evaluate Agent sessions, extract few-shot examples and build internal monitoring tools. It lets us **look at the data** which helps us build better Agents.
+ストレージを使用すると、エージェントのセッションを検査および評価し、few-shotの例を抽出し、内部監視ツールを構築することもできます。これにより、**データを参照する**ことができ、より良いエージェントを構築するのに役立ちます。
 </Tip>
 
-Adding storage to an Agent, Team or Workflow is as simple as providing a `Storage` driver and Agno handles the rest. You can use Sqlite, Postgres, Mongo or any other database you want.
+エージェント、チーム、またはワークフローにストレージを追加することは、`Storage`ドライバーを提供するだけで、あとはAgnoが処理します。Sqlite、Postgres、Mongo、またはその他の任意のデータベースを使用できます。
 
-Here's a simple example that demostrates persistence across execution cycles:
+実行サイクル間で永続化を示す簡単な例を以下に示します。
 
 ```python storage.py
 from agno.agent import Agent
@@ -28,48 +28,48 @@ from rich.pretty import pprint
 
 agent = Agent(
     model=OpenAIChat(id="gpt-4o-mini"),
-    # Fix the session id to continue the same session across execution cycles
+    # 実行サイクル間で同じセッションを継続するためにセッションIDを固定します
     session_id="fixed_id_for_demo",
     storage=SqliteStorage(table_name="agent_sessions", db_file="tmp/data.db"),
     add_history_to_messages=True,
     num_history_runs=3,
 )
-agent.print_response("What was my last question?")
-agent.print_response("What is the capital of France?")
-agent.print_response("What was my last question?")
+agent.print_response("私の最後の質問は何でしたか？")
+agent.print_response("フランスの首都は？")
+agent.print_response("私の最後の質問は何でしたか？")
 pprint(agent.get_messages_for_session())
 ```
 
-The first time you run this, the answer to "What was my last question?" will not be available. But run it again and the Agent will able to answer properly. Because we have fixed the session id, the Agent will continue from the same session every time you run the script.
+最初にこれを実行したとき、「私の最後の質問は何でしたか？」という質問への回答は利用できません。しかし、もう一度実行すると、エージェントは正しく回答できるようになります。セッションIDを固定しているため、スクリプトを実行するたびにエージェントは同じセッションから再開します。
 
-## Benefits of Storage
+## ストレージのメリット
 
-Storage has typically been an under-discussed part of Agent Engineering -- but we see it as the unsung hero of production agentic applications.
+ストレージは通常、エージェントエンジニアリングにおいてあまり議論されない部分ですが、本番のエージェントアプリケーションの縁の下の力持ちであると考えています。
 
-In production, you need storage to:
+本番環境では、ストレージが必要です。
 
-- Continue sessions: retrieve sessions history and pick up where you left off.
-- Get list of sessions: To continue a previous session, you need to maintain a list of sessions available for that agent.
-- Save state between runs: save the Agent's state to a database or file so you can inspect it later.
+- セッションの継続：セッション履歴を取得し、中断したところから再開します。
+- セッションリストの取得：以前のセッションを継続するには、そのエージェントで利用可能なセッションのリストを維持する必要があります。
+- 実行間の状態の保存：エージェントの状態をデータベースまたはファイルに保存して、後で検査できるようにします。
 
-But there is so much more:
+しかし、それだけではありません。
 
-- Storage saves our Agent's session data for inspection and evaluations.
-- Storage helps us extract few-shot examples, which can be used to improve the Agent.
-- Storage enables us to build internal monitoring tools and dashboards.
+- ストレージは、エージェントのセッションデータを検査および評価のために保存します。
+- ストレージは、エージェントの改善に使用できるfew-shotの例を抽出するのに役立ちます。
+- ストレージにより、内部監視ツールやダッシュボードを構築できます。
 
 <Warning>
-Storage is such a critical part of your Agentic infrastructure that it should never be offloaded to a third party. You should almost always use your own storage layer for your Agents.
+ストレージはエージェントインフラストラクチャの非常に重要な部分であるため、サードパーティにオフロードすることは決してありません。エージェントには、ほぼ常に独自のストレージレイヤーを使用する必要があります。
 </Warning>
 
-## Agent Storage
+## エージェントストレージ
 
-When working with agents, storage allows users to continue conversations where they left off. Every message, along with the agent's responses, is saved to your database of choice.
+エージェントを操作する際、ストレージを使用すると、ユーザーは会話を中断したところから再開できます。すべてのメッセージとエージェントの応答は、選択したデータベースに保存されます。
 
-Here's a simple example of adding storage to an agent:
+エージェントにストレージを追加する簡単な例を以下に示します。
 
 ```python storage.py
-"""Run `pip install duckduckgo-search sqlalchemy openai` to install dependencies."""
+"""依存関係をインストールするには `pip install duckduckgo-search sqlalchemy openai` を実行してください。"""
 
 from agno.agent import Agent
 from agno.storage.sqlite import SqliteStorage
@@ -83,30 +83,30 @@ agent = Agent(
     add_history_to_messages=True,
     add_datetime_to_instructions=True,
 )
-agent.print_response("How many people live in Canada?")
-agent.print_response("What is their national anthem?")
-agent.print_response("List my messages one by one")
+agent.print_response("カナダには何人住んでいますか？")
+agent.print_response("彼らの国歌は何ですか？")
+agent.print_response("私のメッセージを一つずつリストしてください")
 ```
 
-## Team Storage
+## チームストレージ
 
-`Storage` drivers also works with teams, providing persistent memory and state management for multi-agent collaborative systems. With team storage, you can maintain conversation history, shared context, and team state across multiple sessions.
-
-<Note>
-Learn more about [teams](/teams/) and their storage capabilities to build powerful multi-agent systems with persistent state.
-</Note>
-
-## Workflow Storage
-
-The storage system in Agno also works with workflows, enabling more complex multi-agent systems with state management. This allows for persistent conversations and cached results across workflow sessions.
+`Storage`ドライバーはチームとも連携し、マルチエージェント協調システムに永続的なメモリと状態管理を提供します。チームストレージを使用すると、複数のセッションにわたって会話履歴、共有コンテキスト、およびチームの状態を維持できます。
 
 <Note>
-Learn more about using storage with [workflows](/workflows/) to build powerful multi-agent systems with state management.
+強力なマルチエージェントシステムを永続的な状態で構築するために、[チーム](/teams/)とそのストレージ機能の詳細をご覧ください。
 </Note>
 
-## Supported Storage Backends
+## ワークフローストレージ
 
-The following databases are supported as a storage backend:
+Agnoのストレージシステムはワークフローとも連携し、状態管理を備えたより複雑なマルチエージェントシステムを可能にします。これにより、ワークフローセッション全体での永続的な会話とキャッシュされた結果が可能になります。
+
+<Note>
+状態管理を備えた強力なマルチエージェントシステムを構築するために、[ワークフロー](/workflows/)でのストレージの使用方法の詳細をご覧ください。
+</Note>
+
+## サポートされているストレージバックエンド
+
+以下のデータベースがストレージバックエンドとしてサポートされています。
 
 - [PostgreSQL](/storage/postgres)
 - [Sqlite](/storage/sqlite)
@@ -117,4 +117,4 @@ The following databases are supported as a storage backend:
 - [JSON](/storage/json)
 - [Redis](/storage/redis)
 
-Check detailed [examples](/examples/concepts/storage) for each storage
+各ストレージの詳細な[例](/examples/concepts/storage)を確認してください。

@@ -2,34 +2,34 @@
 title: MLX Transcribe
 ---
 
-**MLX Transcribe** is a tool for transcribing audio files using MLX Whisper.
+**MLX Transcribe** は、MLX Whisper を使用して音声ファイルを文字起こしするためのツールです。
 
-## Prerequisites
+## 前提条件
 
-1. **Install ffmpeg**
+1. **ffmpeg のインストール**
 
    - macOS: `brew install ffmpeg`
    - Ubuntu: `sudo apt-get install ffmpeg`
-   - Windows: Download from https://ffmpeg.org/download.html
+   - Windows: https://ffmpeg.org/download.html からダウンロードしてください。
 
-2. **Install mlx-whisper library**
+2. **mlx-whisper ライブラリのインストール**
 
    ```shell
    pip install mlx-whisper
    ```
 
-3. **Prepare audio files**
+3. **音声ファイルの準備**
 
-   - Create a 'storage/audio' directory
-   - Place your audio files in this directory
-   - Supported formats: mp3, mp4, wav, etc.
+   - `storage/audio` ディレクトリを作成します。
+   - 音声ファイルをこのディレクトリに配置します。
+   - サポートされている形式: mp3, mp4, wav など。
 
-4. **Download sample audio** (optional)
-   - Visit the [audio-samples](https://audio-samples.github.io/) (as an example) and save the audio file to the `storage/audio` directory.
+4. **サンプル音声のダウンロード** (オプション)
+   - [audio-samples](https://audio-samples.github.io/) (例) にアクセスし、音声ファイルを `storage/audio` ディレクトリに保存します。
 
-## Example
+## 例
 
-The following agent will use MLX Transcribe to transcribe audio files.
+以下のエージェントは、MLX Transcribe を使用して音声ファイルを文字起こしします。
 
 ```python cookbook/tools/mlx_transcribe_tools.py
 
@@ -38,7 +38,7 @@ from agno.agent import Agent
 from agno.models.openai import OpenAIChat
 from agno.tools.mlx_transcribe import MLXTranscribeTools
 
-# Get audio files from storage/audio directory
+# storage/audio ディレクトリから音声ファイルを取得
 agno_root_dir = Path(__file__).parent.parent.parent.resolve()
 audio_storage_dir = agno_root_dir.joinpath("storage/audio")
 if not audio_storage_dir.exists():
@@ -49,44 +49,44 @@ agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
     tools=[MLXTranscribeTools(base_dir=audio_storage_dir)],
     instructions=[
-        "To transcribe an audio file, use the `transcribe` tool with the name of the audio file as the argument.",
-        "You can find all available audio files using the `read_files` tool.",
+        "音声ファイルを文字起こしするには、`transcribe` ツールを使用し、引数として音声ファイル名を指定してください。",
+        "利用可能なすべての音声ファイルは `read_files` ツールを使用して見つけることができます。",
     ],
     markdown=True,
 )
 
-agent.print_response("Summarize the reid hoffman ted talk, split into sections", stream=True)
+agent.print_response("reid hoffman の ted talk を要約し、セクションに分割してください", stream=True)
 ```
 
-## Toolkit Params
+## Toolkit パラメータ
 
-| Parameter                         | Type                           | Default                                  | Description                                 |
-| --------------------------------- | ------------------------------ | ---------------------------------------- | ------------------------------------------- |
-| `base_dir`                        | `Path`                         | `Path.cwd()`                             | Base directory for audio files              |
-| `read_files_in_base_dir`          | `bool`                         | `True`                                   | Whether to register the read_files function |
-| `path_or_hf_repo`                 | `str`                          | `"mlx-community/whisper-large-v3-turbo"` | Path or HuggingFace repo for the model      |
-| `verbose`                         | `bool`                         | `None`                                   | Enable verbose output                       |
-| `temperature`                     | `float` or `Tuple[float, ...]` | `None`                                   | Temperature for sampling                    |
-| `compression_ratio_threshold`     | `float`                        | `None`                                   | Compression ratio threshold                 |
-| `logprob_threshold`               | `float`                        | `None`                                   | Log probability threshold                   |
-| `no_speech_threshold`             | `float`                        | `None`                                   | No speech threshold                         |
-| `condition_on_previous_text`      | `bool`                         | `None`                                   | Whether to condition on previous text       |
-| `initial_prompt`                  | `str`                          | `None`                                   | Initial prompt for transcription            |
-| `word_timestamps`                 | `bool`                         | `None`                                   | Enable word-level timestamps                |
-| `prepend_punctuations`            | `str`                          | `None`                                   | Punctuations to prepend                     |
-| `append_punctuations`             | `str`                          | `None`                                   | Punctuations to append                      |
-| `clip_timestamps`                 | `str` or `List[float]`         | `None`                                   | Clip timestamps                             |
-| `hallucination_silence_threshold` | `float`                        | `None`                                   | Hallucination silence threshold             |
-| `decode_options`                  | `dict`                         | `None`                                   | Additional decoding options                 |
+| パラメータ                         | タイプ                           | デフォルト                               | 説明                                     |
+| --------------------------------- | ------------------------------ | ---------------------------------------- | ---------------------------------------- |
+| `base_dir`                        | `Path`                         | `Path.cwd()`                             | 音声ファイルのベースディレクトリ         |
+| `read_files_in_base_dir`          | `bool`                         | `True`                                   | `read_files` 関数を登録するかどうか       |
+| `path_or_hf_repo`                 | `str`                          | `"mlx-community/whisper-large-v3-turbo"` | モデルのパスまたは HuggingFace リポジトリ |
+| `verbose`                         | `bool`                         | `None`                                   | 詳細出力を有効にする                     |
+| `temperature`                     | `float` or `Tuple[float, ...]` | `None`                                   | サンプリングのための温度                 |
+| `compression_ratio_threshold`     | `float`                        | `None`                                   | 圧縮率のしきい値                         |
+| `logprob_threshold`               | `float`                        | `None`                                   | ログ確率のしきい値                       |
+| `no_speech_threshold`             | `float`                        | `None`                                   | 無音のしきい値                           |
+| `condition_on_previous_text`      | `bool`                         | `None`                                   | 前のテキストに基づいて条件付けするかどうか |
+| `initial_prompt`                  | `str`                          | `None`                                   | 文字起こしのための初期プロンプト         |
+| `word_timestamps`                 | `bool`                         | `None`                                   | 単語レベルのタイムスタンプを有効にする   |
+| `prepend_punctuations`            | `str`                          | `None`                                   | 先頭に追加する句読点                     |
+| `append_punctuations`             | `str`                          | `None`                                   | 末尾に追加する句読点                     |
+| `clip_timestamps`                 | `str` or `List[float]`         | `None`                                   | タイムスタンプをクリップする             |
+| `hallucination_silence_threshold` | `float`                        | `None`                                   | 幻覚の無音しきい値                       |
+| `decode_options`                  | `dict`                         | `None`                                   | 追加のデコードオプション                 |
 
-## Toolkit Functions
+## Toolkit 関数
 
-| Function     | Description                                 |
-| ------------ | ------------------------------------------- |
-| `transcribe` | Transcribes an audio file using MLX Whisper |
-| `read_files` | Lists all audio files in the base directory |
+| 関数       | 説明                               |
+| ---------- | ---------------------------------- |
+| `transcribe` | MLX Whisper を使用して音声ファイルを文字起こしします |
+| `read_files` | ベースディレクトリ内のすべての音声ファイルをリストします |
 
-## Developer Resources
+## 開発者向けリソース
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/mlx_transcribe.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/mlx_transcribe_tools.py)
+- [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/mlx_transcribe.py) を表示
+- [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/mlx_transcribe_tools.py) を表示

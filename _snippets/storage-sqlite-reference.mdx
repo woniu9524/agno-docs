@@ -1,10 +1,10 @@
-### Parameters
+### パラメータ
 
-| Parameter | Type | Description | Default |
+| パラメータ | タイプ | 説明 | デフォルト |
 |-----------|------|-------------|---------|
-| `table_name` | `str` | Name of the SQLite table | Required |
-| `db_url` | `Optional[str]` | SQLite connection URL | `None` |
-| `db_file` | `Optional[str]` | Path to SQLite database file | `None` |
-| `db_engine` | `Optional[Engine]` | Pre-configured SQLAlchemy engine | `None` |
-| `schema_version` | `int` | Schema version number | `1` |
-| `auto_upgrade_schema` | `bool` | Auto-upgrade schema | `False` |
+| `table_name` | `str` | SQLiteテーブルの名前 | 必須 |
+| `db_url` | `Optional[str]` | SQLite接続URL | `None` |
+| `db_file` | `Optional[str]` | SQLiteデータベースファイルへのパス | `None` |
+| `db_engine` | `Optional[Engine]` | 事前に設定されたSQLAlchemyエンジン | `None` |
+| `schema_version` | `int` | スキーマバージョン番号 | `1` |
+| `auto_upgrade_schema` | `bool` | スキーマの自動アップグレード | `False` |

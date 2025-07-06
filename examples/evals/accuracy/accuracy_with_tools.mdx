@@ -1,10 +1,10 @@
 ---
-title: Accuracy with Tools
-description: Learn how to evaluate the accuracy of an Agent that is using tools.
+title: ツールによる精度
+description: ツールを使用するエージェントの精度を評価する方法を学びます。
 ---
-This example shows an evaluation that runs the provided agent with the provided input and then evaluates the answer that the agent gives.
+この例では、提供されたエージェントを実行し、エージェントが与える回答を評価する評価を示します。
 
-## Code
+## コード
 ```python
 from typing import Optional
 
@@ -19,10 +19,9 @@ evaluation = AccuracyEval(
         model=OpenAIChat(id="gpt-4o-mini"),
         tools=[CalculatorTools(factorial=True)],
     ),
-    input="What is 10!?",
+    input="10! は何ですか？",
     expected_output="3628800",
 )
 
 result: Optional[AccuracyResult] = evaluation.run(print_results=True)
 assert result is not None and result.avg_score >= 8
-```

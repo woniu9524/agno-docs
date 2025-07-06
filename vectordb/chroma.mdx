@@ -3,13 +3,13 @@ title: ChromaDB Agent Knowledge
 sidebarTitle: ChromaDB
 ---
 
-## Setup
+## セットアップ
 
 ```shell
 pip install chromadb
 ```
 
-## Example
+## 例
 
 ```python agent_with_knowledge.py
 import typer
@@ -49,20 +49,20 @@ def pdf_agent(user: str = "user"):
         agent.print_response(message)
 
 if __name__ == "__main__":
-    # Comment out after first run
+    # 初回実行後にコメントアウトしてください
     knowledge_base.load(recreate=False)
 
     typer.run(pdf_agent)
 ```
 
-<Card title="Async Support ⚡">
+<Card title="非同期サポート ⚡">
   <div className="mt-2">
     <p>
-      ChromaDB also supports asynchronous operations, enabling concurrency and leading to better performance.
+      ChromaDBは非同期操作もサポートしており、並行処理を可能にし、パフォーマンスを向上させます。
     </p>
     
     ```python async_chroma_db.py
-    # install chromadb - `pip install chromadb`
+    # chromadb をインストールします - `pip install chromadb`
 
     import asyncio
 
@@ -70,37 +70,37 @@ if __name__ == "__main__":
     from agno.knowledge.pdf_url import PDFUrlKnowledgeBase
     from agno.vectordb.chroma import ChromaDb
 
-    # Initialize ChromaDB
+    # ChromaDB を初期化します
     vector_db = ChromaDb(collection="recipes", path="tmp/chromadb", persistent_client=True)
 
-    # Create knowledge base
+    # ナレッジベースを作成します
     knowledge_base = PDFUrlKnowledgeBase(
         urls=["https://agno-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
         vector_db=vector_db,
     )
 
-    # Create and use the agent
+    # エージェントを作成して使用します
     agent = Agent(knowledge=knowledge_base, show_tool_calls=True)
 
     if __name__ == "__main__":
-        # Comment out after first run
+        # 初回実行後にコメントアウトしてください
         asyncio.run(knowledge_base.aload(recreate=False))
 
-        # Create and use the agent
+        # エージェントを作成して使用します
         asyncio.run(agent.aprint_response("How to make Tom Kha Gai", markdown=True))
     ```
     
     <Tip className="mt-4">
-      Use <code>aload()</code> and <code>aprint_response()</code> methods with <code>asyncio.run()</code> for non-blocking operations in high-throughput applications.
+      高スループットアプリケーションで非ブロッキング操作を行うには、<code>asyncio.run()</code> と共に <code>aload()</code> および <code>aprint_response()</code> メソッドを使用してください。
     </Tip>
   </div>
 </Card>
 
-## ChromaDb Params
+## ChromaDb パラメータ
 
 <Snippet file="vectordb_chromadb_params.mdx" />
 
-## Developer Resources
+## 開発者向けリソース
 
-- View [Cookbook (Sync)](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/vector_dbs/chroma_db/chroma_db.py)
-- View [Cookbook (Async)](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/vector_dbs/chroma_db/async_chroma_db.py)
+- [クックブック (同期)](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/vector_dbs/chroma_db/chroma_db.py) を表示
+- [クックブック (非同期)](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/vector_dbs/chroma_db/async_chroma_db.py) を表示

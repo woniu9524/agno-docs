@@ -2,14 +2,14 @@
 title: Shell
 ---
 
-**ShellTools** enable an Agent to interact with the shell to run commands.
+**ShellTools** を使用すると、エージェントがシェルと対話し、コマンドを実行できます。
 
-## Example
+## 例
 
-The following agent will run a shell command and show contents of the current directory.
+以下のエージェントは、シェルコマンドを実行し、現在のディレクトリの内容を表示します。
 
 <Note>
-  Mention your OS to the agent to make sure it runs the correct command.
+  OS をエージェントに伝えることで、正しいコマンドが実行されることを確認してください。
 </Note>
 
 ```python cookbook/tools/shell_tools.py
@@ -20,13 +20,13 @@ agent = Agent(tools=[ShellTools()], show_tool_calls=True)
 agent.print_response("Show me the contents of the current directory", markdown=True)
 ```
 
-## Functions in Toolkit
+## Toolkit の機能
 
-| Function            | Description                                           |
+| 関数名            | 説明                                           |
 | ------------------- | ----------------------------------------------------- |
-| `run_shell_command` | Runs a shell command and returns the output or error. |
+| `run_shell_command` | シェルコマンドを実行し、出力またはエラーを返します。 |
 
-## Developer Resources
+## 開発者向けリソース
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/shell.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/shell_tools.py)
+- [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/shell.py) を表示
+- [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/shell_tools.py) を表示

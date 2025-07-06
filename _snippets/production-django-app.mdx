@@ -1,14 +1,14 @@
-## Production Django app
+## 本番環境 Django アプリ
 
-**Open the LoadBalancer DNS** to view your Django App running on AWS.
+**LoadBalancer DNS** を開いて、AWS 上で実行されている Django アプリを表示します。
 
 ![django-app-django-prd](/images/django-app-django-prd.png)
 
-### Production Django Admin
+### 本番環境 Django 管理サイト
 
-Open the **LoadBalancer DNS** + `/admin` page to view the Django admin site.
+**LoadBalancer DNS** + `/admin` ページを開いて、Django 管理サイトを表示します。
 
-Create an admin user by SSH-ing into the production container:
+本番環境コンテナに SSH 接続して、管理者ユーザーを作成します。
 
 ```bash
 ECS_CLUSTER=django-prd
@@ -22,6 +22,6 @@ aws ecs execute-command --cluster $ECS_CLUSTER \
     --command "python manage.py createsuperuser"
 ```
 
-Log in to the admin panel:
+管理パネルにログインします。
 
 ![django-app-django-admin-prd](/images/django-app-django-admin-prd.png)

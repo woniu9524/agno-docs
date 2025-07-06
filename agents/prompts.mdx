@@ -2,22 +2,22 @@
 title: Prompts
 ---
 
-We prompt Agents using `description` and `instructions` and a number of other settings. These settings are used to build the **system** message that is sent to the language model.
+エージェントには `description` と `instructions`、およびその他のいくつかの設定を使用してプロンプトを送信します。これらの設定は、言語モデルに送信される **システム** メッセージの構築に使用されます。
 
-Understanding how these prompts are created will help you build better Agents.
+これらのプロンプトがどのように作成されるかを理解することで、より良いエージェントを構築できます。
 
-The 2 key parameters are:
+主要な2つのパラメータは次のとおりです。
 
-1. **Description**: A description that guides the overall behaviour of the agent.
-2. **Instructions**: A list of precise, task-specific instructions on how to achieve its goal.
+1. **Description**: エージェントの全体的な動作をガイドする説明。
+2. **Instructions**: 目標を達成するための、正確でタスク固有の指示のリスト。
 
 <Note>
-  Description and instructions only provide a formatting benefit, we do not alter or abstract any information and you can always set the `system_message` to provide your own system prompt.
+  Description と instructions はフォーマット上の利点を提供するだけであり、情報の変更や抽象化は行いません。独自のシステムプロンプトを提供するために、常に `system_message` を設定できます。
 </Note>
 
-## System message
+## システムメッセージ
 
-The system message is created using `description`, `instructions` and a number of other settings. The `description` is added to the start of the system message and `instructions` are added as a list after `Instructions`. For example:
+システムメッセージは、`description`、`instructions`、およびその他のいくつかの設定を使用して作成されます。`description` はシステムメッセージの先頭に追加され、`instructions` は「Instructions」の後にリストとして追加されます。たとえば、次のようになります。
 
 ```python instructions.py
 from agno.agent import Agent
@@ -31,7 +31,7 @@ agent = Agent(
 agent.print_response("Tell me a 2 sentence horror story.", stream=True)
 ```
 
-Will translate to (set `debug_mode=True` to view the logs):
+次のように変換されます（ログを表示するには `debug_mode=True` を設定してください）。
 
 ```js
 DEBUG    ============== system ==============
@@ -59,9 +59,9 @@ DEBUG    * Completion tokens details:   {'reasoning_tokens': 0}
 DEBUG    **************** METRICS END ******************
 ```
 
-## Set the system message directly
+## システムメッセージを直接設定する
 
-You can manually set the system message using the `system_message` parameter.
+`system_message` パラメータを使用して、システムメッセージを手動で設定できます。
 
 ```python
 from agno.agent import Agent
@@ -71,52 +71,52 @@ agent.print_response("Love in the year 12000.")
 ```
 
 <Tip>
-Some models via some model providers, like `llama-3.2-11b-vision-preview` on Groq, require no system message with other messages. To remove the system message, set `create_default_system_message=False` and `system_message=None`. Additionally, if `markdown=True` is set, it will add a system message, so either remove it or explicitly disable the system message.
+Groq の `llama-3.2-11b-vision-preview` のような一部のモデルプロバイダー経由のモデルでは、他のメッセージとともにシステムメッセージは必要ありません。システムメッセージを削除するには、`create_default_system_message=False` および `system_message=None` を設定します。また、`markdown=True` が設定されている場合、システムメッセージが追加されるため、削除するか、システムメッセージを明示的に無効にしてください。
 </Tip>
 
-## User message
+## ユーザーメッセージ
 
-The input `message` sent to the `Agent.run()` or `Agent.print_response()` functions is used as the user message.
+`Agent.run()` または `Agent.print_response()` 関数に送信される入力 `message` は、ユーザーメッセージとして使用されます。
 
-## Default system message
+## デフォルトのシステムメッセージ
 
-The Agent creates a default system message that can be customized using the following parameters:
+Agent はデフォルトのシステムメッセージを作成します。これは、次のパラメータを使用してカスタマイズできます。
 
-| Parameter | Type | Default | Description |
+| パラメータ | タイプ | デフォルト | 説明 |
 |-----------|------|---------|-------------|
-| `description` | `str` | `None` | A description of the Agent that is added to the start of the system message. |
-| `goal` | `str` | `None` | Describe the task the agent should achieve. |
-| `instructions` | `List[str]` | `None` | List of instructions added to the system prompt in `<instructions>` tags. Default instructions are also created depending on values for `markdown`, `output_model` etc. |
-| `additional_context` | `str` | `None` | Additional context added to the end of the system message. |
-| `expected_output` | `str` | `None` | Provide the expected output from the Agent. This is added to the end of the system message. |
-| `markdown` | `bool` | `False` | Add an instruction to format the output using markdown. |
-| `add_datetime_to_instructions` | `bool` | `False` | If True, add the current datetime to the prompt to give the agent a sense of time. This allows for relative times like "tomorrow" to be used in the prompt |
-| `system_message` | `str` | `None` | System prompt: provide the system prompt as a string |
-| `system_message_role` | `str` | `system` | Role for the system message. |
-| `create_default_system_message` | `bool` | `True` | If True, build a default system prompt using agent settings and use that. |
+| `description` | `str` | `None` | エージェントの説明で、システムメッセージの先頭に追加されます。 |
+| `goal` | `str` | `None` | エージェントが達成すべきタスクを記述します。 |
+| `instructions` | `List[str]` | `None` | `<instructions>` タグにシステムプロンプトに追加される指示のリスト。`markdown`、`output_model` などの値に応じてデフォルトの指示も作成されます。 |
+| `additional_context` | `str` | `None` | システムメッセージの末尾に追加される追加コンテキスト。 |
+| `expected_output` | `str` | `None` | エージェントからの期待される出力を提供します。これはシステムメッセージの末尾に追加されます。 |
+| `markdown` | `bool` | `False` | 出力をマークダウンを使用してフォーマットする指示を追加します。 |
+| `add_datetime_to_instructions` | `bool` | `False` | True の場合、現在の日時をプロンプトに追加して、エージェントに時間の感覚を与えます。これにより、「明日」のような相対的な時間を使用できるようになります。 |
+| `system_message` | `str` | `None` | システムプロンプト: システムプロンプトを文字列として提供します。 |
+| `system_message_role` | `str` | `system` | システムメッセージのロール。 |
+| `create_default_system_message` | `bool` | `True` | True の場合、エージェント設定を使用してデフォルトのシステムプロンプトを構築して使用します。 |
 
 <Tip>
-Disable the default system message by setting `create_default_system_message=False`.
+`create_default_system_message=False` を設定して、デフォルトのシステムメッセージを無効にします。
 </Tip>
 
-## Default user message
+## デフォルトのユーザーメッセージ
 
-The Agent creates a default user message, which is either the input message or a message with the `context` if `enable_rag=True`. The default user message can be customized using:
+Agent はデフォルトのユーザーメッセージを作成します。これは、入力メッセージまたは `enable_rag=True` の場合の `context` を持つメッセージです。デフォルトのユーザーメッセージは、次を使用してカスタマイズできます。
 
-| Parameter | Type | Default | Description |
+| パラメータ | タイプ | デフォルト | 説明 |
 |-----------|------|---------|-------------|
-| `context` | `str` | `None` | Additional context added to the end of the user message. |
-| `add_context` | `bool` | `False` | If True, add the context to the user prompt. |
-| `resolve_context` | `bool` | `True` | If True, resolve the context (i.e. call any functions in the context) before adding it to the user prompt. |
-| `add_references` | `bool` | `False` | Enable RAG by adding references from the knowledge base to the prompt. |
-| `retriever` | `Callable` | `None` | Function to get references to add to the user_message. This function, if provided, is called when `add_references` is True. |
-| `references_format` | `Literal["json", "yaml"]` | `"json"` | Format of the references. |
-| `add_history_to_messages` | `bool` | `False` | If true, adds the chat history to the messages sent to the Model. |
-| `num_history_responses` | `int` | `3` | Number of historical responses to add to the messages. |
-| `user_message` | `Union[List, Dict, str]` | `None` | Provide the user prompt as a string. Note: this will ignore the message sent to the run function. |
-| `user_message_role` | `str` | `user` | Role for the user message. |
-| `create_default_user_message` | `bool` | `True` | If True, build a default user prompt using references and chat history. |
+| `context` | `str` | `None` | ユーザーメッセージの末尾に追加される追加コンテキスト。 |
+| `add_context` | `bool` | `False` | True の場合、コンテキストをユーザープロンプトに追加します。 |
+| `resolve_context` | `bool` | `True` | True の場合、コンテキストを解決します（つまり、コンテキスト内の関数を呼び出します）その後、ユーザープロンプトに追加します。 |
+| `add_references` | `bool` | `False` | ナレッジベースからの参照をプロンプトに追加することにより、RAG を有効にします。 |
+| `retriever` | `Callable` | `None` | ユーザーメッセージに追加する参照を取得するための関数。この関数は、`add_references` が True の場合に呼び出されます。 |
+| `references_format` | `Literal["json", "yaml"]` | `"json"` | 参照のフォーマット。 |
+| `add_history_to_messages` | `bool` | `False` | True の場合、チャット履歴をモデルに送信されるメッセージに追加します。 |
+| `num_history_responses` | `int` | `3` | メッセージに追加される履歴応答の数。 |
+| `user_message` | `Union[List, Dict, str]` | `None` | ユーザープロンプトを文字列として提供します。注意: これは、実行関数に送信されたメッセージを無視します。 |
+| `user_message_role` | `str` | `user` | ユーザーメッセージのロール。 |
+| `create_default_user_message` | `bool` | `True` | True の場合、参照とチャット履歴を使用してデフォルトのユーザープロンプトを構築します。 |
 
 <Tip>
-Disable the default user message by setting `create_default_user_message=False`.
+`create_default_user_message=False` を設定して、デフォルトのユーザーメッセージを無効にします。
 </Tip>

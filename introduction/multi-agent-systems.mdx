@@ -1,14 +1,14 @@
 ---
-title: Multi Agent Systems
-description: "Teams of Agents working together towards a common goal."
-sidebarTitle: Multi Agent Systems
+title: マルチエージェントシステム
+description: "共通の目標に向かって協力するエージェントのチーム。"
+sidebarTitle: マルチエージェントシステム
 ---
 
-## Level 4: Agent Teams that can reason and collaborate
+## レベル 4: 推論と協調ができるエージェントチーム
 
-Agents are the atomic unit of work, and work best when they have a narrow scope and a small number of tools. When the number of tools grows beyond what the model can handle or you need to handle multiple concepts, use a team of agents to spread the load.
+エージェントは作業の原子単位であり、スコープが狭く、少数のツールを持つ場合に最も効果的に機能します。ツールの数がモデルが処理できる量を超えた場合や、複数の概念を処理する必要がある場合は、エージェントチームを使用して負荷を分散します。
 
-Agno provides an industry leading multi-agent architecture that allows you to build Agent Teams that can reason, collaborate and coordinate. In this example, we'll build a team of 2 agents to analyze the semiconductor market performance, reasoning step by step.
+Agno は、推論、協調、調整ができるエージェントチームを構築できる、業界をリードするマルチエージェントアーキテクチャを提供します。この例では、半導体市場のパフォーマンスを分析するために 2 つのエージェントのチームを構築し、ステップバイステップで推論を行います。
 
 ```python level_4_team.py
 from agno.agent import Agent
@@ -73,10 +73,10 @@ if __name__ == "__main__":
     )
 ```
 
-Install dependencies and run the Agent team
+依存関係をインストールしてエージェントチームを実行する
 
 <Steps>
-  <Step title="Install dependencies">
+  <Step title="依存関係をインストールする">
 
     <CodeGroup>
     ```bash Mac
@@ -89,7 +89,7 @@ Install dependencies and run the Agent team
     </CodeGroup>
 
   </Step>
-  <Step title="Export your API keys">
+  <Step title="API キーをエクスポートする">
 
     <CodeGroup>
     ```bash Mac
@@ -104,7 +104,7 @@ Install dependencies and run the Agent team
     </CodeGroup>
 
   </Step>
-  <Step title="Run the agent team">
+  <Step title="エージェントチームを実行する">
 
     ```shell
     python level_4_team.py
@@ -113,22 +113,22 @@ Install dependencies and run the Agent team
   </Step>
 </Steps>
 
-## Level 5: Agentic Workflows with state and determinism
+## レベル 5: 状態と決定論を備えたエージェントワークフロー
 
-Workflows are deterministic, stateful, multi-agent programs built for production applications. We write the workflow in pure python, giving us extreme control over the execution flow.
+ワークフローは、本番アプリケーション用に構築された、決定論的でステートフルなマルチエージェントプログラムです。ワークフローは純粋な Python で記述されるため、実行フローに対して極めて高い制御が可能です。
 
-Having built 100s of agentic systems, **no framework or step based approach will give you the flexibility and reliability of pure-python**. Want loops - use while/for, want conditionals - use if/else, want exceptional handling - use try/except.
+数百ものエージェントシステムを構築してきた経験から、**どのようなフレームワークやステップベースのアプローチも、純粋な Python の柔軟性と信頼性には及びません**。ループが必要な場合は while/for を使用し、条件分岐が必要な場合は if/else を使用し、例外処理が必要な場合は try/except を使用します。
 
 
 <Check>
 
-Because the workflow logic is a python function, AI code editors can vibe code workflows for you.
+ワークフローロジックは Python 関数であるため、AI コードエディタはワークフローのコードを生成できます。
 
-Add `https://docs.agno.com` as a document source and vibe away.
+`https://docs.agno.com` をドキュメントソースとして追加し、自由にコーディングしてください。
 
 </Check>
 
-Here's a simple workflow that caches previous outputs, you control every step: what gets cached, what gets streamed, what gets logged and what gets returned.
+ここでは、以前の出力をキャッシュする簡単なワークフローを示します。キャッシュする内容、ストリームする内容、ログに記録する内容、返す内容をすべて制御できます。
 
 ```python level_5_workflow.py
 from typing import Iterator
@@ -140,13 +140,13 @@ from agno.workflow import Workflow
 
 
 class CacheWorkflow(Workflow):
-    # Add agents or teams as attributes on the workflow
+    # エージェントまたはチームをワークフローの属性として追加します
     agent = Agent(model=OpenAIChat(id="gpt-4o-mini"))
 
-    # Write the logic in the `run()` method
+    # `run()` メソッドでロジックを記述します
     def run(self, message: str) -> Iterator[RunResponse]:
         logger.info(f"Checking cache for '{message}'")
-        # Check if the output is already cached
+        # 出力が既にキャッシュされているか確認します
         if self.session_state.get(message):
             logger.info(f"Cache hit for '{message}'")
             yield RunResponse(
@@ -155,33 +155,33 @@ class CacheWorkflow(Workflow):
             return
 
         logger.info(f"Cache miss for '{message}'")
-        # Run the agent and yield the response
+        # エージェントを実行し、レスポンスを yield します
         yield from self.agent.run(message, stream=True)
 
-        # Cache the output after response is yielded
+        # レスポンスが yield された後に、出力をキャッシュします
         self.session_state[message] = self.agent.run_response.content
 
 
 if __name__ == "__main__":
     workflow = CacheWorkflow()
-    # Run workflow (this is takes ~1s)
+    # ワークフローを実行します (これには約 1 秒かかります)
     response: Iterator[RunResponse] = workflow.run(message="Tell me a joke.")
-    # Print the response
+    # レスポンスを出力します
     pprint_run_response(response, markdown=True, show_time=True)
-    # Run workflow again (this is immediate because of caching)
+    # ワークフローを再度実行します (キャッシュにより即座に実行されます)
     response: Iterator[RunResponse] = workflow.run(message="Tell me a joke.")
-    # Print the response
+    # レスポンスを出力します
     pprint_run_response(response, markdown=True, show_time=True)
 ```
 
-Run the workflow
+ワークフローを実行する
 
 ```shell
 python level_5_workflow.py
 ```
 
-## Next
+## 次へ
 
-- Checkout the [Agent Playground](/introduction/playground) to interact with your Agents, Teams and Workflows.
-- Learn how to [Monitor](/introduction/monitoring) your Agents, Teams and Workflows.
-- Get help from the [Community](/introduction/community).
+- [Agent Playground](/introduction/playground) でエージェント、チーム、ワークフローを操作してみてください。
+- [監視](/introduction/monitoring) 方法を学びます。
+- [コミュニティ](/introduction/community) からヘルプを入手してください。

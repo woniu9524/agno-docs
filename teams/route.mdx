@@ -2,24 +2,24 @@
 title: Route
 ---
 
-In **Route Mode**, the Team Leader directs user queries to the most appropriate team member based on the content of the request.
+**Route モード**では、チームリーダーはリクエストの内容に基づいて、ユーザーのクエリを最も適切なチームメンバーにルーティングします。
 
-The Team Leader acts as a smart router, analyzing the query and selecting the best-suited agent to handle it. The member's response is then returned directly to the user.
+チームリーダーはスマートルーターとして機能し、クエリを分析して、それに対処するのに最も適したエージェントを選択します。メンバーの応答は、直接ユーザーに返されます。
 
-## How Route Mode Works
+## Route モードの仕組み
 
-In "route" mode:
+「route」モードでは：
 
-1. The team receives a user query
-2. A Team Leader analyzes the query to determine which team member has the right expertise
-3. The query is forwarded to the selected team member
-4. The response from the team member is returned directly to the user
+1. チームはユーザーのクエリを受け取ります。
+2. チームリーダーがクエリを分析し、どのチームメンバーが適切な専門知識を持っているかを判断します。
+3. クエリは選択されたチームメンバーに転送されます。
+4. チームメンバーからの応答は、直接ユーザーに返されます。
 
-This mode is particularly useful when you have specialized agents with distinct expertise areas and want to automatically direct queries to the right specialist.
+このモードは、専門分野が異なるエージェントがいて、クエリを適切な専門家に自動的に向けたい場合に特に役立ちます。
 
 <Steps>
-  <Step title="Create Multi Language Team">
-    Create a file `multi_language_team.py`
+  <Step title="多言語チームの作成">
+    `multi_language_team.py` というファイルを作成します。
 
     ```python multi_language_team.py
     from agno.agent import Agent
@@ -125,14 +125,14 @@ This mode is particularly useful when you have specialized agents with distinct 
     ```
 
   </Step>
-  <Step title="Run the team">
-    Install libraries
+  <Step title="チームの実行">
+    ライブラリのインストール
 
     ```shell
     pip install openai mistral agno
     ```
 
-    Run the team
+    チームの実行
 
     ```shell
     python multi_language_team.py
@@ -141,12 +141,12 @@ This mode is particularly useful when you have specialized agents with distinct 
   </Step>
 </Steps>
 
-## Structured Output with Route Mode
+## Route モードでの構造化出力
 
-One powerful feature of route mode is its ability to maintain structured output from member agents.
-When using a Pydantic model for the response, the response from the selected team member will be automatically parsed into the specified structure.
+Route モードの強力な機能の 1 つは、メンバーエージェントからの構造化された出力を維持できることです。
+Pydantic モデルを応答に使用すると、選択されたチームメンバーからの応答は、指定された構造に自動的に解析されます。
 
-### Defining Structured Output Models
+### 構造化出力モデルの定義
 
 ```python
 from pydantic import BaseModel
@@ -203,4 +203,3 @@ team = Team(
 # This should route to the stock_searcher
 response = team.run("What is the current stock price of NVDA?")
 assert isinstance(response.content, StockAnalysis)
-```

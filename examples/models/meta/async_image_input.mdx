@@ -1,8 +1,8 @@
 ---
-<title>Asynchronous Agent with Image Input</title>
+<title>画像入力を持つ非同期エージェント</title>
 ---
 
-## Code
+## コード
 
 ```python cookbook/models/meta/async_image_input.py
 import asyncio
@@ -25,24 +25,24 @@ async def main():
 asyncio.run(main())
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your LLAMA API key">
+  <Step title="LLAMA API キーを設定する">
     ```bash
     export LLAMA_API_KEY=YOUR_API_KEY
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="ライブラリをインストールする">
     ```bash
     pip install llama-api-client agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="エージェントを実行する">
     <CodeGroup>
     ```bash Mac
     python cookbook/models/meta/async_image_input.py
@@ -53,4 +53,4 @@ asyncio.run(main())
     ```
     </CodeGroup>
   </Step>
-</Steps> 
+</Steps>

@@ -3,7 +3,7 @@ title: SingleStore Agent Knowledge
 sidebarTitle: SingleStore
 ---
 
-## Setup
+## セットアップ
 
 ```shell
 docker run -d --name singlestoredb \
@@ -18,7 +18,7 @@ docker run -d --name singlestoredb \
 docker start singlestoredb
 ```
 
-After running the container, set the environment variables:
+コンテナを実行した後、環境変数を設定します。
 
 ```shell
 export SINGLESTORE_HOST="localhost"
@@ -28,9 +28,9 @@ export SINGLESTORE_PASSWORD="admin"
 export SINGLESTORE_DATABASE="AGNO"
 ```
 
-SingleStore supports both cloud-based and local deployments. For step-by-step guidance on setting up your cloud deployment, please refer to the [SingleStore Setup Guide](https://docs.singlestore.com/cloud/connect-to-singlestore/connect-with-mysql/connect-with-mysql-client/connect-to-singlestore-helios-using-tls-ssl/).
+SingleStoreは、クラウドベースとローカルデプロイメントの両方をサポートしています。クラウドデプロイメントのセットアップに関するステップバイステップのガイダンスについては、[SingleStore セットアップガイド](https://docs.singlestore.com/cloud/connect-to-singlestore/connect-with-mysql/connect-with-mysql-client/connect-to-singlestore-helios-using-tls-ssl/)を参照してください。
 
-## Example
+## 例
 
 ```python agent_with_knowledge.py
 import typer
@@ -93,10 +93,10 @@ if __name__ == "__main__":
     typer.run(pdf_assistant)
 ```
 
-## SingleStore Params
+## SingleStore パラメータ
 
 <Snippet file="vectordb_singlestore_params.mdx" />
 
-## Developer Resources
+## 開発者向けリソース
 
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/vector_dbs/singlestore_db.py)
+- [クックブック](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/vector_dbs/singlestore_db.py)を表示

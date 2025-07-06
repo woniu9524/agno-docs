@@ -1,8 +1,8 @@
 ---
-title: Traditional RAG with LanceDB
+title: LanceDB を使用した従来の RAG
 ---
 
-## Code
+## コード
 
 ```python
 from agno.agent import Agent
@@ -11,10 +11,10 @@ from agno.knowledge.pdf_url import PDFUrlKnowledgeBase
 from agno.models.openai import OpenAIChat
 from agno.vectordb.lancedb import LanceDb, SearchType
 
-# Create a knowledge base of PDFs from URLs
+# URL から PDF の知識ベースを作成します
 knowledge_base = PDFUrlKnowledgeBase(
     urls=["https://agno-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
-    # Use LanceDB as the vector database and store embeddings in the `recipes` table
+    # LanceDB をベクトルデータベースとして使用し、埋め込みを `recipes` テーブルに保存します
     vector_db=LanceDb(
         table_name="recipes",
         uri="tmp/lancedb",
@@ -22,42 +22,42 @@ knowledge_base = PDFUrlKnowledgeBase(
         embedder=OpenAIEmbedder(id="text-embedding-3-small"),
     ),
 )
-# Load the knowledge base: Comment after first run as the knowledge base is already loaded
+# 知識ベースをロードします: 知識ベースは既にロードされているため、初回実行後にコメントアウトしてください
 knowledge_base.load()
 
 agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
     knowledge=knowledge_base,
-    # Enable RAG by adding references from AgentKnowledge to the user prompt.
+    # AgentKnowledge からの参照をユーザープロンプトに追加することで、RAG を有効にします。
     add_references=True,
-    # Set as False because Agents default to `search_knowledge=True`
+    # Agent はデフォルトで `search_knowledge=True` になるため、False に設定します
     search_knowledge=False,
     show_tool_calls=True,
     markdown=True,
 )
 agent.print_response(
-    "How do I make chicken and galangal in coconut milk soup", stream=True
+    "ココナッツミルクのスープでチキンとガランガルを作る方法", stream=True
 )
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="API キーを設定する">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="ライブラリをインストールする">
     ```bash
     pip install -U openai lancedb tantivy pypdf sqlalchemy agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="Agent を実行する">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/rag/traditional_rag_lancedb.py

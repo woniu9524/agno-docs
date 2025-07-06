@@ -3,90 +3,90 @@ title: Zoom
 sidebarTitle: Zoom
 ---
 
-**Zoom** enables an Agent to interact with Zoom, allowing it to schedule meetings, manage recordings, and handle various meeting-related operations through the Zoom API. The toolkit uses Zoom's Server-to-Server OAuth authentication for secure API access.
+**Zoom** を使用すると、Agent は Zoom と対話して、会議のスケジュール設定、録画の管理、および Zoom API を介したさまざまな会議関連の操作を処理できます。このツールキットは、Zoom のサーバー間 OAuth 認証を使用して安全な API アクセスを実現します。
 
-## Prerequisites
+## 前提条件
 
-The Zoom toolkit requires the following setup:
+Zoom ツールキットには、次のセットアップが必要です。
 
-1. Install required dependencies:
+1. 必要な依存関係をインストールします。
 ```shell
 pip install requests
 ```
 
-2. Set up Server-to-Server OAuth app in Zoom Marketplace:
-   - Go to [Zoom Marketplace](https://marketplace.zoom.us/)
-   - Click "Develop" → "Build App"
-   - Choose "Server-to-Server OAuth" app type
-   - Configure the app with required scopes:
+2. Zoom Marketplace でサーバー間 OAuth アプリをセットアップします。
+   - [Zoom Marketplace](https://marketplace.zoom.us/) にアクセスします。
+   - 「Develop」→「Build App」をクリックします。
+   - 「Server-to-Server OAuth」アプリタイプを選択します。
+   - 必要なスコープでアプリを構成します。
      - `/meeting:write:admin`
      - `/meeting:read:admin`
      - `/recording:read:admin`
-   - Note your Account ID, Client ID, and Client Secret
+   - アカウント ID、クライアント ID、およびクライアントシークレットをメモします。
 
-3. Set up environment variables:
+3. 環境変数をセットアップします。
 ```shell
 export ZOOM_ACCOUNT_ID=your_account_id
 export ZOOM_CLIENT_ID=your_client_id
 export ZOOM_CLIENT_SECRET=your_client_secret
 ```
 
-## Example Usage
+## 使用例
 
 ```python
 from agno.agent import Agent
 from agno.tools.zoom import ZoomTools
 
-# Initialize Zoom tools with credentials
+# 認証情報を使用して Zoom ツールを初期化します
 zoom_tools = ZoomTools(
     account_id="your_account_id",
     client_id="your_client_id",
     client_secret="your_client_secret"
 )
 
-# Create an agent with Zoom capabilities
+# Zoom 機能を持つエージェントを作成します
 agent = Agent(tools=[zoom_tools], show_tool_calls=True)
 
-# Schedule a meeting
+# 会議をスケジュールします
 response = agent.print_response("""
-Schedule a team meeting with the following details:
-- Topic: Weekly Team Sync
-- Time: Tomorrow at 2 PM UTC
-- Duration: 45 minutes
+次の詳細を使用してチーム会議をスケジュールしてください。
+- トピック: 週次チーム同期
+- 時間: 明日午後 2 時 UTC
+- 時間: 45 分
 """, markdown=True)
 ```
 
-## Toolkit Parameters
+## ツールキットのパラメータ
 
-| Parameter           | Type     | Default      | Description                                                |
+| パラメータ           | タイプ     | デフォルト      | 説明                                                 |
 | ------------------ | -------- | ------------ | ---------------------------------------------------------- |
-| `account_id`       | `str`    | `None`       | Zoom account ID (from Server-to-Server OAuth app)          |
-| `client_id`        | `str`    | `None`       | Client ID (from Server-to-Server OAuth app)                |
-| `client_secret`    | `str`    | `None`       | Client secret (from Server-to-Server OAuth app)            |
+| `account_id`       | `str`    | `None`       | Zoom アカウント ID (サーバー間 OAuth アプリから)          |
+| `client_id`        | `str`    | `None`       | クライアント ID (サーバー間 OAuth アプリから)                |
+| `client_secret`    | `str`    | `None`       | クライアントシークレット (サーバー間 OAuth アプリから)            |
 
 
-## Toolkit Functions
+## ツールキットの関数
 
-| Function                | Description                                                |
+| 関数                | 説明                                                 |
 | ---------------------- | ---------------------------------------------------------- |
-| `schedule_meeting`     | Schedule a new Zoom meeting                                |
-| `get_upcoming_meetings`| Get a list of upcoming meetings                            |
-| `list_meetings`        | List all meetings based on type                            |
-| `get_meeting_recordings`| Get recordings for a specific meeting                      |
-| `delete_meeting`       | Delete a scheduled meeting                                 |
-| `get_meeting`          | Get detailed information about a specific meeting          |
+| `schedule_meeting`     | 新しい Zoom 会議をスケジュールします                                 |
+| `get_upcoming_meetings`| 今後の会議のリストを取得します                                   |
+| `list_meetings`        | タイプに基づいてすべての会議をリストします                                 |
+| `get_meeting_recordings`| 特定の会議の録画を取得します                                     |
+| `delete_meeting`       | スケジュールされた会議を削除します                                   |
+| `get_meeting`          | 特定の会議の詳細情報を取得します                                   |
 
 
-## Rate Limits
+## レート制限
 
-The Zoom API has rate limits that vary by endpoint and account type:
-- Server-to-Server OAuth apps: 100 requests/second
-- Meeting endpoints: Specific limits apply based on account type
-- Recording endpoints: Lower rate limits, check Zoom documentation
+Zoom API には、エンドポイントとアカウントタイプによって異なるレート制限があります。
+- サーバー間 OAuth アプリ: 100 リクエスト/秒
+- 会議エンドポイント: アカウントタイプに基づいた特定の制限が適用されます
+- 録画エンドポイント: レート制限が低いため、Zoom のドキュメントを確認してください。
 
-For detailed rate limits, refer to [Zoom API Rate Limits](https://developers.zoom.us/docs/api/#rate-limits).
+詳細なレート制限については、[Zoom API レート制限](https://developers.zoom.us/docs/api/#rate-limits)を参照してください。
 
-## Developer Resources
+## 開発者向けリソース
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/zoom.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/zoom_tools.py)
+- [ツール](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/zoom.py)を表示
+- [クックブック](https://github.com/agno-agi/agno/blob/main/cookbook/tools/zoom_tools.py)を表示

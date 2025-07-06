@@ -1,10 +1,10 @@
 ---
-title: Selecting tools
+title: ツールの選択
 ---
 
-You can specify which tools to include or exclude from a `Toolkit` by using the `include_tools` and `exclude_tools` parameters. This can be very useful to limit the number of tools that are available to an Agent.
+`Toolkit` に含めるツールまたは除外するツールは、`include_tools` および `exclude_tools` パラメータを使用して指定できます。これは、エージェントが利用できるツールの数を制限するのに非常に役立ちます。
 
-For example, here's how to include only the `get_latest_emails` tool in the `GmailTools` toolkit:
+たとえば、`GmailTools` ツールキットに `get_latest_emails` ツールのみを含める方法は次のとおりです。
 
 ```python
 agent = Agent(
@@ -12,7 +12,7 @@ agent = Agent(
 )
 ```
 
-Similarly, here's how to exclude the `create_draft_email` tool from the `GmailTools` toolkit:
+同様に、`GmailTools` ツールキットから `create_draft_email` ツールを除外する方法は次のとおりです。
 
 ```python
 agent = Agent(
@@ -20,9 +20,9 @@ agent = Agent(
 )
 ```
 
-## Example
+## 例
 
-Here's an example of how to use the `include_tools` and `exclude_tools` parameters to limit the number of tools that are available to an Agent:
+`include_tools` および `exclude_tools` パラメータを使用して、エージェントが利用できるツールの数を制限する方法の例を次に示します。
 
 ```python include_exclude_tools.py
 
@@ -48,9 +48,3 @@ agent = Agent(
 agent.print_response(
     "Search the web for a difficult sum that can be done with normal arithmetic and solve it.",
 )
-```
-
-
-
-
-

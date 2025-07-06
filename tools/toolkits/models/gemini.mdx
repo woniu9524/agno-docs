@@ -3,32 +3,32 @@ title: Gemini
 sidebarTitle: Gemini
 ---
 
-`GeminiTools` are a set of tools that allow an Agent to interact with Google AI API services for generating images and videos.
+`GeminiTools` は、エージェントが画像や動画を生成するために Google AI API サービスと対話できるツールのセットです。
 
-## Prerequisites
+## 前提条件
 
-Before using `GeminiTools`, make sure to have the `google-genai` library installed and the credentials configured.
+`GeminiTools` を使用する前に、`google-genai` ライブラリがインストールされ、認証情報が設定されていることを確認してください。
 
-1. **Install the library:**
+1. **ライブラリのインストール:**
    ```bash
    pip install google-genai agno
    ```
 
-2. **Set your credentials:**
-   - For Gemini API:
+2. **認証情報の設定:**
+   - Gemini API の場合:
      ```bash
      export GOOGLE_API_KEY="your-google-genai-api-key"
      ```
-   - For Vertex AI:
+   - Vertex AI の場合:
      ```bash
      export GOOGLE_CLOUD_PROJECT="your-google-cloud-project-id"
      export GOOGLE_CLOUD_LOCATION="your-google-cloud-location"
      export GOOGLE_GENAI_USE_VERTEXAI=true
      ```
 
-## Initialization
+## 初期化
 
-Import `GeminiTools` and add it to your Agent's tool list.
+`GeminiTools` をインポートし、エージェントのツールリストに追加します。
 
 ```python
 from agno.agent import Agent
@@ -40,10 +40,10 @@ agent = Agent(
 )
 ```
 
-## Usage Examples
+## 使用例
 
-GeminiTools can be used for a variety of tasks. Here are some examples:
-### Image Generation
+GeminiTools はさまざまなタスクに使用できます。以下に例を示します。
+### 画像生成
 
 ```python image_generation_agent.py
 from agno.agent import Agent
@@ -58,17 +58,17 @@ agent = Agent(
 )
 
 agent.print_response(
-    "Create an artistic portrait of a cyberpunk samurai in a rainy city",
+    "サイバーパンクなサムライの芸術的なポートレートを雨の降る都市で作成してください",
 )
 response = agent.run_response
 if response.images:
     save_base64_data(response.images[0].content, "tmp/cyberpunk_samurai.png")
 ```
 
-### Video Generation
+### 動画生成
 
 <Note>
-Video generation requires Vertex AI.
+動画生成には Vertex AI が必要です。
 </Note>
 
 ```python video_generation_agent.py
@@ -85,7 +85,7 @@ agent = Agent(
 )
 
 agent.print_response(
-    "Generate a 5-second video of a kitten playing a piano",
+    "ピアノを弾いている子猫の 5 秒間の動画を生成してください",
 )
 response = agent.run_response
 if response.videos:
@@ -95,15 +95,15 @@ if response.videos:
 
 
 
-## Toolkit Functions
+## ツールキット関数
 
-| Function         | Description                                                                                 |
-| ---------------- | ------------------------------------------------------------------------------------------- |
-| `generate_image` | Generate an image based on a text prompt
-| `generate_video` | Generate a video based on a text prompt
+| 関数             | 説明                                     |
+| ---------------- | ---------------------------------------- |
+| `generate_image` | テキストプロンプトに基づいて画像を生成します |
+| `generate_video` | テキストプロンプトに基づいて動画を生成します |
 
-## Developer Resources
+## 開発者向けリソース
 
-- View [Toolkit](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/models/gemini.py)
-- View [Image Generation Guide](https://ai.google.dev/gemini-api/docs/image-generation)
-- View [Video Generation Guide](https://ai.google.dev/gemini-api/docs/video)
+- [ツールキット](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/models/gemini.py)を表示
+- [画像生成ガイド](https://ai.google.dev/gemini-api/docs/image-generation)を表示
+- [動画生成ガイド](https://ai.google.dev/gemini-api/docs/video)を表示

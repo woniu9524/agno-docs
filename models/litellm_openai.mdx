@@ -3,27 +3,27 @@ title: LiteLLM OpenAI
 description: Use LiteLLM with Agno with an openai-compatible proxy server.
 ---
 
-## Proxy Server Integration
+## プロキシサーバーとの統合
 
-LiteLLM can also be used as an OpenAI-compatible proxy server, allowing you to route requests to different models through a unified API.
+LiteLLMは、OpenAI互換のプロキシサーバーとしても使用でき、統一されたAPIを通じてさまざまなモデルにリクエストをルーティングできます。
 
-### Starting the Proxy Server
+### プロキシサーバーの起動
 
-First, install LiteLLM with proxy support:
+まず、プロキシサポート付きでLiteLLMをインストールします。
 
 ```shell
 pip install 'litellm[proxy]'
 ```
 
-Start the proxy server:
+プロキシサーバーを起動します。
 
 ```shell
 litellm --model gpt-4o --host 127.0.0.1 --port 4000
 ```
 
-### Using the Proxy
+### プロキシの使用
 
-The `LiteLLMOpenAI` class connects to the LiteLLM proxy using an OpenAI-compatible interface:
+`LiteLLMOpenAI` クラスは、OpenAI互換のインターフェースを使用してLiteLLMプロキシに接続します。
 
 ```python
 from agno.agent import Agent
@@ -31,7 +31,7 @@ from agno.models.litellm import LiteLLMOpenAI
 
 agent = Agent(
     model=LiteLLMOpenAI(
-        id="gpt-4o",  # Model ID to use
+        id="gpt-4o",  # 使用するモデルID
     ),
     markdown=True,
 )
@@ -39,21 +39,21 @@ agent = Agent(
 agent.print_response("Share a 2 sentence horror story")
 ```
 
-### Configuration Options
+### 設定オプション
 
-The `LiteLLMOpenAI` class accepts the following parameters:
+`LiteLLMOpenAI` クラスは、以下のパラメータを受け入れます。
 
-| Parameter | Type | Description | Default |
+| パラメータ | タイプ | 説明 | デフォルト |
 | --- | --- | --- | --- |
-| `id` | str | Model identifier | "gpt-4o" |
-| `name` | str | Display name for the model | "LiteLLM" |
-| `provider` | str | Provider name | "LiteLLM" |
-| `api_key` | str | API key (falls back to LITELLM_API_KEY environment variable) | None |
-| `base_url` | str | URL of the LiteLLM proxy server | "http://0.0.0.0:4000" |
+| `id` | str | モデル識別子 | "gpt-4o" |
+| `name` | str | モデルの表示名 | "LiteLLM" |
+| `provider` | str | プロバイダー名 | "LiteLLM" |
+| `api_key` | str | APIキー (LITELLM_API_KEY環境変数にフォールバックします) | None |
+| `base_url` | str | LiteLLMプロキシサーバーのURL | "http://0.0.0.0:4000" |
 
-## Examples
+## 例
 
-Check out these examples in the cookbook:
+クックブックでこれらの例を確認してください。
 
-### Proxy Examples
-<Note> View more examples [here](../examples/models/litellm_openai). </Note>
+### プロキシの例
+<Note> その他の例は[こちら](../examples/models/litellm_openai)をご覧ください。 </Note>

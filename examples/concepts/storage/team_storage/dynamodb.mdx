@@ -3,11 +3,11 @@ title: DynamoDB Team Storage
 sidebarTitle: DynamoDB
 ---
 
-Agno supports using DynamoDB as a storage backend for Teams using the `DynamoDbStorage` class.
+Agno は、`DynamoDbStorage` クラスを使用して、チームのストレージバックエンドとして DynamoDB をサポートしています。
 
-## Usage
+## 使用方法
 
-You need to provide `aws_access_key_id` and `aws_secret_access_key` parameters to the `DynamoDbStorage` class.
+`DynamoDbStorage` クラスに `aws_access_key_id` および `aws_secret_access_key` パラメータを指定する必要があります。
 
 ```python dynamodb_storage_for_team.py
 """
@@ -68,10 +68,10 @@ hn_team = Team(
 hn_team.print_response("Write an article about the top 2 stories on hackernews")
 ```
 
-## Params
+## パラメータ
 
 <Snippet file="storage-dynamodb-params.mdx" />
 
-## Developer Resources
+## 開発者向けリソース
 
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/storage/dynamodb_storage/dynamodb_storage_for_team.py)
+- [クックブック](https://github.com/agno-agi/agno/blob/main/cookbook/storage/dynamodb_storage/dynamodb_storage_for_team.py)を表示

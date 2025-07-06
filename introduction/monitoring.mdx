@@ -1,39 +1,39 @@
 ---
-title: Monitoring & Debugging
-description: Monitor your Agents, Teams and Workflows in real-time.
+title: モニタリングとデバッグ
+description: エージェント、チーム、ワークフローをリアルタイムで監視します。
 ---
 
-# Monitoring
+# モニタリング
 
-You can track your Agent in real-time on [app.agno.com](https://app.agno.com).
+[app.agno.com](https://app.agno.com) でエージェントをリアルタイムで追跡できます。
 
-## Authenticate
-Authenticate with [agno.com](https://app.agno.com) to start monitoring your sessions.
-Check out [Authentication guide](how-to/authentication) for instructions on how to Authenticate with Agno.
+## 認証
+セッションの監視を開始するには、[agno.com](https://app.agno.com) で認証してください。
+認証方法については、[認証ガイド](how-to/authentication) を参照してください。
 
-## Enable Monitoring
+## モニタリングの有効化
 
-Enable monitoring for a single agent or globally for all agents by setting `AGNO_MONITOR=true`.
+`AGNO_MONITOR=true` を設定して、単一のエージェントまたはすべてのエージェントに対してグローバルに監視を有効にします。
 
-### For a Specific Agent
+### 特定のエージェントの場合
 
 ```python
 agent = Agent(markdown=True, monitoring=True)
 ```
 
-### Globally for all Agents
+### すべてのエージェントに対してグローバルに
 
 ```bash
 export AGNO_MONITOR=true
 ```
 
-## Monitor Your Agents
+## エージェントの監視
 
-Run your agent and view the sessions on the [sessions page](https://app.agno.com/sessions).
+エージェントを実行し、[セッションページ](https://app.agno.com/sessions) でセッションを表示します。
 
 <Steps>
 
-<Step title="Create a file with sample code">
+<Step title="サンプルコードを含むファイルを作成">
 
 ```python monitoring.py
 from agno.agent import Agent
@@ -44,7 +44,7 @@ agent.print_response("Share a 2 sentence horror story")
 
 </Step>
 
-<Step title="Run your Agent">
+<Step title="エージェントを実行">
 
 ```shell
 python monitoring.py
@@ -52,9 +52,9 @@ python monitoring.py
 
 </Step>
 
-<Step title="View your sessions">
+<Step title="セッションを表示">
 
-View your sessions at [app.agno.com/sessions](https://app.agno.com/sessions)
+セッションは [app.agno.com/sessions](https://app.agno.com/sessions) で表示します。
 
 <img height="200" src="/images/monitoring.png" style={{ borderRadius: "8px" }} />
 
@@ -62,13 +62,13 @@ View your sessions at [app.agno.com/sessions](https://app.agno.com/sessions)
 
 </Steps>
 
-<Info>Facing issues? Check out our [troubleshooting guide](/faq/cli-auth)</Info>
+<Info>問題が発生しましたか？ [トラブルシューティングガイド](/faq/cli-auth) を参照してください。</Info>
 
-## Debug Logs
+## デバッグログ
 
-Want to see the system prompt, user messages and tool calls?
+システムプロンプト、ユーザーメッセージ、ツール呼び出しを確認したいですか？
 
-Agno includes a built-in debugger that will print debug logs in the terminal. Set `debug_mode=True` on any agent or set `AGNO_DEBUG=true` in your environment.
+Agno には、ターミナルにデバッグログを出力する組み込みデバッガーが含まれています。いずれかのアージェントで `debug_mode=True` を設定するか、環境で `AGNO_DEBUG=true` を設定します。
 
 ```python debug_logs.py
 from agno.agent import Agent
@@ -85,7 +85,7 @@ agent = Agent(
 agent.print_response("What is the stock price of Apple?", stream=True)
 ```
 
-Run the agent to view debug logs in the terminal:
+エージェントを実行して、ターミナルでデバッグログを表示します。
 
 ```shell
 python debug_logs.py
@@ -99,4 +99,3 @@ python debug_logs.py
    style={{ borderRadius: '8px' }}
    src="/videos/debug_logs.mp4"
 ></video>
-

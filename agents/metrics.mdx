@@ -1,27 +1,27 @@
 ---
 title: Metrics
-description: Understanding agent run and session metrics in Agno
+description: Agno におけるエージェント実行およびセッションメトリクスの理解
 ---
 
-## Overview
-When you run an agent in Agno, the response you get (**RunResponse**) includes detailed metrics about the run. These metrics help you understand resource usage (like **token usage** and **time**), performance, and other aspects of the model and tool calls.
+## 概要
+Agno でエージェントを実行すると、取得する応答 (**RunResponse**) には、実行に関する詳細なメトリクスが含まれます。これらのメトリクスは、リソース使用量（**トークン使用量**や**時間**など）、パフォーマンス、およびモデルやツール呼び出しのその他の側面を理解するのに役立ちます。
 
-Metrics are available at multiple levels:
-- **Per-message**: Each message (assistant, tool, etc.) has its own metrics.
-- **Per-tool call**: Each tool execution has its own metrics.
-- **Aggregated**: The `RunResponse` aggregates metrics across all messages in the run.
+メトリクスは複数のレベルで利用可能です。
+- **メッセージごと**: 各メッセージ（アシスタント、ツールなど）には独自のメトリクスがあります。
+- **ツール呼び出しごと**: 各ツール実行には独自のメトリクスがあります。
+- **集計**: `RunResponse` は、実行内のすべてのメッセージにわたるメトリクスを集計します。
 
 <Note>
-Where Metrics Live
-- `RunResponse.metrics`: Aggregated metrics for the whole run, as a dictionary.
-- `ToolExecution.metrics`: Metrics for each tool call.
-- `Message.metrics`: Metrics for each message (assistant, tool, etc.).
+メトリクスの場所
+- `RunResponse.metrics`: 実行全体の集計メトリクス。辞書形式です。
+- `ToolExecution.metrics`: 各ツール呼び出しのメトリクス。
+- `Message.metrics`: 各メッセージ（アシスタント、ツールなど）のメトリクス。
 </Note>
 
-## Example Usage
-Suppose you have an agent that performs some tasks and you want to analyze the metrics after running it. Here's how you can access and print the metrics:
+## 使用例
+タスクを実行するエージェントがあり、実行後にメトリクスを分析したいとします。メトリクスにアクセスして印刷する方法は次のとおりです。
 
-You run the following code to create an agent and run it with the following configuration:
+以下のコードを実行してエージェントを作成し、以下の構成で実行します。
 ```python
 from typing import Iterator
 
@@ -41,7 +41,7 @@ agent.print_response(
     "What is the stock price of NVDA", stream=True
 )
 
-# Print metrics per message
+# メッセージごとのメトリクスを表示
 if agent.run_response.messages:
     for message in agent.run_response.messages:
         if message.role == "assistant":
@@ -53,39 +53,39 @@ if agent.run_response.messages:
             pprint(message.metrics)
             print("---" * 20)
 
-# Print the aggregated metrics for the whole run
+# 実行全体の集計メトリクスを表示
 print("---" * 5, "Collected Metrics", "---" * 5)
 pprint(agent.run_response.metrics)
-# Print the aggregated metrics for the whole session
+# セッション全体の集計メトリクスを表示
 print("---" * 5, "Session Metrics", "---" * 5)
 pprint(agent.session_metrics)
 ```
 
-You'd see the outputs with following information:
-### Tool Execution Metrics
+以下のような情報を含む出力が表示されます。
+### ツール実行メトリクス
 
-This section provides metrics for each tool execution. It includes details about the resource usage and performance of individual tool calls.
+このセクションでは、各ツール実行のメトリクスを提供します。個々のツール呼び出しのリソース使用量とパフォーマンスの詳細が含まれています。
 
 ![Tool Run Message Metrics](../images/tools-run-message-metrics.png)
 
-### Message Metrics
+### メッセージメトリクス
 
-Here, you can see the metrics for each message response from the agent. All "assistant" responses will have metrics like this, helping you understand the performance and resource usage at the message level.
+ここでは、エージェントからの各メッセージ応答のメトリクスを確認できます。すべての「アシスタント」応答にはこのようなメトリクスがあり、メッセージレベルでのパフォーマンスとリソース使用量を理解するのに役立ちます。
 
 ![Agent Run Message Metrics](../images/agent-run-message-metrics.png)
 
-### Aggregated Run Metrics
+### 集計実行メトリクス
 
-The aggregated metrics provide a comprehensive view of the entire run. This includes a summary of all messages and tool calls, giving you an overall picture of the agent's performance and resource usage.
+集計メトリクスは、実行全体の包括的なビューを提供します。これには、すべてのメッセージとツール呼び出しの概要が含まれており、エージェントのパフォーマンスとリソース使用量の全体像を把握できます。
 
 ![Aggregated Run Metrics](../images/agent-run-aggregated-metrics.png)
 
-Similarly for the session metrics, you can see the aggregated metrics across all runs in the session, providing insights into the overall performance and resource usage of the agent across multiple runs.
+同様にセッションメトリクスでは、セッション内のすべての実行にわたる集計メトリクスを確認でき、複数の実行にわたるエージェントの全体的なパフォーマンスとリソース使用量に関する洞察を提供します。
 
-## How Metrics Are Aggregated
-- **Per-message**: Each message (assistant, tool, etc.) has its own metrics object.
-- **Run-level**: RunResponse.metrics is a dictionary where each key (e.g., input_tokens) maps to a list of values from all assistant messages in the run.
-- **Session-level**: `SessionMetrics` (see `agent.session_metrics`) aggregates metrics across all runs in the session.
+## メトリクスの集計方法
+- **メッセージごと**: 各メッセージ（アシスタント、ツールなど）には独自のメトリクスオブジェクトがあります。
+- **実行レベル**: `RunResponse.metrics` は、各キー（例: `input_tokens`）が実行内のすべてのアシスタントメッセージの値のリストにマッピングされる辞書です。
+- **セッションレベル**: `SessionMetrics`（`agent.session_metrics` を参照）は、セッション内のすべての実行にわたるメトリクスを集計します。
 
-## `MessageMetrics` Params
+## `MessageMetrics` パラメータ
 <Snippet file="message_metrics_params.mdx" />

@@ -2,39 +2,39 @@
 title: Agentic Search
 ---
 
-Using an Agent to iteratively search for information is called **Agentic Search** and the process of **searching, reasoning and responding** is known as **Agentic RAG**.
+エージェントを使用して情報を反復的に検索することは**Agentic Search**と呼ばれ、**検索、推論、応答**のプロセスは**Agentic RAG**として知られています。
 
-The model interprets your query, generates relevant keywords and searches its knowledge.
+モデルはクエリを解釈し、関連するキーワードを生成して、その知識を検索します。
 
 <Tip>
-The Agent's response is only as good as its search. **Better search = Better responses**
+エージェントの応答は、その検索の質に依存します。**より良い検索 = より良い応答**
 </Tip>
 
-You can use semantic search, keyword search or hybrid search. We recommend using **hybrid search with reranking** for best in class agentic search.
+セマンティック検索、キーワード検索、またはハイブリッド検索を使用できます。クラス最高のAgentic Searchには、**再ランキング付きハイブリッド検索**の使用をお勧めします。
 
-Because the Agent is searching for the information it needs, this pattern is called **Agentic Search** and is becoming very popular with Agent builders.
+エージェントが必要な情報を検索するため、このパターンは**Agentic Search**と呼ばれ、エージェントビルダーの間で非常に人気が高まっています。
 
 <Check>
-Let's build some examples to see Agentic Search in action.
+Agentic Searchが実際にどのように機能するかを確認するために、いくつかの例を構築しましょう。
 </Check>
 
 ## Agentic RAG
 
-When we add a knowledge base to an Agent, behind the scenes, we give the model a tool to search that knowledge base for the information it needs.
+エージェントにナレッジベースを追加すると、バックグラウンドでモデルにそのナレッジベースを検索して必要な情報を取得するツールが提供されます。
 
-The Model generates a set of keywords and calls the `search_knowledge_base()` tool to retrieve the relevant information or few-shot examples.
+モデルはキーワードのセットを生成し、`search_knowledge_base()` ツールを呼び出して関連情報または少数ショットの例を取得します。
 
-Here's a working example that uses Hybrid Search + Reranking:
+これは、ハイブリッド検索と再ランキングを使用した動作例です。
 
 <Tip>
-You may remove the reranking step if you don't need it.
+必要ない場合は、再ランキングステップを削除してもかまいません。
 </Tip>
 
 ```python agentic_rag.py
-"""This cookbook shows how to implement Agentic RAG using Hybrid Search and Reranking.
-1. Run: `pip install agno anthropic cohere lancedb tantivy sqlalchemy` to install the dependencies
-2. Export your ANTHROPIC_API_KEY and CO_API_KEY
-3. Run: `python cookbook/agent_concepts/agentic_search/agentic_rag.py` to run the agent
+"""このクックブックは、ハイブリッド検索と再ランキングを使用したAgentic RAGの実装方法を示しています。
+1. 依存関係をインストールするには、`pip install agno anthropic cohere lancedb tantivy sqlalchemy` を実行します。
+2. ANTHROPIC_API_KEY と CO_API_KEY をエクスポートします。
+3. エージェントを実行するには、`python cookbook/agent_concepts/agentic_search/agentic_rag.py` を実行します。
 """
 
 from agno.agent import Agent
@@ -44,10 +44,10 @@ from agno.models.anthropic import Claude
 from agno.reranker.cohere import CohereReranker
 from agno.vectordb.lancedb import LanceDb, SearchType
 
-# Create a knowledge base, loaded with documents from a URL
+# URLからドキュメントをロードしたナレッジベースを作成します
 knowledge_base = UrlKnowledge(
     urls=["https://docs.agno.com/introduction/agents.md"],
-    # Use LanceDB as the vector database, store embeddings in the `agno_docs` table
+    # LanceDBをベクトルデータベースとして使用し、埋め込みを `agno_docs` テーブルに保存します
     vector_db=LanceDb(
         uri="tmp/lancedb",
         table_name="agno_docs",
@@ -59,10 +59,10 @@ knowledge_base = UrlKnowledge(
 
 agent = Agent(
     model=Claude(id="claude-3-7-sonnet-latest"),
-    # Agentic RAG is enabled by default when `knowledge` is provided to the Agent.
+    # `knowledge` がエージェントに提供されると、Agentic RAGはデフォルトで有効になります。
     knowledge=knowledge_base,
-    # search_knowledge=True gives the Agent the ability to search on demand
-    # search_knowledge is True by default
+    # search_knowledge=True は、エージェントにオンデマンドで検索する機能を与えます
+    # search_knowledge はデフォルトでTrueです
     search_knowledge=True,
     instructions=[
         "Include sources in your response.",
@@ -73,24 +73,24 @@ agent = Agent(
 )
 
 if __name__ == "__main__":
-    # Load the knowledge base, comment after first run
+    # ナレッジベースをロードします。初回実行後にコメントアウトしてください。
     # knowledge_base.load(recreate=True)
     agent.print_response("What are Agents?", stream=True)
 ```
 
 ## Agentic RAG with Reasoning
 
-We can further improve the Agents search capabilities by giving it the ability to reason about the search results.
+推論能力をエージェントに与えることで、エージェントの検索機能をさらに向上させることができます。
 
-By adding reasoning, the Agent "thinks" first about what to search and then "analyzes" the results of the search.
+推論を追加することで、エージェントはまず検索する内容について「考え」、次に検索結果を「分析」します。
 
-Here's an example of an Agentic RAG Agent that uses reasoning to improve the quality of the search results.
+これは、検索結果の品質を向上させるために推論を使用するAgentic RAGエージェントの例です。
 
 ```python agentic_rag_reasoning.py
-"""This cookbook shows how to implement Agentic RAG with Reasoning.
-1. Run: `pip install agno anthropic cohere lancedb tantivy sqlalchemy` to install the dependencies
-2. Export your ANTHROPIC_API_KEY and CO_API_KEY
-3. Run: `python cookbook/agent_concepts/agentic_search/agentic_rag_with_reasoning.py` to run the agent
+"""このクックブックは、推論を使用したAgentic RAGの実装方法を示しています。
+1. 依存関係をインストールするには、`pip install agno anthropic cohere lancedb tantivy sqlalchemy` を実行します。
+2. ANTHROPIC_API_KEY と CO_API_KEY をエクスポートします。
+3. エージェントを実行するには、`python cookbook/agent_concepts/agentic_search/agentic_rag_with_reasoning.py` を実行します。
 """
 
 from agno.agent import Agent
@@ -101,10 +101,10 @@ from agno.reranker.cohere import CohereReranker
 from agno.tools.reasoning import ReasoningTools
 from agno.vectordb.lancedb import LanceDb, SearchType
 
-# Create a knowledge base, loaded with documents from a URL
+# URLからドキュメントをロードしたナレッジベースを作成します
 knowledge_base = UrlKnowledge(
     urls=["https://docs.agno.com/introduction/agents.md"],
-    # Use LanceDB as the vector database, store embeddings in the `agno_docs` table
+    # LanceDBをベクトルデータベースとして使用し、埋め込みを `agno_docs` テーブルに保存します
     vector_db=LanceDb(
         uri="tmp/lancedb",
         table_name="agno_docs",
@@ -116,10 +116,10 @@ knowledge_base = UrlKnowledge(
 
 agent = Agent(
     model=Claude(id="claude-3-7-sonnet-latest"),
-    # Agentic RAG is enabled by default when `knowledge` is provided to the Agent.
+    # `knowledge` がエージェントに提供されると、Agentic RAGはデフォルトで有効になります。
     knowledge=knowledge_base,
-    # search_knowledge=True gives the Agent the ability to search on demand
-    # search_knowledge is True by default
+    # search_knowledge=True は、エージェントにオンデマンドで検索する機能を与えます
+    # search_knowledge はデフォルトでTrueです
     search_knowledge=True,
     tools=[ReasoningTools(add_instructions=True)],
     instructions=[
@@ -131,7 +131,7 @@ agent = Agent(
 )
 
 if __name__ == "__main__":
-    # Load the knowledge base, comment after first run
+    # ナレッジベースをロードします。初回実行後にコメントアウトしてください。
     # knowledge_base.load(recreate=True)
     agent.print_response(
         "What are Agents?",
@@ -139,4 +139,3 @@ if __name__ == "__main__":
         show_full_reasoning=True,
         stream_intermediate_steps=True,
     )
-```

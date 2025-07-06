@@ -1,133 +1,133 @@
 ---
 title: Langfuse
-description: Integrate Agno with Langfuse to send traces and gain insights into your agent's performance.
+description: Agno を Langfuse と統合してトレースを送信し、エージェントのパフォーマンスに関する洞察を得ます。
 ---
 
-## Integrating Agno with Langfuse
+## Agno と Langfuse の統合
 
-Langfuse provides a robust platform for tracing and monitoring AI model calls. By integrating Agno with Langfuse, you can utilize OpenInference and OpenLIT to send traces and gain insights into your agent's performance.
+Langfuse は、AI モデルの呼び出しをトレースおよび監視するための堅牢なプラットフォームを提供します。Agno と Langfuse を統合することにより、OpenInference および OpenLIT を使用してトレースを送信し、エージェントのパフォーマンスに関する洞察を得ることができます。
 
-## Prerequisites
+## 前提条件
 
-1. **Install Dependencies**
+1. **依存関係のインストール**
 
-   Ensure you have the necessary packages installed:
+   必要なパッケージがインストールされていることを確認してください。
 
    ```bash
    pip install agno openai langfuse opentelemetry-sdk opentelemetry-exporter-otlp openinference-instrumentation-agno
    ```
 
-2. **Setup Langfuse Account**
+2. **Langfuse アカウントの設定**
 
-   - Either self-host or sign up for an account at [Langfuse](https://us.cloud.langfuse.com).
-   - Obtain your public and secret API keys from the Langfuse dashboard.
+   - Langfuse をセルフホストするか、[Langfuse](https://us.cloud.langfuse.com) でアカウントにサインアップしてください。
+   - Langfuse ダッシュボードから公開 API キーとシークレット API キーを取得します。
 
-3. **Set Environment Variables**
+3. **環境変数の設定**
 
-   Configure your environment with the Langfuse API keys:
+   Langfuse API キーで環境を構成します。
 
    ```bash
    export LANGFUSE_PUBLIC_KEY=<your-public-key>
    export LANGFUSE_SECRET_KEY=<your-secret-key>
    ```
 
-## Sending Traces to Langfuse
+## Langfuse へのトレースの送信
 
-- ### Example: Using Langfuse with OpenInference
+- ### 例: OpenInference と Langfuse の使用
 
-This example demonstrates how to instrument your Agno agent with OpenInference and send traces to Langfuse.
+   この例では、Agno エージェントを OpenInference でインストルメント化し、Langfuse にトレースを送信する方法を示します。
 
-```python
-import base64
-import os
+   ```python
+   import base64
+   import os
 
-from agno.agent import Agent
-from agno.models.openai import OpenAIChat
-from agno.tools.yfinance import YFinanceTools
-from openinference.instrumentation.agno import AgnoInstrumentor
-from opentelemetry import trace as trace_api
-from opentelemetry.exporter.otlp.proto.http.trace_exporter import OTLPSpanExporter
-from opentelemetry.sdk.trace import TracerProvider
-from opentelemetry.sdk.trace.export import SimpleSpanProcessor
+   from agno.agent import Agent
+   from agno.models.openai import OpenAIChat
+   from agno.tools.yfinance import YFinanceTools
+   from openinference.instrumentation.agno import AgnoInstrumentor
+   from opentelemetry import trace as trace_api
+   from opentelemetry.exporter.otlp.proto.http.trace_exporter import OTLPSpanExporter
+   from opentelemetry.sdk.trace import TracerProvider
+   from opentelemetry.sdk.trace.export import SimpleSpanProcessor
 
-# Set environment variables for Langfuse
-LANGFUSE_AUTH = base64.b64encode(
-    f"{os.getenv('LANGFUSE_PUBLIC_KEY')}:{os.getenv('LANGFUSE_SECRET_KEY')}".encode()
-).decode()
-os.environ["OTEL_EXPORTER_OTLP_ENDPOINT"] = "https://us.cloud.langfuse.com/api/public/otel"
-os.environ["OTEL_EXPORTER_OTLP_HEADERS"] = f"Authorization=Basic {LANGFUSE_AUTH}"
+   # Langfuse の環境変数を設定
+   LANGFUSE_AUTH = base64.b64encode(
+       f"{os.getenv('LANGFUSE_PUBLIC_KEY')}:{os.getenv('LANGFUSE_SECRET_KEY')}".encode()
+   ).decode()
+   os.environ["OTEL_EXPORTER_OTLP_ENDPOINT"] = "https://us.cloud.langfuse.com/api/public/otel"
+   os.environ["OTEL_EXPORTER_OTLP_HEADERS"] = f"Authorization=Basic {LANGFUSE_AUTH}"
 
-# Configure the tracer provider
-tracer_provider = TracerProvider()
-tracer_provider.add_span_processor(SimpleSpanProcessor(OTLPSpanExporter()))
-trace_api.set_tracer_provider(tracer_provider=tracer_provider)
+   # トレーサープロバイダーを構成
+   tracer_provider = TracerProvider()
+   tracer_provider.add_span_processor(SimpleSpanProcessor(OTLPSpanExporter()))
+   trace_api.set_tracer_provider(tracer_provider=tracer_provider)
 
-# Start instrumenting agno
-AgnoInstrumentor().instrument()
+   # agno のインストルメンテーションを開始
+   AgnoInstrumentor().instrument()
 
-# Create and configure the agent
-agent = Agent(
-    name="Stock Price Agent",
-    model=OpenAIChat(id="gpt-4o-mini"),
-    tools=[YFinanceTools()],
-    instructions="You are a stock price agent. Answer questions in the style of a stock analyst.",
-    debug_mode=True,
-)
+   # エージェントを作成および構成
+   agent = Agent(
+       name="Stock Price Agent",
+       model=OpenAIChat(id="gpt-4o-mini"),
+       tools=[YFinanceTools()],
+       instructions="You are a stock price agent. Answer questions in the style of a stock analyst.",
+       debug_mode=True,
+   )
 
-# Use the agent
-agent.print_response("What is the current price of Tesla?")
-```
+   # エージェントを使用
+   agent.print_response("What is the current price of Tesla?")
+   ```
 
-- ### Example: Using Langfuse with OpenLIT
+- ### 例: OpenLIT と Langfuse の使用
 
-This example demonstrates how to use Langfuse via OpenLIT to trace model calls.
+   この例では、OpenLIT を介して Langfuse を使用してモデルの呼び出しをトレースする方法を示します。
 
-```python
-import base64
-import os
+   ```python
+   import base64
+   import os
 
-from agno.agent import Agent
-from agno.models.openai import OpenAIChat
-from agno.tools.duckduckgo import DuckDuckGoTools
-from opentelemetry.exporter.otlp.proto.http.trace_exporter import OTLPSpanExporter
-from opentelemetry.sdk.trace import TracerProvider
-from opentelemetry.sdk.trace.export import SimpleSpanProcessor
-from opentelemetry import trace
+   from agno.agent import Agent
+   from agno.models.openai import OpenAIChat
+   from agno.tools.duckduckgo import DuckDuckGoTools
+   from opentelemetry.exporter.otlp.proto.http.trace_exporter import OTLPSpanExporter
+   from opentelemetry.sdk.trace import TracerProvider
+   from opentelemetry.sdk.trace.export import SimpleSpanProcessor
+   from opentelemetry import trace
 
-# Set environment variables for Langfuse
-LANGFUSE_AUTH = base64.b64encode(
-    f"{os.getenv('LANGFUSE_PUBLIC_KEY')}:{os.getenv('LANGFUSE_SECRET_KEY')}".encode()
-).decode()
-os.environ["OTEL_EXPORTER_OTLP_ENDPOINT"] = "https://us.cloud.langfuse.com/api/public/otel"
-os.environ["OTEL_EXPORTER_OTLP_HEADERS"] = f"Authorization=Basic {LANGFUSE_AUTH}"
+   # Langfuse の環境変数を設定
+   LANGFUSE_AUTH = base64.b64encode(
+       f"{os.getenv('LANGFUSE_PUBLIC_KEY')}:{os.getenv('LANGFUSE_SECRET_KEY')}".encode()
+   ).decode()
+   os.environ["OTEL_EXPORTER_OTLP_ENDPOINT"] = "https://us.cloud.langfuse.com/api/public/otel"
+   os.environ["OTEL_EXPORTER_OTLP_HEADERS"] = f"Authorization=Basic {LANGFUSE_AUTH}"
 
-# Configure the tracer provider
-trace_provider = TracerProvider()
-trace_provider.add_span_processor(SimpleSpanProcessor(OTLPSpanExporter()))
-trace.set_tracer_provider(trace_provider)
+   # トレーサープロバイダーを構成
+   trace_provider = TracerProvider()
+   trace_provider.add_span_processor(SimpleSpanProcessor(OTLPSpanExporter()))
+   trace.set_tracer_provider(trace_provider)
 
-# Initialize OpenLIT instrumentation
-import openlit
-openlit.init(tracer=trace.get_tracer(__name__), disable_batch=True)
+   # OpenLIT インストルメンテーションを初期化
+   import openlit
+   openlit.init(tracer=trace.get_tracer(__name__), disable_batch=True)
 
-# Create and configure the agent
-agent = Agent(
-    model=OpenAIChat(id="gpt-4o-mini"),
-    tools=[DuckDuckGoTools()],
-    markdown=True,
-    debug_mode=True,
-)
+   # エージェントを作成および構成
+   agent = Agent(
+       model=OpenAIChat(id="gpt-4o-mini"),
+       tools=[DuckDuckGoTools()],
+       markdown=True,
+       debug_mode=True,
+   )
 
-# Use the agent
-agent.print_response("What is currently trending on Twitter?")
-```
+   # エージェントを使用
+   agent.print_response("What is currently trending on Twitter?")
+   ```
 
-## Notes
+## 注意事項
 
-- **Environment Variables**: Ensure your environment variables are correctly set for the API keys and OTLP endpoint.
-- **Data Regions**: Adjust the `OTEL_EXPORTER_OTLP_ENDPOINT` for your data region or local deployment as needed. Available regions include:
-  - `https://us.cloud.langfuse.com/api/public/otel` for the US region
-  - `https://eu.cloud.langfuse.com/api/public/otel` for the EU region
-  - `http://localhost:3000/api/public/otel` for local deployment
+- **環境変数**: API キーと OTLP エンドポイントの環境変数が正しく設定されていることを確認してください。
+- **データリージョン**: データリージョンまたはローカルデプロイメントに合わせて `OTEL_EXPORTER_OTLP_ENDPOINT` を調整してください。利用可能なリージョンは次のとおりです。
+  - 米国リージョンの場合: `https://us.cloud.langfuse.com/api/public/otel`
+  - EU リージョンの場合: `https://eu.cloud.langfuse.com/api/public/otel`
+  - ローカルデプロイメントの場合: `http://localhost:3000/api/public/otel`
 
-By following these steps, you can effectively integrate Agno with Langfuse, enabling comprehensive observability and monitoring of your AI agents.
+これらの手順に従うことで、Agno と Langfuse を効果的に統合し、AI エージェントの包括的なオブザーバビリティと監視を有効にすることができます。

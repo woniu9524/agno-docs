@@ -1,9 +1,9 @@
 ---
-title: Agentic filtering with Json
-description: Learn how to do agentic knowledge filtering using Json documents with user-specific metadata.
+title: Json を使用したエージェントによるフィルタリング
+description: ユーザー固有のメタデータを持つ Json ドキュメントを使用して、エージェントによる知識フィルタリングを行う方法を学びます。
 ---
 
-## Code
+## コード
 
 ```python
 from pathlib import Path
@@ -16,22 +16,22 @@ from agno.utils.media import (
 )
 from agno.vectordb.lancedb import LanceDb
 
-# Download all sample CVs and get their paths
+# すべてのサンプル CV をダウンロードし、そのパスを取得します
 downloaded_cv_paths = download_knowledge_filters_sample_data(
     num_files=5, file_extension=SampleDataFileExtension.JSON
 )
 
-# Initialize LanceDB
-# By default, it stores data in /tmp/lancedb
+# LanceDB を初期化します
+# デフォルトでは、データは /tmp/lancedb に保存されます
 vector_db = LanceDb(
     table_name="recipes",
-    uri="tmp/lancedb",  # You can change this path to store data elsewhere
+    uri="tmp/lancedb",  # データを別の場所に保存するには、このパスを変更できます
 )
 
-# Step 1: Initialize knowledge base with documents and metadata
+# ステップ 1: ドキュメントとメタデータで知識ベースを初期化します
 # ------------------------------------------------------------------------------
-# When initializing the knowledge base, we can attach metadata that will be used for filtering
-# This metadata can include user IDs, document types, dates, or any other attributes
+# 知識ベースを初期化する際に、フィルタリングに使用されるメタデータをアタッチできます
+# このメタデータには、ユーザー ID、ドキュメントの種類、日付、またはその他の属性を含めることができます
 
 knowledge_base = JSONKnowledgeBase(
     path=[
@@ -79,36 +79,36 @@ knowledge_base = JSONKnowledgeBase(
     vector_db=vector_db,
 )
 
-# Load all documents into the vector database
+# すべてのドキュメントをベクトルデータベースにロードします
 knowledge_base.load(recreate=True)
 
-# Step 2: Query the knowledge base with Agent using filters from query automatically
+# ステップ 2: クエリから自動的にフィルタリングを使用してエージェントで知識ベースをクエリします
 # -----------------------------------------------------------------------------------
 
-# Enable agentic filtering
+# エージェントによるフィルタリングを有効にします
 agent = Agent(
     knowledge=knowledge_base,
     search_knowledge=True,
     enable_agentic_knowledge_filters=True,
 )
 
-# Query for Jordan Mitchell's experience and skills with filters in query so that Agent can automatically pick them up
+# エージェントが自動的に検出できるように、クエリにフィルタを含めて Jordan Mitchell の経験とスキルについて尋ねます
 agent.print_response(
     "Tell me about Jordan Mitchell's experience and skills with jordan_mitchell as user id and document type cv",
     markdown=True,
 )
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
-  <Step title="Install libraries">
+  <Step title="ライブラリのインストール">
     ```bash
     pip install -U agno openai lancedb
     ```
   </Step>
 
-  <Step title="Run the example">
+  <Step title="例の実行">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/knowledge/filters/json/agentic_filtering.py

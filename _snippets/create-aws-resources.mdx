@@ -1,6 +1,6 @@
-## Create AWS resources
+## AWS リソースの作成
 
-Create AWS resources using:
+以下を使用して AWS リソースを作成します。
 
 <CodeGroup>
 
@@ -14,18 +14,18 @@ ag ws up prd:aws
 
 </CodeGroup>
 
-This will create:
+これにより、以下が作成されます。
 
-1. [ECS Cluster](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/clusters.html) for the application.
-2. [ECS Task Definitions](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_definitions.html) and [Services](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs_services.html) that run the application on the ECS cluster.
-3. [LoadBalancer](https://aws.amazon.com/elasticloadbalancing/) to route traffic to the application.
-4. [Security Groups](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-security-groups.html) that control incoming and outgoing traffic.
-5. [Secrets](https://aws.amazon.com/secrets-manager/) for managing application and database secrets.
-6. [RDS Database](https://aws.amazon.com/rds/) for Knowledge Base and Storage.
+1. [ECS クラスター](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/clusters.html) アプリケーション用。
+2. [ECS タスク定義](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_definitions.html) および [サービス](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs_services.html) ECS クラスター上でアプリケーションを実行します。
+3. [ロードバランサー](https://aws.amazon.com/elasticloadbalancing/) アプリケーションへのトラフィックをルーティングします。
+4. [セキュリティグループ](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-security-groups.html) 送受信トラフィックを制御します。
+5. [シークレット](https://aws.amazon.com/secrets-manager/) アプリケーションおよびデータベースのシークレットを管理します。
+6. [RDS データベース](https://aws.amazon.com/rds/) ナレッジベースおよびストレージ用。
 
-**Press Enter** to confirm and wait for the resources to spin up.
+確認してリソースの起動を待つには **Enter** を押します。
 
-- The RDS database takes about 5 minutes to activate.
-- These resources are defined in the `workspace/prd_resources.py` file.
-- Use the [ECS console](https://us-east-1.console.aws.amazon.com/ecs/v2/clusters) to view services and logs.
-- Use the [RDS console](https://us-east-1.console.aws.amazon.com/rds/home?#databases:) to view the database instance.
+- RDS データベースのアクティブ化には約 5 分かかります。
+- これらのリソースは `workspace/prd_resources.py` ファイルで定義されています。
+- [ECS コンソール](https://us-east-1.console.aws.amazon.com/ecs/v2/clusters) を使用してサービスとログを表示します。
+- [RDS コンソール](https://us-east-1.console.aws.amazon.com/rds/home?#databases:) を使用してデータベースインスタンスを表示します。

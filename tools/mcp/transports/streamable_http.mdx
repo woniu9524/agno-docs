@@ -3,11 +3,11 @@ title: Streamable HTTP Transport
 sidebarTitle: Streamable HTTP
 ---
 
-The new [Streamable HTTP transport](https://modelcontextprotocol.io/specification/draft/basic/transports#streamable-http) replaces the HTTP+SSE transport from protocol version 2024-11-05.
+新しい[Streamable HTTPトランスポート](https://modelcontextprotocol.io/specification/draft/basic/transports#streamable-http)は、プロトコルバージョン2024-11-05のHTTP+SSEトランスポートを置き換えるものです。
 
-This transport enables the MCP server to handle multiple client connections, and can also use SSE for server-to-client streaming.
+このトランスポートにより、MCPサーバーは複数のクライアント接続を処理できるようになり、サーバーからクライアントへのストリーミングにSSEを使用することもできます。
 
-To use it, initialize the `MCPTools` passing the URL of the MCP server and setting the transport to `streamable-http`:
+使用するには、MCPサーバーのURLを渡して`MCPTools`を初期化し、トランスポートを`streamable-http`に設定します。
 
 
 ```python
@@ -23,7 +23,7 @@ from agno.agent import Agent
 ```
 
 
-You can also use the `server_params` argument to define the MCP connection. This way you can specify the headers to send to the MCP server with every request, and the timeout values:
+`server_params`引数を使用してMCP接続を定義することもできます。これにより、各リクエストでMCPサーバーに送信するヘッダーやタイムアウト値を指定できます。
 
 ```python
 from agno.tools.mcp import MCPTools, StreamableHTTPClientParams
@@ -42,13 +42,13 @@ async with MCPTools(server_params=server_params) as mcp_tools:
 ```
 
 
-## Complete example
+## 完全な例
 
-Let's set up a simple local server and connect to it using the Streamable HTTP transport:
+簡単なローカルサーバーをセットアップし、Streamable HTTPトランスポートを使用して接続してみましょう。
 
 
 <Steps>
-    <Step title="Setup the server">
+    <Step title="サーバーのセットアップ">
         ```python streamable_http_server.py
         from mcp.server.fastmcp import FastMCP
 
@@ -70,7 +70,7 @@ Let's set up a simple local server and connect to it using the Streamable HTTP t
         ```
     </Step>
 
-    <Step title="Setup the client">
+    <Step title="クライアントのセットアップ">
         ```python streamable_http_client.py
         import asyncio
 
@@ -78,7 +78,7 @@ Let's set up a simple local server and connect to it using the Streamable HTTP t
         from agno.models.openai import OpenAIChat
         from agno.tools.mcp import MCPTools, MultiMCPTools
 
-        # This is the URL of the MCP server we want to use.
+        # これは使用したいMCPサーバーのURLです。
         server_url = "http://localhost:8000/mcp"
 
 
@@ -92,8 +92,8 @@ Let's set up a simple local server and connect to it using the Streamable HTTP t
                 await agent.aprint_response(message=message, stream=True, markdown=True)
 
 
-        # Using MultiMCPTools, we can connect to multiple MCP servers at once, even if they use different transports.
-        # In this example we connect to both our example server (Streamable HTTP transport), and a different server (stdio transport).
+        # MultiMCPToolsを使用すると、異なるトランスポートを使用している場合でも、複数のMCPサーバーに同時に接続できます。
+        # この例では、例のサーバー（Streamable HTTPトランスポート）と別のサーバー（stdioトランスポート）の両方に接続します。
         async def run_agent_with_multimcp(message: str) -> None:
             async with MultiMCPTools(
                 commands=["npx -y @openbnb/mcp-server-airbnb --ignore-robots-txt"],
@@ -118,13 +118,13 @@ Let's set up a simple local server and connect to it using the Streamable HTTP t
         ```
     </Step>
 
-    <Step title="Run the server">
+    <Step title="サーバーの実行">
         ```bash
         python streamable_http_server.py
         ```
     </Step>
 
-    <Step title="Run the client">
+    <Step title="クライアントの実行">
         ```bash
         python sse_client.py
         ```

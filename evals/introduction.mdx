@@ -1,21 +1,21 @@
 ---
-title: Simple Agent Evals
-description: Learn how to evaluate your Agno Agents and Teams across three key dimensions - accuracy (using LLM-as-a-judge), performance (runtime and memory), and reliability (tool calls).
-sidebarTitle: Overview
+title: シンプルなエージェント評価
+description: エージェントとチームを、精度（LLMとしての評価）、パフォーマンス（実行時間とメモリ）、信頼性（ツール呼び出し）の3つの主要な次元で評価する方法を学びます。
+sidebarTitle: 概要
 ---
 
-**Evals** are unit tests for your Agents and Teams, use them judiciously to measure and improve their performance. Agno provides 3 dimensions for evaluating Agents:
-- **Accuracy:** How complete/correct/accurate is the Agent's response (LLM-as-a-judge)
-- **Performance:** How fast does the Agent respond and what's the memory footprint?
-- **Reliability:** Does the Agent make the expected tool calls?
+**評価**は、エージェントとチームの単体テストです。パフォーマンスを測定および改善するために、賢く使用してください。Agnoは、エージェントを評価するための3つの次元を提供します。
+- **精度:** エージェントの応答はどの程度完全/正しい/正確か（LLMとしての評価）
+- **パフォーマンス:** エージェントはどのくらいの速さで応答し、メモリ使用量はどのくらいか？
+- **信頼性:** エージェントは期待されるツール呼び出しを行いますか？
 
-## Accuracy
+## 精度
 
-Accuracy evals use input/output pairs to measure your Agents and Teams performance against a gold-standard answer. Use a larger model to score the Agent's responses (LLM-as-a-judge).
+精度評価では、入力/出力ペアを使用して、エージェントとチームのパフォーマンスをゴールドスタンダードの回答と比較して測定します。より大きなモデルを使用して、エージェントの応答をスコアリングします（LLMとしての評価）。
 
-#### Example
+#### 例
 
-In this example, the `AccuracyEval` will run the Agent with the input, then use a larger model (`o4-mini`) to score the Agent's response according to the guidelines provided.
+この例では、`AccuracyEval`がエージェントを入力で実行し、その後、より大きなモデル（`o4-mini`）を使用して、提供されたガイドラインに従ってエージェントの応答をスコアリングします。
 
 ```python calculate_accuracy.py
 from typing import Optional
@@ -44,7 +44,7 @@ assert result is not None and result.avg_score >= 8
   />
 </Frame>
 
-You can also run the `AccuracyEval` on an existing output (without running the Agent).
+既存の出力に対して`AccuracyEval`を実行することもできます（エージェントを実行せずに）。
 
 ```python accuracy_eval_with_output.py
 from typing import Optional
@@ -66,15 +66,15 @@ result_with_given_answer: Optional[AccuracyResult] = evaluation.run_with_output(
 assert result_with_given_answer is not None and result_with_given_answer.avg_score >= 8
 ```
 
-## Performance
+## パフォーマンス
 
-Performance evals measure the latency and memory footprint of an Agent or Team.
+パフォーマンス評価は、エージェントまたはチームのレイテンシとメモリ使用量を測定します。
 
 <Note>
-While latency will be dominated by the model API response time, we should still keep performance top of mind and track the Agent or Team's performance with and without certain components. Eg: it would be good to know what's the average latency with and without storage, memory, with a new prompt, or with a new model.
+レイテンシは主にモデルAPIの応答時間によって決まりますが、パフォーマンスは常に念頭に置き、特定のコンポーネントの有無にかかわらず、エージェントまたはチームのパフォーマンスを追跡する必要があります。例えば、ストレージ、メモリ、新しいプロンプト、または新しいモデルがある場合とない場合の平均レイテンシを知ることは有益です。
 </Note>
 
-#### Example
+#### 例
 
 ```python storage_performance.py
 """Run `pip install openai agno` to install dependencies."""
@@ -98,17 +98,17 @@ if __name__ == "__main__":
     simple_response_perf.run(print_results=True)
 ```
 
-## Reliability
+## 信頼性
 
-What makes an Agent or Team reliable?
+エージェントまたはチームを信頼できるものにするものは何でしょうか？
 
-- Does it make the expected tool calls?
-- Does it handle errors gracefully?
-- Does it respect the rate limits of the model API?
+- 期待されるツール呼び出しを行いますか？
+- エラーを適切に処理しますか？
+- モデルAPIのレート制限を尊重しますか？
 
-#### Example
+#### 例
 
-The first check is to ensure the Agent makes the expected tool calls. Here's an example:
+最初のチェックは、エージェントが期待されるツール呼び出しを行うことを確認することです。例を次に示します。
 
 ```python reliability.py
 from typing import Optional
@@ -140,5 +140,5 @@ if __name__ == "__main__":
 ```
 
 <Note>
-Reliability evals are currently in `beta`.
+信頼性評価は現在`beta`版です。
 </Note>

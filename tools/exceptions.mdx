@@ -1,15 +1,15 @@
 ---
-title: Exceptions
+title: 例外
 ---
 
-If after a tool call we need to "retry" the model with a different set of instructions or stop the agent, we can raise one of the following exceptions:
+ツール呼び出しの後、異なる指示で「再試行」する必要がある場合や、エージェントを停止する必要がある場合は、次の例外のいずれかを発生させることができます。
 
-- `RetryAgentRun`: Use this exception when you want to retry the agent run with a different set of instructions.
-- `StopAgentRun`: Use this exception when you want to stop the agent run.
-- `AgentRunException`: A generic exception that can be used to retry the tool call.
+- `RetryAgentRun`: 異なる指示でエージェントの実行を再試行したい場合に使用します。
+- `StopAgentRun`: エージェントの実行を停止したい場合に使用します。
+- `AgentRunException`: ツール呼び出しを再試行するために使用できる汎用的な例外です。
 
 
-This example shows how to use the `RetryAgentRun` exception to retry the agent with additional instructions.
+この例では、`RetryAgentRun` 例外を使用して、追加の指示でエージェントを再試行する方法を示します。
 
 ```python retry_in_tool_call.py
 from agno.agent import Agent
@@ -44,5 +44,5 @@ print(f"Final session state: {agent.session_state}")
 ```
 
 <Tip>
-Make sure to set `AGNO_DEBUG=True` to see the debug logs.
+デバッグログを表示するには、`AGNO_DEBUG=True` を設定してください。
 </Tip>

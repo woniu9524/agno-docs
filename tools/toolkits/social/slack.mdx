@@ -2,23 +2,23 @@
 title: Slack
 ---
 
-## Prerequisites
+## 前提条件
 
-The following example requires the `slack-sdk` library.
+以下の例では、`slack-sdk` ライブラリが必要です。
 
 ```shell
 pip install openai slack-sdk
 ```
 
-Get a Slack token from [here](https://api.slack.com/tutorials/tracks/getting-a-token).
+Slack トークンを [こちら](https://api.slack.com/tutorials/tracks/getting-a-token) から取得してください。
 
 ```shell
 export SLACK_TOKEN=***
 ```
 
-## Example
+## 例
 
-The following agent will use Slack to send a message to a channel, list all channels, and get the message history of a specific channel.
+以下のエージェントは、Slack を使用してチャンネルにメッセージを送信し、すべてのチャンネルをリストし、特定のチャンネルのメッセージ履歴を取得します。
 
 ```python cookbook/tools/slack_tools.py
 import os
@@ -30,35 +30,35 @@ slack_tools = SlackTools()
 
 agent = Agent(tools=[slack_tools], show_tool_calls=True)
 
-# Example 1: Send a message to a Slack channel
+# 例 1: Slack チャンネルにメッセージを送信する
 agent.print_response("Send a message 'Hello from Agno!' to the channel #general", markdown=True)
 
-# Example 2: List all channels in the Slack workspace
+# 例 2: Slack ワークスペース内のすべてのチャンネルをリストする
 agent.print_response("List all channels in our Slack workspace", markdown=True)
 
-# Example 3: Get the message history of a specific channel by channel ID
+# 例 3: チャンネル ID を使用して特定のチャンネルのメッセージ履歴を取得する
 agent.print_response("Get the last 10 messages from the channel 1231241", markdown=True)
 
 ```
 
-## Toolkit Params
+## Toolkit パラメータ
 
-| Parameter             | Type   | Default | Description                                                         |
-| --------------------- | ------ | ------- | ------------------------------------------------------------------- |
-| `token`               | `str`  | -       | Slack API token for authentication                                  |
-| `send_message`        | `bool` | `True`  | Enables the functionality to send messages to Slack channels        |
-| `list_channels`       | `bool` | `True`  | Enables the functionality to list available Slack channels          |
-| `get_channel_history` | `bool` | `True`  | Enables the functionality to retrieve message history from channels |
+| パラメータ             | タイプ   | デフォルト | 説明                                                               |
+| --------------------- | ------ | ------- | ------------------------------------------------------------------ |
+| `token`               | `str`  | -       | 認証用の Slack API トークン                                          |
+| `send_message`        | `bool` | `True`  | Slack チャンネルへのメッセージ送信機能を有効にします                 |
+| `list_channels`       | `bool` | `True`  | 利用可能な Slack チャンネルをリストする機能を有効にします            |
+| `get_channel_history` | `bool` | `True`  | チャンネルからメッセージ履歴を取得する機能を有効にします             |
 
-## Toolkit Functions
+## Toolkit 関数
 
-| Function              | Description                                         |
-| --------------------- | --------------------------------------------------- |
-| `send_message`        | Sends a message to a specified Slack channel        |
-| `list_channels`       | Lists all available channels in the Slack workspace |
-| `get_channel_history` | Retrieves message history from a specified channel  |
+| 関数              | 説明                                      |
+| ----------------- | ----------------------------------------- |
+| `send_message`    | 指定された Slack チャンネルにメッセージを送信します |
+| `list_channels`   | Slack ワークスペース内のすべてのチャンネルをリストします |
+| `get_channel_history` | 指定されたチャンネルからメッセージ履歴を取得します |
 
-## Developer Resources
+## 開発者向けリソース
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/slack.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/slack_tools.py)
+- [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/slack.py) を表示
+- [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/slack_tools.py) を表示

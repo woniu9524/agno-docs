@@ -3,23 +3,23 @@ title: Qdrant FastEmbed Embedder
 sidebarTitle: FastEmbed
 ---
 
-The `FastEmbedEmbedder` class is used to embed text data into vectors using the [FastEmbed](https://qdrant.github.io/fastembed/).
+`FastEmbedEmbedder` クラスは、[FastEmbed](https://qdrant.github.io/fastembed/) を使用してテキストデータをベクトルに埋め込むために使用されます。
 
-## Usage
+## 使用方法
 
 ```python cookbook/embedders/qdrant_fastembed.py
 from agno.agent import AgentKnowledge
 from agno.vectordb.pgvector import PgVector
 from agno.embedder.fastembed import FastEmbedEmbedder
 
-# Embed sentence in database
+# データベース内の文を埋め込む
 embeddings = FastEmbedEmbedder().get_embedding("The quick brown fox jumps over the lazy dog.")
 
-# Print the embeddings and their dimensions
+# 埋め込みとその次元を出力する
 print(f"Embeddings: {embeddings[:5]}")
 print(f"Dimensions: {len(embeddings)}")
 
-# Use an embedder in a knowledge base
+# 埋め込みモジュールをナレッジベースで使用する
 knowledge_base = AgentKnowledge(
     vector_db=PgVector(
         db_url="postgresql+psycopg://ai:ai@localhost:5532/ai",
@@ -30,12 +30,12 @@ knowledge_base = AgentKnowledge(
 )
 ```
 
-## Params
+## パラメータ
 
-| Parameter    | Type  | Default                  | Description                                    |
-| ------------ | ----- | ------------------------ | ---------------------------------------------- |
-| `dimensions` | `int` | -                        | The dimensionality of the generated embeddings |
-| `model`      | `str` | `BAAI/bge-small-en-v1.5` | The name of the qdrant_fastembed model to use  |
+| パラメータ    | タイプ  | デフォルト                  | 説明                                       |
+| ------------ | ----- | ------------------------ | ------------------------------------------ |
+| `dimensions` | `int` | -                        | 生成される埋め込みの次元数                     |
+| `model`      | `str` | `BAAI/bge-small-en-v1.5` | 使用する qdrant_fastembed モデルの名前 |
 
-## Developer Resources
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/embedders/qdrant_fastembed.py)
+## 開発者向けリソース
+- [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/embedders/qdrant_fastembed.py) を表示

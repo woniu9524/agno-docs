@@ -1,14 +1,13 @@
 ---
-title: Advanced MCP Usage
-sidebarTitle: Advanced Usage
+title: MCP の高度な使用方法
+sidebarTitle: 高度な使用方法
 ---
 
-Agno's MCP integration also supports handling connections to multiple servers, specifying server parameters and using your own MCP servers:
+Agno の MCP 統合は、複数のサーバーへの接続の処理、サーバーパラメータの指定、および独自の MCP サーバーの使用もサポートしています。
 
+## 複数の MCP サーバーへの接続
 
-## Connecting to Multiple MCP Servers
-
-You can use multiple MCP servers in a single agent by using the `MultiMCPTools` class.
+`MultiMCPTools` クラスを使用することで、単一のエージェントで複数の MCP サーバーを使用できます。
 
 ```python multiple_mcp_servers.py
 import asyncio
@@ -19,7 +18,7 @@ from agno.tools.mcp import MultiMCPTools
 
 
 async def run_agent(message: str) -> None:
-    """Run the Airbnb and Google Maps agent with the given message."""
+    """指定されたメッセージで Airbnb および Google Maps エージェントを実行します。"""
 
     env = {
         **os.environ,
@@ -42,30 +41,29 @@ async def run_agent(message: str) -> None:
         await agent.aprint_response(message, stream=True)
 
 
-# Example usage
+# 使用例
 if __name__ == "__main__":
-    # Pull request example
+    # Pull request の例
     asyncio.run(
         run_agent(
-            "What listings are available in Cape Town for 2 people for 3 nights from 1 to 4 August 2025?"
+            "2025年8月1日から4日まで、ケープタウンで2名で3泊利用可能なリスティングは何件ありますか？"
         )
     )
 ```
 
+### サーバーパラメータの理解
 
-### Understanding Server Parameters
+`MCPTools` または `MultiMCPTools` を構成する推奨方法は、`command` または `url` パラメータを使用することです。
 
-The recommended way to configure `MCPTools` or `MultiMCPTools` is to use the `command` or `url` parameters.
+または、`MCPTools` で `server_params` パラメータを使用して、MCP サーバーへの接続をより詳細に構成することもできます。
 
-Alternatively, you can use the `server_params` parameter with `MCPTools` to configure the connection to the MCP server in more detail.
-
-When using the **stdio** transport, the `server_params` parameter should be an instance of `StdioServerParameters`. It contains the following keys:
-- `command`: The command to run the MCP server.
-    - Use `npx` for mcp servers that can be installed via npm (or `node` if running on Windows).
-    - Use `uvx` for mcp servers that can be installed via uvx.
-- `args`: The arguments to pass to the MCP server.
-- `env`: Optional environment variables to pass to the MCP server. Remember to include all current environment variables in the `env` dictionary. If `env` is not provided, the current environment variables will be used.
-e.g.
+**stdio** トランスポートを使用する場合、`server_params` パラメータは `StdioServerParameters` のインスタンスである必要があります。これには以下のキーが含まれます。
+- `command`: MCP サーバーを実行するコマンド。
+    - npm を介してインストールできる mcp サーバーには `npx` を使用します（Windows で実行する場合は `node` を使用します）。
+    - uvx を介してインストールできる mcp サーバーには `uvx` を使用します。
+- `args`: MCP サーバーに渡す引数。
+- `env`: MCP サーバーに渡すオプションの環境変数。現在のすべての環境変数を `env` 辞書に含めることを忘れないでください。`env` が提供されない場合、現在の環境変数が使用されます。
+例：
 ```python
 {
     **os.environ,
@@ -73,26 +71,22 @@ e.g.
 }
 ```
 
-When using the **SSE** transport, the `server_params` parameter should be an instance of `SSEClientParams`. It contains the following fields:
-- `url`: The URL of the MCP server.
-- `headers`: Headers to pass to the MCP server (optional).
-- `timeout`: Timeout for the connection to the MCP server (optional).
-- `sse_read_timeout`: Timeout for the SSE connection itself (optional).
+**SSE** トランスポートを使用する場合、`server_params` パラメータは `SSEClientParams` のインスタンスである必要があります。これには以下のフィールドが含まれます。
+- `url`: MCP サーバーの URL。
+- `headers`: MCP サーバーに渡すヘッダー（オプション）。
+- `timeout`: MCP サーバーへの接続タイムアウト（オプション）。
+- `sse_read_timeout`: SSE 接続自体のタイムアウト（オプション）。
 
-When using the **Streamable HTTP** transport, the `server_params` parameter should be an instance of `StreamableHTTPClientParams`. It contains the following fields:
-- `url`: The URL of the MCP server.
-- `headers`: Headers to pass to the MCP server (optional).
-- `timeout`: Timeout for the connection to the MCP server (optional).
-- `sse_read_timeout`: how long (in seconds) the client will wait for a new event before disconnecting. All other HTTP operations are controlled by `timeout` (optional).
-- `terminate_on_close`: Whether to terminate the connection when the client is closed (optional).
+**Streamable HTTP** トランスポートを使用する場合、`server_params` パラメータは `StreamableHTTPClientParams` のインスタンスである必要があります。これには以下のフィールドが含まれます。
+- `url`: MCP サーバーの URL。
+- `headers`: MCP サーバーに渡すヘッダー（オプション）。
+- `timeout`: MCP サーバーへの接続タイムアウト（オプション）。
+- `sse_read_timeout`: クライアントが新しいイベントを待つ時間（秒単位）（切断されるまで）。他のすべての HTTP 操作は `timeout` によって制御されます（オプション）。
+- `terminate_on_close`: クライアントが閉じられたときに接続を終了するかどうか（オプション）。
 
+## より柔軟に
 
-
-
-## More Flexibility
-
-You can also create the MCP server yourself and pass it to the `MCPTools` constructor.
-
+MCP サーバー自体を作成し、それを `MCPTools` コンストラクタに渡すこともできます。
 
 ```python filesystem_agent.py
 import asyncio
@@ -107,23 +101,23 @@ from mcp.client.stdio import stdio_client
 
 
 async def create_filesystem_agent(session):
-    """Create and configure a filesystem agent with MCP tools."""
-    # Initialize the MCP toolkit
+    """MCP ツールでファイルシステムエージェントを作成および構成します。"""
+    # MCP ツールキットの初期化
     mcp_tools = MCPTools(session=session)
     await mcp_tools.initialize()
 
-    # Create an agent with the MCP toolkit
+    # MCP ツールキットでエージェントを作成します
     return Agent(
         model=OpenAIChat(id="gpt-4o"),
         tools=[mcp_tools],
         instructions=dedent("""\
-            You are a filesystem assistant. Help users explore files and directories.
+            あなたはファイルシステムアシスタントです。ユーザーがファイルやディレクトリを探索するのを手伝ってください。
 
-            - Navigate the filesystem to answer questions
-            - Use the list_allowed_directories tool to find directories that you can access
-            - Provide clear context about files you examine
-            - Use headings to organize your responses
-            - Be concise and focus on relevant information\
+            - ファイルシステムをナビゲートして質問に答える
+            - list_allowed_directories ツールを使用してアクセスできるディレクトリを見つける
+            - 検査するファイルに関する明確なコンテキストを提供する
+            - 見出しを使用して応答を整理する
+            - 簡潔にし、関連情報に焦点を当てる\
         """),
         markdown=True,
         show_tool_calls=True,
@@ -131,29 +125,28 @@ async def create_filesystem_agent(session):
 
 
 async def run_agent(message: str) -> None:
-    """Run the filesystem agent with the given message."""
+    """指定されたメッセージでファイルシステムエージェントを実行します。"""
 
-    # Initialize the MCP server
+    # MCP サーバーの初期化
     server_params = StdioServerParameters(
         command="npx",
         args=[
             "-y",
             "@modelcontextprotocol/server-filesystem",
-            str(Path(__file__).parent.parent.parent.parent),  # Set this to the root of the project you want to explore
+            str(Path(__file__).parent.parent.parent.parent),  # 探索したいプロジェクトのルートに設定します
         ],
     )
 
-    # Create a client session to connect to the MCP server
+    # MCP サーバーに接続するためのクライアントセッションを作成します
     async with stdio_client(server_params) as (read, write):
         async with ClientSession(read, write) as session:
             agent = await create_filesystem_agent(session)
 
-            # Run the agent
+            # エージェントを実行します
             await agent.aprint_response(message, stream=True)
 
 
-# Example usage
+# 使用例
 if __name__ == "__main__":
-    # Basic example - exploring project license
-    asyncio.run(run_agent("What is the license for this project?"))
-```
+    # 基本的な例 - プロジェクトライセンスの探索
+    asyncio.run(run_agent("このプロジェクトのライセンスは何ですか？"))

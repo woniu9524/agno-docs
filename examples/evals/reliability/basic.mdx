@@ -1,9 +1,9 @@
 ---
-title: Reliability with Single Tool
-description: Evaluation to assert an Agent is making the expected tool calls.
+title: Single Tool による信頼性
+description: Agent が期待どおりのツール呼び出しを行っていることをアサートする評価。
 ---
 
-## Code
+## コード
 
 ```python
 from typing import Optional
@@ -21,7 +21,7 @@ def multiply_and_exponentiate():
         tools=[CalculatorTools(add=True, multiply=True, exponentiate=True)],
     )
     response: RunResponse = agent.run(
-        "What is 10*5 then to the power of 2? do it step by step"
+        "10*5 はいくつで、それを2乗するといくつになりますか？ステップバイステップで実行してください"
     )
     evaluation = ReliabilityEval(
         agent_response=response,
@@ -34,5 +34,3 @@ def multiply_and_exponentiate():
 if __name__ == "__main__":
     multiply_and_exponentiate()
 ```
-
-

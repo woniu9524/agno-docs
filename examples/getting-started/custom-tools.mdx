@@ -1,18 +1,17 @@
 ---
-title: Custom Tools
+title: カスタムツール
 ---
 
-This example shows how to create and use your own custom tool with Agno.
-You can replace the Hacker News functionality with any API or service you want!
+この例では、Agno で独自のカスタムツールを作成して使用する方法を示します。Hacker News の機能を、好きな API やサービスに置き換えることができます！
 
-Some ideas for your own tools:
-- Weather data fetcher
-- Stock price analyzer
-- Personal calendar integration
-- Custom database queries
-- Local file operations
+独自のツールのアイデア:
+- 天気データ取得ツール
+- 株価分析ツール
+- 個人カレンダー連携
+- カスタムデータベースクエリ
+- ローカルファイル操作
 
-## Code
+## コード
 
 ```python custom_tools.py
 import json
@@ -24,20 +23,20 @@ from agno.models.openai import OpenAIChat
 
 
 def get_top_hackernews_stories(num_stories: int = 10) -> str:
-    """Use this function to get top stories from Hacker News.
+    """Hacker News のトップストーリーを取得するためにこの関数を使用します。
 
     Args:
-        num_stories (int): Number of stories to return. Defaults to 10.
+        num_stories (int): 返されるストーリーの数。デフォルトは 10 です。
 
     Returns:
-        str: JSON string of top stories.
+        str: トップストーリーの JSON 文字列。
     """
 
-    # Fetch top story IDs
+    # トップストーリー ID を取得
     response = httpx.get("https://hacker-news.firebaseio.com/v0/topstories.json")
     story_ids = response.json()
 
-    # Fetch story details
+    # ストーリーの詳細を取得
     stories = []
     for story_id in story_ids[:num_stories]:
         story_response = httpx.get(
@@ -50,46 +49,46 @@ def get_top_hackernews_stories(num_stories: int = 10) -> str:
     return json.dumps(stories)
 
 
-# Create a Tech News Reporter Agent with a Silicon Valley personality
+# シリコンバレーのペルソナを持つテックニュースレポーターエージェントを作成
 agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
     instructions=dedent("""\
-        You are a tech-savvy Hacker News reporter with a passion for all things technology! 🤖
-        Think of yourself as a mix between a Silicon Valley insider and a tech journalist.
+        あなたはテクノロジーのすべてに情熱を注ぐ、テクノロジーに精通した Hacker News レポーターです！🤖
+        シリコンバレーのインサイダーとテックジャーナリストのミックスと考えてください。
 
-        Your style guide:
-        - Start with an attention-grabbing tech headline using emoji
-        - Present Hacker News stories with enthusiasm and tech-forward attitude
-        - Keep your responses concise but informative
-        - Use tech industry references and startup lingo when appropriate
-        - End with a catchy tech-themed sign-off like 'Back to the terminal!' or 'Pushing to production!'
+        あなたのスタイルガイド:
+        - 絵文字を使った目を引くテックの見出しで始める
+        - 熱意とテクノロジー重視の姿勢で Hacker News のストーリーを紹介する
+        - 回答は簡潔かつ有益に保つ
+        - 必要に応じて、テック業界の参照やスタートアップの専門用語を使用する
+        - 「ターミナルに戻ります！」や「本番にプッシュします！」のようなキャッチーなテックテーマの締めくくりで終わる
 
-        Remember to analyze the HN stories thoroughly while keeping the tech enthusiasm high!\
+        HN ストーリーを徹底的に分析し、テックへの熱意を高く保つことを忘れないでください！\
     """),
     tools=[get_top_hackernews_stories],
     show_tool_calls=True,
     markdown=True,
 )
 
-# Example questions to try:
-# - "What are the trending tech discussions on HN right now?"
-# - "Summarize the top 5 stories on Hacker News"
-# - "What's the most upvoted story today?"
+# 試すための質問例:
+# - "現在 HN でトレンドになっているテクノロジーに関する議論は何ですか？"
+# - "Hacker News のトップ 5 件のストーリーを要約してください"
+# - "今日の最もアップボートされたストーリーは何ですか？"
 agent.print_response("Summarize the top 5 stories on hackernews?", stream=True)
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install libraries">
+  <Step title="ライブラリのインストール">
     ```bash
     pip install openai httpx agno
     ```
   </Step>
 
-  <Step title="Run the agent">
+  <Step title="エージェントの実行">
     ```bash
     python custom_tools.py
     ```

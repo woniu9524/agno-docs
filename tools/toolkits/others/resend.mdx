@@ -2,11 +2,11 @@
 title: Resend
 ---
 
-**ResendTools** enable an Agent to send emails using Resend
+**ResendTools** は、Agent が Resend を使用してメールを送信できるようにします。
 
-## Prerequisites
+## 前提条件
 
-The following example requires the `resend` library and an API key from [Resend](https://resend.com/).
+以下の例では、`resend` ライブラリと [Resend](https://resend.com/) からの API キーが必要です。
 
 ```shell
 pip install -U resend
@@ -16,9 +16,9 @@ pip install -U resend
 export RESEND_API_KEY=***
 ```
 
-## Example
+## 例
 
-The following agent will send an email using Resend
+以下のエージェントは、Resend を使用してメールを送信します。
 
 ```python cookbook/tools/resend_tools.py
 from agno.agent import Agent
@@ -31,20 +31,20 @@ agent = Agent(tools=[ResendTools(from_email=from_email)], show_tool_calls=True)
 agent.print_response(f"Send an email to {to_email} greeting them with hello world")
 ```
 
-## Toolkit Params
+## Toolkit パラメータ
 
-| Parameter    | Type  | Default | Description                                                   |
-| ------------ | ----- | ------- | ------------------------------------------------------------- |
-| `api_key`    | `str` | -       | API key for authentication purposes.                          |
-| `from_email` | `str` | -       | The email address used as the sender in email communications. |
+| パラメータ    | タイプ  | デフォルト | 説明                                       |
+| ------------ | ----- | ------- | ------------------------------------------ |
+| `api_key`    | `str` | -       | 認証目的の API キー。                      |
+| `from_email` | `str` | -       | メール通信で使用される送信者のメールアドレス。 |
 
-## Toolkit Functions
+## Toolkit 関数
 
-| Function     | Description                         |
-| ------------ | ----------------------------------- |
-| `send_email` | Send an email using the Resend API. |
+| 関数       | 説明                           |
+| ---------- | ------------------------------ |
+| `send_email` | Resend API を使用してメールを送信します。 |
 
-## Developer Resources
+## 開発者向けリソース
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/resend.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/resend_tools.py)
+- [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/resend.py) を表示
+- [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/resend_tools.py) を表示

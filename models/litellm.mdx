@@ -1,55 +1,55 @@
 ---
 title: LiteLLM
-description: Integrate LiteLLM with Agno for a unified LLM experience.
+description: Agno と LiteLLM を統合して、統一された LLM 体験を実現します。
 ---
 
-[LiteLLM](https://docs.litellm.ai/docs/) provides a unified interface for various LLM providers, allowing you to use different models with the same code.
+[LiteLLM](https://docs.litellm.ai/docs/) は、さまざまな LLM プロバイダーに対する統一されたインターフェイスを提供し、同じコードで異なるモデルを使用できるようにします。
 
-Agno integrates with LiteLLM in two ways:
-1. **Direct SDK integration** - Using the LiteLLM Python SDK
-2. **Proxy Server integration** - Using LiteLLM as an OpenAI-compatible proxy
+Agno は 2 つの方法で LiteLLM と統合されます。
+1. **直接 SDK 統合** - LiteLLM Python SDK を使用
+2. **プロキシサーバー統合** - LiteLLM を OpenAI 互換プロキシとして使用
 
-## Prerequisites
+## 前提条件
 
-For both integration methods, you'll need:
+どちらの統合方法でも、以下が必要です。
 
 ```shell
-# Install required packages
+# 必要なパッケージをインストールします
 pip install agno litellm
 ```
 
-Set up your API key:
-Regardless of the model used(OpenAI, Hugging Face, or XAI) the API key is referenced as `LITELLM_API_KEY`.
+API キーを設定します。
+使用するモデル（OpenAI、Hugging Face、または XAI）に関係なく、API キーは `LITELLM_API_KEY` として参照されます。
 ```shell
 export LITELLM_API_KEY=your_api_key_here
 ```
 
-## SDK Integration
+## SDK 統合
 
-The `LiteLLM` class provides direct integration with the LiteLLM Python SDK.
+`LiteLLM` クラスは、LiteLLM Python SDK との直接統合を提供します。
 
-### Basic Usage
+### 基本的な使い方
 
 ```python
 from agno.agent import Agent
 from agno.models.litellm import LiteLLM
 
-# Create an agent with GPT-4o
+# GPT-4o でエージェントを作成します
 agent = Agent(
     model=LiteLLM(
-        id="gpt-4o",  # Model ID to use
-        name="LiteLLM",  # Optional display name
+        id="gpt-4o",  # 使用するモデル ID
+        name="LiteLLM",  # オプションの表示名
     ),
     markdown=True,
 )
 
-# Get a response
+# レスポンスを取得します
 agent.print_response("Share a 2 sentence horror story")
 ```
 
-### Using Hugging Face Models
+### Hugging Face モデルの使用
 
-LiteLLM can also work with Hugging Face models:
+LiteLLM は Hugging Face モデルでも動作します。
 
 ```python
 from agno.agent import Agent
@@ -66,21 +66,21 @@ agent = Agent(
 agent.print_response("What's happening in France?")
 ```
 
-### Configuration Options
+### 設定オプション
 
-The `LiteLLM` class accepts the following parameters:
+`LiteLLM` クラスは、次のパラメーターを受け入れます。
 
-| Parameter | Type | Description | Default |
+| パラメーター | タイプ | 説明 | デフォルト |
 | --- | --- | --- | --- |
-| `id` | str | Model identifier (e.g., "gpt-4o" or "huggingface/mistralai/Mistral-7B-Instruct-v0.2") | "gpt-4o" |
-| `name` | str | Display name for the model | "LiteLLM" |
-| `provider` | str | Provider name | "LiteLLM" |
-| `api_key` | Optional[str] | API key (falls back to LITELLM_API_KEY environment variable) | None |
-| `api_base` | Optional[str] | Base URL for API requests | None |
-| `max_tokens` | Optional[int] | Maximum tokens in the response | None |
-| `temperature` | float | Sampling temperature | 0.7 |
-| `top_p` | float | Top-p sampling value | 1.0 |
-| `request_params` | Optional[Dict[str, Any]] | Additional request parameters | None |
+| `id` | str | モデル識別子（例：「gpt-4o」または「huggingface/mistralai/Mistral-7B-Instruct-v0.2」） | "gpt-4o" |
+| `name` | str | モデルの表示名 | "LiteLLM" |
+| `provider` | str | プロバイダー名 | "LiteLLM" |
+| `api_key` | Optional[str] | API キー（`LITELLM_API_KEY` 環境変数にフォールバックします） | None |
+| `api_base` | Optional[str] | API リクエストのベース URL | None |
+| `max_tokens` | Optional[int] | レスポンスの最大トークン数 | None |
+| `temperature` | float | サンプリング温度 | 0.7 |
+| `top_p` | float | Top-p サンプリング値 | 1.0 |
+| `request_params` | Optional[Dict[str, Any]] | 追加のリクエストパラメーター | None |
 
-### SDK Examples
-<Note> View more examples [here](../examples/models/litellm). </Note>
+### SDK の例
+<Note> その他の例は [こちら](../examples/models/litellm) を参照してください。 </Note>

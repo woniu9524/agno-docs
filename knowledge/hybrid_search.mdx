@@ -1,85 +1,84 @@
 ---
-title: Hybrid Search- Combining Keyword and Vector Search
-description: Understanding Hybrid Search and its benefits in combining keyword and vector search for better results.
+title: ハイブリッド検索 - キーワード検索とベクトル検索の組み合わせ
+description: ハイブリッド検索とその利点を理解し、キーワード検索とベクトル検索を組み合わせてより良い結果を得る方法について説明します。
 ---
 
-With Hybrid search, you can get the precision of exact matching with the intelligence of semantic understanding. Combining both approaches will deliver more comprehensive and relevant results in many cases.
+ハイブリッド検索を使用すると、厳密な一致の精度とセマンティックな理解のインテリジェンスの両方を得ることができます。両方のアプローチを組み合わせることで、多くの場合、より包括的で関連性の高い結果が得られます。
 
-## What exactly is Hybrid Search?
+## ハイブリッド検索とは具体的に何ですか？
 
-**Hybrid search** is a retrieval technique that combines the strengths of both **vector search** (semantic search) and **keyword search** (lexical search) to find the most relevant results for a query.
+**ハイブリッド検索**は、**ベクトル検索**（セマンティック検索）と**キーワード検索**（レキシカル検索）の両方の長所を組み合わせて、クエリに最も関連性の高い結果を見つける検索手法です。
 
-- Vector search uses embeddings (dense vectors) to capture the semantic meaning of text, enabling the system to find results that are similar in meaning, even if the exact words don’t match.
-- Keyword search (BM25, TF-IDF, etc.) matches documents based on the presence and frequency of exact words or phrases in the query.
+- ベクトル検索は、埋め込み（密なベクトル）を使用してテキストのセマンティックな意味を捉え、正確な単語が一致しなくても意味的に類似した結果を見つけることができます。
+- キーワード検索（BM25、TF-IDFなど）は、クエリ内の正確な単語やフレーズの存在と頻度に基づいてドキュメントを照合します。
 
-Hybrid search blends these approaches, typically by scoring and/or ranking results from both methods, to maximize both precision and recall.
+ハイブリッド検索は、これらのアプローチをブレンドし、通常は両方の手法からの結果をスコアリングまたはランキング付けすることで、精度と再現率の両方を最大化します。
 
+## キーワード検索 vs ベクトル検索 vs ハイブリッド検索
 
-## Keyword Search vs Vector Search vs Hybrid Search
-
-| Feature                  | Keyword Search                     | Vector Search                       | Hybrid Search                              |
-|--------------------------|------------------------------------|--------------------------------------|--------------------------------------------|
-| Based On                | Lexical matching (BM25, TF-IDF)     | Embedding similarity (cosine, dot)   | Both                                        |
-| Strength                | Exact matches, relevance            | Contextual meaning                   | Balanced relevance + meaning                |
-| Weakness                | No semantic understanding           | Misses exact keywords                | Slightly heavier in compute                 |
-| Example Match           | "chicken soup" = *chicken soup*     | "chicken soup" = *hot broth with chicken* | Both literal and related concepts       |
-| Best Use Case           | Legal docs, structured data         | Chatbots, Q&A, semantic search       | Multimodal, real-world messy user queries   |
+| 特徴                  | キーワード検索                     | ベクトル検索                       | ハイブリッド検索                              |
+|-----------------------|------------------------------------|--------------------------------------|--------------------------------------------|
+| ベースとなるもの       | レキシカルマッチング (BM25, TF-IDF)     | 埋め込みの類似性 (コサイン類似度, ドット積)   | 両方                                        |
+| 強み                  | 正確な一致、関連性            | 文脈の意味                   | バランスの取れた関連性 + 意味                |
+| 弱み                  | セマンティックな理解がない           | 正確なキーワードを見逃す                | 計算量がわずかに多い                 |
+| マッチ例           | "チキンスープ" = *チキンスープ*     | "チキンスープ" = *鶏肉入りホットブロス* | 文字通りの概念と関連概念の両方       |
+| 最適なユースケース       | 法務文書、構造化データ         | チャットボット、Q&A、セマンティック検索       | マルチモーダル、現実世界の曖昧なユーザー クエリ   |
 
 <Note>
-Why Hybrid Search might be better for your application-
+アプリケーションでハイブリッド検索が優れている理由
 
-- **Improved Recall**: Captures more relevant results missed by pure keyword or vector search.
-- **Balanced Precision**: Exact matches get priority while also including semantically relevant results.
-- **Robust to Ambiguity**: Handles spelling variations, synonyms, and fuzzy user intent.
-- **Best of Both Worlds**: Keywords matter when they should, and meaning matters when needed.
+- **再現率の向上**: 純粋なキーワード検索またはベクトル検索で見逃された、より関連性の高い結果を捉えます。
+- **バランスの取れた精度**: 正確な一致を優先しつつ、セマンティックに関連する結果も含まれます。
+- **曖昧さに対する堅牢性**: スペルバリエーション、同義語、あいまいなユーザーの意図に対応します。
+- **両方の長所**: キーワードは必要なときに重要であり、意味は必要なときに重要です。
 
-**Perfect for **real-world apps** like recipe search, customer support, legal discovery, etc.**
+**レシピ検索、カスタマーサポート、法務開示などの**実世界のアプリケーション**に最適です。**
 </Note>
 
-## Vector DBs in Agno that Support Hybrid Search
+## ハイブリッド検索をサポートする Agno のベクトル DB
 
-The following vector databases support hybrid search natively or via configurations:
+以下のベクトルデータベースは、ネイティブまたは設定を通じてハイブリッド検索をサポートしています。
 
-| Database      | Hybrid Search Support |
+| データベース      | ハイブリッド検索サポート |
 |---------------|-----------------------|
-| `pgvector`    | ✅ Yes                |
-| `milvus`      | ✅ Yes                |
-| `lancedb`     | ✅ Yes                |
-| `qdrantdb`    | ✅ Yes                |
-| `weaviate`    | ✅ Yes                |
-| `mongodb`     | ✅ Yes (Atlas Vector Search) |
+| `pgvector`    | ✅ はい                |
+| `milvus`      | ✅ はい                |
+| `lancedb`     | ✅ はい                |
+| `qdrantdb`    | ✅ はい                |
+| `weaviate`    | ✅ はい                |
+| `mongodb`     | ✅ はい (Atlas Vector Search) |
 
 ---
 
-## Example: Hybrid Search using `pgvector`
+## 例: `pgvector` を使用したハイブリッド検索
 
 ```python
 from agno.knowledge.pdf_url import PDFUrlKnowledgeBase
 from agno.vectordb.pgvector import PgVector, SearchType
 
-# Database URL
+# データベースURL
 db_url = "postgresql+psycopg://ai:ai@localhost:5532/ai"
 
-# Initialize hybrid vector DB
+# ハイブリッドベクトルDBの初期化
 hybrid_db = PgVector(
     table_name="recipes",
     db_url=db_url,
-    search_type=SearchType.hybrid  # Hybrid Search
+    search_type=SearchType.hybrid  # ハイブリッド検索
 )
 
-# Load PDF knowledge base using hybrid search
+# ハイブリッド検索を使用してPDFナレッジベースをロード
 knowledge_base = PDFUrlKnowledgeBase(
     urls=["https://agno-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
     vector_db=hybrid_db,
 )
 
-# Load the data into the DB (first-time setup)
+# データをDBにロード（初回セットアップ）
 knowledge_base.load(recreate=True, upsert=True)
 
-# Run a hybrid search query
+# ハイブリッド検索クエリの実行
 results = hybrid_db.search("chicken coconut soup", limit=5)
 print("Hybrid Search Results:", results)
 ```
 
-## See More Examples
-For hands-on code and advanced usage, check out these hybrid search examples for each supported vector database [here](../examples/concepts/hybrid-search/)
+## その他の例を見る
+実践的なコードと高度な使用方法については、各サポートされているベクトルデータベースのハイブリッド検索の例を[こちら](../examples/concepts/hybrid-search/)で参照してください。

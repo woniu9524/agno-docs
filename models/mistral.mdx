@@ -1,23 +1,23 @@
 ---
 title: Mistral
-description: Learn how to use Mistral models in Agno.
+description: Agno で Mistral モデルを使用する方法を学びます。
 ---
 
-Mistral is a platform for providing endpoints for Large Language models.
-See their library of models [here](https://docs.mistral.ai/getting-started/models/models_overview/).
+Mistral は、大規模言語モデルのエンドポイントを提供するプラットフォームです。
+モデルのライブラリは[こちら](https://docs.mistral.ai/getting-started/models/models_overview/)で確認できます。
 
-We recommend experimenting to find the best-suited model for your use-case. Here are some general recommendations:
+ユースケースに最適なモデルを見つけるために、実験することをお勧めします。一般的な推奨事項は以下のとおりです。
 
-- `codestral` model is good for code generation and editing.
-- `mistral-large-latest` model is good for most use-cases.
-- `open-mistral-nemo` is a free model that is good for most use-cases.
-- `pixtral-12b-2409` is a vision model that is good for OCR, transcribing documents, and image comparison. It is not always capable at tool calling.
+- `codestral` モデルは、コード生成および編集に適しています。
+- `mistral-large-latest` モデルは、ほとんどのユースケースに適しています。
+- `open-mistral-nemo` は、ほとんどのユースケースに適した無料モデルです。
+- `pixtral-12b-2409` は、OCR、ドキュメントの文字起こし、画像比較に適したビジョンモデルです。ツール呼び出しには常に適しているわけではありません。
 
-Mistral has tier-based rate limits. See the [docs](https://docs.mistral.ai/deployment/laplateforme/tier/) for more information.
+Mistral にはティアベースのレート制限があります。詳細については、[ドキュメント](https://docs.mistral.ai/deployment/laplateforme/tier/)を参照してください。
 
-## Authentication
+## 認証
 
-Set your `MISTRAL_API_KEY` environment variable. Get your key from [here](https://console.mistral.ai/api-keys/).
+`MISTRAL_API_KEY` 環境変数を設定します。キーは[こちら](https://console.mistral.ai/api-keys/)から取得できます。
 
 <CodeGroup>
 
@@ -31,9 +31,9 @@ setx MISTRAL_API_KEY ***
 
 </CodeGroup>
 
-## Example
+## 例
 
-Use `Mistral` with your `Agent`:
+`Agent` で `Mistral` を使用します。
 
 <CodeGroup>
 
@@ -53,17 +53,17 @@ agent = Agent(
     markdown=True
 )
 
-# Print the response in the terminal
+# レスポンスをターミナルに出力します
 agent.print_response("Share a 2 sentence horror story.")
 
 ```
 
 </CodeGroup>
 
-<Note> View more examples [here](../examples/models/mistral). </Note>
+<Note> その他の例は[こちら](../examples/models/mistral)でご覧ください。 </Note>
 
-## Params
+## パラメータ
 
 <Snippet file="model-mistral-params.mdx" />
 
-`MistralChat` is a subclass of the [Model](/reference/models/model) class and has access to the same params.
+`MistralChat` は、[Model](/reference/models/model) クラスのサブクラスであり、同じパラメータにアクセスできます。

@@ -2,26 +2,26 @@
 title: Twilio
 ---
 
-**TwilioTools** enables an Agent to interact with [Twilio](https://www.twilio.com/docs) services, such as sending SMS, retrieving call details, and listing messages.
+**TwilioTools** は、エージェントがSMSの送信、通話詳細の取得、メッセージの一覧表示などの[Twilio](https://www.twilio.com/docs)サービスとやり取りできるようにします。
 
-## Prerequisites
+## 前提条件
 
-The following examples require the `twilio` library and appropriate Twilio credentials, which can be obtained from [here](https://www.twilio.com/console).
+以下の例では、`twilio`ライブラリと適切なTwilio認証情報が必要です。これらは[こちら](https://www.twilio.com/console)から取得できます。
 
 ```shell
 pip install twilio
 ```
 
-Set the following environment variables:
+以下の環境変数を設定してください。
 
 ```shell
 export TWILIO_ACCOUNT_SID=***
 export TWILIO_AUTH_TOKEN=***
 ```
 
-## Example
+## 例
 
-The following agent will send an SMS message using Twilio:
+以下のエージェントは、Twilioを使用してSMSメッセージを送信します。
 
 ```python
 from agno.agent import Agent
@@ -38,27 +38,27 @@ agent = Agent(
 agent.print_response("Send an SMS to +1234567890", markdown=True)
 ```
 
-## Toolkit Params
+## Toolkitパラメータ
 
-| Name          | Type            | Default | Description                                       |
+| 名前          | タイプ            | デフォルト | 説明                                       |
 | ------------- | --------------- | ------- | ------------------------------------------------- |
-| `account_sid` | `Optional[str]` | `None`  | Twilio Account SID for authentication.            |
-| `auth_token`  | `Optional[str]` | `None`  | Twilio Auth Token for authentication.             |
-| `api_key`     | `Optional[str]` | `None`  | Twilio API Key for alternative authentication.    |
-| `api_secret`  | `Optional[str]` | `None`  | Twilio API Secret for alternative authentication. |
-| `region`      | `Optional[str]` | `None`  | Optional Twilio region (e.g., `au1`).             |
-| `edge`        | `Optional[str]` | `None`  | Optional Twilio edge location (e.g., `sydney`).   |
-| `debug`       | `bool`          | `False` | Enable debug logging for troubleshooting.         |
+| `account_sid` | `Optional[str]` | `None`  | 認証用のTwilioアカウントSID。            |
+| `auth_token`  | `Optional[str]` | `None`  | 認証用のTwilio認証トークン。             |
+| `api_key`     | `Optional[str]` | `None`  | 代替認証用のTwilio APIキー。    |
+| `api_secret`  | `Optional[str]` | `None`  | 代替認証用のTwilio APIシークレット。 |
+| `region`      | `Optional[str]` | `None`  | オプションのTwilioリージョン（例：`au1`）。             |
+| `edge`        | `Optional[str]` | `None`  | オプションのTwilioエッジロケーション（例：`sydney`）。   |
+| `debug`       | `bool`          | `False` | トラブルシューティングのためのデバッグログを有効にします。         |
 
-## Toolkit Functions
+## Toolkit関数
 
-| Function           | Description                                                                                                                                                                 |
-| ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `send_sms`         | Sends an SMS to a recipient. Takes recipient phone number, sender number (Twilio), and message body. Returns message SID if successful or error message if failed.          |
-| `get_call_details` | Retrieves details of a call using its SID. Takes the call SID and returns a dictionary with call details (e.g., status, duration).                                          |
-| `list_messages`    | Lists recent SMS messages. Takes a limit for the number of messages to return (default 20). Returns a list of message details (e.g., SID, sender, recipient, body, status). |
+| 関数           | 説明                                                                                                                                                                 |
+| -------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `send_sms`         | 受信者にSMSを送信します。受信者の電話番号、送信者番号（Twilio）、メッセージ本文を受け取ります。成功した場合はメッセージSID、失敗した場合はエラーメッセージを返します。          |
+| `get_call_details` | 通話SIDを使用して通話の詳細を取得します。通話SIDを受け取り、通話の詳細（例：ステータス、期間）を含む辞書を返します。                                          |
+| `list_messages`    | 最近のSMSメッセージを一覧表示します。返されるメッセージの数（デフォルトは20）の制限を受け取ります。メッセージの詳細（例：SID、送信者、受信者、本文、ステータス）のリストを返します。 |
 
-## Developer Resources
+## 開発者向けリソース
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/twilio.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/twilio_tools.py)
+- [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/twilio.py)を表示
+- [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/twilio_tools.py)を表示

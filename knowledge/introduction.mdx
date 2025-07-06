@@ -1,81 +1,78 @@
 ---
-title: What is Knowledge?
-sidebarTitle: Overview
-description: Knowledge is domain-specific information that the Agent can search at runtime to make better decisions (dynamic few-shot learning) and provide accurate responses (agentic RAG).
+title: Knowledgeとは
+sidebarTitle: 概要
+description: Knowledgeは、エージェントが実行時に検索してより良い意思決定（動的な少数ショット学習）を行い、正確な応答（エージェント型RAG）を提供するための、ドメイン固有の情報です。
 ---
-Knowledge is stored in a vector db and this searching on demand pattern is called Agentic RAG.
+Knowledgeはベクトルデータベースに保存され、このオンデマンド検索パターンはAgentic RAGと呼ばれます。
 
-<Accordion title="Dynamic Few-Shot Learning: Text2Sql Agent" icon="database">
-Example: If we're building a Text2Sql Agent, we'll need to give the table schemas, column names, data types, example queries, common "gotchas" to help it generate the best-possible SQL query.
+<Accordion title="動的な少数ショット学習：Text2Sqlエージェント" icon="database">
+例：Text2Sqlエージェントを構築する場合、テーブルスキーマ、カラム名、データ型、クエリ例、一般的な「落とし穴」を提供して、可能な限り最良のSQLクエリを生成できるようにする必要があります。
 
-We're obviously not going to put this all in the system prompt, instead we store this information in a vector database and let the Agent query it at runtime.
+これらすべてをシステムプロンプトに入れることは明らかにできないため、代わりにこの情報をベクトルデータベースに保存し、エージェントが実行時にクエリできるようにします。
 
-Using this information, the Agent can then generate the best-possible SQL query. This is called dynamic few-shot learning.
+この情報を使用して、エージェントは可能な限り最良のSQLクエリを生成できます。これは動的な少数ショット学習と呼ばれます。
 </Accordion>
 
-**Agno Agents use Agentic RAG** by default, meaning if you add `knowledge` to an Agent, it will search this knowledge base, at runtime, for the specific information it needs to achieve its task.
+**AgnoエージェントはデフォルトでAgentic RAGを使用します**。これは、エージェントに`knowledge`を追加すると、実行時にそのタスクを達成するために必要な特定の情報を検索することを意味します。
 
-The pseudo steps for adding knowledge to an Agent are:
+エージェントに知識を追加するための疑似ステップは次のとおりです。
 
 ```python
 from agno.agent import Agent, AgentKnowledge
 
-# Create a knowledge base for the Agent
+# エージェント用の知識ベースを作成します
 knowledge_base = AgentKnowledge(vector_db=...)
 
-# Add information to the knowledge base
+# 知識ベースに情報を追加します
 knowledge_base.load_text("The sky is blue")
 
-# Add the knowledge base to the Agent and
-# give it a tool to search the knowledge base as needed
+# エージェントに知識ベースを追加し、
+# 必要に応じて知識ベースを検索するためのツールを提供します
 agent = Agent(knowledge=knowledge_base, search_knowledge=True)
 ```
 
-We can give our agent access to the knowledge base in the following ways:
+エージェントに知識ベースへのアクセスを次の方法で提供できます。
 
-- We can set `search_knowledge=True` to add a `search_knowledge_base()` tool to the Agent. `search_knowledge` is `True` **by default** if you add `knowledge` to an Agent.
-- We can set `add_references=True` to automatically add references from the knowledge base to the Agent's prompt. This is the traditional 2023 RAG approach.
+- `search_knowledge=True`を設定すると、エージェントに`search_knowledge_base()`ツールが追加されます。エージェントに`knowledge`を追加すると、`search_knowledge`はデフォルトで`True`になります。
+- `add_references=True`を設定すると、知識ベースからの参照が自動的にエージェントのプロンプトに追加されます。これは従来の2023 RAGアプローチです。
 
 <Tip>
 
-If you need complete control over the knowledge base search, you can pass your own `retriever` function with the following signature:
+知識ベースの検索を完全に制御する必要がある場合は、次のシグネチャを持つ独自の`retriever`関数を渡すことができます。
 
 ```python
 def retriever(agent: Agent, query: str, num_documents: Optional[int], **kwargs) -> Optional[list[dict]]:
   ...
 ```
 
-This function is called during `search_knowledge_base()` and is used by the Agent to retrieve references from the knowledge base.
-For more details check out the [Custom Retriever](../knowledge/custom_retriever) page.
+この関数は`search_knowledge_base()`中に呼び出され、エージェントが知識ベースから参照を取得するために使用されます。
+詳細については、[カスタムリトリーバー](../knowledge/custom_retriever)ページをご覧ください。
 
 </Tip>
 
-## Vector Databases
+## ベクトルデータベース
 
-While any type of storage can act as a knowledge base, vector databases offer the best solution for retrieving relevant results from dense information quickly. Here's how vector databases are used with Agents:
+あらゆる種類のストレージが知識ベースとして機能できますが、ベクトルデータベースは、密な情報から関連性の高い結果を迅速に取得するための最良のソリューションを提供します。ベクトルデータベースとエージェントの使用方法は次のとおりです。
 
 <Steps>
-  <Step title="Chunk the information">
-    Break down the knowledge into smaller chunks to ensure our search query
-    returns only relevant results.
+  <Step title="情報をチャンク化する">
+    検索クエリが関連性の高い結果のみを返すように、知識をより小さなチャンクに分割します。
   </Step>
-  <Step title="Load the knowledge base">
-    Convert the chunks into embedding vectors and store them in a vector
-    database.
+  <Step title="知識ベースをロードする">
+    チャンクを埋め込みベクトルに変換し、ベクトルデータベースに保存します。
   </Step>
-  <Step title="Search the knowledge base">
-    When the user sends a message, we convert the input message into an
-    embedding and "search" for nearest neighbors in the vector database.
+  <Step title="知識ベースを検索する">
+    ユーザーがメッセージを送信すると、入力メッセージを埋め込みに変換し、ベクトルデータベースで最近傍を「検索」します。
   </Step>
 </Steps>
 
-## Loading the Knowledge Base
+## 知識ベースのロード
 
-Before you can use a knowledge base, it needs to be loaded with embeddings that will be used for retrieval. 
+知識ベースを使用する前に、取得に使用される埋め込みでロードする必要があります。
 
-### Asynchronous Loading
+### 非同期ロード
 
-Many vector databases support asynchronous operations, which can significantly improve performance when loading large knowledge bases. You can leverage this capability using the `aload()` method:
+多くのベクトルデータベースは非同期操作をサポートしており、これにより大規模な知識ベースのロード時のパフォーマンスが大幅に向上します。`aload()`メソッドを使用してこの機能を利用できます。
 
 ```python
 import asyncio
@@ -88,44 +85,44 @@ COLLECTION_NAME = "pdf-reader"
 
 vector_db = Qdrant(collection=COLLECTION_NAME, url="http://localhost:6333")
 
-# Create a knowledge base with the PDFs from the data/pdfs directory
+# data/pdfsディレクトリのPDFから知識ベースを作成します
 knowledge_base = PDFKnowledgeBase(
     path="data/pdf",
     vector_db=vector_db,
     reader=PDFReader(chunk=True),
 )
 
-# Create an agent with the knowledge base
+# 知識ベースでエージェントを作成します
 agent = Agent(
     knowledge=knowledge_base,
     search_knowledge=True,
 )
 
 if __name__ == "__main__":
-    # Comment out after first run
+    # 初回実行後にコメントアウトしてください
     asyncio.run(knowledge_base.aload(recreate=False))
 
-    # Create and use the agent
-    asyncio.run(agent.aprint_response("How to make Thai curry?", markdown=True))
+    # エージェントを作成して使用します
+    asyncio.run(agent.aprint_response("タイカレーの作り方は？", markdown=True))
 ```
 
-Using `aload()` ensures you take full advantage of the non-blocking operations, concurrent processing, and reduced latency that async vector database operations offer. This is especially valuable in production environments with high throughput requirements.
+`aload()`を使用すると、非同期ベクトルデータベース操作が提供するノンブロッキング操作、並列処理、および低遅延を最大限に活用できます。これは、高いスループット要件を持つ本番環境で特に価値があります。
 
-For more details on vector database async capabilities, see the [Vector Database Introduction](/vectordb/introduction).
+ベクトルデータベースの非同期機能の詳細については、[ベクトルデータベースの紹介](/vectordb/introduction)を参照してください。
 
 
-Use one of the following knowledge bases to simplify the chunking, loading, searching and optimization process:
-- [ArXiv knowledge base](/knowledge/arxiv): Load ArXiv papers to a knowledge base
-- [Combined knowledge base](/knowledge/combined): Combine multiple knowledge bases into 1
-- [CSV knowledge base](/knowledge/csv): Load local CSV files to a knowledge base
-- [CSV URL knowledge base](/knowledge/csv-url): Load CSV files from a URL to a knowledge base
-- [Document knowledge base](/knowledge/document): Load local docx files to a knowledge base
-- [JSON knowledge base](/knowledge/json): Load JSON files to a knowledge base
-- [LangChain knowledge base](/knowledge/langchain): Use a Langchain retriever as a knowledge base
-- [PDF knowledge base](/knowledge/pdf): Load local PDF files to a knowledge base
-- [PDF URL knowledge base](/knowledge/pdf-url): Load PDF files from a URL to a knowledge base
-- [S3 PDF knowledge base](/knowledge/s3_pdf): Load PDF files from S3 to a knowledge base
-- [S3 Text knowledge base](/knowledge/s3_text): Load text files from S3 to a knowledge base
-- [Text knowledge base](/knowledge/text): Load text/docx files to a knowledge base
-- [Website knowledge base](/knowledge/website): Load website data to a knowledge base
-- [Wikipedia knowledge base](/knowledge/wikipedia): Load wikipedia articles to a knowledge base
+チャンク化、ロード、検索、最適化プロセスを簡素化するために、次のいずれかの知識ベースを使用してください。
+- [ArXiv知識ベース](/knowledge/arxiv): ArXiv論文を知識ベースにロードする
+- [結合知識ベース](/knowledge/combined): 複数の知識ベースを1つに結合する
+- [CSV知識ベース](/knowledge/csv): ローカルCSVファイルを知識ベースにロードする
+- [CSV URL知識ベース](/knowledge/csv-url): URLからCSVファイルを知識ベースにロードする
+- [ドキュメント知識ベース](/knowledge/document): ローカルdocxファイルを知識ベースにロードする
+- [JSON知識ベース](/knowledge/json): JSONファイルをロードする
+- [LangChain知識ベース](/knowledge/langchain): Langchainリトリーバーを知識ベースとして使用する
+- [PDF知識ベース](/knowledge/pdf): ローカルPDFファイルを知識ベースにロードする
+- [PDF URL知識ベース](/knowledge/pdf-url): URLからPDFファイルを知識ベースにロードする
+- [S3 PDF知識ベース](/knowledge/s3_pdf): S3からPDFファイルをロードする
+- [S3 Text知識ベース](/knowledge/s3_text): S3からテキストファイルをロードする
+- [Text知識ベース](/knowledge/text): テキスト/docxファイルをロードする
+- [ウェブサイト知識ベース](/knowledge/website): ウェブサイトデータをロードする
+- [Wikipedia知識ベース](/knowledge/wikipedia): Wikipediaの記事を知識ベースにロードする

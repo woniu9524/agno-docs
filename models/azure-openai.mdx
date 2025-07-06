@@ -3,35 +3,35 @@ title: Azure OpenAI
 description: Learn how to use Azure OpenAI models in Agno.
 ---
 
-Use OpenAI models through Azure's infrastructure. Learn more [here](https://learn.microsoft.com/azure/ai-services/openai/overview).
+Azure のインフラストラクチャを通じて OpenAI モデルを使用します。詳細については、[こちら](https://learn.microsoft.com/azure/ai-services/openai/overview) を参照してください。
 
-Azure OpenAI provides access to OpenAI's models like `GPT-4o`, `o3-mini`, and more.
+Azure OpenAI は、`GPT-4o` や `o3-mini` などの OpenAI モデルへのアクセスを提供します。
 
-## Authentication
+## 認証
 
-Navigate to Azure OpenAI on the [Azure Portal](https://portal.azure.com/) and create a service. Then, using the Azure AI Studio portal, create a deployment and set your environment variables:
+[Azure Portal](https://portal.azure.com/) の Azure OpenAI に移動し、サービスを作成します。次に、Azure AI Studio ポータルを使用して、デプロイを作成し、環境変数を設定します。
 
 <CodeGroup>
 
 ```bash Mac
 export AZURE_OPENAI_API_KEY=***
-export AZURE_OPENAI_ENDPOINT=***  # Of the form https://<your-resource-name>.openai.azure.com/openai/deployments/<your-deployment-name>
-# Optional:
+export AZURE_OPENAI_ENDPOINT=***  # https://<your-resource-name>.openai.azure.com/openai/deployments/<your-deployment-name> の形式
+# オプション:
 # export AZURE_OPENAI_DEPLOYMENT=***
 ```
 
 ```bash Windows
-setx AZURE_OPENAI_API_KEY ***  # Of the form https://<your-resource-name>.openai.azure.com/openai/deployments/<your-deployment-name>
+setx AZURE_OPENAI_API_KEY ***  # https://<your-resource-name>.openai.azure.com/openai/deployments/<your-deployment-name> の形式
 setx AZURE_OPENAI_ENDPOINT ***
-# Optional:
+# オプション:
 # setx AZURE_OPENAI_DEPLOYMENT ***
 ```
 
 </CodeGroup>
 
-## Example
+## 例
 
-Use `AzureOpenAI` with your `Agent`:
+`Agent` で `AzureOpenAI` を使用します。
 
 <CodeGroup>
 
@@ -45,22 +45,22 @@ agent = Agent(
     markdown=True
 )
 
-# Print the response on the terminal
+# 応答をターミナルに出力します
 agent.print_response("Share a 2 sentence horror story.")
 ```
 
 </CodeGroup>
 
-## Prompt caching
+## プロンプト キャッシュ
 
-Prompt caching will happen automatically using our `AzureOpenAI` model. You can read more about how OpenAI handle caching in [their docs](https://platform.openai.com/docs/guides/prompt-caching).
+プロンプト キャッシュは、`AzureOpenAI` モデルを使用して自動的に行われます。OpenAI がキャッシュを処理する方法については、[ドキュメント](https://platform.openai.com/docs/guides/prompt-caching) を参照してください。
 
-## Advanced Examples
+## 高度な例
 
-View more examples [here](../examples/models/azure/openai).
+その他の例については、[こちら](../examples/models/azure/openai) を参照してください。
 
-## Parameters
+## パラメータ
 
 <Snippet file="model-azure-openai-params.mdx" />
 
-`AzureOpenAI` also supports the parameters of [OpenAI](/reference/models/openai).
+`AzureOpenAI` は、[OpenAI](/reference/models/openai) のパラメータもサポートしています。

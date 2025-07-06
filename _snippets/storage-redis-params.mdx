@@ -1,8 +1,8 @@
-| Parameter | Type | Description | Default |
+| パラメータ | タイプ | 説明 | デフォルト |
 | --- | --- | --- | --- |
-| `prefix` | `str` | Prefix for Redis keys to namespace the sessions | Required |
-| `host` | `str` | Redis host address | `"localhost"` |
-| `port` | `int` | Redis port number | `6379` |
-| `db` | `int` | Redis database number | `0` |
-| `password` | `Optional[str]` | Redis password if authentication is required | `None` |
-| `mode` | `Optional[Literal["agent", "team", "workflow"]]` | Storage mode | `"agent"` |
+| `prefix` | `str` | セッションを名前空間化するためのRedisキーのプレフィックス | 必須 |
+| `host` | `str` | Redisホストのアドレス | `"localhost"` |
+| `port` | `int` | Redisポート番号 | `6379` |
+| `db` | `int` | Redisデータベース番号 | `0` |
+| `password` | `Optional[str]` | 認証が必要な場合のRedisパスワード | `None` |
+| `mode` | `Optional[Literal["agent", "team", "workflow"]]` | ストレージモード | `"agent"` |

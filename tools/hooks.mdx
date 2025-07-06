@@ -1,23 +1,23 @@
 ---
 title: Hooks
-description: Learn how to use tool hooks to modify the behavior of a tool.
+description: ツールを呼び出す前後に、バリデーション、ロギング、その他のロジックを実行するためにツールフックを使用できます。
 ---
 
-## Tool Hooks
-You can use tool hooks to perform validation, logging, or any other logic before or after a tool is called.
+## ツールフック
+ツールフックを使用すると、ツールの呼び出し前後にバリデーション、ロギング、その他のロジックを実行できます。
 
-A tool hook is a function that takes a function name, function call, and arguments.  Inside the tool hook, you have to call the function call and return the result.
+ツールフックは、関数名、関数呼び出し、および引数を受け取る関数です。ツールフック内では、関数呼び出しを実行し、その結果を返す必要があります。
 
-For example:
+例：
 
 ```python
 def logger_hook(
     function_name: str, function_call: Callable, arguments: Dict[str, Any]
 ):
-    """Log the duration of the function call"""
+    """関数呼び出しの時間を記録します"""
     start_time = time.time()
 
-    # Call the function
+    # 関数を呼び出す
     result = function_call(**arguments)
     
     end_time = time.time()
@@ -25,25 +25,25 @@ def logger_hook(
     
     logger.info(f"Function {function_name} took {duration:.2f} seconds to execute")
 
-    # Return the result
+    # 結果を返す
     return result
 ```
 
-or 
+または
 
 ```python
 def confirmation_hook(
     function_name: str, function_call: Callable, arguments: Dict[str, Any]
 ):
-    """Confirm the function call"""
+    """関数呼び出しを確認します"""
     if function_name != "get_top_hackernews_stories":
         raise ValueError("This tool is not allowed to be called")
     return function_call(**arguments)
 ```
 
-You can assign tool hooks on agents and teams.  The tool hooks will be applied to all tools in the agent or team.
+エージェントやチームにツールフックを割り当てることができます。ツールフックは、エージェントまたはチーム内のすべてのツールに適用されます。
 
-For example:
+例：
 
 ```python
 agent = Agent(
@@ -53,31 +53,31 @@ agent = Agent(
 )
 ```
 
-You can also assign multiple tool hooks at once. They will be applied in the order they are assigned.
+複数のツールフックを一度に割り当てることもできます。それらは割り当てられた順序で適用されます。
 
 ```python
 agent = Agent(
     model=OpenAIChat(id="gpt-4o-mini"),
     tools=[DuckDuckGoTools()],
-    tool_hooks=[logger_hook, confirmation_hook],  # The logger_hook will run on the outer layer, and the confirmation_hook will run on the inner layer
+    tool_hooks=[logger_hook, confirmation_hook],  # logger_hook は外側のレイヤーで実行され、confirmation_hook は内側のレイヤーで実行されます
 )
 ```
 
-You can also assign tool hooks to specific custom tools.
+特定のカスタムツールにツールフックを割り当てることもできます。
 
 ```python
 @tool(tool_hooks=[logger_hook, confirmation_hook])
 def get_top_hackernews_stories(num_stories: int) -> Iterator[str]:
-    """Fetch top stories from Hacker News.
+    """Hacker News からトップストーリーを取得します。
 
     Args:
-        num_stories (int): Number of stories to retrieve
+        num_stories (int): 取得するストーリーの数
     """
-    # Fetch top story IDs
+    # トップストーリーのIDを取得
     response = httpx.get("https://hacker-news.firebaseio.com/v0/topstories.json")
     story_ids = response.json()
 
-    # Yield story details
+    # ストーリーの詳細をyieldする
     final_stories = []
     for story_id in story_ids[:num_stories]:
         story_response = httpx.get(
@@ -96,15 +96,15 @@ agent = Agent(
 )
 ```
 
-## Pre and Post Hooks
+## 事前フックと事後フック
 
-Pre and post hooks let's you modify what happens before and after a tool is called. It is an alternative to tool hooks.
+事前フックと事後フックを使用すると、ツールの呼び出し前後に何が起こるかを変更できます。これはツールフックの代替手段です。
 
-Set the `pre_hook` in the `@tool` decorator to run a function before the tool call.
+ツールの呼び出し前に関数を実行するには、`@tool` デコレータで `pre_hook` を設定します。
 
-Set the `post_hook` in the `@tool` decorator to run a function after the tool call.
+ツールの呼び出し後に関数を実行するには、`@tool` デコレータで `post_hook` を設定します。
 
-Here's a demo example of using a `pre_hook`, `post_hook` along with Agent Context.
+ここでは、`pre_hook`、`post_hook`、および Agent Context を使用するデモ例を示します。
 
 ```python pre_and_post_hooks.py
 import json
@@ -131,11 +131,11 @@ def post_hook(fc: FunctionCall):
 def get_top_hackernews_stories(agent: Agent) -> Iterator[str]:
     num_stories = agent.context.get("num_stories", 5) if agent.context else 5
 
-    # Fetch top story IDs
+    # トップストーリーのIDを取得
     response = httpx.get("https://hacker-news.firebaseio.com/v0/topstories.json")
     story_ids = response.json()
 
-    # Yield story details
+    # ストーリーの詳細をyieldする
     for story_id in story_ids[:num_stories]:
         story_response = httpx.get(
             f"https://hacker-news.firebaseio.com/v0/item/{story_id}.json"
@@ -155,4 +155,3 @@ agent = Agent(
     show_tool_calls=True,
 )
 agent.print_response("What are the top hackernews stories?", stream=True)
-```

@@ -1,10 +1,10 @@
 ---
-title: "HackerNews Team"
+title: "HackerNewsチーム"
 ---
 
-This example shows how to create a HackerNews team that can aggregate, curate, and discuss trending topics from HackerNews.
+この例では、HackerNewsからトレンドトピックを集約、キュレーション、議論できるHackerNewsチームを作成する方法を示します。
 
-## Code
+## コード
 
 ```python hackernews_team.py
 from typing import List
@@ -68,30 +68,28 @@ hn_team = Team(
 hn_team.print_response("Write an article about the top 2 stories on hackernews")
 ```
 
-
-## Usage
+## 使用方法
 
 <Steps>
 
     <Snippet file="create-venv-step.mdx" />
 
-    <Step title="Install required libraries">
+    <Step title="必要なライブラリをインストール">
         ```bash
         pip install openai duckduckgo-search newspaper4k lxml_html_clean
         ```
     </Step>
 
-    <Step title="Set environment variables">
+    <Step title="環境変数を設定">
         ```bash
         export OPENAI_API_KEY=****
         ```
     </Step>
 
-    <Step title="Run the agent">
+    <Step title="エージェントを実行">
         ```bash
         python hackernews_team.py
         ```
     </Step>
 
 </Steps>
-

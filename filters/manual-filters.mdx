@@ -1,12 +1,12 @@
-# Manual Knowledge Filters
+# 手動ナレッジフィルタ
 
-Manual filtering gives you full control over which documents are searched by specifying filters directly in your code.
+手動フィルタリングでは、コード内で直接フィルタを指定することで、検索対象となるドキュメントを完全に制御できます。
 
-## Step 1: Attach Metadata
+## ステップ 1: メタデータの添付
 
-There are two ways to attach metadata to your documents:
+ドキュメントにメタデータを添付するには、2つの方法があります。
 
-1. **Attach Metadata When Initializing the Knowledge Base**
+1. **ナレッジベースの初期化時にメタデータを添付する**
 
     ```python
     knowledge_base = PDFKnowledgeBase(
@@ -19,30 +19,30 @@ There are two ways to attach metadata to your documents:
                     "year": 2025,
                 },
             },
-            # ... more documents ...
+            # ... その他のドキュメント ...
         ],
         vector_db=vector_db,
     )
     knowledge_base.load(recreate=True)
     ```
 
-2. **Attach Metadata When Loading Documents One by One**
+2. **ドキュメントを1つずつロードする際にメタデータを添付する**
 
     ```python
-    # Initialize the PDFKnowledgeBase
+    # PDFKnowledgeBase の初期化
     knowledge_base = PDFKnowledgeBase(
         vector_db=vector_db,
         num_documents=5,
     )
 
-    # Load first document with user_1 metadata
+    # user_1 メタデータを持つ最初のドキュメントをロード
     knowledge_base.load_document(
         path=path/to/cv1.pdf,
         metadata={"user_id": "jordan_mitchell", "document_type": "cv", "year": 2025},
-        recreate=True,  # Set to True only for the first run, then set to False
+        recreate=True,  # 最初の実行時のみ True に設定し、その後は False に設定します
     )
 
-    # Load second document with user_2 metadata
+    # user_2 メタデータを持つ 2 番目のドキュメントをロード
     knowledge_base.load_document(
         path=path/to/cv2.pdf,
         metadata={"user_id": "taylor_brooks", "document_type": "cv", "year": 2025},
@@ -51,15 +51,15 @@ There are two ways to attach metadata to your documents:
 
 ---
 
-> 💡 **Tips:**  
-> • Use **Option 1** if you have all your documents and metadata ready at once.  
-> • Use **Option 2** if you want to add documents incrementally or as they become available.
+> 💡 **ヒント:**
+> • すべてのドキュメントとメタデータが一度に準備できている場合は、**オプション 1** を使用します。
+> • ドキュメントを段階的に、または利用可能になった時点で追加したい場合は、**オプション 2** を使用します。
 
-## Step 2: Query with Filters
+## ステップ 2: フィルタを使用したクエリ
 
-You can pass filters in two ways:
+フィルタは2つの方法で渡すことができます。
 
-### 1. On the Agent (applies to all queries)
+### 1. エージェントで（すべてのクエリに適用）
 
 ```python
 agent = Agent(
@@ -68,12 +68,12 @@ agent = Agent(
     knowledge_filters={"user_id": "jordan_mitchell"},
 )
 agent.print_response(
-    "Tell me about Jordan Mitchell's experience and skills",
+    "Jordan Mitchell の経験とスキルについて教えてください",
     markdown=True,
 )
 ```
 
-### 2. On Each Query (overrides Agent filters for that run)
+### 2. 各クエリで（その実行のエージェントフィルタをオーバーライドします）
 
 ```python
 agent = Agent(
@@ -81,17 +81,17 @@ agent = Agent(
     search_knowledge=True,
 )
 agent.print_response(
-    "Tell me about Jordan Mitchell's experience and skills",
+    "Jordan Mitchell の経験とスキルについて教えてください",
     knowledge_filters={"user_id": "jordan_mitchell"},
     markdown=True,
 )
 ```
 
-<Note>If you pass filters both on the Agent and on the query, the query-level filters take precedence.</Note>
+<Note>エージェントとクエリの両方でフィルタを渡した場合、クエリレベルのフィルタが優先されます。</Note>
 
-## Combining Multiple Filters
+## 複数フィルタの組み合わせ
 
-You can filter by multiple fields:
+複数のフィールドでフィルタリングできます。
 
 ```python
 agent = Agent(
@@ -104,19 +104,19 @@ agent = Agent(
     }
 )
 agent.print_response(
-    "Tell me about Jordan Mitchell's experience and skills",
+    "Jordan Mitchell の経験とスキルについて教えてください",
     markdown=True,
 )
 ```
 
-## Try It Yourself!
+## 自分で試してみましょう！
 
-- Load documents with different metadata.
-- Query with different filter combinations.
-- Observe how the results change!
+- 異なるメタデータを持つドキュメントをロードします。
+- さまざまなフィルタの組み合わせでクエリを実行します。
+- 結果がどのように変化するかを観察します！
 
 ---
 
-## Developer Resources
-- [Manual filtering](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/filters/pdf/filtering.py)
-- [Manual filtering on load](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/filters/pdf/filtering_on_load.py)
+## 開発者向けリソース
+- [手動フィルタリング](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/filters/pdf/filtering.py)
+- [ロード時の手動フィルタリング](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/filters/pdf/filtering_on_load.py)

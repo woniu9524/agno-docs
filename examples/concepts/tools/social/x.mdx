@@ -19,15 +19,15 @@ agent.print_response("Make a post saying 'Hello World from Agno!'")
 ## Usage
 
 <Steps>
-  <Snippet file="create-venv-step.mdx" /> 
+  <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="API キーの設定">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Set your X credentials">
+  <Step title="X の認証情報の設定">
     ```bash
     export X_CONSUMER_KEY=xxx
     export X_CONSUMER_SECRET=xxx
@@ -37,13 +37,13 @@ agent.print_response("Make a post saying 'Hello World from Agno!'")
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="ライブラリのインストール">
     ```bash
     pip install -U tweepy openai agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="Agent の実行">
     <CodeGroup>
     ```bash Mac
     python cookbook/tools/x_tools.py
@@ -55,4 +55,3 @@ agent.print_response("Make a post saying 'Hello World from Agno!'")
     </CodeGroup>
   </Step>
 </Steps>
-

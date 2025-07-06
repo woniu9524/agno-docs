@@ -2,35 +2,33 @@
 title: AWS SES
 ---
 
-**AWSSESTool** enables an Agent to send emails using Amazon Simple Email Service (SES).
+**AWSSESTool** は、Amazon Simple Email Service (SES) を使用してエージェントが電子メールを送信できるようにします。
 
-## Prerequisites
+## 前提条件
 
-The following example requires the `boto3` library and valid AWS credentials. You can install `boto3` via pip:
+次の例では、`boto3` ライブラリと有効な AWS 認証情報が必要です。`boto3` は pip を使用してインストールできます。
 
 ```shell
 pip install boto3
 ```
 
-You must also configure your AWS credentials so that the SDK can authenticate to SES. The easiest way is via the AWS CLI:
+SDK が SES に認証できるように、AWS 認証情報も設定する必要があります。最も簡単な方法は、AWS CLI を使用することです。
 
 ```shell
 aws configure
-# OR set environment variables manually
+# または、環境変数を手動で設定します
 export AWS_ACCESS_KEY_ID=****
 export AWS_SECRET_ACCESS_KEY=****
 export AWS_DEFAULT_REGION=us-east-1
 ```
 
 <Note>
-  Make sure to add the domain or email address you want to send FROM (and, if
-  still in sandbox mode, the TO address) to the verified emails in the [SES
-  Console](https://console.aws.amazon.com/ses/home).
+  送信元として使用したいドメインまたは電子メールアドレス（サンドボックスモードの場合は、送信先アドレスも）を、[SES コンソール](https://console.aws.amazon.com/ses/home) の検証済みメールに追加してください。
 </Note>
 
-## Example
+## 例
 
-The following agent researches the latest AI news and then emails a summary via AWS SES:
+以下のエージェントは、最新の AI ニュースを調査し、その概要を AWS SES 経由で電子メールで送信します。
 
 ```python aws_ses_tools.py
 from agno.agent import Agent
@@ -38,8 +36,8 @@ from agno.models.openai import OpenAIChat
 from agno.tools.aws_ses import AWSSESTool
 from agno.tools.duckduckgo import DuckDuckGoTools
 
-# Configure email settings
-sender_email = "verified-sender@example.com"  # Your verified SES email
+# 電子メール設定の構成
+sender_email = "verified-sender@example.com"  # 検証済みの SES 電子メール
 sender_name = "Sender Name"
 region_name = "us-east-1"
 
@@ -57,35 +55,35 @@ agent = Agent(
     markdown=True,
     show_tool_calls=True,
     instructions=[
-        "When given a prompt:",
-        "1. Extract the recipient's complete email address (e.g. user@domain.com)",
-        "2. Research the latest AI developments using DuckDuckGo",
-        "3. Compose a concise, engaging email summarising 3 – 4 key developments",
-        "4. Send the email using AWS SES via the send_email tool",
+        "プロンプトが与えられた場合:",
+        "1. 受信者の完全な電子メールアドレス（例：user@domain.com）を抽出します。",
+        "2. DuckDuckGo を使用して最新の AI 開発を調査します。",
+        "3. 3 ～ 4 件の主要な開発を要約した、簡潔で魅力的な電子メールを作成します。",
+        "4. send_email ツールを使用して AWS SES で電子メールを送信します。",
     ],
 )
 
 agent.print_response(
-    "Research recent AI developments in healthcare and email the summary to johndoe@example.com"
+    "ヘルスケア分野の最近の AI 開発を調査し、johndoe@example.com に概要を電子メールで送信してください"
 )
 ```
 
-## Toolkit Params
+## Toolkit のパラメータ
 
-| Parameter      | Type  | Default       | Description                              |
+| パラメータ      | タイプ  | デフォルト       | 説明                                       |
 | -------------- | ----- | ------------- | ---------------------------------------- |
-| `sender_email` | `str` | `None`        | Verified SES sender address.             |
-| `sender_name`  | `str` | `None`        | Display name that appears to recipients. |
-| `region_name`  | `str` | `"us-east-1"` | AWS region where SES is provisioned.     |
+| `sender_email` | `str` | `None`        | 検証済みの SES 送信元アドレス。            |
+| `sender_name`  | `str` | `None`        | 受信者に表示される表示名。                 |
+| `region_name`  | `str` | `"us-east-1"` | SES がプロビジョニングされている AWS リージョン。 |
 
-## Toolkit Functions
+## Toolkit の関数
 
-| Function     | Description                                                                          |
-| ------------ | ------------------------------------------------------------------------------------ |
-| `send_email` | Send a plain-text email. Accepts the arguments: `subject`, `body`, `receiver_email`. |
+| 関数     | 説明                                                                          |
+| -------- | ----------------------------------------------------------------------------- |
+| `send_email` | プレーンテキストの電子メールを送信します。`subject`、`body`、`receiver_email` の引数を受け取ります。 |
 
-## Developer Resources
+## 開発者向けリソース
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/aws_ses.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/aws_ses_tools.py)
-- [Amazon SES Documentation](https://docs.aws.amazon.com/ses/latest/dg/)
+- [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/aws_ses.py) を表示
+- [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/aws_ses_tools.py) を表示
+- [Amazon SES ドキュメント](https://docs.aws.amazon.com/ses/latest/dg/)

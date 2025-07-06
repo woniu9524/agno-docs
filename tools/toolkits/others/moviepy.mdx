@@ -1,26 +1,26 @@
 ---
-title: MoviePy Video Tools
-description: Agno MoviePyVideoTools enable an Agent to process videos, extract audio, generate SRT caption files, and embed rich, word-highlighted captions.
+title: MoviePy ビデオツール
+description: Agno MoviePyVideoTools を使用すると、エージェントはビデオを処理し、オーディオを抽出し、SRT キャプションファイルを生成し、リッチな単語ハイライト付きキャプションを埋め込むことができます。
 ---
 
-## Prerequisites
+## 前提条件
 
-To use `MoviePyVideoTools`, you need to install `moviepy` and its dependency `ffmpeg`:
+`MoviePyVideoTools` を使用するには、`moviepy` とその依存関係である `ffmpeg` をインストールする必要があります。
 
 ```shell
 pip install moviepy ffmpeg
 ```
 
-**Important for Captioning Workflow:**
-The `create_srt` and `embed_captions` tools require a transcription of the video's audio. `MoviePyVideoTools` itself does not perform speech-to-text. You'll typically use another tool, such as `OpenAITools` with its `transcribe_audio` function, to generate the transcription (often in SRT format) which is then used by these tools.
+**キャプションワークフローの重要事項:**
+`create_srt` および `embed_captions` ツールには、ビデオのオーディオの文字起こしが必要です。`MoviePyVideoTools` 自体は音声認識を実行しません。通常、`OpenAITools` の `transcribe_audio` 関数のような別のツールを使用して文字起こし（通常は SRT 形式）を生成し、それをこれらのツールで使用します。
 
-## Example
+## 例
 
-The following example demonstrates a complete workflow where an agent uses `MoviePyVideoTools` in conjunction with `OpenAITools` to:
-1. Extract audio from a video file
-2. Transcribe the audio using OpenAI's speech-to-text
-3. Generate an SRT caption file from the transcription
-4. Embed the captions into the video with word-level highlighting
+次の例は、エージェントが `MoviePyVideoTools` と `OpenAITools` を連携させて、次のことを行う完全なワークフローを示しています。
+1. ビデオファイルからオーディオを抽出する
+2. OpenAI の音声テキスト変換を使用してオーディオを文字起こしする
+3. 文字起こしから SRT キャプションファイルを生成する
+4. 単語レベルのハイライトでキャプションをビデオに埋め込む
 
 ```python
 from agno.agent import Agent
@@ -58,27 +58,27 @@ video_caption_agent.print_response(
 )
 ```
 
-## Toolkit Functions
+## ツールキット関数
 
-These are the functions exposed by `MoviePyVideoTools`:
+これらは `MoviePyVideoTools` によって公開される関数です。
 
-| Function          | Description                                                                                                |
+| 関数          | 説明                                                                                                |
 | ----------------- | ---------------------------------------------------------------------------------------------------------- |
-| `extract_audio`   | Extracts the audio track from a video file and saves it to a specified output path.                        |
-| `create_srt`      | Saves a given transcription (expected in SRT format) to a `.srt` file at the specified output path.          |
-| `embed_captions`  | Embeds captions from an SRT file into a video, creating a new video file with word-level highlighting.     |
+| `extract_audio`   | ビデオファイルからオーディオトラックを抽出し、指定された出力パスに保存します。                        |
+| `create_srt`      | 指定された文字起こし（SRT 形式が期待されます）を指定された出力パスの `.srt` ファイルに保存します。          |
+| `embed_captions`  | SRT ファイルからキャプションをビデオに埋め込み、単語レベルのハイライトが含まれる新しいビデオファイルを作成します。     |
 
-## Toolkit Parameters
+## ツールキットパラメータ
 
-These parameters are passed to the `MoviePyVideoTools` constructor:
+これらは `MoviePyVideoTools` コンストラクタに渡されるパラメータです。
 
-| Parameter           | Type   | Default | Description                                              |
+| パラメータ           | タイプ   | デフォルト | 説明                                              |
 | ------------------- | ------ | ------- | -------------------------------------------------------- |
-| `process_video`     | `bool` | `True`  | Enables the `extract_audio` tool.                        |
-| `generate_captions` | `bool` | `True`  | Enables the `create_srt` tool.                           |
-| `embed_captions`    | `bool` | `True`  | Enables the `embed_captions` tool.                       |
+| `process_video`     | `bool` | `True`  | `extract_audio` ツールを有効にします。                        |
+| `generate_captions` | `bool` | `True`  | `create_srt` ツールを有効にします。                           |
+| `embed_captions`    | `bool` | `True`  | `embed_captions` ツールを有効にします。                       |
 
-## Developer Resources
+## 開発者リソース
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/moviepy_video.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/moviepy_video_tools.py)
+- [ツール](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/moviepy_video.py)を表示
+- [クックブック](https://github.com/agno-agi/agno/blob/main/cookbook/tools/moviepy_video_tools.py)を表示

@@ -3,32 +3,32 @@ title: Gmail
 sidebarTitle: Gmail
 ---
 
-**Gmail** enables an Agent to interact with Gmail, allowing it to read, search, send, and manage emails.
+**Gmail** を使用すると、Agent は Gmail と対話して、メールの読み取り、検索、送信、管理を行うことができます。
 
-## Prerequisites
+## 前提条件
 
-The Gmail toolkit requires Google API client libraries and proper authentication setup. Install the required dependencies:
+Gmail ツールキットには、Google API クライアントライブラリと適切な認証設定が必要です。必要な依存関係をインストールします。
 
 ```shell
 pip install google-api-python-client google-auth-httplib2 google-auth-oauthlib
 ```
 
-You'll also need to set up Google Cloud credentials:
+Google Cloud の認証情報も設定する必要があります。
 
-1. Go to [Google Cloud Console](https://console.cloud.google.com)
-2. Create a project or select an existing one
-3. Enable the Gmail API
-4. Create OAuth 2.0 credentials
-5. Set up environment variables:
+1. [Google Cloud Console](https://console.cloud.google.com) にアクセスします。
+2. プロジェクトを作成するか、既存のプロジェクトを選択します。
+3. Gmail API を有効にします。
+4. OAuth 2.0 認証情報を作成します。
+5. 環境変数を設定します。
 
 ```shell
 export GOOGLE_CLIENT_ID=your_client_id_here
 export GOOGLE_CLIENT_SECRET=your_client_secret_here
 export GOOGLE_PROJECT_ID=your_project_id_here
-export GOOGLE_REDIRECT_URI=http://localhost  # Default value
+export GOOGLE_REDIRECT_URI=http://localhost  # デフォルト値
 ```
 
-## Example
+## 例
 
 ```python cookbook/tools/gmail_tools.py
 from agno.agent import Agent
@@ -38,36 +38,35 @@ agent = Agent(tools=[GmailTools()], show_tool_calls=True)
 agent.print_response("Show me my latest 5 unread emails", markdown=True)
 ```
 
-## Toolkit Params
+## ツールキットのパラメータ
 
-| Parameter              | Type    | Default | Description                                                |
-| --------------------- | ------- | ------- | ---------------------------------------------------------- |
-| `get_latest_emails`   | `bool`  | `True`  | Enable retrieving latest emails from inbox                 |
-| `get_emails_from_user`| `bool`  | `True`  | Enable getting emails from specific senders                |
-| `get_unread_emails`   | `bool`  | `True`  | Enable fetching unread emails                             |
-| `get_starred_emails`  | `bool`  | `True`  | Enable retrieving starred emails                          |
-| `get_emails_by_context`| `bool` | `True`  | Enable searching emails by context                        |
-| `get_emails_by_date`  | `bool`  | `True`  | Enable retrieving emails within date ranges               |
-| `create_draft_email`  | `bool`  | `True`  | Enable creating email drafts                              |
-| `send_email`          | `bool`  | `True`  | Enable sending emails                                     |
-| `search_emails`       | `bool`  | `True`  | Enable searching emails                                   |
+| パラメータ              | タイプ    | デフォルト | 説明                                                 |
+| --------------------- | ------- | ------- | ----------------------------------------------------------- |
+| `get_latest_emails`   | `bool`  | `True`  | 受信トレイから最新のメールを取得できるようにします。                  |
+| `get_emails_from_user`| `bool`  | `True`  | 特定の送信者からのメールを取得できるようにします。                   |
+| `get_unread_emails`   | `bool`  | `True`  | 未読メールを取得できるようにします。                             |
+| `get_starred_emails`  | `bool`  | `True`  | スター付きメールを取得できるようにします。                         |
+| `get_emails_by_context`| `bool` | `True`  | コンテキストでメールを検索できるようにします。                     |
+| `get_emails_by_date`  | `bool`  | `True`  | 日付範囲内のメールを取得できるようにします。                       |
+| `create_draft_email`  | `bool`  | `True`  | メールドラフトを作成できるようにします。                           |
+| `send_email`          | `bool`  | `True`  | メールをすぐに送信できるようにします。                             |
+| `search_emails`       | `bool`  | `True`  | 自然言語クエリを使用してメールを検索できるようにします。                 |
 
-## Toolkit Functions
+## ツールキットの関数
 
-| Function               | Description                                                |
-| --------------------- | ---------------------------------------------------------- |
-| `get_latest_emails`   | Get the latest X emails from the user's inbox              |
-| `get_emails_from_user`| Get X number of emails from a specific sender              |
-| `get_unread_emails`   | Get the latest X unread emails                            |
-| `get_starred_emails`  | Get X number of starred emails                            |
-| `get_emails_by_context`| Get X number of emails matching a specific context        |
-| `get_emails_by_date`  | Get emails within a specific date range                   |
-| `create_draft_email`  | Create and save an email draft                            |
-| `send_email`          | Send an email immediately                                 |
-| `search_emails`       | Search emails using natural language queries              |
+| 関数               | 説明                                                 |
+| --------------------- | ----------------------------------------------------------- |
+| `get_latest_emails`   | ユーザーの受信トレイから最新の X 件のメールを取得します。              |
+| `get_emails_from_user`| 特定の送信者から X 件のメールを取得します。                   |
+| `get_unread_emails`   | 最新の X 件の未読メールを取得します。                            |
+| `get_starred_emails`  | スター付きメールを X 件取得します。                            |
+| `get_emails_by_context`| 特定のコンテキストに一致するメールを X 件取得します。        |
+| `get_emails_by_date`  | 特定の日付範囲内のメールを取得します。                   |
+| `create_draft_email`  | メールドラフトを作成して保存します。                            |
+| `send_email`          | メールをすぐに送信します。                                 |
+| `search_emails`       | 自然言語クエリを使用してメールを検索します。                 |
 
+## 開発者向けリソース
 
-## Developer Resources
-
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/gmail.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/gmail_tools.py)
+- [ツール](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/gmail.py)を表示
+- [クックブック](https://github.com/agno-agi/agno/blob/main/cookbook/tools/gmail_tools.py)を表示

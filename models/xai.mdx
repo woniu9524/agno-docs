@@ -1,18 +1,18 @@
 ---
 title: xAI
-description: Learn how to use xAI with Agno.
+description: Agno で xAI を使用する方法を学びます。
 ---
 
-xAI is a platform for providing endpoints for Large Language models.
-See their list of models [here](https://docs.x.ai/docs/models).
+xAI は、大規模言語モデルのエンドポイントを提供するプラットフォームです。
+モデルのリストは[こちら](https://docs.x.ai/docs/models)で確認してください。
 
-We recommend experimenting to find the best-suited model for your use-case. `grok-beta` model is good for most use-cases.
+ユースケースに最適なモデルを見つけるために、実験することをお勧めします。`grok-beta` モデルはほとんどのユースケースに適しています。
 
-xAI has rate limits on their APIs. See the [docs](https://docs.x.ai/docs/usage-tiers-and-rate-limits) for more information.
+xAI は API にレート制限があります。[ドキュメント](https://docs.x.ai/docs/usage-tiers-and-rate-limits)で詳細を確認してください。
 
-## Authentication
+## 認証
 
-Set your `XAI_API_KEY` environment variable. You can get one [from xAI here](https://console.x.ai/).
+`XAI_API_KEY` 環境変数を設定してください。xAI から[こちら](https://console.x.ai/)で取得できます。
 
 <CodeGroup>
 
@@ -26,9 +26,9 @@ setx XAI_API_KEY sk-***
 
 </CodeGroup>
 
-## Example
+## 例
 
-Use `xAI` with your `Agent`:
+`Agent` で `xAI` を使用します。
 
 <CodeGroup>
 
@@ -42,21 +42,21 @@ agent = Agent(
     markdown=True
 )
 
-# Print the response in the terminal
+# 応答をターミナルに出力します
 agent.print_response("Share a 2 sentence horror story.")
 
 ```
 
 </CodeGroup>
 
-<Note> View more examples [here](../examples/models/xai). </Note>
+<Note> その他の例は[こちら](../examples/models/xai)でご覧ください。 </Note>
 
-## Params
+## パラメータ
 
-For more information, please refer to the [xAI docs](https://docs.x.ai/docs) as well.
+詳細については、[xAI ドキュメント](https://docs.x.ai/docs)も参照してください。
 
-## Params
+## パラメータ
 
 <Snippet file="model-xai-params.mdx" />
 
-`xAI` also supports the params of [OpenAI](/reference/models/openai).
+`xAI` は [OpenAI](/reference/models/openai) のパラメータもサポートしています。

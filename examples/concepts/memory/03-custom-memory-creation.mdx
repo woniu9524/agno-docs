@@ -1,10 +1,10 @@
 ---
-title: Custom Memory Creation
+title: カスタムメモリの作成
 ---
 
-This example demonstrates how to create user memories with an Agent by providing either text or a list of messages. The Agent uses a custom memory manager to capture and store relevant details.
+この例では、テキストまたはメッセージのリストを提供することで、エージェントを使用してユーザーメモリを作成する方法を示します。エージェントはカスタムメモリマネージャーを使用して、関連する詳細をキャプチャおよび保存します。
 
-## Code
+## コード
 
 ```python cookbook/agent_concepts/memory/04_custom_memory_creation.py
 from agno.memory.v2 import Memory
@@ -16,7 +16,7 @@ from agno.models.message import Message
 from rich.pretty import pprint
 
 memory_db = SqliteMemoryDb(table_name="memory", db_file="tmp/memory.db")
-# Reset for this example
+# この例のためにリセットします
 memory_db.clear()
 
 memory = Memory(
@@ -24,9 +24,9 @@ memory = Memory(
     memory_manager=MemoryManager(
         model=Gemini(id="gemini-2.0-flash-exp"),
         memory_capture_instructions="""\
-                    Memories should only include details about the user's academic interests.
-                    Only include which subjects they are interested in.
-                    Ignore names, hobbies, and personal interests.
+                    ユーザーの学術的興味に関する詳細のみを記憶に含めてください。
+                    興味のある科目のみを含めてください。
+                    名前、趣味、個人的な興味は無視してください。
                     """,
     ),
     db=memory_db,
@@ -36,74 +36,74 @@ john_doe_id = "john_doe@example.com"
 
 memory.create_user_memories(
     message="""\
-My name is John Doe.
+私の名前はジョン・ドウです。
 
-I enjoy hiking in the mountains on weekends,
-reading science fiction novels before bed,
-cooking new recipes from different cultures,
-playing chess with friends.
+週末は山でハイキングをしたり、
+寝る前にSF小説を読んだり、
+異文化の新しいレシピを料理したり、
+友達とチェスをしたりするのが好きです。
 
-I am interested to learn about the history of the universe and other astronomical topics.
+宇宙の歴史やその他の天文学的なトピックについて学ぶことに興味があります。
 """,
     user_id=john_doe_id,
 )
 
 
 memories = memory.get_user_memories(user_id=john_doe_id)
-print("John Doe's memories:")
+print("ジョン・ドウの記憶:")
 pprint(memories)
 
 
-# Use default memory manager
+# デフォルトのメモリマネージャーを使用します
 memory = Memory(model=Claude(id="claude-3-5-sonnet-latest"), db=memory_db)
 jane_doe_id = "jane_doe@example.com"
 
-# Send a history of messages and add memories
+# メッセージ履歴を送信し、メモリを追加します
 memory.create_user_memories(
     messages=[
-        Message(role="user", content="Hi, how are you?"),
-        Message(role="assistant", content="I'm good, thank you!"),
-        Message(role="user", content="What are you capable of?"),
+        Message(role="user", content="こんにちは、お元気ですか？"),
+        Message(role="assistant", content="元気です、ありがとう！"),
+        Message(role="user", content="何ができますか？"),
         Message(
             role="assistant",
-            content="I can help you with your homework and answer questions about the universe.",
+            content="宿題を手伝ったり、宇宙に関する質問に答えたりできます。",
         ),
-        Message(role="user", content="My name is Jane Doe"),
-        Message(role="user", content="I like to play chess"),
+        Message(role="user", content="私の名前はジェーン・ドウです"),
+        Message(role="user", content="チェスをするのが好きです"),
         Message(
             role="user",
-            content="Actually, forget that I like to play chess. I more enjoy playing table top games like dungeons and dragons",
+            content="実は、チェスをするのが好きだということは忘れてください。ダンジョンズ＆ドラゴンズのようなテーブルトップゲームをプレイする方が好きです。",
         ),
         Message(
             role="user",
-            content="I'm also interested in learning about the history of the universe and other astronomical topics.",
+            content="宇宙の歴史やその他の天文学的なトピックについて学ぶことにも興味があります。",
         ),
-        Message(role="assistant", content="That is great!"),
+        Message(role="assistant", content="それは素晴らしいですね！"),
         Message(
             role="user",
-            content="I am really interested in physics. Tell me about quantum mechanics?",
+            content="物理学に本当に興味があります。量子力学について教えてください。",
         ),
     ],
     user_id=jane_doe_id,
 )
 
 memories = memory.get_user_memories(user_id=jane_doe_id)
-print("Jane Doe's memories:")
+print("ジェーン・ドウの記憶:")
 pprint(memories)
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install libraries">
+  <Step title="ライブラリのインストール">
     ```bash
     pip install -U agno rich
     ```
   </Step>
 
-  <Step title="Run Example">
+  <Step title="例の実行">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/memory/04_custom_memory_creation.py
@@ -114,4 +114,4 @@ pprint(memories)
     ```
     </CodeGroup>
   </Step>
-</Steps> 
+</Steps>

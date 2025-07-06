@@ -2,7 +2,7 @@
 title: OpenBB
 ---
 
-**OpenBBTools** enable an Agent to provide information about stocks and companies.
+**OpenBBTools** は、エージェントが株式や企業に関する情報を提供する機能を有効にします。
 
 ```python cookbook/tools/openbb_tools.py
 from agno.agent import Agent
@@ -11,41 +11,41 @@ from agno.tools.openbb import OpenBBTools
 
 agent = Agent(tools=[OpenBBTools()], debug_mode=True, show_tool_calls=True)
 
-# Example usage showing stock analysis
+# 株価分析を示す例
 agent.print_response(
-    "Get me the current stock price and key information for Apple (AAPL)"
+    "Apple (AAPL) の現在の株価と主要情報を教えてください"
 )
 
-# Example showing market analysis
+# 市場分析を示す例
 agent.print_response(
-    "What are the top gainers in the market today?"
+    "今日の市場でトップの上げ銘柄は何ですか？"
 )
 
-# Example showing economic indicators
+# 経済指標を示す例
 agent.print_response(
-    "Show me the latest GDP growth rate and inflation numbers for the US"
+    "米国の最新のGDP成長率とインフレ率を示してください"
 )
 ```
 
 ## Toolkit Params
 
-| Parameter         | Type   | Default | Description                                                                        |
-| ----------------- | ------ | ------- | ---------------------------------------------------------------------------------- |
-| `read_article`    | `bool` | `True`  | Enables the functionality to read the full content of an article.                  |
-| `include_summary` | `bool` | `False` | Specifies whether to include a summary of the article along with the full content. |
-| `article_length`  | `int`  | -       | The maximum length of the article or its summary to be processed or returned.      |
+| パラメータ         | タイプ   | デフォルト | 説明                                                                 |
+| ------------------ | ------ | ------- | -------------------------------------------------------------------- |
+| `read_article`     | `bool` | `True`  | 記事の全文を読み取る機能を有効にします。                               |
+| `include_summary`  | `bool` | `False` | 全文コンテンツとともに記事の要約を含めるかどうかを指定します。           |
+| `article_length`   | `int`  | -       | 処理または返される記事またはその要約の最大長。                         |
 
 ## Toolkit Functions
 
-| Function                | Description                                                                       |
-| ----------------------- | --------------------------------------------------------------------------------- |
-| `get_stock_price`       | This function gets the current stock price for a stock symbol or list of symbols. |
-| `search_company_symbol` | This function searches for the stock symbol of a company.                         |
-| `get_price_targets`     | This function gets the price targets for a stock symbol or list of symbols.       |
-| `get_company_news`      | This function gets the latest news for a stock symbol or list of symbols.         |
-| `get_company_profile`   | This function gets the company profile for a stock symbol or list of symbols.     |
+| 関数                | 説明                                                               |
+| ------------------- | ------------------------------------------------------------------ |
+| `get_stock_price`   | この関数は、株式シンボルまたはシンボルのリストの現在の株価を取得します。 |
+| `search_company_symbol` | この関数は、企業の株式シンボルを検索します。                       |
+| `get_price_targets` | この関数は、株式シンボルまたはシンボルのリストの価格ターゲットを取得します。 |
+| `get_company_news`  | この関数は、株式シンボルまたはシンボルのリストの最新ニュースを取得します。 |
+| `get_company_profile` | この関数は、株式シンボルまたはシンボルのリストの企業プロフィールを取得します。 |
 
 ## Developer Resources
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/openbb.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/openbb_tools.py)
+- [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/openbb.py) を表示
+- [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/openbb_tools.py) を表示

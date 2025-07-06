@@ -21,7 +21,7 @@ knowledge_base = PDFUrlKnowledgeBase(
         embedder=GeminiEmbedder(),
     ),
 )
-knowledge_base.load(recreate=True)  # Comment out after first run
+knowledge_base.load(recreate=True)  # 初回実行後にコメントアウトしてください
 
 agent = Agent(
     model=Gemini(id="gemini-2.0-flash-exp"),

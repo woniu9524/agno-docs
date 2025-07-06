@@ -1,55 +1,55 @@
-## Setup and Configuration
+## セットアップと構成
 <Steps>
 
-<Step title="Prerequisites">
-Ensure you have the following:
-- Python 3.7+
-- A Discord account with server management permissions
-- Required Python packages (will be installed in later steps)
+<Step title="前提条件">
+以下が揃っていることを確認してください：
+- Python 3.7以降
+- サーバー管理権限を持つDiscordアカウント
+- 必要なPythonパッケージ（後のステップでインストールします）
 </Step>
 
-<Step title="Create a Discord Application">
-1. Go to [Discord Developer Portal](https://discord.com/developers/applications)
-2. Click "New Application"
-3. Provide an application name (e.g., "My Agno Bot")
-4. Accept the Developer Terms of Service
-5. Click "Create"
+<Step title="Discordアプリケーションの作成">
+1. [Discord Developer Portal](https://discord.com/developers/applications)にアクセスします
+2. 「New Application」をクリックします
+3. アプリケーション名を入力します（例：「My Agno Bot」）
+4. Developer Terms of Serviceに同意します
+5. 「Create」をクリックします
 </Step>
 
-<Step title="Create a Bot User">
-1. In your application settings, navigate to the "Bot" section
-2. Click "Add Bot"
-3. Confirm by clicking "Yes, do it!"
-4. Under the "Token" section, click "Copy" to copy your bot token
-5. Save this token securely (you'll need it later)
+<Step title="ボットユーザーの作成">
+1. アプリケーションの設定で、「Bot」セクションに移動します
+2. 「Add Bot」をクリックします
+3. 「Yes, do it!」をクリックして確認します
+4. 「Token」セクションで、「Copy」をクリックしてボットトークンをコピーします
+5. このトークンは安全に保存してください（後で必要になります）
 </Step>
 
-<Step title="Configure Bot Permissions and Intents">
-1. In the Bot settings, scroll down to "Privileged Gateway Intents"
-2. Enable the following intents:
-   - **Presence Intent** (optional, for user status)
-   - **Server Members Intent** (for member-related events)
-   - **Message Content Intent** (required for reading message content)
-3. Under "Bot Permissions", ensure your bot has:
+<Step title="ボットの権限とインテントの構成">
+1. ボットの設定で、「Privileged Gateway Intents」までスクロールします
+2. 以下を有効にします：
+   - **Presence Intent**（オプション、ユーザーのステータス用）
+   - **Server Members Intent**（メンバー関連イベント用）
+   - **Message Content Intent**（メッセージコンテンツの読み取りに必要）
+3. 「Bot Permissions」で、ボットが以下を持っていることを確認します：
    - Send Messages
    - Read Message History
    - Create Public Threads
-   - Use Slash Commands (optional)
+   - Use Slash Commands（オプション）
 </Step>
 
-<Step title="Setup Environment Variables">
-Create a `.envrc` file in your project root with the following content, replacing the placeholder with your actual bot token:
+<Step title="環境変数のセットアップ">
+プロジェクトのルートに`.envrc`ファイルを作成し、プレースホルダーを実際のボットトークンに置き換えて、以下の内容を記述します：
 ```bash
 export DISCORD_BOT_TOKEN="your_bot_token_here"
 ```
 
-Find your bot token in the Discord Developer Portal under "Bot" > "Token".
+ボットトークンは、Discord Developer Portalの「Bot」>「Token」で確認できます。
 
-Ensure this file is sourced by your shell (e.g., by using `direnv allow`).
+このファイルがシェルによってソースされていることを確認してください（例：「direnv allow」を使用）。
 </Step>
 
-<Step title="Install Required Packages">
-Install the necessary Python packages:
+<Step title="必要なパッケージのインストール">
+必要なPythonパッケージをインストールします：
 ```bash
 pip install discord.py agno
 ```
@@ -57,31 +57,31 @@ pip install discord.py agno
 
 </Step>
 
-<Step title="Invite Bot to Your Discord Server">
-1. In your application settings, go to "OAuth2" > "URL Generator"
-2. Under "Scopes", select:
+<Step title="ボットをDiscordサーバーに招待する">
+1. アプリケーションの設定で、「OAuth2」>「URL Generator」に移動します
+2. 「Scopes」で以下を選択します：
    - `bot`
-   - `applications.commands` (if using slash commands)
-3. Under "Bot Permissions", select the permissions your bot needs:
+   - `applications.commands`（スラッシュコマンドを使用する場合）
+3. 「Bot Permissions」で、ボットが必要とする権限を選択します：
    - **Send Messages**
    - **Create Public Threads**
    - **Read Message History**
    - **Attach Files**
    - **Embed Links**
-   - **Use External Emojis** (optional)
-4. Copy the generated URL, navigate to it in your browser, and select the server where you want to add the bot
+   - **Use External Emojis**（オプション）
+4. 生成されたURLをコピーし、ブラウザでアクセスして、ボットを追加したいサーバーを選択します
 </Step>
 
-<Step title="Test Your Bot">
-1. Start your bot application
-2. Go to your Discord server
-3. Send a message in any channel where your bot has access
-4. Your bot should automatically create a thread and respond
-5. If using a media bot, try uploading an image or file to test media processing
+<Step title="ボットのテスト">
+1. ボットアプリケーションを起動します
+2. Discordサーバーに移動します
+3. ボットがアクセスできる任意のチャンネルでメッセージを送信します
+4. ボットは自動的にスレッドを作成して応答するはずです
+5. メディアボットを使用している場合は、画像をアップロードしてメディア処理をテストしてみてください
 </Step>
 
 </Steps>
 
 <Callout type="warning">
-**Security Note**: Never commit your Discord bot token to version control. Always use environment variables or secure configuration management for sensitive data.
+**セキュリティに関する注意**: Discordボットトークンをバージョン管理システムにコミットしないでください。機密データには、常に環境変数またはセキュアな設定管理を使用してください。
 </Callout>

@@ -1,6 +1,6 @@
-| Parameter | Type | Default | Description |
+| パラメータ | タイプ | デフォルト | 説明 |
 |-----------|------|---------|-------------|
-| model | str | "rerank-multilingual-v3.0" | The Cohere model to use for reranking. |
-| api_key | Optional[str] | None | The Cohere API key. If not provided, will attempt to use environment variables. |
-| cohere_client | Optional[CohereClient] | None | An optional pre-configured Cohere client instance. |
-| top_n | Optional[int] | None | The maximum number of documents to return after reranking. If None, returns all documents. |
+| model | str | "rerank-multilingual-v3.0" | 再ランキングに使用するCohereモデル。 |
+| api_key | Optional[str] | None | Cohere APIキー。提供されない場合は、環境変数を使用しようとします。 |
+| cohere_client | Optional[CohereClient] | None | オプションの事前設定済みCohereクライアントインスタンス。 |
+| top_n | Optional[int] | None | 再ランキング後に返すドキュメントの最大数。Noneの場合は、すべてのドキュメントを返します。 |

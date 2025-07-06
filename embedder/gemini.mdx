@@ -3,23 +3,23 @@ title: Gemini Embedder
 sidebarTitle: Gemini
 ---
 
-The `GeminiEmbedder` class is used to embed text data into vectors using the Gemini API. You can get one from [here](https://ai.google.dev/aistudio).
+`GeminiEmbedder` クラスは、Gemini API を使用してテキストデータをベクトルに埋め込むために使用されます。このクラスは[こちら](https://ai.google.dev/aistudio)から取得できます。
 
-## Usage
+## 使用方法
 
 ```python cookbook/embedders/gemini_embedder.py
 from agno.agent import AgentKnowledge
 from agno.vectordb.pgvector import PgVector
 from agno.embedder.google import GeminiEmbedder
 
-# Embed sentence in database
+# データベース内の文を埋め込む
 embeddings = GeminiEmbedder().get_embedding("The quick brown fox jumps over the lazy dog.")
 
-# Print the embeddings and their dimensions
+# 埋め込みとその次元を出力する
 print(f"Embeddings: {embeddings[:5]}")
 print(f"Dimensions: {len(embeddings)}")
 
-# Use an embedder in a knowledge base
+# 知識ベースで埋め込みを使用する
 knowledge_base = AgentKnowledge(
     vector_db=PgVector(
         db_url="postgresql+psycopg://ai:ai@localhost:5532/ai",
@@ -30,18 +30,18 @@ knowledge_base = AgentKnowledge(
 )
 ```
 
-## Params
+## パラメータ
 
-| Parameter        | Type                       | Default                     | Description                                                 |
+| パラメータ        | タイプ                       | デフォルト                     | 説明                                                 |
 | ---------------- | -------------------------- | --------------------------- | ----------------------------------------------------------- |
-| `dimensions`     | `int`                      | `768`                       | The dimensionality of the generated embeddings              |
-| `model`          | `str`                      | `models/text-embedding-004` | The name of the Gemini model to use                         |
-| `task_type`      | `str`                      | -                           | The type of task for which embeddings are being generated   |
-| `title`          | `str`                      | -                           | Optional title for the embedding task                       |
-| `api_key`        | `str`                      | -                           | The API key used for authenticating requests.               |
-| `request_params` | `Optional[Dict[str, Any]]` | -                           | Optional dictionary of parameters for the embedding request |
-| `client_params`  | `Optional[Dict[str, Any]]` | -                           | Optional dictionary of parameters for the Gemini client     |
-| `gemini_client`  | `Optional[Client]`         | -                           | Optional pre-configured Gemini client instance              |
+| `dimensions`     | `int`                      | `768`                       | 生成される埋め込みの次元数                                             |
+| `model`          | `str`                      | `models/text-embedding-004` | 使用する Gemini モデルの名前                                         |
+| `task_type`      | `str`                      | -                           | 埋め込みが生成されるタスクの種類                                     |
+| `title`          | `str`                      | -                           | 埋め込みタスクのオプションのタイトル                                     |
+| `api_key`        | `str`                      | -                           | リクエストの認証に使用される API キー                                     |
+| `request_params` | `Optional[Dict[str, Any]]` | -                           | 埋め込みリクエストのパラメータのオプションの辞書                               |
+| `client_params`  | `Optional[Dict[str, Any]]` | -                           | Gemini クライアントのパラメータのオプションの辞書                               |
+| `gemini_client`  | `Optional[Client]`         | -                           | 事前に設定された Gemini クライアントインスタンスのオプション                               |
 
-## Developer Resources
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/embedders/gemini_embedder.py)
+## 開発者向けリソース
+- [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/embedders/gemini_embedder.py) を表示

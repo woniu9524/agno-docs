@@ -3,23 +3,23 @@ title: "Pipedream Auth"
 description: "This example shows how to add authorization when integrating Pipedream MCP servers with Agno Agents."
 ---
 
-## Code
+## コード
 
 ```python
 """
-🔒 Using Pipedream MCP servers with authentication
+🔒 Pipedream MCP サーバーの認証付き利用
 
-This is an example of how to use Pipedream MCP servers with authentication.
-This is useful if your app is interfacing with the MCP servers in behalf of your users.
+これは、Pipedream MCP サーバーを認証付きで利用する方法の例です。
+これは、あなたのアプリがユーザーの代わりに MCP サーバーと連携する場合に役立ちます。
 
-1. Get your access token. You can check how in Pipedream's docs: https://pipedream.com/docs/connect/mcp/developers/
-2. Get the URL of the MCP server. It will look like this: https://remote.mcp.pipedream.net/<External user id>/<MCP app slug>
-3. Set the environment variables:
-    - MCP_SERVER_URL: The URL of the MCP server you previously got
-    - MCP_ACCESS_TOKEN: The access token you previously got
-    - PIPEDREAM_PROJECT_ID: The project id of the Pipedream project you want to use
-    - PIPEDREAM_ENVIRONMENT: The environment of the Pipedream project you want to use
-3. Install dependencies: pip install agno mcp-sdk
+1. アクセストークンを取得します。取得方法は Pipedream のドキュメントで確認できます: https://pipedream.com/docs/connect/mcp/developers/
+2. MCP サーバーの URL を取得します。次のような形式になります: https://remote.mcp.pipedream.net/<External user id>/<MCP app slug>
+3. 環境変数を設定します:
+    - MCP_SERVER_URL: 先ほど取得した MCP サーバーの URL
+    - MCP_ACCESS_TOKEN: 先ほど取得したアクセストークン
+    - PIPEDREAM_PROJECT_ID: 使用したい Pipedream プロジェクトのプロジェクト ID
+    - PIPEDREAM_ENVIRONMENT: 使用したい Pipedream プロジェクトの環境
+3. 依存関係をインストールします: pip install agno mcp-sdk
 """
 
 import asyncio
@@ -58,10 +58,10 @@ async def run_agent(task: str) -> None:
             )
             await agent.aprint_response(message=task, stream=True)
     except Exception as e:
-        log_exception(f"Unexpected error: {e}")
+        log_exception(f"予期せぬエラー: {e}")
 
 
 if __name__ == "__main__":
-    # The agent can read channels, users, messages, etc.
+    # エージェントはチャンネル、ユーザー、メッセージなどを読み取ることができます。
     asyncio.run(run_agent("Show me the latest message in the channel #general"))
 ```

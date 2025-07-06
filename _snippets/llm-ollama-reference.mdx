@@ -1,33 +1,33 @@
 <ResponseField name="name" type="str" default="Ollama">
 </ResponseField>
 <ResponseField name="model" type="str" default="openhermes">
-  ID of the model to use.
+  使用するモデルのID。
 </ResponseField>
 <ResponseField name="host" type="str">
 </ResponseField>
 <ResponseField name="timeout" type="Any">
 </ResponseField>
 <ResponseField name="format" type="str">
- The format to return a response in. Currently the only accepted value is json
+  レスポンスを返すフォーマット。現在受け入れられる唯一の値はjsonです。
 </ResponseField>
 <ResponseField name="options" type="Any">
-  Additional model parameters such as temperature
+  温度などの追加のモデルパラメータ。
 </ResponseField>
 <ResponseField name="keep_alive" type="Union[float, str]">
-   Controls how long the model will stay loaded into memory following the request.
+   リクエストの後、モデルがメモリにロードされたままになる時間を制御します。
 </ResponseField>
 <ResponseField name="client_kwargs" type="Dict[str, Any]" default="None">
-  Additional `{key: value}` dict sent when initalizing the `Ollama()` client.
+  `Ollama()`クライアントを初期化するときに送信される追加の`{key: value}`辞書。
 </ResponseField>
 <ResponseField name="ollama_client" type="ollama.Client()" default="None">
-  Provide your own `ollama.Client()`
+  独自の`ollama.Client()`を提供します。
 </ResponseField>
 <ResponseField name="function_call_limit" type="int" default="10">
-  Maximum number of function calls allowed across all iterations.
+  すべてのイテレーションで許可される最大関数呼び出し数。
 </ResponseField>
 <ResponseField name="deactivate_tools_after_use" type="bool" default="False">
-  Deactivate tool calls by turning off JSON mode after 1 tool call
+  1回のツール呼び出し後にJSONモードをオフにすることで、ツール呼び出しを非アクティブ化します。
 </ResponseField>
 <ResponseField name="add_user_message_after_tool_call" type="bool" default="True">
-  After a tool call is run, add the user message as a reminder to the LLM
+  ツール呼び出しが実行された後、LLMへのリマインダーとしてユーザーメッセージを追加します。
 </ResponseField>

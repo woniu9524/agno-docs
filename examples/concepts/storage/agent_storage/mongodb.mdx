@@ -3,32 +3,32 @@ title: Mongo Agent Storage
 sidebarTitle: MongoDB
 ---
 
-Agno supports using MongoDB as a storage backend for Agents using the `MongoDbStorage` class.
+Agno は、`MongoDbStorage` クラスを使用して、エージェントのストレージバックエンドとして MongoDB をサポートしています。
 
-## Usage
+## 使用方法
 
-You need to provide either `db_url` or `client`. The following example uses `db_url`.
+`db_url` または `client` のいずれかを提供する必要があります。以下の例では `db_url` を使用しています。
 
 ```python mongodb_storage_for_agent.py
 from agno.storage.mongodb import MongoDbStorage
 
 db_url = "mongodb://ai:ai@localhost:27017/agno"
 
-# Create a storage backend using the Mongo database
+# Mongo データベースを使用してストレージバックエンドを作成します
 storage = MongoDbStorage(
-    # store sessions in the agent_sessions collection
+    # セッションを agent_sessions コレクションに保存します
     collection_name="agent_sessions",
     db_url=db_url,
 )
 
-# Add storage to the Agent
+# Agent にストレージを追加します
 agent = Agent(storage=storage)
 ```
 
-## Params
+## パラメータ
 
 <Snippet file="storage-mongodb-params.mdx" />
 
-## Developer Resources
+## 開発者向けリソース
 
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/storage/mongodb_storage/mongodb_storage_for_agent.py)
+- [クックブック](https://github.com/agno-agi/agno/blob/main/cookbook/storage/mongodb_storage/mongodb_storage_for_agent.py)を表示

@@ -2,9 +2,9 @@
 title: Teams Demo
 ---
 
-## Code
+## コード
 
-```python cookbook/apps/playground/teams_demo.py 
+```python cookbook/apps/playground/teams_demo.py
 from textwrap import dedent
 from agno.agent import Agent
 from agno.memory.v2 import Memory
@@ -238,12 +238,12 @@ if __name__ == "__main__":
 
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API keys">
+  <Step title="APIキーの設定">
     ```bash
     export OPENAI_API_KEY=xxx
     export ANTHROPIC_API_KEY=xxx
@@ -252,13 +252,13 @@ if __name__ == "__main__":
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="ライブラリのインストール">
     ```bash
     pip install -U agno "uvicorn[standard]" openai anthropic google-generativeai duckduckgo-search exa-py yfinance psycopg-binary
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="エージェントの実行">
     <CodeGroup>
     ```bash Mac
     python cookbook/apps/playground/teams_demo.py
@@ -269,4 +269,4 @@ if __name__ == "__main__":
     ```
     </CodeGroup>
   </Step>
-</Steps> 
+</Steps>

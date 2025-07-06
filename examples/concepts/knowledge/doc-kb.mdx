@@ -2,7 +2,7 @@
 title: Document Knowledge Base
 ---
 
-## Code
+## コード
 
 ```python
 from agno.agent import Agent
@@ -11,25 +11,25 @@ from agno.knowledge.document import DocumentKnowledgeBase
 from agno.vectordb.pgvector import PgVector
 
 fun_facts = """
-- Earth is the third planet from the Sun and the only known astronomical object to support life.
-- Approximately 71% of Earth's surface is covered by water, with the Pacific Ocean being the largest.
-- The Earth's atmosphere is composed mainly of nitrogen (78%) and oxygen (21%), with traces of other gases.
-- Earth rotates on its axis once every 24 hours, leading to the cycle of day and night.
-- The planet has one natural satellite, the Moon, which influences tides and stabilizes Earth's axial tilt.
-- Earth's tectonic plates are constantly shifting, leading to geological activities like earthquakes and volcanic eruptions.
-- The highest point on Earth is Mount Everest, standing at 8,848 meters (29,029 feet) above sea level.
-- The deepest part of the ocean is the Mariana Trench, reaching depths of over 11,000 meters (36,000 feet).
-- Earth has a diverse range of ecosystems, from rainforests and deserts to coral reefs and tundras.
-- The planet's magnetic field protects life by deflecting harmful solar radiation and cosmic rays.
+- 地球は太陽から3番目の惑星であり、生命を支える唯一知られている天体です。
+- 地球の表面の約71%は水で覆われており、太平洋が最大です。
+- 地球の大気は主に窒素（78%）と酸素（21%）で構成されており、微量の他のガスが含まれています。
+- 地球は24時間ごとに軸を中心に1回転し、昼夜のサイクルをもたらします。
+- 地球には1つの自然衛星である月があり、潮汐に影響を与え、地球の自転軸の傾きを安定させます。
+- 地球の地殻変動は絶えず移動しており、地震や火山噴火などの地質活動を引き起こします。
+- 地球で最も高い地点はエベレスト山で、海抜8,848メートル（29,029フィート）です。
+- 海で最も深い場所はマリアナ海溝で、深さは11,000メートル（36,000フィート）を超えます。
+- 地球には、熱帯雨林や砂漠からサンゴ礁やツンドラまで、多様な生態系があります。
+- 地球の磁場は、有害な太陽放射線や宇宙線から身を守ることで生命を保護します。
 """
 
-# Load documents from the data/docs directory
+# data/docs ディレクトリからドキュメントをロードします
 documents = [Document(content=fun_facts)]
 
-# Database connection URL
+# データベース接続URL
 db_url = "postgresql+psycopg://ai:ai@localhost:5532/ai"
 
-# Create a knowledge base with the loaded documents
+# ロードされたドキュメントで知識ベースを作成します
 knowledge_base = DocumentKnowledgeBase(
     documents=documents,
     vector_db=PgVector(
@@ -38,32 +38,32 @@ knowledge_base = DocumentKnowledgeBase(
     ),
 )
 
-# Load the knowledge base
+# 知識ベースをロードします
 knowledge_base.load(recreate=False)
 
-# Create an agent with the knowledge base
+# 知識ベースでエージェントを作成します
 agent = Agent(
     knowledge=knowledge_base,
 )
 
-# Ask the agent about the knowledge base
+# エージェントに知識ベースについて質問します
 agent.print_response(
     "Ask me about something from the knowledge base about earth", markdown=True
 )
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install libraries">
+  <Step title="ライブラリのインストール">
     ```bash
     pip install -U sqlalchemy 'psycopg[binary]' pgvector agno
     ```
   </Step>
 
-  <Step title="Run PgVector">
+  <Step title="PgVectorの実行">
     ```bash
     docker run -d \
       -e POSTGRES_DB=ai \
@@ -77,7 +77,7 @@ agent.print_response(
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="エージェントの実行">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/knowledge/doc_kb.py

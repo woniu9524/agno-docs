@@ -2,17 +2,17 @@
 title: AWS Lambda
 ---
 
-## Prerequisites
+## 前提条件
 
-The following example requires the `boto3` library.
+以下の例では、`boto3` ライブラリが必要です。
 
 ```shell
 pip install openai boto3
 ```
 
-## Example
+## 例
 
-The following agent will use AWS Lambda to list all Lambda functions in our AWS account and invoke a specific Lambda function.
+以下のエージェントは、AWS Lambda を使用して AWS アカウント内のすべての Lambda 関数を一覧表示し、特定の Lambda 関数を呼び出します。
 
 ```python cookbook/tools/aws_lambda_tools.py
 
@@ -20,34 +20,34 @@ from agno.agent import Agent
 from agno.tools.aws_lambda import AWSLambdaTools
 
 
-# Create an Agent with the AWSLambdaTool
+# AWSLambdaTool を使用した Agent の作成
 agent = Agent(
     tools=[AWSLambdaTools(region_name="us-east-1")],
     name="AWS Lambda Agent",
     show_tool_calls=True,
 )
 
-# Example 1: List all Lambda functions
+# 例 1: すべての Lambda 関数を一覧表示
 agent.print_response("List all Lambda functions in our AWS account", markdown=True)
 
-# Example 2: Invoke a specific Lambda function
+# 例 2: 特定の Lambda 関数を呼び出す
 agent.print_response("Invoke the 'hello-world' Lambda function with an empty payload", markdown=True)
 ```
 
-## Toolkit Params
+## Toolkit パラメータ
 
-| Parameter     | Type  | Default       | Description                                         |
+| パラメータ     | タイプ  | デフォルト       | 説明                                         |
 | ------------- | ----- | ------------- | --------------------------------------------------- |
-| `region_name` | `str` | `"us-east-1"` | AWS region name where Lambda functions are located. |
+| `region_name` | `str` | `"us-east-1"` | Lambda 関数が存在する AWS リージョン名。 |
 
-## Toolkit Functions
+## Toolkit 関数
 
-| Function          | Description                                                                                                           |
+| 関数          | 説明                                                                                                           |
 | ----------------- | --------------------------------------------------------------------------------------------------------------------- |
-| `list_functions`  | Lists all Lambda functions available in the AWS account.                                                              |
-| `invoke_function` | Invokes a specific Lambda function with an optional payload. Takes `function_name` and optional `payload` parameters. |
+| `list_functions`  | AWS アカウントで利用可能なすべての Lambda 関数を一覧表示します。                                                              |
+| `invoke_function` | オプションのペイロードを指定して、特定の Lambda 関数を呼び出します。`function_name` およびオプションの `payload` パラメータを受け取ります。 |
 
-## Developer Resources
+## 開発者向けリソース
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/aws_lambda.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/aws_lambda_tools.py)
+- [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/aws_lambda.py) を表示
+- [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/aws_lambda_tools.py) を表示

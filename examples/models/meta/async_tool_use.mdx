@@ -1,8 +1,8 @@
 ---
-<title>Agent with Async Tool Usage</title>
+<title>非同期ツール使用のエージェント</title>
 ---
 
-## Code
+## コード
 
 ```python cookbook/models/meta/async_tool_use.py
 import asyncio
@@ -23,24 +23,24 @@ asyncio.run(
 )
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your LLAMA API key">
+  <Step title="LLAMA API キーを設定する">
     ```bash
     export LLAMA_API_KEY=YOUR_API_KEY
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="ライブラリをインストールする">
     ```bash
     pip install llama-api-client duckduckgo-search agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="エージェントを実行する">
     <CodeGroup>
     ```bash Mac
     python cookbook/models/meta/async_tool_use.py
@@ -51,4 +51,4 @@ asyncio.run(
     ```
     </CodeGroup>
   </Step>
-</Steps> 
+</Steps>

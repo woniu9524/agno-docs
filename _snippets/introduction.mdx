@@ -1,25 +1,25 @@
 ---
-title: What are Agents?
-description: Agents are intelligent programs that can achieve complex tasks by taking actions. Use them to automate repeatable workflows and build new user experiences.
-sidebarTitle: Introduction
+title: エージェントとは
+description: エージェントは、アクションを実行することで複雑なタスクを達成できるインテリジェントなプログラムです。これらを使用して、繰り返し可能なワークフローを自動化し、新しいユーザーエクスペリエンスを構築します。
+sidebarTitle: 紹介
 ---
 
-## Agno Agents
+## Agnoエージェント
 
-- Use language models for reasoning and planning.
-- Use tools to take actions and interact with external systems.
-- Store memory and state in a database, remembering chat history, user preferences and conversation summaries.
-- Store knowledge in vector databases to supplement their training data with domain expertise.
+- 言語モデルを使用して推論と計画を行います。
+- ツールを使用してアクションを実行し、外部システムと対話します。
+- メモリと状態をデータベースに保存し、チャット履歴、ユーザー設定、会話の要約を記憶します。
+- ベクトルデータベースに知識を保存し、ドメインの専門知識でトレーニングデータを補強します。
 
 ![Agent Architecture](/images/agent.png)
 
-## Example: Research Agent
+## 例：リサーチエージェント
 
-Let's create an Agent that can write a research report by searching the web and reading the top links. We **"prompt"** the Agent using `description` and `instructions`.
+Webを検索してトップリンクを読み取ることで、リサーチレポートを作成できるエージェントを作成しましょう。`description`と`instructions`を使用してエージェントに**「プロンプト」**します。
 
 <Steps>
-  <Step title="Create Research Agent">
-    Create a file `research_agent.py`
+  <Step title="リサーチエージェントの作成">
+    ファイル `research_agent.py` を作成します。
 
     ```python research_agent.py
     from agno.agent import Agent
@@ -30,29 +30,29 @@ Let's create an Agent that can write a research report by searching the web and 
     agent = Agent(
         model=OpenAIChat(id="gpt-4o"),
         tools=[DuckDuckGoTools(), Newspaper4kTools()],
-        description="You are a senior NYT researcher writing an article on a topic.",
+        description="あなたは、あるトピックについて記事を書いているシニアNYTリサーチャーです。",
         instructions=[
-            "For a given topic, search for the top 5 links.",
-            "Then read each URL and extract the article text, if a URL isn't available, ignore it.",
-            "Analyse and prepare an NYT worthy article based on the information.",
+            "指定されたトピックについて、トップ5件のリンクを検索してください。",
+            "次に、各URLを読み取り、記事のテキストを抽出してください。URLが利用できない場合は無視してください。",
+            "情報に基づいて、NYTにふさわしい記事を分析して準備してください。",
         ],
         markdown=True,
         show_tool_calls=True,
         add_datetime_to_instructions=True,
         # debug_mode=True,
     )
-    agent.print_response("Simulation theory", stream=True)
+    agent.print_response("シミュレーション理論", stream=True)
     ```
 
   </Step>
-  <Step title="Run the agent">
-    Install libraries
+  <Step title="エージェントの実行">
+    ライブラリをインストールします。
 
     ```shell
     pip install agno openai duckduckgo-search newspaper4k lxml_html_clean
     ```
 
-    Run the agent
+    エージェントを実行します。
 
     ```shell
     python research_agent.py
@@ -62,15 +62,15 @@ Let's create an Agent that can write a research report by searching the web and 
 </Steps>
 
 <Note>
-Under the hood, the description and instructions are converted to the system prompt and the input is passed as the user prompt.
+内部的には、descriptionとinstructionsはシステムプロンプトに変換され、入力はユーザープロンプトとして渡されます。
 
-Use `debug_mode=True` to view the raw messages used by the agent.
+生のメッセージを表示するには `debug_mode=True` を使用します。
 
 </Note>
 
-## Return Agent response as a variable
+## エージェントの応答を変数として返す
 
-Use the `Agent.run()` function to capture the response as a variable.
+`Agent.run()` 関数を使用して、応答を変数としてキャプチャします。
 
 ```python
 from agno.agent import Agent, RunResponse
@@ -78,65 +78,65 @@ from agno.utils.pprint import pprint_run_response
 
 agent = Agent(...)
 
-# Run agent and return the response as a variable
-response: RunResponse = agent.run("Simulation theory")
-# Print the response in markdown format
+# エージェントを実行し、応答を変数として返します
+response: RunResponse = agent.run("シミュレーション理論")
+# 応答をマークダウン形式で表示します
 pprint_run_response(response, markdown=True)
 ```
 
-By default `stream=False`, set `stream=True` to return a stream.
+デフォルトでは `stream=False` です。ストリームを返すには `stream=True` を設定します。
 
 ```python
 from typing import Iterator
 
-# Run agent and return the response as a stream
-response_stream: Iterator[RunResponse] = agent.run("Simulation theory", stream=True)
-# Print the response stream in markdown format
+# エージェントを実行し、応答ストリームを返します
+response_stream: Iterator[RunResponse] = agent.run("シミュレーション理論", stream=True)
+# 応答ストリームをマークダウン形式で表示します
 pprint_run_response(response_stream, markdown=True, show_time=True)
 ```
 
 ## RunResponse
 
-The `Agent.run()` function returns a `RunResponse` object or an stream of `RunResponse` objects if `stream=True`.
+`Agent.run()` 関数は、`stream=True` の場合は `RunResponse` オブジェクトまたは `RunResponse` オブジェクトのストリームを返します。
 
-### Attributes
+### 属性
 
 <ResponseField name="content" type="Any" default="None">
-  Content of the response.
+  応答のコンテンツ。
 </ResponseField>
 <ResponseField name="content_type" type="str" default="str">
-  Specifies the data type of the content.
+  コンテンツのデータ型を指定します。
 </ResponseField>
 <ResponseField name="context" type="List[MessageContext]" default="None">
-  The context added to the response for RAG.
+  RAGのために応答に追加されたコンテキスト。
 </ResponseField>
 <ResponseField name="event" type="str" default="RunEvent.run_response.value">
-  Event type of the response.
+  応答のイベントタイプ。
 </ResponseField>
 <ResponseField name="event_data" type="Dict[str, Any]" default="None">
-  Data associated with the event.
+  イベントに関連付けられたデータ。
 </ResponseField>
 <ResponseField name="messages" type="List[Message]" default="None">
-  A list of messages included in the response.
+  応答に含まれるメッセージのリスト。
 </ResponseField>
 <ResponseField name="metrics" type="Dict[str, Any]" default="None">
-  Usage metrics of the run.
+  実行の使用状況メトリクス。
 </ResponseField>
 <ResponseField name="model" type="str" default="None">
-  The model used in the run.
+  実行に使用されたモデル。
 </ResponseField>
 <ResponseField name="run_id" type="str" default="None">
-  Run Id.
+  実行ID。
 </ResponseField>
 <ResponseField name="agent_id" type="str" default="None">
-  Agent Id for the run.
+  実行のエージェントID。
 </ResponseField>
 <ResponseField name="session_id" type="str" default="None">
-  Session Id for the run.
+  実行のセッションID。
 </ResponseField>
 <ResponseField name="tools" type="List[Dict[str, Any]]" default="None">
-  List of tools provided to the model.
+  モデルに提供されたツールのリスト。
 </ResponseField>
 <ResponseField name="created_at" type="int">
-  Unix timestamp of the response creation.
+  応答作成のUnixタイムスタンプ。
 </ResponseField>

@@ -1,17 +1,17 @@
 ---
-title: Database Tables
+title: データベーステーブル
 ---
 
-Agno templates come pre-configured with [SqlAlchemy](https://www.sqlalchemy.org/) and [alembic](https://alembic.sqlalchemy.org/en/latest/) to manage databases. The general workflow to add a table is:
+Agnoテンプレートには、データベースを管理するための[SqlAlchemy](https://www.sqlalchemy.org/)と[alembic](https://alembic.sqlalchemy.org/en/latest/)がプリセットされています。テーブルを追加する一般的なワークフローは以下の通りです。
 
-1. Add table definition to the `db/tables` directory.
-2. Import the table class in the `db/tables/__init__.py` file.
-3. Create a database migration.
-4. Run database migration.
+1. `db/tables` ディレクトリにテーブル定義を追加します。
+2. `db/tables/__init__.py` ファイルにテーブルクラスをインポートします。
+3. データベースマイグレーションを作成します。
+4. データベースマイグレーションを実行します。
 
-## Table Definition
+## テーブル定義
 
-Let's create a `UsersTable`, copy the following code to `db/tables/user.py`
+`UsersTable` を作成しましょう。以下のコードを `db/tables/user.py` にコピーしてください。
 
 ```python db/tables/user.py
 from datetime import datetime
@@ -25,7 +25,7 @@ from db.tables.base import Base
 
 
 class UsersTable(Base):
-    """Table for storing user data."""
+    """ユーザーデータを格納するテーブル。"""
 
     __tablename__ = "dim_users"
 
@@ -42,32 +42,32 @@ class UsersTable(Base):
     )
 ```
 
-Update the `db/tables/__init__.py` file:
+`db/tables/__init__.py` ファイルを更新してください。
 
 ```python db/tables/__init__.py
 from db.tables.base import Base
 from db.tables.user import UsersTable
 ```
 
-## Creat a database revision
+## データベースリビジョンの作成
 
-Run the alembic command to create a database migration in the dev container:
+開発コンテナでデータベースマイグレーションを作成するために、alembic コマンドを実行します。
 
 ```bash
 docker exec -it ai-api alembic -c db/alembic.ini revision --autogenerate -m "Initialize DB"
 ```
 
-## Migrate dev database
+## 開発データベースのマイグレーション
 
-Run the alembic command to migrate the dev database:
+開発データベースをマイグレーションするために、alembic コマンドを実行します。
 
 ```bash
 docker exec -it ai-api alembic -c db/alembic.ini upgrade head
 ```
 
-### Optional: Add test user
+### オプション: テストユーザーの追加
 
-Now lets's add a test user. Copy the following code to `db/tables/test_add_user.py`
+次にテストユーザーを追加しましょう。以下のコードを `db/tables/test_add_user.py` にコピーしてください。
 
 ```python db/tables/test_add_user.py
 from typing import Optional
@@ -79,14 +79,14 @@ from utils.log import logger
 
 
 def create_user(db_session: Session, email: str) -> UsersTable:
-    """Create a new user."""
+    """新しいユーザーを作成します。"""
     new_user = UsersTable(email=email)
     db_session.add(new_user)
     return new_user
 
 
 def get_user(db_session: Session, email: str) -> Optional[UsersTable]:
-    """Get a user by email."""
+    """メールアドレスでユーザーを取得します。"""
     return db_session.query(UsersTable).filter(UsersTable.email == email).first()
 
 
@@ -104,17 +104,17 @@ if __name__ == "__main__":
 
 ```
 
-Run the script to add a test adding a user:
+テストユーザー追加スクリプトを実行します。
 
 ```bash
 docker exec -it ai-api python db/tables/test_add_user.py
 ```
 
-## Migrate production database
+## 本番データベースのマイグレーション
 
-We recommended migrating the production database by setting the environment variable `MIGRATE_DB = True` and restarting the production service. This runs `alembic -c db/alembic.ini upgrade head` from the entrypoint script at container startup.
+本番データベースのマイグレーションは、環境変数 `MIGRATE_DB = True` を設定し、本番サービスを再起動することをお勧めします。これにより、コンテナ起動時のエントリーポイントスクリプトから `alembic -c db/alembic.ini upgrade head` が実行されます。
 
-### Update the `workspace/prd_resources.py` file
+### `workspace/prd_resources.py` ファイルの更新
 
 ```python workspace/prd_resources.py
 ...
@@ -127,9 +127,9 @@ container_env = {
 ...
 ```
 
-### Update the ECS Task Definition
+### ECS タスク定義の更新
 
-Because we updated the Environment Variables, we need to update the Task Definition:
+環境変数を更新したため、タスク定義を更新する必要があります。
 
 <CodeGroup>
 
@@ -143,9 +143,9 @@ ag ws patch -e prd -i aws -n td
 
 </CodeGroup>
 
-### Update the ECS Service
+### ECS サービスの更新
 
-After updating the task definition, redeploy the production application:
+タスク定義を更新した後、本番アプリケーションを再デプロイします。
 
 <CodeGroup>
 
@@ -159,9 +159,9 @@ ag ws patch -e prd -i aws -n service
 
 </CodeGroup>
 
-## Manually migrate prodution database
+## 本番データベースを手動でマイグレーション
 
-Another approach is to SSH into the production container to run the migration manually. Your ECS tasks are already enabled with SSH access. Run the alembic command to migrate the production database:
+別の方法として、本番コンテナに SSH 接続して手動でマイグレーションを実行します。ECS タスクはすでに SSH アクセスが有効になっています。本番データベースをマイグレーションするために alembic コマンドを実行します。
 
 ```bash
 ECS_CLUSTER=ai-app-prd-cluster
@@ -176,26 +176,26 @@ aws ecs execute-command --cluster $ECS_CLUSTER \
 ```
 
 ---
-## How the migrations directory was created
+## マイグレーションディレクトリの作成方法
 
 <Note>
 
-These commands have been run and are described for completeness
+これらのコマンドは実行済みであり、完全性のために説明されています。
 
 </Note>
 
-The migrations directory was created using:
+マイグレーションディレクトリは、以下のコマンドを使用して作成されました。
 
 ```bash
 docker exec -it ai-api cd db && alembic init migrations
 ```
 
-- After running the above command, the `db/migrations` directory should be created.
-- Update `alembic.ini`
-  - set `script_location = db/migrations`
-  - uncomment `black` hook in `[post_write_hooks]`
-- Update `db/migrations/env.py` file following [this link](https://alembic.sqlalchemy.org/en/latest/autogenerate.html)
-- Add the following function to `configure` to only include tables in the target_metadata
+- 上記コマンドを実行すると、`db/migrations` ディレクトリが作成されます。
+- `alembic.ini` を更新します。
+  - `script_location = db/migrations` を設定します。
+  - `[post_write_hooks]` の `black` フックのコメントを解除します。
+- `db/migrations/env.py` ファイルを [このリンク](https://alembic.sqlalchemy.org/en/latest/autogenerate.html) に従って更新します。
+- `configure` 関数に以下を追加して、`target_metadata` に含まれるテーブルのみを含めるようにします。
 
 ```python db/migrations/env.py
 # -*- Only include tables that are in the target_metadata
@@ -205,4 +205,3 @@ def include_name(name, type_, parent_names):
     else:
         return True
 ...
-```

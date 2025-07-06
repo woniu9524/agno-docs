@@ -1,27 +1,27 @@
 ---
 title: Daytona
-description: Enable your Agents to run code in a remote, secure sandbox.
+description: 安全なリモートサンドボックスでコードを実行できるようにエージェントを有効にします。
 ---
 
-**Daytona** offers secure and elastic infrastructure for runnning your AI-generated code. At Agno, we integrate with it to enable your Agents and Teams to run code in your Daytona sandboxes.
+**Daytona** は、AI生成コードを実行するための安全で弾力性のあるインフラストラクチャを提供します。Agno では、Daytona と統合し、エージェントとチームが Daytona サンドボックスでコードを実行できるようにします。
 
-## Prerequisites
+## 前提条件
 
-The Daytona tools require the `daytona_sdk` Python package:
+Daytona ツールには、`daytona_sdk` Python パッケージが必要です。
 
 ```shell
 pip install daytona_sdk
 ```
 
-You will also need a Daytona API key. You can get it from your [Daytona account](https://app.daytona.io/account):
+Daytona API キーも必要です。これは、[Daytona アカウント](https://app.daytona.io/account)から取得できます。
 
 ```shell
 export DAYTONA_API_KEY=your_api_key
 ```
 
-## Example
+## 例
 
-The following example demonstrates how to create an agent that can run Python code in a Daytona sandbox:
+次の例は、Daytona サンドボックスで Python コードを実行できるエージェントを作成する方法を示しています。
 
 ```python cookbook/tools/daytona_tools.py
 from agno.agent import Agent
@@ -30,68 +30,67 @@ from agno.tools.daytona import DaytonaTools
 
 daytona_tools = DaytonaTools()
 
-# Setup an Agent focused on coding tasks, with access to the Daytona tools
+# Daytona ツールにアクセスできるコーディングタスクに特化したエージェントを設定します
 agent = Agent(
-    name="Coding Agent with Daytona tools",
+    name="Daytona ツールを備えたコーディングエージェント",
     agent_id="coding-agent",
     model=Claude(id="claude-sonnet-4-20250514"),
     tools=[daytona_tools],
     markdown=True,
     show_tool_calls=True,
     instructions=[
-        "You are an expert at writing and validating Python code. You have access to a remote, secure Daytona sandbox.",
-        "Your primary purpose is to:",
-        "1. Write clear, efficient Python code based on user requests",
-        "2. Execute and verify the code in the Daytona sandbox",
-        "3. Share the complete code with the user, as this is the main use case",
-        "4. Provide thorough explanations of how the code works",
-        "You can use the run_python_code tool to run Python code in the Daytona sandbox.",
-        "Guidelines:",
-        "- ALWAYS share the complete code with the user, properly formatted in code blocks",
-        "- Verify code functionality by executing it in the sandbox before sharing",
-        "- Iterate and debug code as needed to ensure it works correctly",
-        "- Use pandas, matplotlib, and other Python libraries for data analysis when appropriate",
-        "- Create proper visualizations when requested and add them as image artifacts to show inline",
-        "- Handle file uploads and downloads properly",
-        "- Explain your approach and the code's functionality in detail",
-        "- Format responses with both code and explanations for maximum clarity",
-        "- Handle errors gracefully and explain any issues encountered",
+        "あなたは Python コードの作成と検証のエキスパートです。リモートで安全な Daytona サンドボックスにアクセスできます。",
+        "あなたの主な目的は次のとおりです。",
+        "1. ユーザーのリクエストに基づいて、明確で効率的な Python コードを作成する",
+        "2. Daytona サンドボックスでコードを実行および検証する",
+        "3. 完全なコードをユーザーと共有する。これが主なユースケースです",
+        "4. コードの仕組みについて詳細な説明を提供する",
+        "run_python_code ツールを使用して、Daytona サンドボックスで Python コードを実行できます。",
+        "ガイドライン:",
+        "- コードブロックで適切にフォーマットされた完全なコードを常にユーザーと共有する",
+        "- コードを共有する前にサンドボックスで実行して、コードの機能を検証する",
+        "- コードが正しく機能するように、必要に応じてコードを反復処理およびデバッグする",
+        "- データ分析には、必要に応じて pandas、matplotlib、その他の Python ライブラリを使用する",
+        "- 要求されたときに適切な視覚化を作成し、インラインで表示するために画像アーティファクトとして追加する",
+        "- ファイルのアップロードとダウンロードを適切に処理する",
+        "- アプローチとコードの機能について詳細に説明する",
+        "- 最大限の明瞭さのために、コードと説明の両方で応答をフォーマットする",
+        "- エラーを適切に処理し、発生した問題について説明する",
     ],
 )
 
-# Example: Generate Fibonacci numbers
+# 例: フィボナッチ数列を生成する
 agent.print_response(
-    "Write Python code to generate the first 10 Fibonacci numbers and calculate their sum and average"
+    "最初の 10 個のフィボナッチ数を生成し、その合計と平均を計算する Python コードを作成してください"
 )
 ```
 
+## ツールキットのパラメータ
 
-## Toolkit Params
-
-| Parameter            | Type   | Default | Description                                        |
+| パラメータ            | タイプ   | デフォルト | 説明                                        |
 | -------------------- | ------ | ------- | -------------------------------------------------- |
-| `api_key`            | `str`  | `None`  | Daytona API key. If not provided, uses DAYTONA_API_KEY env var. |
-| `api_url`            | `str`  | `None`  | Daytona API URL. If not provided, uses DAYTONA_API_URL env var or the Daytona default. |
-| `sandbox_language`   | `CodeLanguage`  | `Python`  | The programming language to run on the sandbox |
-| `sandbox_target_region` | `str` | `None`  | The region where the sandbox will be created |
-| `sandbox_os`         | `str`  | `None`  | The operating system to run on the sandbox (default: ubuntu) |
-| `sandbox_os_user`    | `str`  | `None`  | The user to run the sandbox as (default: root) |
-| `sandbox_env_vars`   | `dict` | `None`  | The environment variables to set in the sandbox |
-| `sandbox_labels`     | `dict` | `None`  | The labels to set in the sandbox |
-| `sandbox_public`     | `bool` | `None`  | Whether the sandbox should be public |
-| `sandbox_auto_stop_interval` | `int` | `None`  | The interval in seconds at which the sandbox will be automatically stopped |
-| `organization_id`    | `str`  | `None`  | The organization ID to use for the sandbox |
-| `timeout`            | `int`  | `300`   | Timeout in seconds for communication with the sandbox (default: 5 minutes) |
+| `api_key`            | `str`  | `None`  | Daytona API キー。提供されない場合は、DAYTONA_API_KEY 環境変数を使用します。 |
+| `api_url`            | `str`  | `None`  | Daytona API URL。提供されない場合は、DAYTONA_API_URL 環境変数または Daytona のデフォルトを使用します。 |
+| `sandbox_language`   | `CodeLanguage`  | `Python`  | サンドボックスで実行するプログラミング言語 |
+| `sandbox_target_region` | `str` | `None`  | サンドボックスが作成されるリージョン |
+| `sandbox_os`         | `str`  | `None`  | サンドボックスで実行するオペレーティングシステム (デフォルト: ubuntu) |
+| `sandbox_os_user`    | `str`  | `None`  | サンドボックスを実行するユーザー (デフォルト: root) |
+| `sandbox_env_vars`   | `dict` | `None`  | サンドボックスで設定する環境変数 |
+| `sandbox_labels`     | `dict` | `None`  | サンドボックスで設定するラベル |
+| `sandbox_public`     | `bool` | `None`  | サンドボックスを公開するかどうか |
+| `sandbox_auto_stop_interval` | `int` | `None`  | サンドボックスが自動的に停止される間隔 (秒単位) |
+| `organization_id`    | `str`  | `None`  | サンドボックスに使用する組織 ID |
+| `timeout`            | `int`  | `300`   | サンドボックスとの通信のタイムアウト (秒単位) (デフォルト: 5 分) |
 
-### Code Execution Tools
+### コード実行ツール
 
-| Function           | Description                                                  |
+| 関数           | 説明                                                  |
 | ------------------ | ------------------------------------------------------------ |
-| `run_python_code`  | Run Python code in the contextual Daytona sandbox               |
-| `run_code`         | Run non-Python code in the contextual Daytona sandbox               |
+| `run_python_code`  | コンテキストの Daytona サンドボックスで Python コードを実行します。               |
+| `run_code`         | コンテキストの Daytona サンドボックスで Python 以外のコードを実行します。               |
 
-## Developer Resources
+## 開発者向けリソース
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/daytona.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/daytona_tools.py)
-- View [Daytona Documentation](https://www.daytona.io/docs/)
+- [ツール](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/daytona.py)を表示
+- [クックブック](https://github.com/agno-agi/agno/blob/main/cookbook/tools/daytona_tools.py)を表示
+- [Daytona ドキュメント](https://www.daytona.io/docs/)を表示

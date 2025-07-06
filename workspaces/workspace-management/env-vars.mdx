@@ -1,25 +1,25 @@
 ---
-title: Environment variables
+title: 環境変数
 ---
 
-Environment variables can be added to resources using the `env_vars` parameter or the `env_file` parameter pointing to a `yaml` file. Examples
+環境変数は、`env_vars` パラメータまたは `yaml` ファイルを指す `env_file` パラメータを使用してリソースに追加できます。例：
 
 ```python dev_resources.py
 dev_fastapi = FastApi(
     ...
     env_vars={
         "RUNTIME_ENV": "dev",
-        # Get the OpenAI API key from the local environment
+        # ローカル環境からOpenAI APIキーを取得
         "OPENAI_API_KEY": getenv("OPENAI_API_KEY"),
-        # Database configuration
+        # データベース設定
         "DB_HOST": dev_db.get_db_host(),
         "DB_PORT": dev_db.get_db_port(),
         "DB_USER": dev_db.get_db_user(),
         "DB_PASS": dev_db.get_db_password(),
         "DB_DATABASE": dev_db.get_db_database(),
-        # Wait for database to be available before starting the application
+        # アプリケーション起動前にデータベースが利用可能になるのを待つ
         "WAIT_FOR_DB": ws_settings.dev_db_enabled,
-        # Migrate database on startup using alembic
+        # alembic を使用して起動時にデータベースをマイグレーション
         # "MIGRATE_DB": ws_settings.prd_db_enabled,
     },
     ...
@@ -31,21 +31,21 @@ prd_fastapi = FastApi(
     ...
     env_vars={
         "RUNTIME_ENV": "prd",
-        # Get the OpenAI API key from the local environment
+        # ローカル環境からOpenAI APIキーを取得
         "OPENAI_API_KEY": getenv("OPENAI_API_KEY"),
-        # Database configuration
+        # データベース設定
         "DB_HOST": AwsReference(prd_db.get_db_endpoint),
         "DB_PORT": AwsReference(prd_db.get_db_port),
         "DB_USER": AwsReference(prd_db.get_master_username),
         "DB_PASS": AwsReference(prd_db.get_master_user_password),
         "DB_DATABASE": AwsReference(prd_db.get_db_name),
-        # Wait for database to be available before starting the application
+        # アプリケーション起動前にデータベースが利用可能になるのを待つ
         "WAIT_FOR_DB": ws_settings.prd_db_enabled,
-        # Migrate database on startup using alembic
+        # alembic を使用して起動時にデータベースをマイグレーション
         # "MIGRATE_DB": ws_settings.prd_db_enabled,
     },
     ...
 )
 ```
 
-The apps in your templates are already configured to read environment variables.
+テンプレート内のアプリは、環境変数を読み取るように既に設定されています。

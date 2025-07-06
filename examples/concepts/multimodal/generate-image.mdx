@@ -1,8 +1,8 @@
 ---
-title: Generate Images with Intermediate Steps
+title: 中間ステップで画像を生成する
 ---
 
-## Code
+## コード
 
 ```python
 from typing import Iterator
@@ -35,24 +35,24 @@ for chunk in run_stream:
     print("---" * 20)
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="API キーを設定する">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="ライブラリをインストールする">
     ```bash
     pip install -U openai rich agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="エージェントを実行する">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/multimodal/generate_image_with_intermediate_steps.py

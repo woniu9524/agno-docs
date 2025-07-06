@@ -1,10 +1,10 @@
 ---
-title: Non-Reasoning Model Agent
+title: 非推論モデルエージェント
 ---
-This example demonstrates how it works when you pass a non-reasoning model as a reasoning model.
-It defaults to using the default OpenAI reasoning model.
-We recommend using the appropriate reasoning model or passing `reasoning=True` to use the default Chain-of-Thought reasoning.
-## Code
+この例では、非推論モデルを推論モデルとして渡した場合の動作を示します。
+デフォルトでは、デフォルトのOpenAI推論モデルを使用します。
+適切な推論モデルを使用するか、デフォルトの連鎖思考推論を使用するために `reasoning=True` を渡すことをお勧めします。
+## コード
 
 ```python cookbook/reasoning/agents/default_chain_of_thought.py
 from agno.agent import Agent
@@ -14,24 +14,24 @@ reasoning_agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
     reasoning_model=OpenAIChat(
         id="gpt-4o", max_tokens=1200
-    ),  # Should default to manual COT because it is not a native reasoning model
+    ),  # ネイティブの推論モデルではないため、デフォルトで手動COTが使用されるはずです
     markdown=True,
 )
 reasoning_agent.print_response(
-    "Give me steps to write a python script for fibonacci series",
+    "フィボナッチ数列のPythonスクリプトを作成する手順を教えてください",
     stream=True,
     show_full_reasoning=True,
 )
 
 
-# It uses the default model of the Agent
+# エージェントのデフォルトモデルを使用します
 reasoning_agent = Agent(
     model=OpenAIChat(id="gpt-4o", max_tokens=1200),
     reasoning=True,
     markdown=True,
 )
 reasoning_agent.print_response(
-    "Give me steps to write a python script for fibonacci series",
+    "フィボナッチ数列のPythonスクリプトを作成する手順を教えてください",
     stream=True,
     show_full_reasoning=True,
 )
@@ -39,24 +39,24 @@ reasoning_agent.print_response(
 
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="APIキーの設定">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="ライブラリのインストール">
     ```bash
     pip install -U openai agno
     ```
   </Step>
 
-  <Step title="Run Example">
+  <Step title="実行例">
     <CodeGroup>
     ```bash Mac
     python cookbook/reasoning/agents/default_chain_of_thought.py

@@ -1,9 +1,9 @@
 ---
 title: Content Creator
 ---
-**ContentCreator** streamlines the process of planning, creating, and distributing engaging content across LinkedIn and Twitter.
+**ContentCreator** は、LinkedIn および Twitter で魅力的なコンテンツの計画、作成、配信のプロセスを合理化します。
 
-Create a file `config.py` with the following code:
+次のコードを含む `config.py` ファイルを作成します。
 
 ```python config.py
 import os
@@ -19,12 +19,12 @@ TYPEFULLY_API_KEY = os.getenv("TYPEFULLY_API_KEY")
 HEADERS = {"X-API-KEY": f"Bearer {TYPEFULLY_API_KEY}"}
 
 
-# Define the enums
+# 列挙型を定義します
 class PostType(Enum):
     TWITTER = "Twitter"
     LINKEDIN = "LinkedIn"
 ```
-Add prompts in `prompts.py`
+`prompts.py` にプロンプトを追加します
 
 ```python prompts.py
 # Planner Agents Configuration
@@ -137,7 +137,7 @@ tasks_config = {
 }
 ```
 
-For Scheduling logic, create `scheduler.py`
+スケジューリングロジックについては、`scheduler.py` を作成します。
 
 ```python scheduler.py
 import datetime
@@ -263,7 +263,7 @@ def schedule(
         logger.error(f"Error: {str(e)}")
         return None
 ```
-Define workflow in `workflow.py`:
+`workflow.py` でワークフローを定義します。
 
 ```python workflow.py
 import json

@@ -1,28 +1,28 @@
 ---
-title: Filtering on load with Pdf-Url
-description: Learn how to filter knowledge base at load time using Pdf-Url documents with user-specific metadata.
+title: Pdf-Url でロード時にフィルタリング
+description: ユーザー固有のメタデータを持つ Pdf-Url ドキュメントを使用して、ロード時にナレッジベースをフィルタリングする方法を学びます。
 ---
 
-## Code
+## コード
 
 ```python
 from agno.agent import Agent
 from agno.knowledge.pdf_url import PDFUrlKnowledgeBase
 from agno.vectordb.lancedb import LanceDb
 
-# Initialize LanceDB
-# By default, it stores data in /tmp/lancedb
+# LanceDB の初期化
+# デフォルトでは、データは /tmp/lancedb に保存されます
 vector_db = LanceDb(
     table_name="recipes",
-    uri="tmp/lancedb",  # You can change this path to store data elsewhere
+    uri="tmp/lancedb",  # データを別の場所に保存するには、このパスを変更できます
 )
 
-# Step 1: Initialize knowledge base with documents and metadata
+# ステップ 1: ドキュメントとメタデータでナレッジベースを初期化
 # ------------------------------------------------------------------------------
-# When loading the knowledge base, we can attach metadata that will be used for filtering
-# This metadata can include user IDs, document types, dates, or any other attributes
+# ナレッジベースをロードする際に、フィルタリングに使用されるメタデータを添付できます。
+# このメタデータには、ユーザー ID、ドキュメントの種類、日付、またはその他の属性を含めることができます。
 
-# Initialize knowledge base
+# ナレッジベースの初期化
 knowledge_base = PDFUrlKnowledgeBase(
     vector_db=vector_db,
 )
@@ -30,7 +30,7 @@ knowledge_base = PDFUrlKnowledgeBase(
 knowledge_base.load_document(
     url="https://agno-public.s3.amazonaws.com/recipes/thai_recipes_short.pdf",
     metadata={"cuisine": "Thai", "source": "Thai Cookbook"},
-    recreate=False,  # only use at the first run, True/False
+    recreate=False,  # 最初の実行時にのみ使用、True/False
 )
 
 knowledge_base.load_document(
@@ -39,42 +39,42 @@ knowledge_base.load_document(
 )
 
 
-# Option 1: Filters on the Agent
-# Initialize the Agent with the knowledge base
+# オプション 1: エージェントでのフィルタリング
+# ナレッジベースでエージェントを初期化
 agent = Agent(
     knowledge=knowledge_base,
     search_knowledge=True,
     knowledge_filters={
         "cuisine": "Thai"
-    },  # This will only return information from documents associated with Thai cuisine
+    },  # これにより、タイ料理に関連付けられたドキュメントからの情報のみが返されます
 )
 agent.print_response(
-    "Tell me how to make Pad Thai",
+    "Pad Thai の作り方を教えてください",
     markdown=True,
 )
 
-# # # Option 2: Filters on the run/print_response
+# # # オプション 2: 実行時/print_response でのフィルタリング
 # agent = Agent(
 #     knowledge=knowledge_base,
 #     search_knowledge=True,
 # )
 # agent.print_response(
-#     "Tell me how to make Cape Malay Curry",
+#     "Cape Malay Curry の作り方を教えてください",
 #     knowledge_filters={"cuisine": "Cape"},
 #     markdown=True,
 # )
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
-  <Step title="Install libraries">
+  <Step title="ライブラリのインストール">
     ```bash
     pip install -U agno openai lancedb
     ```
   </Step>
 
-  <Step title="Run the example">
+  <Step title="例の実行">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/knowledge/filters/pdf_url/filtering_on_load.py
@@ -85,4 +85,4 @@ agent.print_response(
     ```
     </CodeGroup>
   </Step>
-</Steps> 
+</Steps>

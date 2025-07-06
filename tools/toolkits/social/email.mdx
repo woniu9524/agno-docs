@@ -2,9 +2,9 @@
 title: Email
 ---
 
-**EmailTools** enable an Agent to send an email to a user. The Agent can send an email to a user with a specific subject and body.
+**EmailTools** を使用すると、エージェントはユーザーにメールを送信できます。エージェントは、特定件名と本文でユーザーにメールを送信できます。
 
-## Example
+## 例
 
 ```python cookbook/tools/email_tools.py
 from agno.agent import Agent
@@ -29,22 +29,22 @@ agent = Agent(
 agent.print_response("send an email to <receiver_email>")
 ```
 
-## Toolkit Params
+## Toolkit パラメータ
 
-| Parameter        | Type  | Default | Description                         |
-| ---------------- | ----- | ------- | ----------------------------------- |
-| `receiver_email` | `str` | -       | The email address of the receiver.  |
-| `sender_name`    | `str` | -       | The name of the sender.             |
-| `sender_email`   | `str` | -       | The email address of the sender.    |
-| `sender_passkey` | `str` | -       | The passkey for the sender's email. |
+| パラメータ        | タイプ  | デフォルト | 説明                         |
+| ----------------- | ----- | ------- | ---------------------------- |
+| `receiver_email`  | `str` | -       | 受信者のメールアドレス。     |
+| `sender_name`     | `str` | -       | 送信者の名前。               |
+| `sender_email`    | `str` | -       | 送信者のメールアドレス。     |
+| `sender_passkey`  | `str` | -       | 送信者のメールのパスキー。   |
 
-## Toolkit Functions
+## Toolkit 関数
 
-| Function     | Description                                                                  |
-| ------------ | ---------------------------------------------------------------------------- |
-| `email_user` | Emails the user with the given subject and body. Currently works with Gmail. |
+| 関数         | 説明                                                                   |
+| ------------ | ---------------------------------------------------------------------- |
+| `email_user` | 指定された件名と本文でユーザーにメールを送信します。現在はGmailに対応しています。 |
 
-## Developer Resources
+## 開発者向けリソース
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/email.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/email_tools.py)
+- [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/email.py) を表示
+- [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/email_tools.py) を表示

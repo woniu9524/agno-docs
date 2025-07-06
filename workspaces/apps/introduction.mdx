@@ -2,17 +2,17 @@
 title: Introduction
 ---
 
-Apps are tools like `FastAPI`, `PgVector`, `Streamlit`, `Jupyter`, `Django` that we define as python classes and run using `ag start` or `ag ws up`.
+Apps は、`FastAPI`、`PgVector`、`Streamlit`、`Jupyter`、`Django` のようなツールであり、これらを Python クラスとして定義し、`ag start` または `ag ws up` を使用して実行します。
 
-When running Apps using agno, think of them as infrastructure as code but at a higher level of abstraction. Instead of defining containers, volumes etc. we define the application we want to run. We run **Applications as Code** instead of Infrastructure as Code.
+agno で Apps を実行する場合、それらをより高レベルの抽象化におけるインフラストラクチャ・アズ・コードと考えてください。コンテナやボリュームなどを定義する代わりに、実行したいアプリケーションを定義します。インフラストラクチャ・アズ・コードではなく、**アプリケーション・アズ・コード**を実行します。
 
-The same `App` can run on docker, AWS (ECS) or Kubernetes (EKS). The App creates the underlying resources like LoadBalancers, Services, Deployments. As the underlying resources become more complex, the concept of Apps become more appealing.
+同じ `App` を docker、AWS (ECS)、または Kubernetes (EKS) で実行できます。App は、LoadBalancer、Service、Deployment のような基盤となるリソースを作成します。基盤となるリソースがより複雑になるにつれて、Apps の概念はより魅力的になります。
 
 ## Example
 
-Lets run a Jupyter notebook and PgVector on docker.
+Jupyter notebook と PgVector を docker 上で実行してみましょう。
 
-Copy the following contents to a file `resources.py` and run `ag start resources.py`
+以下の内容を `resources.py` というファイルにコピーし、`ag start resources.py` を実行してください。
 
 ```python resources.py
 from agno.docker.app.jupyter import Jupyter
@@ -29,21 +29,21 @@ jupyter = Jupyter(mount_workspace=True)
 dev_docker_resources = DockerResources(apps=[vector_db, jupyter])
 ```
 
-- Each App is a pydantic object providing input and type validation.
-- Note how the `mount_workspace` automatically mounts the directory
-- Note how `PgVectorDb` sets the required settings and creates the volume.
+- 各 App は、入力と型の検証を提供する pydantic オブジェクトです。
+- `mount_workspace` がディレクトリを自動的にマウントする方法に注意してください。
+- `PgVectorDb` が必要な設定を行い、ボリュームを作成する方法に注意してください。
 
-While this is a simple example, these concepts become very powerful for complex applications.
+これは簡単な例ですが、これらの概念は複雑なアプリケーションにとって非常に強力になります。
 
 ## Motivation
 
-Apps provide the **"Application Layer"** for our AI products.
+Apps は、AI 製品の**「アプリケーションレイヤー」**を提供します。
 
-The software we write needs to be served by an Application, and this Application needs to **run the same** locally for development and in the cloud for production. By defining **Applications as Code**, we bring the benefits of **Infrastructure as Code** to the software layer.
+私たちが書くソフトウェアはアプリケーションによって提供される必要があり、このアプリケーションは開発時にはローカルで、本番環境ではクラウドで**同じように実行**される必要があります。**アプリケーション・アズ・コード**を定義することで、インフラストラクチャ・アズ・コードの利点をソフトウェアレイヤーにもたらします。
 
-Defining **Applications as Code** also allows us to package "software systems" into templates. Meaning every agno template can run locally using docker or on AWS with 1 command.
+また、**アプリケーション・アズ・コード**を定義することで、「ソフトウェアシステム」をテンプレートにパッケージ化できます。これは、すべての agno テンプレートが docker を使用してローカルで、または 1 コマンドで AWS 上で実行できることを意味します。
 
-Finally, defining **Applications as python objects** means we can import them in our code like regular objects making the following code possible:
+最後に、**アプリケーションを Python オブジェクトとして**定義することは、通常のオブジェクトのようにコードにインポートできることを意味し、以下のコードを可能にします。
 
 ```python
 from resources import vector_db
@@ -51,10 +51,10 @@ from resources import vector_db
 db_url=vector_db.get_db_connection_local()
 ```
 
-Checkout some example apps you can run on docker:
+docker 上で実行できるアプリの例をいくつか確認してください。
 
 - [PgVector](storage/postgres)
 
-Defining **Applications as Code** offers many benefits, such as:
+**アプリケーション・アズ・コード**を定義することは、次のような多くの利点を提供します。
 
 - [Install requirements on startup](/workspaces/workspace-management/install)

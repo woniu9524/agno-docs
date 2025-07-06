@@ -2,7 +2,7 @@
 title: Streaming Agent
 ---
 
-## Code
+## コード
 
 ```python cookbook/models/xai/basic_stream.py
 from typing import Iterator  # noqa
@@ -11,33 +11,33 @@ from agno.models.xai import xAI
 
 agent = Agent(model=xAI(id="grok-beta"), markdown=True)
 
-# Get the response in a variable
+# レスポンスを変数に格納する
 # run_response: Iterator[RunResponse] = agent.run("Share a 2 sentence horror story", stream=True)
 # for chunk in run_response:
 #     print(chunk.content)
 
-# Print the response in the terminal
+# ターミナルに応答を出力する
 agent.print_response("Share a 2 sentence horror story", stream=True)
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="APIキーの設定">
     ```bash
     export XAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="ライブラリのインストール">
     ```bash
     pip install -U openai agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="エージェントの実行">
     <CodeGroup>
     ```bash Mac
     python cookbook/models/xai/basic_stream.py

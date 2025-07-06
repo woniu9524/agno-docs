@@ -2,27 +2,27 @@
 title: Webex
 ---
 
-**WebexTools** enable an Agent to interact with Cisco Webex, allowing it to send messages and list rooms.
+**WebexTools** を使用すると、エージェントは Cisco Webex と対話し、メッセージの送信やルームのリスト表示が可能になります。
 
-## Prerequisites
+## 前提条件
 
-The following example requires the `webexpythonsdk` library and a Webex access token which can be obtained from [Webex Developer Portal](https://developer.webex.com/docs/bots).
+次の例では、`webexpythonsdk` ライブラリと Webex アクセストークンが必要です。これは [Webex Developer Portal](https://developer.webex.com/docs/bots) から取得できます。
 
-To get started with Webex:
+Webex を開始するには：
 
-1. **Create a Webex Bot:**
-   - Go to the [Developer Portal](https://developer.webex.com/)
-   - Navigate to My Webex Apps → Create a Bot
-   - Fill in the bot details and click Add Bot
+1.  **Webex ボットを作成する：**
+    *   [Developer Portal](https://developer.webex.com/) にアクセスします。
+    *   「My Webex Apps」→「Create a Bot」に移動します。
+    *   ボットの詳細を入力し、「Add Bot」をクリックします。
 
-2. **Get your access token:**
-   - Copy the token shown after bot creation
-   - Or regenerate via My Webex Apps → Edit Bot
-   - Set as WEBEX_ACCESS_TOKEN environment variable
+2.  **アクセストークンを取得する：**
+    *   ボット作成後に表示されるトークンをコピーします。
+    *   または、「My Webex Apps」→「Edit Bot」から再生成します。
+    *   `WEBEX_ACCESS_TOKEN` 環境変数として設定します。
 
-3. **Add the bot to Webex:**
-   - Launch Webex and add the bot to a space
-   - Use the bot's email (e.g. test@webex.bot)
+3.  **ボットを Webex に追加する：**
+    *   Webex を起動し、ボットをスペースに追加します。
+    *   ボットのメールアドレス（例：test@webex.bot）を使用します。
 
 ```shell
 pip install webexpythonsdk
@@ -32,9 +32,9 @@ pip install webexpythonsdk
 export WEBEX_ACCESS_TOKEN=your_access_token_here
 ```
 
-## Example
+## 例
 
-The following agent will list all spaces and send a message using Webex:
+次のエージェントは、すべてのスペースをリスト表示し、Webex を使用してメッセージを送信します。
 
 ```python cookbook/tools/webex_tool.py
 from agno.agent import Agent
@@ -42,32 +42,32 @@ from agno.tools.webex import WebexTools
 
 agent = Agent(tools=[WebexTools()], show_tool_calls=True)
 
-# List all spaces in Webex
+# Webex のすべてのスペースをリスト表示する
 agent.print_response("List all space on our Webex", markdown=True)
 
-# Send a message to a Space in Webex
+# Webex のスペースにメッセージを送信する
 agent.print_response(
     "Send a funny ice-breaking message to the webex Welcome space", markdown=True
 )
 ```
 
-## Toolkit Params
+## Toolkit パラメータ
 
-| Parameter      | Type   | Default | Description                                                                                |
-| -------------- | ------ | ------- | ------------------------------------------------------------------------------------------ |
-| `access_token` | `str`  | `None`  | Webex access token for authentication. If not provided, uses WEBEX_ACCESS_TOKEN environment variable. |
-| `send_message` | `bool` | `True`  | Enable sending messages to Webex spaces.                                                   |
-| `list_rooms`   | `bool` | `True`  | Enable listing Webex spaces/rooms.                                                         |
+| パラメータ      | タイプ   | デフォルト | 説明                                                                                             |
+| -------------- | ------- | ------- | ------------------------------------------------------------------------------------------------ |
+| `access_token` | `str`   | `None`  | 認証用の Webex アクセストークン。提供されない場合は、`WEBEX_ACCESS_TOKEN` 環境変数を使用します。 |
+| `send_message` | `bool`  | `True`  | Webex スペースへのメッセージ送信を有効にします。                                                   |
+| `list_rooms`   | `bool`  | `True`  | Webex スペース/ルームのリスト表示を有効にします。                                                  |
 
-## Toolkit Functions
+## Toolkit 関数
 
-| Function       | Description                                                                                                |
-| -------------- | ---------------------------------------------------------------------------------------------------------- |
-| `send_message` | Sends a message to a Webex room. Parameters: `room_id` (str) for the target room, `text` (str) for the message. |
-| `list_rooms`   | Lists all available Webex rooms/spaces with their details including ID, title, type, and visibility settings.   |
+| 関数         | 説明                                                                                                                               |
+| ------------ | ---------------------------------------------------------------------------------------------------------------------------------- |
+| `send_message` | Webex ルームにメッセージを送信します。パラメータ：対象ルームの `room_id` (str)、メッセージの `text` (str)。                               |
+| `list_rooms`   | ID、タイトル、タイプ、表示設定を含む詳細とともに、利用可能なすべての Webex ルーム/スペースをリスト表示します。                                                              |
 
 
-## Developer Resources
+## 開発者向けリソース
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/webex.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/webex_tools.py) 
+- [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/webex.py) を表示
+- [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/webex_tools.py) を表示

@@ -2,9 +2,9 @@
 title: Airflow
 ---
 
-## Example
+## 例
 
-The following agent will use Airflow to save and read a DAG file.
+以下のエージェントは、Airflow を使用して DAG ファイルを保存および読み込みます。
 
 ```python cookbook/tools/airflow_tools.py
 from agno.agent import Agent
@@ -50,23 +50,23 @@ agent.run(f"Save this DAG file as 'example_dag.py': {dag_content}")
 agent.print_response("Read the contents of 'example_dag.py'")
 ```
 
-## Toolkit Params
+## ツールキットのパラメータ
 
-| Parameter  | Type            | Default          | Description                                    |
-| ---------- | --------------- | ---------------- | ---------------------------------------------- |
-| `dags_dir` | `Path` or `str` | `Path.cwd()`     | Directory for DAG files                        |
-| `save_dag` | `bool`          | `True`           | Whether to register the save_dag_file function |
-| `read_dag` | `bool`          | `True`           | Whether to register the read_dag_file function |
-| `name`     | `str`           | `"AirflowTools"` | The name of the tool                           |
+| パラメータ  | タイプ            | デフォルト          | 説明                                   |
+| ----------- | --------------- | ---------------- | -------------------------------------- |
+| `dags_dir` | `Path` または `str` | `Path.cwd()`     | DAG ファイルのディレクトリ                     |
+| `save_dag` | `bool`          | `True`           | `save_dag_file` 関数を登録するかどうか           |
+| `read_dag` | `bool`          | `True`           | `read_dag_file` 関数を登録するかどうか           |
+| `name`     | `str`           | `"AirflowTools"` | ツールの名前                               |
 
-## Toolkit Functions
+## ツールキットの関数
 
-| Function        | Description                                        |
-| --------------- | -------------------------------------------------- |
-| `save_dag_file` | Saves python code for an Airflow DAG to a file     |
-| `read_dag_file` | Reads an Airflow DAG file and returns the contents |
+| 関数        | 説明                                       |
+| ----------- | ------------------------------------------ |
+| `save_dag_file` | Airflow DAG の Python コードをファイルに保存します |
+| `read_dag_file` | Airflow DAG ファイルを読み込み、その内容を返します   |
 
-## Developer Resources
+## 開発者向けリソース
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/airflow.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/airflow_tools.py)
+- [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/airflow.py) を表示
+- [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/airflow_tools.py) を表示

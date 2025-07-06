@@ -1,8 +1,8 @@
 ---
-title: Generate Images
+title: 画像を生成する
 ---
 
-## Code
+## コード
 
 ```python cookbook/models/openai/chat/generate_images.py
 from agno.agent import Agent
@@ -27,24 +27,24 @@ if images and isinstance(images, list):
         print(image_url)
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="API キーを設定する">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="ライブラリをインストールする">
     ```bash
     pip install -U openai agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="エージェントを実行する">
     <CodeGroup>
     ```bash Mac
     python cookbook/models/openai/chat/generate_images.py

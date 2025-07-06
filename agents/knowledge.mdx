@@ -2,85 +2,84 @@
 title: Knowledge
 ---
 
-**Knowledge** is domain-specific information that the Agent can **search** at runtime to make better decisions (dynamic few-shot learning) and provide accurate responses (agentic RAG). Knowledge is stored in a vector db and this **searching on demand** pattern is called Agentic RAG.
+**Knowledge** とは、エージェントが実行時に**検索**できるドメイン固有の情報であり、より良い意思決定（動的な少数ショット学習）と正確な応答（エージェント型RAG）を提供します。KnowledgeはベクトルDBに保存され、この**オンデマンド検索**パターンはエージェント型RAGと呼ばれます。
 
-<Accordion title="Dynamic Few-Shot Learning: Text2Sql Agent" icon="database">
-Example: If we're building a Text2Sql Agent, we'll need to give the table schemas, column names, data types, example queries, common "gotchas" to help it generate the best-possible SQL query.
+<Accordion title="動的な少数ショット学習: Text2Sql Agent" icon="database">
+例: Text2Sql Agentを構築する場合、テーブルスキーマ、カラム名、データ型、クエリ例、一般的な「落とし穴」を提供して、可能な限り最良のSQLクエリを生成できるようにする必要があります。
 
-We're obviously not going to put this all in the system prompt, instead we store this information in a vector database and let the Agent query it at runtime.
+これらすべてをシステムプロンプトに入れることはできません。代わりに、この情報をベクトルデータベースに保存し、エージェントが実行時にクエリできるようにします。
 
-Using this information, the Agent can then generate the best-possible SQL query. This is called dynamic few-shot learning.
+この情報を使用して、エージェントは可能な限り最良のSQLクエリを生成できます。これは動的な少数ショット学習と呼ばれます。
 </Accordion>
 
-**Agno Agents use Agentic RAG** by default, meaning when we provide `knowledge` to an Agent, it will search this knowledge base, at runtime, for the specific information it needs to achieve its task.
+**Agno AgentsはデフォルトでAgentic RAGを使用します**。これは、エージェントに`knowledge`を提供すると、タスクを達成するために必要な特定の情報を実行時にこのナレッジベースで検索することを意味します。
 
-The pseudo steps for adding knowledge to an Agent are:
+エージェントにナレッジを追加するための擬似ステップは次のとおりです。
 
 ```python
 from agno.agent import Agent, AgentKnowledge
 
-# Create a knowledge base for the Agent
+# エージェントのナレッジベースを作成します
 knowledge_base = AgentKnowledge(vector_db=...)
 
-# Add information to the knowledge base
+# ナレッジベースに情報を追加します
 knowledge_base.load_text("The sky is blue")
 
-# Add the knowledge base to the Agent and
-# give it a tool to search the knowledge base as needed
+# ナレッジベースをエージェントに追加し、
+# 必要に応じてナレッジベースを検索するためのツールを提供します
 agent = Agent(knowledge=knowledge_base, search_knowledge=True)
 ```
 
-We can give our agent access to the knowledge base in the following ways:
+以下の方法でエージェントにナレッジベースへのアクセスを提供できます。
 
-- We can set `search_knowledge=True` to add a `search_knowledge_base()` tool to the Agent. `search_knowledge` is `True` **by default** if you add `knowledge` to an Agent.
-- We can set `add_references=True` to automatically add references from the knowledge base to the Agent's prompt. This is the traditional 2023 RAG approach.
+- `search_knowledge=True` を設定すると、エージェントに `search_knowledge_base()` ツールが追加されます。`knowledge` をエージェントに追加すると、`search_knowledge` は **デフォルトで `True`** になります。
+- `add_references=True` を設定すると、ナレッジベースからの参照がエージェントのプロンプトに自動的に追加されます。これは従来の2023 RAGアプローチです。
 
 <Tip>
 
-If you need complete control over the knowledge base search, you can pass your own `retriever` function with the following signature:
+ナレッジベースの検索を完全に制御したい場合は、次のシグネチャを持つ独自の `retriever` 関数を渡すことができます。
 
 ```python
 def retriever(agent: Agent, query: str, num_documents: Optional[int], **kwargs) -> Optional[list[dict]]:
   ...
 ```
 
-This function is called during `search_knowledge_base()` and is used by the Agent to retrieve references from the knowledge base.
+この関数は `search_knowledge_base()` の呼び出し中に実行され、エージェントがナレッジベースから参照を取得するために使用されます。
 
 </Tip>
 
 ## Vector Databases
 
-While any type of storage can act as a knowledge base, vector databases offer the best solution for retrieving relevant results from dense information quickly. Here's how vector databases are used with Agents:
+あらゆる種類のストレージがナレッジベースとして機能できますが、ベクトルデータベースは、密な情報から関連性の高い結果を迅速に取得するための最良のソリューションを提供します。ベクトルデータベースはエージェントと共に次のように使用されます。
 
 <Steps>
-  <Step title="Chunk the information">
-    Break down the knowledge into smaller chunks to ensure our search query
-    returns only relevant results.
+  <Step title="情報をチャンク化する">
+    ナレッジをより小さなチャンクに分割して、検索クエリが
+    関連性の高い結果のみを返すようにします。
   </Step>
-  <Step title="Load the knowledge base">
-    Convert the chunks into embedding vectors and store them in a vector
-    database.
+  <Step title="ナレッジベースをロードする">
+    チャンクを埋め込みベクトルに変換し、ベクトルデータベースに保存します。
   </Step>
-  <Step title="Search the knowledge base">
-    When the user sends a message, we convert the input message into an
-    embedding and "search" for nearest neighbors in the vector database.
+  <Step title="ナレッジベースを検索する">
+    ユーザーがメッセージを送信すると、入力メッセージを
+    埋め込みに変換し、ベクトルデータベースで最近傍を「検索」します。
   </Step>
 </Steps>
 
 <Note>
-Knowledge filters are currently supported on the following knowledge base types: <b>PDF</b>, <b>PDF_URL</b>, <b>Text</b>, <b>JSON</b>, and <b>DOCX</b>.
-For more details, see the [Knowledge Filters documentation](/filters/introduction).
+ナレッジフィルターは現在、以下のナレッジベースタイプでサポートされています: <b>PDF</b>、<b>PDF_URL</b>、<b>Text</b>、<b>JSON</b>、および <b>DOCX</b>。
+詳細については、[Knowledge Filters ドキュメント](/filters/introduction)を参照してください。
 </Note>
 
-## Example: RAG Agent with a PDF Knowledge Base
+## 例: PDFナレッジベースを持つRAG Agent
 
-Let's build a **RAG Agent** that answers questions from a PDF.
+PDFから質問に答える**RAG Agent**を構築しましょう。
 
-### Step 1: Run PgVector
+### ステップ1: PgVectorを実行する
 
-Let's use `PgVector` as our vector db as it can also provide storage for our Agents.
+`PgVector`をベクトルDBとして使用します。これはエージェントのストレージも提供できます。
 
-Install [docker desktop](https://docs.docker.com/desktop/install/mac-install/) and run **PgVector** on port **5532** using:
+[docker desktop](https://docs.docker.com/desktop/install/mac-install/)をインストールし、以下を使用してポート **5532** で **PgVector** を実行します。
 
 ```bash
 docker run -d \
@@ -94,18 +93,18 @@ docker run -d \
   agnohq/pgvector:16
 ```
 
-### Step 2: Traditional RAG
+### ステップ2: 従来のRAG
 
-Retrieval Augmented Generation (RAG) means **"stuffing the prompt with relevant information"** to improve the model's response. This is a 2 step process:
+Retrieval Augmented Generation (RAG)とは、モデルの応答を改善するために**「プロンプトに関連情報を含める」**ことを意味します。これは2段階のプロセスです。
 
-1. Retrieve relevant information from the knowledge base.
-2. Augment the prompt to provide context to the model.
+1. ナレッジベースから関連情報を取得します。
+2. モデルにコンテキストを提供するためにプロンプトを拡張します。
 
-Let's build a **traditional RAG** Agent that answers questions from a PDF of recipes.
+レシピのPDFから質問に答える**従来のRAG** Agentを構築しましょう。
 
 <Steps>
-  <Step title="Install libraries">
-    Install the required libraries using pip
+  <Step title="ライブラリをインストールする">
+    pipを使用して必要なライブラリをインストールします
 
     <CodeGroup>
 
@@ -120,8 +119,8 @@ Let's build a **traditional RAG** Agent that answers questions from a PDF of rec
     </CodeGroup>
 
   </Step>
-  <Step title="Create a Traditional RAG Agent">
-    Create a file `traditional_rag.py` with the following contents
+  <Step title="従来のRAG Agentを作成する">
+    次の内容で `traditional_rag.py` ファイルを作成します
 
     ```python traditional_rag.py
     from agno.agent import Agent
@@ -131,20 +130,20 @@ Let's build a **traditional RAG** Agent that answers questions from a PDF of rec
 
     db_url = "postgresql+psycopg://ai:ai@localhost:5532/ai"
     knowledge_base = PDFUrlKnowledgeBase(
-        # Read PDF from this URL
+        # このURLからPDFを読み込みます
         urls=["https://agno-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
-        # Store embeddings in the `ai.recipes` table
+        # `ai.recipes` テーブルに埋め込みを保存します
         vector_db=PgVector(table_name="recipes", db_url=db_url, search_type=SearchType.hybrid),
     )
-    # Load the knowledge base: Comment after first run
+    # ナレッジベースをロードします: 初回実行後にコメントアウトしてください
     knowledge_base.load(upsert=True)
 
     agent = Agent(
         model=OpenAIChat(id="gpt-4o"),
         knowledge=knowledge_base,
-        # Enable RAG by adding references from AgentKnowledge to the user prompt.
+        # AgentKnowledgeからの参照をユーザープロンプトに追加することでRAGを有効にします。
         add_references=True,
-        # Set as False because Agents default to `search_knowledge=True`
+        # エージェントはデフォルトで `search_knowledge=True` になるためFalseに設定します
         search_knowledge=False,
         markdown=True,
         # debug_mode=True,
@@ -153,8 +152,8 @@ Let's build a **traditional RAG** Agent that answers questions from a PDF of rec
     ```
 
   </Step>
-  <Step title="Run the agent">
-    Run the agent (it takes a few seconds to load the knowledge base).
+  <Step title="エージェントを実行する">
+    エージェントを実行します（ナレッジベースのロードに数秒かかります）。
 
     <CodeGroup>
 
@@ -173,8 +172,8 @@ Let's build a **traditional RAG** Agent that answers questions from a PDF of rec
   </Step>
 </Steps>
 
-<Accordion title="How to use local PDFs" icon="file-pdf" iconType="duotone">
-If you want to use local PDFs, use a `PDFKnowledgeBase` instead
+<Accordion title="ローカルPDFの使用方法" icon="file-pdf" iconType="duotone">
+ローカルPDFを使用したい場合は、代わりに `PDFKnowledgeBase` を使用します
 
 ```python agent.py
 from agno.knowledge.pdf import PDFKnowledgeBase
@@ -192,17 +191,17 @@ knowledge_base = PDFKnowledgeBase(
 
 </Accordion>
 
-### Step 3: Agentic RAG
+### ステップ3: エージェント型RAG
 
-With traditional RAG above, `add_references=True` always adds information from the knowledge base to the prompt, regardless of whether it is relevant to the question or helpful.
+上記の従来のRAGでは、`add_references=True` は、質問に関連しているか役立つかに関係なく、常にナレッジベースからの情報をプロンプトに追加します。
 
-With Agentic RAG, we let the Agent decide **if** it needs to access the knowledge base and what search parameters it needs to query the knowledge base.
+エージェント型RAGでは、エージェントがナレッジベースにアクセスする必要があるかどうか、およびナレッジベースをクエリするために必要な検索パラメータを決定できるようにします。
 
-Set `search_knowledge=True` and `read_chat_history=True`, giving the Agent tools to search its knowledge and chat history on demand.
+`search_knowledge=True` と `read_chat_history=True` を設定し、エージェントにオンデマンドでナレッジとチャット履歴を検索するツールを提供します。
 
 <Steps>
-  <Step title="Create an Agentic RAG Agent">
-    Create a file `agentic_rag.py` with the following contents
+  <Step title="エージェント型RAG Agentを作成する">
+    次の内容で `agentic_rag.py` ファイルを作成します
 
     ```python agentic_rag.py
     from agno.agent import Agent
@@ -215,15 +214,15 @@ Set `search_knowledge=True` and `read_chat_history=True`, giving the Agent tools
         urls=["https://agno-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
         vector_db=PgVector(table_name="recipes", db_url=db_url, search_type=SearchType.hybrid),
     )
-    # Load the knowledge base: Comment out after first run
+    # ナレッジベースをロードします: 初回実行後にコメントアウトしてください
     knowledge_base.load(upsert=True)
 
     agent = Agent(
         model=OpenAIChat(id="gpt-4o"),
         knowledge=knowledge_base,
-        # Add a tool to search the knowledge base which enables agentic RAG.
+        # ナレッジベースを検索できるツールを追加します。これによりエージェント型RAGが有効になります。
         search_knowledge=True,
-        # Add a tool to read chat history.
+        # チャット履歴を読み取るツールを追加します。
         read_chat_history=True,
         show_tool_calls=True,
         markdown=True,
@@ -234,8 +233,8 @@ Set `search_knowledge=True` and `read_chat_history=True`, giving the Agent tools
     ```
 
   </Step>
-  <Step title="Run the agent">
-    Run the agent
+  <Step title="エージェントを実行する">
+    エージェントを実行します
 
     <CodeGroup>
 
@@ -250,7 +249,7 @@ Set `search_knowledge=True` and `read_chat_history=True`, giving the Agent tools
     </CodeGroup>
 
     <Note>
-    Notice how it searches the knowledge base and chat history when needed
+    必要に応じてナレッジベースとチャット履歴を検索する方法に注意してください
     </Note>
 
   </Step>
@@ -260,13 +259,13 @@ Set `search_knowledge=True` and `read_chat_history=True`, giving the Agent tools
 
 | Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|
-| `knowledge` | `AgentKnowledge` | `None` | Provides the knowledge base used by the agent. |
-| `search_knowledge` | `bool` | `True` | Adds a tool that allows the Model to search the knowledge base (aka Agentic RAG). Enabled by default when `knowledge` is provided. |
-| `add_references` | `bool` | `False` | Enable RAG by adding references from AgentKnowledge to the user prompt. |
-| `retriever` | `Callable[..., Optional[list[dict]]]` | `None` | Function to get context to add to the user message. This function is called when add_references is True. |
-| `context_format` | `Literal['json', 'yaml']` | `json` | Specifies the format for RAG, either "json" or "yaml". |
-| `add_context_instructions` | `bool` | `False` | If True, add instructions for using the context to the system prompt (if knowledge is also provided). For example: add an instruction to prefer information from the knowledge base over its training data. |
+| `knowledge` | `AgentKnowledge` | `None` | エージェントによって使用されるナレッジベースを提供します。 |
+| `search_knowledge` | `bool` | `True` | モデルがナレッジベースを検索できるようにするツールを追加します（エージェント型RAGとも呼ばれます）。`knowledge` が提供されるとデフォルトで有効になります。 |
+| `add_references` | `bool` | `False` | AgentKnowledgeからの参照をユーザープロンプトに追加することでRAGを有効にします。 |
+| `retriever` | `Callable[..., Optional[list[dict]]]` | `None` | ユーザーメッセージに追加するコンテキストを取得するための関数。この関数は `add_references` が True の場合に呼び出されます。 |
+| `context_format` | `Literal['json', 'yaml']` | `json` | RAGのフォーマットを指定します。"json" または "yaml" のいずれかです。 |
+| `add_context_instructions` | `bool` | `False` | Trueの場合、システムプロンプトにコンテキストを使用するための指示を追加します（ナレッジも提供される場合）。たとえば、トレーニングデータよりもナレッジベースからの情報を優先する指示を追加します。 |
 
- ## Developer Resources
+## Developer Resources
 
-- View [Cookbook](https://github.com/agno-agi/agno/tree/main/cookbook/agent_concepts/knowledge)
+- [Cookbook](https://github.com/agno-agi/agno/tree/main/cookbook/agent_concepts/knowledge) を表示

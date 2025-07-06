@@ -2,17 +2,17 @@
 title: Discord
 ---
 
-**DiscordTools** enable an agent to send messages, read message history, manage channels, and delete messages in Discord.
+**DiscordTools** を使用すると、エージェントはメッセージの送信、メッセージ履歴の読み取り、チャンネルの管理、メッセージの削除を Discord で行うことができます。
 
-## Prerequisites
+## 前提条件
 
-The following example requires a Discord bot token which can be obtained from [here](https://discord.com/developers/applications).
+以下の例では、[こちら](https://discord.com/developers/applications) から取得できる Discord ボットトークンが必要です。
 
 ```shell
 export DISCORD_BOT_TOKEN=***
 ```
 
-## Example
+## 例
 
 ```python cookbook/tools/discord.py
 from agno.agent import Agent
@@ -26,27 +26,27 @@ agent = Agent(
 
 agent.print_response("Send 'Hello World!' to channel 1234567890", markdown=True)
 ```
-## Toolkit Params
+## Toolkit のパラメータ
 
-| Parameter                   | Type    | Default | Description                                                                           |
+| パラメータ                   | タイプ    | デフォルト | 説明                                                                           |
 | --------------------------- | ------- | ------- | ------------------------------------------------------------------------------------- |
-| `bot_token`                 | `str`   | -  | Discord bot token for authentication.                                                 |
-| `enable_messaging`          | `bool`  | `True`  | Whether to enable sending messages to channels.                                       |
-| `enable_history`            | `bool`  | `True`  | Whether to enable retrieving message history from channels.                           |
-| `enable_channel_management` | `bool`  | `True`  | Whether to enable fetching channel info and listing channels.                         |
-| `enable_message_management` | `bool`  | `True`  | Whether to enable deleting messages from channels.                                    |
+| `bot_token`                 | `str`   | -  | 認証用の Discord ボットトークン。                                                 |
+| `enable_messaging`          | `bool`  | `True`  | チャンネルへのメッセージ送信を有効にするかどうか。                                       |
+| `enable_history`            | `bool`  | `True`  | チャンネルからのメッセージ履歴の取得を有効にするかどうか。                           |
+| `enable_channel_management` | `bool`  | `True`  | チャンネル情報の取得やチャンネルの一覧表示を有効にするかどうか。                         |
+| `enable_message_management` | `bool`  | `True`  | チャンネルからのメッセージ削除を有効にするかどうか。                                    |
 
-## Toolkit Functions
+## Toolkit の関数
 
-| Function                                          | Description                                                                                                   |
+| 関数                                          | 説明                                                                                                   |
 | ------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
-| `send_message`     | Send a message to a specified channel. Returns a success or error message.                                    |
-| `get_channel_info`               | Retrieve information about a specified channel. Returns the channel info as a JSON string.                    |
-| `list_channels`                    | List all channels in a specified server (guild). Returns the list of channels as JSON.                        |
-| `get_channel_messages`| Retrieve message history from a specified channel. Returns messages as a JSON string.                         |
-| `delete_message`| Delete a specific message by ID from a specified channel. Returns a success or error message.                 |
+| `send_message`     | 指定されたチャンネルにメッセージを送信します。成功またはエラーメッセージを返します。                                    |
+| `get_channel_info`               | 指定されたチャンネルの情報を取得します。チャンネル情報を JSON 文字列として返します。                    |
+| `list_channels`                    | 指定されたサーバー（ギルド）のすべてのチャンネルを一覧表示します。チャンネルのリストを JSON として返します。                        |
+| `get_channel_messages`| 指定されたチャンネルからメッセージ履歴を取得します。メッセージを JSON 文字列として返します。                         |
+| `delete_message`| 指定されたチャンネルから特定のメッセージ ID を持つメッセージを削除します。成功またはエラーメッセージを返します。                 |
 
-## Developer Resources
+## 開発者向けリソース
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/discord.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/discord.py)
+- [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/discord.py) を表示
+- [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/discord.py) を表示

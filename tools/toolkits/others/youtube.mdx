@@ -2,19 +2,19 @@
 title: Youtube
 ---
 
-**YouTubeTools** enable an Agent to access captions and metadata of YouTube videos, when provided with a video URL.
+**YouTubeTools** は、動画 URL が提供された場合に、エージェントが YouTube 動画の字幕とメタデータにアクセスできるようにします。
 
-## Prerequisites
+## 前提条件
 
-The following example requires the `youtube_transcript_api` library.
+次の例では、`youtube_transcript_api` ライブラリが必要です。
 
 ```shell
 pip install -U youtube_transcript_api
 ```
 
-## Example
+## 例
 
-The following agent will provide a summary of a YouTube video.
+以下のエージェントは、YouTube 動画の要約を提供します。
 
 ```python cookbook/tools/youtube_tools.py
 from agno.agent import Agent
@@ -23,28 +23,28 @@ from agno.tools.youtube import YouTubeTools
 agent = Agent(
     tools=[YouTubeTools()],
     show_tool_calls=True,
-    description="You are a YouTube agent. Obtain the captions of a YouTube video and answer questions.",
+    description="あなたは YouTube エージェントです。YouTube 動画の字幕を取得し、質問に答えてください。",
 )
 
-agent.print_response("Summarize this video https://www.youtube.com/watch?v=Iv9dewmcFbs&t", markdown=True)
+agent.print_response("この動画の要約を教えてください https://www.youtube.com/watch?v=Iv9dewmcFbs&t", markdown=True)
 ```
 
-## Toolkit Params
+## Toolkit パラメータ
 
-| Param                | Type        | Default | Description                                                                        |
-| -------------------- | ----------- | ------- | ---------------------------------------------------------------------------------- |
-| `get_video_captions` | `bool`      | `True`  | Enables the functionality to retrieve video captions.                              |
-| `get_video_data`     | `bool`      | `True`  | Enables the functionality to retrieve video metadata and other related data.       |
-| `languages`          | `List[str]` | -       | Specifies the list of languages for which data should be retrieved, if applicable. |
+| パラメータ           | タイプ        | デフォルト | 説明                                                               |
+| -------------------- | ----------- | ------- | ------------------------------------------------------------------ |
+| `get_video_captions` | `bool`      | `True`  | 動画の字幕を取得する機能を有効にします。                             |
+| `get_video_data`     | `bool`      | `True`  | 動画のメタデータおよびその他の関連データを取得する機能を有効にします。 |
+| `languages`          | `List[str]` | -       | 該当する場合、データの取得対象となる言語のリストを指定します。         |
 
-## Toolkit Functions
+## Toolkit 関数
 
-| Function                     | Description                                              |
-| ---------------------------- | -------------------------------------------------------- |
-| `get_youtube_video_captions` | This function retrieves the captions of a YouTube video. |
-| `get_youtube_video_data`     | This function retrieves the metadata of a YouTube video. |
+| 関数                     | 説明                                       |
+| ------------------------ | ------------------------------------------ |
+| `get_youtube_video_captions` | この関数は YouTube 動画の字幕を取得します。 |
+| `get_youtube_video_data`     | この関数は YouTube 動画のメタデータを取得します。 |
 
-## Developer Resources
+## 開発者向けリソース
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/youtube.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/youtube_tools.py)
+- [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/youtube.py) を表示
+- [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/youtube_tools.py) を表示

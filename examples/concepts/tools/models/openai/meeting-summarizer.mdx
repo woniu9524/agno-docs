@@ -1,19 +1,19 @@
 ---
-title: Meeting Summary Agent
-description: Multi-modal Agno agent that transcribes meeting recordings, extracts key insights, generates visual summaries, and creates audio summaries using OpenAI tools.
+title: 会議サマリーエージェント
+description: 会議録音を文字起こしし、主要な洞察を抽出し、視覚的な要約を作成し、OpenAIツールを使用して音声要約を生成するマルチモーダルアグノエージェント。
 ---
 
-This example demonstrates a multi-modal meeting summarizer and visualizer agent that uses OpenAITools and ReasoningTools to transcribe a meeting recording, extract key insights, generate a visual summary, and synthesize an audio summary.
+この例では、OpenAIToolsとReasoningToolsを使用して会議録音を文字起こしし、主要な洞察を抽出し、視覚的な要約を生成し、音声要約を合成するマルチモーダル会議サマライザーおよびビジュアライザーエージェントについて説明します。
 
-## Code
+## コード
 
 ```python ref/meeting_summarizer_agent.py
-"""Example: Meeting Summarizer & Visualizer Agent
+"""例: 会議サマライザー & ビジュアライザーエージェント
 
-This script uses OpenAITools (transcribe_audio, generate_image, generate_speech)
-to process a meeting recording, summarize it, visualize it, and create an audio summary.
+このスクリプトは、OpenAITools (transcribe_audio, generate_image, generate_speech) を使用して、
+会議録音を処理し、要約し、視覚化し、音声要約を作成します。
 
-Requires: pip install openai agno
+要件: pip install openai agno
 """
 
 from pathlib import Path
@@ -30,51 +30,51 @@ input_audio_url: str = (
 )
 
 local_audio_path = Path("tmp/meeting_recording.mp3")
-print(f"Downloading file to local path: {local_audio_path}")
+print(f"ファイルをローカルパスにダウンロード中: {local_audio_path}")
 download_file(input_audio_url, local_audio_path)
 
 meeting_agent: Agent = Agent(
     model=Gemini(id="gemini-2.0-flash"),
     tools=[OpenAITools(), ReasoningTools()],
     description=dedent("""\
-        You are an efficient Meeting Assistant AI.
-        Your purpose is to process audio recordings of meetings, extract key information,
-        create a visual representation, and provide an audio summary.
+        あなたは効率的な会議アシスタントAIです。
+        会議の音声録音を処理し、主要な情報を抽出し、
+        視覚的な表現を作成し、音声要約を提供するのが目的です。
     """),
     instructions=dedent(f"""\
-        Follow these steps precisely:
-        1. Receive the path to an audio file.
-        2. Use the `transcribe_audio` tool to get the text transcription.
-        3. Analyze the transcription and write a concise summary highlighting key discussion points, decisions, and action items.
-        4. Based *only* on the summary created in step 3, generate formatted meeting minutes.
-        5. Convert the meeting minutes into an audio summary using the `generate_speech` tool.
+        これらの手順を正確に実行してください:
+        1. 音声ファイルへのパスを受け取ります。
+        2. `transcribe_audio` ツールを使用してテキストの文字起こしを取得します。
+        3. 文字起こしを分析し、主要な議論点、決定事項、およびアクションアイテムを強調する簡潔な要約を作成します。
+        4. ステップ3で作成した要約に基づいてのみ、フォーマットされた議事録を作成します。
+        5. `generate_speech` ツールを使用して議事録を音声要約に変換します。
     """),
     markdown=True,
     show_tool_calls=True,
 )
 
 response = meeting_agent.run(
-    f"Please process the meeting recording located at '{local_audio_path}'",
+    f"'{local_audio_path}' にある会議録音を処理してください",
 )
 if response.audio:
     save_base64_data(response.audio[0].base64_audio, Path("tmp/meeting_summary.mp3"))
-    print(f"Meeting summary saved to: {Path('tmp/meeting_summary.mp3')}")
+    print(f"会議要約を保存しました: {Path('tmp/meeting_summary.mp3')}")
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
-  <Step title="Install dependencies">
+  <Step title="依存関係のインストール">
     ```bash
     pip install openai agno
     ```
   </Step>
 
-  <Step title="Run the example">
+  <Step title="例の実行">
     ```bash
     python ref/meeting_summarizer_agent.py
     ```
   </Step>
 </Steps>
 
-By default, the audio summary will be saved to `tmp/meeting_summary.mp3`.
+デフォルトでは、音声要約は `tmp/meeting_summary.mp3` に保存されます。

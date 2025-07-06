@@ -2,56 +2,56 @@
 title: Apify
 ---
 
-This guide demonstrates how to integrate and use [Apify](https://apify.com/actors) Actors within the Agno framework to enhance your AI agents with web scraping, crawling, data extraction, and web automation capabilities.
+このガイドでは、Agno フレームワーク内で Apify Actor を統合および使用して、Web スクレイピング、クロール、データ抽出、Web 自動化機能で AI エージェントを強化する方法を説明します。
 
-## What is Apify?
+## Apify とは？
 
-[Apify](https://apify.com/) is a platform that provides:
-- Data collection services for AI Agents, specializing in extracting data from social media, search engines, online maps, e-commerce sites, travel portals, or general websites
-- A marketplace of ready-to-use Actors (specialized tools) for various data tasks
-- Infrastructure to run and monetize our own AI Agents
+[Apify](https://apify.com/) は、以下を提供するプラットフォームです。
+- ソーシャルメディア、検索エンジン、オンラインマップ、E コマースサイト、旅行ポータル、または一般的な Web サイトからデータを抽出することに特化した、AI エージェント向けのデータ収集サービス
+- さまざまなデータタスクに対応する、すぐに使用できる Actor (特殊なツール) のマーケットプレイス
+- 独自の AI エージェントを実行および収益化するためのインフラストラクチャ
 
-## Prerequisites
+## 前提条件
 
-1. Sign up for an [Apify account](https://console.apify.com/sign-up)
-2. Obtain your Apify API token (can be obtained from [Apify](https://docs.apify.com/platform/integrations/api))
-3. Install the required packages:
+1. [Apify アカウント](https://console.apify.com/sign-up)にサインアップします。
+2. Apify API トークンを取得します ([Apify](https://docs.apify.com/platform/integrations/api) から取得できます)。
+3. 必要なパッケージをインストールします。
 
 ```bash
 pip install agno apify-client
 ```
 
-## Basic Usage
+## 基本的な使い方
 
-The Agno framework makes it easy to integrate Apify Actors into your agents. Here's a simple example:
+Agno フレームワークを使用すると、Apify Actor をエージェントに簡単に統合できます。簡単な例を以下に示します。
 
 ```python
 from agno.agent import Agent
 from agno.tools.apify import ApifyTools
 
-# Create an agent with ApifyTools
+# ApifyTools を使用してエージェントを作成します
 agent = Agent(
     tools=[
         ApifyTools(
-            actors=["apify/rag-web-browser"],  # Specify which Apify Actors to use, use multiple ones if needed
-            apify_api_token="your_apify_api_key"  # Or set the APIFY_API_TOKEN environment variable 
+            actors=["apify/rag-web-browser"],  # 使用する Apify Actor を指定します。必要に応じて複数指定できます。
+            apify_api_token="your_apify_api_key"  # または APIFY_API_TOKEN 環境変数を設定します。
         )
     ],
     show_tool_calls=True,
     markdown=True
 )
 
-# Use the agent to get website content
-agent.print_response("What information can you find on https://docs.agno.com/introduction ?", markdown=True)
+# エージェントを使用して Web サイトのコンテンツを取得します
+agent.print_response("https://docs.agno.com/introduction からどのような情報が見つかりますか？", markdown=True)
 ```
 
-## Available Apify Tools
+## 利用可能な Apify ツール
 
-You can easily integrate any Apify Actor as a tool. Here are some examples:
+任意の Apify Actor をツールとして簡単に統合できます。以下に例を示します。
 
 ### 1. RAG Web Browser
 
-The [RAG Web Browser](https://apify.com/apify/rag-web-browser) Actor is specifically designed for AI and LLM applications. It searches the web for a query or processes a URL, then cleans and formats the content for your agent. This tool is enabled by default.
+[RAG Web Browser](https://apify.com/apify/rag-web-browser) Actor は、AI および LLM アプリケーション向けに特別に設計されています。クエリを Web で検索するか、URL を処理してから、エージェント向けにコンテンツをクリーニングおよびフォーマットします。このツールはデフォルトで有効になっています。
 
 ```python
 from agno.agent import Agent
@@ -65,13 +65,13 @@ agent = Agent(
     markdown=True
 )
 
-# Search for information and process the results
-agent.print_response("What are the latest developments in large language models?", markdown=True)
+# 情報を検索して結果を処理します
+agent.print_response("大規模言語モデルの最新の開発状況について教えてください。", markdown=True)
 ```
 
 ### 2. Website Content Crawler
 
-This tool uses Apify's [Website Content Crawler](https://apify.com/apify/website-content-crawler) Actor to extract text content from websites, making it perfect for RAG applications.
+このツールは、Apify の [Website Content Crawler](https://apify.com/apify/website-content-crawler) Actor を使用して Web サイトからテキストコンテンツを抽出するため、RAG アプリケーションに最適です。
 
 ```python
 from agno.agent import Agent
@@ -84,13 +84,13 @@ agent = Agent(
     markdown=True
 )
 
-# Ask the agent to process web content
-agent.print_response("Summarize the content from https://docs.agno.com/introduction", markdown=True)
+# エージェントに Web コンテンツを処理するように依頼します
+agent.print_response("https://docs.agno.com/introduction のコンテンツを要約してください。", markdown=True)
 ```
 
 ### 3. Google Places Crawler
 
-The [Google Places Crawler](https://apify.com/compass/crawler-google-places) extracts data about businesses from Google Maps and Google Places.
+[Google Places Crawler](https://apify.com/compass/crawler-google-places) は、Google マップおよび Google プレイスからビジネスに関するデータを抽出します。
 
 ```python
 from agno.agent import Agent
@@ -103,15 +103,15 @@ agent = Agent(
     show_tool_calls=True
 )
 
-# Find business information in a specific location
-agent.print_response("What are the top-rated restaurants in San Francisco?", markdown=True)
-agent.print_response("Find coffee shops in Prague", markdown=True)
+# 特定の場所のビジネス情報を検索します
+agent.print_response("サンフランシスコで評価の高いレストランは何ですか？", markdown=True)
+agent.print_response("プラハのコーヒーショップを探してください。", markdown=True)
 ```
 
-## Example Scenarios
+## ユースケース例
 
 ### RAG Web Browser + Google Places Crawler
-This example combines web search with local business data to provide comprehensive information about a topic:
+この例では、Web 検索とローカルビジネスデータを組み合わせて、トピックに関する包括的な情報を提供します。
 
 ```python
 from agno.agent import Agent
@@ -127,32 +127,32 @@ agent = Agent(
     show_tool_calls=True
 )
 
-# Get general information and local businesses
+# 一般情報とローカルビジネス情報を取得します
 agent.print_response(
     """
-    I'm traveling to Tokyo next month.
-    1. Research the best time to visit and major attractions
-    2. Find one good rated sushi restaurants near Shinjuku
-    Compile a comprehensive travel guide with this information.
+    来月東京に旅行します。
+    1. 旅行に最適な時期と主要なアトラクションを調査してください。
+    2. 新宿近くで評価の高い寿司レストランを 1軒見つけてください。
+    この情報を使用して、包括的な旅行ガイドを作成してください。
     """,
     markdown=True
 )
 ```
 
-## Toolkit Params
+## Toolkit パラメータ
 
-| Parameter                    | Type                | Default | Description                                                        |
+| パラメータ                    | タイプ                | デフォルト | 説明                                                              |
 | ---------------------------- | ------------------- | ------- | ------------------------------------------------------------------ |
-| `apify_api_token`            | `str`               | `None`  | Apify API token (or set via APIFY_API_TOKEN environment variable)  |
-| `actors`                     | `str` or `List[str]`| `None`  | Single Actor ID or list of Actor IDs to register                   |
+| `apify_api_token`            | `str`               | `None`  | Apify API トークン (または APIFY_API_TOKEN 環境変数で設定)  |
+| `actors`                     | `str` または `List[str]`| `None`  | 単一の Actor ID または登録する Actor ID のリスト                   |
 
-## Developer Resources
+## 開発者向けリソース
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/apify.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/apify_tools.py)
+- [ツール](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/apify.py)を表示
+- [クックブック](https://github.com/agno-agi/agno/blob/main/cookbook/tools/apify_tools.py)を表示
 
-## Resources
+## リソース
 
-- [Apify Actor Documentation](https://docs.apify.com/Actors)
-- [Apify Store - Browse available Actors](https://apify.com/store)
-- [How to build and monetize an AI agent on Apify](https://blog.apify.com/how-to-build-an-ai-agent/)
+- [Apify Actor ドキュメント](https://docs.apify.com/Actors)
+- [Apify Store - 利用可能な Actor を閲覧](https://apify.com/store)
+- [Apify で AI エージェントを構築および収益化する方法](https://blog.apify.com/how-to-build-an-ai-agent/)

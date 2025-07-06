@@ -1,8 +1,8 @@
-| Parameter    | Type               | Default            | Description                                         |
+| パラメータ    | タイプ               | デフォルト            | 説明                                                              |
 | ------------ | ------------------ | ------------------ | --------------------------------------------------- |
-| `collection` | `str`              | -                  | The name of the collection to use.                  |
-| `schema`     | `Optional[str]`    | `"ai"`             | The database schema to use.                         |
-| `db_url`     | `Optional[str]`    | `None`             | The database connection URL.                        |
-| `db_engine`  | `Optional[Engine]` | `None`             | SQLAlchemy engine instance.                         |
-| `embedder`   | `Embedder`         | `OpenAIEmbedder()` | The embedder to use for creating vector embeddings. |
-| `distance`   | `Distance`         | `Distance.cosine`  | The distance metric to use for similarity search.   |
+| `collection` | `str`              | -                  | 使用するコレクションの名前。                                        |
+| `schema`     | `Optional[str]`    | `"ai"`             | 使用するデータベーススキーマ。                                      |
+| `db_url`     | `Optional[str]`    | `None`             | データベース接続URL。                                               |
+| `db_engine`  | `Optional[Engine]` | `None`             | SQLAlchemyのエンジンインスタンス。                                  |
+| `embedder`   | `Embedder`         | `OpenAIEmbedder()` | ベクトル埋め込みを作成するために使用するエンベッダー。                        |
+| `distance`   | `Distance`         | `Distance.cosine`  | 類似性検索に使用する距離メトリック。                                |

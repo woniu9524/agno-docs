@@ -1,16 +1,16 @@
 ---
-title: Markdown Knowledge Base
-description: Learn how to use Markdown files in your knowledge base.
+title: Markdownナレッジベース
+description: ナレッジベースでのMarkdownファイルの利用方法を学習します。
 sidebarTitle: Markdown
 ---
 
-The **MarkdownKnowledgeBase** reads **local markdown** files, converts them into vector embeddings and loads them to a vector database.
+**MarkdownKnowledgeBase** は、**ローカルのMarkdownファイル**を読み込み、ベクター埋め込みに変換して、ベクターデータベースにロードします。
 
-## Usage
+## 使用方法
 
 <Note>
 
-We are using a local PgVector database for this example. [Make sure it's running](https://docs.agno.com/vectordb/pgvector)
+この例では、ローカルのPgVectorデータベースを使用しています。[実行されていることを確認してください](https://docs.agno.com/vectordb/pgvector)
 
 </Note>
 
@@ -27,7 +27,7 @@ knowledge_base = MarkdownKnowledgeBase(
 )
 ```
 
-Then use the `knowledge_base` with an Agent:
+次に、`knowledge_base` をエージェントと共に使用します。
 
 ```python agent.py
 from agno.agent import Agent
@@ -42,12 +42,12 @@ agent.knowledge.load(recreate=False)
 agent.print_response("Ask me about something from the knowledge base")
 ```
 
-#### MarkdownKnowledgeBase also supports async loading.
+#### MarkdownKnowledgeBase は非同期ロードもサポートしています。
 
 ```shell
 pip install qdrant-client
 ```
-We are using a local Qdrant database for this example. [Make sure it's running](https://docs.agno.com/vectordb/qdrant)
+この例では、ローカルのQdrantデータベースを使用しています。[実行されていることを確認してください](https://docs.agno.com/vectordb/qdrant)
 
 ```python async_knowledge_base.py
 import asyncio
@@ -61,21 +61,21 @@ COLLECTION_NAME = "essay-txt"
 
 vector_db = Qdrant(collection=COLLECTION_NAME, url="http://localhost:6333")
 
-# Initialize the MarkdownKnowledgeBase
+# MarkdownKnowledgeBaseの初期化
 knowledge_base = MarkdownKnowledgeBase(
     path=Path("tmp/mds"),
     vector_db=vector_db,
     num_documents=5,
 )
 
-# Initialize the Assistant with the knowledge_base
+# Assistantの初期化とknowledge_baseの設定
 agent = Agent(
     knowledge=knowledge_base,
     search_knowledge=True,
 )
 
 if __name__ == "__main__":
-    # Comment out after first run
+    # 初回実行後にコメントアウトしてください
     asyncio.run(knowledge_base.aload(recreate=False))
 
     asyncio.run(
@@ -85,18 +85,17 @@ if __name__ == "__main__":
     )
 ```
 
-## Params
+## パラメータ
 
-| Parameter | Type               | Default            | Description                                                                             |
+| パラメータ | タイプ               | デフォルト            | 説明                                                                             |
 | --------- | ------------------ | ------------------ | -------------------------------------------------------------------------------------   |
-| `path`    | `Union[str, Path]` | -                  | Path to md files. Can point to a single md file or a directory of md files.             |
-| `formats` | `List[str]`        | `[".md"]`          | Formats accepted by this knowledge base.                                                |
-| `reader`  | `MarkdownReader`   | `MarkdownReader()` | A `MarkdownReader` that converts the md files into `Documents` for the vector database. |
+| `path`    | `Union[str, Path]` | -                  | mdファイルへのパス。単一のmdファイルまたはmdファイルのディレクトリを指定できます。             |
+| `formats` | `List[str]`        | `[".md"]`          | このナレッジベースで受け入れられるフォーマット。                                                |
+| `reader`  | `MarkdownReader`   | `MarkdownReader()` | mdファイルをベクターデータベース用の`Documents`に変換する`MarkdownReader`。 |
 
-`MarkdownKnowledgeBase` is a subclass of the [AgentKnowledge](/reference/knowledge/base) class and has access to the same params.
+`MarkdownKnowledgeBase` は [AgentKnowledge](/reference/knowledge/base) クラスのサブクラスであり、同じパラメータにアクセスできます。
 
-## Developer Resources
+## 開発者向けリソース
 
-- View [Sync loading Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/markdown_kb.py)
-- View [Async loading Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/markdown_kb_async.py)
-
+- [同期ロードクックブック](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/markdown_kb.py) を表示
+- [非同期ロードクックブック](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/markdown_kb_async.py) を表示

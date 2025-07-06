@@ -2,11 +2,11 @@
 title: Zep
 ---
 
-**ZepTools** enable an Agent to interact with a Zep memory system, providing capabilities to store, retrieve, and search memory data associated with user sessions.
+**ZepTools** は、エージェントが Zep メモリシステムと対話できるようにし、ユーザーセッションに関連付けられたメモリデータを保存、取得、検索する機能を提供します。
 
-## Prerequisites
+## 前提条件
 
-The ZepTools require the `zep-cloud` Python package and a Zep API key.
+ZepTools には、`zep-cloud` Python パッケージと Zep API キーが必要です。
 
 ```shell
 pip install zep-cloud
@@ -16,9 +16,9 @@ pip install zep-cloud
 export ZEP_API_KEY=your_api_key
 ```
 
-## Example
+## 例
 
-The following example demonstrates how to create an agent with access to Zep memory:
+以下の例は、Zep メモリにアクセスできるエージェントを作成する方法を示しています。
 
 ```python cookbook/tools/zep_tools.py
 import time
@@ -27,10 +27,10 @@ from agno.agent import Agent
 from agno.models.openai import OpenAIChat
 from agno.tools.zep import ZepTools
 
-# Initialize the ZepTools
+# ZepTools を初期化します
 zep_tools = ZepTools(user_id="agno", session_id="agno-session", add_instructions=True)
 
-# Initialize the Agent
+# Agent を初期化します
 agent = Agent(
     model=OpenAIChat(),
     tools=[zep_tools],
@@ -38,53 +38,51 @@ agent = Agent(
     add_context=True,
 )
 
-# Interact with the Agent so that it can learn about the user
-agent.print_response("My name is John Billings")
-agent.print_response("I live in NYC")
-agent.print_response("I'm going to a concert tomorrow")
+# エージェントと対話して、ユーザーについて学習できるようにします
+agent.print_response("私の名前は John Billings です")
+agent.print_response("私は NYC に住んでいます")
+agent.print_response("明日コンサートに行きます")
 
-# Allow the memories to sync with Zep database
+# メモリが Zep データベースと同期するのを待ちます
 time.sleep(10)
 
-# Refresh the context
+# コンテキストを更新します
 agent.context["memory"] = zep_tools.get_zep_memory(memory_type="context")
 
-# Ask the Agent about the user
-agent.print_response("What do you know about me?")
+# エージェントにユーザーについて尋ねます
+agent.print_response("私のことについて何を知っていますか？")
 ```
 
-## Toolkit Params
+## Toolkit パラメータ
 
-| Parameter                | Type     | Default | Description                                           |
+| パラメータ                | タイプ     | デフォルト | 説明                                           |
 | ------------------------ | -------- | ------- | ----------------------------------------------------- |
-| `session_id`             | `str`    | `None`  | Optional session ID. Auto-generated if not provided.  |
-| `user_id`                | `str`    | `None`  | Optional user ID. Auto-generated if not provided.     |
-| `api_key`                | `str`    | `None`  | Zep API key. If not provided, uses ZEP_API_KEY env var. |
-| `ignore_assistant_messages` | `bool` | `False` | Whether to ignore assistant messages when adding to memory. |
-| `add_zep_message`        | `bool`   | `True`  | Add a message to the current Zep session memory.        |
-| `get_zep_memory`         | `bool`   | `True`  | Retrieve memory for the current Zep session.       |
-| `search_zep_memory`      | `bool`   | `True`  | Search the Zep memory store for relevant information.   |
-| `instructions`           | `str`    | `None`  | Custom instructions for using the Zep tools.          |
-| `add_instructions`       | `bool`   | `False` | Whether to add default instructions.                  |
+| `session_id`                | `str`    | `None`  | オプションのセッション ID。提供されない場合は自動生成されます。  |
+| `user_id`                | `str`    | `None`  | オプションのユーザー ID。提供されない場合は自動生成されます。     |
+| `api_key`                | `str`    | `None`  | Zep API キー。提供されない場合は、ZEP_API_KEY 環境変数が使用されます。 |
+| `ignore_assistant_messages` | `bool` | `False` | メモリに追加する際にアシスタントメッセージを無視するかどうか。 |
+| `add_zep_message`        | `bool`   | `True`  | 現在の Zep セッションメモリにメッセージを追加します。        |
+| `get_zep_memory`         | `bool`   | `True`  | 現在の Zep セッションのメモリを取得します。       |
+| `search_zep_memory`      | `bool`   | `True`  | Zep メモリ ストアで関連情報を検索します。   |
+| `instructions`           | `str`    | `None`  | Zep ツールを使用するためのカスタム指示。          |
+| `add_instructions`       | `bool`   | `False` | デフォルトの指示を追加するかどうか。                  |
 
-## Toolkit Functions
+## Toolkit 関数
 
-| Function | Description |
+| 関数 | 説明 |
 | -------- | ----------- |
-| `add_zep_message` | Adds a message to the current Zep session memory. Takes `role` (str) for the message sender and `content` (str) for the message text. Returns a confirmation or error message. |
-| `get_zep_memory` | Retrieves memory for the current Zep session. Takes optional `memory_type` (str) parameter with options "context" (default), "summary", or "messages". Returns the requested memory content or an error. |
-| `search_zep_memory` | Searches the Zep memory store for relevant information. Takes `query` (str) to find relevant facts and optional `search_scope` (str) parameter with options "messages" (default) or "summary". Returns search results or an error message. |
+| `add_zep_message` | 現在の Zep セッションメモリにメッセージを追加します。メッセージ送信者の `role` (str) とメッセージテキストの `content` (str) を受け取ります。確認またはエラーメッセージを返します。 |
+| `get_zep_memory` | 現在の Zep セッションのメモリを取得します。オプションの `memory_type` (str) パラメータを受け取り、"context" (デフォルト)、"summary"、または "messages" のオプションがあります。要求されたメモリの内容またはエラーを返します。 |
+| `search_zep_memory` | Zep メモリ ストアで関連情報を検索します。関連する事実を見つけるための `query` (str) と、オプションの `search_scope` (str) パラメータを受け取ります。"messages" (デフォルト) または "summary" のオプションがあります。検索結果またはエラーメッセージを返します。 |
 
 ## Async Toolkit
 
-The `ZepAsyncTools` class extends the `ZepTools` class and provides asynchronous versions of the toolkit functions.
+`ZepAsyncTools` クラスは `ZepTools` クラスを拡張し、ツール関数の非同期バージョンを提供します。
 
 
 
-## Developer Resources
+## 開発者向けリソース
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/zep.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/zep_tools.py)
-- View [Async Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/zep_async_tools.py)
-
-
+- [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/zep.py) を表示
+- [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/zep_tools.py) を表示
+- [Async Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/zep_async_tools.py) を表示

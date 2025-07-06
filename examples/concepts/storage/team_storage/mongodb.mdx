@@ -3,11 +3,11 @@ title: Mongo Team Storage
 sidebarTitle: MongoDB
 ---
 
-Agno supports using MongoDB as a storage backend for Teams using the `MongoDbStorage` class.
+Agno は、`MongoDbStorage` クラスを使用して、チームのストレージバックエンドとして MongoDB をサポートしています。
 
-## Usage
+## 使用方法
 
-You need to provide either `db_url` or `client`. The following example uses `db_url`.
+`db_url` または `client` を指定する必要があります。以下の例では `db_url` を使用しています。
 
 ```python mongodb_storage_for_team.py
 """
@@ -73,10 +73,10 @@ hn_team = Team(
 hn_team.print_response("Write an article about the top 2 stories on hackernews")
 ```
 
-## Params
+## パラメータ
 
 <Snippet file="storage-mongodb-params.mdx" />
 
-## Developer Resources
+## 開発者向けリソース
 
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/storage/mongodb_storage/mongodb_storage_for_team.py)
+- [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/storage/mongodb_storage/mongodb_storage_for_team.py) を表示

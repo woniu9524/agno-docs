@@ -2,16 +2,16 @@
 title: Agent State
 ---
 
-This example shows how to create an agent that maintains state across interactions. It demonstrates a simple counter mechanism, but this pattern can be extended to more complex state management like maintaining conversation context, user preferences, or tracking multi-step processes.
+この例では、インタラクション間で状態を維持するエージェントを作成する方法を示します。単純なカウンターメカニズムを実証していますが、このパターンは、会話コンテキスト、ユーザー設定の維持、または複数ステップのプロセスの追跡などの、より複雑な状態管理に拡張できます。
 
-Example prompts to try:
-- "Increment the counter 3 times and tell me the final count"
-- "What's our current count? Add 2 more to it"
-- "Let's increment the counter 5 times, but tell me each step"
-- "Add 4 to our count and remind me where we started"
-- "Increase the counter twice and summarize our journey"
+試してみるプロンプトの例：
+- 「カウンターを3回増やして、最終的なカウントを教えてください」
+- 「現在のカウントはいくつですか？さらに2つ追加してください」
+- 「カウンターを5回増やしてください。ただし、各ステップを教えてください」
+- 「カウントに4を追加して、開始時点を思い出させてください」
+- 「カウンターを2回増やして、私たちの旅を要約してください」
 
-## Code
+## コード
 
 ```python agent_state.py
 from textwrap import dedent
@@ -20,71 +20,71 @@ from agno.agent import Agent
 from agno.models.openai import OpenAIChat
 
 
-# Define a tool that increments our counter and returns the new value
+# カウンターを増やして新しい値を返すツールを定義します
 def increment_counter(agent: Agent) -> str:
-    """Increment the session counter and return the new value."""
+    """セッションカウンターを増やして新しい値を返します。"""
     agent.session_state["count"] += 1
     return f"The count is now {agent.session_state['count']}"
 
 
-# Create a State Manager Agent that maintains state
+# 状態を維持するステートマネージャーエージェントを作成します
 agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
-    # Initialize the session state with a counter starting at 0
+    # カウンターを0から開始してセッション状態を初期化します
     session_state={"count": 0},
     tools=[increment_counter],
-    # You can use variables from the session state in the instructions
+    # セッション状態の変数を指示で使用できます
     instructions=dedent("""\
-        You are the State Manager, an enthusiastic guide to state management! 🔄
-        Your job is to help users understand state management through a simple counter example.
+        あなたはステートマネージャーです。状態管理の熱心なガイドです！🔄
+        あなたの仕事は、単純なカウンターの例を通じてユーザーが状態管理を理解するのを助けることです。
 
-        Follow these guidelines for every interaction:
-        1. Always acknowledge the current state (count) when relevant
-        2. Use the increment_counter tool to modify the state
-        3. Explain state changes in a clear and engaging way
+        すべてのインタラクションで次のガイドラインに従ってください：
+        1. 関連する場合は常に現在の状態（カウント）を認識してください
+        2. increment_counter ツールを使用して状態を変更してください
+        3. 状態の変更を明確かつ魅力的な方法で説明してください
 
-        Structure your responses like this:
-        - Current state status
-        - State transformation actions
-        - Final state and observations
+        応答を次のように構成してください：
+        - 現在の状態ステータス
+        - 状態変換アクション
+        - 最終状態と観察
 
-        Starting state (count) is: {count}\
+        開始状態（カウント）は次のとおりです： {count}\
     """),
     show_tool_calls=True,
     markdown=True,
 )
 
-# Example usage
+# 使用例
 agent.print_response(
-    "Let's increment the counter 3 times and observe the state changes!",
+    "カウンターを3回増やして、状態の変化を観察しましょう！",
     stream=True,
 )
 
-# More example prompts to try:
+# 試してみる追加のプロンプト：
 """
-Try these engaging state management scenarios:
-1. "Update our state 4 times and track the changes"
-2. "Modify the counter twice and explain the state transitions"
-3. "Increment 3 times and show how state persists"
-4. "Let's perform 5 state updates with observations"
-5. "Add 3 to our count and explain the state management concept"
+これらの魅力的な状態管理シナリオを試してください：
+1. 「状態を4回更新して、変更を追跡してください」
+2. 「カウンターを2回変更して、状態遷移を説明してください」
+3. 「3回増やして、状態がどのように永続するかを示してください」
+4. 「観察を伴う状態更新を5回実行しましょう」
+5. 「カウントに3を追加して、状態管理の概念を説明してください」
 """
 
 print(f"Final session state: {agent.session_state}")
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install libraries">
+  <Step title="ライブラリのインストール">
     ```bash
     pip install openai agno
     ```
   </Step>
 
-  <Step title="Run the agent">
+  <Step title="エージェントの実行">
     ```bash
     python agent_state.py
     ```

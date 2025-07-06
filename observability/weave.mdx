@@ -1,56 +1,56 @@
 ---
 title: Weave
-description: Integrate Agno with Weave by WandB to send traces and gain insights into your agent's performance.
+description: Agno を WandB の Weave と統合してトレースを送信し、エージェントのパフォーマンスに関する洞察を得ます。
 ---
 
-## Integrating Agno with Weave by WandB
+## Agno と WandB の Weave との統合
 
-[Weave by Weights & Biases (WandB)](https://weave-docs.wandb.ai/) provides a powerful platform for logging and visualizing model calls. By integrating Agno with Weave, you can track and analyze your agent's performance and behavior.
+[Weights & Biases (WandB) による Weave](https://weave-docs.wandb.ai/) は、モデル呼び出しのログ記録と視覚化のための強力なプラットフォームを提供します。Agno を Weave と統合することで、エージェントのパフォーマンスと動作を追跡および分析できます。
 
-## Prerequisites
+## 前提条件
 
-1. **Install Weave**
+1. **Weave のインストール**
 
-   Ensure you have the Weave package installed:
+   Weave パッケージがインストールされていることを確認してください。
 
    ```bash
    pip install weave
    ```
 
-2. **Authentication**
-   Go to [WandB](https://wandb.ai) and copy your API key
+2. **認証**
+   [WandB](https://wandb.ai) にアクセスして、API キーをコピーします。
    ```bash
    export WANDB_API_KEY=<your-api-key>
    ```
 
-## Logging Model Calls with Weave
+## Weave を使用したモデル呼び出しのログ記録
 
-This example demonstrates how to use Weave to log model calls.
+この例では、Weave を使用してモデル呼び出しをログに記録する方法を示します。
 
 ```python
 import weave
 from agno.agent import Agent
 from agno.models.openai import OpenAIChat
 
-# Initialize Weave with your project name
+# プロジェクト名で Weave を初期化します
 weave.init("agno")
 
-# Create and configure the agent
+# エージェントを作成して設定します
 agent = Agent(model=OpenAIChat(id="gpt-4o"), markdown=True, debug_mode=True)
 
-# Define a function to run the agent, decorated with weave.op()
+# weave.op() で装飾されたエージェントを実行する関数を定義します
 @weave.op()
 def run(content: str):
     return agent.run(content)
 
-# Use the function to log a model call
+# 関数を使用してモデル呼び出しをログに記録します
 run("Share a 2 sentence horror story")
 ```
 
-## Notes
+## 注意事項
 
-- **Environment Variables**: Ensure your environment variable is correctly set for the WandB API key.
-- **Initialization**: Call `weave.init("project-name")` to initialize Weave with your project name.
-- **Decorators**: Use `@weave.op()` to decorate functions you want to log with Weave.
+- **環境変数**: WandB API キーの環境変数が正しく設定されていることを確認してください。
+- **初期化**: `weave.init("project-name")` を呼び出して、プロジェクト名で Weave を初期化します。
+- **デコレータ**: Weave でログに記録したい関数を装飾するには `@weave.op()` を使用します。
 
-By following these steps, you can effectively integrate Agno with Weave, enabling comprehensive logging and visualization of your AI agents' model calls.
+これらの手順に従うことで、Agno を Weave と効果的に統合し、AI エージェントのモデル呼び出しの包括的なログ記録と視覚化を有効にすることができます。

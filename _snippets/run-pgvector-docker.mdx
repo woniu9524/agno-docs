@@ -1,6 +1,6 @@
-## Run PgVector on Docker
+## Docker で PgVector を実行する
 
-Create a file `resources.py` with the following contents:
+以下の内容で `resources.py` ファイルを作成します。
 
 ```python resources.py
 from agno.docker.app.postgres import PgVectorDb
@@ -18,7 +18,7 @@ vector_db = PgVectorDb(
 dev_docker_resources = DockerResources(apps=[vector_db])
 ```
 
-Start resources using:
+以下を使用してリソースを開始します。
 
 <CodeGroup>
 
@@ -32,4 +32,4 @@ ag start resources.py
 
 </CodeGroup>
 
-**Press Enter** to confirm and verify container status on the docker dashboard.
+確認して Docker ダッシュボードでコンテナの状態を検証するには、**Enter キーを押します**。

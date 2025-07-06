@@ -1,12 +1,12 @@
 ---
-title: SQLite Memory Storage
+title: SQLite メモリ ストレージ
 ---
 
-## Code
+## コード
 
 ```python cookbook/agent_concepts/memory/sqlite_memory.py
 """
-This example shows how to use the Memory class with SQLite storage.
+この例では、Memory クラスと SQLite ストレージの使用方法を示します。
 """
 
 from agno.agent.agent import Agent
@@ -15,75 +15,75 @@ from agno.memory.v2.memory import Memory
 from agno.models.openai import OpenAIChat
 from agno.storage.sqlite import SqliteStorage
 
-# Create SQLite memory database
+# SQLite メモリデータベースの作成
 memory_db = SqliteMemoryDb(
-    table_name="agent_memories",  # Table name to use in the database
-    db_file="tmp/memory.db",      # Path to SQLite database file
+    table_name="agent_memories",  # データベースで使用するテーブル名
+    db_file="tmp/memory.db",      # SQLite データベースファイルへのパス
 )
 
-# Create memory instance with SQLite backend
+# SQLite バックエンドを持つメモリインスタンスの作成
 memory = Memory(db=memory_db)
 
-# This will create the table if it doesn't exist
+# テーブルが存在しない場合は作成されます
 memory.clear()
 
-# Session and user identifiers
+# セッションおよびユーザー識別子
 session_id = "sqlite_memories"
 user_id = "sqlite_user"
 
-# Create agent with memory and SQLite storage
+# メモリと SQLite ストレージを持つエージェントの作成
 agent = Agent(
     model=OpenAIChat(id="gpt-4o-mini"),
     memory=memory,
     storage=SqliteStorage(
-        table_name="agent_sessions", 
+        table_name="agent_sessions",
         db_file="tmp/memory.db"
     ),
     enable_user_memories=True,
     enable_session_summaries=True,
 )
 
-# First interaction - introducing personal information
+# 最初の対話 - 個人情報の紹介
 agent.print_response(
-    "My name is John Doe and I like to hike in the mountains on weekends.",
+    "私の名前はジョン・ドウです。週末は山でハイキングをするのが好きです。",
     stream=True,
     user_id=user_id,
     session_id=session_id,
 )
 
-# Second interaction - testing if memory was stored
+# 2 回目の対話 - メモリが保存されたかどうかのテスト
 agent.print_response(
-    "What are my hobbies?", 
-    stream=True, 
-    user_id=user_id, 
+    "私の趣味は何ですか？",
+    stream=True,
+    user_id=user_id,
     session_id=session_id
 )
 
-# Display the memories stored in SQLite
+# SQLite に保存されたメモリの表示
 memories = memory.get_user_memories(user_id=user_id)
-print("Memories stored in SQLite:")
+print("SQLite に保存されたメモリ:")
 for i, m in enumerate(memories):
     print(f"{i}: {m.memory}")
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set environment variables">
+  <Step title="環境変数の設定">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="ライブラリのインストール">
     ```bash
     pip install -U agno openai
     ```
   </Step>
 
-  <Step title="Run Example">
+  <Step title="例の実行">
     <CodeGroup>
     ```bash Mac/Linux
     python cookbook/agent_concepts/memory/sqlite_memory.py

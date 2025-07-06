@@ -1,13 +1,13 @@
 ---
-title: Couchbase Agent Knowledge
+title: Couchbase Agentナレッジ
 sidebarTitle: Couchbase
 ---
 
-## Setup
+## セットアップ
 
-### Local Setup (Docker)
+### ローカルセットアップ (Docker)
 
-Run Couchbase locally using Docker:
+Dockerを使用してCouchbaseをローカルで実行します。
 
 ```shell
 docker run -d --name couchbase-server \
@@ -18,35 +18,35 @@ docker run -d --name couchbase-server \
   couchbase:latest
 ```
 
-1. Access the Couchbase UI at: http://localhost:8091
-2. Login with username: `Administrator` and password: `password`
-3. Create a bucket named `recipe_bucket`, a scope `recipe_scope`, and a collection `recipes`
+1. http://localhost:8091 でCouchbase UIにアクセスします。
+2. ユーザー名: `Administrator`、パスワード: `password` でログインします。
+3. `recipe_bucket` という名前のバケット、`recipe_scope` という名前のスコープ、`recipes` という名前のコレクションを作成します。
 
-### Managed Setup (Capella)
+### マネージドセットアップ (Capella)
 
-For a managed cluster, use [Couchbase Capella](https://cloud.couchbase.com/):
-- Follow Capella's UI to create a database, bucket, scope, and collection
+マネージドクラスターの場合は、[Couchbase Capella](https://cloud.couchbase.com/) を使用します。
+- CapellaのUIに従って、データベース、バケット、スコープ、コレクションを作成します。
 
-### Environment Variables
+### 環境変数
 
-Set up your environment variables:
+環境変数を設定します。
 
 ```shell
 export COUCHBASE_USER="Administrator"
-export COUCHBASE_PASSWORD="password" 
+export COUCHBASE_PASSWORD="password"
 export COUCHBASE_CONNECTION_STRING="couchbase://localhost"
 export OPENAI_API_KEY="<your-openai-api-key>"
 ```
 
-For Capella, set `COUCHBASE_CONNECTION_STRING` to your Capella connection string.
+Capellaの場合は、`COUCHBASE_CONNECTION_STRING` をCapellaの接続文字列に設定します。
 
-### Install Dependencies
+### 依存関係のインストール
 
 ```shell
 pip install couchbase
 ```
 
-## Example
+## 例
 
 ```python agent_with_knowledge.py
 import os
@@ -59,12 +59,12 @@ from couchbase.options import ClusterOptions, KnownConfigProfiles
 from couchbase.auth import PasswordAuthenticator
 from couchbase.management.search import SearchIndex
 
-# Couchbase connection settings
+# Couchbase接続設定
 username = os.getenv("COUCHBASE_USER")
 password = os.getenv("COUCHBASE_PASSWORD")
 connection_string = os.getenv("COUCHBASE_CONNECTION_STRING")
 
-# Create cluster options with authentication
+# 認証付きクラスターオプションを作成
 auth = PasswordAuthenticator(username, password)
 cluster_options = ClusterOptions(auth)
 cluster_options.apply_profile(KnownConfigProfiles.WanDevelopment)
@@ -80,8 +80,8 @@ knowledge_base = PDFUrlKnowledgeBase(
         cluster_options=cluster_options,
         search_index="vector_search_fts_index",
         embedder=OpenAIEmbedder(
-            id="text-embedding-3-large", 
-            dimensions=3072, 
+            id="text-embedding-3-large",
+            dimensions=3072,
             api_key=os.getenv("OPENAI_API_KEY")
         ),
         wait_until_index_ready=60,
@@ -89,23 +89,23 @@ knowledge_base = PDFUrlKnowledgeBase(
     ),
 )
 
-# Load the knowledge base
+# ナレッジベースをロード
 knowledge_base.load(recreate=True)
 
-# Wait for the vector index to sync with KV
+# KVへのベクトルインデックスの同期を待機
 time.sleep(20)
 
-# Create and use the agent
+# エージェントを作成して使用
 agent = Agent(knowledge=knowledge_base, show_tool_calls=True)
 agent.print_response("How to make Thai curry?", markdown=True)
 ```
 
-<Card title="Async Support ⚡">
+<Card title="非同期サポート ⚡">
   <div className="mt-2">
     <p>
-      Couchbase also supports asynchronous operations, enabling concurrency and leading to better performance.
+      Couchbaseは非同期操作もサポートしており、並行処理を可能にし、パフォーマンスを向上させます。
     </p>
-    
+
     ```python async_couchbase.py
     import asyncio
     import os
@@ -118,12 +118,12 @@ agent.print_response("How to make Thai curry?", markdown=True)
     from couchbase.auth import PasswordAuthenticator
     from couchbase.management.search import SearchIndex
 
-    # Couchbase connection settings
+    # Couchbase接続設定
     username = os.getenv("COUCHBASE_USER")
     password = os.getenv("COUCHBASE_PASSWORD")
     connection_string = os.getenv("COUCHBASE_CONNECTION_STRING")
 
-    # Create cluster options with authentication
+    # 認証付きクラスターオプションを作成
     auth = PasswordAuthenticator(username, password)
     cluster_options = ClusterOptions(auth)
     cluster_options.apply_profile(KnownConfigProfiles.WanDevelopment)
@@ -138,8 +138,8 @@ agent.print_response("How to make Thai curry?", markdown=True)
             cluster_options=cluster_options,
             search_index="vector_search_fts_index",
             embedder=OpenAIEmbedder(
-                id="text-embedding-3-large", 
-                dimensions=3072, 
+                id="text-embedding-3-large",
+                dimensions=3072,
                 api_key=os.getenv("OPENAI_API_KEY")
             ),
             wait_until_index_ready=60,
@@ -147,36 +147,36 @@ agent.print_response("How to make Thai curry?", markdown=True)
         ),
     )
 
-    # Create and use the agent
+    # エージェントを作成して使用
     agent = Agent(knowledge=knowledge_base, show_tool_calls=True)
 
     async def run_agent():
         await knowledge_base.aload(recreate=True)
-        time.sleep(5)  # Wait for the vector index to sync with KV
+        time.sleep(5)  # KVへのベクトルインデックスの同期を待機
         await agent.aprint_response("How to make Thai curry?", markdown=True)
 
     if __name__ == "__main__":
-        # Comment out after the first run
+        # 初回実行後にコメントアウトしてください
         asyncio.run(run_agent())
     ```
-    
+
     <Tip className="mt-4">
-      Use <code>aload()</code> and <code>aprint_response()</code> methods with <code>asyncio.run()</code> for non-blocking operations in high-throughput applications.
+      高スループットアプリケーションでノンブロッキング操作を行うには、<code>asyncio.run()</code> と共に <code>aload()</code> および <code>aprint_response()</code> メソッドを使用します。
     </Tip>
   </div>
 </Card>
 
-## Key Configuration Notes
+## 主要な設定に関する注意点
 
-### Connection Profiles
+### 接続プロファイル
 
-Use `KnownConfigProfiles.WanDevelopment` for both local and cloud deployments to handle network latency and timeouts appropriately.
+ローカルおよびクラウドデプロイメントの両方で `KnownConfigProfiles.WanDevelopment` を使用して、ネットワーク遅延とタイムアウトを適切に処理します。
 
-## Couchbase Params
+## Couchbase パラメータ
 
 <Snippet file="vectordb_couchbase_params.mdx" />
 
-## Developer Resources
+## 開発者向けリソース
 
-- View [Cookbook (Sync)](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/vector_dbs/couchbase/couchbase_db.py)
-- View [Cookbook (Async)](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/vector_dbs/couchbase/async_couchbase_db.py)
+- [クックブック (同期)](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/vector_dbs/couchbase/couchbase_db.py) を表示
+- [クックブック (非同期)](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/vector_dbs/couchbase/async_couchbase_db.py) を表示

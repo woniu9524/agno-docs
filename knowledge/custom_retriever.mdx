@@ -1,18 +1,18 @@
 ---
-title: Implementing a Custom Retriever
-description: "Learn how to implement a custom retriever for precise control over document retrieval in your knowledge base."
-sidebarTitle: Custom Retriever
+title: カスタムリトリーバーの実装
+description: "ナレッジベースでのドキュメント検索を精密に制御するためのカスタムリトリーバーの実装方法を学びます。"
+sidebarTitle: カスタムリトリーバー
 ---
 
-In some cases, you may need complete control over how your agent retrieves information from the knowledge base. This can be achieved by implementing a custom retriever function. A custom retriever allows you to define the logic for searching and retrieving documents from your vector database.
+場合によっては、エージェントがナレッジベースから情報を取得する方法について、完全な制御が必要になることがあります。これは、カスタムリトリーバー関数を実装することで実現できます。カスタムリトリーバーを使用すると、ベクトルデータベースからドキュメントを検索および取得するためのロジックを定義できます。
 
-## Setup
+## セットアップ
 
-Follow the instructions in the [Qdrant Setup Guide](https://qdrant.tech/documentation/guides/installation/) to install Qdrant locally. Here is a guide to get API keys: [Qdrant API Keys](https://qdrant.tech/documentation/cloud/authentication/).
+Qdrantをローカルにインストールするには、[Qdrantセットアップガイド](https://qdrant.tech/documentation/guides/installation/)の手順に従ってください。APIキーを取得するためのガイドは次のとおりです。[Qdrant APIキー](https://qdrant.tech/documentation/cloud/authentication/)。
 
-### Example: Custom Retriever for a PDF Knowledge Base
+### 例：PDFナレッジベース用のカスタムリトリーバー
 
-Below is a detailed example of how to implement a custom retriever function using the `agno` library. This example demonstrates how to set up a knowledge base with PDF documents, define a custom retriever, and use it with an agent.
+以下は、`agno`ライブラリを使用してカスタムリトリーバー関数を実装する方法の詳細な例です。この例では、PDFドキュメントでナレッジベースをセットアップし、カスタムリトリーバーを定義して、エージェントで使用する方法を示しています。
 
 ```python
 from typing import Optional
@@ -23,38 +23,39 @@ from agno.vectordb.qdrant import Qdrant
 from qdrant_client import QdrantClient
 
 # ---------------------------------------------------------
-# This section loads the knowledge base. Skip if your knowledge base was populated elsewhere.
-# Define the embedder
+# このセクションはナレッジベースをロードします。ナレッジベースが他の場所で
+# ポピュレートされた場合はスキップしてください。
+# エンベッダーを定義します
 embedder = OpenAIEmbedder(id="text-embedding-3-small")
-# Initialize vector database connection
+# ベクトルデータベース接続を初期化します
 vector_db = Qdrant(collection="thai-recipes", url="http://localhost:6333", embedder=embedder)
-# Load the knowledge base
+# ナレッジベースをロードします
 knowledge_base = PDFUrlKnowledgeBase(
     urls=["https://agno-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
     vector_db=vector_db,
 )
 
-# Load the knowledge base
-knowledge_base.load(recreate=True)  # Comment out after first run
-# Knowledge base is now loaded
+# ナレッジベースをロードします
+knowledge_base.load(recreate=True)  # 初回実行後にコメントアウトしてください
+# ナレッジベースはロードされました
 # ---------------------------------------------------------
 
-# Define the custom retriever
-# This is the function that the agent will use to retrieve documents
+# カスタムリトリーバーを定義します
+# これは、エージェントがドキュメントを取得するために使用する関数です
 def retriever(
     query: str, agent: Optional[Agent] = None, num_documents: int = 5, **kwargs
 ) -> Optional[list[dict]]:
     """
-    Custom retriever function to search the vector database for relevant documents.
+    ベクトルデータベースで関連ドキュメントを検索するためのカスタムリトリーバー関数。
 
     Args:
-        query (str): The search query string
-        agent (Agent): The agent instance making the query
-        num_documents (int): Number of documents to retrieve (default: 5)
-        **kwargs: Additional keyword arguments
+        query (str): 検索クエリ文字列
+        agent (Agent): クエリを実行しているエージェントインスタンス
+        num_documents (int): 取得するドキュメント数 (デフォルト: 5)
+        **kwargs: 追加のキーワード引数
 
     Returns:
-        Optional[list[dict]]: List of retrieved documents or None if search fails
+        Optional[list[dict]]: 取得されたドキュメントのリスト、または検索が失敗した場合はNone
     """
     try:
         qdrant_client = QdrantClient(url="http://localhost:6333")
@@ -70,22 +71,24 @@ def retriever(
         else:
             return None
     except Exception as e:
-        print(f"Error during vector database search: {str(e)}")
+        print(f"ベクトルデータベース検索中のエラー: {str(e)}")
         return None
 
 def main():
-    """Main function to demonstrate agent usage."""
-    # Initialize agent with custom retriever
-    # Remember to set search_knowledge=True to use agentic_rag or add_reference=True for traditional RAG
-    # search_knowledge=True is default when you add a knowledge base but is needed here
+    """エージェントの使用法を示すメイン関数。"""
+    # カスタムリトリーバーでエージェントを初期化します
+    # agentic_ragを使用するにはsearch_knowledge=Trueを設定するか、
+    # 従来のRAGにはadd_reference=Trueを追加することを忘れないでください。
+    # search_knowledge=Trueはナレッジベースを追加するとデフォルトになりますが、
+    # ここでは必要です。
     agent = Agent(
         retriever=retriever,
         search_knowledge=True,
-        instructions="Search the knowledge base for information",
+        instructions="ナレッジベースで情報を検索してください",
         show_tool_calls=True,
     )
 
-    # Example query
+    # クエリ例
     query = "List down the ingredients to make Massaman Gai"
     agent.print_response(query, markdown=True)
 
@@ -93,7 +96,7 @@ if __name__ == "__main__":
     main()
 ```
 
-#### Asynchronous Implementation
+#### 非同期実装
 
 ```python
 import asyncio
@@ -105,7 +108,7 @@ from agno.vectordb.qdrant import Qdrant
 from qdrant_client import AsyncQdrantClient
 
 # ---------------------------------------------------------
-# Knowledge base setup (same as synchronous example)
+# ナレッジベースのセットアップ (同期例と同じ)
 embedder = OpenAIEmbedder(id="text-embedding-3-small")
 vector_db = Qdrant(collection="thai-recipes", url="http://localhost:6333", embedder=embedder)
 knowledge_base = PDFUrlKnowledgeBase(
@@ -114,12 +117,12 @@ knowledge_base = PDFUrlKnowledgeBase(
 )
 # ---------------------------------------------------------
 
-# Define the custom async retriever
+# カスタム非同期リトリーバーを定義します
 async def retriever(
     query: str, agent: Optional[Agent] = None, num_documents: int = 5, **kwargs
 ) -> Optional[list[dict]]:
     """
-    Custom async retriever function to search the vector database for relevant documents.
+    ベクトルデータベースで関連ドキュメントを検索するためのカスタム非同期リトリーバー関数。
     """
     try:
         qdrant_client = AsyncQdrantClient(path="tmp/qdrant")
@@ -135,22 +138,22 @@ async def retriever(
         else:
             return None
     except Exception as e:
-        print(f"Error during vector database search: {str(e)}")
+        print(f"ベクトルデータベース検索中のエラー: {str(e)}")
         return None
 
 async def main():
-    """Async main function to demonstrate agent usage."""
+    """エージェントの使用法を示す非同期メイン関数。"""
     agent = Agent(
         retriever=retriever,
         search_knowledge=True,
-        instructions="Search the knowledge base for information",
+        instructions="ナレッジベースで情報を検索してください",
         show_tool_calls=True,
     )
 
-    # Load the knowledge base (uncomment for first run)
+    # ナレッジベースをロードします (初回実行時にコメント解除してください)
     await knowledge_base.aload(recreate=True)
 
-    # Example query
+    # クエリ例
     query = "List down the ingredients to make Massaman Gai"
     await agent.aprint_response(query, markdown=True)
 
@@ -158,19 +161,19 @@ if __name__ == "__main__":
     asyncio.run(main())
 ```
 
-### Explanation
+### 説明
 
-1. **Embedder and Vector Database Setup**: We start by defining an embedder and initializing a connection to a vector database. This setup is crucial for converting queries into embeddings and storing them in the database.
+1.  **エンベッダーとベクトルデータベースのセットアップ**: エンベッダーを定義し、ベクトルデータベースへの接続を初期化することから始めます。このセットアップは、クエリをエンベディングに変換し、それらをデータベースに保存するために不可欠です。
 
-2. **Loading the Knowledge Base**: The knowledge base is loaded with PDF documents. This step involves converting the documents into embeddings and storing them in the vector database.
+2.  **ナレッジベースのロード**: PDFドキュメントでナレッジベースがロードされます。このステップには、ドキュメントをエンベディングに変換し、それらをベクトルデータベースに保存することが含まれます。
 
-3. **Custom Retriever Function**: The `retriever` function is defined to handle the retrieval of documents. It takes a query, converts it into an embedding, and searches the vector database for relevant documents.
+3.  **カスタムリトリーバー関数**: `retriever`関数は、ドキュメントの取得を処理するために定義されます。クエリを受け取り、それをエンベディングに変換し、関連ドキュメントをベクトルデータベースで検索します。
 
-4. **Agent Initialization**: An agent is initialized with the custom retriever. The agent uses this retriever to search the knowledge base and retrieve information.
+4.  **エージェントの初期化**: カスタムリトリーバーでエージェントが初期化されます。エージェントはこのリトリーバーを使用してナレッジベースを検索し、情報を取得します。
 
-5. **Example Query**: The `main` function demonstrates how to use the agent to perform a query and retrieve information from the knowledge base.
+5.  **クエリ例**: `main`関数は、エージェントを使用してクエリを実行し、ナレッジベースから情報を取得する方法を示しています。
 
-## Developer Resources
+## 開発者向けリソース
 
-- View [Sync Retriever](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/custom/retriever.py)
-- View [Async Retriever](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/custom/async_retriever.py)
+- [同期リトリーバー](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/custom/retriever.py)を表示
+- [非同期リトリーバー](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/custom/async_retriever.py)を表示

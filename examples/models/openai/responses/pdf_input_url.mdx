@@ -1,8 +1,8 @@
 ---
-title: Agent with PDF Input (URL)
+title: PDF入力（URL）を持つエージェント
 ---
 
-## Code
+## コード
 
 ```python cookbook/models/openai/responses/pdf_input_url.py
 from agno.agent import Agent
@@ -16,32 +16,32 @@ agent = Agent(
 )
 
 agent.print_response(
-    "Summarize the contents of the attached file and search the web for more information.",
+    "添付されたファイルのコンテンツを要約し、さらに詳しい情報をウェブで検索してください。",
     files=[File(url="https://agno-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf")],
 )
 
-print("Citations:")
+print("引用:")
 print(agent.run_response.citations)
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="APIキーの設定">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="ライブラリのインストール">
     ```bash
     pip install -U openai agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="エージェントの実行">
     <CodeGroup>
     ```bash Mac
     python cookbook/models/openai/responses/pdf_input_url.py

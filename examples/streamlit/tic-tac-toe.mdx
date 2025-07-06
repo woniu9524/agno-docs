@@ -2,13 +2,13 @@
 title: Tic Tac Toe Battle
 ---
 
-Tic Tac Toe Battle is a tic-tac-toe game where multiple AI agents compete against each other, demonstrating the power of multi-agent systems in complex game environments.
+Tic Tac Toe Battle は、複数のAIエージェントが互いに競い合う三目並べゲームであり、複雑なゲーム環境におけるマルチエージェントシステムの力を実証します。
 
-### Key Capabilities
-- Multi-Agent System: Features X and O Piece Agents for move selection
-- Move Validation: Dedicated Board Agent ensures game rule compliance
-- Game Coordination: Master Agent oversees the game flow and end conditions
-- Interactive UI: Built with Streamlit for real-time game visualization
+### 主要な機能
+- マルチエージェントシステム：駒の選択のためのXピースエージェントとOピースエージェントを特徴とします。
+- 移動の検証：専用のボードエージェントがゲームルールの遵守を保証します。
+- ゲームの調整：マスターエージェントがゲームフローと終了条件を監督します。
+- インタラクティブUI：Streamlitで構築され、リアルタイムのゲーム視覚化を提供します。
 
 <video
   autoPlay
@@ -18,68 +18,68 @@ Tic Tac Toe Battle is a tic-tac-toe game where multiple AI agents compete agains
   src="/videos/tic-tac-toe.mp4"
 ></video>
 
-### System Components
-- X Piece Agent: Strategizes and selects moves for X pieces
-- O Piece Agent: Controls and determines moves for O pieces
-- Board Agent: Validates all proposed moves against game rules
-- Master Agent: Coordinates the game flow and monitors game status
+### システムコンポーネント
+- Xピースエージェント：Xピースの戦略を立て、移動を選択します。
+- Oピースエージェント：Oピースの移動を制御し、決定します。
+- ボードエージェント：提案されたすべての移動をゲームルールに対して検証します。
+- マスターエージェント：ゲームフローを調整し、ゲームの状態を監視します。
 
-### Advanced Features
-The system demonstrates complex agent interactions where each AI component has a specific role. The agents communicate and coordinate to create a complete tic-tac-toe experience, showcasing how multiple specialized AIs can work together effectively.
+### 高度な機能
+このシステムは、各AIコンポーネントが特定の役割を持つ複雑なエージェント間インタラクションを実証します。エージェントは通信と調整を行い、完全な三目並べ体験を創り出し、複数の専門化されたAIが効果的に協力できることを示しています。
 
-### Code
-The complete code is available in the [Agno repository](https://github.com/agno-agi/agno/tree/main/cookbook/examples/streamlit_apps/tic_tac_toe).
+### コード
+完全なコードは[Agnoリポジトリ](https://github.com/agno-agi/agno/tree/main/cookbook/examples/streamlit_apps/tic_tac_toe)で利用可能です。
 
-### Usage
+### 使用方法
 <Steps>
-  <Step title="Clone the repository">
+  <Step title="リポジトリをクローンする">
     ```bash
     git clone https://github.com/agno-agi/agno.git
     cd agno
     ```
   </Step>
 
-  <Step title="Create a Virtual Environment">
+  <Step title="仮想環境を作成する">
     ```bash
     python3 -m venv .venv
-    source .venv/bin/activate  # On Windows use: .venv\Scripts\activate
+    source .venv/bin/activate  # Windows の場合は .venv\Scripts\activate を使用します
     ```
   </Step>
 
-  <Step title="Install Dependencies">
+  <Step title="依存関係をインストールする">
     ```bash
     pip install -r cookbook/examples/streamlit_apps/tic_tac_toe/requirements.txt
     ```
   </Step>
 
-  <Step title="Set up API Keys">
-    The Tic Tac Toe Battle supports multiple AI models:
+  <Step title="APIキーを設定する">
+    Tic Tac Toe Battle は複数のAIモデルをサポートしています：
 
     ```bash
-    # Required for OpenAI models (GPT-4, GPT-3.5)
+    # OpenAI モデル (GPT-4, GPT-3.5) に必要
     export OPENAI_API_KEY=your_api_key_here
     
-    # Optional - for additional models
-    export ANTHROPIC_API_KEY=your_api_key_here  # For Claude models
-    export GOOGLE_API_KEY=your_api_key_here     # For Gemini models
-    export GROQ_API_KEY=your_api_key_here       # For Groq models
+    # オプション - 追加モデル用
+    export ANTHROPIC_API_KEY=your_api_key_here  # Claude モデル用
+    export GOOGLE_API_KEY=your_api_key_here     # Gemini モデル用
+    export GROQ_API_KEY=your_api_key_here       # Groq モデル用
     ```
   </Step>
 
-  <Step title="Launch the App">
+  <Step title="アプリを起動する">
     ```bash
     streamlit run cookbook/examples/streamlit_apps/tic_tac_toe/app.py
     ```
   </Step>
 
-  <Step title="Open the App">
-    Then, open http://localhost:8501 in your browser to start watching the AI agents play tic-tac-toe.
+  <Step title="アプリを開く">
+    次に、ブラウザで http://localhost:8501 を開いて、AIエージェントが三目並べをプレイするのをご覧ください。
   </Step>
 </Steps>
 
-### Pro Tips
-- Watch Complete Games: Observe full matches to understand agent decision-making
-- Monitor Agent Interactions: Pay attention to how agents communicate and coordinate
-- Try Different Models: Experiment with various AI models to see different playing styles
+### プロのヒント
+- 完全なゲームを観戦する：エージェントの意思決定を理解するために、完全な試合を観察します。
+- エージェント間のやり取りを監視する：エージェントがどのように通信し、調整するかを注意深く見てください。
+- 異なるモデルを試す：さまざまなAIモデルを試して、異なるプレイスタイルを確認します。
 
-Need help? Join our [Discourse community](https://agno.link/community) for support!
+ヘルプが必要ですか？サポートについては、[Discourseコミュニティ](https://agno.link/community)にご参加ください！

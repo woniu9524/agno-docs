@@ -2,22 +2,22 @@
 title: "Sage: Answer Engine"
 ---
 
-This example shows how to build Sage, a Perplexity-like Answer Engine that intelligently determines whether to perform a web search or conduct a deep analysis using ExaTools based on the user's query.
+この例では、ユーザーのクエリに基づいて、Web検索を実行するか、ExaToolsを使用して詳細な分析を行うかをインテリジェントに判断する、PerplexityライクなAnswer EngineであるSageの構築方法を示します。
 
-Sage:
-1. Uses real-time web search (DuckDuckGo) and deep contextual analysis (ExaTools) to provide comprehensive answers
-2. Intelligently selects tools based on query complexity
-3. Provides an interactive Streamlit UI with session management and chat history export
-4. Supports multiple LLM providers (OpenAI, Anthropic, Google, Groq)
+Sageは以下の機能を提供します：
+1. リアルタイムのWeb検索（DuckDuckGo）と詳細なコンテキスト分析（ExaTools）を使用して包括的な回答を提供します。
+2. クエリの複雑さに基づいてインテリジェントにツールを選択します。
+3. セッション管理とチャット履歴のエクスポートを備えたインタラクティブなStreamlit UIを提供します。
+4. 複数のLLMプロバイダー（OpenAI、Anthropic、Google、Groq）をサポートします。
 
-## Key capabilities
-- Natural language query understanding and processing
-- Real-time web search integration with DuckDuckGo
-- Deep contextual analysis using ExaTools
-- Multiple LLM provider support
-- Session management using SQLite
-- Chat history export
-- Interactive Streamlit UI
+## 主要な機能
+- 自然言語クエリの理解と処理
+- DuckDuckGoとのリアルタイムWeb検索統合
+- ExaToolsを使用した詳細なコンテキスト分析
+- 複数のLLMプロバイダーサポート
+- SQLiteを使用したセッション管理
+- チャット履歴のエクスポート
+- インタラクティブなStreamlit UI
 
 <video
   autoPlay
@@ -27,79 +27,79 @@ Sage:
   src="/videos/answer-engine.mp4"
 ></video>
 
-## Simple queries to try
-- "Tell me about the tariffs the US is imposing in 2025"
-- "Which is a better reasoning model: o3-mini or DeepSeek R1?"
-- "Tell me about Agno"
-- "What are the latest trends in renewable energy?"
+## 試してみる簡単なクエリ
+- "2025年に米国が課す関税について教えてください"
+- "推論モデルとして、o3-miniとDeepSeek R1のどちらが良いですか？"
+- "Agnoについて教えてください"
+- "再生可能エネルギーの最新トレンドは何ですか？"
 
-## Advanced analysis queries
-- "Evaluate how emerging AI regulations could influence innovation"
-- "Compare the environmental impact of electric vs hydrogen vehicles"
-- "Analyze the global semiconductor supply chain challenges"
-- "Explain the implications of quantum computing on cryptography"
+## 高度な分析クエリ
+- "新興のAI規制がイノベーションにどのように影響するかを評価してください"
+- "電気自動車と水素自動車の環境への影響を比較してください"
+- "世界の半導体サプライチェーンの課題を分析してください"
+- "量子コンピューティングが暗号化に与える影響を説明してください"
 
-## Code
+## コード
 
-The complete code is available in the [Agno repository](https://github.com/agno-agi/agno).
+完全なコードは[Agnoリポジトリ](https://github.com/agno-agi/agno)で入手できます。
 
-## Usage
+## 使用方法
 
 <Steps>
-  <Step title="Clone the repository">
+  <Step title="リポジトリをクローンする">
     ```bash
     git clone https://github.com/agno-agi/agno.git
     cd agno
     ```
   </Step>
 
-  <Step title="Create virtual environment">
+  <Step title="仮想環境を作成する">
     ```bash
     python3 -m venv .venv
-    source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+    source .venv/bin/activate  # Windowsの場合: .venv\Scripts\activate
     ```
   </Step>
 
-  <Step title="Install dependencies">
+  <Step title="依存関係をインストールする">
     ```bash
     pip install -r cookbook/examples/streamlit_apps/answer_engine/requirements.txt
     ```
   </Step>
 
-  <Step title="Set up API keys">
+  <Step title="APIキーを設定する">
     ```bash
-    # Required
+    # 必須
     export OPENAI_API_KEY=***
     export EXA_API_KEY=***
 
-    # Optional (for additional models)
+    # オプション（追加モデル用）
     export ANTHROPIC_API_KEY=***
     export GOOGLE_API_KEY=***
     export GROQ_API_KEY=***
     ```
-    We recommend using gpt-4o for optimal performance.
+    最適なパフォーマンスのためには、gpt-4oの使用をお勧めします。
   </Step>
 
-  <Step title="Launch the app">
+  <Step title="アプリを起動する">
     ```bash
     streamlit run cookbook/examples/streamlit_apps/answer_engine/app.py
     ```
-    Open [localhost:8501](http://localhost:8501) to start using Sage.
+    [localhost:8501](http://localhost:8501)を開いてSageの使用を開始します。
   </Step>
 </Steps>
 
-## Model Selection
-The application supports multiple model providers:
+## モデル選択
+このアプリケーションは複数のモデルプロバイダーをサポートしています：
 - OpenAI (o3-mini, gpt-4o)
 - Anthropic (claude-3-5-sonnet)
 - Google (gemini-2.0-flash-exp)
 - Groq (llama-3.3-70b-versatile)
 
-## Agent Configuration
-The agent configuration is in `agents.py` and the prompts are in `prompts.py`:
-- To modify prompts, update the `prompts.py` file
-- To add new tools or models, update the `agents.py` file
+## エージェント設定
+エージェントの設定は`agents.py`に、プロンプトは`prompts.py`にあります：
+- プロンプトを変更するには、`prompts.py`ファイルを更新してください。
+- 新しいツールやモデルを追加するには、`agents.py`ファイルを更新してください。
 
-## Support
+## サポート
 
-Need help? Join our [Discourse community](https://community.agno.com) for support!
+ヘルプが必要ですか？サポートについては、[Discourseコミュニティ](https://community.agno.com)にご参加ください！

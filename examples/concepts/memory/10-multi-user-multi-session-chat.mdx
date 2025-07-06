@@ -1,16 +1,16 @@
 ---
-title: Multi-User Multi-Session Chat
+title: マルチユーザー・マルチセッションチャット
 ---
 
-This example demonstrates how to run a multi-user, multi-session chat.
+この例では、マルチユーザー、マルチセッションのチャットを実行する方法を示します。
 
-In this example, we have 3 users and 4 sessions.
+この例では、3人のユーザーと4つのセッションがあります。
 
-- User 1 has 2 sessions.
-- User 2 has 1 session.
-- User 3 has 1 session.
+- ユーザー1は2つのセッションを持っています。
+- ユーザー2は1つのセッションを持っています。
+- ユーザー3は1つのセッションを持っています。
 
-## Code
+## コード
 
 ```python cookbook/agent_concepts/memory/11_multi_user_multi_session_chat.py
 
@@ -29,7 +29,7 @@ memory_db = SqliteMemoryDb(table_name="memory", db_file="tmp/memory.db")
 
 memory = Memory(db=memory_db)
 
-# Reset the memory for this example
+# この例のためにメモリをリセットします
 memory.clear()
 
 user_1_id = "user_1@example.com"
@@ -51,90 +51,90 @@ chat_agent = Agent(
 
 async def run_chat_agent():
     await chat_agent.aprint_response(
-        "My name is Mark Gonzales and I like anime and video games.",
+        "私の名前はマーク・ゴンザレスです。アニメとビデオゲームが好きです。",
         user_id=user_1_id,
         session_id=user_1_session_1_id,
     )
     await chat_agent.aprint_response(
-        "I also enjoy reading manga and playing video games.",
+        "マンガを読むことやビデオゲームをプレイすることも楽しんでいます。",
         user_id=user_1_id,
         session_id=user_1_session_1_id,
     )
 
-    # Chat with user 1 - Session 2
+    # ユーザー1とのチャット - セッション2
     await chat_agent.aprint_response(
-        "I'm going to the movies tonight.",
+        "今夜映画に行く予定です。",
         user_id=user_1_id,
         session_id=user_1_session_2_id,
     )
 
-    # Chat with user 2
+    # ユーザー2とのチャット
     await chat_agent.aprint_response(
-        "Hi my name is John Doe.", user_id=user_2_id, session_id=user_2_session_1_id
+        "こんにちは、私の名前はジョン・ドウです。", user_id=user_2_id, session_id=user_2_session_1_id
     )
     await chat_agent.aprint_response(
-        "I'm planning to hike this weekend.",
+        "今週末はハイキングに行く予定です。",
         user_id=user_2_id,
         session_id=user_2_session_1_id,
     )
 
-    # Chat with user 3
+    # ユーザー3とのチャット
     await chat_agent.aprint_response(
-        "Hi my name is Jane Smith.", user_id=user_3_id, session_id=user_3_session_1_id
+        "こんにちは、私の名前はジェーン・スミスです。", user_id=user_3_id, session_id=user_3_session_1_id
     )
     await chat_agent.aprint_response(
-        "I'm going to the gym tomorrow.",
+        "明日ジムに行く予定です。",
         user_id=user_3_id,
         session_id=user_3_session_1_id,
     )
 
-    # Continue the conversation with user 1
-    # The agent should take into account all memories of user 1.
+    # ユーザー1との会話を続ける
+    # エージェントはユーザー1のすべてのメモリを考慮に入れる必要があります。
     await chat_agent.aprint_response(
-        "What do you suggest I do this weekend?",
+        "今週末は何をしたらいいと思いますか？",
         user_id=user_1_id,
         session_id=user_1_session_1_id,
     )
 
 
 if __name__ == "__main__":
-    # Chat with user 1 - Session 1
+    # ユーザー1とのチャット - セッション1
     asyncio.run(run_chat_agent())
 
     user_1_memories = memory.get_user_memories(user_id=user_1_id)
-    print("User 1's memories:")
+    print("ユーザー1のメモリ:")
     for i, m in enumerate(user_1_memories):
         print(f"{i}: {m.memory}")
 
     user_2_memories = memory.get_user_memories(user_id=user_2_id)
-    print("User 2's memories:")
+    print("ユーザー2のメモリ:")
     for i, m in enumerate(user_2_memories):
         print(f"{i}: {m.memory}")
 
     user_3_memories = memory.get_user_memories(user_id=user_3_id)
-    print("User 3's memories:")
+    print("ユーザー3のメモリ:")
     for i, m in enumerate(user_3_memories):
         print(f"{i}: {m.memory}")
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API keys">
+  <Step title="APIキーの設定">
     ```bash
     export GOOGLE_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="ライブラリのインストール">
     ```bash
     pip install -U agno google-generativeai anthropic
     ```
   </Step>
 
-  <Step title="Run Example">
+  <Step title="例の実行">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/memory/11_multi_user_multi_session_chat.py

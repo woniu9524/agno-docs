@@ -1,9 +1,9 @@
 ---
-title: Filtering on Qdrant
-description: Learn how to filter knowledge base searches using Pdf documents with user-specific metadata in Qdrant.
+title: Qdrant でのフィルタリング
+description: Qdrant でユーザー固有のメタデータを持つ PDF ドキュメントを使用して、ナレッジベース検索をフィルタリングする方法を学びます。
 ---
 
-## Code
+## コード
 
 ```python
 from agno.agent import Agent
@@ -14,7 +14,7 @@ from agno.utils.media import (
 )
 from agno.vectordb.qdrant import Qdrant
 
-# Download all sample CVs and get their paths
+# すべてのサンプル CV をダウンロードし、そのパスを取得します
 downloaded_cv_paths = download_knowledge_filters_sample_data(
     num_files=5, file_extension=SampleDataFileExtension.PDF
 )
@@ -22,10 +22,10 @@ downloaded_cv_paths = download_knowledge_filters_sample_data(
 COLLECTION_NAME = "filtering-cv"
 
 vector_db = Qdrant(collection=COLLECTION_NAME, url="http://localhost:6333")
-# Step 1: Initialize knowledge base with documents and metadata
+# ステップ 1: ドキュメントとメタデータでナレッジベースを初期化します
 # ------------------------------------------------------------------------------
-# When initializing the knowledge base, we can attach metadata that will be used for filtering
-# This metadata can include user IDs, document types, dates, or any other attributes
+# ナレッジベースを初期化する際に、フィルタリングに使用されるメタデータを添付できます。
+# このメタデータには、ユーザー ID、ドキュメントの種類、日付、またはその他の属性を含めることができます。
 
 knowledge_base = PDFKnowledgeBase(
     path=[
@@ -73,10 +73,10 @@ knowledge_base = PDFKnowledgeBase(
     vector_db=vector_db,
 )
 
-# Load all documents into the vector database
+# すべてのドキュメントをベクトルデータベースにロードします
 knowledge_base.load(recreate=True)
 
-# Step 2: Query the knowledge base with different filter combinations
+# ステップ 2: さまざまなフィルタの組み合わせでナレッジベースにクエリを実行します
 # ------------------------------------------------------------------------------
 
 agent = Agent(
@@ -85,22 +85,22 @@ agent = Agent(
 )
 
 agent.print_response(
-    "Tell me about Jordan Mitchell's experience and skills",
+    "Jordan Mitchell の経験とスキルについて教えてください",
     knowledge_filters={"user_id": "jordan_mitchell"},
     markdown=True,
 )
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
-  <Step title="Install libraries">
+  <Step title="ライブラリのインストール">
     ```bash
     pip install -U agno qdrant-client openai
     ```
   </Step>
 
-  <Step title="Run the example">
+  <Step title="例の実行">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/knowledge/filters/filtering_qdrant_db.py

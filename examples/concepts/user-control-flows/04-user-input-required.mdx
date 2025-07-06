@@ -1,9 +1,9 @@
 ---
-title: User Input Required
-description: This example demonstrates how to implement user input collection during agent execution, allowing users to provide specific information for tool parameters.
+title: ユーザー入力が必要
+description: この例では、エージェント実行中にユーザー入力の収集を実装する方法を示します。これにより、ユーザーはツールパラメータに特定の情報を提供できます。
 ---
 
-## Code
+## コード
 
 ```python cookbook/agent_concepts/user_control_flows/user_input_required.py
 from typing import List
@@ -14,16 +14,16 @@ from agno.tools import tool
 from agno.tools.function import UserInputField
 from agno.utils import pprint
 
-# You can either specify the user_input_fields leave empty for all fields to be provided by the user
+# ユーザーがすべてのフィールドを提供するように、user_input_fields を指定するか、空のままにすることができます
 @tool(requires_user_input=True, user_input_fields=["to_address"])
 def send_email(subject: str, body: str, to_address: str) -> str:
     """
-    Send an email.
+    メールを送信します。
 
     Args:
-        subject (str): The subject of the email.
-        body (str): The body of the email.
-        to_address (str): The address to send the email to.
+        subject (str): メールの件名。
+        body (str): メールの本文。
+        to_address (str): 送信先のメールアドレス。
     """
     return f"Sent email to {to_address} with subject {subject} and body {body}"
 
@@ -39,41 +39,41 @@ if agent.is_paused:
         input_schema: List[UserInputField] = tool.user_input_schema
 
         for field in input_schema:
-            # Display field information to the user
-            print(f"\nField: {field.name}")
-            print(f"Description: {field.description}")
-            print(f"Type: {field.field_type}")
+            # フィールド情報をユーザーに表示します
+            print(f"\nフィールド: {field.name}")
+            print(f"説明: {field.description}")
+            print(f"タイプ: {field.field_type}")
 
-            # Get user input
+            # ユーザー入力を取得します
             if field.value is None:
-                user_value = input(f"Please enter a value for {field.name}: ")
-                # Update the field value
+                user_value = input(f"{field.name} の値を入力してください: ")
+                # フィールド値を更新します
                 field.value = user_value
             else:
-                print(f"Value: {field.value}")
+                print(f"値: {field.value}")
 
     run_response = agent.continue_run()
     pprint.pprint_run_response(run_response)
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="API キーを設定する">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="ライブラリをインストールする">
     ```bash
     pip install -U agno openai
     ```
   </Step>
 
-  <Step title="Run Example">
+  <Step title="例を実行する">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/user_control_flows/user_input_required.py
@@ -86,13 +86,13 @@ if agent.is_paused:
   </Step>
 </Steps>
 
-## Key Features
+## 主な機能
 
-- Uses `@tool(requires_user_input=True)` to mark tools that need user input
-- Can specify which fields require user input using `user_input_fields`
-- Implements a dynamic form-like interface for collecting user input
-- Handles both user-provided and agent-provided values
+- ユーザー入力を必要とするツールをマークするために `@tool(requires_user_input=True)` を使用します
+- `user_input_fields` を使用して、どのフィールドにユーザー入力が必要かを指定できます
+- ユーザー入力収集のための動的なフォームライクインターフェースを実装します
+- ユーザー提供の値とエージェント提供の値の両方を処理します
 
-## Use Cases
+## ユースケース
 
-- Collecting required parameters for operations
+- 操作に必要なパラメータを収集する

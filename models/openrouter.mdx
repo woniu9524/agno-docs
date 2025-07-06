@@ -1,13 +1,13 @@
 ---
 title: OpenRouter
-description: Learn how to use OpenRouter with Agno.
+description: Agno で OpenRouter を使用する方法を学びます。
 ---
 
-OpenRouter is a platform for providing endpoints for Large Language models.
+OpenRouter は、大規模言語モデルのエンドポイントを提供するプラットフォームです。
 
-## Authentication
+## 認証
 
-Set your `OPENROUTER_API_KEY` environment variable. Get your key from [here](https://openrouter.ai/settings/keys).
+`OPENROUTER_API_KEY` 環境変数を設定してください。キーは [こちら](https://openrouter.ai/settings/keys) から取得できます。
 
 <CodeGroup>
 
@@ -21,9 +21,9 @@ setx OPENROUTER_API_KEY ***
 
 </CodeGroup>
 
-## Example
+## 例
 
-Use `OpenRouter` with your `Agent`:
+`Agent` で `OpenRouter` を使用します。
 
 <CodeGroup>
 
@@ -36,20 +36,19 @@ agent = Agent(
     markdown=True
 )
 
-# Print the response in the terminal
+# ターミナルに応答を表示します
 agent.print_response("Share a 2 sentence horror story.")
 
 ```
 
 </CodeGroup>
 
-## Params
+## パラメータ
 
 <Snippet file="model-openrouter-params.mdx" />
 
-`OpenRouter` also supports the params of [OpenAI](/reference/models/openai).
+`OpenRouter` は [OpenAI](/reference/models/openai) のパラメータもサポートしています。
 
-## Prompt caching
+## プロンプト キャッシュ
 
-Prompt caching will happen automatically using our `OpenRouter` model, when the used provider supports it. In other cases you can activate it via the `cache_control` header.
-You can read more about prompt caching with OpenRouter in [their docs](https://openrouter.ai/docs/features/prompt-caching).
+プロンプト キャッシュは、使用されているプロバイダーがサポートしている場合、`OpenRouter` モデルを使用して自動的に行われます。それ以外の場合は、`cache_control` ヘッダーを介してアクティブ化できます。OpenRouter でのプロンプト キャッシュの詳細については、[ドキュメント](https://openrouter.ai/docs/features/prompt-caching) を参照してください。

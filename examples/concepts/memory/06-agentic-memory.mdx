@@ -2,13 +2,13 @@
 title: Agentic Memory
 ---
 
-This example shows you how to use persistent memory with an Agent.
+この例では、永続的なメモリをエージェントで使用する方法を示します。
 
-During each run the Agent can create/update/delete user memories.
+各実行中に、エージェントはユーザーのメモリを作成/更新/削除できます。
 
-To enable this, set `enable_agentic_memory=True` in the Agent config.
+これを有効にするには、エージェントの設定で `enable_agentic_memory=True` を設定します。
 
-## Code
+## コード
 
 ```python cookbook/agent_concepts/memory/07_agentic_memory.py
 from agno.agent.agent import Agent
@@ -19,10 +19,10 @@ from rich.pretty import pprint
 
 memory_db = SqliteMemoryDb(table_name="memory", db_file="tmp/memory.db")
 
-# No need to set the model, it gets set by the agent to the agent's model
+# モデルを設定する必要はありません。エージェントによってエージェントのモデルに設定されます。
 memory = Memory(db=memory_db)
 
-# Reset the memory for this example
+# この例のためにメモリをリセットします
 memory.clear()
 
 john_doe_id = "john_doe@example.com"
@@ -34,65 +34,65 @@ agent = Agent(
 )
 
 agent.print_response(
-    "My name is John Doe and I like to hike in the mountains on weekends.",
+    "私の名前はジョン・ドウで、週末には山でハイキングをするのが好きです。",
     stream=True,
     user_id=john_doe_id,
 )
 
-agent.print_response("What are my hobbies?", stream=True, user_id=john_doe_id)
+agent.print_response("私の趣味は何ですか？", stream=True, user_id=john_doe_id)
 
 memories = memory.get_user_memories(user_id=john_doe_id)
-print("Memories about John Doe:")
+print("ジョン・ドウに関するメモリ:")
 pprint(memories)
 
 
 agent.print_response(
-    "Remove all existing memories of me.",
+    "私に関する既存のすべてのメモリを削除してください。",
     stream=True,
     user_id=john_doe_id,
 )
 
 memories = memory.get_user_memories(user_id=john_doe_id)
-print("Memories about John Doe:")
+print("ジョン・ドウに関するメモリ:")
 pprint(memories)
 
 agent.print_response(
-    "My name is John Doe and I like to paint.", stream=True, user_id=john_doe_id
+    "私の名前はジョン・ドウで、絵を描くのが好きです。", stream=True, user_id=john_doe_id
 )
 
 memories = memory.get_user_memories(user_id=john_doe_id)
-print("Memories about John Doe:")
+print("ジョン・ドウに関するメモリ:")
 pprint(memories)
 
 
 agent.print_response(
-    "I don't pain anymore, i draw instead.", stream=True, user_id=john_doe_id
+    "もう絵は描きません。代わりに描画します。", stream=True, user_id=john_doe_id
 )
 
 memories = memory.get_user_memories(user_id=john_doe_id)
 
-print("Memories about John Doe:")
+print("ジョン・ドウに関するメモリ:")
 pprint(memories)
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="APIキーを設定する">
     ```bash
     export GOOGLE_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="ライブラリをインストールする">
     ```bash
     pip install -U agno google-generativeai
     ```
   </Step>
 
-  <Step title="Run Example">
+  <Step title="例を実行する">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/memory/07_agentic_memory.py

@@ -10,13 +10,7 @@ from agno.models.deepseek import DeepSeek
 from agno.models.openai import OpenAIChat
 
 task = (
-    "You are a philosopher tasked with analyzing the classic 'Trolley Problem'. In this scenario, a runaway trolley "
-    "is barreling down the tracks towards five people who are tied up and unable to move. You are standing next to "
-    "a large stranger on a footbridge above the tracks. The only way to save the five people is to push this stranger "
-    "off the bridge onto the tracks below. This will kill the stranger, but save the five people on the tracks. "
-    "Should you push the stranger to save the five people? Provide a well-reasoned answer considering utilitarian, "
-    "deontological, and virtue ethics frameworks. "
-    "Include a simple ASCII art diagram to illustrate the scenario."
+    "あなたは古典的な「トロッコ問題」を分析する任務を負った哲学者です。このシナリオでは、暴走したトロッコが、動けず縛られている5人の人々に線路上を猛スピードで向かっています。あなたは線路の上にある歩道橋で、見知らぬ大きな男の隣に立っています。線路上にいる5人を救う唯一の方法は、この見知らぬ男を橋から突き落として線路上に転落させることです。これにより見知らぬ男は死亡しますが、線路上にいる5人は救われます。5人を救うために見知らぬ男を突き落とすべきでしょうか？功利主義、義務論、徳倫理の枠組みを考慮した、十分な理由のある回答を提供してください。シナリオを説明する簡単なASCIIアート図も含めてください。"
 )
 
 reasoning_agent = Agent(
@@ -33,19 +27,19 @@ reasoning_agent.print_response(task, stream=True)
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="APIキーを設定する">
     ```bash
     export DEEPSEEK_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="ライブラリをインストールする">
     ```bash
     pip install -U openai agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="Agentを実行する">
     <CodeGroup>
     ```bash Mac
     python cookbook/reasoning/models/deepseek/trolley_problem.py

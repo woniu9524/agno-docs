@@ -1,24 +1,24 @@
 ---
 title: Model Context Protocol (MCP)
 sidebarTitle: Overview
-description: Learn how to use MCP with Agno to enable your agents to interact with external systems through a standardized interface.
+description: Agno を使用して、標準化されたインターフェイスを通じてエージェントが外部システムと対話できるように MCP を使用する方法を学びます。
 ---
 
-The [Model Context Protocol (MCP)](https://modelcontextprotocol.io) enables Agents to interact with external systems through a standardized interface.
-You can connect your Agents to any MCP server, using Agno's MCP integration.
+[Model Context Protocol (MCP)](https://modelcontextprotocol.io) は、エージェントが標準化されたインターフェイスを通じて外部システムと対話できるようにします。
+Agno の MCP 統合を使用して、任意の MCP サーバーにエージェントを接続できます。
 
-## Usage
+## 使用方法
 
 <Steps>
-    <Step title="Find the MCP server you want to use">
-    You can use any working MCP server. To see some examples, you can check [this GitHub repository](https://github.com/modelcontextprotocol/servers), by the maintainers of the MCP themselves.
+    <Step title="使用したい MCP サーバーを見つける">
+    機能する任意の MCP サーバーを使用できます。例を確認するには、MCP のメンテナー自身による [この GitHub リポジトリ](https://github.com/modelcontextprotocol/servers) をチェックしてください。
     </Step>
 
-    <Step title="Initialize the MCP integration">
-    Intialize the `MCPTools` class as a context manager. The recommended way to define the MCP server, is to use the `command` or `url` parameters. With `command`, you can pass the command used to run the MCP server you want. With `url`, you can pass the URL of the running MCP server you want to use.
+    <Step title="MCP 統合を初期化する">
+    `MCPTools` クラスをコンテキストマネージャーとして初期化します。MCP サーバーを定義する推奨される方法は、`command` または `url` パラメータを使用することです。`command` を使用すると、使用したい MCP サーバーを実行するために使用されるコマンドを渡すことができます。`url` を使用すると、使用したい実行中の MCP サーバーの URL を渡すことができます。
 
 
-    For example, to use the "[mcp-server-git](https://github.com/modelcontextprotocol/servers/tree/main/src/git)" server, you can do the following:
+    たとえば、"[mcp-server-git](https://github.com/modelcontextprotocol/servers/tree/main/src/git)" サーバーを使用するには、次のようにします。
 
 
     ```python
@@ -29,11 +29,11 @@ You can connect your Agents to any MCP server, using Agno's MCP integration.
     ```
     </Step>
 
-    <Step title="Provide the MCPTools to the Agent">
-    When initializing the Agent, pass the `MCPTools` class in the `tools` parameter.
+    <Step title="MCPTools をエージェントに提供する">
+    エージェントを初期化する際に、`tools` パラメータに `MCPTools` クラスを渡します。
 
 
-    The agent will now be ready to use the MCP server:
+    これで、エージェントは MCP サーバーを使用する準備が整いました。
 
 
     ```python
@@ -42,7 +42,7 @@ You can connect your Agents to any MCP server, using Agno's MCP integration.
     from agno.tools.mcp import MCPTools
 
     async with MCPTools(command=f"uvx mcp-server-git") as mcp_tools:
-        # Setup and run the agent
+        # エージェントのセットアップと実行
         agent = Agent(model=OpenAIChat(id="gpt-4o"), tools=[mcp_tools])
         await agent.aprint_response("What is the license for this project?", stream=True)
     ```
@@ -51,9 +51,9 @@ You can connect your Agents to any MCP server, using Agno's MCP integration.
 </Steps>
 
 
-### Basic example: Filesystem Agent
+### 基本的な例: ファイルシステムエージェント
 
-Here's a filesystem agent that uses the [Filesystem MCP server](https://github.com/modelcontextprotocol/servers/tree/main/src/filesystem) to explore and analyze files:
+これは、[Filesystem MCP サーバー](https://github.com/modelcontextprotocol/servers/tree/main/src/filesystem) を使用してファイルを探索および分析するファイルシステムエージェントです。
 
 ```python filesystem_agent.py
 import asyncio
@@ -67,42 +67,42 @@ from mcp import StdioServerParameters
 
 
 async def run_agent(message: str) -> None:
-    """Run the filesystem agent with the given message."""
+    """指定されたメッセージでファイルシステムエージェントを実行します。"""
 
     file_path = str(Path(__file__).parent.parent.parent.parent)
 
-    # MCP server to access the filesystem (via `npx`)
+    # ファイルシステムにアクセスするための MCP サーバー (`npx` 経由)
     async with MCPTools(f"npx -y @modelcontextprotocol/server-filesystem {file_path}") as mcp_tools:
         agent = Agent(
             model=OpenAIChat(id="gpt-4o"),
             tools=[mcp_tools],
             instructions=dedent("""\
-                You are a filesystem assistant. Help users explore files and directories.
+                あなたはファイルシステムの助手です。ユーザーがファイルやディレクトリを探索するのを手伝ってください。
 
-                - Navigate the filesystem to answer questions
-                - Use the list_allowed_directories tool to find directories that you can access
-                - Provide clear context about files you examine
-                - Use headings to organize your responses
-                - Be concise and focus on relevant information\
+                - ファイルシステムを移動して質問に答える
+                - list_allowed_directories ツールを使用してアクセスできるディレクトリを見つける
+                - 検査するファイルに関する明確なコンテキストを提供する
+                - 見出しを使用して応答を整理する
+                - 簡潔にし、関連情報に焦点を当てる\
             """),
             markdown=True,
             show_tool_calls=True,
         )
 
-        # Run the agent
+        # エージェントを実行する
         await agent.aprint_response(message, stream=True)
 
 
-# Example usage
+# 使用例
 if __name__ == "__main__":
-    # Basic example - exploring project license
+    # 基本的な例 - プロジェクトライセンスの探索
     asyncio.run(run_agent("What is the license for this project?"))
 ```
 
 
-## Using MCP in Agno Playground
+## Agno Playground で MCP を使用する
 
-You can also run MCP servers in the Agno Playground, which provides a web interface for interacting with your agents. Here's an example of a GitHub agent running in the Playground:
+Agno Playground では MCP サーバーを実行することもできます。Playground は、エージェントと対話するための Web インターフェイスを提供します。以下は、Playground で実行されている GitHub エージェントの例です。
 
 ```python github_playground.py
 import asyncio
@@ -116,28 +116,28 @@ from agno.playground import Playground
 from agno.storage.agent.sqlite import SqliteAgentStorage
 from agno.tools.mcp import MCPTools
 
-# Allow nested event loops
+# ネストされたイベントループを許可する
 nest_asyncio.apply()
 
 agent_storage_file: str = "tmp/agents.db"
 
 
 async def run_server() -> None:
-    """Run the GitHub agent server."""
+    """GitHub エージェントサーバーを実行します。"""
     github_token = getenv("GITHUB_TOKEN") or getenv("GITHUB_ACCESS_TOKEN")
     if not github_token:
-        raise ValueError("GITHUB_TOKEN environment variable is required")
+        raise ValueError("GITHUB_TOKEN 環境変数が必須です")
 
-    # Create a client session to connect to the MCP server
+    # MCP サーバーに接続するためのクライアントセッションを作成する
     async with MCPTools("npx -y @modelcontextprotocol/server-github") as mcp_tools:
         agent = Agent(
             name="MCP GitHub Agent",
             tools=[mcp_tools],
             instructions=dedent("""\
-                You are a GitHub assistant. Help users explore repositories and their activity.
+                あなたは GitHub のアシスタントです。ユーザーがリポジトリとそのアクティビティを探索するのを手伝ってください。
 
-                - Use headings to organize your responses
-                - Be concise and focus on relevant information\
+                - 見出しを使用して応答を整理する
+                - 簡潔にし、関連情報に焦点を当てる\
             """),
             model=OpenAIChat(id="gpt-4o"),
             storage=SqliteAgentStorage(
@@ -154,7 +154,7 @@ async def run_server() -> None:
         playground = Playground(agents=[agent])
         app = playground.get_app()
 
-        # Serve the app while keeping the MCPTools context manager alive
+        # MCPTools コンテキストマネージャーをアクティブに保ちながらアプリを提供する
         playground.serve(app)
 
 
@@ -163,31 +163,31 @@ if __name__ == "__main__":
 ```
 
 
-## Best Practices
+## ベストプラクティス
 
-1. **Error Handling**: Always include proper error handling for MCP server connections and operations.
+1. **エラーハンドリング**: MCP サーバーの接続と操作に対して、常に適切なエラーハンドリングを含めてください。
 
-2. **Resource Cleanup**: Use `MCPTools` or `MultiMCPTools` as an async context manager to ensure proper cleanup of resources:
+2. **リソースクリーンアップ**: `MCPTools` または `MultiMCPTools` を非同期コンテキストマネージャーとして使用して、リソースの適切なクリーンアップを保証します。
 ```python
 async with MCPTools(command) as mcp_tools:
-    # Your agent code here
+    # ここにエージェントコードを記述
 ```
 
-3. **Clear Instructions**: Provide clear and specific instructions to your agent:
+3. **明確な指示**: エージェントに明確で具体的な指示を提供します。
 
 ```python
 instructions = """
-You are a filesystem assistant. Help users explore files and directories.
-- Navigate the filesystem to answer questions
-- Use the list_allowed_directories tool to find accessible directories
-- Provide clear context about files you examine
-- Be concise and focus on relevant information
+あなたはファイルシステムの助手です。ユーザーがファイルやディレクトリを探索するのを手伝ってください。
+- ファイルシステムを移動して質問に答える
+- list_allowed_directories ツールを使用してアクセスできるディレクトリを見つける
+- 検査するファイルに関する明確なコンテキストを提供する
+- 簡潔にし、関連情報に焦点を当てる
 """
 ```
 
-## More Information
+## 詳細情報
 
-- Find examples of Agents that use MCP [here](https://docs.agno.com/examples/concepts/tools/mcp/airbnb).
-- Find a collection of MCP servers [here](https://github.com/modelcontextprotocol/servers).
-- Read the [MCP documentation](https://modelcontextprotocol.io/introduction) to learn more about the Model Context Protocol.
-- Checkout the Agno [Cookbook](https://github.com/agno-agi/agno/tree/main/cookbook/tools/mcp) for more examples of Agents that use MCP.
+- MCP を使用するエージェントの例は[こちら](https://docs.agno.com/examples/concepts/tools/mcp/airbnb)で見つけられます。
+- MCP サーバーのコレクションは[こちら](https://github.com/modelcontextprotocol/servers)で見つけられます。
+- Model Context Protocol について詳しくは、[MCP ドキュメント](https://modelcontextprotocol.io/introduction)をお読みください。
+- MCP を使用するエージェントのその他の例については、Agno [クックブック](https://github.com/agno-agi/agno/tree/main/cookbook/tools/mcp)をチェックしてください。

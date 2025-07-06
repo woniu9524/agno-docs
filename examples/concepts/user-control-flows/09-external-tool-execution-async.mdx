@@ -1,9 +1,9 @@
 ---
-title: Async External Tool Execution
-description: This example demonstrates how to implement asynchronous external tool execution, allowing for non-blocking execution of tools outside of the agent's control.
+title: 非同期外部ツール実行
+description: この例では、非同期外部ツール実行の実装方法を示します。これにより、エージェントの制御外でツールを非ブロッキングで実行できます。
 ---
 
-## Code
+## コード
 
 ```python cookbook/agent_concepts/user_control_flows/external_tool_execution_async.py
 import asyncio
@@ -16,18 +16,18 @@ from agno.utils import pprint
 
 @tool(external_execution=True)
 def execute_shell_command(command: str) -> str:
-    """Execute a shell command.
+    """シェルコマンドを実行します。
 
     Args:
-        command (str): The shell command to execute
+        command (str): 実行するシェルコマンド
 
     Returns:
-        str: The output of the shell command
+        str: シェルコマンドの出力
     """
     if command.startswith("ls"):
         return subprocess.check_output(command, shell=True).decode("utf-8")
     else:
-        raise Exception(f"Unsupported command: {command}")
+        raise Exception(f"サポートされていないコマンド: {command}")
 
 agent = Agent(
     model=OpenAIChat(id="gpt-4o-mini"),
@@ -35,38 +35,38 @@ agent = Agent(
     markdown=True,
 )
 
-run_response = asyncio.run(agent.arun("What files do I have in my current directory?"))
+run_response = asyncio.run(agent.arun("現在のディレクトリにあるファイルは何ですか？"))
 if run_response.is_paused:
     for tool in run_response.tools_awaiting_external_execution:
         if tool.tool_name == execute_shell_command.name:
-            print(f"Executing {tool.tool_name} with args {tool.tool_args} externally")
-            # We execute the tool ourselves. You can also execute something completely external here.
+            print(f"外部で {tool.tool_name} を引数 {tool.tool_args} で実行中")
+            # ツールを自分で実行します。完全に外部のものを実行することも可能です。
             result = execute_shell_command.entrypoint(**tool.tool_args)
-            # We have to set the result on the tool execution object so that the agent can continue
+            # エージェントが続行できるように、ツール実行オブジェクトに結果を設定する必要があります
             tool.result = result
 
     run_response = asyncio.run(agent.acontinue_run(run_response=run_response))
     pprint.pprint_run_response(run_response)
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="APIキーの設定">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="ライブラリのインストール">
     ```bash
     pip install -U agno openai
     ```
   </Step>
 
-  <Step title="Run Example">
+  <Step title="例の実行">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/user_control_flows/external_tool_execution_async.py
@@ -79,16 +79,16 @@ if run_response.is_paused:
   </Step>
 </Steps>
 
-## Key Features
+## 主な機能
 
-- Uses `agent.arun()` for asynchronous agent execution
-- Implements `agent.acontinue_run()` for async continuation
-- Maintains the same external tool execution flow as synchronous version
-- Demonstrates how to handle async execution with external tools
+- 非同期エージェント実行に `agent.arun()` を使用
+- 非同期継続に `agent.acontinue_run()` を実装
+- 同期バージョンと同じ外部ツール実行フローを維持
+- 外部ツールでの非同期実行の処理方法を実証
 
-## Use Cases
+## ユースケース
 
-- Non-blocking external tool execution
-- High-performance applications requiring async execution
-- Web applications with external service calls
-- Long-running operations with external tools 
+- 非ブロッキング外部ツール実行
+- 非同期実行を必要とする高性能アプリケーション
+- 外部サービス呼び出しを伴うWebアプリケーション
+- 外部ツールを使用した長時間実行操作

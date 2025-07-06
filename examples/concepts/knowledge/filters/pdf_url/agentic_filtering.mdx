@@ -1,26 +1,26 @@
 ---
-title: Agentic filtering with Pdf-Url
-description: Learn how to do agentic knowledge filtering using Pdf-Url documents with user-specific metadata.
+title: Pdf-Url を使用したエージェントによるフィルタリング
+description: ユーザー固有のメタデータを使用して、Pdf-Url ドキュメントによるエージェントによる知識フィルタリングの方法を学びます。
 ---
 
-## Code
+## コード
 
 ```python
 from agno.agent import Agent
 from agno.knowledge.pdf_url import PDFUrlKnowledgeBase
 from agno.vectordb.lancedb import LanceDb
 
-# Initialize LanceDB
-# By default, it stores data in /tmp/lancedb
+# LanceDB の初期化
+# デフォルトでは、データは /tmp/lancedb に保存されます
 vector_db = LanceDb(
     table_name="recipes",
-    uri="tmp/lancedb",  # You can change this path to store data elsewhere
+    uri="tmp/lancedb",  # データを別の場所に保存するには、このパスを変更できます
 )
 
-# Step 1: Initialize knowledge base with documents and metadata
+# ステップ 1: ドキュメントとメタデータで知識ベースを初期化
 # ------------------------------------------------------------------------------
-# When initializing the knowledge base, we can attach metadata that will be used for filtering
-# This metadata can include user IDs, document types, dates, or any other attributes
+# 知識ベースを初期化する際に、フィルタリングに使用されるメタデータを添付できます
+# このメタデータには、ユーザー ID、ドキュメントの種類、日付、またはその他の属性を含めることができます
 
 knowledge_base = PDFUrlKnowledgeBase(
     urls=[
@@ -44,36 +44,37 @@ knowledge_base = PDFUrlKnowledgeBase(
     vector_db=vector_db,
 )
 
-# Load all documents into the vector database
+# すべてのドキュメントをベクトルデータベースにロードします
 knowledge_base.load(recreate=True)
 
-# Step 2: Query the knowledge base with Agent using filters from query automatically
+# ステップ 2: クエリからのフィルタを使用して Agent で知識ベースをクエリ
 # -----------------------------------------------------------------------------------
 
-# Enable agentic filtering
+# エージェントによるフィルタリングを有効にします
 agent = Agent(
     knowledge=knowledge_base,
     search_knowledge=True,
     enable_agentic_knowledge_filters=True,
 )
 
-# Query for Jordan Mitchell's experience and skills with filters in query so that Agent can automatically pick them up
+# クエリにフィルタを含めることで、Agent が自動的にそれらを拾えるようにして、
+# Jordan Mitchell の経験とスキルについてクエリします
 agent.print_response(
-    "How to make Pad Thai, refer from document with cuisine Thai and source Thai Cookbook",
+    "Pad Thai の作り方を教えてください。cuisine が Thai で source が Thai Cookbook のドキュメントを参照してください",
     markdown=True,
 )
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
-  <Step title="Install libraries">
+  <Step title="ライブラリのインストール">
     ```bash
     pip install -U agno openai lancedb
     ```
   </Step>
 
-  <Step title="Run the example">
+  <Step title="例の実行">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/knowledge/filters/pdf_url/agentic_filtering.py

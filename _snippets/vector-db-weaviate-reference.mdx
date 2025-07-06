@@ -1,13 +1,13 @@
-| Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `wcd_url` | `Optional[str]` | `None` | URL for Weaviate Cloud Deployment. Falls back to `WCD_URL` environment variable if not provided. |
-| `wcd_api_key` | `Optional[str]` | `None` | API key for Weaviate Cloud Deployment. Falls back to `WCD_API_KEY` environment variable if not provided. |
-| `client` | `Optional[weaviate.WeaviateClient]` | `None` | Pre-configured Weaviate client instance. |
-| `local` | `bool` | `False` | Whether to use a local Weaviate instance instead of cloud. |
-| `collection` | `str` | `"default"` | Name of the collection to use in Weaviate. |
-| `vector_index` | `VectorIndex` | `VectorIndex.HNSW` | Type of vector index to use (HNSW, FLAT, or DYNAMIC). |
-| `distance` | `Distance` | `Distance.COSINE` | Distance metric for vector similarity (COSINE, DOT, etc.). |
-| `embedder` | `Optional[Embedder]` | `None` | Embedder to use for generating vector embeddings. Defaults to OpenAIEmbedder if not provided. |
-| `search_type` | `SearchType` | `SearchType.vector` | Type of search to perform (vector, keyword, or hybrid). |
-| `reranker` | `Optional[Reranker]` | `None` | Optional reranker to improve search results. |
-| `hybrid_search_alpha` | `float` | `0.5` | Weight between vector and keyword search for hybrid search (0.0 = keyword only, 1.0 = vector only). |
+| パラメータ | タイプ | デフォルト | 説明 |
+|---|---|---|---|
+| `wcd_url` | `Optional[str]` | `None` | Weaviate Cloud Deployment の URL。提供されない場合は `WCD_URL` 環境変数にフォールバックします。 |
+| `wcd_api_key` | `Optional[str]` | `None` | Weaviate Cloud Deployment の API キー。提供されない場合は `WCD_API_KEY` 環境変数にフォールバックします。 |
+| `client` | `Optional[weaviate.WeaviateClient]` | `None` | 事前に設定された Weaviate クライアントインスタンス。 |
+| `local` | `bool` | `False` | クラウドではなくローカルの Weaviate インスタンスを使用するかどうか。 |
+| `collection` | `str` | `"default"` | Weaviate で使用するコレクションの名前。 |
+| `vector_index` | `VectorIndex` | `VectorIndex.HNSW` | 使用するベクトルインデックスのタイプ (HNSW、FLAT、または DYNAMIC)。 |
+| `distance` | `Distance` | `Distance.COSINE` | ベクトル類似性のための距離メトリック (COSINE、DOT など)。 |
+| `embedder` | `Optional[Embedder]` | `None` | ベクトル埋め込みを生成するために使用するエンベッダー。提供されない場合は OpenAIEmbedder にデフォルト設定されます。 |
+| `search_type` | `SearchType` | `SearchType.vector` | 実行する検索のタイプ (vector、keyword、または hybrid)。 |
+| `reranker` | `Optional[Reranker]` | `None` | 検索結果を改善するためのオプションの再ランク付け機能。 |
+| `hybrid_search_alpha` | `float` | `0.5` | ハイブリッド検索のためのベクトル検索とキーワード検索の間の重み (0.0 = キーワードのみ、1.0 = ベクトルのみ)。 |

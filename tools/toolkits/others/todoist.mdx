@@ -2,10 +2,10 @@
 title: Todoist
 ---
 
-**TodoistTools** enables an Agent to interact with [Todoist](https://www.todoist.com/). 
+**TodoistTools** を使用すると、エージェントが [Todoist](https://www.todoist.com/) とやり取りできるようになります。
 
-## Prerequisites
-The following example requires the `todoist-api-python` library. and a Todoist API token which can be obtained from the [Todoist Developer Portal](https://app.todoist.com/app/settings/integrations/developer).
+## 前提条件
+以下の例では、`todoist-api-python` ライブラリが必要です。また、[Todoist Developer Portal](https://app.todoist.com/app/settings/integrations/developer) から取得できる Todoist API トークンが必要です。
 
 ```shell
 pip install todoist-api-python
@@ -15,23 +15,23 @@ pip install todoist-api-python
 export TODOIST_API_TOKEN=***
 ```
 
-## Example
+## 例
 
-The following agent will create a new task in Todoist.
+以下のエージェントは、Todoist に新しいタスクを作成します。
 
 ```python cookbook/tools/todoist.py
 """
-Example showing how to use the Todoist Tools with Agno
+Todoist Tools を Agno で使用する方法を示す例
 
-Requirements:
-- Sign up/login to Todoist and get a Todoist API Token (get from https://app.todoist.com/app/settings/integrations/developer)
+要件:
+- Todoist にサインアップ/ログインし、Todoist API トークンを取得する (https://app.todoist.com/app/settings/integrations/developer から取得)
 - pip install todoist-api-python
 
-Usage:
-- Set the following environment variables:
+使い方:
+- 以下の環境変数を設定します:
     export TODOIST_API_TOKEN="your_api_token"
 
-- Or provide them when creating the TodoistTools instance
+- または、TodoistTools インスタンスを作成する際に指定します
 """
 
 from agno.agent import Agent
@@ -56,43 +56,43 @@ todoist_agent = Agent(
     show_tool_calls=True,
 )
 
-# Example 1: Create a task
+# 例 1: タスクを作成する
 print("\n=== Create a task ===")
 todoist_agent.print_response("Create a todoist task to buy groceries tomorrow at 10am")
 
 
-# Example 2: Delete a task
+# 例 2: タスクを削除する
 print("\n=== Delete a task ===")
 todoist_agent.print_response(
     "Delete the todoist task to buy groceries tomorrow at 10am"
 )
 
 
-# Example 3: Get all tasks
+# 例 3: すべてのタスクを取得する
 print("\n=== Get all tasks ===")
 todoist_agent.print_response("Get all the todoist tasks")
 ```
 
-## Toolkit Params
+## Toolkit パラメータ
 
-| Parameter | Type  | Default | Description                                       |
-| --------- | ----- | ------- | ------------------------------------------------- |
-| `api_token` | `str` | `None`  | If you want to manually supply the TODOIST_API_TOKEN. |
+| パラメータ | タイプ  | デフォルト | 説明                                       |
+| ---------- | ----- | ------- | ------------------------------------------------- |
+| `api_token` | `str` | `None`  | TODOIST_API_TOKEN を手動で供給する場合。 |
 
-## Toolkit Functions
+## Toolkit 関数
 
-| Function | Description |
+| 関数 | 説明 |
 |----------|-------------|
-| `create_task` | Creates a new task in Todoist with optional project assignment, due date, priority, and labels. |
-| `get_task` | Fetches a specific task. |
-| `update_task` | Updates an existing task with new properties such as content, due date, priority, etc. |
-| `close_task` | Marks a task as completed. |
-| `delete_task` | Deletes a specific task from Todoist. |
-| `get_active_tasks` | Retrieves all active (non-completed) tasks. |
-| `get_projects` | Retrieves all projects in Todoist. |
+| `create_task` | プロジェクト、期日、優先度、ラベルをオプションで指定して、Todoist に新しいタスクを作成します。 |
+| `get_task` | 特定のタスクを取得します。 |
+| `update_task` | コンテンツ、期日、優先度などの新しいプロパティで既存のタスクを更新します。 |
+| `close_task` | タスクを完了としてマークします。 |
+| `delete_task` | Todoist から特定のタスクを削除します。 |
+| `get_active_tasks` | すべてのアクティブな (完了していない) タスクを取得します。 |
+| `get_projects` | Todoist のすべてのプロジェクトを取得します。 |
 
 
-## Developer Resources
+## 開発者向けリソース
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/todoist.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/todoist_tool.py)
+- [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/todoist.py) を表示
+- [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/todoist_tool.py) を表示

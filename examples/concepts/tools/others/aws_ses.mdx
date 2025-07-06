@@ -1,8 +1,8 @@
 ---
-title: AWS SES Tools
+title: AWS SES ツール
 ---
 
-## Code
+## コード
 
 ```python cookbook/tools/aws_ses_tools.py
 from agno.agent import Agent
@@ -10,31 +10,27 @@ from agno.models.openai import OpenAIChat
 from agno.tools.aws_ses import AWSSESTool
 from agno.tools.duckduckgo import DuckDuckGoTools
 
-# Configure email settings
-sender_email = "verified-sender@example.com"  # Your verified SES email
+# メール設定の構成
+sender_email = "verified-sender@example.com"  # 確認済みのSESメールアドレス
 sender_name = "AI Research Updates"
 region_name = "us-east-1"
 
-# Create an agent that can research and send personalized email updates
+# パーソナライズされたメールアップデートをリサーチして送信できるエージェントを作成
 agent = Agent(
-    name="Research Newsletter Agent",
+    name="リサーチニュースレターエージェント",
     model=OpenAIChat(id="gpt-4o"),
-    description="""You are an AI research specialist who creates and sends
-    personalized email newsletters about the latest developments in artificial
-    intelligence and technology.""",
+    description="""あなたは、人工知能とテクノロジーの最新動向に関するパーソナライズされたメールニュースレターを作成・送信するAIリサーチスペシャリストです。""",
     instructions=[
-        """When given a prompt:,
-        1. Extract the recipient's email address carefully. Look for the
-        complete email in format 'user@domain.com'.,
-        2. Research the latest AI developments using DuckDuckGo,
-        3. Compose a concise, engaging email with:
-           - A compelling subject line,
-           - 3-4 key developments or news items,
-           - Brief explanations of why they matter,
-           - Links to sources,
-        4. Format the content in a clean, readable way,
-        5. Send the email using AWS SES. IMPORTANT: The receiver_email parameter
-        must be the COMPLETE email address including the @ symbol and domain.""",
+        """プロンプトが与えられた場合：
+        1. 受信者のメールアドレスを慎重に抽出します。「user@domain.com」の形式の完全なメールを探します。
+        2. DuckDuckGoを使用して最新のAI開発をリサーチします。
+        3. 以下を含む、簡潔で魅力的なメールを作成します：
+           - 説得力のある件名
+           - 3〜4の主要な開発またはニュース項目
+           - それらがなぜ重要なのかについての簡単な説明
+           - ソースへのリンク
+        4. コンテンツをクリーンで読みやすい方法でフォーマットします。
+        5. AWS SESを使用してメールを送信します。重要：receiver_email パラメータは、@記号とドメインを含む完全なメールアドレスである必要があります。""",
     ],
     tools=[
         AWSSESTool(
@@ -49,51 +45,41 @@ agent = Agent(
 )
 
 agent.print_response(
-    "Research AI developments in healthcare from the past week with a focus on practical applications in clinical settings. Send the summary via email to johndoe@example.com"
+    "過去1週間のヘルスケアにおけるAI開発について、臨床現場での実践的な応用に焦点を当ててリサーチしてください。要約をjohndoe@example.comにメールで送信してください。"
 )
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
 {" "}
-<Step title="Set up AWS SES">
-  ### Verify your email/domain: **For testing:** 1. Go to [AWS SES
-  Console](https://console.aws.amazon.com/ses/home) > Verified Identities >
-  Create Identity 2. Choose "Email Address" verification 3. Click verification
-  link sent to your email **For production:** 1. Choose "Domain" and follow DNS
-  verification steps 2. Add DKIM and SPF records to your domain's DNS **Note:**
-  In sandbox mode, both sender and recipient emails must be verified.
+<Step title="AWS SES のセットアップ">
+  ### メール/ドメインの確認： **テスト用：** 1. [AWS SES コンソール](https://console.aws.amazon.com/ses/home) > 確認済みのID > ID の作成 に移動します。 2. 「メールアドレス」の確認を選択します。 3. メールで送信された確認リンクをクリックします。 **本番用：** 1. 「ドメイン」を選択し、DNS 確認手順に従います。 2. ドメインの DNS に DKIM および SPF レコードを追加します。 **注意：** サンドボックスモードでは、送信者と受信者の両方のメールアドレスが確認されている必要があります。
 </Step>
 
 {" "}
-<Step title="Configure AWS credentials">
-  ### Create IAM user: 1. Go to IAM Console > Users > Add User 2. Enable
-  "Programmatic access" 3. Attach 'AmazonSESFullAccess' policy ### Set
-  credentials (choose one method): **Method 1 - Using AWS CLI:** ```bash aws
-  configure ``` **Method 2 - Environment variables:** ```bash export
-  AWS_ACCESS_KEY_ID=xxx export AWS_SECRET_ACCESS_KEY=xxx export
-  AWS_DEFAULT_REGION=us-east-1 export OPENAI_API_KEY=xxx ```
+<Step title="AWS 認証情報の設定">
+  ### IAM ユーザーの作成： 1. IAM コンソール > ユーザー > ユーザーの追加 に移動します。 2. 「プログラムによるアクセス」を有効にします。 3. 'AmazonSESFullAccess' ポリシーをアタッチします。 ### 認証情報の設定（いずれかの方法を選択）： **方法 1 - AWS CLI の使用：** ```bash aws configure ``` **方法 2 - 環境変数：** ```bash export AWS_ACCESS_KEY_ID=xxx export AWS_SECRET_ACCESS_KEY=xxx export AWS_DEFAULT_REGION=us-east-1 export OPENAI_API_KEY=xxx ```
 </Step>
 
 {" "}
-<Step title="Install libraries">
+<Step title="ライブラリのインストール">
   ```bash pip install -U boto3 openai duckduckgo-search agno ```
 </Step>
 
 {" "}
-<Step title="Run Agent">
+<Step title="エージェントの実行">
   ```bash python cookbook/tools/aws_ses_tools.py ```
 </Step>
 
-  <Step title="Troubleshooting">
-    If emails aren't sending, check:
-    - Both sender and recipient are verified (in sandbox mode)
-    - AWS credentials are correctly configured
-    - You're within sending limits
-    - Your IAM user has correct SES permissions
-    - Use SES Console's 'Send Test Email' feature to verify setup
+  <Step title="トラブルシューティング">
+    メールが送信されない場合は、以下を確認してください：
+    - 送信者と受信者の両方が確認されている（サンドボックスモードの場合）
+    - AWS 認証情報が正しく設定されている
+    - 送信制限内である
+    - IAM ユーザーが正しい SES 権限を持っている
+    - セットアップを確認するために SES コンソールの「テストメールの送信」機能を使用する
   </Step>
 </Steps>

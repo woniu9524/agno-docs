@@ -3,10 +3,9 @@ title: SSE Transport
 sidebarTitle: SSE
 ---
 
-Agno's MCP integration supports the [SSE transport](https://modelcontextprotocol.io/docs/concepts/transports#server-sent-events-sse). This transport enables server-to-client streaming, and can prove more useful than [stdio](https://modelcontextprotocol.io/docs/concepts/transports#standard-input%2Foutput-stdio) when working with restricted networks.
+Agno の MCP 統合は、[SSE トランスポート](https://modelcontextprotocol.io/docs/concepts/transports#server-sent-events-sse)をサポートしています。このトランスポートはサーバーからクライアントへのストリーミングを可能にし、制限されたネットワークでの作業時には [stdio](https://modelcontextprotocol.io/docs/concepts/transports#standard-input%2Foutput-stdio) よりも有用であることが証明される場合があります。
 
-To use it, initialize the `MCPTools` passing the URL of the MCP server and setting the transport to `sse`:
-
+使用するには、MCP サーバーの URL を渡して `MCPTools` を初期化し、トランスポートを `sse` に設定します。
 
 ```python
 from agno.agent import Agent
@@ -20,8 +19,7 @@ async with MCPTools(url=server_url, transport="sse") as mcp_tools:
     await agent.aprint_response("What is the license for this project?", stream=True)
 ```
 
-
-You can also use the `server_params` argument to define the MCP connection. This way you can specify the headers to send to the MCP server with every request, and the timeout values:
+`server_params` 引数を使用して MCP 接続を定義することもできます。これにより、MCP サーバーに送信するヘッダーとタイムアウト値を指定できます。
 
 ```python
 from agno.tools.mcp import MCPTools, SSEClientParams
@@ -37,13 +35,12 @@ async with MCPTools(server_params=server_params) as mcp_tools:
     ...
 ```
 
+## 完全な例
 
-## Complete example
-
-Let's set up a simple local server and connect to it using the SSE transport:
+簡単なローカルサーバーをセットアップし、SSE トランスポートを使用してそれに接続しましょう。
 
 <Steps>
-    <Step title="Setup the server">
+    <Step title="サーバーのセットアップ">
         ```python sse_server.py
         from mcp.server.fastmcp import FastMCP
 
@@ -65,7 +62,7 @@ Let's set up a simple local server and connect to it using the SSE transport:
         ```
     </Step>
 
-    <Step title="Setup the client">
+    <Step title="クライアントのセットアップ">
         ```python sse_client.py
         import asyncio
 
@@ -73,7 +70,7 @@ Let's set up a simple local server and connect to it using the SSE transport:
         from agno.models.openai import OpenAIChat
         from agno.tools.mcp import MCPTools, MultiMCPTools
 
-        # This is the URL of the MCP server we want to use.
+        # これは、使用したい MCP サーバーの URL です。
         server_url = "http://localhost:8000/sse"
 
 
@@ -87,8 +84,8 @@ Let's set up a simple local server and connect to it using the SSE transport:
                 await agent.aprint_response(message=message, stream=True, markdown=True)
 
 
-        # Using MultiMCPTools, we can connect to multiple MCP servers at once, even if they use different transports.
-        # In this example we connect to both our example server (SSE transport), and a different server (stdio transport).
+        # MultiMCPTools を使用すると、異なるトランスポートを使用している場合でも、複数の MCP サーバーに同時に接続できます。
+        # この例では、例のサーバー (SSE トランスポート) と別のサーバー (stdio トランスポート) の両方に接続しています。
         async def run_agent_with_multimcp(message: str) -> None:
             async with MultiMCPTools(
                 commands=["npx -y @openbnb/mcp-server-airbnb --ignore-robots-txt"],
@@ -112,13 +109,13 @@ Let's set up a simple local server and connect to it using the SSE transport:
         ```
     </Step>
 
-    <Step title="Run the server">
+    <Step title="サーバーの実行">
         ```bash
         python sse_server.py
         ```
     </Step>
 
-    <Step title="Run the client">
+    <Step title="クライアントの実行">
         ```bash
         python sse_client.py
         ```

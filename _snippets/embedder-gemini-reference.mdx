@@ -1,12 +1,12 @@
-### Parameters
+### パラメータ
 
-| Parameter | Type | Description | Default |
+| パラメータ | タイプ | 説明 | デフォルト |
 |-----------|------|-------------|---------|
-| `id` | `str` | The model ID to use for embeddings | `"models/text-embedding-004"` |
-| `task_type` | `str` | Type of task for embedding generation | `"RETRIEVAL_QUERY"` |
-| `title` | `Optional[str]` | Optional title for the content being embedded | `None` |
-| `dimensions` | `Optional[int]` | Output dimensions of the embedding | `768` |
-| `api_key` | `Optional[str]` | Google API key | Environment variable `GOOGLE_API_KEY` |
-| `request_params` | `Optional[Dict[str, Any]]` | Additional parameters for embedding requests | `None` |
-| `client_params` | `Optional[Dict[str, Any]]` | Additional parameters for client initialization | `None` |
-| `gemini_client` | `Optional[ModuleType]` | Pre-configured Gemini client | `None` |
+| `id` | `str` | 埋め込みに使用するモデル ID | `"models/text-embedding-004"` |
+| `task_type` | `str` | 埋め込み生成のタスクタイプ | `"RETRIEVAL_QUERY"` |
+| `title` | `Optional[str]` | 埋め込まれるコンテンツのオプションのタイトル | `None` |
+| `dimensions` | `Optional[int]` | 埋め込みの出力次元数 | `768` |
+| `api_key` | `Optional[str]` | Google API キー | 環境変数 `GOOGLE_API_KEY` |
+| `request_params` | `Optional[Dict[str, Any]]` | 埋め込みリクエストの追加パラメータ | `None` |
+| `client_params` | `Optional[Dict[str, Any]]` | クライアント初期化の追加パラメータ | `None` |
+| `gemini_client` | `Optional[ModuleType]` | 事前に設定された Gemini クライアント | `None` |

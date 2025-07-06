@@ -1,10 +1,10 @@
-| Parameter                          | Type                                  | Default                  | Description                                                                                            |
+| パラメータ                          | タイプ                                  | デフォルト                  | 説明                                                                                                   |
 | --------------------------------- | ------------------------------------- | ------------------------ | ------------------------------------------------------------------------------------------------------ |
-| `id`                              | `str`                                 | `"gemini-2.0-flash-exp"` | The specific model ID used for generating responses.                                                   |
-| `name`                            | `str`                                 | `"Gemini"`               | The name identifier for the agent.                                                                     |
-| `provider`                        | `str`                                 | `"VertexAI"`             | The provider of the model.                                                                             |
-| `function_declarations`           | `Optional[List[FunctionDeclaration]]` | `None`                   | A list of function declarations that the model can utilize during the response generation process.     |
-| `generation_config`               | `Optional[Any]`                       | `None`                   | Configuration settings for the generation process, such as parameters for controlling output behavior. |
-| `safety_settings`                 | `Optional[Any]`                       | `None`                   | Settings related to safety measures, ensuring the generation of appropriate and safe content.          |
-| `generative_model_request_params` | `Optional[Dict[str, Any]]`           | `None`                   | Additional parameters for the generative model requests.                                               |
-| `client`                          | `Optional[GenerativeModel]`           | `None`                   | A pre-configured instance of the Gemini client.                                                        |
+| `id`                              | `str`                                 | `"gemini-2.0-flash-exp"` | レスポンス生成に使用される特定のモデルID。                                                               |
+| `name`                            | `str`                                 | `"Gemini"`               | エージェントの名前識別子。                                                                               |
+| `provider`                        | `str`                                 | `"VertexAI"`             | モデルのプロバイダー。                                                                                   |
+| `function_declarations`           | `Optional[List[FunctionDeclaration]]` | `None`                   | レスポンス生成プロセス中にモデルが利用できる関数宣言のリスト。                                                 |
+| `generation_config`               | `Optional[Any]`                       | `None`                   | 出力動作を制御するためのパラメータなど、生成プロセスの設定。                                                   |
+| `safety_settings`                 | `Optional[Any]`                       | `None`                   | 安全対策に関連する設定で、適切で安全なコンテンツの生成を保証します。                                               |
+| `generative_model_request_params` | `Optional[Dict[str, Any]]`           | `None`                   | 生成モデルリクエストの追加パラメータ。                                                                   |
+| `client`                          | `Optional[GenerativeModel]`           | `None`                   | 事前に設定されたGeminiクライアントのインスタンス。                                                        |

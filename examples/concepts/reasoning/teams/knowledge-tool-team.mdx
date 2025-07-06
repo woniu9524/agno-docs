@@ -1,12 +1,12 @@
 ---
-title: Team with Knowledge Tools
+title: Knowledge Tools を使用したチーム
 ---
-This is a team reasoning example with knowledge tools.
+これは、ナレッジツールを使用したチーム推論の例です。
 <Tip>
-Enabling the reasoning option on the team leader helps optimize delegation and enhances multi-agent collaboration by selectively invoking deeper reasoning when required.
+チームリーダーで推論オプションを有効にすると、委任が最適化され、必要に応じてより深い推論を選択的に呼び出すことで、マルチエージェントの協調性が向上します。
 </Tip>
 
-## Code
+## コード
 
 ```python cookbook/reasoning/teams/knowledge_tool_team.py
 from textwrap import dedent
@@ -22,7 +22,7 @@ from agno.vectordb.lancedb import LanceDb, SearchType
 
 agno_docs = UrlKnowledge(
     urls=["https://www.paulgraham.com/read.html"],
-    # Use LanceDB as the vector database and store embeddings in the `agno_docs` table
+    # LanceDB をベクトルデータベースとして使用し、埋め込みを `agno_docs` テーブルに保存します
     vector_db=LanceDb(
         uri="tmp/lancedb",
         table_name="agno_docs",
@@ -80,7 +80,7 @@ team_leader = Team(
 
 
 def run_team(task: str):
-    # Comment out after first run
+    # 初回実行後にコメントアウトしてください
     agno_docs.load(recreate=True)
     team_leader.print_response(
         task,
@@ -94,24 +94,24 @@ if __name__ == "__main__":
     run_team("What does Paul Graham talk about the need to read in this essay?")
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="API キーを設定する">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="ライブラリをインストールする">
     ```bash
     pip install -U openai agno
     ```
   </Step>
 
-  <Step title="Run Example">
+  <Step title="例を実行する">
     <CodeGroup>
     ```bash Mac
     python cookbook/reasoning/teams/knowledge_tool_team.py

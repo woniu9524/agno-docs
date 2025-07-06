@@ -2,11 +2,11 @@
 title: Github
 ---
 
-**GithubTools** enables an Agent to access Github repositories and perform tasks such as listing open pull requests, issues and more.
+**GithubTools** は、エージェントがGithubリポジトリにアクセスし、オープンなプルリクエストやイシューなどをリストするタスクを実行できるようにします。
 
-## Prerequisites
+## 前提条件
 
-The following examples requires the `PyGithub` library and a Github access token which can be obtained from [here](https://github.com/settings/tokens).
+以下の例では、`PyGithub`ライブラリと、[こちら](https://github.com/settings/tokens)から取得できるGithubアクセストークンが必要です。
 
 ```shell
 pip install -U PyGithub
@@ -16,9 +16,9 @@ pip install -U PyGithub
 export GITHUB_ACCESS_TOKEN=***
 ```
 
-## Example
+## 例
 
-The following agent will search Google for the latest news about "Mistral AI":
+以下のエージェントは、"Mistral AI"に関する最新ニュースをGoogleで検索します。
 
 ```python cookbook/tools/github_tools.py
 from agno.agent import Agent
@@ -38,31 +38,31 @@ agent.print_response("List open pull requests", markdown=True)
 
 ## Toolkit Params
 
-| Parameter                  | Type   | Default | Description                                                                                                 |
+| パラメータ                  | タイプ   | デフォルト | 説明                                                                                                 |
 | -------------------------- | ------ | ------- | ----------------------------------------------------------------------------------------------------------- |
-| `access_token`             | `str`  | `None`  | Github access token for authentication. If not provided, will use GITHUB_ACCESS_TOKEN environment variable. |
-| `base_url`                 | `str`  | `None`  | Optional base URL for Github Enterprise installations.                                                      |
-| `search_repositories`      | `bool` | `True`  | Enable searching Github repositories.                                                                       |
-| `list_repositories`        | `bool` | `True`  | Enable listing repositories for a user/organization.                                                        |
-| `get_repository`           | `bool` | `True`  | Enable getting repository details.                                                                          |
-| `list_pull_requests`       | `bool` | `True`  | Enable listing pull requests for a repository.                                                              |
-| `get_pull_request`         | `bool` | `True`  | Enable getting pull request details.                                                                        |
-| `get_pull_request_changes` | `bool` | `True`  | Enable getting pull request file changes.                                                                   |
-| `create_issue`             | `bool` | `True`  | Enable creating issues in repositories.                                                                     |
+| `access_token`             | `str`  | `None`  | 認証用のGithubアクセストークン。提供されない場合は、`GITHUB_ACCESS_TOKEN`環境変数を使用します。 |
+| `base_url`                 | `str`  | `None`  | Github EnterpriseインストールのためのオプションのベースURL。                                                      |
+| `search_repositories`      | `bool` | `True`  | Githubリポジトリの検索を有効にします。                                                                       |
+| `list_repositories`        | `bool` | `True`  | ユーザー/組織のリポジトリのリスト表示を有効にします。                                                        |
+| `get_repository`           | `bool` | `True`  | リポジトリの詳細取得を有効にします。                                                                          |
+| `list_pull_requests`       | `bool` | `True`  | リポジトリのプルリクエストのリスト表示を有効にします。                                                        |
+| `get_pull_request`         | `bool` | `True`  | プルリクエストの詳細取得を有効にします。                                                                        |
+| `get_pull_request_changes` | `bool` | `True`  | プルリクエストのファイル変更取得を有効にします。                                                                   |
+| `create_issue`             | `bool` | `True`  | リポジトリでのイシュー作成を有効にします。                                                                       |
 
 ## Toolkit Functions
 
-| Function                   | Description                                          |
+| 関数                   | 説明                                          |
 | -------------------------- | ---------------------------------------------------- |
-| `search_repositories`      | Searches Github repositories based on a query.       |
-| `list_repositories`        | Lists repositories for a given user or organization. |
-| `get_repository`           | Gets details about a specific repository.            |
-| `list_pull_requests`       | Lists pull requests for a repository.                |
-| `get_pull_request`         | Gets details about a specific pull request.          |
-| `get_pull_request_changes` | Gets the file changes in a pull request.             |
-| `create_issue`             | Creates a new issue in a repository.                 |
+| `search_repositories`      | クエリに基づいてGithubリポジトリを検索します。       |
+| `list_repositories`        | 指定されたユーザーまたは組織のリポジトリをリストします。 |
+| `get_repository`           | 特定のリポジトリの詳細を取得します。            |
+| `list_pull_requests`       | リポジトリのプルリクエストをリストします。                |
+| `get_pull_request`         | 特定のプルリクエストの詳細を取得します。          |
+| `get_pull_request_changes` | プルリクエストのファイル変更を取得します。             |
+| `create_issue`             | リポジトリに新しいイシューを作成します。                 |
 
 ## Developer Resources
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/github.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/github_tools.py)
+- [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/github.py) を表示
+- [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/github_tools.py) を表示

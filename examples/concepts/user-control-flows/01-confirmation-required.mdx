@@ -1,9 +1,9 @@
 ---
-title: User Confirmation Required
-description: This example demonstrates how to implement human-in-the-loop functionality by requiring user confirmation before executing tool calls.
+title: ユーザー確認が必要
+description: この例では、ツール呼び出しを実行する前にユーザー確認を要求することにより、ヒューマン・イン・ザ・ループ機能の実装方法を示します。
 ---
 
-## Code
+## コード
 
 ```python cookbook/agent_concepts/user_control_flows/confirmation_required.py
 import json
@@ -20,19 +20,19 @@ console = Console()
 
 @tool(requires_confirmation=True)
 def get_top_hackernews_stories(num_stories: int) -> str:
-    """Fetch top stories from Hacker News.
+    """Hacker Newsからトップストーリーを取得します。
 
     Args:
-        num_stories (int): Number of stories to retrieve
+        num_stories (int): 取得するストーリーの数
 
     Returns:
-        str: JSON string containing story details
+        str: ストーリーの詳細を含むJSON文字列
     """
-    # Fetch top story IDs
+    # トップストーリーIDを取得
     response = httpx.get("https://hacker-news.firebaseio.com/v0/topstories.json")
     story_ids = response.json()
 
-    # Yield story details
+    # ストーリーの詳細をyield
     all_stories = []
     for story_id in story_ids[:num_stories]:
         story_response = httpx.get(
@@ -53,7 +53,7 @@ agent = Agent(
 agent.run("Fetch the top 2 hackernews stories.")
 if agent.is_paused:
     for tool in agent.run_response.tools_requiring_confirmation:
-        # Ask for confirmation
+        # 確認を求める
         console.print(
             f"Tool name [bold blue]{tool.tool_name}({tool.tool_args})[/] requires confirmation."
         )
@@ -72,24 +72,24 @@ run_response = agent.continue_run()
 pprint.pprint_run_response(run_response)
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="APIキーを設定する">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="ライブラリをインストールする">
     ```bash
     pip install -U agno httpx rich openai
     ```
   </Step>
 
-  <Step title="Run Example">
+  <Step title="例を実行する">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/user_control_flows/confirmation_required.py
@@ -102,11 +102,11 @@ pprint.pprint_run_response(run_response)
   </Step>
 </Steps>
 
-## Key Features
+## 主要機能
 
-- Uses `@tool(requires_confirmation=True)` to mark tools that need user confirmation
-- Demonstrates how to continue agent execution after user input
+- 確認が必要なツールをマークするために `@tool(requires_confirmation=True)` を使用します。
+- ユーザー入力後にエージェントの実行を続行する方法を示します。
 
-## Use Cases
+## ユースケース
 
-- Confirming sensitive operations before execution
+- 実行前に機密性の高い操作を確認する

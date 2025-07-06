@@ -1,10 +1,10 @@
 ---
-title: "Autonomous Startup Team"
+title: "自律型スタートアップチーム"
 ---
 
-This example shows how to create an autonomous startup team that can self-organize and drive innovative projects.
+この例では、自己組織化して革新的なプロジェクトを推進できる自律型スタートアップチームを作成する方法を示します。
 
-## Code
+## コード
 
 ```python autonomous_startup_team.py
 from agno.agent import Agent
@@ -39,16 +39,16 @@ legal_compliance_agent = Agent(
     tools=[ExaTools()],
     knowledge=knowledge_base,
     instructions=[
-        "You are the Legal Compliance Agent of a startup, responsible for ensuring legal and regulatory compliance.",
-        "Key Responsibilities:",
-        "1. Review and validate all legal documents and contracts",
-        "2. Monitor regulatory changes and update compliance policies",
-        "3. Assess legal risks in business operations and product development",
-        "4. Ensure data privacy and security compliance (GDPR, CCPA, etc.)",
-        "5. Provide legal guidance on intellectual property protection",
-        "6. Create and maintain compliance documentation",
-        "7. Review marketing materials for legal compliance",
-        "8. Advise on employment law and HR policies",
+        "あなたはスタートアップの法務コンプライアンス担当者であり、法的および規制上のコンプライアンスを確保する責任があります。",
+        "主な責任:",
+        "1. すべての法的文書および契約書のレビューと検証",
+        "2. 規制の変更を監視し、コンプライアンスポリシーを更新する",
+        "3. 事業運営および製品開発における法的リスクを評価する",
+        "4. データプライバシーおよびセキュリティコンプライアンス（GDPR、CCPAなど）を確保する",
+        "5. 知的財産保護に関する法的ガイダンスを提供する",
+        "6. コンプライアンス文書を作成および維持する",
+        "7. マーケティング資料を法的なコンプライアンスのためにレビューする",
+        "8. 雇用法および人事ポリシーに関するアドバイスを提供する",
     ],
     add_datetime_to_instructions=True,
     markdown=True,
@@ -60,17 +60,17 @@ product_manager_agent = Agent(
     model=OpenAIChat("gpt-4o"),
     knowledge=knowledge_base,
     instructions=[
-        "You are the Product Manager of a startup, responsible for product strategy and execution.",
-        "Key Responsibilities:",
-        "1. Define and maintain the product roadmap",
-        "2. Gather and analyze user feedback to identify needs",
-        "3. Write detailed product requirements and specifications",
-        "4. Prioritize features based on business impact and user value",
-        "5. Collaborate with technical teams on implementation feasibility",
-        "6. Monitor product metrics and KPIs",
-        "7. Conduct competitive analysis",
-        "8. Lead product launches and go-to-market strategies",
-        "9. Balance user needs with business objectives",
+        "あなたはスタートアップのプロダクトマネージャーであり、製品戦略と実行を担当しています。",
+        "主な責任:",
+        "1. 製品ロードマップを定義および維持する",
+        "2. ユーザーフィードバックを収集および分析してニーズを特定する",
+        "3. 詳細な製品要件および仕様を作成する",
+        "4. ビジネスインパクトとユーザー価値に基づいて機能を優先順位付けする",
+        "5. 実装の実現可能性について技術チームと協力する",
+        "6. 製品メトリクスおよびKPIを監視する",
+        "7. 競合分析を実施する",
+        "8. 製品ローンチおよび市場投入戦略を主導する",
+        "9. ユーザーニーズとビジネス目標のバランスを取る",
     ],
     add_datetime_to_instructions=True,
     markdown=True,
@@ -84,16 +84,16 @@ market_research_agent = Agent(
     tools=[DuckDuckGoTools(), ExaTools()],
     knowledge=knowledge_base,
     instructions=[
-        "You are the Market Research Agent of a startup, responsible for market intelligence and analysis.",
-        "Key Responsibilities:",
-        "1. Conduct comprehensive market analysis and size estimation",
-        "2. Track and analyze competitor strategies and offerings",
-        "3. Identify market trends and emerging opportunities",
-        "4. Research customer segments and buyer personas",
-        "5. Analyze pricing strategies in the market",
-        "6. Monitor industry news and developments",
-        "7. Create detailed market research reports",
-        "8. Provide data-driven insights for decision making",
+        "あなたはスタートアップの市場調査担当者であり、市場インテリジェンスと分析を担当しています。",
+        "主な責任:",
+        "1. 包括的な市場分析および規模推定を実施する",
+        "2. 競合他社の戦略および製品を追跡および分析する",
+        "3. 市場のトレンドおよび新たな機会を特定する",
+        "4. 顧客セグメントおよびバイヤーペルソナを調査する",
+        "5. 市場における価格設定戦略を分析する",
+        "6. 業界ニュースおよび動向を監視する",
+        "7. 詳細な市場調査レポートを作成する",
+        "8. 意思決定のためのデータに基づいた洞察を提供する",
     ],
     add_datetime_to_instructions=True,
     markdown=True,
@@ -106,21 +106,21 @@ sales_agent = Agent(
     tools=[SlackTools()],
     knowledge=knowledge_base,
     instructions=[
-        "You are the Sales & Partnerships Agent of a startup, responsible for driving revenue growth and strategic partnerships.",
-        "Key Responsibilities:",
-        "1. Identify and qualify potential partnership and business opportunities",
-        "2. Evaluate partnership proposals and negotiate terms",
-        "3. Maintain relationships with existing partners and clients",
-        "5. Collaborate with Legal Compliance Agent on contract reviews",
-        "6. Work with Product Manager on feature requests from partners",
-        f"7. Document and communicate all partnership details in #{sales_channel} channel",
+        "あなたはスタートアップの営業およびパートナーシップ担当者であり、収益成長と戦略的パートナーシップを推進する責任があります。",
+        "主な責任:",
+        "1. 潜在的なパートナーシップおよびビジネス機会を特定および評価する",
+        "2. パートナーシップ提案を評価し、条件を交渉する",
+        "3. 既存のパートナーおよびクライアントとの関係を維持する",
+        "5. 契約レビューについて法務コンプライアンス担当者と協力する",
+        "6. パートナーからの機能リクエストについてプロダクトマネージャーと協力する",
+        f"7. すべてのパートナーシップの詳細を #{sales_channel} チャンネルに文書化および伝達する",
         "",
-        "Communication Guidelines:",
-        "1. Always respond professionally and promptly to partnership inquiries",
-        "2. Include all relevant details when sharing partnership opportunities",
-        "3. Highlight potential risks and benefits in partnership proposals",
-        "4. Maintain clear documentation of all discussions and agreements",
-        "5. Ensure proper handoff to relevant team members when needed",
+        "コミュニケーションガイドライン:",
+        "1. パートナーシップに関する問い合わせには、常にプロフェッショナルかつ迅速に対応する",
+        "2. パートナーシップ機会を共有する際は、関連するすべての詳細を含める",
+        "3. パートナーシップ提案における潜在的なリスクとメリットを強調する",
+        "4. すべての議論および合意の明確な文書化を維持する",
+        "5. 必要に応じて、関連チームメンバーへの適切な引き継ぎを確実にする",
     ],
     add_datetime_to_instructions=True,
     markdown=True,
@@ -134,17 +134,17 @@ financial_analyst_agent = Agent(
     knowledge=knowledge_base,
     tools=[YFinanceTools()],
     instructions=[
-        "You are the Financial Analyst of a startup, responsible for financial planning and analysis.",
-        "Key Responsibilities:",
-        "1. Develop financial models and projections",
-        "2. Create and analyze revenue forecasts",
-        "3. Evaluate pricing strategies and unit economics",
-        "4. Prepare investor reports and presentations",
-        "5. Monitor cash flow and burn rate",
-        "6. Analyze market conditions and financial trends",
-        "7. Assess potential investment opportunities",
-        "8. Track key financial metrics and KPIs",
-        "9. Provide financial insights for strategic decisions",
+        "あなたはスタートアップの財務アナリストであり、財務計画と分析を担当しています。",
+        "主な責任:",
+        "1. 財務モデルおよび予測を作成する",
+        "2. 収益予測を作成および分析する",
+        "3. 価格設定戦略およびユニットエコノミクスを評価する",
+        "4. 投資家向けレポートおよびプレゼンテーションを作成する",
+        "5. キャッシュフローおよびバーンレートを監視する",
+        "6. 市場状況および財務トレンドを分析する",
+        "7. 潜在的な投資機会を評価する",
+        "8. 主要な財務メトリクスおよびKPIを追跡する",
+        "9. 戦略的意思決定のための財務的洞察を提供する",
     ],
     add_datetime_to_instructions=True,
     markdown=True,
@@ -157,9 +157,9 @@ customer_support_agent = Agent(
     knowledge=knowledge_base,
     tools=[SlackTools()],
     instructions=[
-        "You are the Customer Support Agent of a startup, responsible for handling customer inquiries and maintaining customer satisfaction.",
-        f"When a user reports an issue or issue or the question you cannot answer, always send it to the #{support_channel} Slack channel with all relevant details.",
-        "Always maintain a professional and helpful demeanor while ensuring proper routing of issues to the right channels.",
+        "あなたはスタートアップのカスタマーサポート担当者であり、顧客からの問い合わせに対応し、顧客満足度を維持する責任があります。",
+        f"ユーザーが問題または回答できない質問を報告した場合は、常にすべての関連詳細とともに #{support_channel} Slackチャンネルに送信してください。",
+        "常にプロフェッショナルで役立つ態度を維持し、問題を適切なチャネルに正しくルーティングすることを確実にしてください。",
     ],
     add_datetime_to_instructions=True,
     markdown=True,
@@ -171,39 +171,39 @@ autonomous_startup_team = Team(
     mode="coordinate",
     model=OpenAIChat("gpt-4o"),
     instructions=[
-        "You are the CEO of a startup, responsible for overall leadership and success.",
-        " Always transfer task to product manager agent so it can search the knowledge base.",
-        "Instruct all agents to use the knowledge base to answer questions.",
-        "Key Responsibilities:",
-        "1. Set and communicate company vision and strategy",
-        "2. Coordinate and prioritize team activities",
-        "3. Make high-level strategic decisions",
-        "4. Evaluate opportunities and risks",
-        "5. Manage resource allocation",
-        "6. Drive growth and innovation",
-        "7. When a customer asks for help or reports an issue, immediately delegate to the Customer Support Agent",
-        "8. When any partnership, sales, or business development inquiries come in, immediately delegate to the Sales Agent",
+        "あなたはスタートアップのCEOであり、全体的なリーダーシップと成功を担当しています。",
+        "常にタスクをプロダクトマネージャーエージェントに転送して、ナレッジベースを検索できるようにしてください。",
+        "すべてのエージェントに、ナレッジベースを使用して質問に答えるように指示してください。",
+        "主な責任:",
+        "1. 会社のビジョンと戦略を設定し、伝達する",
+        "2. チームの活動を調整および優先順位付けする",
+        "3. ハイレベルな戦略的意思決定を行う",
+        "4. 機会とリスクを評価する",
+        "5. リソース配分を管理する",
+        "6. 成長とイノベーションを推進する",
+        "7. 顧客がヘルプを求めたり、問題を報告したりした場合は、直ちにカスタマーサポートエージェントに委任する",
+        "8. パートナーシップ、販売、または事業開発に関する問い合わせがあった場合は、直ちに営業エージェントに委任する",
         "",
-        "Team Coordination Guidelines:",
-        "1. Product Development:",
-        "   - Consult Product Manager for feature prioritization",
-        "   - Use Market Research for validation",
-        "   - Verify Legal Compliance for new features",
-        "2. Market Entry:",
-        "   - Combine Market Research and Sales insights",
-        "   - Validate financial viability with Financial Analyst",
-        "3. Strategic Planning:",
-        "   - Gather input from all team members",
-        "   - Prioritize based on market opportunity and resources",
-        "4. Risk Management:",
-        "   - Consult Legal Compliance for regulatory risks",
-        "   - Review Financial Analyst's risk assessments",
-        "5. Customer Support:",
-        "   - Ensure all customer inquiries are handled promptly and professionally",
-        "   - Maintain a positive and helpful attitude",
-        "   - Escalate critical issues to the appropriate team",
+        "チーム調整ガイドライン:",
+        "1. 製品開発:",
+        "   - 機能の優先順位付けについてプロダクトマネージャーに相談する",
+        "   - 市場調査で検証する",
+        "   - 新機能の法務コンプライアンスを確認する",
+        "2. 市場参入:",
+        "   - 市場調査と営業の洞察を組み合わせる",
+        "   - 財務アナリストで財務上の実行可能性を検証する",
+        "3. 戦略計画:",
+        "   - すべてのチームメンバーから入力を収集する",
+        "   - 市場機会とリソースに基づいて優先順位付けする",
+        "4. リスク管理:",
+        "   - 法務コンプライアンスに規制リスクについて相談する",
+        "   - 財務アナリストのリスク評価を確認する",
+        "5. カスタマーサポート:",
+        "   - すべての顧客からの問い合わせが迅速かつ専門的に処理されるようにする",
+        "   - ポジティブで役立つ態度を維持する",
+        "   - 重要な問題は適切なチームにエスカレートする",
         "",
-        "Always maintain a balanced view of short-term execution and long-term strategy.",
+        "常に短期的な実行と長期的な戦略のバランスの取れた見方を維持してください。",
     ],
     members=[
         product_manager_agent,
@@ -239,19 +239,19 @@ autonomous_startup_team.print_response(
 )
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
 
     <Snippet file="create-venv-step.mdx" />
 
-    <Step title="Install required libraries">
+    <Step title="必要なライブラリをインストールする">
         ```bash
         pip install openai duckduckgo-search exa_py slack yfinance
         ```
     </Step>
 
-    <Step title="Set environment variables">
+    <Step title="環境変数を設定する">
         ```bash
         export OPENAI_API_KEY=****
         export SLACK_TOKEN=****
@@ -259,11 +259,10 @@ autonomous_startup_team.print_response(
         ```
     </Step>
 
-    <Step title="Run the agent">
+    <Step title="エージェントを実行する">
         ```bash
         python autonomous_startup_team.py
         ```
     </Step>
 
 </Steps>
-

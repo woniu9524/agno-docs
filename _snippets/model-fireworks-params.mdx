@@ -1,7 +1,7 @@
-| Parameter  | Type            | Default                                                | Description                                                                                                        |
-| ---------- | --------------- | ------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ |
-| `id`       | `str`           | `"accounts/fireworks/models/llama-v3p1-405b-instruct"` | The specific model ID used for generating responses.                                                               |
-| `name`     | `str`           | `"Fireworks: {id}"`                                    | The name identifier for the agent. Defaults to "Fireworks: " followed by the model ID.                             |
-| `provider` | `str`           | `"Fireworks"`                                          | The provider of the model.                                                                                         |
-| `api_key`  | `Optional[str]` | -                                                      | The API key for authenticating requests to the service. Retrieved from the environment variable FIREWORKS_API_KEY. |
-| `base_url` | `str`           | `"https://api.fireworks.ai/inference/v1"`              | The base URL for making API requests to the Fireworks service.                                                     |
+| パラメータ  | タイプ            | デフォルト                                             | 説明                                                                                                                               |
+| ---------- | --------------- | ------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------- |
+| `id`       | `str`           | `"accounts/fireworks/models/llama-v3p1-405b-instruct"` | レスポンス生成に使用される特定のモデル ID。                                                                                       |
+| `name`     | `str`           | `"Fireworks: {id}"`                                    | エージェントの名前識別子。「Fireworks: 」にモデル ID が続くデフォルト値。                                                              |
+| `provider` | `str`           | `"Fireworks"`                                          | モデルのプロバイダー。                                                                                                             |
+| `api_key`  | `Optional[str]` | -                                                      | サービスへのリクエスト認証用の API キー。環境変数 FIREWORKS_API_KEY から取得されます。                                                     |
+| `base_url` | `str`           | `"https://api.fireworks.ai/inference/v1"`              | Fireworks サービスへの API リクエストを行うための基本 URL。                                                                            |

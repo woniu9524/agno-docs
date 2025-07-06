@@ -1,16 +1,16 @@
 ---
 title: Nebius 
-description: Learn how to use Nebius models in Agno.
+description: Agno で Nebius モデルを使用する方法を学習します。
 ---
 
-Nebius AI Studio is a platform from Nebius that simplifies the process of building applications using AI models. It provides a suite of tools and services for developers to easily test, integrate and fine-tune various AI models, including those for text and image generation. 
-You can checkout the list of available models [here](https://studio.nebius.com/).
+Nebius AI Studio は、Nebius が提供するプラットフォームであり、AI モデルを使用したアプリケーション構築プロセスを簡素化します。開発者がテキスト生成や画像生成などのさまざまな AI モデルを簡単にテスト、統合、ファインチューニングするためのツールとサービスを提供します。
+利用可能なモデルのリストは[こちら](https://studio.nebius.com/)で確認できます。
 
-We recommend experimenting to find the best-suited-model for your use-case. 
+ユースケースに最適なモデルを見つけるために、実験することをお勧めします。
 
-## Authentication 
+## 認証
 
-Set your `NEBIUS_API_KEY` environment variable. Get your key [from Nebius AI Studio here](https://studio.nebius.com/?modals=create-api-key).
+`NEBIUS_API_KEY` 環境変数を設定します。キーは[Nebius AI Studio のこちら](https://studio.nebius.com/?modals=create-api-key)から取得してください。
 
 <CodeGroup>
 
@@ -24,9 +24,9 @@ setx NEBIUS_API_KEY ***
 
 </CodeGroup>
 
-## Example
+## 例
 
-Use `Nebius` with your `Agent`:
+`Agent` で `Nebius` を使用します。
 
 <CodeGroup>
 
@@ -42,15 +42,14 @@ agent = Agent(
     markdown=True
 )
 
-# Print the response in the terminal
+# ターミナルに応答を表示します
 agent.print_response("Share a 2 sentence horror story.")
 ```
 
 </CodeGroup>
 
-<Note> View more examples [here](../examples/models/nebius). </Note>
+<Note> その他の例は[こちら](../examples/models/nebius)でご覧ください。 </Note>
 
-## Params
+## パラメータ
 
 <Snippet file="model-nebius-params.mdx" />
-

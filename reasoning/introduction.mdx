@@ -1,23 +1,23 @@
 ---
-title: What is Reasoning?
-sidebarTitle: Overview
-description: Reasoning gives Agents the ability to "think" before responding and "analyze" the results of their actions (i.e. tool calls), greatly improving the Agents' ability to solve problems that require sequential tool calls.
+title: Reasoningとは
+sidebarTitle: 概要
+description: Reasoningにより、Agentは応答する前に「思考」し、アクション（ツール呼び出しなど）の結果を「分析」できるようになり、シーケンシャルなツール呼び出しを必要とする問題の解決能力が大幅に向上します。
 ---
 
-Reasoning Agents go through an internal chain of thought before responding, working through different ideas, validating and correcting as needed. Agno supports 3 approaches to reasoning:
+Reasoning Agentは、応答する前に内部的な思考連鎖を経て、さまざまなアイデアを検討し、必要に応じて検証および修正を行います。Agnoは、Reasoningのアプローチとして以下の3つをサポートしています。
 1. [Reasoning Models](#reasoning-models)
 2. [Reasoning Tools](#reasoning-tools)
 3. [Reasoning Agents](#reasoning-agents)
 
-Which approach works best will depend on your use case, we recommend trying them all and immersing yourself in this new era of Reasoning Agents.
+どのアプローチが最適かは、ユースケースによって異なります。すべて試してみて、このReasoning Agentの新時代を体験することをお勧めします。
 
 ## Reasoning Models
 
-Reasoning models are a separate class of large language models trained with reinforcement learning to think before they answer. They produce an internal chain of thought before responding. Examples of reasoning models include OpenAI o-series, Claude 3.7 sonnet in extended-thinking mode, Gemini 2.0 flash thinking and DeepSeek-R1.
+Reasoning Modelsは、応答する前に思考するように強化学習でトレーニングされた、独立したクラスの大規模言語モデルです。応答する前に内部的な思考連鎖を生成します。Reasoning Modelsの例としては、OpenAI o-series、拡張思考モードのClaude 3.7 sonnet、Gemini 2.0 flash thinking、DeepSeek-R1などがあります。
 
-Reasoning at the model layer is all about what the model does **before it starts generating a response**. Reasoning models excel at single-shot use-cases. They're perfect for solving hard problems (coding, math, physics) that don't require multiple turns, or calling tools sequentially.
+モデルレイヤーでのReasoningは、モデルが応答の生成を開始する**前**に行われることすべてを意味します。Reasoning Modelsは、シングルショットのユースケースに優れています。複数のターンを必要としない難しい問題（コーディング、数学、物理学）の解決や、ツールのシーケンシャルな呼び出しに最適です。
 
-### Example
+### 例
 
 ```python o3_mini.py
 from agno.agent import Agent
@@ -25,23 +25,22 @@ from agno.models.openai import OpenAIChat
 
 agent = Agent(model=OpenAIChat(id="o3-mini"))
 agent.print_response(
-    "Solve the trolley problem. Evaluate multiple ethical frameworks. "
-    "Include an ASCII diagram of your solution.",
+    "トロッコ問題の解決策を示してください。複数の倫理的フレームワークを評価し、解決策のASCII図を含めてください。",
     stream=True,
 )
 ```
 
-Read more about reasoning models in the [Reasoning Models Guide](/reasoning/reasoning-models).
+Reasoning Modelsの詳細については、[Reasoning Models Guide](/reasoning/reasoning-models)をお読みください。
 
 ## Reasoning Model + Response Model
 
-What if we wanted to use a Reasoning Model to reason but a different model to generate the response? It is well known that reasoning models are great at solving problems but not that great at responding in a natural way (like claude sonnet or gpt-4o).
+Reasoning ModelでReasoningを行い、別のモデルで応答を生成したい場合はどうすればよいでしょうか。Reasoning Modelは問題解決に優れていますが、自然な方法で応答すること（claude sonnetやgpt-4oのような）はそれほど得意ではないことが広く知られています。
 
-By using a separate model for reasoning and a different model for responding, we can have the best of both worlds.
+Reasoning用のモデルと応答用のモデルを別々に使用することで、両方の長所を活かすことができます。
 
-### Example
+### 例
 
-Let's use deepseek-r1 from Groq for reasoning and claude sonnet for a natural response.
+Groqのdeepseek-r1をReasoningに使用し、claude sonnetを自然な応答に使用してみましょう。
 
 ```python deepseek_plus_claude.py
 from agno.agent import Agent
@@ -54,16 +53,16 @@ deepseek_plus_claude = Agent(
         id="deepseek-r1-distill-llama-70b", temperature=0.6, max_tokens=1024, top_p=0.95
     ),
 )
-deepseek_plus_claude.print_response("9.11 and 9.9 -- which is bigger?", stream=True)
+deepseek_plus_claude.print_response("9.11と9.9ではどちらが大きいですか？", stream=True)
 ```
 
 ## Reasoning Tools
 
-By giving a model a **"think" tool**, we can greatly improve its reasoning capabilities by providing a dedicated space for structured thinking. This is a simple, yet effective approach to add reasoning to non-reasoning models.
+モデルに**「思考」ツール**を与えることで、構造化された思考のための専用スペースを提供し、そのReasoning能力を大幅に向上させることができます。これは、Reasoning能力を持たないモデルにReasoningを追加するためのシンプルでありながら効果的なアプローチです。
 
-The research was first published by Anthropic in [this blog post](https://www.anthropic.com/engineering/claude-think-tool) but has been practiced by many AI Engineers (including our own team) long before it was published.
+この研究は、Anthropicが[このブログ記事](https://www.anthropic.com/engineering/claude-think-tool)で最初に発表しましたが、公開されるずっと前から、多くのAIエンジニア（当社のチームを含む）によって実践されてきました。
 
-### Example
+### 例
 
 ```python claude_thinking_tools.py
 from agno.agent import Agent
@@ -82,30 +81,30 @@ reasoning_agent = Agent(
             company_news=True,
         ),
     ],
-    instructions="Use tables where possible",
+    instructions="可能な場合は表を使用してください",
     markdown=True,
 )
 
 if __name__ == "__main__":
     reasoning_agent.print_response(
-        "Write a report on NVDA. Only the report, no other text.",
+        "NVDAに関するレポートを作成してください。レポートのみで、他のテキストは含めないでください。",
         stream=True,
         show_full_reasoning=True,
         stream_intermediate_steps=True,
     )
 ```
 
-Read more about reasoning tools in the [Reasoning Tools Guide](/reasoning/reasoning-tools).
+Reasoning Toolsの詳細については、[Reasoning Tools Guide](/reasoning/reasoning-tools)をお読みください。
 
 ## Reasoning Agents
 
-Reasoning Agents are a new type of multi-agent system developed by Agno that combines chain of thought reasoning with tool use.
+Reasoning Agentsは、Agnoによって開発された新しいタイプのマルチエージェントシステムであり、思考連鎖のReasoningとツールの使用を組み合わせています。
 
-You can enable reasoning on any Agent by setting `reasoning=True`.
+`reasoning=True`を設定することで、任意のAgentでReasoningを有効にできます。
 
-When an Agent with `reasoning=True` is given a task, a separate "Reasoning Agent" first solves the problem using chain-of-thought. At each step, it calls tools to gather information, validate results, and iterate until it reaches a final answer. Once the Reasoning Agent has a final answer, it hands the results back to the original Agent to validate and provide a response.
+`reasoning=True`を持つAgentにタスクが与えられると、別の「Reasoning Agent」がまず思考連鎖を使用して問題を解決します。各ステップで、ツールを呼び出して情報を収集し、結果を検証し、最終的な回答に到達するまで反復します。Reasoning Agentが最終的な回答を得ると、その結果を元のAgentに渡して検証し、応答を提供します。
 
-### Example
+### 例
 
 ```python reasoning_agent.py
 from agno.agent import Agent
@@ -117,11 +116,10 @@ reasoning_agent = Agent(
     markdown=True,
 )
 reasoning_agent.print_response(
-    "Solve the trolley problem. Evaluate multiple ethical frameworks. "
-    "Include an ASCII diagram of your solution.",
+    "トロッコ問題の解決策を示してください。複数の倫理的フレームワークを評価し、解決策のASCII図を含めてください。",
     stream=True,
     show_full_reasoning=True,
 )
 ```
 
-Read more about reasoning agents in the [Reasoning Agents Guide](/reasoning/reasoning-agents).
+Reasoning Agentsの詳細については、[Reasoning Agents Guide](/reasoning/reasoning-agents)をお読みください。

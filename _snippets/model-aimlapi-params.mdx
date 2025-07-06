@@ -1,8 +1,8 @@
-| Parameter    | Type            | Default                          | Description                                                                                                                      |
+| パラメータ    | タイプ            | デフォルト                          | 説明                                                                                                                             |
 | ------------ | --------------- | -------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| `id`         | `str`           | `"gpt-4o-mini"`                  | The specific model ID used for generating responses.                                                                             |
-| `name`       | `str`           | `"AIMLApi"`                      | The name identifier for the AI/ML API agent.                                                                                     |
-| `provider`   | `str`           | `"AIMLApi:" + id`                | The provider of the model, combining `"AIMLApi"` with the model ID.                                                             |
-| `api_key`    | `Optional[str]` | –                                | The API key for authenticating requests to the AI/ML API service. Retrieved from the environment variable `AIMLAPI_API_KEY`.     |
-| `base_url`   | `str`           | `"https://api.aimlapi.com/v1"`   | The base URL for making API requests to the AI/ML API service.                                                                  |
-| `max_tokens` | `int`           | `4096`                           | The maximum number of tokens to generate in the response.                                                                       |
+| `id`         | `str`           | `"gpt-4o-mini"`                  | レスポンス生成に使用される特定のモデルID。                                                                                       |
+| `name`       | `str`           | `"AIMLApi"`                      | AI/ML APIエージェントの名前識別子。                                                                                              |
+| `provider`   | `str`           | `"AIMLApi:" + id`                | モデルのプロバイダーで、`"AIMLApi"` とモデルIDを組み合わせたもの。                                                                 |
+| `api_key`    | `Optional[str]` | –                                | AI/ML APIサービスへのリクエスト認証に使用するAPIキー。環境変数 `AIMLAPI_API_KEY` から取得されます。                                    |
+| `base_url`   | `str`           | `"https://api.aimlapi.com/v1"`   | AI/ML APIサービスへのAPIリクエストを行うためのベースURL。                                                                          |
+| `max_tokens` | `int`           | `4096`                           | レスポンスで生成される最大トークン数。                                                                                             |

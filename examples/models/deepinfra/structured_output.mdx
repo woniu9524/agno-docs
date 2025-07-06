@@ -1,8 +1,4 @@
----
-title: Agent with Structured Outputs
----
-
-## Code
+## コード
 
 ```python cookbook/models/deepinfra/structured_output.py
 from typing import List
@@ -45,24 +41,24 @@ json_mode_agent = Agent(
 json_mode_agent.print_response("New York")
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="APIキーの設定">
     ```bash
     export DEEPINFRA_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="ライブラリのインストール">
     ```bash
     pip install -U openai agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="エージェントの実行">
     <CodeGroup>
     ```bash Mac
     python cookbook/models/deepinfra/structured_output.py
@@ -73,4 +69,4 @@ json_mode_agent.print_response("New York")
     ```
     </CodeGroup>
   </Step>
-</Steps> 
+</Steps>

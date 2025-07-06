@@ -2,31 +2,29 @@
 title: Blog Post Generator
 ---
 
-This advanced example demonstrates how to build a sophisticated blog post generator that combines
-web research capabilities with professional writing expertise. The workflow uses a multi-stage
-approach:
-1. Intelligent web research and source gathering
-2. Content extraction and processing
-3. Professional blog post writing with proper citations
+この高度な例では、Webリサーチ機能とプロフェッショナルなライティングスキルを組み合わせた、洗練されたブログ記事ジェネレーターの構築方法を実演します。このワークフローは、マルチステージアプローチを採用しています。
+1. 知的なWebリサーチとソース収集
+2. コンテンツ抽出と処理
+3. 適切な引用を伴うプロフェッショナルなブログ記事ライティング
 
-Key capabilities:
-- Advanced web research and source evaluation
-- Content scraping and processing
-- Professional writing with SEO optimization
-- Automatic content caching for efficiency
-- Source attribution and fact verification
+主な機能：
+- 高度なWebリサーチとソース評価
+- コンテンツスクレイピングと処理
+- SEO最適化を伴うプロフェッショナルライティング
+- 効率化のための自動コンテンツキャッシュ
+- ソースの帰属と事実検証
 
-Example blog topics to try:
-- "The Rise of Artificial General Intelligence: Latest Breakthroughs"
-- "How Quantum Computing is Revolutionizing Cybersecurity"
-- "Sustainable Living in 2024: Practical Tips for Reducing Carbon Footprint"
-- "The Future of Work: AI and Human Collaboration"
-- "Space Tourism: From Science Fiction to Reality"
-- "Mindfulness and Mental Health in the Digital Age"
-- "The Evolution of Electric Vehicles: Current State and Future Trends"
+試してみるブログトピックの例：
+- 「人工汎用知能の台頭：最新のブレークスルー」
+- 「量子コンピューティングがいかにサイバーセキュリティに革命を起こしているか」
+- 「2024年の持続可能な生活：カーボンフットプリントを削減するための実践的なヒント」
+- 「仕事の未来：AIと人間のコラボレーション」
+- 「宇宙旅行：SFから現実へ」
+- 「デジタル時代のマインドフルネスとメンタルヘルス」
+- 「電気自動車の進化：現状と将来のトレンド」
 
-Run `pip install openai duckduckgo-search newspaper4k lxml_html_clean sqlalchemy agno` to install dependencies.
-"""
+依存関係をインストールするには、`pip install openai duckduckgo-search newspaper4k lxml_html_clean sqlalchemy agno` を実行してください。
+```
 
 ```python blog_post_generator.py
 import json
@@ -45,10 +43,10 @@ from pydantic import BaseModel, Field
 
 
 class NewsArticle(BaseModel):
-    title: str = Field(..., description="Title of the article.")
-    url: str = Field(..., description="Link to the article.")
+    title: str = Field(..., description="記事のタイトル。")
+    url: str = Field(..., description="記事へのリンク。")
     summary: Optional[str] = Field(
-        ..., description="Summary of the article if available."
+        ..., description="利用可能な場合の記事の要約。"
     )
 
 
@@ -57,151 +55,147 @@ class SearchResults(BaseModel):
 
 
 class ScrapedArticle(BaseModel):
-    title: str = Field(..., description="Title of the article.")
-    url: str = Field(..., description="Link to the article.")
+    title: str = Field(..., description="記事のタイトル。")
+    url: str = Field(..., description="記事へのリンク。")
     summary: Optional[str] = Field(
-        ..., description="Summary of the article if available."
+        ..., description="利用可能な場合の記事の要約。"
     )
     content: Optional[str] = Field(
         ...,
-        description="Full article content in markdown format. None if content is unavailable.",
+        description="Markdown形式の完全な記事コンテンツ。コンテンツが利用できない場合はNone。",
     )
 
 
 class BlogPostGenerator(Workflow):
-    """Advanced workflow for generating professional blog posts with proper research and citations."""
+    """適切なリサーチと引用を伴うプロフェッショナルなブログ記事を生成するための高度なワークフロー。"""
 
     description: str = dedent("""\
-    An intelligent blog post generator that creates engaging, well-researched content.
-    This workflow orchestrates multiple AI agents to research, analyze, and craft
-    compelling blog posts that combine journalistic rigor with engaging storytelling.
-    The system excels at creating content that is both informative and optimized for
-    digital consumption.
+    インテリジェントなブログ記事ジェネレーターで、魅力的で十分にリサーチされたコンテンツを作成します。
+    このワークフローは、複数のAIエージェントをオーケストレーションして、
+    ジャーナリスティックな厳密さと魅力的なストーリーテリングを組み合わせた、説得力のあるブログ記事をリサーチ、分析、作成します。
+    このシステムは、情報提供とデジタル消費の両方に最適化されたコンテンツの作成に優れています。
     """)
 
-    # Search Agent: Handles intelligent web searching and source gathering
+    # Search Agent: インテリジェントなWeb検索とソース収集を処理します
     searcher: Agent = Agent(
         model=OpenAIChat(id="gpt-4o-mini"),
         tools=[DuckDuckGoTools()],
         description=dedent("""\
-        You are BlogResearch-X, an elite research assistant specializing in discovering
-        high-quality sources for compelling blog content. Your expertise includes:
+        あなたはBlogResearch-Xです。魅力的なブログコンテンツの高品質なソースを発見することに特化したエリートリサーチアシスタントです。あなたの専門知識には以下が含まれます：
 
-        - Finding authoritative and trending sources
-        - Evaluating content credibility and relevance
-        - Identifying diverse perspectives and expert opinions
-        - Discovering unique angles and insights
-        - Ensuring comprehensive topic coverage\
+        - 権威がありトレンドのソースを見つける
+        - コンテンツの信頼性と関連性を評価する
+        - 多様な視点と専門家の意見を特定する
+        - ユニークな角度と洞察を発見する
+        - 包括的なトピックカバレッジを保証する\
         """),
         instructions=dedent("""\
-        1. Search Strategy 🔍
-           - Find 10-15 relevant sources and select the 5-7 best ones
-           - Prioritize recent, authoritative content
-           - Look for unique angles and expert insights
-        2. Source Evaluation 📊
-           - Verify source credibility and expertise
-           - Check publication dates for timeliness
-           - Assess content depth and uniqueness
-        3. Diversity of Perspectives 🌐
-           - Include different viewpoints
-           - Gather both mainstream and expert opinions
-           - Find supporting data and statistics\
+        1. 検索戦略 🔍
+           - 関連性の高いソースを10〜15件見つけ、最も良い5〜7件を選択する
+           - 最近の権威あるコンテンツを優先する
+           - ユニークな角度と専門家の洞察を探す
+        2. ソース評価 📊
+           - ソースの信頼性と専門知識を確認する
+           - 最新性のために公開日を確認する
+           - コンテンツの深さと独自性を評価する
+        3. 多様な視点 🌐
+           - 異なる視点を含める
+           - メインストリームと専門家の意見の両方を収集する
+           - 裏付けとなるデータと統計を見つける\
         """),
         response_model=SearchResults,
     )
 
-    # Content Scraper: Extracts and processes article content
+    # Content Scraper: 記事コンテンツを抽出し処理します
     article_scraper: Agent = Agent(
         model=OpenAIChat(id="gpt-4o-mini"),
         tools=[Newspaper4kTools()],
         description=dedent("""\
-        You are ContentBot-X, a specialist in extracting and processing digital content
-        for blog creation. Your expertise includes:
+        あなたはContentBot-Xです。ブログ作成のためのコンテンツ抽出と処理の専門家です。あなたの専門知識には以下が含まれます：
 
-        - Efficient content extraction
-        - Smart formatting and structuring
-        - Key information identification
-        - Quote and statistic preservation
-        - Maintaining source attribution\
+        - 効率的なコンテンツ抽出
+        - スマートなフォーマットと構造化
+        - 主要情報の特定
+        - 引用と統計の保持
+        - ソースの帰属の維持\
         """),
         instructions=dedent("""\
-        1. Content Extraction 📑
-           - Extract content from the article
-           - Preserve important quotes and statistics
-           - Maintain proper attribution
-           - Handle paywalls gracefully
-        2. Content Processing 🔄
-           - Format text in clean markdown
-           - Preserve key information
-           - Structure content logically
-        3. Quality Control ✅
-           - Verify content relevance
-           - Ensure accurate extraction
-           - Maintain readability\
+        1. コンテンツ抽出 📑
+           - 記事からコンテンツを抽出する
+           - 重要な引用と統計を保持する
+           - 適切な帰属を維持する
+           - ペイウォールをうまく処理する
+        2. コンテンツ処理 🔄
+           - テキストをクリーンなMarkdownでフォーマットする
+           - 主要情報を保持する
+           - コンテンツを論理的に構造化する
+        3. 品質管理 ✅
+           - コンテンツの関連性を確認する
+           - 正確な抽出を保証する
+           - 可読性を維持する\
         """),
         response_model=ScrapedArticle,
     )
 
-    # Content Writer Agent: Crafts engaging blog posts from research
+    # Content Writer Agent: リサーチから魅力的なブログ記事を作成します
     writer: Agent = Agent(
         model=OpenAIChat(id="gpt-4o"),
         description=dedent("""\
-        You are BlogMaster-X, an elite content creator combining journalistic excellence
-        with digital marketing expertise. Your strengths include:
+        あなたはBlogMaster-Xです。ジャーナリスティックな卓越性とデジタルマーケティングの専門知識を組み合わせたエリートコンテンツクリエイターです。あなたの強みは以下を含みます：
 
-        - Crafting viral-worthy headlines
-        - Writing engaging introductions
-        - Structuring content for digital consumption
-        - Incorporating research seamlessly
-        - Optimizing for SEO while maintaining quality
-        - Creating shareable conclusions\
+        - バイラル級の見出しを作成する
+        - 魅力的な導入文を書く
+        - デジタル消費のためにコンテンツを構造化する
+        - リサーチをシームレスに組み込む
+        - 品質を維持しながらSEOを最適化する
+        - シェア可能な結論を作成する\
         """),
         instructions=dedent("""\
-        1. Content Strategy 📝
-           - Craft attention-grabbing headlines
-           - Write compelling introductions
-           - Structure content for engagement
-           - Include relevant subheadings
-        2. Writing Excellence ✍️
-           - Balance expertise with accessibility
-           - Use clear, engaging language
-           - Include relevant examples
-           - Incorporate statistics naturally
-        3. Source Integration 🔍
-           - Cite sources properly
-           - Include expert quotes
-           - Maintain factual accuracy
-        4. Digital Optimization 💻
-           - Structure for scanability
-           - Include shareable takeaways
-           - Optimize for SEO
-           - Add engaging subheadings\
+        1. コンテンツ戦略 📝
+           - 注意を引く見出しを作成する
+           - 説得力のある導入文を書く
+           - エンゲージメントのためにコンテンツを構造化する
+           - 関連する小見出しを含める
+        2. ライティングの卓越性 ✍️
+           - 専門知識とアクセシビリティのバランスをとる
+           - 明確で魅力的な言語を使用する
+           - 関連する例を含める
+           - 統計を自然に組み込む
+        3. ソース統合 🔍
+           - ソースを適切に引用する
+           - 専門家の引用を含める
+           - 事実の正確性を維持する
+        4. デジタル最適化 💻
+           - スキャン可能性のために構造化する
+           - シェア可能な要点を追加する
+           - SEOを最適化する
+           - 魅力的な小見出しを追加する\
         """),
         expected_output=dedent("""\
-        # {Viral-Worthy Headline}
+        # {バイラル級の見出し}
 
-        ## Introduction
-        {Engaging hook and context}
+        ## 導入
+        {魅力的なフックとコンテキスト}
 
-        ## {Compelling Section 1}
-        {Key insights and analysis}
-        {Expert quotes and statistics}
+        ## {説得力のあるセクション1}
+        {主要な洞察と分析}
+        {専門家の引用と統計}
 
-        ## {Engaging Section 2}
-        {Deeper exploration}
-        {Real-world examples}
+        ## {魅力的なセクション2}
+        {より深い探求}
+        {実例}
 
-        ## {Practical Section 3}
-        {Actionable insights}
-        {Expert recommendations}
+        ## {実践的なセクション3}
+        {実行可能な洞察}
+        {専門家の推奨事項}
 
-        ## Key Takeaways
-        - {Shareable insight 1}
-        - {Practical takeaway 2}
-        - {Notable finding 3}
+        ## 主要な要点
+        - {共有可能な洞察1}
+        - {実践的な要点2}
+        - {注目すべき発見3}
 
-        ## Sources
-        {Properly attributed sources with links}\
+        ## ソース
+        {適切に帰属表示されたソースとリンク}\
         """),
         markdown=True,
     )
@@ -213,9 +207,9 @@ class BlogPostGenerator(Workflow):
         use_scrape_cache: bool = True,
         use_cached_report: bool = True,
     ) -> Iterator[RunResponse]:
-        logger.info(f"Generating a blog post on: {topic}")
+        logger.info(f"ブログ記事を生成中: {topic}")
 
-        # Use the cached blog post if use_cache is True
+        # use_cacheがTrueの場合、キャッシュされたブログ記事を使用します
         if use_cached_report:
             cached_blog_post = self.get_cached_blog_post(topic)
             if cached_blog_post:
@@ -224,47 +218,47 @@ class BlogPostGenerator(Workflow):
                 )
                 return
 
-        # Search the web for articles on the topic
+        # トピックに関する記事をWebで検索します
         search_results: Optional[SearchResults] = self.get_search_results(
             topic, use_search_cache
         )
-        # If no search_results are found for the topic, end the workflow
+        # トピックのsearch_resultsが見つからない場合は、ワークフローを終了します
         if search_results is None or len(search_results.articles) == 0:
             yield RunResponse(
                 event=RunEvent.workflow_completed,
-                content=f"Sorry, could not find any articles on the topic: {topic}",
+                content=f"申し訳ありませんが、トピックに関する記事が見つかりませんでした: {topic}",
             )
             return
 
-        # Scrape the search results
+        # 検索結果をスクレイピングします
         scraped_articles: Dict[str, ScrapedArticle] = self.scrape_articles(
             topic, search_results, use_scrape_cache
         )
 
-        # Prepare the input for the writer
+        # ライターへの入力を準備します
         writer_input = {
             "topic": topic,
             "articles": [v.model_dump() for v in scraped_articles.values()],
         }
 
-        # Run the writer and yield the response
+        # ライターを実行し、レスポンスをyieldします
         yield from self.writer.run(json.dumps(writer_input, indent=4), stream=True)
 
-        # Save the blog post in the cache
+        # ブログ記事をキャッシュに保存します
         self.add_blog_post_to_cache(topic, self.writer.run_response.content)
 
     def get_cached_blog_post(self, topic: str) -> Optional[str]:
-        logger.info("Checking if cached blog post exists")
+        logger.info("キャッシュされたブログ記事が存在するか確認中")
 
         return self.session_state.get("blog_posts", {}).get(topic)
 
     def add_blog_post_to_cache(self, topic: str, blog_post: str):
-        logger.info(f"Saving blog post for topic: {topic}")
+        logger.info(f"トピックのブログ記事を保存中: {topic}")
         self.session_state.setdefault("blog_posts", {})
         self.session_state["blog_posts"][topic] = blog_post
 
     def get_cached_search_results(self, topic: str) -> Optional[SearchResults]:
-        logger.info("Checking if cached search results exist")
+        logger.info("キャッシュされた検索結果が存在するか確認中")
         search_results = self.session_state.get("search_results", {}).get(topic)
         return (
             SearchResults.model_validate(search_results)
@@ -273,14 +267,14 @@ class BlogPostGenerator(Workflow):
         )
 
     def add_search_results_to_cache(self, topic: str, search_results: SearchResults):
-        logger.info(f"Saving search results for topic: {topic}")
+        logger.info(f"トピックの検索結果を保存中: {topic}")
         self.session_state.setdefault("search_results", {})
         self.session_state["search_results"][topic] = search_results
 
     def get_cached_scraped_articles(
         self, topic: str
     ) -> Optional[Dict[str, ScrapedArticle]]:
-        logger.info("Checking if cached scraped articles exist")
+        logger.info("キャッシュされたスクレイピング済み記事が存在するか確認中")
         scraped_articles = self.session_state.get("scraped_articles", {}).get(topic)
         return (
             ScrapedArticle.model_validate(scraped_articles)
@@ -291,14 +285,14 @@ class BlogPostGenerator(Workflow):
     def add_scraped_articles_to_cache(
         self, topic: str, scraped_articles: Dict[str, ScrapedArticle]
     ):
-        logger.info(f"Saving scraped articles for topic: {topic}")
+        logger.info(f"トピックのスクレイピング済み記事を保存中: {topic}")
         self.session_state.setdefault("scraped_articles", {})
         self.session_state["scraped_articles"][topic] = scraped_articles
 
     def get_search_results(
         self, topic: str, use_search_cache: bool, num_attempts: int = 3
     ) -> Optional[SearchResults]:
-        # Get cached search_results from the session state if use_search_cache is True
+        # use_search_cacheがTrueの場合、セッションステートからキャッシュされたsearch_resultsを取得します
         if use_search_cache:
             try:
                 search_results_from_cache = self.get_cached_search_results(topic)
@@ -307,13 +301,13 @@ class BlogPostGenerator(Workflow):
                         search_results_from_cache
                     )
                     logger.info(
-                        f"Found {len(search_results.articles)} articles in cache."
+                        f"キャッシュから{len(search_results.articles)}件の記事が見つかりました。"
                     )
                     return search_results
             except Exception as e:
-                logger.warning(f"Could not read search results from cache: {e}")
+                logger.warning(f"キャッシュから検索結果を読み取れませんでした: {e}")
 
-        # If there are no cached search_results, use the searcher to find the latest articles
+        # キャッシュされたsearch_resultsがない場合、searcherを使用して最新の記事を見つけます
         for attempt in range(num_attempts):
             try:
                 searcher_response: RunResponse = self.searcher.run(topic)
@@ -324,19 +318,19 @@ class BlogPostGenerator(Workflow):
                 ):
                     article_count = len(searcher_response.content.articles)
                     logger.info(
-                        f"Found {article_count} articles on attempt {attempt + 1}"
+                        f"{attempt + 1}回目の試行で{article_count}件の記事が見つかりました"
                     )
-                    # Cache the search results
+                    # 検索結果をキャッシュします
                     self.add_search_results_to_cache(topic, searcher_response.content)
                     return searcher_response.content
                 else:
                     logger.warning(
-                        f"Attempt {attempt + 1}/{num_attempts} failed: Invalid response type"
+                        f"{attempt + 1}/{num_attempts}回目の試行が失敗しました: 無効なレスポンスタイプ"
                     )
             except Exception as e:
-                logger.warning(f"Attempt {attempt + 1}/{num_attempts} failed: {str(e)}")
+                logger.warning(f"{attempt + 1}/{num_attempts}回目の試行が失敗しました: {str(e)}")
 
-        logger.error(f"Failed to get search results after {num_attempts} attempts")
+        logger.error(f"{num_attempts}回の試行後、検索結果の取得に失敗しました")
         return None
 
     def scrape_articles(
@@ -344,23 +338,23 @@ class BlogPostGenerator(Workflow):
     ) -> Dict[str, ScrapedArticle]:
         scraped_articles: Dict[str, ScrapedArticle] = {}
 
-        # Get cached scraped_articles from the session state if use_scrape_cache is True
+        # use_scrape_cacheがTrueの場合、セッションステートからキャッシュされたscraped_articlesを取得します
         if use_scrape_cache:
             try:
                 scraped_articles_from_cache = self.get_cached_scraped_articles(topic)
                 if scraped_articles_from_cache is not None:
                     scraped_articles = scraped_articles_from_cache
                     logger.info(
-                        f"Found {len(scraped_articles)} scraped articles in cache."
+                        f"キャッシュから{len(scraped_articles)}件のスクレイピング済み記事が見つかりました。"
                     )
                     return scraped_articles
             except Exception as e:
-                logger.warning(f"Could not read scraped articles from cache: {e}")
+                logger.warning(f"キャッシュからスクレイピング済み記事を読み取れませんでした: {e}")
 
-        # Scrape the articles that are not in the cache
+        # キャッシュにない記事をスクレイピングします
         for article in search_results.articles:
             if article.url in scraped_articles:
-                logger.info(f"Found scraped article in cache: {article.url}")
+                logger.info(f"キャッシュにスクレイピング済み記事が見つかりました: {article.url}")
                 continue
 
             article_scraper_response: RunResponse = self.article_scraper.run(
@@ -374,43 +368,43 @@ class BlogPostGenerator(Workflow):
                 scraped_articles[article_scraper_response.content.url] = (
                     article_scraper_response.content
                 )
-                logger.info(f"Scraped article: {article_scraper_response.content.url}")
+                logger.info(f"スクレイピング済み記事: {article_scraper_response.content.url}")
 
-        # Save the scraped articles in the session state
+        # セッションステートにスクレイピング済み記事を保存します
         self.add_scraped_articles_to_cache(topic, scraped_articles)
         return scraped_articles
 
 
-# Run the workflow if the script is executed directly
+# スクリプトが直接実行された場合にワークフローを実行します
 if __name__ == "__main__":
     import random
 
     from rich.prompt import Prompt
 
-    # Fun example prompts to showcase the generator's versatility
+    # ジェネレーターの汎用性を示すための楽しい例のプロンプト
     example_prompts = [
-        "Why Cats Secretly Run the Internet",
-        "The Science Behind Why Pizza Tastes Better at 2 AM",
-        "Time Travelers' Guide to Modern Social Media",
-        "How Rubber Ducks Revolutionized Software Development",
-        "The Secret Society of Office Plants: A Survival Guide",
-        "Why Dogs Think We're Bad at Smelling Things",
-        "The Underground Economy of Coffee Shop WiFi Passwords",
-        "A Historical Analysis of Dad Jokes Through the Ages",
+        "なぜ猫は秘密裏にインターネットを運営しているのか",
+        "ピザが午前2時に美味しくなる科学的根拠",
+        "タイムトラベラーのための現代ソーシャルメディアガイド",
+        "ラバーダックがいかにソフトウェア開発に革命をもたらしたか",
+        "オフィス植物の秘密結社：サバイバルガイド",
+        "犬が私たちを臭いに弱いと思っている理由",
+        "コーヒーショップのWiFiパスワードのアンダーグラウンドエコノミー",
+        "時代を超えたダジャレの歴史的分析",
     ]
 
-    # Get topic from user
+    # ユーザーからトピックを取得します
     topic = Prompt.ask(
-        "[bold]Enter a blog post topic[/bold] (or press Enter for a random example)\n✨",
+        "[bold]ブログ記事のトピックを入力してください[/bold] (またはランダムな例を表示するにはEnterキーを押してください)\n✨",
         default=random.choice(example_prompts),
     )
 
-    # Convert the topic to a URL-safe string for use in session_id
+    # セッションIDで使用するためにトピックをURLセーフな文字列に変換します
     url_safe_topic = topic.lower().replace(" ", "-")
 
-    # Initialize the blog post generator workflow
-    # - Creates a unique session ID based on the topic
-    # - Sets up SQLite storage for caching results
+    # ブログ記事ジェネレーターワークフローを初期化します
+    # - トピックに基づいて一意のセッションIDを作成します
+    # - 結果のキャッシュのためにSQLiteストレージを設定します
     generate_blog_post = BlogPostGenerator(
         session_id=f"generate-blog-post-on-{url_safe_topic}",
         storage=SqliteStorage(
@@ -420,8 +414,8 @@ if __name__ == "__main__":
         debug_mode=True,
     )
 
-    # Execute the workflow with caching enabled
-    # Returns an iterator of RunResponse objects containing the generated content
+    # キャッシュを有効にしてワークフローを実行します
+    # 生成されたコンテンツを含むRunResponseオブジェクトのイテレーターを返します
     blog_post: Iterator[RunResponse] = generate_blog_post.run(
         topic=topic,
         use_search_cache=True,
@@ -429,7 +423,7 @@ if __name__ == "__main__":
         use_cached_report=True,
     )
 
-    # Print the response
+    # レスポンスを表示します
     pprint_run_response(blog_post, markdown=True)
 ```
 
@@ -438,13 +432,13 @@ if __name__ == "__main__":
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install libraries">
+  <Step title="ライブラリをインストールする">
     ```bash
-    openai duckduckgo-search newspaper4k lxml_html_clean sqlalchemy agno
+    pip install openai duckduckgo-search newspaper4k lxml_html_clean sqlalchemy agno
     ```
   </Step>
 
-  <Step title="Run the workflow">
+  <Step title="ワークフローを実行する">
     ```bash
     python blog_post_generator.py
     ```

@@ -1,8 +1,8 @@
 ---
-title: LanceDB Integration
+title: LanceDB 連携
 ---
 
-## Code
+## コード
 
 ```python cookbook/agent_concepts/vector_dbs/lance_db.py
 from agno.agent import Agent
@@ -11,7 +11,7 @@ from agno.vectordb.lancedb import LanceDb
 
 vector_db = LanceDb(
     table_name="recipes",
-    uri="/tmp/lancedb",  # You can change this path to store data elsewhere
+    uri="/tmp/lancedb",  # データを別の場所に保存するには、このパスを変更できます
 )
 
 knowledge_base = PDFUrlKnowledgeBase(
@@ -19,24 +19,24 @@ knowledge_base = PDFUrlKnowledgeBase(
     vector_db=vector_db,
 )
 
-knowledge_base.load(recreate=False)  # Comment out after first run
+knowledge_base.load(recreate=False)  # 初回実行後にコメントアウトしてください
 
 agent = Agent(knowledge=knowledge_base, show_tool_calls=True)
-agent.print_response("How to make Tom Kha Gai", markdown=True)
+agent.print_response("トム・ヤム・ガイの作り方は？", markdown=True)
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install libraries">
+  <Step title="ライブラリのインストール">
     ```bash
     pip install -U lancedb pypdf openai agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="エージェントの実行">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/vector_dbs/lance_db.py

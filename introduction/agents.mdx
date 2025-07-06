@@ -1,27 +1,27 @@
 ---
-title: What are Agents?
-description: "**Agents are AI programs that operate autonomously.**"
-sidebarTitle: Your first Agents
+title: エージェントとは？
+description: "**エージェントは自律的に動作するAIプログラムです。**"
+sidebarTitle: 最初のエージェント
 ---
 
-Traditional software follows a pre-programmed sequence of steps. Agents dynamically determine their course of action using a machine learning **model**, its core components are:
+従来のソフトウェアは、事前にプログラムされた一連のステップに従います。エージェントは、機械学習**モデル**を使用して動的に行動を決定します。そのコアコンポーネントは次のとおりです。
 
-- **Model:** controls the flow of execution. It decides whether to reason, act or respond.
-- **Tools:** enable an Agent to take actions and interact with external systems.
-- **Instructions:** are how we program the Agent, teaching it how to use tools and respond.
+- **モデル:** 実行フローを制御します。推論、行動、または応答するかどうかを決定します。
+- **ツール:** エージェントがアクションを実行し、外部システムと対話できるようにします。
+- **指示:** エージェントをプログラムし、ツールの使用方法や応答方法を教える方法です。
 
-Agents also have **memory**, **knowledge**, **storage** and the ability to **reason**:
+エージェントはまた、**メモリ**、**ナレッジ**、**ストレージ**、および**推論**する能力を持っています。
 
-- **Reasoning:** enables Agents to "think" before responding and "analyze" the results of their actions (i.e. tool calls), this improves reliability and quality of responses.
-- **Knowledge:** is domain-specific information that the Agent can **search at runtime** to make better decisions and provide accurate responses (RAG). Knowledge is stored in a vector database and this **search at runtime** pattern is known as Agentic RAG/Agentic Search.
-- **Storage:** is used by Agents to save session history and state in a database. Model APIs are stateless and storage enables us to continue conversations from where they left off. This makes Agents stateful, enabling multi-turn, long-term conversations.
-- **Memory:** gives Agents the ability to store and recall information from previous interactions, allowing them to learn user preferences and personalize their responses.
+- **推論:** エージェントが応答する前に「考え」、アクション（ツール呼び出しなど）の結果を「分析」できるようにします。これにより、応答の信頼性と品質が向上します。
+- **ナレッジ:** エージェントが実行時に**検索**して、より良い意思決定を行い、正確な応答を提供できるドメイン固有の情報です（RAG）。ナレッジはベクトルデータベースに保存され、この**実行時の検索**パターンは、Agentic RAG/Agentic Searchとして知られています。
+- **ストレージ:** エージェントがセッション履歴と状態をデータベースに保存するために使用されます。モデルAPIはステートレスであり、ストレージにより、中断したところから会話を続けることができます。これにより、エージェントはステートフルになり、マルチターン、長期的な会話が可能になります。
+- **メモリ:** エージェントが以前の対話からの情報を保存および呼び出す能力を与え、ユーザーの好みを学習し、応答をパーソナライズできるようにします。
 
-<Check>Let's build a few Agents to see how they work.</Check>
+<Check>実際にいくつかエージェントを構築して、その仕組みを見てみましょう。</Check>
 
-## Level 1: Agents with tools and instructions
+## レベル 1: ツールと指示を持つエージェント
 
-The simplest Agent has a model, a tool and instructions. Let's build an Agent that can fetch data using the `yfinance` library, along with instructions to display the results in a table.
+最もシンプルなエージェントは、モデル、ツール、および指示を持っています。`yfinance`ライブラリを使用してデータを取得し、結果を表形式で表示する指示を持つエージェントを構築しましょう。
 
 ```python level_1_agent.py
 from agno.agent import Agent
@@ -37,10 +37,10 @@ agent = Agent(
 agent.print_response("What is the stock price of Apple?", stream=True)
 ```
 
-Create a virtual environment, install dependencies, export your API key and run the Agent.
+仮想環境を作成し、依存関係をインストールし、APIキーをエクスポートして、エージェントを実行します。
 
 <Steps>
-  <Step title="Setup your virtual environment">
+  <Step title="仮想環境の設定">
 
     <CodeGroup>
     ```bash Mac
@@ -55,7 +55,7 @@ Create a virtual environment, install dependencies, export your API key and run 
     </CodeGroup>
 
   </Step>
-  <Step title="Install dependencies">
+  <Step title="依存関係のインストール">
 
     <CodeGroup>
     ```bash Mac
@@ -68,7 +68,7 @@ Create a virtual environment, install dependencies, export your API key and run 
     </CodeGroup>
 
   </Step>
-  <Step title="Export your Anthropic key">
+  <Step title="Anthropicキーのエクスポート">
 
     <CodeGroup>
     ```bash Mac
@@ -81,7 +81,7 @@ Create a virtual environment, install dependencies, export your API key and run 
     </CodeGroup>
 
   </Step>
-  <Step title="Run the agent">
+  <Step title="エージェントの実行">
 
     ```shell
     python agent_with_tools.py
@@ -91,18 +91,18 @@ Create a virtual environment, install dependencies, export your API key and run 
 </Steps>
 
 <Note>
-Set `debug_mode=True` or `export AGNO_DEBUG=true` to see the system prompt and user messages.
+システムプロンプトとユーザーメッセージを表示するには、`debug_mode=True`を設定するか、`export AGNO_DEBUG=true`を実行してください。
 </Note>
 
-## Level 2: Agents with knowledge and storage
+## レベル 2: ナレッジとストレージを持つエージェント
 
-**Knowledge:** While models have a large amount of training data, we almost always need to give them domain-specific information to make better decisions and provide accurate responses (RAG). We store this information in a vector database and let the Agent **search** it at runtime.
+**ナレッジ:** モデルは大量のトレーニングデータを持っていますが、より良い意思決定を行い、正確な応答を提供するためには、ほぼ常にドメイン固有の情報を提供する必要があります（RAG）。この情報はベクトルデータベースに保存され、エージェントが実行時に**検索**できるようにします。
 
-**Storage:** Model APIs are stateless and `Storage` drivers save chat history and state to a database. When the Agent runs, it reads the chat history and state from the database and add it to the messages list, resuming the conversation and making the Agent stateful.
+**ストレージ:** モデルAPIはステートレスであり、`Storage`ドライバーはチャット履歴と状態をデータベースに保存します。エージェントが実行されると、データベースからチャット履歴と状態を読み取り、メッセージリストに追加して、会話を再開し、エージェントをステートフルにします。
 
-In this example, we'll use:
-- `UrlKnowledge` to load Agno documentation to LanceDB, using OpenAI for embeddings.
-- `SqliteStorage` to save the Agent's session history and state in a database.
+この例では、次を使用します。
+- `UrlKnowledge` を使用して、OpenAIを埋め込みに使用し、AgnoドキュメントをLanceDBにロードします。
+- `SqliteStorage` を使用して、エージェントのセッション履歴と状態をデータベースに保存します。
 
 ```python level_2_agent.py
 from agno.agent import Agent
@@ -112,20 +112,20 @@ from agno.models.anthropic import Claude
 from agno.storage.sqlite import SqliteStorage
 from agno.vectordb.lancedb import LanceDb, SearchType
 
-# Load Agno documentation in a knowledge base
-# You can also use `https://docs.agno.com/llms-full.txt` for the full documentation
+# ナレッジベースにAgnoドキュメントをロードします
+# フルドキュメントには `https://docs.agno.com/llms-full.txt` も使用できます
 knowledge = UrlKnowledge(
     urls=["https://docs.agno.com/introduction.md"],
     vector_db=LanceDb(
         uri="tmp/lancedb",
         table_name="agno_docs",
         search_type=SearchType.hybrid,
-        # Use OpenAI for embeddings
+        # 埋め込みにはOpenAIを使用します
         embedder=OpenAIEmbedder(id="text-embedding-3-small", dimensions=1536),
     ),
 )
 
-# Store agent sessions in a SQLite database
+# エージェントセッションをSQLiteデータベースに保存します
 storage = SqliteStorage(table_name="agent_sessions", db_file="tmp/agent.db")
 
 agent = Agent(
@@ -138,24 +138,24 @@ agent = Agent(
     knowledge=knowledge,
     storage=storage,
     add_datetime_to_instructions=True,
-    # Add the chat history to the messages
+    # チャット履歴をメッセージに追加します
     add_history_to_messages=True,
-    # Number of history runs
+    # ヒストリ実行数
     num_history_runs=3,
     markdown=True,
 )
 
 if __name__ == "__main__":
-    # Load the knowledge base, comment out after first run
-    # Set recreate to True to recreate the knowledge base if needed
+    # ナレッジベースをロードします。初回実行後はコメントアウトしてください
+    # 必要に応じてナレッジベースを再作成するには、recreateをTrueに設定します
     agent.knowledge.load(recreate=False)
     agent.print_response("What is Agno?", stream=True)
 ```
 
-Install dependencies, export your `OPENAI_API_KEY` and run the Agent
+依存関係をインストールし、`OPENAI_API_KEY`をエクスポートして、エージェントを実行します。
 
 <Steps>
-  <Step title="Install new dependencies">
+  <Step title="新しい依存関係のインストール">
 
     <CodeGroup>
     ```bash Mac
@@ -168,7 +168,7 @@ Install dependencies, export your `OPENAI_API_KEY` and run the Agent
     </CodeGroup>
 
   </Step>
-  <Step title="Run the agent">
+  <Step title="エージェントの実行">
 
     ```shell
     python level_2_agent.py
@@ -177,10 +177,10 @@ Install dependencies, export your `OPENAI_API_KEY` and run the Agent
   </Step>
 </Steps>
 
-## Level 3: Agents with memory and reasoning
+## レベル 3: メモリと推論を持つエージェント
 
-- **Reasoning:** enables Agents to **"think" & "analyze"**, improving reliability and quality. `ReasoningTools` is one of the best approaches to improve an Agent's response quality.
-- **Memory:** enables Agents to classify, store and recall user preferences, personalizing their responses. Memory helps the Agent build personas and learn from previous interactions.
+- **推論:** エージェントが**「考え」＆「分析」**できるようにし、信頼性と品質を向上させます。`ReasoningTools`は、エージェントの応答品質を向上させるための最良のアプローチの1つです。
+- **メモリ:** エージェントがユーザーの好みを分類、保存、呼び出し、応答をパーソナライズできるようにします。メモリは、エージェントがペルソナを構築し、以前の対話から学習するのに役立ちます。
 
 ```python level_3_agent.py
 from agno.agent import Agent
@@ -191,11 +191,11 @@ from agno.tools.reasoning import ReasoningTools
 from agno.tools.yfinance import YFinanceTools
 
 memory = Memory(
-    # Use any model for creating and managing memories
+    # メモリの作成と管理には任意のモデルを使用します
     model=Claude(id="claude-sonnet-4-20250514"),
-    # Store memories in a SQLite database
+    # メモリをSQLiteデータベースに保存します
     db=SqliteMemoryDb(table_name="user_memories", db_file="tmp/agent.db"),
-    # We disable deletion by default, enable it if needed
+    # デフォルトでは削除を無効にしています。必要に応じて有効にしてください
     delete_memories=True,
     clear_memories=True,
 )
@@ -206,7 +206,7 @@ agent = Agent(
         ReasoningTools(add_instructions=True),
         YFinanceTools(stock_price=True, analyst_recommendations=True, company_info=True, company_news=True),
     ],
-    # User ID for storing memories, `default` if not provided
+    # メモリを保存するためのユーザーID。指定しない場合は`default`
     user_id="ava",
     instructions=[
         "Use tables to display data.",
@@ -214,20 +214,20 @@ agent = Agent(
         "Only include the report in your response. No other text.",
     ],
     memory=memory,
-    # Let the Agent manage its memories
+    # エージェントにメモリを管理させます
     enable_agentic_memory=True,
     markdown=True,
 )
 
 if __name__ == "__main__":
-    # This will create a memory that "ava's" favorite stocks are NVIDIA and TSLA
+    # これにより、「ava」のお気に入りの株はNVIDIAとTSLAであるというメモリが作成されます
     agent.print_response(
         "My favorite stocks are NVIDIA and TSLA",
         stream=True,
         show_full_reasoning=True,
         stream_intermediate_steps=True,
     )
-    # This will use the memory to answer the question
+    # これにより、メモリを使用して質問に回答します
     agent.print_response(
         "Can you compare my favorite stocks?",
         stream=True,
@@ -236,10 +236,10 @@ if __name__ == "__main__":
     )
 ```
 
-Run the Agent
+エージェントを実行します。
 
 ```shell
 python level_3_agent.py
 ```
 
-<Tip>You can use the `Memory` and `Reasoning` separately, you don't need to use them together.</Tip>
+<Tip>`Memory`と`Reasoning`は別々に使用できます。一緒に使用する必要はありません。</Tip>

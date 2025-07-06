@@ -2,13 +2,13 @@
 title: Introduction
 ---
 
-Resources are the infrastructure components for your application. Similar to [Apps](/workspaces/apps/introduction), we define them as python classes and create using `ag start` or `ag ws up`.
+リソースは、アプリケーションのインフラストラクチャコンポーネントです。 [Apps](/workspaces/apps/introduction) と同様に、Pythonクラスとして定義し、`ag start` または `ag ws up` を使用して作成します。
 
-## Examples
+## 例
 
-- **Local Resources**: Docker containers and images
-- **Cloud Resources**: RDS database, S3 bucket, ECS services, task definitions, security groups
-- **Kubernetes Resources**: Services, deployments
+- **ローカルリソース**: Dockerコンテナとイメージ
+- **クラウドリソース**: RDSデータベース、S3バケット、ECSサービス、タスク定義、セキュリティグループ
+- **Kubernetesリソース**: サービス、デプロイメント
 
 <CodeGroup>
 
@@ -35,7 +35,7 @@ dev_image = DockerImage(
 ```python S3 Bucket
 from agno.aws.resource.s3 import S3Bucket
 
-# -*- S3 bucket called my-bucket
+# -*- S3バケット my-bucket
 prd_bucket = S3Bucket(name="my-bucket")
 ```
 
@@ -43,10 +43,10 @@ prd_bucket = S3Bucket(name="my-bucket")
 from pathlib import Path
 from agno.aws.resource.secret import SecretsManager
 
-# -*- Secret called my-secret
+# -*- シークレット my-secret
 my_secret = SecretsManager(
     name="my-secret",
-    # Read secret variables from my_secrets.yml
+    # シークレット変数を my_secrets.yml から読み込む
     secret_files=[Path('my_secrets.yml')],
 )
 ```
@@ -55,17 +55,17 @@ my_secret = SecretsManager(
 from pathlib import Path
 from agno.aws.resource.secret import SecretsManager
 
-# -*- Database Secret
+# -*- データベースシークレット
 db_secret = SecretsManager(
     name="my-db-secret",
-    # Read secret variables from db_secrets.yml
+    # シークレット変数を db_secrets.yml から読み込む
     secret_files=[Path('db_secrets.yml')],
 )
 
-# -*- Database Subnet Group
+# -*- データベースサブネットグループ
 db_subnet_group = DbSubnetGroup(name="my-db-sg")
 
-# -*- Database Instance
+# -*- データベースインスタンス
 db = DbInstance(
     name="my-db",
     db_name="llm",
@@ -87,17 +87,17 @@ db = DbInstance(
 
 <Tip>
 
-Each Resource is a pydantic object providing input and type validation.
+各リソースはpydanticオブジェクトであり、入力と型の検証を提供します。
 
 </Tip>
 
-## Motivation
+## モチベーション
 
-Resources provide the **"Infrastructure Layer"** for our AI products. The software we write needs to be served by an Application, which in turn needs to run on an Infrastructure Resoure.
+リソースは、AI製品の**「インフラストラクチャレイヤー」**を提供します。私たちが書くソフトウェアは、アプリケーションによって提供される必要があり、そのアプリケーションはインフラストラクチャリソース上で実行される必要があります。
 
-Defining **Applications as Code** and **Infrastructure as Code** allows us completely write our application as python code - providing numerous benefits like re-usability, version control, unit testing, formatting.
+**アプリケーションをコードとして**、**インフラストラクチャをコードとして**定義することで、Pythonコードとしてアプリケーション全体を記述することが可能になり、再利用性、バージョン管理、単体テスト、フォーマットなどの多くのメリットが得られます。
 
-Agno currently provides:
+Agnoは現在以下を提供しています：
 
-- [Docker Resources](/workspaces/resources/docker/introduction)
-- [AWS Resources](/workspaces/resources/aws/introduction)
+- [Dockerリソース](/workspaces/resources/docker/introduction)
+- [AWSリソース](/workspaces/resources/aws/introduction)

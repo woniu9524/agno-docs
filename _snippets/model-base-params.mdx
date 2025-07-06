@@ -1,14 +1,14 @@
-| Parameter                     | Type                                   | Default    | Description                                                    |
+| パラメータ                     | タイプ                                   | デフォルト    | 説明                                                           |
 | ----------------------------- | -------------------------------------- | ---------- | -------------------------------------------------------------- |
-| `id`                          | `str`                                  | -          | ID of the model to use.                                        |
-| `name`                        | `Optional[str]`                        | `None`     | Name for this Model. Not sent to the Model API.                |
-| `provider`                    | `Optional[str]`                        | `None`     | Provider for this Model. Not sent to the Model API.            |
-| `supports_native_structured_outputs` | `bool`                          | `False`    | Whether the model supports structured outputs natively (e.g. OpenAI). |
-| `supports_json_schema_outputs` | `bool`                               | `False`    | Whether the model requires a json_schema for structured outputs (e.g. LMStudio). |
-| `system_prompt`               | `Optional[str]`                        | `None`     | System prompt from the model added to the Agent.               |
-| `instructions`                | `Optional[List[str]]`                  | `None`     | Instructions from the model added to the Agent.                |
-| `tool_message_role`           | `str`                                  | `"tool"`   | The role of the tool message.                                  |
-| `assistant_message_role`      | `str`                                  | `"assistant"` | The role of the assistant message.                          |
-| `session_id`                  | `Optional[str]`                        | `None`     | Session ID of the calling Agent or Workflow.                   |
-| `structured_outputs`          | `Optional[bool]`                       | `None`     | Whether to use the structured outputs with this Model.         |
+| `id`                          | `str`                                  | -          | 使用するモデルのID。                                           |
+| `name`                        | `Optional[str]`                        | `None`     | このモデルの名前。モデルAPIには送信されません。                  |
+| `provider`                    | `Optional[str]`                        | `None`     | このモデルのプロバイダー。モデルAPIには送信されません。          |
+| `supports_native_structured_outputs` | `bool`                          | `False`    | モデルがネイティブに構造化出力をサポートしているかどうか（例：OpenAI）。 |
+| `supports_json_schema_outputs` | `bool`                               | `False`    | モデルが構造化出力にjson_schemaを必要とするかどうか（例：LMStudio）。 |
+| `system_prompt`               | `Optional[str]`                        | `None`     | モデルからエージェントに追加されるシステムプロンプト。             |
+| `instructions`                | `Optional[List[str]]`                  | `None`     | モデルからエージェントに追加される指示。                         |
+| `tool_message_role`           | `str`                                  | `"tool"`   | ツールメッセージのロール。                                     |
+| `assistant_message_role`      | `str`                                  | `"assistant"` | アシスタントメッセージのロール。                               |
+| `session_id`                  | `Optional[str]`                        | `None`     | 呼び出し元のエージェントまたはワークフローのセッションID。       |
+| `structured_outputs`          | `Optional[bool]`                       | `None`     | このモデルで構造化出力を使用するかどうか。                     |
 | `override_system_role`        | `bool`

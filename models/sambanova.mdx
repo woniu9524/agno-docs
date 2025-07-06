@@ -1,13 +1,13 @@
 ---
 title: Sambanova
-description: Learn how to use Sambanova with Agno.
+description: Agno で Sambanova を使用する方法を学びます。
 ---
 
-Sambanova is a platform for providing endpoints for Large Language models. Note that Sambanova currently does not support function calling.
+Sambanova は、大規模言語モデルのエンドポイントを提供するプラットフォームです。Sambanova は現在、関数呼び出しをサポートしていないことに注意してください。
 
-## Authentication
+## 認証
 
-Set your `SAMBANOVA_API_KEY` environment variable. Get your key from [here](https://cloud.sambanova.ai/apis).
+`SAMBANOVA_API_KEY` 環境変数を設定します。キーは [こちら](https://cloud.sambanova.ai/apis) から取得してください。
 
 <CodeGroup>
 
@@ -21,9 +21,9 @@ setx SAMBANOVA_API_KEY ***
 
 </CodeGroup>
 
-## Example
+## 例
 
-Use `Sambanova` with your `Agent`:
+`Agent` で `Sambanova` を使用します。
 
 <CodeGroup>
 
@@ -33,15 +33,15 @@ from agno.models.sambanova import Sambanova
 
 agent = Agent(model=Sambanova(), markdown=True)
 
-# Print the response in the terminal
+# 応答をターミナルに出力します
 agent.print_response("Share a 2 sentence horror story.")
 
 ```
 
 </CodeGroup>
 
-## Params
+## パラメータ
 
 <Snippet file="model-sambanova-params.mdx" />
 
-`Sambanova` also supports the params of [OpenAI](/reference/models/openai).
+`Sambanova` は [OpenAI](/reference/models/openai) のパラメータもサポートしています。

@@ -2,7 +2,7 @@
 title: RAG Agent
 ---
 
-## Code
+## コード
 
 ```python cookbook/models/ibm/watsonx/knowledge.py
 from agno.agent import Agent
@@ -16,7 +16,7 @@ knowledge_base = PDFUrlKnowledgeBase(
     urls=["https://agno-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
     vector_db=PgVector(table_name="recipes", db_url=db_url),
 )
-knowledge_base.load(recreate=True)  # Comment out after first run
+knowledge_base.load(recreate=True)  # 初回実行後にコメントアウトしてください
 
 agent = Agent(
     model=WatsonX(id="ibm/granite-20b-code-instruct"),
@@ -26,45 +26,45 @@ agent = Agent(
 agent.print_response("How to make Thai curry?", markdown=True)
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="API キーの設定">
     ```bash
     export IBM_WATSONX_API_KEY=xxx
     export IBM_WATSONX_PROJECT_ID=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="ライブラリのインストール">
     ```bash
     pip install -U ibm-watsonx-ai sqlalchemy pgvector psycopg pypdf openai agno
     ```
   </Step>
 
-  <Step title="Set up PostgreSQL with pgvector">
-    You need a PostgreSQL database with the pgvector extension installed. Adjust the `db_url` in the code to match your database configuration.
+  <Step title="pgvector を使用した PostgreSQL のセットアップ">
+    pgvector 拡張機能がインストールされた PostgreSQL データベースが必要です。コード内の `db_url` をデータベース構成に合わせて調整してください。
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="エージェントの実行">
     <CodeGroup>
     ```bash Mac
-    python cookbook/models/ibm/watsonx/knowledge.py
+    python cookbook/models/watsonx/knowledge.py
     ```
 
     ```bash Windows
-    python cookbook\models\ibm\watsonx\knowledge.py
+    python cookbook\models\watsonx\knowledge.py
     ```
     </CodeGroup>
   </Step>
 
-  <Step title="For subsequent runs">
-    After the first run, comment out the `knowledge_base.load(recreate=True)` line to avoid reloading the PDF.
+  <Step title="後続の実行について">
+    初回実行後、PDF の再読み込みを避けるために `knowledge_base.load(recreate=True)` 行をコメントアウトしてください。
   </Step>
 </Steps>
 
-This example shows how to integrate a knowledge base with IBM WatsonX. It loads a PDF from a URL, processes it into a vector database (PostgreSQL with pgvector in this case), and then creates an agent that can query this knowledge base.
+この例では、知識ベースを IBM WatsonX と統合する方法を示しています。URL から PDF を読み込み、それをベクトルデータベース（この場合は pgvector を使用した PostgreSQL）に処理し、その知識ベースにクエリを実行できるエージェントを作成します。
 
-Note: You need to install several packages (`pgvector`, `pypdf`, etc.) and have a PostgreSQL database with the pgvector extension available. 
+注意: いくつかのパッケージ (`pgvector`, `pypdf` など) をインストールし、pgvector 拡張機能が利用可能な PostgreSQL データベースを用意する必要があります。

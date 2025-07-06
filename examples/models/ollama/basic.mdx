@@ -23,20 +23,20 @@ agent.print_response("Share a 2 sentence horror story")
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install Ollama">
-    Follow the [installation guide](https://github.com/ollama/ollama?tab=readme-ov-file#macos) and run:
+  <Step title="Ollamaのインストール">
+    [インストールガイド](https://github.com/ollama/ollama?tab=readme-ov-file#macos)に従い、以下を実行してください:
     ```bash
     ollama pull llama3.1:8b
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="ライブラリのインストール">
     ```bash
     pip install -U ollama agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="エージェントの実行">
     <CodeGroup>
     ```bash Mac
     python cookbook/models/ollama/basic.py

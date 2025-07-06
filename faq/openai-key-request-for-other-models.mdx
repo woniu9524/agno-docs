@@ -1,19 +1,18 @@
 ---
-title: OpenAI Key Request While Using Other Models
-sidebarTitle: OpenAI Key Request While Using Other Models
+title: 他のモデル使用時にOpenAIキーを要求される場合
+sidebarTitle: 他のモデル使用時にOpenAIキーを要求される場合
 ---
 
-If you see a request for an OpenAI API key but haven't explicitly configured OpenAI, it's because Agno uses OpenAI models by default in several places, including:
+明示的にOpenAIを設定していないにもかかわらずOpenAI APIキーが要求される場合、それはAgnoがいくつかの場所でデフォルトでOpenAIモデルを使用しているためです。これには以下が含まれます：
 
-- The default model when unspecified in `Agent`
-- The default embedder is OpenAIEmbedder with VectorDBs, unless specified
+- `Agent`で指定されていない場合のデフォルトモデル
+- 指定されていない限り、VectorDBでのデフォルトの埋め込みモデルは`OpenAIEmbedder`です。
 
+## クイックフィックス：別のモデルを設定する
 
-## Quick fix: Configure a Different Model
+エージェントのモデルを明示的に指定することをお勧めします。指定しない場合、デフォルトで`OpenAIChat`になります。
 
-It is best to specify the model for the agent explicitly, otherwise it would default to `OpenAIChat`.
-
-For example, to use Google's Gemini instead of OpenAI:
+例えば、OpenAIの代わりにGoogleのGeminiを使用するには、次のようにします：
 
 ```python
 from agno.agent import Agent, RunResponse
@@ -24,31 +23,31 @@ agent = Agent(
     markdown=True,
 )
 
-# Print the response in the terminal
+# 応答をターミナルに出力します
 agent.print_response("Share a 2 sentence horror story.")
 ```
 
-For more details on configuring different model providers, check our [models documentation](../models/)
+異なるモデルプロバイダーの設定に関する詳細は、[モデルドキュメント](../models/)をご覧ください。
 
-## Quick fix: Configure a Different Embedder
+## クイックフィックス：別の埋め込みモデルを設定する
 
-The same applies to embeddings. If you want to use a different embedder instead of `OpenAIEmbedder`, configure it explicitly.
+埋め込みモデルについても同様です。`OpenAIEmbedder`の代わりに別の埋め込みモデルを使用したい場合は、明示的に設定してください。
 
-For example, to use Google's Gemini as an embedder, use `GeminiEmbedder`:
+例えば、GoogleのGeminiを埋め込みモデルとして使用するには、`GeminiEmbedder`を使用します：
 
 ```python
 from agno.agent import AgentKnowledge
 from agno.vectordb.pgvector import PgVector
 from agno.embedder.google import GeminiEmbedder
 
-# Embed sentence in database
+# 文章をデータベースに埋め込みます
 embeddings = GeminiEmbedder().get_embedding("The quick brown fox jumps over the lazy dog.")
 
-# Print the embeddings and their dimensions
+# 埋め込みとその次元を出力します
 print(f"Embeddings: {embeddings[:5]}")
 print(f"Dimensions: {len(embeddings)}")
 
-# Use an embedder in a knowledge base
+# 知識ベースで埋め込みモデルを使用します
 knowledge_base = AgentKnowledge(
     vector_db=PgVector(
         db_url="postgresql+psycopg://ai:ai@localhost:5532/ai",
@@ -59,4 +58,4 @@ knowledge_base = AgentKnowledge(
 )
 ```
 
-For more details on configuring different model providers, check our [Embeddings documentation](../embedder/)
+異なるモデルプロバイダーの設定に関する詳細は、[埋め込みドキュメント](../embedder/)をご覧ください。

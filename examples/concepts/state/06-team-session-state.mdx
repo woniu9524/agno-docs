@@ -1,8 +1,8 @@
 ---
-title: Team with Shared State
+title: 共有状態を持つチーム
 ---
-This example demonstrates how a team of agents can collaboratively manage and update a shared session state.
-## Code
+この例では、エージェントのチームが共有セッション状態を共同で管理および更新する方法を示します。
+## コード
 
 ```python cookbook/teams/team_with_shared_state.py
 from agno.agent.agent import Agent
@@ -113,24 +113,24 @@ print(f"Session state: {shopping_team.session_state}")
 
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="APIキーの設定">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="ライブラリのインストール">
     ```bash
     pip install -U openai agno
     ```
   </Step>
 
-  <Step title="Run Example">
+  <Step title="例の実行">
     <CodeGroup>
     ```bash Mac
     python cookbook/teams/team_with_shared_state.py

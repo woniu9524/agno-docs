@@ -1,6 +1,6 @@
-## Create your Agent App codebase
+## Agent App コードベースの作成
 
-Create your codebase using the `agent-app` template, give it any name you like.
+`agent-app` テンプレートを使用してコードベースを作成し、任意の名前を付けます。
 
 <CodeGroup>
 
@@ -14,22 +14,21 @@ ag ws create --template agent-app --name agent-app
 
 </CodeGroup>
 
-This will create a folder named `agent-app` with the following structure:
+これにより、`agent-app` という名前のフォルダが作成され、以下の構造になります。
 
 ```bash
-agent-app                     # root directory
-├── agents                  # your Agents go here
-├── api                     # your Api routes go here
-├── ui                      # your Streamlit apps go here
-├── db                      # your database tables go here
-├── Dockerfile              # Dockerfile for the application
-├── pyproject.toml          # python project definition
-├── requirements.txt        # python dependencies generated using pyproject.toml
-├── scripts                 # helper scripts
-├── utils                   # shared utilities
-└── workspace               # Agno workspace directory
-    ├── dev_resources.py    # dev resources running locally
-    ├── prd_resources.py    # production resources running on AWS
-    ├── secrets             # secrets
-    └── settings.py         # Agno workspace settings
-```
+agent-app                     # ルートディレクトリ
+├── agents                  # Agent を配置する場所
+├── api                     # API ルートを配置する場所
+├── ui                      # Streamlit アプリを配置する場所
+├── db                      # データベーステーブルを配置する場所
+├── Dockerfile              # アプリケーションの Dockerfile
+├── pyproject.toml          # Python プロジェクトの定義
+├── requirements.txt        # pyproject.toml を使用して生成された Python 依存関係
+├── scripts                 # ヘルパー スクリプト
+├── utils                   # 共有ユーティリティ
+└── workspace               # Agno ワークスペースディレクトリ
+    ├── dev_resources.py    # ローカルで実行される開発リソース
+    ├── prd_resources.py    # AWS で実行される本番リソース
+    ├── secrets             # シークレット
+    └── settings.py         # Agno ワークスペースの設定

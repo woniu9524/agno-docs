@@ -1,23 +1,23 @@
 ---
 title: Groq
-description: Learn how to use Groq with Agno.
+description: Agno で Groq を使用する方法を学ぶ。
 ---
 
-Groq offers blazing-fast API endpoints for large language models.
+Groq は、大規模言語モデル向けの超高速 API エンドポイントを提供します。
 
-See all the Groq supported models [here](https://console.groq.com/docs/models).
+Groq がサポートするすべてのモデルは、[こちら](https://console.groq.com/docs/models)で確認できます。
 
-- We recommend using `llama-3.3-70b-versatile` for general use
-- We recommend `llama-3.1-8b-instant` for a faster result.
-- We recommend using `llama-3.2-90b-vision-preview` for image understanding.
+- 一般的な用途には `llama-3.3-70b-versatile` の使用をお勧めします。
+- より高速な結果を得るには `llama-3.1-8b-instant` の使用をお勧めします。
+- 画像理解には `llama-3.2-90b-vision-preview` の使用をお勧めします。
 
-#### Multimodal Support
+#### マルチモーダル サポート
 
-With Groq we support `Image` as input
+Groq では、入力として `Image` をサポートしています。
 
-## Authentication
+## 認証
 
-Set your `GROQ_API_KEY` environment variable. Get your key from [here](https://console.groq.com/keys).
+`GROQ_API_KEY` 環境変数を設定してください。キーは[こちら](https://console.groq.com/keys)から取得できます。
 
 <CodeGroup>
 
@@ -31,9 +31,9 @@ setx GROQ_API_KEY ***
 
 </CodeGroup>
 
-## Example
+## 例
 
-Use `Groq` with your `Agent`:
+`Agent` で `Groq` を使用します。
 
 <CodeGroup>
 
@@ -46,17 +46,17 @@ agent = Agent(
     markdown=True
 )
 
-# Print the response in the terminal
+# 応答をターミナルに出力する
 agent.print_response("Share a 2 sentence horror story.")
 
 ```
 
 </CodeGroup>
 
-<Note> View more examples [here](../examples/models/groq). </Note>
+<Note> その他の例は[こちら](../examples/models/groq)で確認できます。 </Note>
 
-## Params
+## パラメータ
 
 <Snippet file="model-groq-params.mdx" />
 
-`Groq` is a subclass of the [Model](/reference/models/model) class and has access to the same params.
+`Groq` は [Model](/reference/models/model) クラスのサブクラスであり、同じパラメータにアクセスできます。

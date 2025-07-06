@@ -1,8 +1,8 @@
-## Build your Web App
+## Web アプリの構築
 
-The [Django Tutorials](https://docs.djangoproject.com/en/4.2/intro/tutorial01/) are a great place to learn about Django, play around and update your Web App to your use case. Here's how to create a simple chat application:
+[Django チュートリアル](https://docs.djangoproject.com/en/4.2/intro/tutorial01/)は、Django について学び、実際に試して、Web アプリをユースケースに合わせて更新するための優れたリソースです。簡単なチャット アプリケーションを作成する方法を以下に示します。
 
-**1. Create a new django app**
+**1. 新しい Django アプリを作成する**
 
 ```bash
 docker exec -it django-dev-app python manage.py startapp chat
@@ -10,13 +10,13 @@ docker exec -it django-dev-app python manage.py startapp chat
 
 <Note>
 
-Read more about [django apps here](https://docs.djangoproject.com/en/4.2/intro/tutorial01/#creating-the-polls-app)
+[Django アプリの詳細はこちら](https://docs.djangoproject.com/en/4.2/intro/tutorial01/#creating-the-polls-app)をご覧ください。
 
 </Note>
 
-**2. Register the chat app**
+**2. チャット アプリを登録する**
 
-Update the 'app/settings.py' file and register the `chat`
+`app/settings.py` ファイルを更新して、`chat` を登録します。
 
 ```python app/settings.py
 ...
@@ -27,15 +27,15 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    # register the chat app
+    # chat アプリを登録
     'chat',
 ]
 ...
 ```
 
-**3. Create views for the chat app**
+**3. チャット アプリのビューを作成する**
 
-Update the `chat/views.py` file to
+`chat/views.py` ファイルを以下のように更新します。
 
 ```python chat/views.py
 from django.shortcuts import render, redirect
@@ -44,23 +44,23 @@ from agno.agent import Agent
 
 def index(request):
     try:
-        # Create a agent
+        # エージェントを作成
         agent = Agent()
         if 'messages' not in request.session:
             request.session['messages'] = []
         if request.method == 'POST':
             prompt = request.POST.get('prompt')
-            # Add the prompt to the messages
+            # プロンプトをメッセージに追加
             request.session['messages'].append({"role": "user", "content": prompt})
-            # Set the session as modified
+            # セッションを変更したことを設定
             request.session.modified = True
-            # Create a response
+            # レスポンスを作成
             response = agent.run(prompt, stream=False)
-            # Append the response to the messages
+            # レスポンスをメッセージに追加
             request.session['messages'].append({"role": "agent", "content": response})
-            # Set the session as modified
+            # セッションを変更したことを設定
             request.session.modified = True
-            # Redirect to the home page
+            # ホームページにリダイレクト
             context = {
                 'messages': request.session['messages'],
                 'prompt': '',
@@ -78,15 +78,15 @@ def index(request):
 
 
 def new_chat(request):
-    # -*- Clears the session messages and redirects to the home page -*-
+    # -*- セッションメッセージをクリアしてホームページにリダイレクト -*-
     request.session.pop('agent', None)
     request.session.pop('messages', None)
     return redirect('index')
 ```
 
-**4. Configure URLs**
+**4. URL を設定する**
 
-Create a file named `urls.py` in the chat folder:
+`chat` フォルダに `urls.py` という名前のファイルを作成します。
 
 ```python chat/urls.py
 from django.urls import path
@@ -98,7 +98,7 @@ urlpatterns = [
 ]
 ```
 
-Update the `app/urls.py` file to:
+`app/urls.py` ファイルを以下のように更新します。
 
 ```python app/urls.py
 from django.contrib import admin
@@ -110,9 +110,9 @@ urlpatterns = [
 ]
 ```
 
-**5. Create templates**
+**5. テンプレートを作成する**
 
-Create the HTML templates for the chat interface in the `chat/templates/chat` folder.
+`chat/templates/chat` フォルダにチャット インターフェイス用の HTML テンプレートを作成します。
 
 ```python chat/templates/chat/base.html
 <!DOCTYPE html>
@@ -153,7 +153,7 @@ Create the HTML templates for the chat interface in the `chat/templates/chat` fo
                 {% endfor %}
               </div>
               <form action="." method="POST">
-                <!-- this secures the form from malicious attacks during submission -->
+                <!-- これは、送信中の悪意のある攻撃からフォームを保護します -->
                 {% csrf_token %}
                 <label for="prompt" class="form-label">Send a message</label>
                 <input class="form-control mb-2" required type="text" autofocus="autofocus" name="prompt" value="{{ prompt }}" id="">
@@ -168,14 +168,14 @@ Create the HTML templates for the chat interface in the `chat/templates/chat` fo
 {% endblock %}
 ```
 
-**6. Open Django App**
+**6. Django アプリを開く**
 
-Open [localhost:8000/chat/](http://localhost:8000/chat/) to view the LLM chat app.
+[localhost:8000/chat/](http://localhost:8000/chat/) を開いて、LLM チャット アプリを表示します。
 
 ![django-app-chat-app](/images/django-app-chat-app.png)
 
 <Note>
 
-If needed, restart the django server using `ag ws restart dev:docker:app -y`
+必要に応じて、`ag ws restart dev:docker:app -y` を使用して Django サーバーを再起動してください。
 
 </Note>

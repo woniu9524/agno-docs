@@ -1,29 +1,29 @@
 ---
-title: Playground Connection Issues
-sidebarTitle: Playground Connection Issues
+title: Playground 接続の問題
+sidebarTitle: Playground 接続の問題
 ---
 
-If you're experiencing connection issues in the Agno Playground, particularly when trying to connect to **local endpoints**, this guide will help you resolve them.
+Agno Playground で接続の問題が発生している場合、特に **ローカルエンドポイント** に接続しようとしている場合は、このガイドがお役に立ちます。
 
-## Browser Compatibility
+## ブラウザの互換性
 
-Some browsers have security restrictions that prevent connections to localhost domains due to mixed content security issues. Here's what you need to know about different browsers:
+一部のブラウザには、混合コンテンツセキュリティの問題により、localhost ドメインへの接続をブロックするセキュリティ制限があります。各ブラウザについて知っておくべきことは次のとおりです。
 
-### Recommended Browsers
-- **Chrome & Edge**: These browsers work well with local connections by default and are our recommended choices
-- **Firefox**: Generally works well with local connections
+### 推奨ブラウザ
+- **Chrome & Edge**: これらのブラウザは、デフォルトでローカル接続とうまく連携し、推奨される選択肢です。
+- **Firefox**: 一般的にローカル接続とうまく連携します。
 
-### Browsers with Known Issues
-- **Safari**: May block local connections due to its strict security policies
-- **Brave**: Blocks local connections by default due to its shield feature
+### 問題が確認されているブラウザ
+- **Safari**: 厳格なセキュリティポリシーにより、ローカル接続をブロックする場合があります。
+- **Brave**: シールド機能により、デフォルトでローカル接続をブロックします。
 
-## Solutions
+## ソリューション
 
-### For Brave Users
-If you're using Brave browser, you can try these steps:
-1. Click on the Brave shield icon in the address bar
-2. Turn off the shield for the current site
-3. Refresh the endpoint and try connecting again
+### Brave ユーザー向け
+Brave ブラウザを使用している場合は、次の手順を試してください。
+1. アドレスバーの Brave シールドアイコンをクリックします。
+2. 現在のサイトのシールドをオフにします。
+3. エンドポイントを更新して、再度接続を試みます。
 
 <video
   autoPlay
@@ -33,29 +33,29 @@ If you're using Brave browser, you can try these steps:
   src="/videos/brave-shields.mp4"
 ></video>
 
-### For Other Browsers
-If you're using Safari or experiencing issues with other browsers, you can use one of these solutions:
+### その他のブラウザ向け
+Safari を使用している場合や、その他のブラウザで問題が発生している場合は、次のいずれかのソリューションを使用できます。
 
-#### 1. Use Chrome or Edge
-The simplest solution is to use Chrome or Edge browsers which have better support for local connections.
+#### 1. Chrome または Edge を使用する
+最も簡単な解決策は、ローカル接続のサポートが向上している Chrome または Edge ブラウザを使用することです。
 
-#### 2. Use Tunneling Services
-You can use tunneling services to expose your local endpoint to the internet:
+#### 2. トンネリングサービスを使用する
+トンネリングサービスを使用して、ローカルエンドポイントをインターネットに公開できます。
 
-##### Using ngrok
-1. Install ngrok from [ngrok.com](https://ngrok.com)
-2. Run your local server
-3. Create a tunnel with ngrok:
+##### ngrok を使用する
+1. [ngrok.com](https://ngrok.com) から ngrok をインストールします。
+2. ローカルサーバーを実行します。
+3. ngrok でトンネルを作成します。
 ```bash
 ngrok http <your-local-port>
 ```
-4. Use the provided ngrok URL in the playground
+4. 提供された ngrok URL をプレイグラウンドで使用します。
 
-##### Using Cloudflare Tunnel
-1. Install Cloudflare Tunnel (cloudflared) from [Cloudflare's website](https://developers.cloudflare.com/cloudflare-one/connections/connect-apps/install-and-setup/installation/)
-2. Authenticate with Cloudflare
-3. Create a tunnel:
+##### Cloudflare Tunnel を使用する
+1. [Cloudflare のウェブサイト](https://developers.cloudflare.com/cloudflare-one/connections/connect-apps/install-and-setup/installation/) から Cloudflare Tunnel (cloudflared) をインストールします。
+2. Cloudflare で認証します。
+3. トンネルを作成します。
 ```bash
 cloudflared tunnel --url http://localhost:<your-local-port>
 ```
-4. Use the provided Cloudflare URL in the playground
+4. 提供された Cloudflare URL をプレイグラウンドで使用します。

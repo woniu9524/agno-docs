@@ -2,11 +2,11 @@
 title: Langtrace
 ---
 
-## Overview
+## 概要
 
-This example demonstrates how to instrument your Agno agent with Langtrace for tracing and monitoring.
+この例では、トレースと監視のために Agno エージェントを Langtrace でインストルメント化する方法を示します。
 
-## Code
+## コード
 
 ```python
 from agno.agent import Agent
@@ -15,10 +15,10 @@ from agno.tools.yfinance import YFinanceTools
 from langtrace_python_sdk import langtrace
 from langtrace_python_sdk.utils.with_root_span import with_langtrace_root_span
 
-# Initialize Langtrace
+# Langtrace の初期化
 langtrace.init()
 
-# Create and configure the agent
+# エージェントの作成と設定
 agent = Agent(
     name="Stock Price Agent",
     model=OpenAIChat(id="gpt-4o-mini"),
@@ -27,26 +27,26 @@ agent = Agent(
     debug_mode=True,
 )
 
-# Use the agent
+# エージェントの使用
 agent.print_response("What is the current price of Tesla?")
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
-  <Step title="Install Dependencies">
+  <Step title="依存関係のインストール">
     ```bash
     pip install agno openai langtrace-python-sdk
     ```
   </Step>
 
-  <Step title="Set Environment Variables">
+  <Step title="環境変数の設定">
     ```bash
     export LANGTRACE_API_KEY=<your-key>
     ```
   </Step>
 
-  <Step title="Run the Agent">
+  <Step title="エージェントの実行">
     <CodeGroup>
     ```bash Mac
     python cookbook/observability/langtrace_op.py
@@ -59,6 +59,6 @@ agent.print_response("What is the current price of Tesla?")
   </Step>
 </Steps>
 
-## Notes
+## 注意事項
 
-- **Initialization**: Call `langtrace.init()` to initialize Langtrace before using the agent.
+- **初期化**: エージェントを使用する前に `langtrace.init()` を呼び出して Langtrace を初期化してください。

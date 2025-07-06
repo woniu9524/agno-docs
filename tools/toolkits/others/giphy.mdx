@@ -2,17 +2,17 @@
 title: Giphy
 ---
 
-**GiphyTools** enables an Agent to search for GIFs on GIPHY.
+**GiphyTools** は、エージェントがGIPHYでGIFを検索できるようにします。
 
-## Prerequisites
+## 前提条件
 
 ```shell
 export GIPHY_API_KEY=***
 ```
 
-## Example
+## 例
 
-The following agent will search GIPHY for a GIF appropriate for a birthday message.
+以下は、誕生日メッセージに適したGIFをGIPHYで検索するエージェントです。
 
 ```python
 from agno.agent import Agent
@@ -30,20 +30,20 @@ gif_agent = Agent(
 gif_agent.print_response("I want a gif to send to a friend for their birthday.")
 ```
 
-## Toolkit Params
+## Toolkit パラメータ
 
-| Parameter | Type  | Default | Description                                       |
+| パラメータ | タイプ  | デフォルト | 説明                                       |
 | --------- | ----- | ------- | ------------------------------------------------- |
-| `api_key` | `str` | `None`  | If you want to manually supply the GIPHY API key. |
-| `limit`   | `int` | `1`     | The number of GIFs to return in a search.         |
+| `api_key` | `str` | `None`  | GIPHY API キーを手動で指定する場合。 |
+| `limit`   | `int` | `1`     | 検索で返すGIFの数。         |
 
-## Toolkit Functions
+## Toolkit 関数
 
-| Function      | Description                                         |
+| 関数      | 説明                                         |
 | ------------- | --------------------------------------------------- |
-| `search_gifs` | Searches GIPHY for a GIF based on the query string. |
+| `search_gifs` | クエリ文字列に基づいてGIFをGIPHYで検索します。 |
 
-## Developer Resources
+## 開発者向けリソース
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/giphy.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/giphy_tools.py)
+- [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/giphy.py) を表示
+- [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/giphy_tools.py) を表示

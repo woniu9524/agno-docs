@@ -1,26 +1,26 @@
 ---
-title: Filtering with Json
-description: Learn how to filter knowledge base searches using Json documents with user-specific metadata.
+title: Json を使用したフィルタリング
+description: ユーザー固有のメタデータを使用して Json ドキュメントでナレッジベース検索をフィルタリングする方法を学びます。
 ---
 
-## Code
+## コード
 
 ```python
 """
-User-Level Knowledge Filtering Example
+ユーザーレベルのナレッジフィルタリングの例
 
-This cookbook demonstrates how to use knowledge filters to restrict knowledge base searches to specific users, document types, or any other metadata attributes.
+このクックブックでは、ナレッジフィルタを使用して、特定のユーザー、ドキュメントタイプ、またはその他のメタデータ属性にナレッジベース検索を制限する方法を示します。
 
-Key concepts demonstrated:
-1. Loading documents with user-specific metadata
-2. Filtering knowledge base searches by user ID
-3. Combining multiple filter criteria
-4. Comparing results across different filter combinations
+実証されている主要な概念:
+1. ユーザー固有のメタデータを持つドキュメントのロード
+2. ユーザー ID によるナレッジベース検索のフィルタリング
+3. 複数のフィルタ条件の組み合わせ
+4. 異なるフィルタの組み合わせ間での結果の比較
 
-You can pass filters in the following ways:
-1. If you pass on Agent only, we use that for all runs
-2. If you pass on run/print_response only, we use that for that run
-3. If you pass on both, we override with the filters passed on run/print_response for that run
+フィルタは次の方法で渡すことができます。
+1. Agent のみに渡す場合、すべての実行に使用します
+2. run/print_response のみに渡す場合、その実行に使用します
+3. 両方に渡す場合、その実行のために run/print_response で渡されたフィルタでオーバーライドします
 """
 
 from agno.agent import Agent
@@ -31,22 +31,22 @@ from agno.utils.media import (
 )
 from agno.vectordb.lancedb import LanceDb
 
-# Download all sample CVs and get their paths
+# すべてのサンプル CV をダウンロードし、そのパスを取得します
 downloaded_cv_paths = download_knowledge_filters_sample_data(
     num_files=5, file_extension=SampleDataFileExtension.JSON
 )
 
-# Initialize LanceDB
-# By default, it stores data in /tmp/lancedb
+# LanceDB の初期化
+# デフォルトでは、データは /tmp/lancedb に保存されます
 vector_db = LanceDb(
     table_name="recipes",
-    uri="tmp/lancedb",  # You can change this path to store data elsewhere
+    uri="tmp/lancedb",  # データを別の場所に保存するには、このパスを変更できます
 )
 
-# Step 1: Initialize knowledge base with documents and metadata
+# ステップ 1: ドキュメントとメタデータでナレッジベースを初期化します
 # ------------------------------------------------------------------------------
-# When initializing the knowledge base, we can attach metadata that will be used for filtering
-# This metadata can include user IDs, document types, dates, or any other attributes
+# ナレッジベースを初期化する際に、フィルタリングに使用されるメタデータを添付できます
+# このメタデータには、ユーザー ID、ドキュメントタイプ、日付、またはその他の属性が含まれる場合があります
 
 knowledge_base = JSONKnowledgeBase(
     path=[
@@ -94,33 +94,33 @@ knowledge_base = JSONKnowledgeBase(
     vector_db=vector_db,
 )
 
-# Load all documents into the vector database
+# すべてのドキュメントをベクトルデータベースにロードします
 knowledge_base.load(recreate=True)
 
-# Step 2: Query the knowledge base with different filter combinations
+# ステップ 2: さまざまなフィルタの組み合わせでナレッジベースをクエリします
 # ------------------------------------------------------------------------------
 
-# Option 1: Filters on the Agent
-# Initialize the Agent with the knowledge base and filters
+# オプション 1: Agent のフィルタ
+# ナレッジベースとフィルタで Agent を初期化します
 agent = Agent(
     knowledge=knowledge_base,
     search_knowledge=True,
     knowledge_filters={"user_id": "jordan_mitchell"},
 )
 
-# Query for Jordan Mitchell' experience and skills
+# Jordan Mitchell の経験とスキルについて尋ねます
 agent.print_response(
     "Tell me about Jordan Mitchell's experience and skills",
     markdown=True,
 )
 
-# # Option 2: Filters on the run/print_response
+# # オプション 2: run/print_response のフィルタ
 # agent = Agent(
 #     knowledge=knowledge_base,
 #     search_knowledge=True,
 # )
 
-# # Query for Taylor Brooks as a candidate
+# # Taylor Brooks を候補者として尋ねます
 # agent.print_response(
 #     "Tell me about Taylor Brooks as a candidate",
 #     knowledge_filters={"user_id": "taylor_brooks"},
@@ -128,16 +128,16 @@ agent.print_response(
 # )
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
-  <Step title="Install libraries">
+  <Step title="ライブラリのインストール">
     ```bash
     pip install -U agno openai lancedb
     ```
   </Step>
 
-  <Step title="Run the example">
+  <Step title="例の実行">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/knowledge/filters/json/filtering.py

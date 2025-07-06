@@ -1,16 +1,16 @@
-| Name          | Type              | Default            | Description                                  |
+| 名前          | タイプ              | デフォルト            | 説明                                         |
 | ------------- | ----------------- | ------------------ | -------------------------------------------- |
-| `collection`  | `str`             | -                  | Name of the Qdrant collection                |
-| `embedder`    | `Embedder`        | `OpenAIEmbedder()` | Embedder for embedding the document contents |
-| `distance`    | `Distance`        | `Distance.cosine`  | Distance metric for similarity search        |
-| `location`    | `Optional[str]`   | `None`             | Location of the Qdrant database              |
-| `url`         | `Optional[str]`   | `None`             | URL of the Qdrant server                     |
-| `port`        | `Optional[int]`   | `6333`             | Port number for the Qdrant server            |
-| `grpc_port`   | `int`             | `6334`             | gRPC port number for the Qdrant server       |
-| `prefer_grpc` | `bool`            | `False`            | Whether to prefer gRPC over HTTP             |
-| `https`       | `Optional[bool]`  | `None`             | Whether to use HTTPS                         |
-| `api_key`     | `Optional[str]`   | `None`             | API key for authentication                   |
-| `prefix`      | `Optional[str]`   | `None`             | Prefix for the Qdrant API                    |
-| `timeout`     | `Optional[float]` | `None`             | Timeout for Qdrant operations                |
-| `host`        | `Optional[str]`   | `None`             | Host address for the Qdrant server           |
-| `path`        | `Optional[str]`   | `None`             | Path to the Qdrant database                  |
+| `collection`  | `str`             | -                  | Qdrant コレクションの名前                    |
+| `embedder`    | `Embedder`        | `OpenAIEmbedder()` | ドキュメントの内容を埋め込むための埋め込み器 |
+| `distance`    | `Distance`        | `Distance.cosine`  | 類似性検索のための距離メトリック             |
+| `location`    | `Optional[str]`   | `None`             | Qdrant データベースの場所                    |
+| `url`         | `Optional[str]`   | `None`             | Qdrant サーバーの URL                        |
+| `port`        | `Optional[int]`   | `6333`             | Qdrant サーバーのポート番号                  |
+| `grpc_port`   | `int`             | `6334`             | Qdrant サーバーの gRPC ポート番号            |
+| `prefer_grpc` | `bool`            | `False`            | gRPC を HTTP より優先するかどうか            |
+| `https`       | `Optional[bool]`  | `None`             | HTTPS を使用するかどうか                     |
+| `api_key`     | `Optional[str]`   | `None`             | 認証用の API キー                            |
+| `prefix`      | `Optional[str]`   | `None`             | Qdrant API のプレフィックス                  |
+| `timeout`     | `Optional[float]` | `None`             | Qdrant 操作のタイムアウト                    |
+| `host`        | `Optional[str]`   | `None`             | Qdrant サーバーのホストアドレス              |
+| `path`        | `Optional[str]`   | `None`             | Qdrant データベースへのパス                  |

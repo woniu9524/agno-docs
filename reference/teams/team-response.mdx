@@ -3,187 +3,187 @@ title: TeamRunResponse
 sidebarTitle: Team Run Response & Events
 ---
 
-The `TeamRunResponse` class represents the response from a team run, containing both the team's overall response and individual member responses. It supports streaming and provides real-time events throughout the execution of a team.
+`TeamRunResponse` クラスは、チーム全体の応答と個々のメンバーの応答の両方を含む、チーム実行の応答を表します。ストリーミングをサポートし、チーム実行中にリアルタイムイベントを提供します。
 
-## TeamRunResponse Attributes
+## TeamRunResponse の属性
 
-| Attribute | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `content` | `Any` | `None` | Content of the response |
-| `content_type` | `str` | `"str"` | Specifies the data type of the content |
-| `thinking` | `str` | `None` | Any thinking content the model produced (used by Anthropic models) |
-| `messages` | `List[Message]` | `None` | A list of messages included in the response |
-| `metrics` | `Dict[str, Any]` | `None` | Usage metrics of the run |
-| `model` | `str` | `None` | The model used in the run |
-| `model_provider` | `str` | `None` | The model provider used in the run |
-| `member_responses` | `List[Union[TeamRunResponse, RunResponse]]` | `[]` | Responses from individual team members |
-| `run_id` | `str` | `None` | Run Id |
-| `team_id` | `str` | `None` | Team Id for the run |
-| `session_id` | `str` | `None` | Session Id for the run |
-| `tools` | `List[Dict[str, Any]]` | `None` | List of tools provided to the model |
-| `images` | `List[Image]` | `None` | List of images from member runs |
-| `videos` | `List[Video]` | `None` | List of videos from member runs |
-| `audio` | `List[Audio]` | `None` | List of audio snippets from member runs |
-| `response_audio` | `ModelResponseAudio` | `None` | The model's raw response in audio |
-| `reasoning_content` | `str` | `None` | Any reasoning content the model produced |
-| `citations` | `Citations` | `None` | Any citations used in the response |
-| `created_at` | `int` | Current timestamp | Unix timestamp of the response creation |
-| `extra_data` | `RunResponseExtraData` | `None` | Extra data containing optional fields like `references`, `add_messages`, `history`, `reasoning_steps`, and `reasoning_messages` |
+| 属性 | タイプ | デフォルト | 説明 |
+|---|---|---|---|
+| `content` | `Any` | `None` | 応答のコンテンツ |
+| `content_type` | `str` | `"str"` | コンテンツのデータ型を指定します |
+| `thinking` | `str` | `None` | モデルが生成した思考コンテンツ（Anthropic モデルで使用） |
+| `messages` | `List[Message]` | `None` | 応答に含まれるメッセージのリスト |
+| `metrics` | `Dict[str, Any]` | `None` | 実行の使用状況メトリクス |
+| `model` | `str` | `None` | 実行で使用されたモデル |
+| `model_provider` | `str` | `None` | 実行で使用されたモデルプロバイダー |
+| `member_responses` | `List[Union[TeamRunResponse, RunResponse]]` | `[]` | 個々のチームメンバーからの応答 |
+| `run_id` | `str` | `None` | 実行 ID |
+| `team_id` | `str` | `None` | 実行のチーム ID |
+| `session_id` | `str` | `None` | 実行のセッション ID |
+| `tools` | `List[Dict[str, Any]]` | `None` | モデルに提供されたツールのリスト |
+| `images` | `List[Image]` | `None` | メンバー実行からの画像のリスト |
+| `videos` | `List[Video]` | `None` | ビデオのリスト |
+| `audio` | `List[Audio]` | `None` | オーディオスニペットのリスト |
+| `response_audio` | `ModelResponseAudio` | `None` | モデルの生のオーディオ応答 |
+| `reasoning_content` | `str` | `None` | モデルが生成した推論コンテンツ |
+| `citations` | `Citations` | `None` | 応答で使用された引用 |
+| `created_at` | `int` | 現在のタイムスタンプ | 応答作成の Unix タイムスタンプ |
+| `extra_data` | `RunResponseExtraData` | `None` | `references`、`add_messages`、`history`、`reasoning_steps`、`reasoning_messages` のようなオプションフィールドを含む追加データ |
 
-## TeamRunResponseEvent Types
+## TeamRunResponse イベントの種類
 
-The following events are sent by the `Team.run()` function depending on the team's configuration:
+`Team.run()` 関数は、チームの設定に応じて次のイベントを送信します。
 
-### Core Events
+### コアイベント
 
-| Event Type | Description |
-|------------|-------------|
-| `TeamRunStarted` | Indicates the start of a team run |
-| `TeamRunResponseContent` | Contains the model's response text as individual chunks |
-| `TeamRunCompleted` | Signals successful completion of the team run |
-| `TeamRunError` | Indicates an error occurred during the team run |
-| `TeamRunCancelled` | Signals that the team run was cancelled |
+| イベントの種類 | 説明 |
+|---|---|
+| `TeamRunStarted` | チーム実行の開始を示します |
+| `TeamRunResponseContent` | モデルの応答テキストを個別のチャンクとして含みます |
+| `TeamRunCompleted` | チーム実行の正常な完了を示します |
+| `TeamRunError` | チーム実行中にエラーが発生したことを示します |
+| `TeamRunCancelled` | チーム実行がキャンセルされたことを示します |
 
-### Tool Events
+### ツールイベント
 
-| Event Type | Description |
-|------------|-------------|
-| `TeamToolCallStarted` | Indicates the start of a tool call |
-| `TeamToolCallCompleted` | Signals completion of a tool call, including tool call results |
+| イベントの種類 | 説明 |
+|---|---|
+| `TeamToolCallStarted` | ツール呼び出しの開始を示します |
+| `TeamToolCallCompleted` | ツール呼び出しの完了（ツール呼び出しの結果を含む）を示します |
 
-### Reasoning Events
+### 推論イベント
 
-| Event Type | Description |
-|------------|-------------|
-| `TeamReasoningStarted` | Indicates the start of the team's reasoning process |
-| `TeamReasoningStep` | Contains a single step in the reasoning process |
-| `TeamReasoningCompleted` | Signals completion of the reasoning process |
+| イベントの種類 | 説明 |
+|---|---|
+| `TeamReasoningStarted` | チームの推論プロセスの開始を示します |
+| `TeamReasoningStep` | 推論プロセスの単一ステップを含みます |
+| `TeamReasoningCompleted` | 推論プロセスの完了を示します |
 
-### Memory Events
+### メモリイベント
 
-| Event Type | Description |
-|------------|-------------|
-| `TeamMemoryUpdateStarted` | Indicates that the team is updating its memory |
-| `TeamMemoryUpdateCompleted` | Signals completion of a memory update |
+| イベントの種類 | 説明 |
+|---|---|
+| `TeamMemoryUpdateStarted` | チームがメモリを更新していることを示します |
+| `TeamMemoryUpdateCompleted` | メモリ更新の完了を示します |
 
-## Event Attributes
+## イベント属性
 
-### Base TeamRunResponseEvent
+### BaseTeamRunResponseEvent
 
-All events inherit from `BaseTeamRunResponseEvent` which provides these common attributes:
+すべてのイベントは `BaseTeamRunResponseEvent` を継承しており、以下の共通属性を提供します。
 
-| Attribute | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `created_at` | `int` | Current timestamp | Unix timestamp of the event creation |
-| `event` | `str` | Event type value | The type of event |
-| `team_id` | `str` | `""` | ID of the team generating the event |
-| `run_id` | `Optional[str]` | `None` | ID of the current run |
-| `session_id` | `Optional[str]` | `None` | ID of the current session |
-| `content` | `Optional[Any]` | `None` | For backwards compatibility |
+| 属性 | タイプ | デフォルト | 説明 |
+|---|---|---|---|
+| `created_at` | `int` | 現在のタイムスタンプ | イベント作成の Unix タイムスタンプ |
+| `event` | `str` | イベントタイプの値 | イベントの種類 |
+| `team_id` | `str` | `""` | イベントを生成したチームの ID |
+| `run_id` | `Optional[str]` | `None` | 現在の実行の ID |
+| `session_id` | `Optional[str]` | `None` | 現在のセッションの ID |
+| `content` | `Optional[Any]` | `None` | 後方互換性のため |
 
 ### RunResponseStartedEvent
 
-| Attribute | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `event` | `str` | `"TeamRunStarted"` | Event type |
-| `model` | `str` | `""` | The model being used |
-| `model_provider` | `str` | `""` | The provider of the model |
+| 属性 | タイプ | デフォルト | 説明 |
+|---|---|---|---|
+| `event` | `str` | `"TeamRunStarted"` | イベントの種類 |
+| `model` | `str` | `""` | 使用されているモデル |
+| `model_provider` | `str` | `""` | モデルのプロバイダー |
 
 ### RunResponseContentEvent
 
-| Attribute | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `event` | `str` | `"TeamRunResponseContent"` | Event type |
-| `content` | `Optional[Any]` | `None` | The content of the response |
-| `content_type` | `str` | `"str"` | Type of the content |
-| `thinking` | `Optional[str]` | `None` | Internal thoughts of the model |
-| `citations` | `Optional[Citations]` | `None` | Citations used in the response |
-| `response_audio` | `Optional[AudioResponse]` | `None` | Model's audio response |
-| `image` | `Optional[ImageArtifact]` | `None` | Image attached to the response |
-| `extra_data` | `Optional[RunResponseExtraData]` | `None` | Additional response data |
+| 属性 | タイプ | デフォルト | 説明 |
+|---|---|---|---|
+| `event` | `str` | `"TeamRunResponseContent"` | イベントの種類 |
+| `content` | `Optional[Any]` | `None` | 応答のコンテンツ |
+| `content_type` | `str` | `"str"` | コンテンツの種類 |
+| `thinking` | `Optional[str]` | `None` | モデルの内部思考 |
+| `citations` | `Optional[Citations]` | `None` | 応答で使用された引用 |
+| `response_audio` | `Optional[AudioResponse]` | `None` | モデルのオーディオ応答 |
+| `image` | `Optional[ImageArtifact]` | `None` | 応答に添付された画像 |
+| `extra_data` | `Optional[RunResponseExtraData]` | `None` | 追加の応答データ |
 
 ### RunResponseCompletedEvent
 
-| Attribute | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `event` | `str` | `"TeamRunCompleted"` | Event type |
-| `content` | `Optional[Any]` | `None` | Final content of the response |
-| `content_type` | `str` | `"str"` | Type of the content |
-| `reasoning_content` | `Optional[str]` | `None` | Reasoning content produced |
-| `thinking` | `Optional[str]` | `None` | Internal thoughts of the model |
-| `citations` | `Optional[Citations]` | `None` | Citations used in the response |
-| `images` | `Optional[List[ImageArtifact]]` | `None` | Images attached to the response |
-| `videos` | `Optional[List[VideoArtifact]]` | `None` | Videos attached to the response |
-| `audio` | `Optional[List[AudioArtifact]]` | `None` | Audio snippets attached to the response |
-| `response_audio` | `Optional[AudioResponse]` | `None` | Model's audio response |
-| `extra_data` | `Optional[RunResponseExtraData]` | `None` | Additional response data |
-| `member_responses` | `List[Union[TeamRunResponse, RunResponse]]` | `[]` | Responses from individual team members |
+| 属性 | タイプ | デフォルト | 説明 |
+|---|---|---|---|
+| `event` | `str` | `"TeamRunCompleted"` | イベントの種類 |
+| `content` | `Optional[Any]` | `None` | 応答の最終コンテンツ |
+| `content_type` | `str` | `"str"` | コンテンツの種類 |
+| `reasoning_content` | `Optional[str]` | `None` | 生成された推論コンテンツ |
+| `thinking` | `Optional[str]` | `None` | モデルの内部思考 |
+| `citations` | `Optional[Citations]` | `None` | 応答で使用された引用 |
+| `images` | `Optional[List[ImageArtifact]]` | `None` | 応答に添付された画像 |
+| `videos` | `Optional[List[VideoArtifact]]` | `None` | 添付されたビデオ |
+| `audio` | `Optional[List[AudioArtifact]]` | `None` | 添付されたオーディオスニペット |
+| `response_audio` | `Optional[AudioResponse]` | `None` | モデルのオーディオ応答 |
+| `extra_data` | `Optional[RunResponseExtraData]` | `None` | 追加の応答データ |
+| `member_responses` | `List[Union[TeamRunResponse, RunResponse]]` | `[]` | 個々のチームメンバーからの応答 |
 
 ### RunResponseErrorEvent
 
-| Attribute | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `event` | `str` | `"TeamRunError"` | Event type |
-| `content` | `Optional[Any]` | `None` | Error message |
+| 属性 | タイプ | デフォルト | 説明 |
+|---|---|---|---|
+| `event` | `str` | `"TeamRunError"` | イベントの種類 |
+| `content` | `Optional[Any]` | `None` | エラーメッセージ |
 
 ### RunResponseCancelledEvent
 
-| Attribute | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `event` | `str` | `"TeamRunCancelled"` | Event type |
-| `reason` | `Optional[str]` | `None` | Reason for cancellation |
+| 属性 | タイプ | デフォルト | 説明 |
+|---|---|---|---|
+| `event` | `str` | `"TeamRunCancelled"` | イベントの種類 |
+| `reason` | `Optional[str]` | `None` | キャンセルの理由 |
 
 
 ### ToolCallStartedEvent
 
-| Attribute | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `event` | `str` | `"TeamToolCallStarted"` | Event type |
-| `tool` | `Optional[ToolExecution]` | `None` | The tool being called |
+| 属性 | タイプ | デフォルト | 説明 |
+|---|---|---|---|
+| `event` | `str` | `"TeamToolCallStarted"` | イベントの種類 |
+| `tool` | `Optional[ToolExecution]` | `None` | 呼び出されるツール |
 
 ### ToolCallCompletedEvent
 
-| Attribute | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `event` | `str` | `"TeamToolCallCompleted"` | Event type |
-| `tool` | `Optional[ToolExecution]` | `None` | The tool that was called |
-| `content` | `Optional[Any]` | `None` | Result of the tool call |
-| `images` | `Optional[List[ImageArtifact]]` | `None` | Images produced by the tool |
-| `videos` | `Optional[List[VideoArtifact]]` | `None` | Videos produced by the tool |
-| `audio` | `Optional[List[AudioArtifact]]` | `None` | Audio produced by the tool |
+| 属性 | タイプ | デフォルト | 説明 |
+|---|---|---|---|
+| `event` | `str` | `"TeamToolCallCompleted"` | イベントの種類 |
+| `tool` | `Optional[ToolExecution]` | `None` | 呼び出されたツール |
+| `content` | `Optional[Any]` | `None` | ツール呼び出しの結果 |
+| `images` | `Optional[List[ImageArtifact]]` | `None` | ツールによって生成された画像 |
+| `videos` | `Optional[List[VideoArtifact]]` | `None` | ツールによって生成されたビデオ |
+| `audio` | `Optional[List[AudioArtifact]]` | `None` | ツールによって生成されたオーディオ |
 
 ### ReasoningStartedEvent
 
-| Attribute | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `event` | `str` | `"TeamReasoningStarted"` | Event type |
+| 属性 | タイプ | デフォルト | 説明 |
+|---|---|---|---|
+| `event` | `str` | `"TeamReasoningStarted"` | イベントの種類 |
 
 
 ### ReasoningStepEvent
 
-| Attribute | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `event` | `str` | `"TeamReasoningStep"` | Event type |
-| `content` | `Optional[Any]` | `None` | Content of the reasoning step |
-| `content_type` | `str` | `"str"` | Type of the content |
-| `reasoning_content` | `str` | `""` | Detailed reasoning content |
+| 属性 | タイプ | デフォルト | 説明 |
+|---|---|---|---|
+| `event` | `str` | `"TeamReasoningStep"` | イベントの種類 |
+| `content` | `Optional[Any]` | `None` | 推論ステップのコンテンツ |
+| `content_type` | `str` | `"str"` | コンテンツの種類 |
+| `reasoning_content` | `str` | `""` | 詳細な推論コンテンツ |
 
 ### ReasoningCompletedEvent
 
-| Attribute | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `event` | `str` | `"TeamReasoningCompleted"` | Event type |
-| `content` | `Optional[Any]` | `None` | Content of the reasoning step |
-| `content_type` | `str` | `"str"` | Type of the content |
+| 属性 | タイプ | デフォルト | 説明 |
+|---|---|---|---|
+| `event` | `str` | `"TeamReasoningCompleted"` | イベントの種類 |
+| `content` | `Optional[Any]` | `None` | 推論ステップのコンテンツ |
+| `content_type` | `str` | `"str"` | コンテンツの種類 |
 
 ### MemoryUpdateStartedEvent
 
-| Attribute | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `event` | `str` | `"TeamMemoryUpdateStarted"` | Event type |
+| 属性 | タイプ | デフォルト | 説明 |
+|---|---|---|---|
+| `event` | `str` | `"TeamMemoryUpdateStarted"` | イベントの種類 |
 
 ### MemoryUpdateCompletedEvent
 
-| Attribute | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `event` | `str` | `"TeamMemoryUpdateCompleted"` | Event type |
+| 属性 | タイプ | デフォルト | 説明 |
+|---|---|---|---|
+| `event` | `str` | `"TeamMemoryUpdateCompleted"` | イベントの種類 |

@@ -1,46 +1,43 @@
 ---
-title: What are Vector Databases?
-sidebarTitle: Overview
-description: Vector databases enable us to store information as embeddings and search for "results similar" to our input query using cosine similarity or full text search. These results are then provided to the Agent as context so it can respond in a context-aware manner using Retrieval Augmented Generation (RAG).
+title: ベクトルデータベースとは？
+sidebarTitle: 概要
+description: ベクトルデータベースを使用すると、情報を埋め込みとして保存し、コサイン類似度または全文検索を使用して入力クエリに「類似した」結果を検索できます。これらの結果は、取得拡張生成（RAG）を使用してコンテキストを認識した方法で応答できるように、エージェントにコンテキストとして提供されます。
 ---
 
-Here's how vector databases are used with Agents:
+ベクトルデータベースをエージェントと共に使用する方法は次のとおりです。
 
 <Steps>
-  <Step title="Chunk the information">
-    Break down the knowledge into smaller chunks to ensure our search query
-    returns only relevant results.
+  <Step title="情報をチャンク化する">
+    検索クエリが関連性の高い結果のみを返すように、知識をより小さなチャンクに分割します。
   </Step>
-  <Step title="Load the knowledge base">
-    Convert the chunks into embedding vectors and store them in a vector
-    database.
+  <Step title="ナレッジベースをロードする">
+    チャンクを埋め込みベクトルに変換し、ベクトルデータベースに保存します。
   </Step>
-  <Step title="Search the knowledge base">
-    When the user sends a message, we convert the input message into an
-    embedding and "search" for nearest neighbors in the vector database.
+  <Step title="ナレッジベースを検索する">
+    ユーザーがメッセージを送信すると、入力メッセージを埋め込みに変換し、ベクトルデータベース内の最近傍を「検索」します。
   </Step>
 </Steps>
 
-Many vector databases also support hybrid search, which combines the power of vector similarity search with traditional keyword-based search. This approach can significantly improve the relevance and accuracy of search results, especially for complex queries or when dealing with diverse types of data.
+多くのベクトルデータベースはハイブリッド検索もサポートしており、ベクトル類似性検索のパワーと従来のキーワードベースの検索を組み合わせています。このアプローチは、特に複雑なクエリやさまざまな種類のデータを扱う場合に、検索結果の関連性と精度を大幅に向上させることができます。
 
-Hybrid search typically works by:
+ハイブリッド検索は通常、次のように機能します。
 
-1. Performing a vector similarity search to find semantically similar content.
-2. Conducting a keyword-based search to identify exact or close matches.
-3. Combining the results using a weighted approach to provide the most relevant information.
+1. ベクトル類似性検索を実行して、意味的に類似したコンテンツを見つけます。
+2. キーワードベースの検索を実行して、正確または近い一致を特定します。
+3. 結果を重み付けされたアプローチで組み合わせることで、最も関連性の高い情報を提供します。
 
-This capability allows for more flexible and powerful querying, often yielding better results than either method alone.
+この機能により、より柔軟で強力なクエリが可能になり、多くの場合、どちらか一方の方法よりも優れた結果が得られます。
 
-<Card title="⚡ Asynchronous Operations">
-  <p>Several vector databases support asynchronous operations, offering improved performance through non-blocking operations, concurrent processing, reduced latency, and seamless integration with FastAPI and async agents.</p>
+<Card title="⚡ 非同期操作">
+  <p>いくつかのベクトルデータベースは非同期操作をサポートしており、非ブロッキング操作、同時実行処理、レイテンシの削減、FastAPIおよび非同期エージェントとのシームレスな統合を通じてパフォーマンスを向上させます。</p>
   <Tip className="mt-4">
-    When building with Agno, use the <code>aload</code> methods for async knowledge base loading in production environments.
+    Agno で構築する場合は、本番環境で非同期ナレッジベースのロードに <code>aload</code> メソッドを使用してください。
   </Tip>
 </Card>
 
-## Supported Vector Databases
+## サポートされているベクトルデータベース
 
-The following VectorDb are currently supported:
+現在サポートされている VectorDb は次のとおりです。
 
 - [PgVector](/vectordb/pgvector)\*
 - [Cassandra](/vectordb/cassandra)
@@ -55,6 +52,6 @@ The following VectorDb are currently supported:
 - [Singlestore](/vectordb/singlestore)
 - [Weaviate](/vectordb/weaviate)
 
-\*hybrid search supported
+\*ハイブリッド検索対応
 
-Each of these databases has its own strengths and features, including varying levels of support for hybrid search and async operations. Be sure to check the specific documentation for each to understand how to best leverage their capabilities in your projects.
+これらのデータベースはそれぞれ独自の強みと機能を持っており、ハイブリッド検索や非同期操作のサポートレベルも異なります。それぞれのドキュメントを確認して、プロジェクトでその機能を最大限に活用する方法を理解してください。

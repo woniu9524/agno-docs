@@ -3,11 +3,11 @@ title: E2B
 description: Enable your Agents to run code in a remote, secure sandbox.
 ---
 
-**E2BTools** enable an Agent to execute code in a secure sandboxed environment with support for Python, file operations, and web server capabilities.
+**E2BTools** は、Python、ファイル操作、Webサーバー機能をサポートする、安全なサンドボックス環境でのコード実行をエージェントに可能にします。
 
-## Prerequisites
+## 前提条件
 
-The E2B tools require the `e2b_code_interpreter` Python package and an E2B API key.
+E2Bツールには、`e2b_code_interpreter` PythonパッケージとE2B APIキーが必要です。
 
 ```shell
 pip install e2b_code_interpreter
@@ -17,9 +17,9 @@ pip install e2b_code_interpreter
 export E2B_API_KEY=your_api_key
 ```
 
-## Example
+## 例
 
-The following example demonstrates how to create an agent that can run Python code in a secure sandbox:
+以下の例は、安全なサンドボックスでPythonコードを実行できるエージェントを作成する方法を示しています。
 
 ```python cookbook/tools/e2b_tools.py
 from agno.agent import Agent
@@ -27,7 +27,7 @@ from agno.models.openai import OpenAIChat
 from agno.tools.e2b import E2BTools
 
 e2b_tools = E2BTools(
-    timeout=600,  # 10 minutes timeout (in seconds)
+    timeout=600,  # 10分間のタイムアウト（秒単位）
 )
 
 agent = Agent(
@@ -38,100 +38,100 @@ agent = Agent(
     markdown=True,
     show_tool_calls=True,
     instructions=[
-        "You are an expert at writing and validating Python code using a secure E2B sandbox environment.",
-        "Your primary purpose is to:",
-        "1. Write clear, efficient Python code based on user requests",
-        "2. Execute and verify the code in the E2B sandbox",
-        "3. Share the complete code with the user, as this is the main use case",
-        "4. Provide thorough explanations of how the code works",
+        "あなたは、安全なE2Bサンドボックス環境を使用してPythonコードを作成および検証する専門家です。",
+        "あなたの主な目的は次のとおりです:",
+        "1. ユーザーのリクエストに基づいて、明確で効率的なPythonコードを作成する",
+        "2. E2Bサンドボックスでコードを実行および検証する",
+        "3. コード全体をユーザーと共有する（これが主なユースケースです）",
+        "4. コードの仕組みについて詳細な説明を提供する",
         "",
-        "You can use these tools:",
-        "1. Run Python code (run_python_code)",
-        "2. Upload files to the sandbox (upload_file)",
-        "3. Download files from the sandbox (download_file_from_sandbox)",
-        "4. Generate and add visualizations as image artifacts (download_png_result)",
-        "5. List files in the sandbox (list_files)",
-        "6. Read and write file content (read_file_content, write_file_content)",
-        "7. Start web servers and get public URLs (run_server, get_public_url)",
-        "8. Manage the sandbox lifecycle (set_sandbox_timeout, get_sandbox_status, shutdown_sandbox)",
+        "これらのツールを使用できます:",
+        "1. Pythonコードの実行 (run_python_code)",
+        "2. サンドボックスへのファイルのアップロード (upload_file)",
+        "3. サンドボックスからのファイルのダウンロード (download_file_from_sandbox)",
+        "4. 可視化を画像アーティファクトとして生成および追加する (download_png_result)",
+        "5. サンドボックス内のファイルを一覧表示する (list_files)",
+        "6. ファイルの内容の読み書きを行う (read_file_content, write_file_content)",
+        "7. Webサーバーを起動し、公開URLを取得する (run_server, get_public_url)",
+        "8. サンドボックスのライフサイクルを管理する (set_sandbox_timeout, get_sandbox_status, shutdown_sandbox)",
     ],
 )
 
-# Example: Generate Fibonacci numbers
+# 例：フィボナッチ数を生成する
 agent.print_response(
-    "Write Python code to generate the first 10 Fibonacci numbers and calculate their sum and average"
+    "最初の10個のフィボナッチ数を生成し、その合計と平均を計算するPythonコードを記述してください"
 )
 
 ```
 
-## Toolkit Params
+## Toolkit パラメータ
 
-| Parameter            | Type   | Default | Description                                        |
-| -------------------- | ------ | ------- | -------------------------------------------------- |
-| `api_key`            | `str`  | `None`  | E2B API key. If not provided, uses E2B_API_KEY env var. |
-| `run_code`           | `bool` | `True`  | Whether to register the run_code function          |
-| `upload_file`        | `bool` | `True`  | Whether to register the upload_file function       |
-| `download_result`    | `bool` | `True`  | Whether to register the download_result functions  |
-| `filesystem`         | `bool` | `False` | Whether to register filesystem operations          |
-| `internet_access`    | `bool` | `False` | Whether to register internet access functions      |
-| `sandbox_management` | `bool` | `False` | Whether to register sandbox management functions   |
-| `timeout`            | `int`  | `300`   | Timeout in seconds for the sandbox (default: 5 minutes) |
-| `sandbox_options`    | `dict` | `None`  | Additional options to pass to the Sandbox constructor |
-| `command_execution`  | `bool` | `False` | Whether to register command execution functions    |
+| パラメータ            | タイプ   | デフォルト | 説明                                                              |
+| -------------------- | ------- | ------- | ----------------------------------------------------------------- |
+| `api_key`            | `str`  | `None`  | E2B APIキー。指定しない場合は、E2B_API_KEY環境変数を使用します。 |
+| `run_code`           | `bool` | `True`  | `run_code`関数を登録するかどうか                                  |
+| `upload_file`        | `bool` | `True`  | `upload_file`関数を登録するかどうか                               |
+| `download_result`    | `bool` | `True`  | `download_result`関数を登録するかどうか                           |
+| `filesystem`         | `bool` | `False` | ファイルシステム操作を登録するかどうか                            |
+| `internet_access`    | `bool` | `False` | インターネットアクセス関数を登録するかどうか                      |
+| `sandbox_management` | `bool` | `False` | サンドボックス管理関数を登録するかどうか                          |
+| `timeout`            | `int`  | `300`   | サンドボックスのタイムアウト（秒単位）（デフォルト：5分）         |
+| `sandbox_options`    | `dict` | `None`  | Sandboxコンストラクタに渡す追加オプション                       |
+| `command_execution`  | `bool` | `False` | コマンド実行関数を登録するかどうか                                |
 
-## Toolkit Functions
+## Toolkit 関数
 
-### Code Execution
+### コード実行
 
-| Function           | Description                                                  |
-| ------------------ | ------------------------------------------------------------ |
-| `run_python_code`  | Run Python code in the E2B sandbox environment               |
+| 関数           | 説明                                           |
+| -------------- | ---------------------------------------------- |
+| `run_python_code`  | E2Bサンドボックス環境でPythonコードを実行する |
 
-### File Operations
+### ファイル操作
 
-| Function                     | Description                                              |
-| ---------------------------- | -------------------------------------------------------- |
-| `upload_file`                | Upload a file to the sandbox                             |
-| `download_png_result`        | Add a PNG image result as an ImageArtifact to the agent  |
-| `download_chart_data`        | Extract chart data from an interactive chart in results  |
-| `download_file_from_sandbox` | Download a file from the sandbox to the local system     |
+| 関数                     | 説明                                                              |
+| ------------------------ | ----------------------------------------------------------------- |
+| `upload_file`                | サンドボックスにファイルをアップロードする                                |
+| `download_png_result`        | PNG画像をエージェントのImageArtifactとして追加する                     |
+| `download_chart_data`        | 結果のインタラクティブチャートからチャートデータを抽出する                   |
+| `download_file_from_sandbox` | サンドボックスからローカルシステムにファイルをダウンロードする                   |
 
-### Filesystem Operations
+### ファイルシステム操作
 
-| Function             | Description                                              |
-| -------------------- | -------------------------------------------------------- |
-| `list_files`         | List files and directories in a path in the sandbox      |
-| `read_file_content`  | Read the content of a file from the sandbox              |
-| `write_file_content` | Write text content to a file in the sandbox              |
-| `watch_directory`    | Watch a directory for changes for a specified duration   |
+| 関数             | 説明                                                 |
+| ---------------- | ---------------------------------------------------- |
+| `list_files`         | サンドボックス内のパスにあるファイルとディレクトリを一覧表示する |
+| `read_file_content`  | サンドボックスからファイルのコンテンツを読み取る                 |
+| `write_file_content` | サンドボックス内のファイルにテキストコンテンツを書き込む           |
+| `watch_directory`    | 指定された期間、ディレクトリの変更を監視する                   |
 
-### Command Execution
+### コマンド実行
 
-| Function                | Description                                             |
-| ----------------------- | ------------------------------------------------------- |
-| `run_command`           | Run a shell command in the sandbox environment          |
-| `stream_command`        | Run a shell command and stream its output               |
-| `run_background_command`| Run a shell command in the background                   |
-| `kill_background_command`| Kill a background command                              |
+| 関数                | 説明                                           |
+| ------------------- | ---------------------------------------------- |
+| `run_command`           | サンドボックス環境でシェルコマンドを実行する             |
+| `stream_command`        | シェルコマンドを実行し、その出力をストリーミングする     |
+| `run_background_command`| シェルコマンドをバックグラウンドで実行する             |
+| `kill_background_command`| バックグラウンドコマンドを終了する                   |
 
-### Internet Access
+### インターネットアクセス
 
-| Function           | Description                                                  |
-| ------------------ | ------------------------------------------------------------ |
-| `get_public_url`   | Get a public URL for a service running in the sandbox        |
-| `run_server`       | Start a server in the sandbox and return its public URL      |
+| 関数           | 説明                                                 |
+| -------------- | ---------------------------------------------------- |
+| `get_public_url`   | サンドボックスで実行中のサービスに公開URLを取得する       |
+| `run_server`       | サンドボックスでサーバーを起動し、その公開URLを返す     |
 
-### Sandbox Management
+### サンドボックス管理
 
-| Function                | Description                                             |
-| ----------------------- | ------------------------------------------------------- |
-| `set_sandbox_timeout`   | Update the timeout for the sandbox                      |
-| `get_sandbox_status`    | Get the current status of the sandbox                   |
-| `shutdown_sandbox`      | Shutdown the sandbox immediately                        |
-| `list_running_sandboxes`| List all running sandboxes                              |
+| 関数                | 説明                                           |
+| ------------------- | ---------------------------------------------- |
+| `set_sandbox_timeout`   | サンドボックスのタイムアウトを更新する             |
+| `get_sandbox_status`    | サンドボックスの現在のステータスを取得する           |
+| `shutdown_sandbox`      | サンドボックスを直ちにシャットダウンする             |
+| `list_running_sandboxes`| 実行中のすべてのサンドボックスを一覧表示する         |
 
 
-## Developer Resources
+## 開発者向けリソース
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/e2b.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/e2b_tools.py)
+- [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/e2b.py)を表示
+- [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/e2b_tools.py)を表示

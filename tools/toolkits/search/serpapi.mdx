@@ -2,11 +2,11 @@
 title: Serpapi
 ---
 
-**SerpApiTools** enable an Agent to search Google and YouTube for a query.
+**SerpApiTools** を使用すると、エージェントがクエリをGoogleおよびYouTubeで検索できるようになります。
 
-## Prerequisites
+## 前提条件
 
-The following example requires the `google-search-results` library and an API key from [SerpApi](https://serpapi.com/).
+次の例では、`google-search-results` ライブラリと [SerpApi](https://serpapi.com/) からのAPIキーが必要です。
 
 ```shell
 pip install -U google-search-results
@@ -16,9 +16,9 @@ pip install -U google-search-results
 export SERP_API_KEY=***
 ```
 
-## Example
+## 例
 
-The following agent will search Google for the query: "Whats happening in the USA" and share results.
+次のエージェントは、クエリ「Whats happening in the USA」をGoogleで検索し、結果を共有します。
 
 ```python cookbook/tools/serpapi_tools.py
 from agno.agent import Agent
@@ -30,19 +30,19 @@ agent.print_response("Whats happening in the USA?", markdown=True)
 
 ## Toolkit Params
 
-| Parameter        | Type   | Default | Description                                                 |
-| ---------------- | ------ | ------- | ----------------------------------------------------------- |
-| `api_key`        | `str`  | -       | API key for authentication purposes.                        |
-| `search_youtube` | `bool` | `False` | Enables the functionality to search for content on YouTube. |
+| パラメータ      | タイプ   | デフォルト | 説明                                       |
+| --------------- | ------ | ------- | ------------------------------------------ |
+| `api_key`       | `str`  | -       | 認証用のAPIキー。                          |
+| `search_youtube` | `bool` | `False` | YouTubeでコンテンツを検索する機能を有効にします。 |
 
 ## Toolkit Functions
 
-| Function         | Description                                |
-| ---------------- | ------------------------------------------ |
-| `search_google`  | This function searches Google for a query. |
-| `search_youtube` | Searches YouTube for a query.              |
+| 関数           | 説明                               |
+| -------------- | ---------------------------------- |
+| `search_google` | この関数はGoogleでクエリを検索します。 |
+| `search_youtube` | クエリをYouTubeで検索します。        |
 
 ## Developer Resources
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/serpapi.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/serpapi_tools.py)
+- [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/serpapi.py) を表示
+- [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/serpapi_tools.py) を表示

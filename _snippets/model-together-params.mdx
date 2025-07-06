@@ -1,8 +1,8 @@
-| Parameter      | Type            | Default                                  | Description                                                                                       |
-| -------------- | --------------- | ---------------------------------------- | ------------------------------------------------------------------------------------------------- |
-| `id`           | `str`           | `"mistralai/Mixtral-8x7B-Instruct-v0.1"` | The id of the Together model to use.                                                              |
-| `name`         | `str`           | `"Together"`                             | The name of this chat model instance.                                                             |
-| `provider`     | `str`           | `"Together " + id`                       | The provider of the model.                                                                        |
-| `api_key`      | `Optional[str]` | `None`                                   | The API key to authorize requests to Together. Defaults to environment variable TOGETHER_API_KEY. |
-| `base_url`     | `str`           | `"https://api.together.xyz/v1"`          | The base URL for API requests.                                                                    |
-| `monkey_patch` | `bool`          | `False`                                  | Whether to apply monkey patching.                                                                 |
+| パラメータ      | タイプ            | デフォルト                               | 説明                                                                                                |
+| -------------- | --------------- | ---------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| `id`           | `str`           | `"mistralai/Mixtral-8x7B-Instruct-v0.1"` | 使用する Together モデルの ID。                                                                    |
+| `name`         | `str`           | `"Together"`                             | このチャットモデルインスタンスの名前。                                                              |
+| `provider`     | `str`           | `"Together " + id`                       | モデルのプロバイダー。                                                                              |
+| `api_key`      | `Optional[str]` | `None`                                   | Together へのリクエストを承認するための API キー。デフォルトは環境変数 TOGETHER_API_KEY です。 |
+| `base_url`     | `str`           | `"https://api.together.xyz/v1"`          | API リクエストの基本 URL。                                                                          |
+| `monkey_patch` | `bool`          | `False`                                  | モンキーパッチを適用するかどうか。                                                                  |

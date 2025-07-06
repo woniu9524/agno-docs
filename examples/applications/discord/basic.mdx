@@ -2,7 +2,7 @@
 title: Basic
 ---
 
-## Code
+## コード
 
 ```python cookbook/apps/discord/basic.py
 from agno.agent import Agent
@@ -22,25 +22,25 @@ if __name__ == "__main__":
     discord_agent.serve()
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API keys">
+  <Step title="API キーの設定">
     ```bash
     export OPENAI_API_KEY=xxx
     export DISCORD_BOT_TOKEN=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="ライブラリのインストール">
     ```bash
     pip install -U agno openai discord.py
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="エージェントの実行">
     <CodeGroup>
     ```bash Mac
     python cookbook/apps/discord/basic.py

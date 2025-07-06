@@ -1,26 +1,25 @@
 ---
 title: ScrapeGraph
-description: Agno ScrapeGraphTools enable an Agent to extract structured data from webpages for LLMs in markdown format.
+description: Agno ScrapeGraphTools を使用すると、エージェントはウェブページから構造化されたデータを LLM 向けにマークダウン形式で抽出できます。
 ---
 
+## 前提条件
 
-## Prerequisites
-
-The following examples require the `scrapegraph-py` library.
+以下の例では、`scrapegraph-py` ライブラリが必要です。
 
 ```shell
 pip install -U scrapegraph-py
 ```
 
-Optionally, if your ScrapeGraph configuration or specific models require an API key, set the `SGAI_API_KEY` environment variable:
+オプションで、ScrapeGraph の設定または特定のモデルが API キーを必要とする場合は、`SGAI_API_KEY` 環境変数を設定してください。
 
 ```shell
 export SGAI_API_KEY="YOUR_SGAI_API_KEY"
 ```
 
-## Example
+## 例
 
-The following agent uses `ScrapeGraphTools` to extract specific information from a webpage using the `smartscraper` functionality.
+以下のエージェントは、`ScrapeGraphTools` を使用して、`smartscraper` 機能を使用してウェブページから特定の情報を抽出します。
 
 ```python
 from agno.agent import Agent
@@ -32,34 +31,34 @@ agent = Agent(
 )
 
 agent.print_response("""
-    "Use smartscraper to extract the following from https://www.wired.com/category/science/:
-- News articles
-- Headlines
-- Images
-- Links
-- Author
+    "https://www.wired.com/category/science/ から以下の情報を smartscraper を使用して抽出してください:
+- ニュース記事
+- 見出し
+- 画像
+- リンク
+- 著者
 """,
 )
 ```
 
-## Toolkit Functions
+## ツールキット関数
 
-| Function       | Description                                                                    |
-| -------------- | ------------------------------------------------------------------------------ |
-| `smartscraper` | Extracts structured data from a webpage using an LLM and a natural language prompt. Returns a JSON string of the result or an error. |
-| `markdownify`  | Converts a webpage to markdown format. Returns the markdown string or an error.   |
+| 関数       | 説明                                                                                             |
+| -------------- | ------------------------------------------------------------------------------------------------ |
+| `smartscraper` | LLM と自然言語プロンプトを使用して、ウェブページから構造化されたデータを抽出します。結果の JSON 文字列またはエラーを返します。 |
+| `markdownify`  | ウェブページをマークダウン形式に変換します。マークダウン文字列またはエラーを返します。                               |
 
-## Toolkit Parameters
+## ツールキットパラメータ
 
-These parameters are passed to the `ScrapeGraphTools` constructor.
+これらのパラメータは、`ScrapeGraphTools` コンストラクタに渡されます。
 
-| Parameter      | Type            | Default | Description                                                                                                                             |
+| パラメータ      | タイプ            | デフォルト | 説明                                                                                                                             |
 | -------------- | --------------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------- |
-| `api_key`      | `Optional[str]` | `None`  | API key for ScrapeGraph services. If not provided, it defaults to the `SGAI_API_KEY` environment variable.                             |
-| `smartscraper` | `bool`          | `True`  | Enable the `smartscraper` tool.                                                                                                         |
-| `markdownify`  | `bool`          | `False` | Enable the `markdownify` tool. |
+| `api_key`      | `Optional[str]` | `None`  | ScrapeGraph サービス用の API キー。指定しない場合、`SGAI_API_KEY` 環境変数からデフォルト値が使用されます。                             |
+| `smartscraper` | `bool`          | `True`  | `smartscraper` ツールを有効にします。                                                                                                         |
+| `markdownify`  | `bool`          | `False` | `markdownify` ツールを有効にします。 |
 
-## Developer Resources
+## 開発者向けリソース
 
-- View [Tools Source](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/scrapegraph.py)
-- View [Cookbook Example](https://github.com/agno-agi/agno/blob/main/cookbook/tools/scrapegraph_tools.py) 
+- [Tools Source](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/scrapegraph.py) を表示
+- [Cookbook Example](https://github.com/agno-agi/agno/blob/main/cookbook/tools/scrapegraph_tools.py) を表示

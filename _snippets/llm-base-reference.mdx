@@ -1,16 +1,15 @@
-
-| Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `model` | `str` | - | ID of the model to use. |
-| `name` | `str` | - | Name for this LLM. Note: This is not sent to the LLM API. |
-| `metrics` | `Dict[str, Any]` | - | Metrics collected for this LLM. Note: This is not sent to the LLM API. |
-| `response_format` | `Any` | - | Format of the response. |
-| `tools` | `List[Union[Tool, Dict]]` | - | A list of tools provided to the LLM. Tools are functions the model may generate JSON inputs for. If you provide a dict, it is not called by the model. Always add tools using the `add_tool()` method. |
-| `tool_choice` | `Union[str, Dict[str, Any]]` | - | Controls which (if any) function is called by the model. `"none"` means the model will not call a function and instead generates a message. `"auto"` means the model can pick between generating a message or calling a function. Specifying a particular function via `{"type": "function", "function": {"name": "my_function"}}` forces the model to call that function. `"none"` is the default when no functions are present. `"auto"` is the default if functions are present. |
-| `run_tools` | `bool` | `True` | If True, runs tools. |
-| `show_tool_calls` | `bool` | - | If True, shows tool calls in the response. |
-| `functions` | `Dict[str, Function]` | - | Functions extracted from the tools. Note: These are not sent to the LLM API and are only used for execution. |
-| `function_call_limit` | `int` | `20` | Maximum number of function calls allowed. |
-| `function_call_stack` | `List[FunctionCall]` | - | Stack of function calls. |
-| `system_prompt` | `str` | - | System prompt provided to the LLM. |
-| `instructions` | `str` | - | Instructions provided to the LLM. |
+| パラメータ | タイプ | デフォルト | 説明 |
+|---|---|---|---|
+| `model` | `str` | - | 使用するモデルのID。 |
+| `name` | `str` | - | このLLMの名前。注意: これはLLM APIに送信されません。 |
+| `metrics` | `Dict[str, Any]` | - | このLLMのために収集されたメトリクス。注意: これはLLM APIに送信されません。 |
+| `response_format` | `Any` | - | レスポンスのフォーマット。 |
+| `tools` | `List[Union[Tool, Dict]]` | - | LLMに提供されるツールのリスト。ツールは、モデルがJSON入力を生成できる関数です。辞書を提供する場合、モデルによって呼び出されません。常に `add_tool()` メソッドを使用してツールを追加してください。 |
+| `tool_choice` | `Union[str, Dict[str, Any]]` | - | モデルによって呼び出される関数（または関数がない場合）を制御します。`"none"` は、モデルが関数を呼び出さず、代わりにメッセージを生成することを意味します。`"auto"` は、モデルがメッセージの生成または関数の呼び出しを選択できることを意味します。`{"type": "function", "function": {"name": "my_function"}}` を介して特定の関数を指定すると、モデルはその関数を呼び出すように強制されます。関数が存在しない場合は `"none"` がデフォルトです。関数が存在する場合は `"auto"` がデフォルトです。 |
+| `run_tools` | `bool` | `True` | Trueの場合、ツールを実行します。 |
+| `show_tool_calls` | `bool` | - | Trueの場合、レスポンスでツール呼び出しを表示します。 |
+| `functions` | `Dict[str, Function]` | - | ツールから抽出された関数。注意: これらはLLM APIに送信されず、実行にのみ使用されます。 |
+| `function_call_limit` | `int` | `20` | 許可される最大関数呼び出し数。 |
+| `function_call_stack` | `List[FunctionCall]` | - | 関数呼び出しのスタック。 |
+| `system_prompt` | `str` | - | LLMに提供されるシステムプロンプト。 |
+| `instructions` | `str` | - | LLMに提供される指示。 |

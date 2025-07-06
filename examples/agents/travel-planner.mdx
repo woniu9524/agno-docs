@@ -2,17 +2,14 @@
 title: Travel Agent
 ---
 
-This example shows how to create a sophisticated travel planning agent that provides
-comprehensive itineraries and recommendations. The agent combines destination research,
-accommodation options, activities, and local insights to deliver personalized travel plans
-for any type of trip.
+この例では、包括的な旅程と推奨事項を提供する洗練された旅行計画エージェントの作成方法を示します。このエージェントは、目的地のリサーチ、宿泊施設のオプション、アクティビティ、現地の情報などを組み合わせて、あらゆるタイプの旅行にパーソナライズされた旅行計画を提供します。
 
-Example prompts to try:
-- "Plan a 5-day cultural exploration trip to Kyoto for a family of 4"
-- "Create a romantic weekend getaway in Paris with a $2000 budget"
-- "Organize a 7-day adventure trip to New Zealand for solo travel"
-- "Design a tech company offsite in Barcelona for 20 people"
-- "Plan a luxury honeymoon in Maldives for 10 days"
+試すためのプロンプト例：
+- 「4人家族向けの京都での5日間の文化探訪旅行を計画してください」
+- 「予算2000ドルでパリでのロマンチックな週末旅行を作成してください」
+- 「一人旅向けのニュージーランドでの7日間の冒険旅行を企画してください」
+- 「バルセロナでのテクノロジー企業のオフサイトを20人向けにデザインしてください」
+- 「モルディブでの10日間の豪華なハネムーンを計画してください」
 
 ```python travel_planner.py
 from textwrap import dedent
@@ -27,75 +24,75 @@ travel_agent = Agent(
     tools=[ExaTools()],
     markdown=True,
     description=dedent("""\
-        You are Globe Hopper, an elite travel planning expert with decades of experience! 🌍
+        あなたは、数十年の経験を持つエリート旅行計画の専門家、Globe Hopperです！🌍
 
-        Your expertise encompasses:
-        - Luxury and budget travel planning
-        - Corporate retreat organization
-        - Cultural immersion experiences
-        - Adventure trip coordination
-        - Local cuisine exploration
-        - Transportation logistics
-        - Accommodation selection
-        - Activity curation
-        - Budget optimization
-        - Group travel management"""),
+        あなたの専門知識は以下を網羅しています：
+        - 高級旅行と格安旅行の計画
+        - 法人研修旅行の企画
+        - 文化体験
+        - アドベンチャートラベルの手配
+        - 現地料理の探索
+        - 交通手段の手配
+        - 宿泊施設の選定
+        - アクティビティのキュレーション
+        - 予算の最適化
+        - グループ旅行の管理"""),
     instructions=dedent("""\
-        Approach each travel plan with these steps:
+        各旅行計画には、これらのステップでアプローチしてください：
 
-        1. Initial Assessment 🎯
-           - Understand group size and dynamics
-           - Note specific dates and duration
-           - Consider budget constraints
-           - Identify special requirements
-           - Account for seasonal factors
+        1. 初期評価 🎯
+           - グループの規模とダイナミクスを理解する
+           - 特定の日付と期間を記録する
+           - 予算の制約を考慮する
+           - 特別な要件を特定する
+           - 季節的要因を考慮する
 
-        2. Destination Research 🔍
-           - Use Exa to find current information
-           - Verify operating hours and availability
-           - Check local events and festivals
-           - Research weather patterns
-           - Identify potential challenges
+        2. 目的地のリサーチ 🔍
+           - Exaを使用して最新情報を検索する
+           - 営業時間と空き状況を確認する
+           - 現地のイベントやお祭りをチェックする
+           - 天候パターンをリサーチする
+           - 潜在的な課題を特定する
 
-        3. Accommodation Planning 🏨
-           - Select locations near key activities
-           - Consider group size and preferences
-           - Verify amenities and facilities
-           - Include backup options
-           - Check cancellation policies
+        3. 宿泊施設の計画 🏨
+           - 主要なアクティビティに近い場所を選ぶ
+           - グループの規模と好みを考慮する
+           - アメニティと設備を確認する
+           - 代替案を含める
+           - キャンセルポリシーを確認する
 
-        4. Activity Curation 🎨
-           - Balance various interests
-           - Include local experiences
-           - Consider travel time between venues
-           - Add flexible backup options
-           - Note booking requirements
+        4. アクティビティのキュレーション 🎨
+           - さまざまな興味のバランスを取る
+           - 現地の体験を含める
+           - 会場間の移動時間を考慮する
+           - 柔軟な代替案を追加する
+           - 予約要件を記録する
 
-        5. Logistics Planning 🚗
-           - Detail transportation options
-           - Include transfer times
-           - Add local transport tips
-           - Consider accessibility
-           - Plan for contingencies
+        5. 物流計画 🚗
+           - 交通手段の詳細を記載する
+           - 移動時間を記載する
+           - 現地の交通に関するヒントを追加する
+           - アクセシビリティを考慮する
+           - 緊急時の計画を立てる
 
-        6. Budget Breakdown 💰
-           - Itemize major expenses
-           - Include estimated costs
-           - Add budget-saving tips
-           - Note potential hidden costs
-           - Suggest money-saving alternatives
+        6. 予算の内訳 💰
+           - 主要な費用を項目別に記載する
+           - 見積もり費用を含める
+           - 予算節約のヒントを含める
+           - 隠れた費用に注意する
+           - 費用を節約できる代替案を提案する
 
-        Presentation Style:
-        - Use clear markdown formatting
-        - Present day-by-day itinerary
-        - Include maps when relevant
-        - Add time estimates for activities
-        - Use emojis for better visualization
-        - Highlight must-do activities
-        - Note advance booking requirements
-        - Include local tips and cultural notes"""),
+        プレゼンテーションスタイル：
+        - 明確なマークダウンフォーマットを使用する
+        - 日ごとの旅程を提示する
+        - 関連する場合は地図を含める
+        - アクティビティの時間見積もりを使用する
+        - 視覚化を向上させるために絵文字を使用する
+        - おすすめのアクティビティを強調する
+        - 事前予約が必要なものを記録する
+        - 現地のヒントと文化的な注釈を含める"""),
     expected_output=dedent("""\
-        # {Destination} Travel Itinerary 🌎
+        # {Destination} 旅行 itinerary 🌎
 
         ## Overview
         - **Dates**: {dates}
@@ -104,17 +101,17 @@ travel_agent = Agent(
         - **Trip Style**: {style}
 
         ## Accommodation 🏨
-        {Detailed accommodation options with pros and cons}
+        {詳細な宿泊施設のオプションと長所・短所}
 
         ## Daily Itinerary
 
         ### Day 1
-        {Detailed schedule with times and activities}
+        {時間とアクティビティの詳細なスケジュール}
 
         ### Day 2
-        {Detailed schedule with times and activities}
+        {時間とアクティビティの詳細なスケジュール}
 
-        [Continue for each day...]
+        [各日について続ける...]
 
         ## Budget Breakdown 💰
         - Accommodation: {cost}
@@ -124,13 +121,13 @@ travel_agent = Agent(
         - Miscellaneous: {cost}
 
         ## Important Notes ℹ️
-        {Key information and tips}
+        {重要な情報とヒント}
 
         ## Booking Requirements 📋
-        {What needs to be booked in advance}
+        {事前に予約する必要があるもの}
 
         ## Local Tips 🗺️
-        {Insider advice and cultural notes}
+        {インサイダーのアドバイスと文化的な注釈}
 
         ---
         Created by Globe Hopper
@@ -139,40 +136,38 @@ travel_agent = Agent(
     show_tool_calls=True,
 )
 
-# Example usage with different types of travel queries
+# 様々な種類の旅行クエリでの使用例
 if __name__ == "__main__":
     travel_agent.print_response(
-        "I want to plan an offsite for 14 people for 3 days (28th-30th March) in London "
-        "within 10k dollars each. Please suggest options for places to stay, activities, "
-        "and co-working spaces with a detailed itinerary including transportation.",
+        "ロンドンで3日間（3月28日〜30日）のオフサイトを14人分、1人あたり1万ドル以内で計画したいです。宿泊施設、アクティビティ、共同作業スペースのオプションと、交通手段を含む詳細な旅程を提案してください。",
         stream=True,
     )
 
-# More example prompts to explore:
+# 探索するための追加のプロンプト例：
 """
 Corporate Events:
-1. "Plan a team-building retreat in Costa Rica for 25 people"
-2. "Organize a tech conference after-party in San Francisco"
-3. "Design a wellness retreat in Bali for 15 employees"
-4. "Create an innovation workshop weekend in Stockholm"
+1. 「コスタリカでのチームビルディングリトリートを25人分計画してください」
+2. 「サンフランシスコでのテックカンファレンスのアフターパーティーを企画してください」
+3. 「バリ島での従業員15人向けウェルネスリトリートをデザインしてください」
+4. 「ストックホルムでのイノベーションワークショップ週末を作成してください」
 
 Cultural Experiences:
-1. "Plan a traditional arts and crafts tour in Kyoto"
-2. "Design a food and wine exploration in Tuscany"
-3. "Create a historical journey through Ancient Rome"
-4. "Organize a festival-focused trip to India"
+1. 「京都での伝統工芸ツアーを計画してください」
+2. 「トスカーナでの食とワインの探索をデザインしてください」
+3. 「古代ローマを通る歴史の旅を作成してください」
+4. 「インドでのフェスティバル中心の旅行を企画してください」
 
 Adventure Travel:
-1. "Plan a hiking expedition in Patagonia"
-2. "Design a safari experience in Tanzania"
-3. "Create a diving trip in the Great Barrier Reef"
-4. "Organize a winter sports adventure in the Swiss Alps"
+1. 「パタゴニアでのハイキング遠征を計画してください」
+2. 「タンザニアでのサファリ体験をデザインしてください」
+3. 「グレートバリアリーフでのダイビング旅行を作成してください」
+4. 「スイスアルプスでのウィンタースポーツアドベンチャーを企画してください」
 
 Luxury Experiences:
-1. "Plan a luxury wellness retreat in the Maldives"
-2. "Design a private yacht tour of the Greek Islands"
-3. "Create a gourmet food tour in Paris"
-4. "Organize a luxury train journey through Europe"
+1. 「モルディブでの豪華ウェルネスリトリートを計画してください」
+2. 「ギリシャ諸島のプライベートヨットツアーをデザインしてください」
+3. 「パリでのグルメフードツアーを作成してください」
+4. 「ヨーロッパでの豪華列車旅行を企画してください」
 """
 ```
 ## Usage

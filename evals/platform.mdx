@@ -1,30 +1,30 @@
 ---
-title: Evals on the Agno platform
-description: You can track your evaluation runs on the Agno platform
-sidebarTitle: Platform
+title: Agnoプラットフォームでの評価
+description: Agnoプラットフォームで評価実行を追跡できます
+sidebarTitle: プラットフォーム
 ---
 
 <img height="200" src="/images/accuracy-eval-on-platform.png" style={{ borderRadius: "8px" }} />
 
 
-## Track your evaluations
+## 評価の追跡
 
-Apart from running your evaluations on the CLI, you can also track them on the Agno platform. This is useful to keep track of results and share them with your team.
-Do it following these steps:
+CLIで評価を実行するだけでなく、Agnoプラットフォームでも追跡できます。これは、結果を追跡し、チームと共有するのに役立ちます。
+次の手順で実行してください。
 
 <Steps>
 
-<Step title="Authenticate">
-  You can authenticate using your CLI or API key.
+<Step title="認証">
+  CLIまたはAPIキーを使用して認証できます。
 
-  **Using your CLI:**
+  **CLIを使用する場合:**
 ```bash
 ag setup
 ```
 
-**Using your API key:**
+**APIキーを使用する場合:**
 
-Get your API key from [Agno App](https://app.agno.com/settings) and use it to link your locally running agents to the Agno platform.
+[Agno App](https://app.agno.com/settings)からAPIキーを取得し、ローカルで実行中のエージェントをAgnoプラットフォームにリンクするために使用します。
 
 ```bash
 export AGNO_API_KEY=your_api_key_here
@@ -32,8 +32,8 @@ export AGNO_API_KEY=your_api_key_here
 
 </Step>
 
-<Step title="Track your evaluations">
-  When running an evaluation, set `monitoring=True` to track all its runs on the Agno platform:
+<Step title="評価の追跡">
+  評価を実行する際に、`monitoring=True`を設定すると、すべての実行がAgnoプラットフォームで追跡されます。
   ```python
 from agno.agent import Agent
 from agno.eval.accuracy import AccuracyEval
@@ -44,20 +44,20 @@ evaluation = AccuracyEval(
     agent=Agent(model=OpenAIChat(id="gpt-4o")),
     input="What is 10*5 then to the power of 2? do it step by step",
     expected_output="2500",
-    monitoring=True, # This activates monitoring
+    monitoring=True, # これにより監視がアクティブになります
 )
 
-# This run will be tracked on the Agno platform
+# この実行はAgnoプラットフォームで追跡されます
 result = evaluation.run(print_results=True)
   ```
 
-  You can also set the `AGNO_MONITOR` environment variable to `true` to track all evaluation runs.
+  `AGNO_MONITOR`環境変数を`true`に設定することでも、すべての評価実行を追跡できます。
 </Step>
 
-<Step title="View your evaluations">
-    You can now view your evaluations on the Agno platform at [app.agno.com/evaluations](https://app.agno.com/evaluations).
+<Step title="評価の表示">
+    これで、[app.agno.com/evaluations](https://app.agno.com/evaluations)のAgnoプラットフォームで評価を表示できます。
 </Step>
 </Steps>
 
 
-<Info>Facing issues? Check out our [troubleshooting guide](/faq/cli-auth)</Info>
+<Info>問題が発生しましたか？ [トラブルシューティングガイド](/faq/cli-auth)をご覧ください。</Info>

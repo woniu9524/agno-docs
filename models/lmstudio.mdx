@@ -1,28 +1,28 @@
 ---
 title: LM Studio
-description: Learn how to use LM Studio with Agno.
+description: Agno で LM Studio を使用する方法を学びます。
 ---
 
-Run Large Language Models locally with LM Studio
+LM Studio で大規模言語モデルをローカルで実行する
 
-[LM Studio](https://lmstudio.ai) is a fantastic tool for running models locally.
+[LM Studio](https://lmstudio.ai) は、モデルをローカルで実行するための優れたツールです。
 
-LM Studio supports multiple open-source models. See the library [here](https://lmstudio.ai/models).
+LM Studio は複数のオープンソースモデルをサポートしています。ライブラリは[こちら](https://lmstudio.ai/models)で確認できます。
 
-We recommend experimenting to find the best-suited model for your use-case. Here are some general recommendations:
+ユースケースに最適なモデルを見つけるために、実験することをお勧めします。一般的な推奨事項を以下に示します。
 
-- `llama3.3` models are good for most basic use-cases.
-- `qwen` models perform specifically well with tool use.
-- `deepseek-r1` models have strong reasoning capabilities.
-- `phi4` models are powerful, while being really small in size.
+- `llama3.3` モデルは、ほとんどの基本的なユースケースに適しています。
+- `qwen` モデルは、ツール使用で特に優れたパフォーマンスを発揮します。
+- `deepseek-r1` モデルは、強力な推論能力を備えています。
+- `phi4` モデルは、非常に小さいサイズでありながら強力です。
 
-## Set up a model
+## モデルの設定
 
-Install [LM Studio](https://lmstudio.ai), download the model you want to use, and run it.
+[LM Studio](https://lmstudio.ai) をインストールし、使用したいモデルをダウンロードして実行します。
 
-## Example
+## 例
 
-After you have the model locally, use the `LM Studio` model class to access it
+モデルをローカルに配置したら、`LMStudio` モデルクラスを使用してアクセスします。
 
 <CodeGroup>
 
@@ -35,16 +35,16 @@ agent = Agent(
     markdown=True
 )
 
-# Print the response in the terminal
+# 応答をターミナルに出力します
 agent.print_response("Share a 2 sentence horror story.")
 ```
 
 </CodeGroup>
 
-<Note> View more examples [here](../examples/models/lmstudio). </Note>
+<Note> その他の例は[こちら](../examples/models/lmstudio)でご覧ください。 </Note>
 
-## Params
+## パラメータ
 
 <Snippet file="model-lmstudio-params.mdx" />
 
-`LM Studio` also supports the params of [OpenAI](/reference/models/openai).
+`LM Studio` は [OpenAI](/reference/models/openai) のパラメータもサポートしています。

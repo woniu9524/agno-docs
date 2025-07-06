@@ -2,7 +2,7 @@
 title: Async Agent
 ---
 
-## Code
+## コード
 
 ```python cookbook/models/vllm/async_basic.py
 import asyncio
@@ -14,18 +14,18 @@ agent = Agent(model=vLLM(id="Qwen/Qwen2.5-7B-Instruct"), markdown=True)
 asyncio.run(agent.aprint_response("Share a 2 sentence horror story"))
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install libraries">
+  <Step title="ライブラリのインストール">
     ```bash
     pip install -U agno openai vllm
     ```
   </Step>
 
-  <Step title="Start vLLM server">
+  <Step title="vLLMサーバーの起動">
     ```bash
     vllm serve Qwen/Qwen2.5-7B-Instruct \
         --enable-auto-tool-choice \
@@ -36,9 +36,9 @@ asyncio.run(agent.aprint_response("Share a 2 sentence horror story"))
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="エージェントの実行">
     ```bash
     python cookbook/models/vllm/async_basic.py
     ```
   </Step>
-</Steps> 
+</Steps>

@@ -1,14 +1,14 @@
 ---
-title: Writing your own Toolkit
+title: 独自のツールキットを作成する
 ---
 
-Many advanced use-cases will require writing custom Toolkits. Here's the general flow:
+多くの高度なユースケースでは、カスタムツールキットを作成する必要があります。一般的なフローは次のとおりです。
 
-1. Create a class inheriting the `agno.tools.Toolkit` class.
-2. Add your functions to the class.
-3. **Important:** Include all the functions in the `tools` argument to the `Toolkit` constructor.
+1. `agno.tools.Toolkit` クラスを継承するクラスを作成します。
+2. クラスに関数を追加します。
+3. **重要:** すべての関数を `Toolkit` コンストラクタの `tools` 引数に含めます。
 
-Now your Toolkit is ready to use with an Agent. For example:
+これで、ツールキットをエージェントで使用する準備が整いました。たとえば、次のようになります。
 
 ```python shell_toolkit.py
 from typing import List
@@ -23,13 +23,13 @@ class ShellTools(Toolkit):
 
     def run_shell_command(self, args: List[str], tail: int = 100) -> str:
         """
-        Runs a shell command and returns the output or error.
+        シェルコマンドを実行し、出力またはエラーを返します。
 
         Args:
-            args (List[str]): The command to run as a list of strings.
-            tail (int): The number of lines to return from the output.
+            args (List[str]): 実行するコマンドを文字列のリストとして指定します。
+            tail (int): 出力から返す行数。
         Returns:
-            str: The output of the command.
+            str: コマンドの出力。
         """
         import subprocess
 
@@ -41,7 +41,7 @@ class ShellTools(Toolkit):
             logger.debug(f"Return code: {result.returncode}")
             if result.returncode != 0:
                 return f"Error: {result.stderr}"
-            # return only the last n lines of the output
+            # 出力の最後の n 行のみを返す
             return "\n".join(result.stdout.split("\n")[-tail:])
         except Exception as e:
             logger.warning(f"Failed to run shell command: {e}")
@@ -49,5 +49,3 @@ class ShellTools(Toolkit):
 
 agent = Agent(tools=[ShellTools()], show_tool_calls=True, markdown=True)
 agent.print_response("List all the files in my home directory.")
-
-```

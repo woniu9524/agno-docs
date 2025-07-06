@@ -1,13 +1,13 @@
-| Parameter | Type | Description | Default |
-|-----------|------|-------------|---------|
-| `bucket_name` | `str` | Name of the Couchbase bucket | Required |
-| `scope_name` | `str` | Name of the scope within the bucket | Required |
-| `collection_name` | `str` | Name of the collection within the scope | Required |
-| `couchbase_connection_string` | `str` | Couchbase cluster connection string | Required |
-| `cluster_options` | `ClusterOptions` | Options for configuring the Couchbase cluster connection | Required |
-| `search_index` | `Union[str, SearchIndex]` | Search index configuration, either as index name or SearchIndex definition | Required |
-| `embedder` | `Embedder` | Embedder instance for generating embeddings | `OpenAIEmbedder()` |
-| `overwrite` | `bool` | Whether to overwrite existing collection | `False` |
-| `is_global_level_index` | `bool` | Whether the search index is at global level | `False` |
-| `wait_until_index_ready` | `Optional[float]` | Time in seconds to wait until the index is ready | `None` |
-| `batch_limit` | `int` | Maximum number of documents to process in a single batch (applies to both sync and async operations) | `500` | 
+| パラメータ | タイプ | 説明 | デフォルト |
+|---|---|---|---|
+| `bucket_name` | `str` | Couchbase バケットの名前 | Required |
+| `scope_name` | `str` | バケット内のスコープの名前 | Required |
+| `collection_name` | `str` | スコープ内のコレクションの名前 | Required |
+| `couchbase_connection_string` | `str` | Couchbase クラスターの接続文字列 | Required |
+| `cluster_options` | `ClusterOptions` | Couchbase クラスター接続の設定オプション | Required |
+| `search_index` | `Union[str, SearchIndex]` | 検索インデックスの設定。インデックス名または SearchIndex の定義として指定します。 | Required |
+| `embedder` | `Embedder` | 埋め込みを生成するための Embedder インスタンス | `OpenAIEmbedder()` |
+| `overwrite` | `bool` | 既存のコレクションを上書きするかどうか | `False` |
+| `is_global_level_index` | `bool` | 検索インデックスがグローバルレベルにあるかどうか | `False` |
+| `wait_until_index_ready` | `Optional[float]` | インデックスが準備完了になるまで待機する秒数 | `None` |
+| `batch_limit` | `int` | 1回のバッチで処理するドキュメントの最大数（同期および非同期操作に適用されます） | `500` |

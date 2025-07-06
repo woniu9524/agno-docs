@@ -1,6 +1,6 @@
 ---
 title: Playground
-description: "**Agno provides an intuitive interface for testing and interacting with your AI agents.**"
+description: "**Agnoは、AIエージェントのテストと対話のための直感的なインターフェースを提供します。**"
 ---
 
 
@@ -13,29 +13,29 @@ description: "**Agno provides an intuitive interface for testing and interacting
 </Frame>
 
 
-The Playground gives a robust interface to test your agentic systems with extensive features.
+Playgroundは、豊富な機能を持つエージェントシステムをテストするための堅牢なインターフェースを提供します。
 
-- **Streaming Support**: Real-time response streaming and intermediate states back to the user.
+- **ストリーミングサポート**: リアルタイムの応答ストリーミングと中間状態をユーザーに返します。
 
-- **Session History**: Visualize conversation history right in the playground.
+- **セッション履歴**: Playground内で会話履歴を視覚化します。
 
-- **User Memory**: Visualize user details and preferences across conversations. 
+- **ユーザーメモリ**: 会話全体にわたるユーザーの詳細と好みを視覚化します。
 
-- **Configuration**: Comprehensive configuration interface allowing you to see agent parameters, model settings, tool configurations. 
+- **設定**: エージェントのパラメータ、モデル設定、ツール設定を表示できる包括的な設定インターフェース。
 
-- **Reasoning Support**: Built-in support for detailed reasoning traces displayed in the playground interface.
+- **推論サポート**: Playgroundインターフェースに表示される詳細な推論トレースを組み込みサポート。
 
-- **Human in Loop Support**: Enable manual intervention in agent workflows with specialized human oversight and approval. 
+- **ヒューマン・イン・ザ・ループ・サポート**: 特別な人間の監視と承認によるエージェントワークフローでの手動介入を有効にします。
 
-- **Multimodal Support**: Support for processing and generating text, images, audio, and other media types.
+- **マルチモーダルサポート**: テキスト、画像、音声、その他のメディアタイプの処理と生成をサポートします。
 
-- **Multi-Agent Systems**: Support for multi-agent teams and workflows.
+- **マルチエージェントシステム**: マルチエージェントチームとワークフローをサポートします。
 
-## Interact with your agents Locally
+## ローカルでエージェントと対話する
 
 <Steps>
 
-<Step title="Create a file with sample code">
+<Step title="サンプルコードを含むファイルを作成する">
 
 
 
@@ -85,29 +85,29 @@ if __name__ == "__main__":
     playground_app.serve("playground:app", reload=True)
 ```
 
-Remember to export your `OPENAI_API_KEY` before running the playground application.
+Playgroundアプリケーションを実行する前に、`OPENAI_API_KEY`をエクスポートしてください。
 
-<Tip>Make sure the `serve()` points to the file that contains your `Playground` app.</Tip>
+<Tip>`serve()`が`Playground`アプリを含むファイルを参照していることを確認してください。</Tip>
 
 </Step>
 
-<Step title="Authenticate with Agno">
+<Step title="Agnoで認証する">
 
-Authenticate with [agno.com](https://app.agno.com) so your local application can let agno know which port you are running the playground on.
+ローカルアプリケーションがagnoにどのポートを実行しているかを知らせるために、[agno.com](https://app.agno.com)で認証してください。
 
-Check out [Authentication guide](how-to/authentication) for instructions on how to Authenticate with Agno.
+認証方法については、[認証ガイド](how-to/authentication)をご覧ください。
 
 <Note>
-No data is sent to agno.com, all agent data is stored locally in your sqlite database.
+agno.comにデータは送信されません。すべてのエージェントデータは、ローカルのsqliteデータベースに保存されます。
 </Note>
 
 
 
 </Step>
 
-<Step title="Run the Playground Server">
+<Step title="Playgroundサーバーを実行する">
 
-Install dependencies and run your playground server:
+依存関係をインストールし、Playgroundサーバーを実行します。
 
 ```shell
 pip install openai duckduckgo-search yfinance sqlalchemy 'fastapi[standard]' agno
@@ -117,10 +117,10 @@ python playground.py
 
 </Step>
 
-<Step title="View the Playground">
+<Step title="Playgroundを表示する">
 
-- Open the link provided or navigate to `http://app.agno.com/playground` (login required).
-- Add/Select the `localhost:7777` endpoint and start chatting with your agents!
+- 提供されたリンクを開くか、`http://app.agno.com/playground`に移動します（ログインが必要です）。
+- `localhost:7777`エンドポイントを追加/選択して、エージェントとのチャットを開始してください！
 
 <video
   autoPlay
@@ -133,9 +133,9 @@ python playground.py
 </Step>
 
 </Steps>
-<Accordion title="Looking for a self-hosted alternative?">
+<Accordion title="セルフホスト型代替を探していますか？">
 
-Looking for a self-hosted alternative? Check out our [Open Source Agent UI](https://github.com/agno-agi/agent-ui) - A modern Agent interface built with Next.js and TypeScript that works exactly like the Agent Playground.
+セルフホスト型代替を探していますか？[Open Source Agent UI](https://github.com/agno-agi/agent-ui)をご覧ください。これはNext.jsとTypeScriptで構築されたモダンなエージェントインターフェースで、Agent Playgroundと全く同じように動作します。
 
 <img
   src="/images/agent-ui.png"
@@ -143,19 +143,19 @@ Looking for a self-hosted alternative? Check out our [Open Source Agent UI](http
   alt="agent-ui"
 />
 
-### Get Started with Agent UI
+### Agent UIの開始方法
 
 ```bash
-# Create a new Agent UI project
+# 新しいAgent UIプロジェクトを作成する
 npx create-agent-ui@latest
 
-# Or clone and run manually
+# またはクローンして手動で実行する
 git clone https://github.com/agno-agi/agent-ui.git
 cd agent-ui && pnpm install && pnpm dev
 ```
 
-The UI will connect to `localhost:7777` by default, matching the Playground setup above. Visit [GitHub](https://github.com/agno-agi/agent-ui) for more details.
+UIはデフォルトで`localhost:7777`に接続し、上記のPlaygroundセットアップと一致します。詳細については[GitHub](https://github.com/agno-agi/agent-ui)をご覧ください。
 
 </Accordion>
 
-<Info>Facing connection issues? Check out our [troubleshooting guide](/faq/playground-connection)</Info>
+<Info>接続に問題がありますか？[トラブルシューティングガイド](/faq/playground-connection)をご覧ください。</Info>

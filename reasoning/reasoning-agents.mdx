@@ -2,13 +2,13 @@
 title: Reasoning Agents
 ---
 
-Reasoning Agents are a new type of multi-agent system developed by Agno that combines chain of thought reasoning with tool use.
+Reasoning Agents は、Agno が開発した新しいタイプのマルチエージェントシステムで、思考連鎖（chain of thought）とツールの使用を組み合わせています。
 
-You can enable reasoning on any Agent by setting `reasoning=True`.
+`reasoning=True` を設定することで、任意の Agent で推論を有効にできます。
 
-When an Agent with `reasoning=True` is given a task, a separate "Reasoning Agent" first solves the problem using chain-of-thought. At each step, it calls tools to gather information, validate results, and iterate until it reaches a final answer. Once the Reasoning Agent has a final answer, it hands the results back to the original Agent to validate and provide a response.
+`reasoning=True` を持つ Agent にタスクが与えられると、まず個別の「Reasoning Agent」が思考連鎖を使用して問題を解決します。各ステップで、ツールを呼び出して情報を収集し、結果を検証し、最終的な回答に到達するまで反復します。Reasoning Agent が最終的な回答を得ると、元の Agent に結果を渡し、検証して応答を提供します。
 
-### Example
+### 例
 
 ```python reasoning_agent.py
 from agno.agent import Agent
@@ -20,28 +20,27 @@ reasoning_agent = Agent(
     markdown=True,
 )
 reasoning_agent.print_response(
-    "Solve the trolley problem. Evaluate multiple ethical frameworks. "
-    "Include an ASCII diagram of your solution.",
+    "トロッコ問題について解答してください。複数の倫理的フレームワークを評価し、解決策のASCII図を含めてください。",
     stream=True,
     show_full_reasoning=True,
 )
 ```
 
-## Enabling Agentic Reasoning
+## Agentic Reasoning の有効化
 
-To enable Agentic Reasoning, set `reasoning=True` or set the `reasoning_model` to a model that supports structured outputs. If you do not set `reasoning_model`, the primary `Agent` model will be used for reasoning.
+Agentic Reasoning を有効にするには、`reasoning=True` を設定するか、`reasoning_model` を構造化出力をサポートするモデルに設定します。`reasoning_model` を設定しない場合、プライマリ `Agent` モデルが推論に使用されます。
 
-### Reasoning Model Requirements
+### Reasoning Model の要件
 
-The `reasoning_model` must be able to handle structured outputs, this includes models like gpt-4o and claude-3-7-sonnet that support structured outputs natively or gemini models that support structured outputs using JSON mode.
+`reasoning_model` は構造化出力を処理できる必要があります。これには、構造化出力をネイティブにサポートする gpt-4o や claude-3-sonnet のようなモデル、または JSON モードを使用して構造化出力をサポートする gemini モデルが含まれます。
 
-### Using a Reasoning Model that supports native Reasoning
+### ネイティブ推論をサポートする Reasoning Model の使用
 
-If you set `reasoning_model` to a model that supports native Reasoning like o3-mini or deepseek-r1, the reasoning model will be used to reason and the primary `Agent` model will be used to respond. See [Reasoning Models + Response Models](/reasoning/reasoning-models#reasoning-model-response-model) for more information.
+`reasoning_model` を o3-mini や deepseek-r1 のようなネイティブ推論をサポートするモデルに設定した場合、推論にはその推論モデルが使用され、応答にはプライマリ `Agent` モデルが使用されます。詳細については、[Reasoning Models + Response Models](/reasoning/reasoning-models#reasoning-model-response-model) を参照してください。
 
-## Reasoning with tools
+## ツールの使用による推論
 
-You can also use tools with a reasoning agent. Lets create a finance agent that can reason.
+推論 Agent でツールを使用することもできます。推論できるファイナンス Agent を作成しましょう。
 
 ```python finance_reasoning.py
 from agno.agent import Agent
@@ -56,22 +55,22 @@ reasoning_agent = Agent(
     markdown=True,
     reasoning=True,
 )
-reasoning_agent.print_response("Write a report comparing NVDA to TSLA", stream=True, show_full_reasoning=True)
+reasoning_agent.print_response("NVDAとTSLAを比較するレポートを作成してください", stream=True, show_full_reasoning=True)
 ```
 
-## More Examples
+## その他の例
 
-### Logical puzzles
+### 論理パズル
 
 ```python logical_puzzle.py
 from agno.agent import Agent
 from agno.models.openai import OpenAIChat
 
 task = (
-    "Three missionaries and three cannibals need to cross a river. "
-    "They have a boat that can carry up to two people at a time. "
-    "If, at any time, the cannibals outnumber the missionaries on either side of the river, the cannibals will eat the missionaries. "
-    "How can all six people get across the river safely? Provide a step-by-step solution and show the solutions as an ascii diagram"
+    "3人の宣教師と3人のカニバルが川を渡る必要があります。 "
+    "彼らは一度に最大2人を運べるボートを持っています。 "
+    "川のどちらかの岸でカニバルの数が宣教師の数を上回った場合、カニバルは宣教師を食べます。 "
+    "6人全員が安全に川を渡るにはどうすればよいですか？段階的な解決策を提供し、解決策をASCII図で表示してください。"
 )
 reasoning_agent = Agent(
     model=OpenAIChat(id="gpt-4o-2024-08-06"), reasoning=True, markdown=True
@@ -79,32 +78,31 @@ reasoning_agent = Agent(
 reasoning_agent.print_response(task, stream=True, show_full_reasoning=True)
 ```
 
-### Mathematical proofs
+### 数学的証明
 
 ```python mathematical_proof.py
 from agno.agent import Agent
 from agno.models.openai import OpenAIChat
 
-task = "Prove that for any positive integer n, the sum of the first n odd numbers is equal to n squared. Provide a detailed proof."
+task = "任意の正の整数 n に対して、最初の n 個の奇数の合計が n の2乗に等しいことを証明してください。詳細な証明を提供してください。"
 reasoning_agent = Agent(
     model=OpenAIChat(id="gpt-4o-2024-08-06"), reasoning=True, markdown=True
 )
 reasoning_agent.print_response(task, stream=True, show_full_reasoning=True)
 ```
 
-### Scientific research
+### 科学研究
 
 ```python scientific_research.py
 from agno.agent import Agent
 from agno.models.openai import OpenAIChat
 
 task = (
-    "Read the following abstract of a scientific paper and provide a critical evaluation of its methodology,"
-    "results, conclusions, and any potential biases or flaws:\n\n"
-    "Abstract: This study examines the effect of a new teaching method on student performance in mathematics. "
-    "A sample of 30 students was selected from a single school and taught using the new method over one semester. "
-    "The results showed a 15% increase in test scores compared to the previous semester. "
-    "The study concludes that the new teaching method is effective in improving mathematical performance among high school students."
+    "以下の科学論文の要旨を読み、その方法論、結果、結論、および潜在的なバイアスや欠点について批判的な評価を提供してください。\n\n"
+    "要旨：本研究は、数学における生徒の成績に対する新しい教育方法の効果を調査する。 "
+    "単一の学校から30人の生徒のサンプルが選ばれ、1学期間新しい方法で指導された。 "
+    "結果は、前学期と比較してテストスコアが15%向上したことを示した。 "
+    "本研究は、新しい教育方法が高校生の数学の成績を向上させるのに効果的であると結論付けている。"
 )
 reasoning_agent = Agent(
     model=OpenAIChat(id="gpt-4o-2024-08-06"), reasoning=True, markdown=True
@@ -112,18 +110,17 @@ reasoning_agent = Agent(
 reasoning_agent.print_response(task, stream=True, show_full_reasoning=True)
 ```
 
-### Ethical dilemma
+### 倫理的ジレンマ
 
 ```python ethical_dilemma.py
 from agno.agent import Agent
 from agno.models.openai import OpenAIChat
 
 task = (
-    "You are a train conductor faced with an emergency: the brakes have failed, and the train is heading towards "
-    "five people tied on the track. You can divert the train onto another track, but there is one person tied there. "
-    "Do you divert the train, sacrificing one to save five? Provide a well-reasoned answer considering utilitarian "
-    "and deontological ethical frameworks. "
-    "Provide your answer also as an ascii art diagram."
+    "あなたは列車の運転士で、緊急事態に直面しています。ブレーキが故障し、列車は線路上に縛られた5人に向かっています。 "
+    "列車を別の線路に迂回させることはできますが、そこには1人が縛られています。 "
+    "1人を犠牲にして5人を救うために列車を迂回させますか？功利主義と義務論的倫理的フレームワークを考慮した、十分な根拠のある回答を提供してください。 "
+    "回答はASCIIアート図としても提供してください。"
 )
 reasoning_agent = Agent(
     model=OpenAIChat(id="gpt-4o-2024-08-06"), reasoning=True, markdown=True
@@ -131,33 +128,33 @@ reasoning_agent = Agent(
 reasoning_agent.print_response(task, stream=True, show_full_reasoning=True)
 ```
 
-### Planning an itinerary
+### 旅行日程の計画
 
 ```python planning_itinerary.py
 from agno.agent import Agent
 from agno.models.openai import OpenAIChat
 
-task = "Plan an itinerary from Los Angeles to Las Vegas"
+task = "ロサンゼルスからラスベガスへの旅行日程を計画してください"
 reasoning_agent = Agent(
     model=OpenAIChat(id="gpt-4o-2024-08-06"), reasoning=True, markdown=True
 )
 reasoning_agent.print_response(task, stream=True, show_full_reasoning=True)
 ```
 
-### Creative writing
+### クリエイティブライティング
 
 ```python creative_writing.py
 from agno.agent import Agent
 from agno.models.openai import OpenAIChat
 
-task = "Write a short story about life in 5000000 years"
+task = "500万年後の生活についての短編小説を書いてください"
 reasoning_agent = Agent(
     model=OpenAIChat(id="gpt-4o-2024-08-06"), reasoning=True, markdown=True
 )
 reasoning_agent.print_response(task, stream=True, show_full_reasoning=True)
 ```
 
-## Developer Resources
+## 開発者向けリソース
 
-- View [Examples](/examples/concepts/reasoning/agents)
-- View [Cookbook](https://github.com/agno-agi/agno/tree/main/cookbook/reasoning/agents)
+- [例](/examples/concepts/reasoning/agents) を表示
+- [クックブック](https://github.com/agno-agi/agno/tree/main/cookbook/reasoning/agents) を表示

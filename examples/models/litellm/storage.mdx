@@ -10,15 +10,15 @@ from agno.models.litellm import LiteLLM
 from agno.storage.sqlite import SqliteStorage
 from agno.tools.duckduckgo import DuckDuckGoTools
 
-# Create a storage backend using the Sqlite database
+# SQLiteデータベースを使用してストレージバックエンドを作成します
 storage = SqliteStorage(
-    # store sessions in the ai.sessions table
+    # セッションをai.sessionsテーブルに保存します
     table_name="agent_sessions_storage",
-    # db_file: Sqlite database file
+    # db_file: SQLiteデータベースファイル
     db_file="tmp/data.db",
 )
 
-# Add storage to the Agent
+# Agentにストレージを追加します
 agent = Agent(
     model=LiteLLM(id="gpt-4o"),
     storage=storage,
@@ -26,8 +26,8 @@ agent = Agent(
     add_history_to_messages=True,
 )
 
-agent.print_response("How many people live in Canada?")
-agent.print_response("What is their national anthem called?")
+agent.print_response("カナダには何人住んでいますか？")
+agent.print_response("国歌の名前は何ですか？")
 ```
 
 ## Usage
@@ -35,19 +35,19 @@ agent.print_response("What is their national anthem called?")
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="APIキーを設定する">
     ```bash
     export LITELLM_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="ライブラリをインストールする">
     ```bash
     pip install -U litellm openai agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="Agentを実行する">
     <CodeGroup>
     ```bash Mac
     python cookbook/models/litellm/storage.py

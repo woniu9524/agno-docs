@@ -3,12 +3,12 @@ title: OpenAI Responses
 description: Learn how to use OpenAI Responses with Agno.
 ---
 
-`OpenAIResponses` is a class for interacting with OpenAI models using the Responses API. This class provides a streamlined interface for working with OpenAI's newer Responses API, which is distinct from the traditional Chat API. It supports advanced features like tool use, file processing, and knowledge retrieval.
+`OpenAIResponses` は、Responses API を使用して OpenAI モデルと対話するためのクラスです。このクラスは、従来の Chat API とは異なる、OpenAI の新しい Responses API を操作するための合理化されたインターフェイスを提供します。ツール使用、ファイル処理、知識取得などの高度な機能をサポートしています。
 
 
-## Authentication
+## 認証
 
-Set your `OPENAI_API_KEY` environment variable. You can get one [from OpenAI here](https://platform.openai.com/account/api-keys).
+`OPENAI_API_KEY` 環境変数を設定してください。[OpenAI のこちら](https://platform.openai.com/account/api-keys)から取得できます。
 
 <CodeGroup>
 
@@ -22,9 +22,9 @@ setx OPENAI_API_KEY sk-***
 
 </CodeGroup>
 
-## Example
+## 例
 
-Use `OpenAIResponses` with your `Agent`:
+`OpenAIResponses` を `Agent` と一緒に使用します。
 
 <CodeGroup>
 
@@ -49,12 +49,12 @@ agent.print_response(
 
 </CodeGroup>
 
-<Note> View more examples [here](../examples/models/openai/responses). </Note>
+<Note> その他の例は[こちら](../examples/models/openai/responses)でご覧ください。 </Note>
 
-## Params
+## パラメータ
 
-For more information, please refer to the [OpenAI Responses docs](https://platform.openai.com/docs/api-reference/responses) as well.
+詳細については、[OpenAI Responses ドキュメント](https://platform.openai.com/docs/api-reference/responses)も参照してください。
 
 <Snippet file="model-openai-responses-params.mdx" />
 
-`OpenAIResponses` is a subclass of the [Model](/reference/models/model) class and has access to the same params.
+`OpenAIResponses` は [Model](/reference/models/model) クラスのサブクラスであり、同じパラメータにアクセスできます。

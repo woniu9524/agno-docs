@@ -1,12 +1,12 @@
 ---
-title: LangChain Knowledge Base
-description: Learn how to use a LangChain retriever or vector store as a knowledge base.
+title: LangChain ナレッジベース
+description: LangChain リトリーバーまたはベクトルストアをナレッジベースとして使用する方法を学びます。
 sidebarTitle: LangChain
 ---
 
-The **LangchainKnowledgeBase** allows us to use a LangChain retriever or vector store as a knowledge base.
+**LangchainKnowledgeBase** を使用すると、LangChain リトリーバーまたはベクトルストアをナレッジベースとして利用できます。
 
-## Usage
+## 使用方法
 
 ```shell
 pip install langchain
@@ -26,38 +26,38 @@ chroma_db_dir = "./chroma_db"
 
 def load_vector_store():
     state_of_the_union = ws_settings.ws_root.joinpath("data/demo/state_of_the_union.txt")
-    # -*- Load the document
+    # -*- ドキュメントをロード
     raw_documents = TextLoader(str(state_of_the_union)).load()
-    # -*- Split it into chunks
+    # -*- チャンクに分割
     text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=0)
     documents = text_splitter.split_documents(raw_documents)
-    # -*- Embed each chunk and load it into the vector store
+    # -*- 各チャンクを埋め込み、ベクトルストアにロード
     Chroma.from_documents(documents, OpenAIEmbeddings(), persist_directory=str(chroma_db_dir))
 
 
-# -*- Get the vectordb
+# -*- ベクトルストアを取得
 db = Chroma(embedding_function=OpenAIEmbeddings(), persist_directory=str(chroma_db_dir))
-# -*- Create a retriever from the vector store
+# -*- ベクトルストアからリトリーバーを作成
 retriever = db.as_retriever()
 
-# -*- Create a knowledge base from the vector store
+# -*- ベクトルストアからナレッジベースを作成
 knowledge_base = LangChainKnowledgeBase(retriever=retriever)
 
 agent = Agent(knowledge_base=knowledge_base, add_references_to_prompt=True)
 conv.print_response("What did the president say about technology?")
 ```
 
-## Params
+## パラメータ
 
-| Parameter       | Type                 | Default | Description                                                               |
+| パラメータ       | タイプ                 | デフォルト | 説明                                                               |
 | --------------- | -------------------- | ------- | ------------------------------------------------------------------------- |
-| `loader`        | `Optional[Callable]` | `None`  | LangChain loader.                                                         |
-| `vectorstore`   | `Optional[Any]`      | `None`  | LangChain vector store used to create a retriever.                        |
-| `search_kwargs` | `Optional[dict]`     | `None`  | Search kwargs when creating a retriever using the langchain vector store. |
-| `retriever`     | `Optional[Any]`      | `None`  | LangChain retriever.                                                      |
+| `loader`        | `Optional[Callable]` | `None`  | LangChain ローダー。                                                         |
+| `vectorstore`   | `Optional[Any]`      | `None`  | リトリーバーの作成に使用される LangChain ベクトルストア。                        |
+| `search_kwargs` | `Optional[dict]`     | `None`  | Langchain ベクトルストアを使用してリトリーバーを作成する際の検索キーワード引数。 |
+| `retriever`     | `Optional[Any]`      | `None`  | LangChain リトリーバー。                                                      |
 
-`LangChainKnowledgeBase` is a subclass of the [AgentKnowledge](/reference/knowledge/base) class and has access to the same params.
+`LangChainKnowledgeBase` は [AgentKnowledge](/reference/knowledge/base) クラスのサブクラスであり、同じパラメータにアクセスできます。
 
-## Developer Resources
+## 開発者向けリソース
 
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/langchain_kb.py)
+- [クックブック](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/langchain_kb.py) を表示

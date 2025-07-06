@@ -27,13 +27,13 @@ asyncio.run(agent.aprint_response("Whats happening in France?", stream=True))
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install Libraries">
+  <Step title="パッケージのインストール">
     ```bash
     pip install -U agno openai vllm duckduckgo-search
     ```
   </Step>
 
-  <Step title="Start vLLM server">
+  <Step title="vLLMサーバーの起動">
     ```bash
     vllm serve Qwen/Qwen2.5-7B-Instruct \
         --enable-auto-tool-choice \
@@ -44,9 +44,9 @@ asyncio.run(agent.aprint_response("Whats happening in France?", stream=True))
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="エージェントの実行">
     ```bash
     python cookbook/models/vllm/async_tool_use.py
     ```
   </Step>
-</Steps> 
+</Steps>

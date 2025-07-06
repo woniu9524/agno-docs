@@ -3,17 +3,17 @@ title: BaiduSearch
 sidebarTitle: BaiduSearch
 ---
 
-**BaiduSearch** enables an Agent to search the web for information using the Baidu search engine.
+**BaiduSearch** は、Agent が百度検索エンジンを使用して Web 上の情報を検索できるようにします。
 
-## Prerequisites
+## 前提条件
 
-The following example requires the `baidusearch` library. To install BaiduSearch, run the following command:
+次の例では、`baidusearch` ライブラリが必要です。BaiduSearch をインストールするには、次のコマンドを実行します。
 
 ```shell
 pip install -U baidusearch
 ```
 
-## Example
+## 例
 
 ```python cookbook/tools/baidusearch_tools.py
 from agno.agent import Agent
@@ -21,35 +21,35 @@ from agno.tools.baidusearch import BaiduSearchTools
 
 agent = Agent(
     tools=[BaiduSearchTools()],
-    description="You are a search agent that helps users find the most relevant information using Baidu.",
+    description="百度を使用して最も関連性の高い情報を見つけるのに役立つ検索エージェントです。",
     instructions=[
-        "Given a topic by the user, respond with the 3 most relevant search results about that topic.",
-        "Search for 5 results and select the top 3 unique items.",
-        "Search in both English and Chinese.",
+        "ユーザーからトピックが与えられたら、そのトピックに関する最も関連性の高い検索結果を 3 つ返信してください。",
+        "5 件の結果を検索し、上位 3 件の一意なアイテムを選択してください。",
+        "英語と中国語の両方で検索してください。",
     ],
     show_tool_calls=True,
 )
 
-agent.print_response("What are the latest advancements in AI?", markdown=True)
+agent.print_response("AI の最新の進歩は何ですか？", markdown=True)
 ```
 
-## Toolkit Params
+## Toolkit のパラメータ
 
-| Parameter           | Type  | Default | Description                                                                                          |
+| パラメータ           | タイプ  | デフォルト | 説明                                                                                             |
 | ------------------- | ----- | ------- | ---------------------------------------------------------------------------------------------------- |
-| `fixed_max_results` | `int` | -       | Sets a fixed number of maximum results to return. No default is provided, must be specified if used. |
-| `fixed_language`    | `str` | -       | Set the fixed language for the results.                                                              |
-| `headers`           | `Any` | -       | Headers to be used in the search request.                                                            |
-| `proxy`             | `str` | -       | Specifies a single proxy address as a string to be used for the HTTP requests.                       |
-| `timeout`           | `int` | `10`    | Sets the timeout for HTTP requests, in seconds.                                                      |
+| `fixed_max_results` | `int` | -       | 返される最大結果数を固定します。デフォルトは提供されていないため、使用する場合は指定する必要があります。 |
+| `fixed_language`    | `str` | -       | 結果の固定言語を設定します。                                                                         |
+| `headers`           | `Any` | -       | 検索リクエストで使用されるヘッダー。                                                                 |
+| `proxy`             | `str` | -       | HTTP リクエストで使用される単一のプロキシアドレスを文字列として指定します。                               |
+| `timeout`           | `int` | `10`    | HTTP リクエストのタイムアウトを秒単位で設定します。                                                      |
 
-## Toolkit Functions
+## Toolkit の関数
 
-| Function       | Description                                    |
-| -------------- | ---------------------------------------------- |
-| `baidu_search` | Use this function to search Baidu for a query. |
+| 関数       | 説明                                    |
+| ---------- | --------------------------------------- |
+| `baidu_search` | この関数を使用して百度でクエリを検索します。 |
 
-## Developer Resources
+## 開発者向けリソース
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/baidusearch.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/baidusearch_tools.py)
+- [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/baidusearch.py) を表示
+- [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/baidusearch_tools.py) を表示

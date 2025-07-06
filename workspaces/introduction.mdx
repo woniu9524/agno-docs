@@ -1,55 +1,55 @@
 ---
-title: Standardized Codebases for Agentic Systems
-sidebarTitle: Overview
+title: 標準化されたエージェントシステム用コードベース
+sidebarTitle: 概要
 ---
 
-When building an Agentic System, you'll need an API to serve your Agents, a database to store session and vector data and an admin interface for testing and evaluation. You'll also need cron jobs, alerting and data pipelines for ingestion and cleaning. This system would generally take a few months to build, we're open-sourcing it for the community for free.
+エージェントシステムを構築する際には、エージェントを提供するAPI、セッションおよびベクトルデータを格納するデータベース、テストおよび評価のための管理インターフェイスが必要になります。また、取り込みとクリーニングのためのcronジョブ、アラート、データパイプラインも必要になります。このシステムは通常、構築に数ヶ月かかりますが、コミュニティのために無料でオープンソース化しています。
 
-# What are Workspaces?
+# ワークスペースとは？
 
-**Workspaces are standardized codebases for production Agentic Systems.** They contain:
+**ワークスペースは、本番環境のエージェントシステムのための標準化されたコードベースです。** これらには以下が含まれます：
 
-- A RestAPI (FastAPI) for serving Agents, Teams and Workflows.
-- A streamlit application for testing -- think of this as an admin interface.
-- A postgres database for session and vector storage.
+- エージェント、チーム、ワークフローを提供するREST API (FastAPI)。
+- テスト用のStreamlitアプリケーション -- これは管理インターフェイスと考えてください。
+- セッションおよびベクトルストレージ用のPostgresデータベース。
 
-Workspaces are setup to run locally using docker and be easily deployed to AWS. They're a fantastic starting point and exactly what we use for our customers. You'll definitely need to customize them to fit your specific needs, but they'll get you started much faster.
+ワークスペースはDockerを使用してローカルで実行できるようにセットアップされており、AWSに簡単にデプロイできます。これらは素晴らしい出発点であり、私たちが顧客のために使用しているものと全く同じです。特定のニーズに合わせてカスタマイズする必要があることは間違いありませんが、これにより開始がはるかに速くなります。
 
-They contain years of learnings, available for free for the open-source community.
+これらには長年の学習が含まれており、オープンソースコミュニティのために無料で利用できます。
 
-# Here's how they work
+# 仕組み
 
-- Create your codebase using: `ag ws create`
-- Run locally using docker: `ag ws up`
-- Run on AWS: `ag ws up prd:aws`
+- コードベースを作成するには：`ag ws create`
+- Dockerを使用してローカルで実行するには：`ag ws up`
+- AWSで実行するには：`ag ws up prd:aws`
 
-We recommend starting with the `agent-app` template and taking it from there.
+`agent-app`テンプレートから始めて、そこから進めることをお勧めします。
 
 <CardGroup cols={2}>
   <Card title="Agent App" icon="books" href="/workspaces/agent-app/local">
-    An Agentic System built with FastAPI, Streamlit and a Postgres database.
+    FastAPI、Streamlit、Postgresデータベースで構築されたエージェントシステム。
   </Card>
   <Card title="Agent Api" icon="bolt" href="/workspaces/agent-api/local">
-    An Agent API built with FastAPI and Postgres.
+    FastAPIとPostgresで構築されたエージェントAPI。
   </Card>
 </CardGroup>
 
-# How we build Agentic Systems
+# エージェントシステムを構築する方法
 
-When building Agents, we experiment locally till we achieve 6/10 quality.
-This helps us see quick results and get a rough idea of how our solution should look like in production.
+エージェントを構築する際、ローカルで実験を行い、6/10の品質を達成します。
+これにより、迅速な結果を確認し、ソリューションが本番環境でどのように見えるかの大まかなアイデアを得ることができます。
 
-Then, we start moving to a production environment and iterate from there. Here's how __*we*__ build production systems:
-- Serve Agents, Teams and Workflows via a REST API (FastAPI).
-- Use a streamlit application for debugging and testing. This streamlit app is generally used as an admin interface for the agentic system and shows all sorts of data.
-- Monitor, evaluate and improve the implementation until we reach 9/10 quality.
-- In parallel, we start integrating our front-end with the REST API above.
+その後、本番環境に移行し、そこから反復処理を開始します。本番システムを構築する__*私たちの方法*__は以下の通りです：
+- エージェント、チーム、ワークフローをREST API (FastAPI) を介して提供します。
+- デバッグおよびテスト用にStreamlitアプリケーションを使用します。このStreamlitアプリは通常、エージェントシステムの管理インターフェイスとして使用され、あらゆる種類のデータが表示されます。
+- 実装を監視、評価、改善し、9/10の品質に到達するまで続けます。
+- 並行して、フロントエンドと上記のREST APIの統合を開始します。
 
-Having built 100s of such systems, we have a standard set of codebases we use and we call them **Workspaces**. They help us manage our Agentic System as code.
+このようなシステムを数百構築してきた経験から、私たちは標準的なコードベースセットを使用しており、それらを**ワークスペース**と呼んでいます。これらは、エージェントシステムをコードとして管理するのに役立ちます。
 
 ![workspace](/images/workspace.png)
 
 <Note>
-We strongly believe that your AI applications should run securely inside your VPC.
-We fully support BYOC (Bring Your Own Cloud) and encourage you to use your own cloud account.
+AIアプリケーションは、VPC内で安全に実行されるべきだと強く信じています。
+BYOC (Bring Your Own Cloud) を完全にサポートしており、ご自身のクラウドアカウントの使用を推奨しています。
 </Note>

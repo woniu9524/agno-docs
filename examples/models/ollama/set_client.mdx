@@ -1,8 +1,8 @@
 ---
-title: Set Ollama Client
+title: Ollama クライアントの設定
 ---
 
-## Code
+## コード
 
 ```python cookbook/models/ollama/set_client.py
 from agno.agent import Agent, RunResponse  # noqa
@@ -16,29 +16,29 @@ agent = Agent(
     markdown=True,
 )
 
-# Print the response in the terminal
+# 応答をターミナルに出力します
 agent.print_response("Share a 2 sentence horror story")
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install Ollama">
-    Follow the [installation guide](https://github.com/ollama/ollama?tab=readme-ov-file#macos) and run:
+  <Step title="Ollama のインストール">
+    [インストールガイド](https://github.com/ollama/ollama?tab=readme-ov-file#macos)に従って、以下を実行してください:
     ```bash
     ollama pull llama3.2
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="ライブラリのインストール">
     ```bash
     pip install -U ollama yfinance agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="エージェントの実行">
     <CodeGroup>
     ```bash Mac
     python cookbook/models/ollama/set_client.py

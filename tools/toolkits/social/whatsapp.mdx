@@ -2,42 +2,41 @@
 title: WhatsApp
 ---
 
-**WhatsAppTools** enable an Agent to interact with the WhatsApp Business API, allowing it to send text and template messages.
+**WhatsAppTools** を使用すると、エージェントが WhatsApp Business API と対話できるようになり、テキストメッセージやテンプレートメッセージの送信が可能になります。
 
-## Prerequisites
+## 前提条件
 
-This cookbook demonstrates how to use WhatsApp integration with Agno. Before running this example,
-you'''ll need to complete these setup steps:
+このクックブックでは、Agno との WhatsApp 連携方法を説明します。この例を実行する前に、
+以下のセットアップ手順を完了する必要があります。
 
-1. Create Meta Developer Account
-   - Go to [Meta Developer Portal](https://developers.facebook.com/) and create a new account
-   - Create a new app at [Meta Apps Dashboard](https://developers.facebook.com/apps/)
-   - Enable WhatsApp integration for your app [here](https://developers.facebook.com/docs/whatsapp/cloud-api/get-started)
+1. Meta 開発者アカウントの作成
+   - [Meta Developer Portal](https://developers.facebook.com/) にアクセスし、新しいアカウントを作成します。
+   - [Meta Apps Dashboard](https://developers.facebook.com/apps/) で新しいアプリを作成します。
+   - [こちら](https://developers.facebook.com/docs/whatsapp/cloud-api/get-started) でアプリの WhatsApp 連携を有効にします。
 
-2. Set Up WhatsApp Business API
-   You can get your WhatsApp Business Account ID from [Business Settings](https://developers.facebook.com/docs/whatsapp/cloud-api/get-started)
+2. WhatsApp Business API のセットアップ
+   WhatsApp Business アカウント ID は [Business Settings](https://developers.facebook.com/docs/whatsapp/cloud-api/get-started) から取得できます。
 
-3. Configure Environment
-   - Set these environment variables:
+3. 環境の構成
+   - 次の環境変数を設定します。
      ```shell
-     export WHATSAPP_ACCESS_TOKEN=your_access_token          # Access Token
-     export WHATSAPP_PHONE_NUMBER_ID=your_phone_number_id    # Phone Number ID
-     export WHATSAPP_RECIPIENT_WAID=your_recipient_waid      # Recipient WhatsApp ID (e.g. 1234567890)
-     export WHATSAPP_VERSION=your_whatsapp_version           # WhatsApp API Version (e.g. v22.0)
+     export WHATSAPP_ACCESS_TOKEN=your_access_token          # アクセストークン
+     export WHATSAPP_PHONE_NUMBER_ID=your_phone_number_id    # 電話番号 ID
+     export WHATSAPP_RECIPIENT_WAID=your_recipient_waid      # 受信者の WhatsApp ID (例: 1234567890)
+     export WHATSAPP_VERSION=your_whatsapp_version           # WhatsApp API バージョン (例: v22.0)
      ```
 
-Important Notes:
-- For first-time outreach, you must use pre-approved message templates
-  [here](https://developers.facebook.com/docs/whatsapp/cloud-api/guides/send-message-templates)
-- Test messages can only be sent to numbers that are registered in your test environment
+重要な注意点:
+- 初回のアウトリーチでは、事前に承認されたメッセージテンプレートを使用する必要があります。
+  [こちら](https://developers.facebook.com/docs/whatsapp/cloud-api/guides/send-message-templates) を参照してください。
+- テストメッセージは、テスト環境に登録されている番号にのみ送信できます。
 
-The example below shows how to send a template message using Agno'''s WhatsApp tools.
-For more complex use cases, check out the WhatsApp Cloud API documentation:
-[here](https://developers.facebook.com/docs/whatsapp/cloud-api/overview)
+以下の例は、Agno の WhatsApp ツールを使用してテンプレートメッセージを送信する方法を示しています。
+より複雑なユースケースについては、WhatsApp Cloud API のドキュメントを [こちら](https://developers.facebook.com/docs/whatsapp/cloud-api/overview) で参照してください。
 
-## Example
+## 例
 
-The following agent will send a template message using WhatsApp:
+以下のエージェントは、WhatsApp を使用してテンプレートメッセージを送信します。
 
 ```python cookbook/tools/whatsapp_tool.py
 from agno.agent import Agent
@@ -51,34 +50,34 @@ agent = Agent(
     show_tool_calls=True
 )
 
-# Example: Send a template message
-# Note: Replace '''hello_world''' with your actual template name
-# and +91 1234567890 with the recipient's WhatsApp ID
+# 例: テンプレートメッセージを送信
+# 注意: '''hello_world''' を実際のテンプレート名に置き換え、
+# +91 1234567890 を受信者の WhatsApp ID に置き換えてください。
 agent.print_response(
     "Send a template message using the '''hello_world''' template in English to +91 1234567890"
 )
 ```
 
-## Toolkit Params
+## Toolkit パラメータ
 
-| Parameter         | Type          | Default   | Description                                                                                                |
+| パラメータ         | タイプ          | デフォルト   | 説明                                                                                                |
 | ----------------- | ------------- | --------- | ---------------------------------------------------------------------------------------------------------- |
-| `access_token`    | `Optional[str]` | `None`    | WhatsApp Business API access token. If not provided, uses `WHATSAPP_ACCESS_TOKEN` environment variable.      |
-| `phone_number_id` | `Optional[str]` | `None`    | WhatsApp Business Account phone number ID. If not provided, uses `WHATSAPP_PHONE_NUMBER_ID` environment variable. |
-| `version`         | `str`         | `"v22.0"` | API version to use. If not provided, uses `WHATSAPP_VERSION` environment variable or defaults to "v22.0".     |
-| `recipient_waid`  | `Optional[str]` | `None`    | Default recipient WhatsApp ID (e.g., "1234567890"). If not provided, uses `WHATSAPP_RECIPIENT_WAID` environment variable. |
-| `async_mode`      | `bool`        | `False`   | Enable asynchronous methods for sending messages.                                                            |
+| `access_token`    | `Optional[str]` | `None`    | WhatsApp Business API のアクセストークン。指定しない場合は、`WHATSAPP_ACCESS_TOKEN` 環境変数を使用します。      |
+| `phone_number_id` | `Optional[str]` | `None`    | WhatsApp Business アカウントの電話番号 ID。指定しない場合は、`WHATSAPP_PHONE_NUMBER_ID` 環境変数を使用します。 |
+| `version`         | `str`         | `"v22.0"` | 使用する API バージョン。指定しない場合は、`WHATSAPP_VERSION` 環境変数を使用するか、デフォルトの "v22.0" になります。     |
+| `recipient_waid`  | `Optional[str]` | `None`    | デフォルトの受信者の WhatsApp ID (例: "1234567890")。指定しない場合は、`WHATSAPP_RECIPIENT_WAID` 環境変数を使用します。 |
+| `async_mode`      | `bool`        | `False`   | メッセージ送信のための非同期メソッドを有効にします。                                                            |
 
-## Toolkit Functions
+## Toolkit 関数
 
-| Function                        | Description                                                                                                                               |
+| 関数                        | 説明                                                                                                                               |
 | ------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| `send_text_message_sync`        | Sends a text message to a WhatsApp user (synchronous). Parameters: `text` (str), `recipient` (Optional[str]), `preview_url` (bool), `recipient_type` (str). |
-| `send_template_message_sync`    | Sends a template message to a WhatsApp user (synchronous). Parameters: `recipient` (Optional[str]), `template_name` (str), `language_code` (str), `components` (Optional[List[Dict[str, Any]]]). |
-| `send_text_message_async`       | Sends a text message to a WhatsApp user (asynchronous). Parameters: `text` (str), `recipient` (Optional[str]), `preview_url` (bool), `recipient_type` (str). |
-| `send_template_message_async`   | Sends a template message to a WhatsApp user (asynchronous). Parameters: `recipient` (Optional[str]), `template_name` (str), `language_code` (str), `components` (Optional[List[Dict[str, Any]]]). |
+| `send_text_message_sync`        | WhatsApp ユーザーにテキストメッセージを送信します (同期)。パラメータ: `text` (str), `recipient` (Optional[str]), `preview_url` (bool), `recipient_type` (str)。 |
+| `send_template_message_sync`    | WhatsApp ユーザーにテンプレートメッセージを送信します (同期)。パラメータ: `recipient` (Optional[str]), `template_name` (str), `language_code` (str), `components` (Optional[List[Dict[str, Any]]])。 |
+| `send_text_message_async`       | WhatsApp ユーザーにテキストメッセージを送信します (非同期)。パラメータ: `text` (str), `recipient` (Optional[str]), `preview_url` (bool), `recipient_type` (str)。 |
+| `send_template_message_async`   | WhatsApp ユーザーにテンプレートメッセージを送信します (非同期)。パラメータ: `recipient` (Optional[str]), `template_name` (str), `language_code` (str), `components` (Optional[List[Dict[str, Any]]])。 |
 
-## Developer Resources
+## 開発者向けリソース
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/whatsapp.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/whatsapp_tools.py)
+- [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/whatsapp.py) を表示
+- [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/whatsapp_tools.py) を表示

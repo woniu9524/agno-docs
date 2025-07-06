@@ -1,44 +1,44 @@
 ---
-title: Contributing to Agno
-description: Learn how to contribute to Agno through our fork and pull request workflow.
+title: Agno への貢献
+description: フォークとプルリクエストのワークフローを通じて Agno に貢献する方法を学びます。
 ---
 
-Agno is an open-source project and we welcome contributions.
+Agno はオープンソースプロジェクトであり、貢献を歓迎します。
 
-## 👩‍💻 How to contribute
+## 👩‍💻 貢献方法
 
-Please follow the [fork and pull request](https://docs.github.com/en/get-started/quickstart/contributing-to-projects) workflow:
+[フォークとプルリクエスト](https://docs.github.com/en/get-started/quickstart/contributing-to-projects)のワークフローに従ってください。
 
-- Fork the repository.
-- Create a new branch for your feature.
-- Add your feature or improvement.
-- Send a pull request.
-- We appreciate your support & input!
+- リポジトリをフォークします。
+- 機能用の新しいブランチを作成します。
+- 機能または改善を追加します。
+- プルリクエストを送信します。
+- 皆様のサポートとご意見に感謝いたします！
 
-## Development setup
+## 開発環境のセットアップ
 
-1. Clone the repository.
-2. Create a virtual environment:
-   - For Unix, use `./scripts/dev_setup.sh`.
-   - This setup will:
-     - Create a `.venv` virtual environment in the current directory.
-     - Install the required packages.
-     - Install the `agno` package in editable mode.
-3. Activate the virtual environment:
-   - On Unix: `source .venv/bin/activate`
+1. リポジトリをクローンします。
+2. 仮想環境を作成します。
+   - Unix の場合: `./scripts/dev_setup.sh` を使用します。
+   - このセットアップは以下のことを行います。
+     - 現在のディレクトリに `.venv` 仮想環境を作成します。
+     - 必要なパッケージをインストールします。
+     - `agno` パッケージを編集可能モードでインストールします。
+3. 仮想環境をアクティベートします。
+   - Unix の場合: `source .venv/bin/activate`
 
-> From here on you have to use `uv pip install` to install missing packages
+> ここから先は、不足しているパッケージをインストールするために `uv pip install` を使用する必要があります。
 
-## Formatting and validation
+## フォーマットと検証
 
-Ensure your code meets our quality standards by running the appropriate formatting and validation script before submitting a pull request:
+プルリクエストを送信する前に、適切なフォーマットと検証スクリプトを実行して、コードが品質基準を満たしていることを確認してください。
 
-- For Unix:
+- Unix の場合:
   - `./scripts/format.sh`
   - `./scripts/validate.sh`
 
-These scripts will perform code formatting with `ruff` and static type checks with `mypy`.
+これらのスクリプトは、`ruff` によるコードフォーマットと `mypy` による静的型チェックを実行します。
 
-Read more about the guidelines [here](https://github.com/agno-agi/agno/tree/main/cookbook/CONTRIBUTING.md)
+ガイドラインの詳細については、[こちら](https://github.com/agno-agi/agno/tree/main/cookbook/CONTRIBUTING.md)をご覧ください。
 
-Message us on [Discord](https://discord.gg/4MtYHHrgA8) or post on [Discourse](https://community.agno.com/) if you have any questions or need help with credits.
+ご質問がある場合やクレジットについてヘルプが必要な場合は、[Discord](https://discord.gg/4MtYHHrgA8) でメッセージを送信するか、[Discourse](https://community.agno.com/) に投稿してください。

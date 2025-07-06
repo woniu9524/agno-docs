@@ -5,17 +5,17 @@ sidebarTitle: Structured outputs
 
 ## Structured Outputs vs. JSON Mode
 
-When working with language models, generating responses that match a specific structure is crucial for building reliable applications. Agno Agents support two methods to achieve this: **Structured Outputs** and **JSON mode**.
+言語モデルと連携する際、特定の構造に一致する応答を生成することは、信頼性の高いアプリケーションを構築するために不可欠です。Agno Agents は、この目標を達成するために **Structured Outputs** と **JSON mode** の 2 つの方法をサポートしています。
 
 ---
 
-### Structured Outputs (Default if supported)
+### Structured Outputs (サポートされている場合はデフォルト)
 
-"Structured Outputs" is the **preferred** and most **reliable** way to extract well-formed, schema-compliant responses from a Model. If a model class supports it, Agno Agents use Structured Outputs by default.
+"Structured Outputs" は、モデルから整形され、スキーマに準拠した応答を抽出するための、**最も推奨される**、最も**信頼性の高い**方法です。モデルクラスがこれをサポートしている場合、Agno Agents はデフォルトで Structured Outputs を使用します。
 
-With structured outputs, we provide a schema to the model (using Pydantic or JSON Schema), and the model’s response is guaranteed to **strictly follow** that schema. This eliminates many common issues like missing fields, invalid enum values, or inconsistent formatting. Structured Outputs are ideal when you need high-confidence, well-structured responses—like entity extraction, content generation for UI rendering, and more.
+Structured Outputs では、モデルにスキーマ（Pydantic または JSON Schema を使用）を提供し、モデルの応答はそのスキーマに**厳密に従う**ことが保証されます。これにより、フィールドの欠落、無効な enum 値、一貫性のないフォーマットといった多くの一般的な問題が解消されます。Structured Outputs は、エンティティ抽出、UI レンダリングのためのコンテンツ生成など、高い信頼性を持つ構造化された応答が必要な場合に最適です。
 
-In this case, the response model is passed as a keyword argument to the model.
+この場合、応答モデルはモデルのキーワード引数として渡されます。
 
 ## Example
 
@@ -36,15 +36,15 @@ agent = Agent(
 )
 ```
 
-In the example above, the model will generate a response that matches the `User` schema using structured outputs via OpenAI's `gpt-4o` model. The agent will then return the `User` object as-is.
+上記の例では、モデルは OpenAI の `gpt-4o` モデルを介して Structured Outputs を使用し、`User` スキーマに一致する応答を生成します。エージェントはその後、`User` オブジェクトをそのまま返します。
 
 ---
 
 ### JSON Mode
 
-Some model classes **do not support Structured Outputs**, or you may want to fall back to JSON mode even when the model supports both options. In such cases, you can enable **JSON mode** by setting `use_json_mode=True`.
+一部のモデルクラスは Structured Outputs を**サポートしていません**。あるいは、モデルが両方のオプションをサポートしている場合でも、JSON mode にフォールバックしたい場合があります。そのような場合は、`use_json_mode=True` を設定することで **JSON mode** を有効にできます。
 
-JSON mode works by injecting a detailed description of the expected JSON structure into the system prompt. The model is then instructed to return a valid JSON object that follows this structure. Unlike Structured Outputs, the response is **not automatically validated** against the schema at the API level.
+JSON mode は、期待される JSON 構造の詳細な説明をシステムプロンプトに挿入することによって機能します。その後、モデルはこの構造に従った有効な JSON オブジェクトを返すように指示されます。Structured Outputs とは異なり、応答は API レベルでスキーマに対して**自動的に検証されません**。
 
 ## Example
 
@@ -69,10 +69,10 @@ agent = Agent(
 
 ### When to use
 
-Use **Structured Outputs** if the model supports it — it’s reliable, clean, and validated automatically.
+モデルがサポートしている場合は **Structured Outputs** を使用してください — これは信頼性が高く、クリーンで、自動的に検証されます。
 
-Use **JSON mode**:
+**JSON mode** を使用する場合：
 
-- When the model doesn't support structured outputs. Agno agents do this by default on your behalf.
-- When you need broader compatibility, but are okay validating manually.
-- When the model does not support tools with structured outputs.
+- モデルが structured outputs をサポートしていない場合。Agno agents はこれを自動的に処理します。
+- より広範な互換性が必要で、手動での検証で問題ない場合。
+- モデルが structured outputs を持つツールをサポートしていない場合。

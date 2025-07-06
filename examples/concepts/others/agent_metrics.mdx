@@ -2,9 +2,9 @@
 title: Agent Metrics
 ---
 
-This example shows how to get the metrics of an agent run.
+この例では、エージェント実行のメトリクスを取得する方法を示します。
 
-## Code
+## コード
 
 ```python cookbook/agent_concepts/other/agent_metrics.py
 from typing import Iterator
@@ -46,24 +46,24 @@ print("---" * 5, "Session Metrics", "---" * 5)
 pprint(agent.session_metrics)
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="API キーの設定">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="ライブラリのインストール">
     ```bash
     pip install -U openai agno yfinance rich
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="エージェントの実行">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/other/agent_metrics.py
@@ -74,4 +74,4 @@ pprint(agent.session_metrics)
     ```
     </CodeGroup>
   </Step>
-</Steps> 
+</Steps>

@@ -2,38 +2,38 @@
 title: File
 ---
 
-**FileTools** enable an Agent to read and write files on the local file system.
+**FileTools** は、エージェントがローカルファイルシステム上のファイルを読み書きできるようにします。
 
-## Example
+## 例
 
-The following agent will generate an answer and save it in a file.
+以下は、回答を生成してファイルに保存するエージェントの例です。
 
 ```python cookbook/tools/file_tools.py
 from agno.agent import Agent
 from agno.tools.file import FileTools
 
 agent = Agent(tools=[FileTools()], show_tool_calls=True)
-agent.print_response("What is the most advanced LLM currently? Save the answer to a file.", markdown=True)
+agent.print_response("現在最も先進的なLLMは何ですか？回答をファイルに保存してください。", markdown=True)
 ```
 
-## Toolkit Params
+## Toolkit パラメータ
 
-| Name         | Type   | Default | Description                                                    |
-| ------------ | ------ | ------- | -------------------------------------------------------------- |
-| `base_dir`   | `Path` | -       | Specifies the base directory path for file operations.         |
-| `save_files` | `bool` | `True`  | Determines whether files should be saved during the operation. |
-| `read_files` | `bool` | `True`  | Allows reading from files during the operation.                |
-| `list_files` | `bool` | `True`  | Enables listing of files in the specified directory.           |
+| 名前         | タイプ   | デフォルト | 説明                                                               |
+| ------------ | ------- | -------- | ------------------------------------------------------------------ |
+| `base_dir`   | `Path`  | -        | ファイル操作のベースディレクトリパスを指定します。                               |
+| `save_files` | `bool`  | `True`   | 操作中にファイルを保存するかどうかを決定します。                                   |
+| `read_files` | `bool`  | `True`   | 操作中にファイルから読み取ることを許可します。                                   |
+| `list_files` | `bool`  | `True`   | 指定されたディレクトリ内のファイルのリスト表示を有効にします。                               |
 
-## Toolkit Functions
+## Toolkit 関数
 
-| Name         | Description                                                                              |
-| ------------ | ---------------------------------------------------------------------------------------- |
-| `save_file`  | Saves the contents to a file called `file_name` and returns the file name if successful. |
-| `read_file`  | Reads the contents of the file `file_name` and returns the contents if successful.       |
-| `list_files` | Returns a list of files in the base directory                                            |
+| 名前         | 説明                                                                         |
+| ------------ | ---------------------------------------------------------------------------- |
+| `save_file`  | 指定された `file_name` に内容を保存し、成功した場合はファイル名を返します。                               |
+| `read_file`  | 指定された `file_name` の内容を読み取り、成功した場合は内容を返します。                                   |
+| `list_files` | ベースディレクトリ内のファイルのリストを返します。                                                       |
 
-## Developer Resources
+## 開発者向けリソース
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/file.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/file_tools.py)
+- [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/file.py) を表示
+- [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/file_tools.py) を表示

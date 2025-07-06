@@ -2,23 +2,23 @@
 title: Lumalabs
 ---
 
-**LumaLabTools** enables an Agent to generate media using the [Lumalabs platform](https://lumalabs.ai/dream-machine).
+**LumaLabTools** は、エージェントが [Lumalabs プラットフォーム](https://lumalabs.ai/dream-machine) を使用してメディアを生成できるようにします。
 
-## Prerequisites
+## 前提条件
 
 ```shell
 export LUMAAI_API_KEY=***
 ```
 
-The following example requires the `lumaai` library. To install the Lumalabs client, run the following command:
+次の例では、`lumaai` ライブラリが必要です。Lumalabs クライアントをインストールするには、次のコマンドを実行します。
 
 ```shell
 pip install -U lumaai
 ```
 
-## Example
+## 例
 
-The following agent will use Lumalabs to generate any video requested by the user.
+次のエージェントは、Lumalabs を使用してユーザーが要求したビデオを生成します。
 
 ```python cookbook/tools/lumalabs_tool.py
 from agno.agent import Agent
@@ -28,22 +28,20 @@ from agno.tools.lumalab import LumaLabTools
 luma_agent = Agent(
     name="Luma Video Agent",
     model=OpenAIChat(id="gpt-4o"),
-    tools=[LumaLabTools()],  # Using the LumaLab tool we created
+    tools=[LumaLabTools()],  # 作成した LumaLab ツールを使用
     markdown=True,
     debug_mode=True,
     show_tool_calls=True,
     instructions=[
-        "You are an agent designed to generate videos using the Luma AI API.",
-        "You can generate videos in two ways:",
-        "1. Text-to-Video Generation:",
-        "2. Image-to-Video Generation:",
-        "Choose the appropriate function based on whether the user provides image URLs or just a text prompt.",
-        "The video will be displayed in the UI automatically below your response, so you don't need to show the video URL in your response.",
+        "あなたは Luma AI API を使用してビデオを生成するように設計されたエージェントです。",
+        "ビデオは 2 つの方法で生成できます。",
+        "1. テキストからビデオへの生成:",
+        "2. 画像からビデオへの生成:",
+        "ユーザーが画像 URL を提供するか、テキストプロンプトのみを提供するかによって、適切な関数を選択してください。",
+        "ビデオは応答の下の UI に自動的に表示されるため、応答にビデオ URL を表示する必要はありません。",
     ],
     system_message=(
-        "Use generate_video for text-to-video requests and image_to_video for image-based "
-        "generation. Don't modify default parameters unless specifically requested. "
-        "Always provide clear feedback about the video generation status."
+        "テキストからビデオへのリクエストには generate_video を使用し、画像ベースの生成には image_to_video を使用してください。特に要求されない限り、デフォルトのパラメータは変更しないでください。ビデオ生成ステータスについて常に明確なフィードバックを提供してください。"
     ),
 )
 
@@ -52,18 +50,18 @@ luma_agent.run("Generate a video of a car in a sky")
 
 ## Toolkit Params
 
-| Parameter | Type  | Default | Description                                          |
-| --------- | ----- | ------- | ---------------------------------------------------- |
-| `api_key` | `str` | `None`  | If you want to manually supply the Lumalabs API key. |
+| パラメータ | タイプ | デフォルト | 説明 |
+|---|---|---|---|
+| `api_key` | `str` | `None` | Lumalabs API キーを手動で指定する場合。 |
 
 ## Toolkit Functions
 
-| Function         | Description                                                           |
-| ---------------- | --------------------------------------------------------------------- |
-| `generate_video` | Generate a video from a prompt.                                       |
-| `image_to_video` | Generate a video from a prompt, a starting image and an ending image. |
+| 関数 | 説明 |
+|---|---|
+| `generate_video` | プロンプトからビデオを生成します。 |
+| `image_to_video` | プロンプト、開始画像、終了画像からビデオを生成します。 |
 
-## Developer Resources
+## 開発者向けリソース
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/lumalabs.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/lumalabs_tools.py)
+- [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/lumalabs.py) を表示
+- [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/lumalabs_tools.py) を表示

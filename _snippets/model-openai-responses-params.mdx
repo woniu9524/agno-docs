@@ -1,27 +1,27 @@
-| Name                          | Type                              | Default              | Description                                                                           |
+| 名前                          | タイプ                              | デフォルト              | 説明                                                                                  |
 | ----------------------------- | --------------------------------- | -------------------- | ------------------------------------------------------------------------------------- |
-| `id`                          | `str`                             | `"gpt-4o"`           | The id of the OpenAI model to use.                                                    |
-| `name`                        | `str`                             | `"OpenAIResponses"`  | The name of this response model instance.                                             |
-| `provider`                    | `str`                             | `"OpenAI"`           | The provider of the model.                                                            |
-| `include`                     | `Optional[List[str]]`             | `None`               | List of response components to include in the response.                               |
-| `max_output_tokens`           | `Optional[int]`                   | `None`               | The maximum number of tokens to generate in the response output.                      |
-| `metadata`                    | `Optional[Dict[str, Any]]`        | `None`               | Additional metadata to include with the request.                                      |
-| `parallel_tool_calls`         | `Optional[bool]`                  | `None`               | Whether to allow parallel tool calls.                                                 |
-| `reasoning`                   | `Optional[Dict[str, Any]]`        | `None`               | Parameters for enabling and controlling reasoning/thinking in the response.           |
-| `store`                       | `Optional[bool]`                  | `None`               | Whether to store the output of this response request for model distillation or evals. |
-| `temperature`                 | `Optional[float]`                 | `None`               | Controls randomness in the model's output.                                            |
-| `top_p`                       | `Optional[float]`                 | `None`               | Controls diversity via nucleus sampling.                                              |
-| `truncation`                  | `Optional[str]`                   | `None`               | How to handle content that exceeds the token limit.                                   |
-| `user`                        | `Optional[str]`                   | `None`               | A unique identifier representing your end-user.                                       |
-| `response_format`             | `Optional[Any]`                   | `None`               | An object specifying the format that the model must output.                           |
-| `request_params`              | `Optional[Dict[str, Any]]`        | `None`               | Additional parameters to include in the request.                                      |
-| `api_key`                     | `Optional[str]`                   | `None`               | The API key for authenticating with OpenAI.                                           |
-| `organization`                | `Optional[str]`                   | `None`               | The organization to use for API requests.                                             |
-| `base_url`                    | `Optional[Union[str, httpx.URL]]` | `None`               | The base URL for API requests.                                                        |
-| `timeout`                     | `Optional[float]`                 | `None`               | The timeout for API requests.                                                         |
-| `max_retries`                 | `Optional[int]`                   | `None`               | The maximum number of retries for failed requests.                                    |
-| `default_headers`             | `Optional[Dict[str, str]]`        | `None`               | Default headers to include in all requests.                                           |
-| `default_query`               | `Optional[Dict[str, str]]`        | `None`               | Default query parameters to include in all requests.                                  |
-| `http_client`                 | `Optional[httpx.Client]`          | `None`               | An optional pre-configured HTTP client.                                               |
-| `client_params`               | `Optional[Dict[str, Any]]`        | `None`               | Additional parameters for client configuration.                                       |
-| `vector_store_name`           | `str`                             | `"knowledge_base"`   | The name of the vector store for file uploads and retrieval.                          |
+| `id`                          | `str`                             | `"gpt-4o"`           | 使用するOpenAIモデルのID。                                                            |
+| `name`                        | `str`                             | `"OpenAIResponses"`  | このレスポンスモデルインスタンスの名前。                                              |
+| `provider`                    | `str`                             | `"OpenAI"`           | モデルのプロバイダー。                                                                |
+| `include`                     | `Optional[List[str]]`             | `None`               | レスポンスに含めるレスポンスコンポーネントのリスト。                                  |
+| `max_output_tokens`           | `Optional[int]`                   | `None`               | レスポンス出力で生成する最大トークン数。                                              |
+| `metadata`                    | `Optional[Dict[str, Any]]`        | `None`               | リクエストに含める追加のメタデータ。                                                  |
+| `parallel_tool_calls`         | `Optional[bool]`                  | `None`               | 並列ツール呼び出しを許可するかどうか。                                                |
+| `reasoning`                   | `Optional[Dict[str, Any]]`        | `None`               | レスポンスでの推論/思考を有効化および制御するためのパラメータ。                       |
+| `store`                       | `Optional[bool]`                  | `None`               | モデルの蒸留または評価のために、このレスポンスリクエストの出力を保存するかどうか。      |
+| `temperature`                 | `Optional[float]`                 | `None`               | モデルの出力におけるランダム性を制御します。                                          |
+| `top_p`                       | `Optional[float]`                 | `None`               |Nucleusサンプリングによる多様性を制御します。                                         |
+| `truncation`                  | `Optional[str]`                   | `None`               | トークン制限を超えるコンテンツをどのように処理するか。                                |
+| `user`                        | `Optional[str]`                   | `None`               | エンドユーザーを表す一意の識別子。                                                    |
+| `response_format`             | `Optional[Any]`                   | `None`               | モデルが出力する必要がある形式を指定するオブジェクト。                                |
+| `request_params`              | `Optional[Dict[str, Any]]`        | `None`               | リクエストに含める追加のパラメータ。                                                  |
+| `api_key`                     | `Optional[str]`                   | `None`               | OpenAIとの認証に使用するAPIキー。                                                     |
+| `organization`                | `Optional[str]`                   | `None`               | APIリクエストに使用する組織。                                                         |
+| `base_url`                    | `Optional[Union[str, httpx.URL]]` | `None`               | APIリクエストのベースURL。                                                             |
+| `timeout`                     | `Optional[float]`                 | `None`               | APIリクエストのタイムアウト。                                                         |
+| `max_retries`                 | `Optional[int]`                   | `None`               | 失敗したリクエストの最大リトライ回数。                                                  |
+| `default_headers`             | `Optional[Dict[str, str]]`        | `None`               | すべてのリクエストに含めるデフォルトヘッダー。                                        |
+| `default_query`               | `Optional[Dict[str, str]]`        | `None`               | すべてのリクエストに含めるデフォルトクエリパラメータ。                                  |
+| `http_client`                 | `Optional[httpx.Client]`          | `None`               | オプションの事前設定済みHTTPクライアント。                                            |
+| `client_params`               | `Optional[Dict[str, Any]]`        | `None`               | クライアント設定のための追加パラメータ。                                              |
+| `vector_store_name`           | `str`                             | `"knowledge_base"`   | ファイルアップロードと取得のためのベクトルストアの名前。                              |

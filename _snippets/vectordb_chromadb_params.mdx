@@ -1,7 +1,7 @@
-| Parameter           | Type       | Default          | Description                                          |
-| ------------------- | ---------- | ---------------- | ---------------------------------------------------- |
-| `collection`        | `str`      | -                | The name of the collection to use.                   |
-| `embedder`          | `Embedder` | OpenAIEmbedder() | The embedder to use for embedding document contents. |
-| `distance`          | `Distance` | cosine           | The distance metric to use.                          |
-| `path`              | `str`      | "tmp/chromadb"   | The path where ChromaDB data will be stored.         |
-| `persistent_client` | `bool`     | False            | Whether to use a persistent ChromaDB client.         |
+| パラメータ           | タイプ       | デフォルト          | 説明                                                              |
+| ------------------- | ---------- | ---------------- | ----------------------------------------------------------------- |
+| `collection`        | `str`      | -                | 使用するコレクションの名前。                                                      |
+| `embedder`          | `Embedder` | OpenAIEmbedder() | ドキュメントの内容を埋め込むために使用する埋め込みモデル。                                         |
+| `distance`          | `Distance` | cosine           | 使用する距離メトリック。                                                          |
+| `path`              | `str`      | "tmp/chromadb"   | ChromaDB のデータが保存されるパス。                                                 |
+| `persistent_client` | `bool`     | False            | 持続的な ChromaDB クライアントを使用するかどうか。                                                  |

@@ -1,26 +1,26 @@
 ---
 title: Trello
-description: Agno TrelloTools helps to integrate Trello functionalities into your agents, enabling management of boards, lists, and cards.
+description: Agno TrelloTools は、Trello の機能をエージェントに統合し、ボード、リスト、カードの管理を可能にします。
 ---
 
-## Prerequisites
+## 前提条件
 
-The following examples require the `trello` library and Trello API credentials which can be obtained by following Trello's developer documentation.
+以下の例では、`trello` ライブラリと Trello API の認証情報が必要です。これらは、Trello の開発者向けドキュメントに従って取得できます。
 
 ```shell
 pip install -U trello
 ```
 
-Set the following environment variables:
+以下の環境変数を設定してください。
 ```shell
 export TRELLO_API_KEY="YOUR_API_KEY"
 export TRELLO_API_SECRET="YOUR_API_SECRET"
 export TRELLO_TOKEN="YOUR_TOKEN"
 ```
 
-## Example
+## 例
 
-The following agent will create a board called `ai-agent` and inside it create list called `todo` and `doing` and inside each of them create card called `create agent`.
+以下のエージェントは、`ai-agent` という名前のボードを作成し、その中に `todo` と `doing` という名前のリストを作成し、さらにそれぞれのリストの中に `create agent` という名前のカードを作成します。
 
 ```python
 from agno.agent import Agent
@@ -28,66 +28,66 @@ from agno.tools.trello import TrelloTools
 
 agent = Agent(
     instructions=[
-        "You are a Trello management assistant that helps organize and manage Trello boards, lists, and cards",
-        "Help users with tasks like:",
-        "- Creating and organizing boards, lists, and cards",
-        "- Moving cards between lists",
-        "- Retrieving board and list information",
-        "- Managing card details and descriptions",
-        "Always confirm successful operations and provide relevant board/list/card IDs and URLs",
-        "When errors occur, provide clear explanations and suggest solutions",
+        "あなたは Trello ボード、リスト、カードの整理と管理を支援する Trello 管理アシスタントです",
+        "以下のようなタスクでユーザーを支援してください:",
+        "- ボード、リスト、カードの作成と整理",
+        "- カードをリスト間で移動する",
+        "- ボードとリスト情報の取得",
+        "- カードの詳細と説明の管理",
+        "常に操作の成功を確認し、関連するボード/リスト/カードの ID と URL を提供してください",
+        "エラーが発生した場合は、明確な説明を提供し、解決策を提案してください",
     ],
     tools=[TrelloTools()],
     show_tool_calls=True,
 )
 
 agent.print_response(
-    "Create a board called ai-agent and inside it create list called 'todo' and 'doing' and inside each of them create card called 'create agent'",
+    "ai-agent という名前のボードを作成し、その中に 'todo' と 'doing' という名前のリストを作成し、さらにそれぞれのリストの中に 'create agent' という名前のカードを作成してください",
     stream=True,
 )
 
 ```
 
-## Toolkit Functions
+## Toolkit 関数
 
-| Function          | Description                                                      |
-| ----------------- | ---------------------------------------------------------------- |
-| `create_card`     | Creates a new card in a specified board and list.                |
-| `get_board_lists` | Retrieves all lists on a specified Trello board.                 |
-| `move_card`       | Moves a card to a different list.                                |
-| `get_cards`       | Retrieves all cards from a specified list.                       |
-| `create_board`    | Creates a new Trello board.                                      |
-| `create_list`     | Creates a new list on a specified board.                         |
-| `list_boards`     | Lists all Trello boards accessible by the authenticated user.    |
+| 関数          | 説明                                                                 |
+| ------------- | -------------------------------------------------------------------- |
+| `create_card`     | 指定されたボードとリストに新しいカードを作成します。                               |
+| `get_board_lists` | 指定された Trello ボードのすべてのリストを取得します。                               |
+| `move_card`       | カードを別のリストに移動します。                                                   |
+| `get_cards`       | 指定されたリストからすべてのカードを取得します。                                     |
+| `create_board`    | 新しい Trello ボードを作成します。                                                 |
+| `create_list`     | 指定されたボードに新しいリストを作成します。                                         |
+| `list_boards`     | 認証されたユーザーがアクセスできるすべての Trello ボードを一覧表示します。                             |
 
-## Toolkit Parameters
+## Toolkit パラメータ
 
-These parameters are passed to the `TrelloTools` constructor.
+これらのパラメータは `TrelloTools` コンストラクタに渡されます。
 
-| Parameter         | Type          | Default | Description                                                                 |
-| ----------------- | ------------- | ------- | --------------------------------------------------------------------------- |
-| `api_key`         | `Optional[str]` | `None`  | Trello API key. Defaults to `TRELLO_API_KEY` environment variable.        |
-| `api_secret`      | `Optional[str]` | `None`  | Trello API secret. Defaults to `TRELLO_API_SECRET` environment variable.    |
-| `token`           | `Optional[str]` | `None`  | Trello token. Defaults to `TRELLO_TOKEN` environment variable.              |
-| `create_card`     | `bool`        | `True`  | Enable the `create_card` tool.                                              |
-| `get_board_lists` | `bool`        | `True`  | Enable the `get_board_lists` tool.                                          |
-| `move_card`       | `bool`        | `True`  | Enable the `move_card` tool.                                                |
-| `get_cards`       | `bool`        | `True`  | Enable the `get_cards` tool.                                                |
-| `create_board`    | `bool`        | `True`  | Enable the `create_board` tool.                                             |
-| `create_list`     | `bool`        | `True`  | Enable the `create_list` tool.                                              |
-| `list_boards`     | `bool`        | `True`  | Enable the `list_boards` tool.                                              |
+| パラメータ         | タイプ          | デフォルト | 説明                                                                       |
+| ----------------- | ------------- | ------- | -------------------------------------------------------------------------- |
+| `api_key`         | `Optional[str]` | `None`  | Trello API キー。デフォルトでは `TRELLO_API_KEY` 環境変数を使用します。                  |
+| `api_secret`      | `Optional[str]` | `None`  | Trello API シークレット。デフォルトでは `TRELLO_API_SECRET` 環境変数を使用します。           |
+| `token`           | `Optional[str]` | `None`  | Trello トークン。デフォルトでは `TRELLO_TOKEN` 環境変数を使用します。                     |
+| `create_card`     | `bool`        | `True`  | `create_card` ツールを有効にします。                                                 |
+| `get_board_lists` | `bool`        | `True`  | `get_board_lists` ツールを有効にします。                                               |
+| `move_card`       | `bool`        | `True`  | `move_card` ツールを有効にします。                                                   |
+| `get_cards`       | `bool`        | `True`  | `get_cards` ツールを有効にします。                                                   |
+| `create_board`    | `bool`        | `True`  | `create_board` ツールを有効にします。                                                |
+| `create_list`     | `bool`        | `True`  | `create_list` ツールを有効にします。                                                 |
+| `list_boards`     | `bool`        | `True`  | `list_boards` ツールを有効にします。                                                 |
 
-### Board Filter Options for `list_boards`
+### `list_boards` のボードフィルターオプション
 
-The `list_boards` function accepts a `board_filter` argument with the following options:
-- `all` (default)
+`list_boards` 関数は、以下のオプションを持つ `board_filter` 引数を受け入れます。
+- `all` (デフォルト)
 - `open`
 - `closed`
 - `organization`
 - `public`
 - `starred`
 
-## Developer Resources
+## 開発者向けリソース
 
-- View [Tools Source](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/trello.py)
-- View [Cookbook Example](https://github.com/agno-agi/agno/blob/main/cookbook/tools/trello_tools.py)
+- [Tools ソース](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/trello.py) を表示
+- [Cookbook の例](https://github.com/agno-agi/agno/blob/main/cookbook/tools/trello_tools.py) を表示

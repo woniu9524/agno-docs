@@ -1,13 +1,13 @@
 ---
-title: DynamoDB Workflow Storage
+title: DynamoDB ワークフロー ストレージ
 sidebarTitle: DynamoDB
 ---
 
-Agno supports using DynamoDB as a storage backend for Workflows using the `DynamoDbStorage` class.
+Agno は、`DynamoDbStorage` クラスを使用して、ワークフローのストレージバックエンドとして DynamoDB をサポートしています。
 
-## Usage
+## 使用方法
 
-You need to provide `aws_access_key_id` and `aws_secret_access_key` parameters to the `DynamoDbStorage` class.
+`DynamoDbStorage` クラスに `aws_access_key_id` および `aws_secret_access_key` パラメータを提供する必要があります。
 
 ```python dynamodb_storage_for_workflow.py
 import json
@@ -103,10 +103,10 @@ if __name__ == "__main__":
     pprint_run_response(report, markdown=True, show_time=True)
 ```
 
-## Params
+## パラメータ
 
 <Snippet file="storage-dynamodb-params.mdx" />
 
-## Developer Resources
+## 開発者向けリソース
 
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/storage/dynamodb_storage/dynamodb_storage_for_workflow.py)
+- [クックブック](https://github.com/agno-agi/agno/blob/main/cookbook/storage/dynamodb_storage/dynamodb_storage_for_workflow.py)を表示

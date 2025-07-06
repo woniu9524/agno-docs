@@ -1,8 +1,4 @@
----
-title: CSV Tools
----
-
-## Code
+## コード
 
 ```python cookbook/tools/csv_tools.py
 from pathlib import Path
@@ -23,32 +19,32 @@ agent = Agent(
     markdown=True,
     show_tool_calls=True,
     instructions=[
-        "First always get the list of files",
-        "Then check the columns in the file",
-        "Then run the query to answer the question",
+        "まず、常にファイルのリストを取得します",
+        "次に、ファイル内の列を確認します",
+        "次に、質問に答えるためのクエリを実行します",
     ],
 )
 agent.cli_app(stream=False)
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="API キーの設定">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="ライブラリのインストール">
     ```bash
     pip install -U httpx openai agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="エージェントの実行">
     <CodeGroup>
     ```bash Mac
     python cookbook/tools/csv_tools.py

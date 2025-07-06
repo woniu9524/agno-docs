@@ -1,27 +1,24 @@
 ---
-title: Research Agent using Exa
+title: Exa を使用したリサーチエージェント
 ---
 
-This example shows how to create a sophisticated research agent that combines
-academic search capabilities with scholarly writing expertise. The agent performs
-thorough research using Exa's academic search, analyzes recent publications, and delivers
-well-structured, academic-style reports on any topic.
+この例では、学術検索機能と学術執筆の専門知識を組み合わせた、洗練されたリサーチエージェントの作成方法を示します。このエージェントは、Exa の学術検索を使用して徹底的なリサーチを行い、最近の出版物を分析し、あらゆるトピックに関する構造化された学術スタイルのレポートを提供します。
 
-Key capabilities:
-- Advanced academic literature search
-- Recent publication analysis
-- Cross-disciplinary synthesis
-- Academic writing expertise
-- Citation management
+主な機能:
+- 高度な学術文献検索
+- 最近の出版物の分析
+- 学際的な統合
+- 学術執筆の専門知識
+- 引用管理
 
-Example prompts to try:
-- "Explore recent advances in quantum machine learning"
-- "Analyze the current state of fusion energy research"
-- "Investigate the latest developments in CRISPR gene editing"
-- "Research the intersection of blockchain and sustainable energy"
-- "Examine recent breakthroughs in brain-computer interfaces"
+試すためのプロンプト例:
+- 「量子機械学習の最近の進歩を探る」
+- 「核融合エネルギー研究の現状を分析する」
+- 「CRISPR遺伝子編集の最新動向を調査する」
+- 「ブロックチェーンと持続可能なエネルギーの交差点をリサーチする」
+- 「脳コンピュータインターフェースの最近のブレークスルーを検証する」
 
-## Code
+## コード
 
 ```python research_agent_exa.py
 from datetime import datetime
@@ -31,7 +28,7 @@ from agno.agent import Agent
 from agno.models.openai import OpenAIChat
 from agno.tools.exa import ExaTools
 
-# Initialize the academic research agent with scholarly capabilities
+# 学術的な機能を備えた学術リサーチエージェントを初期化します
 research_scholar = Agent(
     model=OpenAIChat(id="gpt-4o"),
     tools=[
@@ -40,86 +37,85 @@ research_scholar = Agent(
         )
     ],
     description=dedent("""\
-        You are a distinguished research scholar with expertise in multiple disciplines.
-        Your academic credentials include: 📚
+        あなたは、複数の分野に専門知識を持つ著名な研究学者です。
+        あなたの学術的資格には以下が含まれます: 📚
 
-        - Advanced research methodology
-        - Cross-disciplinary synthesis
-        - Academic literature analysis
-        - Scientific writing excellence
-        - Peer review experience
-        - Citation management
-        - Data interpretation
-        - Technical communication
-        - Research ethics
-        - Emerging trends analysis\
+        - 高度なリサーチ方法論
+        - 学際的な統合
+        - 学術文献分析
+        - 科学的執筆の卓越性
+        - 査読経験
+        - 引用管理
+        - データ解釈
+        - 技術コミュニケーション
+        - 新興トレンド分析\
     """),
     instructions=dedent("""\
-        1. Research Methodology 🔍
-           - Conduct 3 distinct academic searches
-           - Focus on peer-reviewed publications
-           - Prioritize recent breakthrough findings
-           - Identify key researchers and institutions
+        1. リサーチ方法論 🔍
+           - 3つの異なる学術検索を実施する
+           - 査読付き出版物を優先する
+           - 最近の画期的な発見を優先する
+           - 主要な研究者と機関を特定する
 
-        2. Analysis Framework 📊
-           - Synthesize findings across sources
-           - Evaluate research methodologies
-           - Identify consensus and controversies
-           - Assess practical implications
+        2. 分析フレームワーク 📊
+           - ソース全体の結果を統合する
+           - リサーチ方法論を評価する
+           - コンセンサスと論争を特定する
+           - 実用的な影響を評価する
 
-        3. Report Structure 📝
-           - Create an engaging academic title
-           - Write a compelling abstract
-           - Present methodology clearly
-           - Discuss findings systematically
-           - Draw evidence-based conclusions
+        3. レポート構造 📝
+           - 魅力的な学術タイトルを作成する
+           - 説得力のある要約を作成する
+           - 方法論を明確に提示する
+           - 結果を体系的に提示する
+           - 証拠に基づいた結論を導き出す
 
-        4. Quality Standards ✓
-           - Ensure accurate citations
-           - Maintain academic rigor
-           - Present balanced perspectives
-           - Highlight future research directions\
+        4. 品質基準 ✓
+           - 正確な引用を保証する
+           - 学術的な厳密性を維持する
+           - バランスの取れた視点を提示する
+           - 将来の研究の方向性を強調する\
     """),
     expected_output=dedent("""\
-        # {Engaging Title} 📚
+        # {魅力的なタイトル} 📚
 
-        ## Abstract
-        {Concise overview of the research and key findings}
+        ## 要約
+        {リサーチと主要な発見の簡潔な概要}
 
-        ## Introduction
-        {Context and significance}
-        {Research objectives}
+        ## 導入
+        {背景と重要性}
+        {リサーチ目標}
 
-        ## Methodology
-        {Search strategy}
-        {Selection criteria}
+        ## 方法論
+        {検索戦略}
+        {選択基準}
 
-        ## Literature Review
-        {Current state of research}
-        {Key findings and breakthroughs}
-        {Emerging trends}
+        ## 文献レビュー
+        {現在のリサーチ状況}
+        {主要な発見とブレークスルー}
+        {新興トレンド}
 
-        ## Analysis
-        {Critical evaluation}
-        {Cross-study comparisons}
-        {Research gaps}
+        ## 分析
+        {批判的評価}
+        {研究間の比較}
+        {リサーチギャップ}
 
-        ## Future Directions
-        {Emerging research opportunities}
-        {Potential applications}
-        {Open questions}
+        ## 将来の方向性
+        {新たなリサーチ機会}
+        {潜在的な応用}
+        {未解決の質問}
 
-        ## Conclusions
-        {Summary of key findings}
-        {Implications for the field}
+        ## 結論
+        {主要な発見の要約}
+        {分野への影響}
 
-        ## References
-        {Properly formatted academic citations}
+        ## 参考文献
+        {適切にフォーマットされた学術的な引用}
 
         ---
-        Research conducted by AI Academic Scholar
-        Published: {current_date}
-        Last Updated: {current_time}\
+        AI Academic Scholar によるリサーチ
+        公開日: {current_date}
+        最終更新日: {current_time}\
     """),
     markdown=True,
     show_tool_calls=True,
@@ -127,59 +123,59 @@ research_scholar = Agent(
     save_response_to_file="tmp/{message}.md",
 )
 
-# Example usage with academic research request
+# 学術リクエストを使用したサンプル使用法
 if __name__ == "__main__":
     research_scholar.print_response(
-        "Analyze recent developments in quantum computing architectures",
+        "量子コンピューティングアーキテクチャの最近の開発を分析する",
         stream=True,
     )
 
-# Advanced research topics to explore:
+# 探求すべき高度なリサーチトピック:
 """
-Quantum Science & Computing:
-1. "Investigate recent breakthroughs in quantum error correction"
-2. "Analyze the development of topological quantum computing"
-3. "Research quantum machine learning algorithms and applications"
-4. "Explore advances in quantum sensing technologies"
+量子科学 & コンピューティング:
+1. 「量子誤り訂正の最近のブレークスルーを調査する」
+2. 「トポロジカル量子コンピューティングの開発を分析する」
+3. 「量子機械学習アルゴリズムとアプリケーションをリサーチする」
+4. 「量子センシング技術の進歩を探る」
 
-Biotechnology & Medicine:
-1. "Examine recent developments in mRNA vaccine technology"
-2. "Analyze breakthroughs in organoid research"
-3. "Investigate advances in precision medicine"
-4. "Research developments in neurotechnology"
+バイオテクノロジー & 医療:
+1. 「mRNAワクチン技術の最近の開発を検証する」
+2. 「オルガノイドリサーチのブレークスルーを分析する」
+3. 「精密医療の進歩を調査する」
+4. 「ニューロテクノロジーの開発をリサーチする」
 
-Materials Science:
-1. "Explore recent advances in metamaterials"
-2. "Analyze developments in 2D materials beyond graphene"
-3. "Research progress in self-healing materials"
-4. "Investigate new battery technologies"
+材料科学:
+1. 「メタマテリアルの最近の進歩を探る」
+2. 「グラフェン以外の2D材料の開発を分析する」
+3. 「自己修復材料の進歩をリサーチする」
+4. 「新しいバッテリー技術を調査する」
 
-Artificial Intelligence:
-1. "Examine recent advances in foundation models"
-2. "Analyze developments in AI safety research"
-3. "Research progress in neuromorphic computing"
-4. "Investigate advances in explainable AI"
+人工知能:
+1. 「基盤モデルの最近の進歩を検証する」
+2. 「AI安全性リサーチの開発を分析する」
+3. 「ニューロモルフィックコンピューティングの進歩をリサーチする」
+4. 「説明可能なAIの進歩を調査する」
 """
 ```
-## Usage
+## 使用方法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install libraries">
+  <Step title="ライブラリのインストール">
     ```bash
     pip install openai exa_py agno
     ```
   </Step>
 
-    <Step title="Set environment variables">
+    <Step title="環境変数の設定">
         ```bash
         export OPENAI_API_KEY=****
         export EXA_API_KEY=****
         ```
     </Step>
 
-  <Step title="Run the agent">
+  <Step title="エージェントの実行">
     ```bash
     python research_agent_exa.py
     ```

@@ -2,17 +2,16 @@
 title: Video Generation
 ---
 
-This example shows how to create an AI agent that generates videos using ModelsLabs.
-You can use this agent to create various types of short videos, from animated scenes
-to creative visual stories.
+この例では、ModelsLabs を使用してビデオを生成する AI エージェントの作成方法を示します。
+このエージェントを使用して、アニメーションシーンから創造的なビジュアルストーリーまで、さまざまな種類の短いビデオを作成できます。
 
-Example prompts to try:
-- "Create a serene video of waves crashing on a beach at sunset"
-- "Generate a magical video of butterflies flying in a enchanted forest"
-- "Create a timelapse of a blooming flower in a garden"
-- "Generate a video of northern lights dancing in the night sky"
+試してみるプロンプトの例：
+- 「夕暮れのビーチに打ち寄せる波の穏やかなビデオを作成してください」
+- 「魔法の森を飛ぶ蝶の魔法のようなビデオを生成してください」
+- 「庭に咲く花のタイムラプスを作成してください」
+- 「夜空で踊るオーロラのビデオを生成してください」
 
-## Code
+## コード
 
 ```python video_generation.py
 from textwrap import dedent
@@ -21,70 +20,69 @@ from agno.agent import Agent
 from agno.models.openai import OpenAIChat
 from agno.tools.models_labs import ModelsLabTools
 
-# Create a Creative AI Video Director Agent
+# クリエイティブな AI ビデオディレクターエージェントを作成
 video_agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
     tools=[ModelsLabTools()],
     description=dedent("""\
-        You are an experienced AI video director with expertise in various video styles,
-        from nature scenes to artistic animations. You have a deep understanding of motion,
-        timing, and visual storytelling through video content.\
+        あなたは、自然のシーンから芸術的なアニメーションまで、さまざまなビデオスタイルに精通した経験豊富な AI ビデオディレクターです。
+        モーション、タイミング、ビデオコンテンツを通じたビジュアルストーリーテリングに関する深い理解を持っています。\
     """),
     instructions=dedent("""\
-        As an AI video director, follow these guidelines:
-        1. Analyze the user's request carefully to understand the desired style and mood
-        2. Before generating, enhance the prompt with details about motion, timing, and atmosphere
-        3. Use the `generate_media` tool with detailed, well-crafted prompts
-        4. Provide a brief explanation of the creative choices made
-        5. If the request is unclear, ask for clarification about style preferences
+        AI ビデオディレクターとして、以下のガイドラインに従ってください：
+        1. ユーザーのリクエストを注意深く分析し、希望するスタイルとムードを理解する
+        2. 生成する前に、モーション、タイミング、雰囲気に関する詳細を追加してプロンプトを強化する
+        3. `generate_media` ツールを、詳細でよく作成されたプロンプトで使用する
+        4. 作成したクリエイティブな選択について簡単な説明を提供する
+        5. リクエストが不明確な場合は、スタイルの好みについて明確化を求める
 
-        The video will be displayed in the UI automatically below your response.
-        Always aim to create captivating and meaningful videos that bring the user's vision to life!\
+        ビデオは、応答の下の UI に自動的に表示されます。
+        常にユーザーのビジョンを実現する、魅力的で意味のあるビデオを作成することを目指してください！\
     """),
     markdown=True,
     show_tool_calls=True,
 )
 
-# Example usage
+# 使用例
 video_agent.print_response(
-    "Generate a cosmic journey through a colorful nebula", stream=True
+    "カラフルな星雲を巡る宇宙の旅を生成してください", stream=True
 )
 
-# Retrieve and display generated videos
+# 生成されたビデオを取得して表示
 videos = video_agent.get_videos()
 if videos:
     for video in videos:
-        print(f"Generated video URL: {video.url}")
+        print(f"生成されたビデオの URL: {video.url}")
 
-# More example prompts to try:
+# 試してみる追加のプロンプトの例：
 """
-Try these creative prompts:
-1. "Create a video of autumn leaves falling in a peaceful forest"
-2. "Generate a video of a cat playing with a ball"
-3. "Create a video of a peaceful koi pond with rippling water"
-4. "Generate a video of a cozy fireplace with dancing flames"
-5. "Create a video of a mystical portal opening in a magical realm"
+これらのクリエイティブなプロンプトを試してください：
+1. 「静かな森に落ちる秋の葉のビデオを作成してください」
+2. 「ボールで遊ぶ猫のビデオを生成してください」
+3. 「水面が波立つ静かな鯉の池のビデオを作成してください」
+4. 「踊る炎を持つ居心地の良い暖炉のビデオを生成してください」
+5. 「魔法の領域で開く神秘的なポータルのビデオを作成してください」
 """
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install libraries">
+  <Step title="ライブラリのインストール">
     ```bash
     pip install openai agno
     ```
   </Step>
 
-  <Step title="Set environment variables">
+  <Step title="環境変数の設定">
     ```bash
     export MODELS_LAB_API_KEY=****
     ```
   </Step>
 
-  <Step title="Run the agent">
+  <Step title="エージェントの実行">
     ```bash
     python video_generation.py
     ```

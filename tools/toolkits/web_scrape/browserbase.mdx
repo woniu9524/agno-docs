@@ -2,11 +2,11 @@
 title: Browserbase
 ---
 
-**BrowserbaseTools** enable an Agent to automate browser interactions using Browserbase, a headless browser service.
+**BrowserbaseTools** は、ヘッドレスブラウザサービスであるBrowserbaseを使用して、エージェントがブラウザ操作を自動化できるようにします。
 
-## Prerequisites
+## 前提条件
 
-The following example requires Browserbase API credentials after you signup [here](https://www.browserbase.com/), and the Playwright library.
+以下の例では、[こちら](https://www.browserbase.com/)からサインアップした後のBrowserbase API認証情報と、Playwrightライブラリが必要です。
 
 ```shell
 pip install browserbase playwright
@@ -15,9 +15,9 @@ export BROWSERBASE_PROJECT_ID=xxx
 ```
 
 
-## Example
+## 例
 
-The following agent will use Browserbase to visit `https://quotes.toscrape.com` and extract content. Then navigate to page two of the website and get quotes from there as well.
+以下のエージェントは、Browserbaseを使用して `https://quotes.toscrape.com` にアクセスし、コンテンツを抽出します。その後、ウェブサイトの2ページ目に移動し、そこからも引用を取得します。
 
 ```python cookbook/tools/browserbase_tools.py
 from agno.agent import Agent
@@ -47,24 +47,24 @@ agent.print_response("""
 
 
 
-## Toolkit Params
+## Toolkitパラメータ
 
-| Parameter    | Type   | Default | Description                                                                                                                                                                                |
-| ------------ | ------ | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `api_key`    | `str`  | `None`  | Browserbase API key. If not provided, uses BROWSERBASE_API_KEY env var.                                                                                                                    |
-| `project_id` | `str`  | `None`  | Browserbase project ID. If not provided, uses BROWSERBASE_PROJECT_ID env var.                                                                                                              |
-| `base_url`   | `str`  | `None`  | Custom Browserbase API endpoint URL. Only use this if you're using a self-hosted Browserbase instance or need to connect to a different region. If not provided, uses BROWSERBASE_BASE_URL env var. |
+| パラメータ    | タイプ   | デフォルト | 説明                                                                                                                                                                                           |
+| ------------ | ------ | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `api_key`    | `str`  | `None`  | Browserbase APIキー。提供されない場合は、BROWSERBASE_API_KEY環境変数が使用されます。                                                                                                              |
+| `project_id` | `str`  | `None`  | BrowserbaseプロジェクトID。提供されない場合は、BROWSERBASE_PROJECT_ID環境変数が使用されます。                                                                                                    |
+| `base_url`   | `str`  | `None`  | カスタムBrowserbase APIエンドポイントURL。これは、セルフホストされたBrowserbaseインスタンスを使用している場合、または別のリージョンに接続する必要がある場合にのみ使用してください。提供されない場合は、BROWSERBASE_BASE_URL環境変数が使用されます。 |
 
-## Toolkit Functions
+## Toolkit関数
 
-| Function           | Description                                                                                                                                                |
-| ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `navigate_to`      | Navigates to a URL. Takes a URL and an optional connect_url parameter.                                                                                     |
-| `screenshot`       | Takes a screenshot of the current page. Takes a path to save the screenshot, a boolean for full-page capture, and an optional connect_url parameter.       |
-| `get_page_content` | Gets the HTML content of the current page. Takes an optional connect_url parameter.                                                                        |
-| `close_session`    | Closes a browser session.                                                                                                                                  |
+| 関数           | 説明                                                                                                                             |
+| -------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| `navigate_to`      | URLに移動します。URLとオプションのconnect_urlパラメータを受け取ります。                                                              |
+| `screenshot`       | 現在のページのスクリーンショットを撮ります。スクリーンショットを保存するパス、フルページキャプチャ用のブール値、およびオプションのconnect_urlパラメータを受け取ります。 |
+| `get_page_content` | 現在のページのHTMLコンテンツを取得します。オプションのconnect_urlパラメータを受け取ります。                                                              |
+| `close_session`    | ブラウザセッションを閉じます。                                                                                                         |
 
-## Developer Resources
+## 開発者向けリソース
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/browserbase.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/browserbase_tools.py)
+- [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/browserbase.py) を表示
+- [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/browserbase_tools.py) を表示

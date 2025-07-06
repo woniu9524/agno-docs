@@ -1,33 +1,33 @@
 ---
-title: Team State
-sidebarTitle: Team State
-description: Learn about the shared state of Agent Teams.
+title: チームの状態
+sidebarTitle: チームの状態
+description: Agentチームの共有状態について学びます。
 ---
 
-There are multiple ways to share state between team members.
+チームメンバー間で状態を共有するには、いくつかの方法があります。
 
-## Shared Team State
+## 共有チームの状態
 
-Team Session State enables sophisticated state management across teams of agents, with both shared and private state capabilities.
+チームセッションの状態は、共有状態とプライベート状態の両方の機能を持つ、エージェントチーム間の洗練された状態管理を可能にします。
 
-Teams often need to coordinate on shared information (like a shopping list) while maintaining their own private metrics or configuration. Agno provides an elegant three-tier state system for this.
+チームは、独自のプライベートメトリクスや構成を維持しながら、共有情報（買い物リストなど）で調整する必要があることがよくあります。Agnoは、このためのエレガントな3層の状態システムを提供します。
 
-Agno's Team state management provides three distinct levels:
+Agnoのチーム状態管理は、3つの異なるレベルを提供します。
 
-- Team's team_session_state - Shared state accessible by all team members.
-- Team's session_state - Private state only accessible by the team leader
-- Agent's session_state - Private state for each agent members
+- チームの `team_session_state` - すべてのチームメンバーがアクセスできる共有状態。
+- チームの `session_state` - チームリーダーのみがアクセスできるプライベート状態。
+- エージェントの `session_state` - 各エージェントメンバーのプライベート状態。
 
 <Check>
-Team state propagates through nested team structures as well
+チームの状態は、ネストされたチーム構造全体にも伝播します。
 </Check>
 
-### How to use Team Session State
+### チームセッションの状態の使用方法
 
-You can set the `team_session_state` parameter on `Team` to share state between team members.
-This state is available to all team members and is synchronized between them.
+チームメンバー間で状態を共有するには、`Team` の `team_session_state` パラメータを設定できます。
+この状態はすべてのチームメンバーが利用でき、それらの間で同期されます。
 
-For example:
+例：
 
 ```python
 team = Team(
@@ -36,30 +36,30 @@ team = Team(
 )
 ```
 
-Members can access the shared state using the `team_session_state` attribute in tools.
+メンバーは、ツール内の `team_session_state` 属性を使用して共有状態にアクセスできます。
 
-For example:
+例：
 
 ```python
 def add_item(agent: Agent, item: str) -> str:
-    """Add an item to the shopping list and return confirmation.
+    """買い物リストにアイテムを追加し、確認を返します。
 
     Args:
-        item (str): The item to add to the shopping list.
+        item (str): 買い物リストに追加するアイテム。
     """
-    # Add the item if it's not already in the list
+    # アイテムが既にリストにない場合に追加します
     if item.lower() not in [
         i.lower() for i in agent.team_session_state["shopping_list"]
     ]:
         agent.team_session_state["shopping_list"].append(item)
-        return f"Added '{item}' to the shopping list"
+        return f"'{item}' を買い物リストに追加しました"
     else:
-        return f"'{item}' is already in the shopping list"
+        return f"'{item}' は既に買い物リストにあります"
 ```
 
-### Example
+### 例
 
-Here's a simple example of a team managing a shared shopping list:
+共有の買い物リストを管理するチームの簡単な例を以下に示します。
 
 
 ```python team_session_state.py
@@ -68,131 +68,130 @@ from agno.models.openai import OpenAIChat
 from agno.team import Team
 
 
-# Define tools that work with shared team state
+# 共有チームの状態で動作するツールを定義します
 def add_item(agent: Agent, item: str) -> str:
-    """Add an item to the shopping list."""
+    """買い物リストにアイテムを追加します。"""
     if item.lower() not in [
         i.lower() for i in agent.team_session_state["shopping_list"]
     ]:
         agent.team_session_state["shopping_list"].append(item)
-        return f"Added '{item}' to the shopping list"
+        return f"'{item}' を買い物リストに追加しました"
     else:
-        return f"'{item}' is already in the shopping list"
+        return f"'{item}' は既に買い物リストにあります"
 
 
 def remove_item(agent: Agent, item: str) -> str:
-    """Remove an item from the shopping list."""
+    """買い物リストからアイテムを削除します。"""
     for i, list_item in enumerate(agent.team_session_state["shopping_list"]):
         if list_item.lower() == item.lower():
             agent.team_session_state["shopping_list"].pop(i)
-            return f"Removed '{list_item}' from the shopping list"
+            return f"'{list_item}' を買い物リストから削除しました"
     
-    return f"'{item}' was not found in the shopping list"
+    return f"'{item}' は買い物リストに見つかりませんでした"
 
 
-# Create an agent that manages the shopping list
+# 買い物リストを管理するエージェントを作成します
 shopping_agent = Agent(
     name="Shopping List Agent",
-    role="Manage the shopping list",
+    role="買い物リストを管理する",
     model=OpenAIChat(id="gpt-4o-mini"),
     tools=[add_item, remove_item],
 )
 
 
-# Define team-level tools
+# チームレベルのツールを定義します
 def list_items(team: Team) -> str:
-    """List all items in the shopping list."""
-    # Access shared state (not private state)
+    """買い物リストのすべてのアイテムを一覧表示します。"""
+    # 共有状態にアクセスします（プライベート状態ではありません）
     shopping_list = team.team_session_state["shopping_list"]
     
     if not shopping_list:
-        return "The shopping list is empty."
+        return "買い物リストは空です。"
     
     items_text = "\n".join([f"- {item}" for item in shopping_list])
-    return f"Current shopping list:\n{items_text}"
+    return f"現在の買い物リスト:\n{items_text}"
 
 
 def add_chore(team: Team, chore: str) -> str:
-    """Add a completed chore to the team's private log."""
-    # Access team's private state
+    """完了した家事をチームのプライベートログに追加します。"""
+    # チームのプライベート状態にアクセスします
     if "chores" not in team.session_state:
         team.session_state["chores"] = []
     
     team.session_state["chores"].append(chore)
-    return f"Logged chore: {chore}"
+    return f"ログされた家事: {chore}"
 
 
-# Create a team with both shared and private state
+# 共有状態とプライベート状態の両方を持つチームを作成します
 shopping_team = Team(
     name="Shopping Team",
     mode="coordinate",
     model=OpenAIChat(id="gpt-4o-mini"),
     members=[shopping_agent],
-    # Shared state - accessible by all members
+    # 共有状態 - すべてのメンバーがアクセス可能
     team_session_state={"shopping_list": []},
-    # Team's private state - only accessible by team
+    # チームのプライベート状態 - チームのみがアクセス可能
     session_state={"chores": []},
     tools=[list_items, add_chore],
     instructions=[
-        "You manage a shopping list.",
-        "Forward add/remove requests to the Shopping List Agent.",
-        "Use list_items to show the current list.",
-        "Log completed tasks using add_chore.",
+        "買い物リストを管理します。",
+        "追加/削除のリクエストはShopping List Agentに転送します。",
+        "list_items を使用して現在のリストを表示します。",
+        "add_chore を使用して完了したタスクをログします。",
     ],
     show_tool_calls=True,
 )
 
-# Example usage
-shopping_team.print_response("Add milk, eggs, and bread", stream=True)
-print(f"Shared state: {shopping_team.team_session_state}")
+# 使用例
+shopping_team.print_response("牛乳、卵、パンを追加してください", stream=True)
+print(f"共有状態: {shopping_team.team_session_state}")
 
-shopping_team.print_response("What's on my list?", stream=True)
+shopping_team.print_response("私のリストに何がありますか？", stream=True)
 
-shopping_team.print_response("I got the eggs", stream=True)
-print(f"Shared state: {shopping_team.team_session_state}")
-print(f"Team private state: {shopping_team.session_state}")
+shopping_team.print_response("卵を手に入れました", stream=True)
+print(f"共有状態: {shopping_team.team_session_state}")
+print(f"チームのプライベート状態: {shopping_team.session_state}")
 ```
 
 <Tip> 
-Notice how shared tools use `agent.team_session_state`, which allows state to propagate and persist across the entire team — even for subteams within the team. This ensures consistent shared state for all members.
+共有ツールが `agent.team_session_state` を使用していることに注意してください。これにより、状態がチーム全体に伝播および永続化されます。サブチーム内でも同様です。これにより、すべてのメンバーに対して一貫した共有状態が保証されます。
 
-In contrast, tools specific to a team use `team.session_state`, allowing for private, team-specific state. For example, a team leader's tools would maintain their own session state using team.session_state.
+対照的に、チーム固有のツールは `team.session_state` を使用し、プライベートでチーム固有の状態を可能にします。たとえば、チームリーダーのツールは、`team.session_state` を使用して独自のセッション状態を維持します。
 </Tip>
 
 
-See a full example [here](/examples/teams/shared_state/team_shared_state).
+完全な例は[こちら](/examples/teams/shared_state/team_shared_state)でご覧ください。
 
-## Agentic Context
+## エージェントコンテキスト
 
-The Team Leader maintains a shared context that is updated agentically (i.e. by the team leader) and is sent to team members if needed.
+チームリーダーは、エージェントによって更新される（つまり、チームリーダーによって更新される）共有コンテキストを維持し、必要に応じてチームメンバーに送信されます。
 
-Agentic Context is critical for effective information sharing and collaboration between agents and the quality of the team's responses depends on how well the team leader manages this shared agentic context.
-This could require higher quality models for the team leader to ensure the quality of the team's responses.
+エージェントコンテキストは、エージェント間の効果的な情報共有とコラボレーションに不可欠であり、チームの応答の質は、チームリーダーがこの共有エージェントコンテキストをどの程度うまく管理するかに依存します。
+これには、チームリーダーが応答の質を確保するために、より高品質なモデルが必要になる場合があります。
 
 <Note>
-The tasks and responses of team members are automatically added to the team context, but Agentic Context needs to be enabled by the developer.
+チームメンバーのタスクと応答は自動的にチームコンテキストに追加されますが、エージェントコンテキストは開発者によって有効にする必要があります。
 </Note>
 
-### Enable Agentic Context
+### エージェントコンテキストの有効化
 
-To enable the Team leader to maintain Agentic Context, set `enable_agentic_context=True`.
+チームリーダーがエージェントコンテキストを維持できるようにするには、`enable_agentic_context=True` を設定します。
 
-This will allow the team leader to maintain and update the team context during the run.
-
-```python
-team = Team(
-    members=[agent1, agent2, agent3],
-    enable_agentic_context=True,  # Enable Team Leader to maintain Agentic Context
-)
-```
-
-### Team Member Interactions
-
-Agent Teams can share interactions between members, allowing agents to learn from each other's outputs:
+これにより、チームリーダーは実行中にチームコンテキストを維持および更新できます。
 
 ```python
 team = Team(
     members=[agent1, agent2, agent3],
-    share_member_interactions=True,  # Share interactions
+    enable_agentic_context=True,  # チームリーダーがエージェントコンテキストを維持できるようにする
 )
 ```
+
+### チームメンバーのインタラクション
+
+エージェントチームはメンバー間のインタラクションを共有でき、エージェントはお互いの出力から学習できます。
+
+```python
+team = Team(
+    members=[agent1, agent2, agent3],
+    share_member_interactions=True,  # インタラクションを共有する
+)

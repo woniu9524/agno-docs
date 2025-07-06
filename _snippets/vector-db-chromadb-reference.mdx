@@ -1,8 +1,8 @@
-| Parameter | Type | Default | Description |
-| --------- | ---- | ------- | ----------- |
-| `collection` | `str` | `None` | Name of the collection to store vectors and metadata in ChromaDB |
-| `embedder` | `Optional[Embedder]` | `OpenAIEmbedder()` | Embedder instance to generate embeddings |
-| `distance` | `Distance` | `Distance.cosine` | Distance metric to use for similarity search |
-| `path` | `str` | `"tmp/chromadb"` | Path to store ChromaDB data when using persistent client |
-| `persistent_client` | `bool` | `False` | Whether to use persistent ChromaDB client |
-| `reranker` | `Optional[Reranker]` | `None` | Optional reranker instance to rerank search results |
+| パラメータ | タイプ | デフォルト | 説明 |
+| -------- | ---- | ------- | ----------- |
+| `collection` | `str` | `None` | ChromaDB にベクトルとメタデータを格納するコレクションの名前 |
+| `embedder` | `Optional[Embedder]` | `OpenAIEmbedder()` | 埋め込みを生成するための Embedder インスタンス |
+| `distance` | `Distance` | `Distance.cosine` | 類似性検索に使用する距離メトリック |
+| `path` | `str` | `"tmp/chromadb"` | パーシステントクライアントを使用する場合に ChromaDB データを格納するパス |
+| `persistent_client` | `bool` | `False` | パーシステント ChromaDB クライアントを使用するかどうか |
+| `reranker` | `Optional[Reranker]` | `None` | 検索結果を再ランク付けするためのオプションの reranker インスタンス |

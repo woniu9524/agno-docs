@@ -1,20 +1,17 @@
 ---
-title: Recipe Creator
+title: レシピ作成者
 ---
 
-This example shows how to create an intelligent recipe recommendation system that provides
-detailed, personalized recipes based on your ingredients, dietary preferences, and time constraints.
-The agent combines culinary knowledge, nutritional data, and cooking techniques to deliver
-comprehensive cooking instructions.
+この例では、食材、食事の好み、時間の制約に基づいて、詳細でパーソナライズされたレシピを提供するインテリジェントなレシピ推奨システムを作成する方法を示します。このエージェントは、料理の知識、栄養データ、調理技術を組み合わせて、包括的な調理手順を提供します。
 
-Example prompts to try:
-- "I have chicken, rice, and vegetables. What can I make in 30 minutes?"
-- "Create a vegetarian pasta recipe with mushrooms and spinach"
-- "Suggest healthy breakfast options with oats and fruits"
-- "What can I make with leftover turkey and potatoes?"
-- "Need a quick dessert recipe using chocolate and bananas"
+試してみるプロンプトの例：
+- 「鶏肉、米、野菜があります。30分で何が作れますか？」
+- 「マッシュルームとほうれん草を使ったベジタリアンパスタのレシピを作成してください」
+- 「オートミールとフルーツを使ったヘルシーな朝食のオプションを提案してください」
+- 「残った七面鳥とジャガイモで何が作れますか？」
+- 「チョコレートとバナナを使った簡単なデザートレシピが必要です」
 
-## Code
+## コード
 
 ```python recipe_creator.py
 from textwrap import dedent
@@ -28,132 +25,129 @@ recipe_agent = Agent(
     tools=[ExaTools()],
     model=OpenAIChat(id="gpt-4o"),
     description=dedent("""\
-        You are ChefGenius, a passionate and knowledgeable culinary expert with expertise in global cuisine! 🍳
+        あなたはChefGeniusです。世界各国の料理に精通した、情熱的で知識豊富な料理の専門家です！🍳
 
-        Your mission is to help users create delicious meals by providing detailed,
-        personalized recipes based on their available ingredients, dietary restrictions,
-        and time constraints. You combine deep culinary knowledge with nutritional wisdom
-        to suggest recipes that are both practical and enjoyable."""),
+        あなたの使命は、ユーザーが利用可能な食材、食事制限、時間の制約に基づいて、詳細でパーソナライズされたレシピを提供することで、美味しい食事の作成を支援することです。深い料理の知識と栄養に関する知恵を組み合わせて、実用的で楽しいレシピを提案します。"""),
     instructions=dedent("""\
-        Approach each recipe recommendation with these steps:
+        各レシピの推奨には、次の手順でアプローチしてください：
 
-        1. Analysis Phase 📋
-           - Understand available ingredients
-           - Consider dietary restrictions
-           - Note time constraints
-           - Factor in cooking skill level
-           - Check for kitchen equipment needs
+        1. 分析フェーズ 📋
+           - 利用可能な食材を理解する
+           - 食事制限を考慮する
+           - 時間の制約を記録する
+           - 調理スキルレベルを考慮する
+           - キッチン設備が必要か確認する
 
-        2. Recipe Selection 🔍
-           - Use Exa to search for relevant recipes
-           - Ensure ingredients match availability
-           - Verify cooking times are appropriate
-           - Consider seasonal ingredients
-           - Check recipe ratings and reviews
+        2. レシピ選択 🔍
+           - Exaを使用して関連レシピを検索する
+           - 食材が利用可能なものと一致することを確認する
+           - 調理時間が適切であることを確認する
+           - 旬の食材を考慮する
+           - レシピの評価とレビューを確認する
 
-        3. Detailed Information 📝
-           - Recipe title and cuisine type
-           - Preparation time and cooking time
-           - Complete ingredient list with measurements
-           - Step-by-step cooking instructions
-           - Nutritional information per serving
-           - Difficulty level
-           - Serving size
-           - Storage instructions
+        3. 詳細情報 📝
+           - レシピのタイトルと料理の種類
+           - 準備時間と調理時間
+           - 分量を含む完全な材料リスト
+           - ステップバイステップの調理手順
+           - 1食あたりの栄養情報
+           - 難易度
+           - サービングサイズ
+           - 保存方法
 
-        4. Extra Features ✨
-           - Ingredient substitution options
-           - Common pitfalls to avoid
-           - Plating suggestions
-           - Wine pairing recommendations
-           - Leftover usage tips
-           - Meal prep possibilities
+        4. 追加機能 ✨
+           - 材料の代替オプション
+           - 避けるべき一般的な落とし穴
+           - 盛り付けの提案
+           - ワインペアリングの推奨
+           - 残り物の使い方に関するヒント
+           - ミールプレップの可能性
 
-        Presentation Style:
-        - Use clear markdown formatting
-        - Present ingredients in a structured list
-        - Number cooking steps clearly
-        - Add emoji indicators for:
-          🌱 Vegetarian
-          🌿 Vegan
-          🌾 Gluten-free
-          🥜 Contains nuts
-          ⏱️ Quick recipes
-        - Include tips for scaling portions
-        - Note allergen warnings
-        - Highlight make-ahead steps
-        - Suggest side dish pairings"""),
+        プレゼンテーションスタイル：
+        - 明確なMarkdownフォーマットを使用する
+        - 材料を構造化されたリストで提示する
+        - 調理手順を明確に番号付けする
+        - 次の表示のための絵文字インジケーターを追加する：
+          🌱 ベジタリアン
+          🌿 ヴィーガン
+          🌾 グルテンフリー
+          🥜 ナッツを含む
+          ⏱️ 短時間レシピ
+        - 分量を調整するためのヒントを含める
+        - アレルゲンに関する警告を記載する
+        - 事前に作れるステップを強調する
+        - 副菜のペアリングを提案する"""),
     markdown=True,
     add_datetime_to_instructions=True,
     show_tool_calls=True,
 )
 
-# Example usage with different types of recipe queries
+# 異なる種類のレシピクエリを使用した例
 recipe_agent.print_response(
-    "I have chicken breast, broccoli, garlic, and rice. Need a healthy dinner recipe that takes less than 45 minutes.",
+    "鶏むね肉、ブロッコリー、ニンニク、米があります。45分未満でできるヘルシーなディナーレシピが必要です。",
     stream=True,
 )
 
-# More example prompts to explore:
+# さらに探索するためのプロンプト例：
 """
-Quick Meals:
-1. "15-minute dinner ideas with pasta and vegetables"
-2. "Quick healthy lunch recipes for meal prep"
-3. "Easy breakfast recipes with eggs and avocado"
-4. "No-cook dinner ideas for hot summer days"
+短時間で作れる料理：
+1. 「パスタと野菜を使った15分で作れるディナーのアイデア」
+2. 「ミールプレップ用の簡単でヘルシーなランチレシピ」
+3. 「卵とアボカドを使った簡単な朝食レシピ」
+4. 「暑い夏の日に火を使わないディナーのアイデア」
 
-Dietary Restrictions:
-1. "Keto-friendly dinner recipes with salmon"
-2. "Gluten-free breakfast options without eggs"
-3. "High-protein vegetarian meals for athletes"
-4. "Low-carb alternatives to pasta dishes"
+食事制限：
+1. 「サーモンを使ったケトフレンドリーなディナーレシピ」
+2. 「卵を使わないグルテンフリーの朝食オプション」
+3. 「アスリート向けの高タンパク質ベジタリアンミール」
+4. 「パスタ料理の低炭水化物代替品」
 
-Special Occasions:
-1. "Impressive dinner party main course for 6 people"
-2. "Romantic dinner recipes for two"
-3. "Kid-friendly birthday party snacks"
-4. "Holiday desserts that can be made ahead"
+特別な機会：
+1. 「6人分の印象的なディナーパーティーのメインコース」
+2. 「2人分のロマンチックなディナーレシピ」
+3. 「子供向けの誕生日パーティーのスナック」
+4. 「事前に作れるホリデーデザート」
 
-International Cuisine:
-1. "Authentic Thai curry with available ingredients"
-2. "Simple Japanese recipes for beginners"
-3. "Mediterranean diet dinner ideas"
-4. "Traditional Mexican recipes with modern twists"
+国際的な料理：
+1. 「利用可能な食材を使った本格的なタイカレー」
+2. 「初心者向けの簡単な日本食レシピ」
+3. 「地中海式ダイエットのディナーアイデア」
+4. 「モダンなひねりを加えた伝統的なメキシコ料理」
 
-Seasonal Cooking:
-1. "Summer salad recipes with seasonal produce"
-2. "Warming winter soups and stews"
-3. "Fall harvest vegetable recipes"
-4. "Spring picnic recipe ideas"
+季節の料理：
+1. 「旬の野菜を使った夏のサラダレシピ」
+2. 「体を温める冬のスープとシチュー」
+3. 「秋の収穫野菜レシピ」
+4. 「春のピクニックレシピのアイデア」
 
-Batch Cooking:
-1. "Freezer-friendly meal prep recipes"
-2. "One-pot meals for busy weeknights"
-3. "Make-ahead breakfast ideas"
-4. "Bulk cooking recipes for large families"
+まとめて調理：
+1. 「冷凍可能なミールプレップレシピ」
+2. 「忙しい平日のためのワンポットミール」
+3. 「事前に作れる朝食のアイデア」
+4. 「大家族向けの大量調理レシピ」
 """
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
 
     <Snippet file="create-venv-step.mdx" />
 
-    <Step title="Install required libraries">
+    <Step title="必要なライブラリをインストールする">
         ```bash
         pip install agno openai exa_py
         ```
     </Step>
 
-    <Step title="Set environment variables">
+    <Step title="環境変数を設定する">
         ```bash
         export OPENAI_API_KEY=****
         export EXA_API_KEY=****
         ```
     </Step>
 
-    <Step title="Run the agent">
+    <Step title="エージェントを実行する">
         ```bash
         python recipe_creator.py
         ```

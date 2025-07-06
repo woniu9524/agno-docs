@@ -1,7 +1,7 @@
 ---
-title: A beautiful UI for your Agents
-sidebarTitle: Getting Started
-description: A beautiful, open-source interface for interacting with AI agents 
+title: Agents のための美しい UI
+sidebarTitle: 始め方
+description: AI エージェントと対話するための美しく、オープンソースのインターフェース
 ---
 
 <Frame>
@@ -12,29 +12,29 @@ description: A beautiful, open-source interface for interacting with AI agents
   />
 </Frame>
 
-Agno provides a beautiful UI for interacting with your agents, completely open source, free to use and build on top of. It's a simple interface that allows you to chat with your agents, view their memory, knowledge, and more.
+Agno は、エージェントと対話するための美しく、完全にオープンソースで、無料で利用および拡張可能な UI を提供します。これは、エージェントとチャットしたり、そのメモリ、知識などを表示したりできるシンプルなインターフェースです。
 
 <Note>
-No data is sent to [agno.com](https://app.agno.com), all agent data is stored locally in your sqlite database.
+[agno.com](https://app.agno.com) にはデータは送信されません。すべてのエージェントデータは、ローカルの sqlite データベースに保存されます。
 </Note>
 
-The Open Source Agent UI is built with Next.js and TypeScript. After the success of the [Agent Playground](/introduction/playground), the community asked for a self-hosted alternative and we delivered!
+オープンソースのエージェント UI は、Next.js と TypeScript で構築されています。[Agent Playground](/introduction/playground) の成功の後、コミュニティからセルフホスト可能な代替手段を求める声があり、それに応えました！
 
-# Get Started with Agent UI
+# Agent UI の始め方
 
-To clone the Agent UI, run the following command in your terminal:
+Agent UI をクローンするには、ターミナルで次のコマンドを実行します。
 
 ```bash
 npx create-agent-ui@latest
 ```
 
-Enter `y` to create a new project, install dependencies, then run the agent-ui using:
+新しいプロジェクトを作成するには `y` を入力し、依存関係をインストールしてから、次のコマンドで agent-ui を実行します。
 
 ```bash
 cd agent-ui && npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) to view the Agent UI, but remember to connect to your local agents.
+[http://localhost:3000](http://localhost:3000) を開いて Agent UI を表示しますが、ローカルのエージェントに接続することを忘れないでください。
 
 <Frame>
   <img
@@ -46,15 +46,15 @@ Open [http://localhost:3000](http://localhost:3000) to view the Agent UI, but re
 
 <br />
 
-<Accordion title="Clone the repository manually" icon="github">
+<Accordion title="リポジトリを手動でクローンする" icon="github">
 
-You can also clone the repository manually
+リポジトリを手動でクローンすることもできます。
 
 ```bash
 git clone https://github.com/agno-agi/agent-ui.git
 ```
 
-And run the agent-ui using
+そして、次のコマンドで agent-ui を実行します。
 
 ```bash
 cd agent-ui && pnpm install && pnpm dev
@@ -62,11 +62,11 @@ cd agent-ui && pnpm install && pnpm dev
 
 </Accordion>
 
-## Connect to Local Agents
+## ローカルエージェントへの接続
 
-The Agent UI needs to connect to a playground server, which you can run locally or on any cloud provider.
+Agent UI は、ローカルまたは任意のクラウドプロバイダーで実行できるプレイグラウンドサーバーに接続する必要があります。
 
-Let's start with a local playground server. Create a file `playground.py`
+まずローカルのプレイグラウンドサーバーから始めましょう。`playground.py` というファイルを作成します。
 
 ```python playground.py
 from agno.agent import Agent
@@ -114,10 +114,10 @@ if __name__ == "__main__":
     playground.serve("playground:app", reload=True)
 ```
 
-In another terminal, run the playground server:
+別のターミナルで、プレイグラウンドサーバーを実行します。
 
 <Steps>
-  <Step title="Setup your virtual environment">
+  <Step title="仮想環境をセットアップする">
 
     <CodeGroup>
     ```bash Mac
@@ -132,7 +132,7 @@ In another terminal, run the playground server:
     </CodeGroup>
 
   </Step>
-  <Step title="Install dependencies">
+  <Step title="依存関係をインストールする">
 
     <CodeGroup>
     ```bash Mac
@@ -145,7 +145,7 @@ In another terminal, run the playground server:
     </CodeGroup>
 
   </Step>
-  <Step title="Export your OpenAI key">
+  <Step title="OpenAI キーをエクスポートする">
 
     <CodeGroup>
     ```bash Mac
@@ -158,7 +158,7 @@ In another terminal, run the playground server:
     </CodeGroup>
 
   </Step>
-  <Step title="Run the Playground">
+  <Step title="プレイグラウンドを実行する">
 
     ```shell
     python playground.py
@@ -167,12 +167,12 @@ In another terminal, run the playground server:
   </Step>
 </Steps>
 
-<Tip>Make sure the `serve_playground_app()` points to the file containing your `Playground` app.</Tip>
+<Tip>`serve_playground_app()` が `Playground` アプリを含むファイルを参照していることを確認してください。</Tip>
 
-## View the playground
+## プレイグラウンドを表示する
 
-- Open [http://localhost:3000](http://localhost:3000) to view the Agent UI
-- Select the `localhost:7777` endpoint and start chatting with your agents!
+- [http://localhost:3000](http://localhost:3000) を開いて Agent UI を表示します。
+- `localhost:7777` エンドポイントを選択し、エージェントとのチャットを開始します！
 
 <video
   autoPlay

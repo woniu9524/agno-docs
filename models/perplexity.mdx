@@ -1,15 +1,15 @@
 ---
 title: Perplexity
-description: Learn how to use Perplexity with Agno.
+description: Agno で Perplexity を使用する方法を学びます。
 ---
 
-Perplexity offers powerful language models with built-in web search capabilities, enabling advanced research and Q&A functionality. 
+Perplexity は、組み込みのウェブ検索機能を備えた強力な言語モデルを提供し、高度なリサーチおよび Q&A 機能を実現します。
 
-Explore Perplexity’s models [here](https://docs.perplexity.ai/guides/model-cards).
+Perplexity のモデルについては、[こちら](https://docs.perplexity.ai/guides/model-cards)をご覧ください。
 
-## Authentication
+## 認証
 
-Set your `PERPLEXITY_API_KEY` environment variable. Get your key [from Perplexity here](https://www.perplexity.ai/settings/api).
+`PERPLEXITY_API_KEY` 環境変数を設定します。キーは、[こちら](https://www.perplexity.ai/settings/api)の Perplexity から取得してください。
 
 <CodeGroup>
 
@@ -23,9 +23,9 @@ setx PERPLEXITY_API_KEY ***
 
 </CodeGroup>
 
-## Example
+## 例
 
-Use `Perplexity` with your `Agent`:
+`Agent` で `Perplexity` を使用します。
 
 <CodeGroup>
 
@@ -35,17 +35,17 @@ from agno.models.perplexity import Perplexity
 
 agent = Agent(model=Perplexity(id="sonar-pro"), markdown=True)
 
-# Print the response in the terminal
+# 応答をターミナルに出力します
 agent.print_response("Share a 2 sentence horror story")
 
 ```
 
 </CodeGroup>
 
-<Note> View more examples [here](../examples/models/perplexity). </Note>
+<Note> その他の例は、[こちら](../examples/models/perplexity)をご覧ください。 </Note>
 
-## Params
+## パラメータ
 
 <Snippet file="model-perplexity-params.mdx" />
 
-`Perplexity` also supports the params of [OpenAI](/reference/models/openai).
+`Perplexity` は、[OpenAI](/reference/models/openai) のパラメータもサポートしています。

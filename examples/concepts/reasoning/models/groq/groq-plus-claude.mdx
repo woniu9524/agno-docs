@@ -2,7 +2,7 @@
 title: Groq Claude + DeepSeek R1
 ---
 
-## Code
+## コード
 
 ```python cookbook/reasoning/models/groq/deepseek_plus_claude.py
 from agno.agent import Agent
@@ -18,25 +18,25 @@ deepseek_plus_claude = Agent(
 deepseek_plus_claude.print_response("9.11 and 9.9 -- which is bigger?", stream=True)
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="API キーの設定">
     ```bash
     export GROQ_API_KEY=xxx
     export ANTHROPIC_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="ライブラリのインストール">
     ```bash
     pip install -U groq anthropic agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="エージェントの実行">
     <CodeGroup>
     ```bash Mac
     python cookbook/reasoning/models/groq/deepseek_plus_claude.py

@@ -1,18 +1,18 @@
 ---
 title: Together
-description: Learn how to use Together with Agno.
+description: Agno で Together を使用する方法を学びます。
 ---
 
-Together is a platform for providing endpoints for Large Language models.
-See their library of models [here](https://www.together.ai/models).
+Together は、大規模言語モデルのエンドポイントを提供するプラットフォームです。
+モデルのライブラリは[こちら](https://www.together.ai/models)でご覧ください。
 
-We recommend experimenting to find the best-suited model for your use-case.
+ユースケースに最適なモデルを見つけるために、実験することをお勧めします。
 
-Together have tier based rate limits. See the [docs](https://docs.together.ai/docs/rate-limits) for more information.
+Together にはティアベースのレート制限があります。詳細については、[ドキュメント](https://docs.together.ai/docs/rate-limits)をご覧ください。
 
-## Authentication
+## 認証
 
-Set your `TOGETHER_API_KEY` environment variable. Get your key [from Together here](https://api.together.xyz/settings/api-keys).
+`TOGETHER_API_KEY` 環境変数を設定します。キーは[こちらから Together で取得](https://api.together.xyz/settings/api-keys)できます。
 
 <CodeGroup>
 
@@ -26,9 +26,9 @@ setx TOGETHER_API_KEY ***
 
 </CodeGroup>
 
-## Example
+## 例
 
-Use `Together` with your `Agent`:
+`Agent` で `Together` を使用します。
 
 <CodeGroup>
 
@@ -41,16 +41,16 @@ agent = Agent(
     markdown=True
 )
 
-# Print the response in the terminal
+# 応答をターミナルに出力します
 agent.print_response("Share a 2 sentence horror story.")
 ```
 
 </CodeGroup>
 
-<Note> View more examples [here](../examples/models/together). </Note>
+<Note> その他の例は[こちら](../examples/models/together)でご覧ください。 </Note>
 
-## Params
+## パラメータ
 
 <Snippet file="model-together-params.mdx" />
 
-`Together` also supports the params of [OpenAI](/reference/models/openai).
+`Together` は [OpenAI](/reference/models/openai) のパラメータもサポートしています。

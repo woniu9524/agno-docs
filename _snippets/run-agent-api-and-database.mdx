@@ -1,8 +1,8 @@
-## Serve your Agents using FastAPI
+## FastAPI を使用してエージェントをサーブする
 
-[FastAPI](https://fastapi.tiangolo.com/) is an exceptional framework for building REST APIs. Its fast, well-designed and loved by everyone using it. Most production applications are built using a front-end framework like [next.js](https://nextjs.org) backed by a REST API, where FastAPI shines.
+[FastAPI](https://fastapi.tiangolo.com/) は、REST API を構築するための優れたフレームワークです。高速で、設計が優れており、利用するすべての人に愛されています。ほとんどの本番アプリケーションは、[next.js](https://nextjs.org) のようなフロントエンドフレームワークと、FastAPI が活躍する REST API によってバックアップされています。
 
-Your codebase comes pre-configured with [FastAPI](https://fastapi.tiangolo.com/) and [PostgreSQL](https://www.postgresql.org/), along with some sample routes. Start your workspace using:
+コードベースには、[FastAPI](https://fastapi.tiangolo.com/) と [PostgreSQL](https://www.postgresql.org/) がプリセットされており、いくつかのサンプルルートが含まれています。ワークスペースは次のように起動します。
 
 <CodeGroup>
 
@@ -16,10 +16,10 @@ ag ws up dev:docker
 
 </CodeGroup>
 
-**Press Enter** to confirm and give a few minutes for the image to download (only the first time). Verify container status and view logs on the docker dashboard.
+確認するために**Enter キーを押して**ください。イメージのダウンロードには数分かかります（初回のみ）。Docker ダッシュボードでコンテナのステータスを確認し、ログを表示します。
 
-- Open [localhost:8000/docs](http://localhost:8000/docs) to view the API Endpoints.
-- Test the `/v1/agents/{agent_id}/run` endpoint with
+- [localhost:8000/docs](http://localhost:8000/docs) を開いて API エンドポイントを表示します。
+- `/v1/agents/{agent_id}/run` エンドポイントを次のようにテストします。
 
 ```json
 {
@@ -27,4 +27,3 @@ ag ws up dev:docker
   "agent_id": "sage",
   "stream": true
 }
-```

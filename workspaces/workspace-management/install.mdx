@@ -1,17 +1,17 @@
 ---
-title: Install & Setup
+title: インストールとセットアップ
 ---
 
-## Install Agno
+## Agno のインストール
 
-We highly recommend:
+以下を強く推奨します。
 
-- Installing `agno` using `pip` in a python virtual environment.
-- Creating an `ai` directory for your ai workspaces
+- Python の仮想環境で `pip` を使用して `agno` をインストールすること。
+- AI ワークスペース用に `ai` ディレクトリを作成すること。
 
 <Steps>
-  <Step title="Create a virtual environment">
-    Open the `Terminal` and create an `ai` directory with a python virtual environment.
+  <Step title="仮想環境の作成">
+    `Terminal` を開き、Python の仮想環境を持つ `ai` ディレクトリを作成します。
 
     <CodeGroup>
 
@@ -32,8 +32,8 @@ We highly recommend:
     </CodeGroup>
 
   </Step>
-  <Step title="Install Agno">
-    Install `agno` using pip
+  <Step title="Agno のインストール">
+    pip を使用して `agno` をインストールします。
 
     <CodeGroup>
 
@@ -48,8 +48,8 @@ We highly recommend:
     </CodeGroup>
 
   </Step>
-  <Step title="Install Docker">
-    Install [docker desktop](https://docs.docker.com/desktop/install/mac-install/) to run apps locally
+  <Step title="Docker のインストール">
+    アプリをローカルで実行するために [Docker Desktop](https://docs.docker.com/desktop/install/mac-install/) をインストールします。
   </Step>
 </Steps>
 
@@ -57,32 +57,32 @@ We highly recommend:
 
 <Note>
 
-If you encounter errors, try updating pip using `python -m pip install --upgrade pip`
+エラーが発生した場合は、`python -m pip install --upgrade pip` を使用して pip を更新してみてください。
 
 </Note>
 
 ---
-## Upgrade Agno
+## Agno のアップグレード
 
-To upgrade `agno`, run this in your virtual environment
+`agno` をアップグレードするには、仮想環境で以下を実行します。
 
 ```bash
 pip install -U agno --no-cache-dir
 ```
 
 ---
-## Setup workspace
+## ワークスペースのセットアップ
 
-If you have an existing `agno` workspace, set it up using
+既存の `agno` ワークスペースがある場合は、以下を使用してセットアップします。
 
 ```bash
 ag ws setup
 ```
 
 ---
-## Reset Agno
+## Agno のリセット
 
-To reset the agno config, run
+`agno` の設定をリセットするには、以下を実行します。
 
 ```bash
 ag init -r
@@ -90,6 +90,6 @@ ag init -r
 
 <Note>
 
-This does not delete any physical data
+これにより、物理的なデータは削除されません。
 
 </Note>

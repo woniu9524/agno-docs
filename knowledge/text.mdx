@@ -4,13 +4,13 @@ description: Learn how to use text files in your knowledge base.
 sidebarTitle: Text
 ---
 
-The **TextKnowledgeBase** reads **local txt** files, converts them into vector embeddings and loads them to a vector database.
+**TextKnowledgeBase** は、**ローカルのtxt**ファイルを読み込み、ベクトル埋め込みに変換して、ベクトルデータベースにロードします。
 
 ## Usage
 
 <Note>
 
-We are using a local PgVector database for this example. [Make sure it's running](https://docs.agno.com/vectordb/pgvector)
+この例では、ローカルのPgVectorデータベースを使用しています。[実行されていることを確認してください](https://docs.agno.com/vectordb/pgvector)
 
 </Note>
 
@@ -28,7 +28,7 @@ knowledge_base = TextKnowledgeBase(
 )
 ```
 
-Then use the `knowledge_base` with an Agent:
+次に、`knowledge_base` を Agent と一緒に使用します。
 
 ```python agent.py
 from agno.agent import Agent
@@ -43,12 +43,12 @@ agent.knowledge.load(recreate=False)
 agent.print_response("Ask me about something from the knowledge base")
 ```
 
-#### TextKnowledgeBase also supports async loading.
+#### TextKnowledgeBase は非同期ロードもサポートしています。
 
 ```shell
 pip install qdrant-client
 ```
-We are using a local Qdrant database for this example. [Make sure it's running](https://docs.agno.com/vectordb/qdrant)
+この例では、ローカルのQdrantデータベースを使用しています。[実行されていることを確認してください](https://docs.agno.com/vectordb/qdrant)
 
 ```python async_knowledge_base.py
 import asyncio
@@ -90,14 +90,13 @@ if __name__ == "__main__":
 
 | Parameter | Type               | Default        | Description                                                                           |
 | --------- | ------------------ | -------------- | ------------------------------------------------------------------------------------- |
-| `path`    | `Union[str, Path]` | -              | Path to text files. Can point to a single text file or a directory of text files.     |
-| `formats` | `List[str]`        | `[".txt"]`     | Formats accepted by this knowledge base.                                              |
-| `reader`  | `TextReader`       | `TextReader()` | A `TextReader` that converts the text files into `Documents` for the vector database. |
+| `path`    | `Union[str, Path]` | -              | テキストファイルへのパス。単一のテキストファイルまたはテキストファイルのディレクトリを指すことができます。     |
+| `formats` | `List[str]`        | `[".txt"]`     | このナレッジベースで受け入れられるフォーマット。                                              |
+| `reader`  | `TextReader`       | `TextReader()` | テキストファイルをベクトルデータベースの `Documents` に変換する `TextReader`。 |
 
-`TextKnowledgeBase` is a subclass of the [AgentKnowledge](/reference/knowledge/base) class and has access to the same params.
+`TextKnowledgeBase` は [AgentKnowledge](/reference/knowledge/base) クラスのサブクラスであり、同じパラメータにアクセスできます。
 
 ## Developer Resources
 
-- View [Sync loading Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/text_kb.py)
-- View [Async loading Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/text_kb_async.py)
-
+- [Sync loading Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/text_kb.py) を表示
+- [Async loading Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/text_kb_async.py) を表示

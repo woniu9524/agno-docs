@@ -1,18 +1,18 @@
-# Knowledge Filters
+# ナレッジフィルター
 
-Knowledge filters allow you to restrict and refine searches within your knowledge base using metadata such as user IDs, document types, years, and more. This feature is especially useful when you have a large collection of documents and want to retrieve information relevant to specific users or contexts.
+ナレッジフィルターを使用すると、ユーザーID、ドキュメントタイプ、年などのメタデータを使用して、ナレッジベース内の検索を制限および絞り込むことができます。この機能は、大量のドキュメントコレクションがあり、特定のユーザーまたはコンテキストに関連する情報を取得したい場合に特に役立ちます。
 
-## Why Use Knowledge Filters?
+## ナレッジフィルターを使用する理由
 
-- **Personalization:** Retrieve information for a specific user or group.
-- **Security:** Restrict access to sensitive documents.
-- **Efficiency:** Reduce noise by narrowing down search results.
+- **パーソナライゼーション:** 特定のユーザーまたはグループの情報を取得します。
+- **セキュリティ:** 機密ドキュメントへのアクセスを制限します。
+- **効率性:** 検索結果を絞り込むことで、ノイズを減らします。
 
-## How Do Knowledge Filters Work?
+## ナレッジフィルターの仕組み
 
-When you load documents into your knowledge base, you can attach metadata (like user ID, document type, year, etc.). Later, when querying, you can specify filters to only search documents matching certain criteria.
+ドキュメントをナレッジベースにロードする際に、メタデータ（ユーザーID、ドキュメントタイプ、年など）を添付できます。その後、クエリを実行する際に、特定の基準に一致するドキュメントのみを検索するようにフィルターを指定できます。
 
-**Example Metadata:**
+**メタデータの例:**
 ```python
 {
     "user_id": "jordan_mitchell",
@@ -21,48 +21,48 @@ When you load documents into your knowledge base, you can attach metadata (like 
 }
 ```
 
-## Ways to Apply Filters
+## フィルターの適用方法
 
-You can apply knowledge filters in two main ways:
-1. **Manual Filters:** Explicitly pass filters when querying.
-2. **Agentic Filters:** Let the Agent automatically extract filters from your query.
+ナレッジフィルターは、主に2つの方法で適用できます。
+1. **手動フィルター:** クエリ時に明示的にフィルターを渡します。
+2. **エージェントによるフィルター:** エージェントにクエリからフィルターを自動的に抽出させます。
 
-> **Tip:** You can combine multiple filters for more precise results!
+> **ヒント:** 複数のフィルターを組み合わせて、より正確な結果を得ることができます！
 
-## Filters in Traditional RAG vs. Agentic RAG
+## 従来のRAGとエージェントによるRAGでのフィルター
 
-When configuring your Agent it is important to choose the right approach for your use case. There are two broad approaches to RAG with Agno agents: traditional RAG and agentic RAG. With a traditional RAG approach you set `add_references=True` to ensure that references are included in the system message sent to the LLM. For Agentic RAG, you set `search_knowledge=True` to leverage the agent's ability search the knowledge base directly.
+エージェントを設定する際には、ユースケースに適したアプローチを選択することが重要です。Agnoエージェントを使用したRAGには、従来のRAGとエージェントによるRAGの2つの広範なアプローチがあります。従来のRAGアプローチでは、`add_references=True` を設定して、参照がLLMに送信されるシステムメッセージに含まれるようにします。エージェントによるRAGでは、`search_knowledge=True` を設定して、エージェントがナレッジベースに直接アクセスする機能を活用します。
 
-Example:
+例:
 ```python
 agent = Agent(
     name="KnowledgeFilterAgent",
-    search_knowledge=False,  # Do not use agentic search
-    add_references=True,     # Add knowledge base references to the system prompt
-    knowledge_filters={"user_id": "jordan_mitchell"}, # Pass filters like this
+    search_knowledge=False,  # エージェントによる検索を使用しない
+    add_references=True,     # ナレッジベースの参照をシステムプロンプトに追加する
+    knowledge_filters={"user_id": "jordan_mitchell"}, # このようにフィルターを渡す
 )
 ```
 
-<Check> 
-Remember to use only one of these configurations at a time, setting the other to false. By default, `search_knowledge=True` is preferred as it offers a more dynamic and interactive experience.
-Checkout an example [here](/examples/concepts/knowledge/filters/filtering-traditional-RAG) of how to set up knowledge filters in a Traditional RAG system
+<Check>
+これらの構成は一度に1つだけ使用し、もう一方はfalseに設定してください。デフォルトでは、`search_knowledge=True` が推奨されます。これは、より動的でインタラクティブなエクスペリエンスを提供するからです。
+従来のRAGシステムでナレッジフィルターを設定する方法については、[こちら](/examples/concepts/knowledge/filters/filtering-traditional-RAG)の例をご覧ください。
 </Check>
 
-## Best Practices
+## ベストプラクティス
 
-- Make your prompts descriptive (e.g., include user names, document types, years).
-- Use agentic filtering for interactive applications or chatbots.
+- プロンプトは説明的にしてください（例: ユーザー名、ドキュメントタイプ、年を含める）。
+- 対話型アプリケーションやチャットボットには、エージェントによるフィルターを使用してください。
 
-## Manual vs. Agentic Filtering
+## 手動フィルターとエージェントによるフィルター
 
-| Manual Filtering | Agentic Filtering |
+| 手動フィルター | エージェントによるフィルター |
 |------------------|------------------|
-| Explicit filters in code | Filters inferred from query text |
-| Full control | More natural, less code |
-| Good for automation | Good for user-facing apps |
+| コード内の明示的なフィルター | クエリテキストから推測されるフィルター |
+| 完全な制御 | より自然で、コード量が少ない |
+| 自動化に適している | ユーザー向けのアプリケーションに適している |
 
 <Note>
-🚦 **Currently, knowledge filtering is supported on the following vector databases:**
+🚦 **現在、ナレッジフィルターは以下のベクトルデータベースでサポートされています:**
 
 - **Qdrant**
 - **LanceDB**

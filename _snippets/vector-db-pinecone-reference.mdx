@@ -1,18 +1,18 @@
-| Parameter | Type | Default | Description |
-| --------- | ---- | ------- | ----------- |
-| `name` | `str` | Required | Name of the Pinecone index |
-| `dimension` | `int` | Required | Dimension of the embeddings |
-| `spec` | `Union[Dict, ServerlessSpec, PodSpec]` | Required | Index specification for Pinecone |
-| `embedder` | `Optional[Embedder]` | `OpenAIEmbedder()` | Embedder instance to generate embeddings |
-| `metric` | `Optional[str]` | `"cosine"` | Distance metric for similarity search |
-| `additional_headers` | `Optional[Dict[str, str]]` | `{}` | Additional headers for Pinecone client |
-| `pool_threads` | `Optional[int]` | `1` | Number of threads for Pinecone client |
-| `namespace` | `Optional[str]` | `None` | Namespace for document storage |
-| `timeout` | `Optional[int]` | `None` | Timeout for Pinecone operations |
-| `index_api` | `Optional[Any]` | `None` | Custom Index API object |
-| `api_key` | `Optional[str]` | `None` | Pinecone API key |
-| `host` | `Optional[str]` | `None` | Pinecone host URL |
-| `config` | `Optional[Config]` | `None` | Pinecone configuration object |
-| `use_hybrid_search` | `bool` | `False` | Enable hybrid search (vector + keyword) |
-| `hybrid_alpha` | `float` | `0.5` | Weight between vector and keyword search |
-| `reranker` | `Optional[Reranker]` | `None` | Reranker for post-processing results |
+| パラメータ | タイプ | デフォルト | 説明 |
+| -------- | ---- | ------- | -------- |
+| `name` | `str` | Required | Pinecone インデックスの名前 |
+| `dimension` | `int` | Required | エンベディングの次元数 |
+| `spec` | `Union[Dict, ServerlessSpec, PodSpec]` | Required | Pinecone のインデックス仕様 |
+| `embedder` | `Optional[Embedder]` | `OpenAIEmbedder()` | エンベディングを生成するための Embedder インスタンス |
+| `metric` | `Optional[str]` | `"cosine"` | 類似性検索のための距離指標 |
+| `additional_headers` | `Optional[Dict[str, str]]` | `{}` | Pinecone クライアント用の追加ヘッダー |
+| `pool_threads` | `Optional[int]` | `1` | Pinecone クライアント用のスレッド数 |
+| `namespace` | `Optional[str]` | `None` | ドキュメント格納用の名前空間 |
+| `timeout` | `Optional[int]` | `None` | Pinecone 操作のタイムアウト |
+| `index_api` | `Optional[Any]` | `None` | カスタム Index API オブジェクト |
+| `api_key` | `Optional[str]` | `None` | Pinecone API キー |
+| `host` | `Optional[str]` | `None` | Pinecone ホスト URL |
+| `config` | `Optional[Config]` | `None` | Pinecone 設定オブジェクト |
+| `use_hybrid_search` | `bool` | `False` | ハイブリッド検索 (ベクトル + キーワード) を有効にする |
+| `hybrid_alpha` | `float` | `0.5` | ベクトル検索とキーワード検索の間の重み |
+| `reranker` | `Optional[Reranker]` | `None` | 後処理結果用の再ランク付け |

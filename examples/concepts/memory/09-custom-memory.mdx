@@ -1,14 +1,14 @@
 ---
-title: Custom Memory
+title: カスタムメモリ
 ---
 
-This example shows how you can configure the Memory Manager and Summarizer models individually. 
+この例では、メモリマネージャーとサマライザーモデルを個別に設定する方法を示します。
 
-In this example, we use OpenRouter and LLama 3.3-70b-instruct for the memory manager and Claude 3.5 Sonnet for the summarizer, while using Gemini for the Agent. 
+この例では、メモリマネージャーにOpenRouterとLLama 3.3-70b-instructを、サマライザーにClaude 3.5 Sonnetを使用し、エージェントにはGeminiを使用します。
 
-We also set custom system prompts for the memory manager and summarizer.
+また、メモリマネージャーとサマライザーのカスタムシステムプロンプトも設定します。
 
-## Code
+## コード
 
 ```python cookbook/agent_concepts/memory/10_custom_memory.py
 from agno.agent.agent import Agent
@@ -21,19 +21,19 @@ from rich.pretty import pprint
 
 memory_db = SqliteMemoryDb(table_name="memory", db_file="tmp/memory.db")
 
-# You can also override the entire `system_message` for the memory manager
+# メモリマネージャーの `system_message` 全体をオーバーライドすることもできます
 memory_manager = MemoryManager(
     model=OpenRouter(id="meta-llama/llama-3.3-70b-instruct"),
     additional_instructions="""
-    IMPORTANT: Don't store any memories about the user's name. Just say "The User" instead of referencing the user's name.
+    重要：ユーザーの名前に関する記憶は一切保存しないでください。「The User」ではなく、「The User」とだけ言及してください。
     """,
 )
 
-# You can also override the entire `system_message` for the session summarizer
+# セッションサマライザーの `system_message` 全体をオーバーライドすることもできます
 session_summarizer = SessionSummarizer(
     model=Claude(id="claude-3-5-sonnet-20241022"),
     additional_instructions="""
-    Make the summary very informal and conversational.
+    要約は非常にインフォーマルで会話的なものにしてください。
     """,
 )
 
@@ -43,7 +43,7 @@ memory = Memory(
     summarizer=session_summarizer,
 )
 
-# Reset the memory for this example
+# この例のためにメモリをリセットします
 memory.clear()
 
 john_doe_id = "john_doe@example.com"
@@ -57,33 +57,33 @@ agent = Agent(
 )
 
 agent.print_response(
-    "My name is John Doe and I like to swim and play soccer.", stream=True
+    "私の名前はジョン・ドウです。泳ぐこととサッカーをすることが好きです。", stream=True
 )
 
-agent.print_response("I dont like to swim", stream=True)
+agent.print_response("泳ぐのは好きではありません", stream=True)
 
 memories = memory.get_user_memories(user_id=john_doe_id)
 
-print("John Doe's memories:")
+print("ジョン・ドウの記憶:")
 pprint(memories)
 
 summary = agent.get_session_summary()
-print("Session summary:")
+print("セッションの要約:")
 pprint(summary)
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install libraries">
+  <Step title="ライブラリのインストール">
     ```bash
     pip install -U agno rich
     ```
   </Step>
 
-  <Step title="Run Example">
+  <Step title="例の実行">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/memory/10_custom_memory.py
@@ -94,4 +94,4 @@ pprint(summary)
     ```
     </CodeGroup>
   </Step>
-</Steps> 
+</Steps>

@@ -1,7 +1,7 @@
-| Parameter | Type | Default | Description |
+| パラメータ | タイプ | デフォルト | 説明 |
 | --- | --- | --- | --- |
-| `reader` | `Optional[Reader]` | `None` | Reader to read the documents |
-| `vector_db` | `Optional[VectorDb]` | `None` | Vector db to store the knowledge base |
-| `num_documents` | `int` | `2` | Number of relevant documents to return on search |
-| `optimize_on` | `Optional[int]` | `1000` | Number of documents to optimize the vector db on |
-| `driver` | `str` | `"knowledge"` | Driver for the Assistant knowledge |
+| `reader` | `Optional[Reader]` | `None` | ドキュメントを読み取るためのリーダー |
+| `vector_db` | `Optional[VectorDb]` | `None` | ナレッジベースを保存するためのベクトルデータベース |
+| `num_documents` | `int` | `2` | 検索時に返す関連ドキュメントの数 |
+| `optimize_on` | `Optional[int]` | `1000` | ベクトルデータベースを最適化するドキュメント数 |
+| `driver` | `str` | `"knowledge"` | アシスタントのナレッジドライバー |

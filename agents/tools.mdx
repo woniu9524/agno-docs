@@ -1,32 +1,32 @@
 ---
 title: Tools
-description: Learn how to use tools in Agno to build AI agents.
+description: Agno で AI エージェントを構築する方法についてツールを学びます。
 ---
 
-**Agents use tools to take actions and interact with external systems**.
+**エージェントはツールを使用してアクションを実行し、外部システムと対話します**。
 
-Tools are functions that an Agent can run to achieve tasks. For example: searching the web, running SQL, sending an email or calling APIs. You can use any python function as a tool or use a pre-built **toolkit**. The general syntax is:
+ツールは、エージェントがタスクを達成するために実行できる関数です。たとえば、Web の検索、SQL の実行、メールの送信、API の呼び出しなどです。Python 関数をツールとして使用することも、事前構築済みの**ツールキット**を使用することもできます。一般的な構文は次のとおりです。
 
 ```python
 from agno.agent import Agent
 
 agent = Agent(
-    # Add functions or Toolkits
+    # 関数またはツールキットを追加
     tools=[...],
-    # Show tool calls in the Agent response
+    # エージェントの応答でツール呼び出しを表示
     show_tool_calls=True
 )
 ```
 
-## Using a Toolkit
+## ツールキットの使用
 
-Agno provides many pre-built **toolkits** that you can add to your Agents. For example, let's use the DuckDuckGo toolkit to search the web.
+Agno は、エージェントに追加できる多くの事前構築済み**ツールキット**を提供します。たとえば、DuckDuckGo ツールキットを使用して Web を検索してみましょう。
 
-<Tip>You can find more toolkits in the [Toolkits](/tools/toolkits) guide.</Tip>
+<Tip>より多くのツールキットは、[ツールキット](/tools/toolkits) ガイドで見つけることができます。</Tip>
 
 <Steps>
-  <Step title="Create Web Search Agent">
-    Create a file `web_search.py`
+  <Step title="Web Search Agent の作成">
+    `web_search.py` ファイルを作成します。
 
     ```python web_search.py
     from agno.agent import Agent
@@ -37,14 +37,14 @@ Agno provides many pre-built **toolkits** that you can add to your Agents. For e
     ```
 
   </Step>
-  <Step title="Run the agent">
-    Install libraries
+  <Step title="エージェントの実行">
+    ライブラリをインストールします。
 
     ```shell
     pip install openai duckduckgo-search agno
     ```
 
-    Run the agent
+    エージェントを実行します。
 
     ```shell
     python web_search.py
@@ -53,9 +53,9 @@ Agno provides many pre-built **toolkits** that you can add to your Agents. For e
   </Step>
 </Steps>
 
-## Writing your own Tools
+## 独自のツールの作成
 
-For more control, write your own python functions and add them as tools to an Agent. For example, here's how to add a `get_top_hackernews_stories` tool to an Agent.
+より詳細な制御を行うには、独自の Python 関数を作成し、それをエージェントのツールとして追加します。たとえば、`get_top_hackernews_stories` ツールをエージェントに追加する方法を次に示します。
 
 ```python hn_agent.py
 import json
@@ -64,20 +64,20 @@ import httpx
 from agno.agent import Agent
 
 def get_top_hackernews_stories(num_stories: int = 10) -> str:
-    """Use this function to get top stories from Hacker News.
+    """Hacker News のトップストーリーを取得するためにこの関数を使用します。
 
     Args:
-        num_stories (int): Number of stories to return. Defaults to 10.
+        num_stories (int): 返されるストーリーの数。デフォルトは 10 です。
 
     Returns:
-        str: JSON string of top stories.
+        str: トップストーリーの JSON 文字列。
     """
 
-    # Fetch top story IDs
+    # トップストーリー ID を取得
     response = httpx.get('https://hacker-news.firebaseio.com/v0/topstories.json')
     story_ids = response.json()
 
-    # Fetch story details
+    # ストーリーの詳細を取得
     stories = []
     for story_id in story_ids[:num_stories]:
         story_response = httpx.get(f'https://hacker-news.firebaseio.com/v0/item/{story_id}.json')
@@ -91,26 +91,26 @@ agent = Agent(tools=[get_top_hackernews_stories], show_tool_calls=True, markdown
 agent.print_response("Summarize the top 5 stories on hackernews?", stream=True)
 ```
 
-Read more about:
+以下についてさらに読む:
 
-- [Available toolkits](/tools/toolkits)
-- [Using functions as tools](/tools/tool-decorator)
+- [利用可能なツールキット](/tools/toolkits)
+- [関数をツールとして使用する](/tools/tool-decorator)
 
-## Attributes
+## 属性
 
-The following attributes allow an `Agent` to use tools
+次の属性により、`Agent` はツールを使用できます。
 
-| Parameter | Type | Default | Description |
+| パラメータ | タイプ | デフォルト | 説明 |
 |-----------|------|---------|-------------|
-| `tools` | `List[Union[Tool, Toolkit, Callable, Dict, Function]]` | - | A list of tools provided to the Model. Tools are functions the model may generate JSON inputs for. |
-| `show_tool_calls` | `bool` | `False` | Print the signature of the tool calls in the Model response. |
-| `tool_call_limit` | `int` | - | Maximum number of tool calls allowed for a single run. |
-| `tool_choice` | `Union[str, Dict[str, Any]]` | - | Controls which (if any) tool is called by the model. "none" means the model will not call a tool and instead generates a message. "auto" means the model can pick between generating a message or calling a tool. Specifying a particular function via `{"type": "function", "function": {"name": "my_function"}}` forces the model to call that tool. "none" is the default when no tools are present. "auto" is the default if tools are present. |
-| `read_chat_history` | `bool` | `False` | Add a tool that allows the Model to read the chat history. |
-| `search_knowledge` | `bool` | `False` | Add a tool that allows the Model to search the knowledge base (aka Agentic RAG). |
-| `update_knowledge` | `bool` | `False` | Add a tool that allows the Model to update the knowledge base. |
-| `read_tool_call_history` | `bool` | `False` | Add a tool that allows the Model to get the tool call history. |
+| `tools` | `List[Union[Tool, Toolkit, Callable, Dict, Function]]` | - | モデルに提供されるツールのリスト。ツールは、モデルが JSON 入力を生成できる関数です。 |
+| `show_tool_calls` | `bool` | `False` | モデルの応答でツール呼び出しのシグネチャを表示します。 |
+| `tool_call_limit` | `int` | - | 単一の実行で許可されるツールの呼び出しの最大数。 |
+| `tool_choice` | `Union[str, Dict[str, Any]]` | - | モデルによって呼び出されるツール (存在する場合) を制御します。"none" は、モデルがツールを呼び出さずにメッセージを生成することを意味します。"auto" は、モデルがメッセージの生成またはツールの呼び出しを選択できることを意味します。`{"type": "function", "function": {"name": "my_function"}}` を介して特定の関数を指定すると、モデルはそのツールを呼び出すようになります。"none" は、ツールが存在しない場合のデフォルトです。ツールが存在する場合のデフォルトは "auto" です。 |
+| `read_chat_history` | `bool` | `False` | モデルがチャット履歴を読み取ることを許可するツールを追加します。 |
+| `search_knowledge` | `bool` | `False` | モデルがナレッジベースを検索することを許可するツールを追加します (エージェンティック RAG とも呼ばれます)。 |
+| `update_knowledge` | `bool` | `False` | モデルがナレッジベースを更新することを許可するツールを追加します。 |
+| `read_tool_call_history` | `bool` | `False` | モデルがツール呼び出し履歴を取得することを許可するツールを追加します。 |
 
- ## Developer Resources
+## 開発者向けリソース
 
-- View [Cookbook](https://github.com/agno-agi/agno/tree/main/cookbook/tools)
+- [クックブック](https://github.com/agno-agi/agno/tree/main/cookbook/tools) を表示

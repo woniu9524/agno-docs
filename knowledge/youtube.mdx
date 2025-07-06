@@ -4,13 +4,13 @@ description: Learn how to use YouTube video transcripts in your knowledge base.
 sidebarTitle: Youtube
 ---
 
-The **YouTubeKnowledgeBase** iterates over a list of YouTube URLs, extracts the video transcripts, converts them into vector embeddings and loads them to a vector database.
+**YouTubeKnowledgeBase** は、YouTube URL のリストを反復処理し、ビデオトランスクリプトを抽出し、それらをベクトル埋め込みに変換して、ベクトルデータベースにロードします。
 
-## Usage
+## 使用方法
 
 <Note>
 
-We are using a local PgVector database for this example. [Make sure it's running](http://localhost:3333/vectordb/pgvector)
+この例では、ローカルの PgVector データベースを使用しています。[実行されていることを確認してください](http://localhost:3333/vectordb/pgvector)
 
 </Note>
 
@@ -32,7 +32,7 @@ knowledge_base = YouTubeKnowledgeBase(
 )
 ```
 
-Then use the `knowledge_base` with an `Agent`:
+次に、`Agent` で `knowledge_base` を使用します。
 
 ```python agent.py
 from agno.agent import Agent
@@ -47,12 +47,12 @@ agent.knowledge.load(recreate=False)
 agent.print_response("Ask me about something from the knowledge base")
 ```
 
-#### YouTubeKnowledgeBase also supports async loading.
+#### YouTubeKnowledgeBase は非同期ロードもサポートしています。
 
 ```shell
 pip install qdrant-client
 ```
-We are using a local Qdrant database for this example. [Make sure it's running](https://docs.agno.com/vectordb/qdrant)
+この例では、ローカルの Qdrant データベースを使用しています。[実行されていることを確認してください](https://docs.agno.com/vectordb/qdrant)
 
 ```python async_knowledge_base.py
 import asyncio
@@ -93,16 +93,16 @@ if __name__ == "__main__":
 ```
 
 
-## Params
+## パラメータ
 
-| Parameter | Type                      | Default | Description                                                                                                                    |
+| パラメータ | タイプ                      | デフォルト | 説明                                                                                                                             |
 | --------- | ------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------ |
-| `urls`    | `List[str]`               | `[]`    | URLs of the videos to read                                                                                                     |
-| `reader`  | `Optional[YouTubeReader]` | `None`  | A `YouTubeReader` that reads transcripts of the videos at the urls and converts them into `Documents` for the vector database. |
+| `urls`    | `List[str]`               | `[]`    | 読み取るビデオの URL                                                                                                     |
+| `reader`  | `Optional[YouTubeReader]` | `None`  | URL のトランスクリプトを読み取り、それらをベクトルデータベース用の `Documents` に変換する `YouTubeReader`。 |
 
-`YouTubeKnowledgeBase` is a subclass of the [AgentKnowledge](/reference/knowledge/base) class and has access to the same params.
+`YouTubeKnowledgeBase` は `AgentKnowledge` クラスのサブクラスであり、同じパラメータにアクセスできます。
 
-## Developer Resources
+## 開発者向けリソース
 
-- View [Sync loading Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/youtube_kb.py)
-- View [Async loading Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/youtube_kb_async.py)
+- [同期ロードクックブック](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/youtube_kb.py) を表示
+- [非同期ロードクックブック](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/youtube_kb_async.py) を表示

@@ -2,22 +2,22 @@
 title: Agentic RAG
 ---
 
-This example application shows how to build a sophisticated RAG (Retrieval Augmented Generation) system that leverages search of a knowledge base with LLMs to provide deep insights into the data.
+このサンプルアプリケーションは、知識ベースの検索とLLMを活用してデータに関する深い洞察を提供する、洗練されたRAG（Retrieval Augmented Generation）システムを構築する方法を示しています。
 
 
-## The agent can:
-- Process and understand documents from multiple sources (PDFs, websites, text files)
-- Build a searchable knowledge base using vector embeddings
-- Maintain conversation context and memory across sessions
-- Provide relevant citations and sources for its responses
-- Generate summaries and extract key insights
-- Answer follow-up questions and clarifications
+## エージェントができること：
+- 複数のソース（PDF、ウェブサイト、テキストファイル）からのドキュメントを処理・理解する
+- ベクトル埋め込みを使用して検索可能な知識ベースを構築する
+- セッション間で会話のコンテキストとメモリを維持する
+- 回答に関連する引用元とソースを提供する
+- 要約を生成し、主要な洞察を抽出する
+- フォローアップの質問や明確化に回答する
 
-## The agent uses:
-- Vector similarity search for relevant document retrieval
-- Conversation memory for contextual responses
-- Citation tracking for source attribution
-- Dynamic knowledge base updates
+## エージェントが使用するもの：
+- 関連ドキュメント検索のためのベクトル類似性検索
+- コンテキスト応答のための会話メモリ
+- ソース帰属のための引用追跡
+- 動的な知識ベース更新
 
 <video
   autoPlay
@@ -27,51 +27,51 @@ This example application shows how to build a sophisticated RAG (Retrieval Augme
   src="/videos/agentic_rag.mp4"
 ></video>
 
-## Example queries to try:
-- "What are the key points from this document?"
-- "Can you summarize the main arguments and supporting evidence?"
-- "What are the important statistics and findings?"
-- "How does this relate to [topic X]?"
-- "What are the limitations or gaps in this analysis?"
-- "Can you explain [concept X] in more detail?"
-- "What other sources support or contradict these claims?"
+## 試してみるべきクエリ例：
+- "このドキュメントの要点は何ですか？"
+- "主要な議論とそれを裏付ける証拠を要約してもらえますか？"
+- "重要な統計情報や発見は何ですか？"
+- "これは[トピックX]とどのように関連していますか？"
+- "この分析における制限やギャップは何ですか？"
+- "[概念X]について詳しく説明してもらえますか？"
+- "これらの主張を支持または否定する他のソースは何ですか？"
 
-## Code
+## コード
 
-The complete code is available in the [Agno repository](https://github.com/agno-agi/agno).
+完全なコードは[Agnoリポジトリ](https://github.com/agno-agi/agno)で入手できます。
 
-## Usage
+## 使用方法
 
 <Steps>
-  <Step title="Clone the repository">
+  <Step title="リポジトリをクローンする">
     ```bash
     git clone https://github.com/agno-agi/agno.git
     cd agno
     ```
   </Step>
 
-  <Step title="Create virtual environment">
+  <Step title="仮想環境を作成する">
     ```bash
     python3 -m venv .venv
     source .venv/bin/activate
     ```
   </Step>
 
-  <Step title="Install dependencies">
+  <Step title="依存関係をインストールする">
     ```bash
     pip install -r cookbook/examples/streamlit_apps/agentic_rag/requirements.txt
     ```
   </Step>
 
-  <Step title="Run PgVector">
-    First, install [Docker Desktop](https://docs.docker.com/desktop/install/mac-install/).
+  <Step title="PgVectorを実行する">
+    まず、[Docker Desktop](https://docs.docker.com/desktop/install/mac-install/)をインストールしてください。
 
-    Then run either using the helper script:
+    次に、ヘルパースクリプトを使用して実行するか、
     ```bash
     ./cookbook/scripts/run_pgvector.sh
     ```
 
-    Or directly with Docker:
+    またはDockerで直接実行します：
     ```bash
     docker run -d \
       -e POSTGRES_DB=ai \
@@ -86,24 +86,24 @@ The complete code is available in the [Agno repository](https://github.com/agno-
   </Step>
 
 
-  <Step title="Set up API keys">
+  <Step title="APIキーを設定する">
     ```bash
-    # Required
+    # 必須
     export OPENAI_API_KEY=***
-    # Optional
+    # オプション
     export ANTHROPIC_API_KEY=***
     export GOOGLE_API_KEY=***
 
     ```
-    We recommend using gpt-4o for optimal performance.
+    最適なパフォーマンスのためには、gpt-4oの使用をお勧めします。
   </Step>
 
-  <Step title="Launch the app">
+  <Step title="アプリを起動する">
     ```bash
     streamlit run cookbook/examples/streamlit_apps/agentic_rag/app.py
     ```
-    Open [localhost:8501](http://localhost:8501) to start using the Agentic RAG.
+    [localhost:8501](http://localhost:8501)を開いてAgentic RAGの使用を開始してください。
   </Step>
 </Steps>
 
-Need help? Join our [Discourse community](https://community.agno.com) for support!
+ヘルプが必要ですか？サポートについては、[Discourseコミュニティ](https://community.agno.com)にご参加ください！

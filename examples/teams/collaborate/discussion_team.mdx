@@ -2,9 +2,9 @@
 title: "Discussion Team"
 ---
 
-This example shows how to create a discussion team that allows multiple agents to collaborate on a topic.
+この例では、複数のエージェントがトピックについて共同作業できるディスカッションチームを作成する方法を示します。
 
-## Code
+## コード
 
 ```python discussion_team.py
 import asyncio
@@ -108,29 +108,28 @@ if __name__ == "__main__":
     )
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
 
     <Snippet file="create-venv-step.mdx" />
 
-    <Step title="Install required libraries">
+    <Step title="必要なライブラリをインストールする">
         ```bash
         pip install openai duckduckgo-search arxiv pypdf googlesearch-python pycountry 
         ```
     </Step>
 
-    <Step title="Set environment variables">
+    <Step title="環境変数を設定する">
         ```bash
         export OPENAI_API_KEY=****
         ```
     </Step>
 
-    <Step title="Run the agent">
+    <Step title="エージェントを実行する">
         ```bash
         python discussion_team.py
         ```
     </Step>
 
 </Steps>
-

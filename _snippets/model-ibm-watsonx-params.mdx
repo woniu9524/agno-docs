@@ -1,18 +1,18 @@
-## Parameters
+## パラメータ
 
-| Parameter | Type | Default | Description |
+| パラメータ | タイプ | デフォルト | 説明 |
 | --- | --- | --- | --- |
-| id | str | `"ibm/granite-20b-code-instruct"` | The model ID to use |
-| frequency_penalty | float | `None` | Penalty for using frequent tokens. Higher values discourage repetition |
-| presence_penalty | float | `None` | Penalty for using tokens already present in the text. Higher values encourage new topics |
-| max_tokens | int | `None` | Maximum number of tokens to generate in the response |
-| temperature | float | `None` | Controls randomness in responses. Higher values make output more random |
-| top_p | float | `None` | Controls diversity of responses via nucleus sampling |
-| logprobs | int | `None` | Number of log probabilities to return |
-| top_logprobs | int | `None` | Number of most likely tokens to return log probabilities for |
-| response_format | Any | `None` | Format specification for the response |
-| api_key | str | `None` | IBM WatsonX API key |
-| project_id | str | `None` | IBM WatsonX project ID |
-| url | str | `"https://eu-de.ml.cloud.ibm.com"` | IBM WatsonX API endpoint URL |
-| verify | bool | `True` | Whether to verify SSL certificates |
-| client_params | Dict[str, Any] | `None` | Additional parameters to pass to the client |
+| id | str | `"ibm/granite-20b-code-instruct"` | 使用するモデルID |
+| frequency_penalty | float | `None` | トークンの頻度に対するペナルティ。高い値は繰り返しを抑制します |
+| presence_penalty | float | `None` | テキストに既に存在するトークンに対するペナルティ。高い値は新しいトピックを奨励します |
+| max_tokens | int | `None` | レスポンスで生成される最大トークン数 |
+| temperature | float | `None` | レスポンスのランダム性を制御します。高い値は出力をよりランダムにします |
+| top_p | float | `None` | 核サンプリングによるレスポンスの多様性を制御します |
+| logprobs | int | `None` | 返される対数確率の数 |
+| top_logprobs | int | `None` | 対数確率を返す最も可能性の高いトークンの数 |
+| response_format | Any | `None` | レスポンスのフォーマット仕様 |
+| api_key | str | `None` | IBM WatsonX APIキー |
+| project_id | str | `None` | IBM WatsonXプロジェクトID |
+| url | str | `"https://eu-de.ml.cloud.ibm.com"` | IBM WatsonX APIエンドポイントURL |
+| verify | bool | `True` | SSL証明書を検証するかどうか |
+| client_params | Dict[str, Any] | `None` | クライアントに渡す追加パラメータ |

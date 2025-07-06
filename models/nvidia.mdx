@@ -1,19 +1,17 @@
 ---
 title: Nvidia
-description: Learn how to use Nvidia models in Agno.
+description: Agno で Nvidia モデルを使用する方法を学習します。
 ---
 
-NVIDIA offers a suite of high-performance language models optimized for advanced NLP tasks.
-These models are part of the NeMo framework, which provides tools for training, fine-tuning
-and deploying state-of-the-art models efficiently. NVIDIA’s language models are designed to
-handle large-scale workloads with GPU acceleration for faster inference and training.
-We recommend experimenting with NVIDIA’s models to find the best fit for your application.
+NVIDIA は、高度な NLP タスクに最適化された高性能言語モデルのスイートを提供しています。
+これらのモデルは NeMo フレームワークの一部であり、最先端のモデルを効率的にトレーニング、ファインチューニング、デプロイするためのツールを提供します。NVIDIA の言語モデルは、GPU アクセラレーションによる大規模なワークロードを処理できるように設計されており、推論とトレーニングを高速化します。
+NVIDIA のモデルを試して、アプリケーションに最適なものを見つけることをお勧めします。
 
-Explore NVIDIA’s models [here](https://build.nvidia.com/models).
+NVIDIA のモデルは[こちら](https://build.nvidia.com/models)でご覧ください。
 
-## Authentication
+## 認証
 
-Set your `NVIDIA_API_KEY` environment variable. Get your key [from Nvidia here](https://build.nvidia.com/explore/discover).
+`NVIDIA_API_KEY` 環境変数を設定します。キーは[こちら](https://build.nvidia.com/explore/discover)の Nvidia から取得してください。
 
 <CodeGroup>
 
@@ -27,9 +25,9 @@ setx NVIDIA_API_KEY ***
 
 </CodeGroup>
 
-## Example
+## 例
 
-Use `Nvidia` with your `Agent`:
+`Agent` で `Nvidia` を使用します。
 
 <CodeGroup>
 
@@ -39,17 +37,17 @@ from agno.models.nvidia import Nvidia
 
 agent = Agent(model=Nvidia(), markdown=True)
 
-# Print the response in the terminal
+# ターミナルに応答を表示します
 agent.print_response("Share a 2 sentence horror story")
 
 ```
 
 </CodeGroup>
 
-<Note> View more examples [here](../examples/models/nvidia). </Note>
+<Note> その他の例は[こちら](../examples/models/nvidia)でご覧ください。 </Note>
 
-## Params
+## パラメータ
 
 <Snippet file="model-nvda-params.mdx" />
 
-`Nvidia` also supports the params of [OpenAI](/reference/models/openai).
+`Nvidia` は [OpenAI](/reference/models/openai) のパラメータもサポートしています。

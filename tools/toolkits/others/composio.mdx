@@ -2,20 +2,20 @@
 title: Composio
 ---
 
-[**ComposioTools**](https://docs.composio.dev/framework/phidata) enable an Agent to work with tools like Gmail, Salesforce, Github, etc.
+[**ComposioTools**](https://docs.composio.dev/framework/phidata) は、Agent が Gmail、Salesforce、Github などのツールを操作できるようにします。
 
-## Prerequisites
+## 前提条件
 
-The following example requires the `composio-agno` library.
+以下の例では、`composio-agno` ライブラリが必要です。
 
 ```shell
 pip install composio-agno
-composio add github # Login into Github
+composio add github # Githubにログイン
 ```
 
-## Example
+## 例
 
-The following agent will use Github Tool from Composio Toolkit to star a repo.
+以下のエージェントは、Composio Toolkit の Github Tool を使用してリポジトリをスター付けします。
 
 ```python cookbook/tools/composio_tools.py
 from agno.agent import Agent
@@ -31,16 +31,16 @@ agent = Agent(tools=composio_tools, show_tool_calls=True)
 agent.print_response("Can you star agno-agi/agno repo?")
 ```
 
-## Toolkit Params
+## Toolkit パラメータ
 
-The following parameters are used when calling the GitHub star repository action:
+GitHub のリポジトリのスター付けアクションを呼び出す際に使用されるパラメータは次のとおりです。
 
-| Parameter | Type | Default | Description |
+| パラメータ | タイプ | デフォルト | 説明 |
 |-----------|------|---------|-------------|
-| `owner` | `str` | - | The owner of the repository to star. |
-| `repo` | `str` | - | The name of the repository to star. |
+| `owner` | `str` | - | スターを付けるリポジトリのオーナー。 |
+| `repo` | `str` | - | スターを付けるリポジトリの名前。 |
 
-## Toolkit Functions
+## Toolkit 関数
 
-Composio Toolkit provides 1000+ functions to connect to different software tools.
-Open this [link](https://composio.dev/tools) to view the complete list of functions.
+Composio Toolkit は、さまざまなソフトウェアツールに接続するための 1000 を超える関数を提供しています。
+完全な関数のリストを表示するには、この[リンク](https://composio.dev/tools)を開いてください。

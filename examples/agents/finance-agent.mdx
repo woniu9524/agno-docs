@@ -2,19 +2,16 @@
 title: Finance Agent
 ---
 
-This example shows how to create a sophisticated financial analyst that provides
-comprehensive market insights using real-time data. The agent combines stock market data,
-analyst recommendations, company information, and latest news to deliver professional-grade
-financial analysis.
+この例では、リアルタイムデータを使用して包括的な市場インサイトを提供する高度な金融アナリストを作成する方法を示します。このエージェントは、株式市場データ、アナリストの推奨事項、企業情報、最新ニュースを組み合わせて、プロフェッショナルグレードの金融分析を提供します。
 
-Example prompts to try:
-- "What's the latest news and financial performance of Apple (AAPL)?"
-- "Give me a detailed analysis of Tesla's (TSLA) current market position"
-- "How are Microsoft's (MSFT) financials looking? Include analyst recommendations"
-- "Analyze NVIDIA's (NVDA) stock performance and future outlook"
-- "What's the market saying about Amazon's (AMZN) latest quarter?"
+試すためのプロンプト例：
+- 「Apple (AAPL) の最新ニュースと財務実績は何ですか？」
+- 「Tesla (TSLA) の現在の市場ポジションについて詳細な分析を提供してください」
+- 「Microsoft (MSFT) の財務状況はどうですか？アナリストの推奨事項を含めてください」
+- 「NVIDIA (NVDA) の株価パフォーマンスと将来の見通しを分析してください」
+- 「Amazon (AMZN) の最新四半期について市場は何と言っていますか？」
 
-## Code
+## コード
 
 ```python finance_agent.py
 from textwrap import dedent
@@ -36,112 +33,112 @@ finance_agent = Agent(
         )
     ],
     instructions=dedent("""\
-        You are a seasoned Wall Street analyst with deep expertise in market analysis! 📊
+        あなたは市場分析に深い専門知識を持つ、経験豊富なウォール街のアナリストです！📊
 
-        Follow these steps for comprehensive financial analysis:
-        1. Market Overview
-           - Latest stock price
-           - 52-week high and low
-        2. Financial Deep Dive
-           - Key metrics (P/E, Market Cap, EPS)
-        3. Professional Insights
-           - Analyst recommendations breakdown
-           - Recent rating changes
+        包括的な財務分析のために、次の手順に従ってください：
+        1. 市場概要
+           - 最新の株価
+           - 52週間の高値と安値
+        2. 詳細な財務分析
+           - 主要指標（PER、時価総額、EPS）
+        3. プロフェッショナルなインサイト
+           - アナリストの推奨事項の内訳
+           - 最近のレーティング変更
 
-        4. Market Context
-           - Industry trends and positioning
-           - Competitive analysis
-           - Market sentiment indicators
+        4. 市場コンテキスト
+           - 業界のトレンドとポジショニング
+           - 競合分析
+           - 市場センチメント指標
 
-        Your reporting style:
-        - Begin with an executive summary
-        - Use tables for data presentation
-        - Include clear section headers
-        - Add emoji indicators for trends (📈 📉)
-        - Highlight key insights with bullet points
-        - Compare metrics to industry averages
-        - Include technical term explanations
-        - End with a forward-looking analysis
+        あなたのレポート作成スタイル：
+        - エグゼクティブサマリーから始める
+        - データ提示にはテーブルを使用する
+        - 明確なセクションヘッダーを含める
+        - トレンドを示す絵文字インジケーターを追加する（📈 📉）
+        - 主要なインサイトを箇条書きで強調する
+        - 業界平均と比較する
+        - 技術用語の説明を含める
+        - 将来の見通し分析で締めくくる
 
-        Risk Disclosure:
-        - Always highlight potential risk factors
-        - Note market uncertainties
-        - Mention relevant regulatory concerns
+        リスク開示：
+        - 常に潜在的なリスク要因を強調する
+        - 市場の不確実性に言及する
+        - 関連する規制上の懸念事項を含める
     """),
     add_datetime_to_instructions=True,
     show_tool_calls=True,
     markdown=True,
 )
 
-# Example usage with detailed market analysis request
+# 詳細な市場分析リクエストを使用した使用例
 finance_agent.print_response(
     "What's the latest news and financial performance of Apple (AAPL)?", stream=True
 )
 
-# Semiconductor market analysis example
+# 半導体市場分析の例
 finance_agent.print_response(
     dedent("""\
-    Analyze the semiconductor market performance focusing on:
+    半導体市場のパフォーマンスを次の点に焦点を当てて分析してください：
     - NVIDIA (NVDA)
     - AMD (AMD)
     - Intel (INTC)
     - Taiwan Semiconductor (TSM)
-    Compare their market positions, growth metrics, and future outlook."""),
+    それらの市場ポジション、成長指標、将来の見通しを比較してください。"""),
     stream=True,
 )
 
-# Automotive market analysis example
+# 自動車市場分析の例
 finance_agent.print_response(
     dedent("""\
-    Evaluate the automotive industry's current state:
+    自動車業界の現状を評価してください：
     - Tesla (TSLA)
     - Ford (F)
     - General Motors (GM)
     - Toyota (TM)
-    Include EV transition progress and traditional auto metrics."""),
+    EVへの移行の進捗状況と従来の自動車の指標を含めてください。"""),
     stream=True,
 )
 
-# More example prompts to explore:
+# 探索するためのその他のプロンプト例：
 """
-Advanced analysis queries:
-1. "Compare Tesla's valuation metrics with traditional automakers"
-2. "Analyze the impact of recent product launches on AMD's stock performance"
-3. "How do Meta's financial metrics compare to its social media peers?"
-4. "Evaluate Netflix's subscriber growth impact on financial metrics"
-5. "Break down Amazon's revenue streams and segment performance"
+高度な分析クエリ：
+1. 「Tesla の評価指標を従来の自動車メーカーと比較してください」
+2. 「最近の製品発売が AMD の株価パフォーマンスに与える影響を分析してください」
+3. 「Meta の財務指標をソーシャルメディアの競合他社と比較してください」
+4. 「Netflix の加入者数の増加が財務指標に与える影響を評価してください」
+5. 「Amazon の収益源とセグメントパフォーマンスの内訳」
 
-Industry-specific analyses:
-Semiconductor Market:
-1. "How is the chip shortage affecting TSMC's market position?"
-2. "Compare NVIDIA's AI chip revenue growth with competitors"
-3. "Analyze Intel's foundry strategy impact on stock performance"
-4. "Evaluate semiconductor equipment makers like ASML and Applied Materials"
+業界固有の分析：
+半導体市場：
+1. 「チップ不足が TSMC の市場ポジションにどのように影響していますか？」
+2. 「NVIDIA の AI チップ収益成長を競合他社と比較してください」
+3. 「Intel のファウンドリ戦略が株価パフォーマンスに与える影響を分析してください」
+4. 「ASML や Applied Materials のような半導体製造装置メーカーを評価してください」
 
-Automotive Industry:
-1. "Compare EV manufacturers' production metrics and margins"
-2. "Analyze traditional automakers' EV transition progress"
-3. "How are rising interest rates impacting auto sales and stock performance?"
-4. "Compare Tesla's profitability metrics with traditional auto manufacturers"
+自動車業界：
+1. 「EV メーカーの生産指標と利益率を比較してください」
+2. 「従来の自動車メーカーの EV への移行の進捗状況を分析してください」
+3. 「金利の上昇が自動車販売と株価パフォーマンスにどのように影響していますか？」
+4. 「Tesla の収益性指標を従来の自動車メーカーと比較してください」
 """
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install libraries">
+  <Step title="ライブラリのインストール">
     ```bash
     pip install openai yfinance agno
     ```
   </Step>
-  <Step title="Set environment variables">
+  <Step title="環境変数の設定">
     ```bash
     export OPENAI_API_KEY=****
     ```
     </Step>
-  <Step title="Run the agent">
+  <Step title="エージェントの実行">
     ```bash
     python finance_agent.py
     ```

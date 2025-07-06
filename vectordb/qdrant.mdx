@@ -3,11 +3,11 @@ title: Qdrant Agent Knowledge
 sidebarTitle: Qdrant
 ---
 
-## Setup
+## セットアップ
 
-Follow the instructions in the [Qdrant Setup Guide](https://qdrant.tech/documentation/guides/installation/) to install Qdrant locally. Here is a guide to get API keys: [Qdrant API Keys](https://qdrant.tech/documentation/cloud/authentication/).
+Qdrant をローカルにインストールするには、[Qdrant セットアップ ガイド](https://qdrant.tech/documentation/guides/installation/) の手順に従ってください。API キーを取得するためのガイドは次のとおりです。[Qdrant API キー](https://qdrant.tech/documentation/cloud/authentication/)。
 
-## Example
+## 例
 
 ```python agent_with_knowledge.py
 import os
@@ -60,16 +60,16 @@ def qdrant_agent(user: str = "user"):
         agent.print_response(message)
 
 if __name__ == "__main__":
-    # Comment out after first run
+    # 初回実行後にコメントアウトしてください
     knowledge_base.load(recreate=True, upsert=True)
 
     typer.run(qdrant_agent)
 ```
 
-<Card title="Async Support ⚡">
+<Card title="非同期サポート ⚡">
   <div className="mt-2">
     <p>
-      Qdrant also supports asynchronous operations, enabling concurrency and leading to better performance.
+      Qdrant は非同期操作もサポートしており、並行処理を可能にし、パフォーマンスを向上させます。
     </p>
     
     ```python async_qdrant_db.py
@@ -81,13 +81,13 @@ if __name__ == "__main__":
 
     COLLECTION_NAME = "thai-recipes"
 
-    # Initialize Qdrant with local instance
+    # ローカルインスタンスで Qdrant を初期化
     vector_db = Qdrant(
         collection=COLLECTION_NAME, 
         url="http://localhost:6333"
     )
 
-    # Create knowledge base
+    # ナレッジベースを作成
     knowledge_base = PDFUrlKnowledgeBase(
         urls=["https://agno-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
         vector_db=vector_db,
@@ -96,24 +96,24 @@ if __name__ == "__main__":
     agent = Agent(knowledge=knowledge_base, show_tool_calls=True)
 
     if __name__ == "__main__":
-        # Load knowledge base asynchronously
-        asyncio.run(knowledge_base.aload(recreate=False))  # Comment out after first run
+        # ナレッジベースを非同期でロード
+        asyncio.run(knowledge_base.aload(recreate=False))  # 初回実行後にコメントアウトしてください
 
-        # Create and use the agent asynchronously
+        # エージェントを非同期で作成および使用
         asyncio.run(agent.aprint_response("How to make Tom Kha Gai", markdown=True))
     ```
     
     <Tip className="mt-4">
-      Using <code>aload()</code> and <code>aprint_response()</code> with asyncio provides non-blocking operations, making your application more responsive under load.
+      <code>aload()</code> および <code>aprint_response()</code> を asyncio と共に使用すると、非ブロッキング操作が提供され、負荷下でのアプリケーションの応答性が向上します。
     </Tip>
   </div>
 </Card>
 
-## Qdrant Params
+## Qdrant パラメータ
 
 <Snippet file="vectordb_qdrant_params.mdx" />
 
-## Developer Resources
+## 開発者向けリソース
 
-- View [Cookbook (Sync)](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/vector_dbs/qdrant_db/qdrant_db.py)
-- View [Cookbook (Async)](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/vector_dbs/qdrant_db/async_qdrant_db.py)
+- [クックブック (同期)](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/vector_dbs/qdrant_db/qdrant_db.py) を表示
+- [クックブック (非同期)](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/vector_dbs/qdrant_db/async_qdrant_db.py) を表示

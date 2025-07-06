@@ -1,21 +1,21 @@
 ---
 title: DeepSeek
-description: Learn how to use DeepSeek models in Agno.
+description: Agno で DeepSeek モデルを使用する方法を学びます。
 ---
 
-DeepSeek is a platform for providing endpoints for Large Language models.
-See their library of models [here](https://api-docs.deepseek.com/quick_start/pricing).
+DeepSeek は、大規模言語モデルのエンドポイントを提供するプラットフォームです。
+モデルのライブラリについては、[こちら](https://api-docs.deepseek.com/quick_start/pricing)をご覧ください。
 
-We recommend experimenting to find the best-suited model for your use-case. Here are some general recommendations:
+ユースケースに最適なモデルを見つけるために、実験することをお勧めします。一般的な推奨事項は以下のとおりです。
 
-- `deepseek-chat` model is good for most basic use-cases.
-- `deepseek-reasoner` model is good for complex reasoning and multi-step tasks.
+- `deepseek-chat` モデルは、ほとんどの基本的なユースケースに適しています。
+- `deepseek-reasoner` モデルは、複雑な推論や複数ステップのタスクに適しています。
 
-DeepSeek does not have rate limits. See their [docs](https://api-docs.deepseek.com/quick_start/rate_limit) for information about how to deal with slower responses during high traffic.
+DeepSeek にはレート制限はありません。高トラフィック時の応答速度低下の対処方法については、[ドキュメント](https://api-docs.deepseek.com/quick_start/rate_limit)をご覧ください。
 
-## Authentication
+## 認証
 
-Set your `DEEPSEEK_API_KEY` environment variable. Get your key from [here](https://platform.deepseek.com/api_keys).
+`DEEPSEEK_API_KEY` 環境変数を設定します。キーは [こちら](https://platform.deepseek.com/api_keys) から取得してください。
 
 <CodeGroup>
 
@@ -29,9 +29,9 @@ setx DEEPSEEK_API_KEY ***
 
 </CodeGroup>
 
-## Example
+## 例
 
-Use `DeepSeek` with your `Agent`:
+`Agent` で `DeepSeek` を使用します。
 
 <CodeGroup>
 
@@ -41,17 +41,17 @@ from agno.models.deepseek import DeepSeek
 
 agent = Agent(model=DeepSeek(), markdown=True)
 
-# Print the response in the terminal
+# 応答をターミナルに出力します
 agent.print_response("Share a 2 sentence horror story.")
 
 ```
 
 </CodeGroup>
 
-<Note> View more examples [here](../examples/models/deepseek). </Note>
+<Note> その他の例については、[こちら](../examples/models/deepseek) をご覧ください。 </Note>
 
-## Params
+## パラメータ
 
 <Snippet file="model-deepseek-params.mdx" />
 
-`DeepSeek` also supports the params of [OpenAI](/reference/models/openai).
+`DeepSeek` は [OpenAI](/reference/models/openai) のパラメータもサポートしています。

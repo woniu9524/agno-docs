@@ -2,35 +2,35 @@
 title: Dalle
 ---
 
-## Prerequisites
+## 前提条件
 
-You need to install the `openai` library.
+`openai` ライブラリをインストールする必要があります。
 
 ```bash
 pip install openai
 ```
 
-Set the `OPENAI_API_KEY` environment variable.
+`OPENAI_API_KEY` 環境変数を設定します。
 
 ```bash
 export OPENAI_API_KEY=****
 ```
 
-## Example
+## 例
 
-The following agent will use DALL-E to generate an image based on a text prompt.
+以下のエージェントは、テキストプロンプトに基づいて画像を生成するために DALL-E を使用します。
 
 ```python cookbook/tools/dalle_tools.py
 from agno.agent import Agent
 from agno.tools.dalle import DalleTools
 
-# Create an Agent with the DALL-E tool
+# DALL-E ツールを使用してエージェントを作成します
 agent = Agent(tools=[DalleTools()], name="DALL-E Image Generator")
 
-# Example 1: Generate a basic image with default settings
+# 例 1: デフォルト設定で基本的な画像を生成します
 agent.print_response("Generate an image of a futuristic city with flying cars and tall skyscrapers", markdown=True)
 
-# Example 2: Generate an image with custom settings
+# 例 2: カスタム設定で画像を生成します
 custom_dalle = Dalle(model="dall-e-3", size="1792x1024", quality="hd", style="natural")
 
 agent_custom = Agent(
@@ -42,24 +42,24 @@ agent_custom = Agent(
 agent_custom.print_response("Create a panoramic nature scene showing a peaceful mountain lake at sunset", markdown=True)
 ```
 
-## Toolkit Params
+## Toolkit パラメータ
 
-| Parameter | Type  | Default       | Description                                                       |
+| パラメータ | タイプ  | デフォルト       | 説明                                                       |
 | --------- | ----- | ------------- | ----------------------------------------------------------------- |
-| `model`   | `str` | `"dall-e-3"`  | The DALL-E model to use                                           |
-| `n`       | `int` | `1`           | Number of images to generate                                      |
-| `size`    | `str` | `"1024x1024"` | Image size (256x256, 512x512, 1024x1024, 1792x1024, or 1024x1792) |
-| `quality` | `str` | `"standard"`  | Image quality (standard or hd)                                    |
-| `style`   | `str` | `"vivid"`     | Image style (vivid or natural)                                    |
-| `api_key` | `str` | `None`        | The OpenAI API key for authentication                             |
+| `model`   | `str` | `"dall-e-3"`  | 使用する DALL-E モデル                                           |
+| `n`       | `int` | `1`           | 生成する画像の数                                                 |
+| `size`    | `str` | `"1024x1024"` | 画像サイズ (256x256、512x512、1024x1024、1792x1024、または 1024x1792) |
+| `quality` | `str` | `"standard"`  | 画像の品質 (standard または hd)                                    |
+| `style`   | `str` | `"vivid"`     | 画像のスタイル (vivid または natural)                               |
+| `api_key` | `str` | `None`        | 認証用の OpenAI API キー                                          |
 
-## Toolkit Functions
+## Toolkit 関数
 
-| Function         | Description                               |
-| ---------------- | ----------------------------------------- |
-| `generate_image` | Generates an image based on a text prompt |
+| 関数         | 説明                                |
+| ------------ | ----------------------------------------- |
+| `generate_image` | テキストプロンプトに基づいて画像を生成します |
 
-## Developer Resources
+## 開発者向けリソース
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/dalle.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/dalle_tools.py)
+- [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/dalle.py) を表示
+- [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/dalle_tools.py) を表示

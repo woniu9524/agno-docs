@@ -1,13 +1,13 @@
 ---
 title: Fireworks
-description: Learn how to use Fireworks models in Agno.
+description: Agno で Fireworks モデルを使用する方法を学びます。
 ---
 
-Fireworks is a platform for providing endpoints for Large Language models.
+Fireworks は、大規模言語モデルのエンドポイントを提供するプラットフォームです。
 
-## Authentication
+## 認証
 
-Set your `FIREWORKS_API_KEY` environment variable. Get your key from [here](https://fireworks.ai/account/api-keys).
+`FIREWORKS_API_KEY` 環境変数を設定します。キーは [こちら](https://fireworks.ai/account/api-keys) から取得できます。
 
 <CodeGroup>
 
@@ -21,14 +21,13 @@ setx FIREWORKS_API_KEY ***
 
 </CodeGroup>
 
-## Prompt caching
+## プロンプト キャッシュ
 
-Prompt caching will happen automatically using our `Fireworks` model. You can read more about how Fireworks handle caching in [their docs](https://docs.fireworks.ai/guides/prompt-caching#using-prompt-caching).
+プロンプト キャッシュは、当社の `Fireworks` モデルを使用して自動的に行われます。Fireworks がプロンプト キャッシュを処理する方法については、[ドキュメント](https://docs.fireworks.ai/guides/prompt-caching#using-prompt-caching) を参照してください。
 
+## 例
 
-## Example
-
-Use `Fireworks` with your `Agent`:
+`Agent` で `Fireworks` を使用します。
 
 <CodeGroup>
 
@@ -41,17 +40,17 @@ agent = Agent(
     markdown=True
 )
 
-# Print the response in the terminal
+# 応答をターミナルに出力します
 agent.print_response("Share a 2 sentence horror story.")
 
 ```
 
 </CodeGroup>
 
-<Note> View more examples [here](../examples/models/fireworks). </Note>
+<Note> その他の例は [こちら](../examples/models/fireworks) でご覧ください。 </Note>
 
-## Params
+## パラメータ
 
 <Snippet file="model-fireworks-params.mdx" />
 
-`Fireworks` also supports the params of [OpenAI](/reference/models/openai).
+`Fireworks` は [OpenAI](/reference/models/openai) のパラメータもサポートしています。

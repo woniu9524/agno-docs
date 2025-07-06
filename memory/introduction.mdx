@@ -1,20 +1,20 @@
 ---
-title: What is Memory?
-sidebarTitle: Overview
-description: Memory gives an Agent the ability to recall relevant information.
+title: メモリとは
+sidebarTitle: 概要
+description: メモリは、エージェントが関連情報を思い出す能力を与えます。
 ---
-Memory is a part of the Agent's context that helps it provide the best, most personalized response.
+メモリは、エージェントが最も適切でパーソナライズされた応答を提供するためのコンテキストの一部です。
 
 <Check>
-If the user tells the Agent they like to ski, then future responses can reference this information to provide a more personalized experience.
+ユーザーがエージェントにスキーが好きだと伝えた場合、将来の応答でこの情報を参照して、よりパーソナライズされた体験を提供できます。
 </Check>
 
-1. **Session Storage (chat history and session state):** Session storage saves an Agent's sessions in a database and enables Agents to have multi-turn conversations. Session storage also holds the session state, which is persisted across runs because it is saved to the database after each run. Session storage is a form of short-term memory **called "Storage" in Agno**.
+1. **セッションストレージ（チャット履歴とセッション状態）：** セッションストレージは、エージェントのセッションをデータベースに保存し、エージェントが複数回の会話を行えるようにします。セッションストレージはセッション状態も保持し、これは各実行後にデータベースに保存されるため、実行間で永続化されます。セッションストレージは、Agnoでは「Storage」と呼ばれる短期記憶の一形態です。
 
-2. **User Memories (user preferences):** The Agent can store insights and facts about the user that it learns through conversation. This helps the agents personalize its response to the user it is interacting with. Think of this as adding "ChatGPT like memory" to your agent. **This is called "Memory" in Agno**.
+2. **ユーザーメモリ（ユーザーの好み）：** エージェントは、会話を通じて学習したユーザーに関する洞察や事実を保存できます。これにより、エージェントは対話しているユーザーへの応答をパーソナライズできます。これは、エージェントに「ChatGPTのようなメモリ」を追加すると考えてください。これは、Agnoでは「Memory」と呼ばれます。
 
-3. **Session Summaries (chat summary):** The Agent can store a condensed representations of the session, useful when chat histories gets too long. **This is called "Summary" in Agno**.
+3. **セッションサマリー（チャットサマリー）：** エージェントは、セッションの短縮された表現を保存できます。これは、チャット履歴が長くなりすぎた場合に役立ちます。これは、Agnoでは「Summary」と呼ばれます。
 
 <Note>
-If you haven't, we also recommend reading the Memory section of the [Agents](/agents/memory) to get familiar with the basics.
+まだの場合は、[エージェント](/agents/memory)のメモリセクションを読むこともお勧めします。基本的なことを理解するために役立ちます。
 </Note>

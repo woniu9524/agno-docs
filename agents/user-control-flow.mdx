@@ -1,55 +1,53 @@
 ---
-title: User Control Flows
-description: Learn how to control the flow of an agent's execution in Agno. This is also called "Human in the Loop".
+title: ユーザー制御フロー
+description: Agno でエージェントの実行フローを制御する方法を学びます。これは「Human in the Loop」とも呼ばれます。
 ---
 
-User control flows in Agno enable you to implement "Human in the Loop" patterns, where human oversight and input are required during agent execution. This is crucial for:
+Agno のユーザー制御フローを使用すると、「Human in the Loop」パターンを実装できます。これは、エージェントの実行中に人間の監視と入力が必要となるパターンです。これは以下に不可欠です。
 
-- Validating sensitive operations
-- Reviewing tool calls before execution
-- Gathering user input for decision-making
-- Managing external tool execution
+- 機密性の高い操作の検証
+- 実行前のツール呼び出しのレビュー
+- 意思決定のためのユーザー入力の収集
+- 外部ツール実行の管理
 
-## Types of User Control Flows
+## ユーザー制御フローの種類
 
-Agno supports four main types of user control flows:
+Agno は、4 つの主要なユーザー制御フローの種類をサポートしています。
 
-1. **User Confirmation**: Require explicit user approval before executing tool calls
-2. **User Input**: Gather specific information from users during execution
-3. **Dynamic User Input**: Have the agent collect user input as it needs it
-4. **External Tool Execution**: Execute tools outside of the agent's control
+1. **ユーザー確認**: ツール呼び出しを実行する前に、明示的なユーザーの承認を要求します。
+2. **ユーザー入力**: 実行中にユーザーから特定の情報を収集します。
+3. **動的ユーザー入力**: エージェントが必要に応じてユーザー入力を収集できるようにします。
+4. **外部ツール実行**: エージェントの制御外でツールを実行します。
 
+## エージェントの実行の一時停止
 
-## Pausing Agent Execution
+ユーザー制御フローはエージェントの実行を中断し、人間の監視を必要とします。その後、`continue_run` メソッドを呼び出すことで実行を再開できます。
 
-User control flows interrupt the agent's execution and require human oversight. The run can then be continued by calling the `continue_run` method.
-
-For example:
+例：
 
 ```python
-agent.run("Perform sensitive operation")
+agent.run("機密性の高い操作を実行します")
 
 if agent.is_paused:
-    # The agent will pause while human input is provided
-    # ... perform other tasks
+    # エージェントはユーザー入力中に一時停止します
+    # ... 他のタスクを実行します
 
-    # The user can then continue the run
+    # ユーザーは実行を続行できます
     response = agent.continue_run()
-    # or response = await agent.acontinue_run()
+    # または response = await agent.acontinue_run()
 ```
 
-The `continue_run` method continues with the state of the agent at the time of the pause.  You can also pass the `run_response` of a specific run to the `continue_run` method, or the `run_id`.
+`continue_run` メソッドは、一時停止した時点のエージェントの状態を引き継いで実行を続行します。特定の実行の `run_response` または `run_id` を `continue_run` メソッドに渡すこともできます。
 
+## ユーザー確認
 
-## User Confirmation
+ユーザー確認を使用すると、実行を一時停止し、ツール呼び出しに進む前に明示的なユーザーの承認を要求できます。これは以下に役立ちます。
 
-User confirmation allows you to pause execution and require explicit user approval before proceeding with tool calls. This is useful for:
+- 機密性の高い操作
+- データを変更する API 呼び出し
+- 重大な結果を伴うアクション
 
-- Sensitive operations
-- API calls that modify data
-- Actions with significant consequences
-
-The following example shows how to implement user confirmation.
+次の例は、ユーザー確認の実装方法を示しています。
 
 ```python
 from agno.tools import tool
@@ -58,31 +56,31 @@ from agno.models.openai import OpenAIChat
 
 @tool(requires_confirmation=True)
 def sensitive_operation(data: str) -> str:
-    """Perform a sensitive operation that requires confirmation."""
-    # Implementation here
-    return "Operation completed"
+    """確認が必要な機密性の高い操作を実行します。"""
+    # ここに実装
+    return "操作が完了しました"
 
 agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
     tools=[sensitive_operation],
 )
 
-# Run the agent
-agent.run("Perform sensitive operation")
+# エージェントを実行します
+agent.run("機密性の高い操作を実行します")
 
-# Handle confirmation
+# 確認を処理します
 if agent.is_paused:
     for tool in agent.run_response.tools_requiring_confirmation:
-        # Get user confirmation
-        print(f"Tool {tool.tool_name}({tool.tool_args}) requires confirmation")
-        confirmed = input(f"Confirm? (y/n): ").lower() == "y"
+        # ユーザー確認を取得します
+        print(f"ツール {tool.tool_name}({tool.tool_args}) は確認が必要です")
+        confirmed = input(f"確認しますか？ (y/n): ").lower() == "y"
         tool.confirmed = confirmed
 
-  # Continue execution
+  # 実行を続行します
   response = agent.continue_run()
 ```
 
-You can also specify which tools in a toolkit require confirmation.
+ツールキット内のどのツールが確認を必要とするかを指定することもできます。
 
 ```python
 from agno.agent import Agent
@@ -96,31 +94,31 @@ agent = Agent(
     tools=[YFinanceTools(requires_confirmation_tools=["get_current_stock_price"])],
 )
 
-agent.run("What is the current stock price of Apple?")
+agent.run("Apple の現在の株価を教えてください。")
 if agent.is_paused:
     for tool in agent.run_response.tools_requiring_confirmation:
-        print(f"Tool {tool.tool_name}({tool.tool_args}) requires confirmation")
-        confirmed = input(f"Confirm? (y/n): ").lower() == "y"
+        print(f"ツール {tool.tool_name}({tool.tool_args}) は確認が必要です")
+        confirmed = input(f"確認しますか？ (y/n): ").lower() == "y"
 
         if message == "n":
             tool.confirmed = False
         else:
-            # We update the tools in place
+            # ツールをインプレースで更新します
             tool.confirmed = True
 
     run_response = agent.continue_run()
     pprint.pprint_run_response(run_response)
 ```
 
-## User Input
+## ユーザー入力
 
-User input flows allow you to gather specific information from users during execution. This is useful for:
+ユーザー入力フローを使用すると、実行中にユーザーから特定の情報を収集できます。これは以下に役立ちます。
 
-- Collecting required parameters
-- Getting user preferences
-- Gathering missing information
+- 必須パラメータの収集
+- ユーザー設定の取得
+- 不足情報の収集
 
-In the example below, we require all the input for the `send_email` tool from the user.
+以下の例では、`send_email` ツールに必要なすべての入力をユーザーから取得します。
 
 ```python
 from typing import List
@@ -128,37 +126,37 @@ from agno.agent import Agent
 from agno.models.openai import OpenAIChat
 from agno.tools.function import UserInputField
 
-# We still provide a docstring to the tool; This will be used to populate the `user_input_schema`
+# ツールのドキュメント文字列は引き続き提供します。これは `user_input_schema` を埋めるために使用されます。
 @tool(requires_user_input=True)
 def send_email(to: str, subject: str, body: str) -> dict:
-    """Send an email to the user.
+    """ユーザーにメールを送信します。
 
     Args:
-        to (str): The address to send the email to.
-        subject (str): The subject of the email.
-        body (str): The body of the email.
+        to (str): メールを送信するアドレス。
+        subject (str): メールの件名。
+        body (str): メールの本文。
     """
-    # Implementation here
-    return f"Email sent to {to} with subject {subject} and body {body}"
+    # ここに実装
+    return f"メールを {to} に件名 {subject}、本文 {body} で送信しました"
 
 agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
     tools=[send_email],
 )
 
-agent.run("Send an email please")
+agent.run("メールを送信してください")
 if agent.is_paused:
     for tool in agent.run_response.tools_requiring_user_input:
         input_schema: List[UserInputField] = tool.user_input_schema
 
         for field in input_schema:
-            # Display field information to the user
-            print(f"\nField: {field.name} ({field.field_type.__name__}) -> {field.description}")
+            # ユーザーにフィールド情報を表示します
+            print(f"\nフィールド: {field.name} ({field.field_type.__name__}) -> {field.description}")
 
-            # Get user input
-            user_value = input(f"Please enter a value for {field.name}: ")
+            # ユーザー入力を取得します
+            user_value = input(f"{field.name} の値を入力してください: ")
 
-            # Update the field value
+            # フィールド値を更新します
             field.value = user_value
 
     run_response = (
@@ -166,68 +164,68 @@ if agent.is_paused:
     )
 ```
 
-The `RunResponse` object has a list of tools and in the case of `requires_user_input`, the tools that require input will have `user_input_schema` populated.
-This is a list of `UserInputField` objects.
+`RunResponse` オブジェクトにはツールのリストがあり、`requires_user_input` の場合、入力が必要なツールには `user_input_schema` が設定されています。
+これは `UserInputField` オブジェクトのリストです。
 
 ```python
 class UserInputField:
-    name: str  # The name of the field
-    field_type: Type  # The required type of the field
-    description: Optional[str] = None  # The description of the field
-    value: Optional[Any] = None  # The value of the field. Populated by the agent or the user.
+    name: str  # フィールド名
+    field_type: Type  # 必須フィールドの型
+    description: Optional[str] = None  # フィールドの説明
+    value: Optional[Any] = None  # フィールドの値。エージェントまたはユーザーによって入力されます。
 ```
 
-You can also specify which fields should be filled by the user while the agent will provide the rest of the fields.
+ユーザーに入力してもらうフィールドを指定し、残りのフィールドはエージェントが提供するようにすることもできます。
 
 ```python
 
-# You can either specify the user_input_fields leave empty for all fields to be provided by the user
+# ユーザーがすべてのフィールドを提供する必要がある場合は、user_input_fields を指定するか、空のままにします。
 @tool(requires_user_input=True, user_input_fields=["to_address"])
 def send_email(subject: str, body: str, to_address: str) -> str:
     """
-    Send an email.
+    メールを送信します。
 
     Args:
-        subject (str): The subject of the email.
-        body (str): The body of the email.
-        to_address (str): The address to send the email to.
+        subject (str): メールの件名。
+        body (str): メールの本文。
+        to_address (str): メールを送信するアドレス。
     """
-    return f"Sent email to {to_address} with subject {subject} and body {body}"
+    return f"件名 '{subject}'、本文 '{body}' で {to_address} にメールを送信しました"
 
 agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
     tools=[send_email],
 )
 
-agent.run("Send an email with the subject 'Hello' and the body 'Hello, world!'")
+agent.run("件名を 'Hello'、本文を 'Hello, world!' としてメールを送信してください")
 if agent.is_paused:
     for tool in agent.run_response.tools_requiring_user_input:
         input_schema: List[UserInputField] = tool.user_input_schema
 
         for field in input_schema:
-            # Display field information to the user
-            print(f"\nField: {field.name} ({field.field_type.__name__}) -> {field.description}")
+            # ユーザーにフィールド情報を表示します
+            print(f"\nフィールド: {field.name} ({field.field_type.__name__}) -> {field.description}")
 
-            # Get user input (if the value is not set, it means the user needs to provide the value)
+            # ユーザー入力を取得します (値が設定されていない場合、ユーザーが値を提供する必要があることを意味します)
             if field.value is None:
-                user_value = input(f"Please enter a value for {field.name}: ")
+                user_value = input(f"{field.name} の値を入力してください: ")
                 field.value = user_value
             else:
-                print(f"Value provided by the agent: {field.value}")
+                print(f"エージェントによって提供された値: {field.value}")
 
     run_response = (
         agent.continue_run()
     )
 ```
 
-## Dynamic User Input
+## 動的ユーザー入力
 
-This pattern provides the agent with tools to indicate when it needs user input. It's ideal for:
+このパターンは、エージェントが必要なときにユーザー入力を示すためのツールを提供します。これは以下に最適です。
 
-- Cases where it is unknown how the user will interact with the agent
-- When you want a form-like interaction with the user
+- ユーザーがエージェントとどのように対話するか不明な場合
+- ユーザーとのフォームのような対話をしたい場合
 
-In the following example, we use a specialized tool to allow the agent to collect user feedback when it needs it.
+次の例では、エージェントが必要に応じてユーザーフィードバックを収集できるように、特殊なツールを使用します。
 
 ```python
 from typing import Any, Dict
@@ -239,7 +237,7 @@ from agno.tools.toolkit import Toolkit
 from agno.tools.user_control_flow import UserControlFlowTools
 from agno.utils import pprint
 
-# Example toolkit for handling emails
+# メール処理の例ツールキット
 class EmailTools(Toolkit):
     def __init__(self, *args, **kwargs):
         super().__init__(
@@ -247,21 +245,21 @@ class EmailTools(Toolkit):
         )
 
     def send_email(self, subject: str, body: str, to_address: str) -> str:
-        """Send an email to the given address with the given subject and body.
+        """指定されたアドレスに、指定された件名と本文でメールを送信します。
 
         Args:
-            subject (str): The subject of the email.
-            body (str): The body of the email.
-            to_address (str): The address to send the email to.
+            subject (str): メールの件名。
+            body (str): メールの本文。
+            to_address (str): メールを送信するアドレス。
         """
-        return f"Sent email to {to_address} with subject {subject} and body {body}"
+        return f"メールを {to_address} に件名 {subject}、本文 {body} で送信しました"
 
     def get_emails(self, date_from: str, date_to: str) -> str:
-        """Get all emails between the given dates.
+        """指定された日付間のすべてのメールを取得します。
 
         Args:
-            date_from (str): The start date.
-            date_to (str): The end date.
+            date_from (str): 開始日。
+            date_to (str): 終了日。
         """
         return [
             {
@@ -286,38 +284,38 @@ agent = Agent(
     debug_mode=True,
 )
 
-run_response = agent.run("Send an email with the body 'How is it going in Tokyo?'")
+run_response = agent.run("本文を 'How is it going in Tokyo?' としてメールを送信してください")
 
-# We use a while loop to continue the running until the agent is satisfied with the user input
+# エージェントがユーザー入力に満足するまで実行を続行するために while ループを使用します
 while run_response.is_paused:
     for tool in run_response.tools_requiring_user_input:
         input_schema: List[UserInputField] = tool.user_input_schema
 
         for field in input_schema:
-            # Display field information to the user
-            print(f"\nField: {field.name} ({field.field_type.__name__}) -> {field.description}")
+            # ユーザーにフィールド情報を表示します
+            print(f"\nフィールド: {field.name} ({field.field_type.__name__}) -> {field.description}")
 
-            # Get user input (if the value is not set, it means the user needs to provide the value)
+            # ユーザー入力を取得します (値が設定されていない場合、ユーザーが値を提供する必要があることを意味します)
             if field.value is None:
-                user_value = input(f"Please enter a value for {field.name}: ")
+                user_value = input(f"{field.name} の値を入力してください: ")
                 field.value = user_value
             else:
-                print(f"Value provided by the agent: {field.value}")
+                print(f"エージェントによって提供された値: {field.value}")
 
     run_response = agent.continue_run(run_response=run_response)
 
-    # If the agent is not paused for input, we are done
+    # エージェントが入力のために一時停止されていない場合、完了です
     if not run_response.is_paused:
         pprint.pprint_run_response(run_response)
         break
 ```
 
-## External Tool Execution
+## 外部ツール実行
 
-External tool execution allows you to execute tools outside of the agent's control. This is useful for:
+外部ツール実行を使用すると、エージェントの制御外でツールを実行できます。これは以下に役立ちます。
 
-- External service calls
-- Database operations
+- 外部サービス呼び出し
+- データベース操作
 
 ```python
 import subprocess
@@ -328,16 +326,16 @@ from agno.tools import tool
 from agno.utils import pprint
 
 
-# We have to create a tool with the correct name, arguments and docstring for the agent to know what to call.
+# エージェントが呼び出しを知るためには、正しい名前、引数、ドキュメント文字列を持つツールを作成する必要があります。
 @tool(external_execution=True)
 def execute_shell_command(command: str) -> str:
-    """Execute a shell command.
+    """シェルコマンドを実行します。
 
     Args:
-        command (str): The shell command to execute
+        command (str): 実行するシェルコマンド
 
     Returns:
-        str: The output of the shell command
+        str: シェルコマンドの出力
     """
     return subprocess.check_output(command, shell=True).decode("utf-8")
 
@@ -348,29 +346,28 @@ agent = Agent(
     markdown=True,
 )
 
-run_response = agent.run("What files do I have in my current directory?")
+run_response = agent.run("現在のディレクトリにあるファイルは何ですか？")
 if run_response.is_paused:
     for tool in run_response.tools_awaiting_external_execution:
         if tool.tool_name == execute_shell_command.name:
-            print(f"Executing {tool.tool_name} with args {tool.tool_args} externally")
+            print(f"{tool.tool_name} を引数 {tool.tool_args} で外部実行します")
 
-            # We execute the tool ourselves. You can execute any function or process here and use the tool_args as input.
+            # ツールを自分で実行します。任意の関数またはプロセスを実行し、tool_args を入力として使用できます。
             result = execute_shell_command.entrypoint(**tool.tool_args)
-            # We have to set the result on the tool execution object so that the agent can continue
+            # エージェントが続行できるように、結果を実行オブジェクトに設定する必要があります
             tool.result = result
 
     run_response = agent.continue_run()
     pprint.pprint_run_response(run_response)
 ```
 
-## Best Practices
+## ベストプラクティス
 
-1. **Sanitise user input**: Always validate and sanitize user input to prevent security vulnerabilities.
-2. **Error Handling**: Always implement proper error handling for user input and external calls
-3. **Input Validation**: Validate user input before processing
+1. **ユーザー入力をサニタイズする**: セキュリティ上の脆弱性を防ぐために、常にユーザー入力を検証およびサニタイズしてください。
+2. **エラー処理**: ユーザー入力と外部呼び出しに対して、常に適切なエラー処理を実装してください。
+3. **入力検証**: 処理する前にユーザー入力を検証してください。
 
-## Developer Resources
+## 開発者向けリソース
 
-- View more [Examples](/examples/concepts/user-control-flows)
-- View [Cookbook](https://github.com/agno-agi/agno/tree/main/cookbook/agent_concepts/user_control_flows)
-
+- より多くの [例](/examples/concepts/user-control-flows) を表示
+- [クックブック](https://github.com/agno-agi/agno/tree/main/cookbook/agent_concepts/user_control_flows) を表示

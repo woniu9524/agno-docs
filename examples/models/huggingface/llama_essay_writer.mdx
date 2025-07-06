@@ -26,19 +26,19 @@ agent.print_response("topic: AI")
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="API キーを設定する">
     ```bash
     export HF_TOKEN=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="ライブラリをインストールする">
     ```bash
     pip install -U huggingface_hub agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="エージェントを実行する">
     <CodeGroup>
     ```bash Mac
     python cookbook/models/huggingface/llama_essay_writer.py

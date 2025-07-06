@@ -1,16 +1,16 @@
 ---
 title: Wikipedia KnowledgeBase
-description: Learn how to use Wikipedia topics in your knowledge base.
+description: Wikipedia のトピックをナレッジベースで使用する方法を学びます。
 sidebarTitle: Wikipedia
 ---
 
-The **WikipediaKnowledgeBase** reads wikipedia topics, converts them into vector embeddings and loads them to a vector database.
+**WikipediaKnowledgeBase** は Wikipedia のトピックを読み込み、ベクトル埋め込みに変換して、ベクトルデータベースにロードします。
 
-## Usage
+## 使用方法
 
 <Note>
 
-We are using a local PgVector database for this example. [Make sure it's running](http://localhost:3333/vectordb/pgvector)
+この例ではローカルの PgVector データベースを使用しています。[実行されていることを確認してください](http://localhost:3333/vectordb/pgvector)
 
 </Note>
 
@@ -24,7 +24,7 @@ from agno.vectordb.pgvector import PgVector
 
 knowledge_base = WikipediaKnowledgeBase(
     topics=["Manchester United", "Real Madrid"],
-    # Table name: ai.wikipedia_documents
+    # テーブル名: ai.wikipedia_documents
     vector_db=PgVector(
         table_name="wikipedia_documents",
         db_url="postgresql+psycopg://ai:ai@localhost:5532/ai",
@@ -32,7 +32,7 @@ knowledge_base = WikipediaKnowledgeBase(
 )
 ```
 
-Then use the `knowledge_base` with an Agent:
+次に、`knowledge_base` をエージェントと共に使用します。
 
 ```python agent.py
 from agno.agent import Agent
@@ -47,15 +47,15 @@ agent.knowledge.load(recreate=False)
 agent.print_response("Ask me about something from the knowledge base")
 ```
 
-## Params
+## パラメータ
 
-| Parameter | Type        | Default | Description    |
-| --------- | ----------- | ------- | -------------- |
-| `topics`  | `List[str]` | []      | Topics to read |
+| パラメータ | タイプ        | デフォルト | 説明         |
+| ----------- | ----------- | ------- | -------------- |
+| `topics`  | `List[str]` | []      | 読み込むトピック |
 
-`WikipediaKnowledgeBase` is a subclass of the [AgentKnowledge](/reference/knowledge/base) class and has access to the same params.
+`WikipediaKnowledgeBase` は [AgentKnowledge](/reference/knowledge/base) クラスのサブクラスであり、同じパラメータにアクセスできます。
 
-## Developer Resources
+## 開発者向けリソース
 
-- View [Sync loading Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/wikipedia_kb.py)
-- View [Async loading Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/wikipedia_kb_async.py)
+- [同期ロードクックブック](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/wikipedia_kb.py) を表示
+- [非同期ロードクックブック](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/wikipedia_kb_async.py) を表示

@@ -3,13 +3,13 @@ title: Redis Agent Storage
 sidebarTitle: Redis
 ---
 
-Agno supports using Redis as a storage backend for Agents using the `RedisStorage` class.
+Agno は、`RedisStorage` クラスを使用して、エージェントのストレージバックエンドとして Redis をサポートしています。
 
-## Usage
+## 使用方法
 
-### Run Redis
+### Redis の実行
 
-Install [docker desktop](https://docs.docker.com/desktop/install/mac-install/) and run **Redis** on port **6379** using:
+[docker desktop](https://docs.docker.com/desktop/install/mac-install/) をインストールし、以下のコマンドでポート **6379** で **Redis** を実行します。
 
 ```bash
 docker run --name my-redis -p 6379:6379 -d redis
@@ -20,26 +20,26 @@ from agno.agent import Agent
 from agno.storage.redis import RedisStorage
 from agno.tools.duckduckgo import DuckDuckGoTools
 
-# Initialize Redis storage with default local connection
+# デフォルトのローカル接続で Redis ストレージを初期化します
 storage = RedisStorage(
-    # Prefix for Redis keys to namespace the sessions
+    # セッションの名前空間を設定するための Redis キーのプレフィックス
     prefix="agno_test",
-    # Redis host address
+    # Redis ホストアドレス
     host="localhost",
-    # Redis port number
+    # Redis ポート番号
     port=6379,
 )
 
-# Create agent with Redis storage
+# Redis ストレージを使用してエージェントを作成します
 agent = Agent(
     storage=storage,
 )
 ```
 
-## Params
+## パラメータ
 
 <Snippet file="storage-redis-params.mdx" />
 
-## Developer Resources
+## 開発者向けリソース
 
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/storage/redis_storage/redis_storage_for_agent.py)
+- [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/storage/redis_storage/redis_storage_agent.py) を表示

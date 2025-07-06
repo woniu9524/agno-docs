@@ -3,23 +3,23 @@ title: HuggingFace Embedder
 sidebarTitle: HuggingFace
 ---
 
-The `HuggingfaceCustomEmbedder` class is used to embed text data into vectors using the Hugging Face API. You can get one from [here](https://huggingface.co/settings/tokens).
+`HuggingfaceCustomEmbedder` クラスは、Hugging Face API を使用してテキストデータをベクトルに埋め込むために使用されます。API キーは[こちら](https://huggingface.co/settings/tokens)から取得できます。
 
-## Usage
+## 使用方法
 
 ```python cookbook/embedders/huggingface_embedder.py
 from agno.agent import AgentKnowledge
 from agno.vectordb.pgvector import PgVector
 from agno.embedder.huggingface import HuggingfaceCustomEmbedder
 
-# Embed sentence in database
+# データベースに文を埋め込む
 embeddings = HuggingfaceCustomEmbedder().get_embedding("The quick brown fox jumps over the lazy dog.")
 
-# Print the embeddings and their dimensions
+# 埋め込みとその次元を出力する
 print(f"Embeddings: {embeddings[:5]}")
 print(f"Dimensions: {len(embeddings)}")
 
-# Use an embedder in a knowledge base
+# 知識ベースで埋め込みを使用する
 knowledge_base = AgentKnowledge(
     vector_db=PgVector(
         db_url="postgresql+psycopg://ai:ai@localhost:5532/ai",
@@ -30,15 +30,15 @@ knowledge_base = AgentKnowledge(
 )
 ```
 
-## Params
+## パラメータ
 
-| Parameter            | Type                       | Default            | Description                                                  |
-| -------------------- | -------------------------- | ------------------ | ------------------------------------------------------------ |
-| `dimensions`         | `int`                      | -                  | The dimensionality of the generated embeddings               |
-| `model`              | `str`                      | `all-MiniLM-L6-v2` | The name of the HuggingFace model to use                     |
-| `api_key`            | `str`                      | -                  | The API key used for authenticating requests                 |
-| `client_params`      | `Optional[Dict[str, Any]]` | -                  | Optional dictionary of parameters for the HuggingFace client |
-| `huggingface_client` | `Any`                      | -                  | Optional pre-configured HuggingFace client instance          |
+| パラメータ            | タイプ                       | デフォルト            | 説明                                       |
+| -------------------- | -------------------------- | ------------------ | ------------------------------------------ |
+| `dimensions`         | `int`                      | -                  | 生成される埋め込みの次元数                 |
+| `model`              | `str`                      | `all-MiniLM-L6-v2` | 使用する HuggingFace モデルの名前          |
+| `api_key`            | `str`                      | -                  | リクエストの認証に使用される API キー      |
+| `client_params`      | `Optional[Dict[str, Any]]` | -                  | HuggingFace クライアントのオプションのパラメータ辞書 |
+| `huggingface_client` | `Any`                      | -                  | 事前に設定された HuggingFace クライアントインスタンス (オプション) |
 
-## Developer Resources
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/embedders/huggingface_embedder.py)
+## 開発者向けリソース
+- [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/embedders/huggingface_embedder.py)を表示

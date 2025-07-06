@@ -1,9 +1,9 @@
 ---
-title: Async User Input
-description: This example demonstrates how to implement asynchronous user input collection, allowing for non-blocking execution while gathering user information.
+title: 非同期ユーザー入力
+description: この例では、非同期ユーザー入力収集の実装方法を示します。これにより、ユーザー情報を収集しながらノンブロッキング実行が可能になります。
 ---
 
-## Code
+## コード
 
 ```python cookbook/agent_concepts/user_control_flows/user_input_required_async.py
 import asyncio
@@ -18,12 +18,12 @@ from agno.utils import pprint
 @tool(requires_user_input=True, user_input_fields=["to_address"])
 async def send_email(subject: str, body: str, to_address: str) -> str:
     """
-    Send an email.
+    メールを送信します。
 
     Args:
-        subject (str): The subject of the email.
-        body (str): The body of the email.
-        to_address (str): The address to send the email to.
+        subject (str): メールの件名。
+        body (str): メールの本文。
+        to_address (str): 送信先のメールアドレス。
     """
     return f"Sent email to {to_address} with subject {subject} and body {body}"
 
@@ -41,42 +41,42 @@ if agent.is_paused:
         input_schema: List[UserInputField] = tool.user_input_schema
 
         for field in input_schema:
-            # Display field information to the user
-            print(f"\nField: {field.name}")
-            print(f"Description: {field.description}")
-            print(f"Type: {field.field_type}")
+            # ユーザーにフィールド情報を表示します
+            print(f"\nフィールド: {field.name}")
+            print(f"説明: {field.description}")
+            print(f"タイプ: {field.field_type}")
 
-            # Get user input
+            # ユーザー入力を取得します
             if field.value is None:
-                user_value = input(f"Please enter a value for {field.name}: ")
-                # Update the field value
+                user_value = input(f"{field.name} の値を入力してください: ")
+                # フィールドの値を更新します
                 field.value = user_value
             else:
-                print(f"Value: {field.value}")
+                print(f"値: {field.value}")
 
 
     run_response = asyncio.run(agent.acontinue_run())
     pprint.pprint_run_response(run_response)
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="APIキーを設定する">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="ライブラリをインストールする">
     ```bash
     pip install -U agno openai
     ```
   </Step>
 
-  <Step title="Run Example">
+  <Step title="例を実行する">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/user_control_flows/user_input_required_async.py
@@ -89,16 +89,16 @@ if agent.is_paused:
   </Step>
 </Steps>
 
-## Key Features
+## 主な機能
 
-- Uses `agent.arun()` for asynchronous agent execution
-- Implements `agent.acontinue_run()` for async continuation
-- Maintains the same user input flow as synchronous version
-- Demonstrates how to handle async execution with user input collection
+- 非同期エージェント実行のために `agent.arun()` を使用します
+- 非同期継続のために `agent.acontinue_run()` を実装します
+- 同期バージョンと同じユーザー入力フローを維持します
+- ユーザー入力収集による非同期実行の処理方法を示します
 
-## Use Cases
+## ユースケース
 
-- Non-blocking user input collection
-- High-performance applications requiring async execution
-- Web applications with form-like interactions
-- Long-running operations with user input 
+- ノンブロッキングユーザー入力収集
+- 非同期実行を必要とする高性能アプリケーション
+- フォームのようなインタラクションを持つWebアプリケーション
+- ユーザー入力による長時間実行操作

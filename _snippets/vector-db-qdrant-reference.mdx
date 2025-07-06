@@ -1,17 +1,17 @@
-| Parameter | Type | Default | Description |
-| --------- | ---- | ------- | ----------- |
-| `collection` | `str` | Required | Name of the Qdrant collection |
-| `embedder` | `Optional[Embedder]` | `OpenAIEmbedder()` | Embedder instance to generate embeddings |
-| `distance` | `Distance` | `Distance.cosine` | Distance metric for vector comparisons |
-| `location` | `Optional[str]` | `None` | Local storage path for Qdrant |
-| `url` | `Optional[str]` | `None` | URL of the Qdrant server |
-| `port` | `Optional[int]` | `6333` | HTTP port for Qdrant server |
-| `grpc_port` | `int` | `6334` | gRPC port for Qdrant server |
-| `prefer_grpc` | `bool` | `False` | Use gRPC instead of HTTP |
-| `https` | `Optional[bool]` | `None` | Enable HTTPS connection |
-| `api_key` | `Optional[str]` | `None` | API key for authentication |
-| `prefix` | `Optional[str]` | `None` | URL prefix for Qdrant server |
-| `timeout` | `Optional[float]` | `None` | Request timeout in seconds |
-| `host` | `Optional[str]` | `None` | Host address of Qdrant server |
-| `path` | `Optional[str]` | `None` | Path to local storage |
-| `reranker` | `Optional[Reranker]` | `None` | Reranker for post-processing results |
+| パラメータ | タイプ | デフォルト | 説明 |
+| -------- | ---- | ------- | ----------- |
+| `collection` | `str` | Required | Qdrant コレクションの名前 |
+| `embedder` | `Optional[Embedder]` | `OpenAIEmbedder()` | 埋め込みを生成するための Embedder インスタンス |
+| `distance` | `Distance` | `Distance.cosine` | ベクトル比較のための距離メトリック |
+| `location` | `Optional[str]` | `None` | Qdrant のローカルストレージパス |
+| `url` | `Optional[str]` | `None` | Qdrant サーバーの URL |
+| `port` | `Optional[int]` | `6333` | Qdrant サーバーの HTTP ポート |
+| `grpc_port` | `int` | `6334` | Qdrant サーバーの gRPC ポート |
+| `prefer_grpc` | `bool` | `False` | HTTP の代わりに gRPC を使用する |
+| `https` | `Optional[bool]` | `None` | HTTPS 接続を有効にする |
+| `api_key` | `Optional[str]` | `None` | 認証用の API キー |
+| `prefix` | `Optional[str]` | `None` | Qdrant サーバーの URL プレフィックス |
+| `timeout` | `Optional[float]` | `None` | リクエストのタイムアウト（秒） |
+| `host` | `Optional[str]` | `None` | Qdrant サーバーのホストアドレス |
+| `path` | `Optional[str]` | `None` | ローカルストレージへのパス |
+| `reranker` | `Optional[Reranker]` | `None` | 結果の後処理のための Reranker |

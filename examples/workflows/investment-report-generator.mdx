@@ -2,33 +2,28 @@
 title: Investment Report Generator
 ---
 
-This advanced example shows how to build a sophisticated investment analysis system that combines
-market research, financial analysis, and portfolio management. The workflow uses a three-stage
-approach:
-1. Comprehensive stock analysis and market research
-2. Investment potential evaluation and ranking
-3. Strategic portfolio allocation recommendations
+この高度な例では、市場調査、財務分析、ポートフォリオ管理を組み合わせた洗練された投資分析システムを構築する方法を示します。このワークフローは、3段階のアプローチを使用します。
+1. 包括的な株式分析と市場調査
+2. 投資可能性の評価とランキング
+3. 戦略的なポートフォリオ配分推奨
 
-Key capabilities:
-- Real-time market data analysis
-- Professional financial research
-- Investment risk assessment
-- Portfolio allocation strategy
-- Detailed investment rationale
+主な機能：
+- リアルタイム市場データ分析
+- プロフェッショナルな財務調査
+- 投資リスク評価
+- ポートフォリオ配分戦略
+- 詳細な投資根拠
 
-Example companies to analyze:
-- "AAPL, MSFT, GOOGL" (Tech Giants)
-- "NVDA, AMD, INTC" (Semiconductor Leaders)
-- "TSLA, F, GM" (Automotive Innovation)
-- "JPM, BAC, GS" (Banking Sector)
-- "AMZN, WMT, TGT" (Retail Competition)
-- "PFE, JNJ, MRNA" (Healthcare Focus)
-- "XOM, CVX, BP" (Energy Sector)
+分析対象の例示企業：
+- "AAPL, MSFT, GOOGL" (テクノロジー大手)
+- "NVDA, AMD, INTC" (半導体リーダー)
+- "TSLA, F, GM" (自動車イノベーション)
+- "JPM, BAC, GS" (銀行セクター)
+- "AMZN, WMT, TGT" (小売競争)
+- "PFE, JNJ, MRNA" (ヘルスケア重視)
+- "XOM, CVX, BP" (エネルギーセクター)
 
-Run `pip install openai yfinance agno` to install dependencies.
-"""
-
-
+依存関係をインストールするには、`pip install openai yfinance agno` を実行してください。
 ```python investment_report_generator.py
 from pathlib import Path
 from shutil import rmtree
@@ -52,14 +47,10 @@ investment_report = str(reports_dir.joinpath("investment_report.md"))
 
 
 class InvestmentReportGenerator(Workflow):
-    """Advanced workflow for generating professional investment analysis with strategic recommendations."""
+    """高度なワークフローで、プロフェッショナルな投資分析と戦略的推奨事項を生成します。"""
 
     description: str = dedent("""\
-    An intelligent investment analysis system that produces comprehensive financial research and
-    strategic investment recommendations. This workflow orchestrates multiple AI agents to analyze
-    market data, evaluate investment potential, and create detailed portfolio allocation strategies.
-    The system excels at combining quantitative analysis with qualitative insights to deliver
-    actionable investment advice.
+    包括的な財務調査と戦略的な投資推奨事項を作成するインテリジェントな投資分析システム。このワークフローは、複数のAIエージェントをオーケストレーションして市場データを分析し、投資可能性を評価し、詳細なポートフォリオ配分戦略を作成します。このシステムは、定量的分析と定性的洞察を組み合わせて、実行可能な投資アドバイスを提供することに優れています。
     """)
 
     stock_analyst: Agent = Agent(
@@ -70,96 +61,96 @@ class InvestmentReportGenerator(Workflow):
             )
         ],
         description=dedent("""\
-        You are MarketMaster-X, an elite Senior Investment Analyst at Goldman Sachs with expertise in:
+        あなたはゴールドマン・サックスのエリート・シニア・インベストメント・アナリストであるMarketMaster-Xであり、以下の分野を専門としています：
 
-        - Comprehensive market analysis
-        - Financial statement evaluation
-        - Industry trend identification
-        - News impact assessment
-        - Risk factor analysis
-        - Growth potential evaluation\
+        - 包括的な市場分析
+        - 財務諸表評価
+        - 業界トレンド特定
+        - ニュース影響評価
+        - リスク要因分析
+        - 成長可能性評価\
         """),
         instructions=dedent("""\
-        1. Market Research 📊
-           - Analyze company fundamentals and metrics
-           - Review recent market performance
-           - Evaluate competitive positioning
-           - Assess industry trends and dynamics
-        2. Financial Analysis 💹
-           - Examine key financial ratios
-           - Review analyst recommendations
-           - Analyze recent news impact
-           - Identify growth catalysts
-        3. Risk Assessment 🎯
-           - Evaluate market risks
-           - Assess company-specific challenges
-           - Consider macroeconomic factors
-           - Identify potential red flags
-        Note: This analysis is for educational purposes only.\
+        1. 市場調査 📊
+           - 企業のファンダメンタルズと指標を分析
+           - 最近の市場パフォーマンスをレビュー
+           - 競合状況を評価
+           - 業界トレンドとダイナミクスを評価
+        2. 財務分析 💹
+           - 主要な財務比率を調査
+           - アナリストの推奨事項をレビュー
+           - 最近のニュースの影響を分析
+           - 成長触媒を特定
+        3. リスク評価 🎯
+           - 市場リスクを評価
+           - 企業固有の課題を評価
+           - マクロ経済要因を考慮
+           - 潜在的なレッドフラグを特定
+        注：この分析は教育目的のみです。\
         """),
-        expected_output="Comprehensive market analysis report in markdown format",
+        expected_output="包括的な市場分析レポートをマークダウン形式で",
         save_response_to_file=stock_analyst_report,
     )
 
     research_analyst: Agent = Agent(
         name="Research Analyst",
         description=dedent("""\
-        You are ValuePro-X, an elite Senior Research Analyst at Goldman Sachs specializing in:
+        あなたはゴールドマン・サックスのエリート・シニア・リサーチ・アナリストであるValuePro-Xであり、以下の分野を専門としています：
 
-        - Investment opportunity evaluation
-        - Comparative analysis
-        - Risk-reward assessment
-        - Growth potential ranking
-        - Strategic recommendations\
+        - 投資機会評価
+        - 比較分析
+        - リスク・リワード評価
+        - 成長可能性ランキング
+        - 戦略的推奨事項\
         """),
         instructions=dedent("""\
-        1. Investment Analysis 🔍
-           - Evaluate each company's potential
-           - Compare relative valuations
-           - Assess competitive advantages
-           - Consider market positioning
-        2. Risk Evaluation 📈
-           - Analyze risk factors
-           - Consider market conditions
-           - Evaluate growth sustainability
-           - Assess management capability
-        3. Company Ranking 🏆
-           - Rank based on investment potential
-           - Provide detailed rationale
-           - Consider risk-adjusted returns
-           - Explain competitive advantages\
+        1. 投資分析 🔍
+           - 各企業の可能性を評価
+           - 相対的なバリュエーションを比較
+           - 競争優位性を評価
+           - 市場ポジショニングを考慮
+        2. リスク評価 📈
+           - リスク要因を分析
+           - 市場状況を考慮
+           - 成長の持続可能性を評価
+           - 経営能力を評価
+        3. 企業ランキング 🏆
+           - 投資可能性に基づいてランク付け
+           - 詳細な根拠を提供
+           - リスク調整後リターンを考慮
+           - 競争優位性を説明\
         """),
-        expected_output="Detailed investment analysis and ranking report in markdown format",
+        expected_output="詳細な投資分析とランキングレポートをマークダウン形式で",
         save_response_to_file=research_analyst_report,
     )
 
     investment_lead: Agent = Agent(
         name="Investment Lead",
         description=dedent("""\
-        You are PortfolioSage-X, a distinguished Senior Investment Lead at Goldman Sachs expert in:
+        あなたはゴールドマン・サックスの著名なシニア・インベストメント・リードであるPortfolioSage-Xであり、以下の分野を専門としています：
 
-        - Portfolio strategy development
-        - Asset allocation optimization
-        - Risk management
-        - Investment rationale articulation
-        - Client recommendation delivery\
+        - ポートフォリオ戦略開発
+        - 資産配分最適化
+        - リスク管理
+        - 投資根拠の明確化
+        - 顧客推奨事項の提供\
         """),
         instructions=dedent("""\
-        1. Portfolio Strategy 💼
-           - Develop allocation strategy
-           - Optimize risk-reward balance
-           - Consider diversification
-           - Set investment timeframes
-        2. Investment Rationale 📝
-           - Explain allocation decisions
-           - Support with analysis
-           - Address potential concerns
-           - Highlight growth catalysts
-        3. Recommendation Delivery 📊
-           - Present clear allocations
-           - Explain investment thesis
-           - Provide actionable insights
-           - Include risk considerations\
+        1. ポートフォリオ戦略 💼
+           - 配分戦略を開発
+           - リスク・リワードバランスを最適化
+           - 分散を考慮
+           - 投資期間を設定
+        2. 投資根拠 📝
+           - 配分決定を説明
+           - 分析で裏付け
+           - 潜在的な懸念に対処
+           - 成長触媒を強調
+        3. 推奨事項の提供 📊
+           - 明確な配分を提示
+           - 投資テーゼを説明
+           - 実行可能な洞察を提供
+           - リスクに関する考慮事項を含める\
         """),
         save_response_to_file=investment_report,
     )
@@ -170,7 +161,7 @@ class InvestmentReportGenerator(Workflow):
         if initial_report is None or not initial_report.content:
             yield RunResponse(
                 run_id=self.run_id,
-                content="Sorry, could not get the stock analyst report.",
+                content="申し訳ありません、株式アナリストのレポートを取得できませんでした。",
             )
             return
 
@@ -180,7 +171,7 @@ class InvestmentReportGenerator(Workflow):
         )
         if ranked_companies is None or not ranked_companies.content:
             yield RunResponse(
-                run_id=self.run_id, content="Sorry, could not get the ranked companies."
+                run_id=self.run_id, content="申し訳ありません、ランク付けされた企業を取得できませんでした。"
             )
             return
 

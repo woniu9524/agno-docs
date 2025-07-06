@@ -1,12 +1,12 @@
 ---
-title: Performance on Agent Instantiation
-description: Evaluation to analyze the runtime and memory usage of an Agent.
+title: Agent のインスタンス化におけるパフォーマンス
+description: Agent の実行時およびメモリ使用量を分析するための評価。
 ---
 
-## Code
+## コード
 
 ```python
-"""Run `pip install openai agno memory_profiler` to install dependencies."""
+"""依存関係をインストールするには `pip install openai agno memory_profiler` を実行してください。"""
 
 from agno.agent import Agent
 from agno.eval.performance import PerformanceEval
@@ -16,9 +16,9 @@ from agno.models.openai import OpenAIChat
 def simple_response():
     agent = Agent(
         model=OpenAIChat(id="gpt-4o-mini"),
-        system_message="Be concise, reply with one sentence.",
+        system_message="簡潔に、一文で返信してください。",
     )
-    response = agent.run("What is the capital of France?")
+    response = agent.run("フランスの首都はどこですか？")
     return response
 
 
@@ -29,5 +29,3 @@ simple_response_perf = PerformanceEval(
 if __name__ == "__main__":
     simple_response_perf.run(print_results=True, print_summary=True)
 ```
-
-

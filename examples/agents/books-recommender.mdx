@@ -1,19 +1,17 @@
 ---
-title: Books Recommender
+title: 書籍レコメンデーション
 ---
 
-This example shows how to create an intelligent book recommendation system that provides
-comprehensive literary suggestions based on your preferences. The agent combines book databases,
-ratings, reviews, and upcoming releases to deliver personalized reading recommendations.
+この例では、あなたの好みに基づいて包括的な文学的な提案を提供する、インテリジェントな書籍推薦システムを作成する方法を示します。エージェントは、書籍データベース、評価、レビュー、および今後のリリースを組み合わせて、パーソナライズされた読書のおすすめを提供します。
 
-Example prompts to try:
-- "I loved 'The Seven Husbands of Evelyn Hugo' and 'Daisy Jones & The Six', what should I read next?"
-- "Recommend me some psychological thrillers like 'Gone Girl' and 'The Silent Patient'"
-- "What are the best fantasy books released in the last 2 years?"
-- "I enjoy historical fiction with strong female leads, any suggestions?"
-- "Looking for science books that read like novels, similar to 'The Immortal Life of Henrietta Lacks'"
+試してみるプロンプトの例：
+- 「Evelyn Hugoの七人の夫」と「Daisy Jones & The Six」が大好きでした。次に何を読めばいいですか？
+- 「ゴーン・ガール」や「サイレント・ペイシェント」のような心理スリラーを推薦してください。
+- 過去2年間にリリースされた最高のファンタジー書籍は何ですか？
+- 強い女性主人公が登場する歴史小説が好きですが、何か提案はありますか？
+- 「ヘンリエッタ・ラックスの生きた証」のような小説のように読める科学の本を探しています。
 
-## Code
+## コード
 
 ```python books_recommender.py
 from textwrap import dedent
@@ -27,109 +25,106 @@ book_recommendation_agent = Agent(
     tools=[ExaTools()],
     model=OpenAIChat(id="gpt-4o"),
     description=dedent("""\
-        You are Shelfie, a passionate and knowledgeable literary curator with expertise in books worldwide! 📚
+        あなたはShelfie、世界中の書籍に関する専門知識を持つ、情熱的で知識豊富な文学キュレーターです！📚
 
-        Your mission is to help readers discover their next favorite books by providing detailed,
-        personalized recommendations based on their preferences, reading history, and the latest
-        in literature. You combine deep literary knowledge with current ratings and reviews to suggest
-        books that will truly resonate with each reader."""),
+        あなたの使命は、読者が最新の文学や読者の好み、読書履歴に基づいて、詳細でパーソナライズされた推薦を提供することで、次のお気に入りの本を見つけるのを助けることです。深い文学的知識と現在の評価やレビューを組み合わせて、読者に本当に響く書籍を提案します。"""),
     instructions=dedent("""\
-        Approach each recommendation with these steps:
+        各推薦には、これらのステップでアプローチしてください：
 
-        1. Analysis Phase 📖
-           - Understand reader preferences from their input
-           - Consider mentioned favorite books' themes and styles
-           - Factor in any specific requirements (genre, length, content warnings)
+        1. 分析フェーズ 📖
+           - 入力から読者の好みを理解する
+           - 言及されたお気に入りの本のテーマとスタイルを考慮する
+           - 特定の要件（ジャンル、長さ、コンテンツに関する注意）を考慮に入れる
 
-        2. Search & Curate 🔍
-           - Use Exa to search for relevant books
-           - Ensure diversity in recommendations
-           - Verify all book data is current and accurate
+        2. 検索とキュレーション 🔍
+           - Exaを使用して関連書籍を検索する
+           - 推薦の多様性を確保する
+           - すべての書籍データが最新かつ正確であることを確認する
 
-        3. Detailed Information 📝
-           - Book title and author
-           - Publication year
-           - Genre and subgenres
-           - Goodreads/StoryGraph rating
-           - Page count
-           - Brief, engaging plot summary
-           - Content advisories
-           - Awards and recognition
+        3. 詳細情報 📝
+           - 書籍のタイトルと著者
+           - 出版年
+           - ジャンルとサブジャンル
+           - Goodreads/StoryGraphの評価
+           - ページ数
+           - 簡潔で魅力的なあらすじ
+           - コンテンツに関する注意喚起
+           - 受賞歴と評価
 
-        4. Extra Features ✨
-           - Include series information if applicable
-           - Suggest similar authors
-           - Mention audiobook availability
-           - Note any upcoming adaptations
+        4. 追加機能 ✨
+           - シリーズ情報があれば含める
+           - 似たような著者をおすすめする
+           - オーディオブックの利用可能性に言及する
+           - 今後の適応（映像化など）に注意を払う
 
-        Presentation Style:
-        - Use clear markdown formatting
-        - Present main recommendations in a structured table
-        - Group similar books together
-        - Add emoji indicators for genres (📚 🔮 💕 🔪)
-        - Minimum 5 recommendations per query
-        - Include a brief explanation for each recommendation
-        - Highlight diversity in authors and perspectives
-        - Note trigger warnings when relevant"""),
+        プレゼンテーションスタイル：
+        - 明確なMarkdownフォーマットを使用する
+        - 主要な推薦を構造化されたテーブルで提示する
+        - 似たような本をグループ化する
+        - ジャンルごとに絵文字インジケーターを追加する（📚 🔮 💕 🔪）
+        - クエリごとに最低5つの推薦を含める
+        - 各推薦について簡単な説明を含める
+        - 著者と視点の多様性を強調する
+        - 関連する場合はトリガー警告を記載する"""),
     markdown=True,
     add_datetime_to_instructions=True,
     show_tool_calls=True,
 )
 
-# Example usage with different types of book queries
+# さまざまな種類の書籍クエリを使用した例の使用方法
 book_recommendation_agent.print_response(
-    "I really enjoyed 'Anxious People' and 'Lessons in Chemistry', can you suggest similar books?",
+    "「Anxious People」と「Lessons in Chemistry」がとても気に入りました。似たような本をいくつか提案してもらえますか？",
     stream=True,
 )
 
-# More example prompts to explore:
+# 探求するための追加の例プロンプト：
 """
-Genre-specific queries:
-1. "Recommend contemporary literary fiction like 'Beautiful World, Where Are You'"
-2. "What are the best fantasy series completed in the last 5 years?"
-3. "Find me atmospheric gothic novels like 'Mexican Gothic' and 'Ninth House'"
-4. "What are the most acclaimed debut novels from this year?"
+ジャンル別のクエリ：
+1. 「Beautiful World, Where Are You」のような現代文学フィクションを推薦してください。
+2. 過去5年間で完了した最高のファンタジーシリーズは何ですか？
+3. 「Mexican Gothic」や「Ninth House」のような雰囲気のあるゴシック小説を見つけてください。
+4. 今年の最も評価の高いデビュー小説は何ですか？
 
-Contemporary Issues:
-1. "Suggest books about climate change that aren't too depressing"
-2. "What are the best books about artificial intelligence for non-technical readers?"
-3. "Recommend memoirs about immigrant experiences"
-4. "Find me books about mental health with hopeful endings"
+現代的な問題：
+1. あまり落ち込まない気候変動に関する本を提案してください。
+2. テクニカルでない読者向けの人工知能に関する最高の書籍は何ですか？
+3. 移民体験に関する回顧録を推薦してください。
+4. 希望に満ちた結末を持つメンタルヘルスに関する本を見つけてください。
 
-Book Club Selections:
-1. "What are good book club picks that spark discussion?"
-2. "Suggest literary fiction under 350 pages"
-3. "Find thought-provoking novels that tackle current social issues"
-4. "Recommend books with multiple perspectives/narratives"
+ブッククラブの選択：
+1. ディスカッションを促す良いブッククラブの選択肢は何ですか？
+2. 350ページ未満の文学フィクションを提案してください。
+3. 現在の社会問題に取り組む、考えさせられる小説を見つけてください。
+4. 複数の視点/ナレーションを持つ本を推薦してください。
 
-Upcoming Releases:
-1. "What are the most anticipated literary releases next month?"
-2. "Show me upcoming releases from my favorite authors"
-3. "What debut novels are getting buzz this season?"
-4. "List upcoming books being adapted for screen"
+今後のリリース：
+1. 来月最も期待されている文学リリースは何ですか？
+2. 私のお気に入りの著者からの今後のリリースを表示してください。
+3. 今シーズン話題になっているデビュー小説は何ですか？
+4. スクリーン適応される今後の書籍をリストアップしてください。
 """
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
 
     <Snippet file="create-venv-step.mdx" />
 
-    <Step title="Install required libraries">
+    <Step title="必要なライブラリをインストールする">
         ```bash
         pip install openai exa_py agno
         ```
     </Step>
 
-    <Step title="Set environment variables">
+    <Step title="環境変数を設定する">
         ```bash
         export OPENAI_API_KEY=****
         export EXA_API_KEY=****
         ```
     </Step>
 
-    <Step title="Run the agent">
+    <Step title="エージェントを実行する">
         ```bash
         python books_recommender.py
         ```

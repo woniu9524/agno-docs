@@ -1,48 +1,48 @@
 ---
-title: Production Application
+title: 本番アプリケーション
 ---
 
-Your production application runs on AWS and its resources are defined in the `workspace/prd_resources.py` file. This guide shows how to:
+本番アプリケーションはAWS上で実行され、そのリソースは `workspace/prd_resources.py` ファイルで定義されています。このガイドでは、以下の方法を示します。
 
-1. [Build a production image](#build-your-production-image)
-2. [Update ECS Task Definitions](#ecs-task-definition)
-3. [Update ECS Services](#ecs-service)
+1. [本番イメージのビルド](#build-your-production-image)
+2. [ECSタスク定義の更新](#ecs-task-definition)
+3. [ECSサービスの更新](#ecs-service)
 
-## Workspace Settings
+## ワークスペース設定
 
-The `WorkspaceSettings` object in the `workspace/settings.py` file defines common settings used by your workspace apps and resources.
+`workspace/settings.py` ファイルの `WorkspaceSettings` オブジェクトは、ワークスペースのアプリとリソースで共通して使用される設定を定義します。
 
-## Build your production image
+## 本番イメージのビルド
 
-Your application uses the `agno` images by default. To use your own image:
+デフォルトでは、アプリケーションは `agno` イメージを使用します。独自のイメージを使用するには：
 
-- Create a Repository in `ECR` and authenticate or use `Dockerhub`.
-- Open `workspace/settings.py` file
-- Update the `image_repo` to your image repository
-- Set `build_images=True` and `push_images=True`
-- Optional - Set `build_images=False` and `push_images=False` to use an existing image in the repository
+- `ECR` でリポジトリを作成し、認証を行うか、`Dockerhub` を使用します。
+- `workspace/settings.py` ファイルを開きます。
+- `image_repo` をイメージリポジトリに更新します。
+- `build_images=True` および `push_images=True` を設定します。
+- オプション - リポジトリ内の既存のイメージを使用するには、`build_images=False` および `push_images=False` を設定します。
 
-### Create an ECR Repository
+### ECRリポジトリの作成
 
-To use ECR, **create the image repo and authenticate with ECR** before pushing images.
+ECRを使用するには、イメージをプッシュする前に**イメージリポジトリを作成し、ECRで認証を行ってください**。
 
-**1. Create the image repository in ECR**
+**1. ECRでイメージリポジトリを作成する**
 
-The repo name should match the `ws_name`. Meaning if you're using the default workspace name, the repo name would be `ai`.
+リポジトリ名は `ws_name` と一致する必要があります。つまり、デフォルトのワークスペース名を使用している場合、リポジトリ名は `ai` になります。
 
 <img src="/images/create-ecr-image.png" alt="create-ecr-image" />
 
-**2. Authenticate with ECR**
+**2. ECRで認証する**
 
-```bash Authenticate with ECR
+```bash ECRで認証する
 aws ecr get-login-password --region [region] | docker login --username AWS --password-stdin [account].dkr.ecr.[region].amazonaws.com
 ```
 
-You can also use a helper script to avoid running the full command
+フルコマンドを実行するのを避けるために、ヘルパースクリプトを使用することもできます。
 
 <Note>
 
-Update the script with your ECR repo before running.
+実行前にスクリプトをECRリポジトリで更新してください。
 
 </Note>
 
@@ -54,103 +54,103 @@ Update the script with your ECR repo before running.
 
 </CodeGroup>
 
-### Update the `WorkspaceSettings`
+### `WorkspaceSettings` の更新
 
 ```python workspace/settings.py
 ws_settings = WorkspaceSettings(
     ...
-    # Subnet IDs in the aws_region
+    # aws_region内のサブネットID
     subnet_ids=["subnet-xyz", "subnet-xyz"],
-    # -*- Image Settings
-    # Repository for images
+    # -*- イメージ設定
+    # イメージのリポジトリ
     image_repo="your-image-repo",
-    # Build images locally
+    # ローカルでイメージをビルドする
     build_images=True,
-    # Push images after building
+    # ビルド後にイメージをプッシュする
     push_images=True,
 )
 ```
 
 <Note>
 
-The `image_repo` defines the repo for your image.
+`image_repo` はイメージのリポジトリを定義します。
 
-- If using dockerhub it would be something like `agno`.
-- If using ECR it would be something like `[ACCOUNT_ID].dkr.ecr.us-east-1.amazonaws.com`
+- dockerhubを使用する場合、`agno` のようになります。
+- ECRを使用する場合、`[ACCOUNT_ID].dkr.ecr.us-east-1.amazonaws.com` のようになります。
 
 </Note>
 
-### Build a new image
+### 新しいイメージのビルド
 
-Build the production image using:
+以下を使用して本番イメージをビルドします。
 
 <CodeGroup>
 
-```bash terminal
+```bash ターミナル
 ag ws up --env prd --infra docker --type image
 ```
 
-```bash shorthand
+```bash ショートハンド
 ag ws up -e prd -i docker -t image
 ```
 
 </CodeGroup>
 
-To `force` rebuild images, use the `--force` or `-f` flag
+イメージを`強制`的に再ビルドするには、`--force` または `-f` フラグを使用します。
 
 <CodeGroup>
 
-```bash terminal
+```bash ターミナル
 ag ws up --env prd --infra docker --type image --force
 ```
 
-```bash shorthand
+```bash ショートハンド
 ag ws up -e prd -i docker -t image -f
 ```
 
 </CodeGroup>
 
-Because the only docker resources in the production env are docker images, you can also use:
+本番環境のDockerリソースはDockerイメージのみであるため、以下を使用することもできます。
 
 <CodeGroup>
 
-```bash Build Images
+```bash イメージのビルド
 ag ws up prd:docker
 ```
 
-```bash Force Build Images
+```bash イメージの強制ビルド
 ag ws up prd:docker -f
 ```
 
 </CodeGroup>
 
-## ECS Task Definition
+## ECSタスク定義
 
-If you updated the Image, CPU, Memory or Environment Variables, update the Task Definition using:
+イメージ、CPU、メモリ、または環境変数を更新した場合は、以下を使用してタスク定義を更新します。
 
 <CodeGroup>
 
-```bash terminal
+```bash ターミナル
 ag ws patch --env prd --infra aws --name td
 ```
 
-```bash shorthand
+```bash ショートハンド
 ag ws patch -e prd -i aws -n td
 ```
 
 </CodeGroup>
 
-## ECS Service
+## ECSサービス
 
-To redeploy the production application, update the ECS Service using:
+本番アプリケーションを再デプロイするには、以下を使用してECSサービスを更新します。
 
 <CodeGroup>
 
-```bash terminal
+```bash ターミナル
 ag ws patch --env prd --infra aws --name service
 ```
 
-```bash shorthand
+```bash ショートハンド
 ag ws patch -e prd -i aws -n service
 ```
 
@@ -160,6 +160,6 @@ ag ws patch -e prd -i aws -n service
 
 <Note>
 
-If you **ONLY** rebuilt the image, you do not need to update the task definition and can just patch the service to pickup the new image.
+イメージを**のみ**再ビルドした場合、タスク定義を更新する必要はなく、サービスをパッチして新しいイメージをピックアップするだけで済みます。
 
 </Note>

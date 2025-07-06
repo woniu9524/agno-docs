@@ -3,11 +3,11 @@ title: Singlestore Team Storage
 sidebarTitle: Singlestore
 ---
 
-Agno supports using Singlestore as a storage backend for Teams using the `SingleStoreStorage` class.
+Agno は、`SingleStoreStorage` クラスを使用して、Teams のストレージバックエンドとして Singlestore をサポートしています。
 
-## Usage
+## 使用方法
 
-Obtain the credentials for Singlestore from [here](https://portal.singlestore.com/)
+Singlestore の認証情報は[こちら](https://portal.singlestore.com/)から取得してください。
 
 ```python singlestore_storage_for_team.py
 """
@@ -28,7 +28,7 @@ from agno.utils.certs import download_cert
 from pydantic import BaseModel
 from sqlalchemy.engine import create_engine
 
-# Configure SingleStore DB connection
+# SingleStore DB 接続の設定
 USERNAME = getenv("SINGLESTORE_USERNAME")
 PASSWORD = getenv("SINGLESTORE_PASSWORD")
 HOST = getenv("SINGLESTORE_HOST")
@@ -37,7 +37,7 @@ DATABASE = getenv("SINGLESTORE_DATABASE")
 SSL_CERT = getenv("SINGLESTORE_SSL_CERT", None)
 
 
-# Download the certificate if SSL_CERT is not provided
+# SSL_CERT が提供されていない場合は証明書をダウンロード
 if not SSL_CERT:
     SSL_CERT = download_cert(
         cert_url="https://portal.singlestore.com/static/ca/singlestore_bundle.pem",
@@ -54,7 +54,7 @@ db_url = (
 if SSL_CERT:
     db_url += f"&ssl_ca={SSL_CERT}&ssl_verify_cert=true"
 
-# Create a DB engine
+# DB エンジンの作成
 db_engine = create_engine(db_url)
 
 
@@ -106,10 +106,10 @@ hn_team = Team(
 hn_team.print_response("Write an article about the top 2 stories on hackernews")
 ```
 
-## Params
+## パラメータ
 
 <Snippet file="storage-s2-params.mdx" />
 
-## Developer Resources
+## 開発者向けリソース
 
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/storage/singlestore_storage/singlestore_storage_for_team.py)
+- [クックブック](https://github.com/agno-agi/agno/blob/main/cookbook/storage/singlestore_storage/singlestore_storage_for_team.py)を表示

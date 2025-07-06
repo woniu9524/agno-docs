@@ -1,18 +1,17 @@
 ---
-title: Basic Reasoning Agent
+title: 基本的な推論エージェント
 ---
-This is a basic reasoning agent with chain of thought reasoning.
-## Code
+これは、思考連鎖推論を備えた基本的な推論エージェントです。
+## コード
 
 ```python cookbook/reasoning/agents/analyse_treaty_of_versailles.py
 from agno.agent import Agent
 from agno.models.openai import OpenAIChat
 
 task = (
-    "Analyze the key factors that led to the signing of the Treaty of Versailles in 1919. "
-    "Discuss the political, economic, and social impacts of the treaty on Germany and how it "
-    "contributed to the onset of World War II. Provide a nuanced assessment that includes "
-    "multiple historical perspectives."
+    "1919年のヴェルサイユ条約調印につながった主な要因を分析してください。 "
+    "ドイツに対する条約の政治的、経済的、社会的な影響について議論し、それが第二次世界大戦の勃発にどのように寄与したかを説明してください。 "
+    "複数の歴史的視点を含む、ニュアンスのある評価を提供してください。"
 )
 
 reasoning_agent = Agent(
@@ -23,24 +22,24 @@ reasoning_agent = Agent(
 reasoning_agent.print_response(task, stream=True, show_full_reasoning=True)
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="APIキーの設定">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="ライブラリのインストール">
     ```bash
     pip install -U openai agno
     ```
   </Step>
 
-  <Step title="Run Example">
+  <Step title="例の実行">
     <CodeGroup>
     ```bash Mac
     python cookbook/reasoning/agents/analyse_treaty_of_versailles.py

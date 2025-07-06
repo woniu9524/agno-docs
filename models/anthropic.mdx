@@ -1,21 +1,21 @@
 ---
 title: Anthropic Claude
-description: Learn how to use Anthropic Claude models in Agno.
+description: Agno で Anthropic Claude モデルを使用する方法を学びます。
 ---
 
-Claude is a family of foundational AI models by Anthropic that can be used in a variety of applications.
-See their model comparisons [here](https://docs.anthropic.com/en/docs/about-claude/models#model-comparison-table).
+Claude は Anthropic による基盤となる AI モデルのファミリーであり、さまざまなアプリケーションで使用できます。
+モデルの比較については、[こちら](https://docs.anthropic.com/en/docs/about-claude/models#model-comparison-table) を参照してください。
 
-We recommend experimenting to find the best-suited model for your use-case. Here are some general recommendations:
+ユースケースに最適なモデルを見つけるために、実験することをお勧めします。一般的な推奨事項は次のとおりです。
 
-- `claude-3-5-sonnet-20241022` model is good for most use-cases and supports image input.
-- `claude-3-5-haiku-20241022` model is their fastest model.
+- `claude-3-5-sonnet-20241022` モデルは、ほとんどのユースケースに適しており、画像入力をサポートしています。
+- `claude-3-5-haiku-20241022` モデルは、最も高速なモデルです。
 
-Anthropic has rate limits on their APIs. See the [docs](https://docs.anthropic.com/en/api/rate-limits#response-headers) for more information.
+Anthropic は API にレート制限を設けています。詳細については、[ドキュメント](https://docs.anthropic.com/en/api/rate-limits#response-headers) を参照してください。
 
-## Authentication
+## 認証
 
-Set your `ANTHROPIC_API_KEY` environment. You can get one [from Anthropic here](https://console.anthropic.com/settings/keys).
+`ANTHROPIC_API_KEY` 環境変数を設定します。Anthropic の [こちら](https://console.anthropic.com/settings/keys) から取得できます。
 
 <CodeGroup>
 
@@ -29,9 +29,9 @@ setx ANTHROPIC_API_KEY ***
 
 </CodeGroup>
 
-## Example
+## 例
 
-Use `Claude` with your `Agent`:
+`Agent` で `Claude` を使用します。
 
 <CodeGroup>
 
@@ -44,13 +44,13 @@ agent = Agent(
     markdown=True
 )
 
-# Print the response on the terminal
+# 応答をターミナルに出力します
 agent.print_response("Share a 2 sentence horror story.")
 ```
 
-## Prompt caching
+## プロンプトキャッシュ
 
-You can enable system prompt caching with our `Claude` model by setting `cache_system_prompt` to `True`:
+`cache_system_prompt` を `True` に設定することで、`Claude` モデルでシステムプロンプトキャッシュを有効にできます。
 
 ```python
 from agno.agent import Agent
@@ -64,14 +64,14 @@ agent = Agent(
 )
 ```
 
-Read more about prompt caching with Agno's `Claude` model [here](https://docs.agno.com/examples/models/anthropic/prompt_caching).
+Agno の `Claude` モデルでのプロンプトキャッシュの詳細については、[こちら](https://docs.agno.com/examples/models/anthropic/prompt_caching) を参照してください。
 
 </CodeGroup>
 
-<Note> View more examples [here](../examples/models/anthropic). </Note>
+<Note> その他の例については、[こちら](../examples/models/anthropic) を参照してください。 </Note>
 
-## Params
+## パラメータ
 
 <Snippet file="model-claude-params.mdx" />
 
-`Claude` is a subclass of the [Model](/reference/models/model) class and has access to the same params.
+`Claude` は [Model](/reference/models/model) クラスのサブクラスであり、同じパラメータにアクセスできます。

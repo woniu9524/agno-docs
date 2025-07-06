@@ -1,23 +1,23 @@
 ---
-title: Collaborate
+title: 連携モード
 ---
 
-In **Collaborate Mode**, all team members respond to the user query at once. This gives the team coordinator to review whether the team has reached a consensus on a particular topic and then synthesize the responses from all team members into a single response.
+**連携モード**では、すべてのチームメンバーが同時にユーザーのクエリに応答します。これにより、チームコーディネーターは、チームが特定のトピックについて合意に達したかどうかを確認し、その後、すべてのチームメンバーからの応答を単一の応答に統合することができます。
 
-This is especially useful when used with `async await`, because it allows the individual members to respond concurrently and the coordinator to synthesize the responses asynchronously.
+これは、`async await` と一緒に使用すると特に便利です。個々のメンバーが同時に応答し、コーディネーターが非同期的に応答を統合できるようになるためです。
 
-## How Collaborate Mode Works
+## 連携モードの仕組み
 
-In "collaborate" mode:
+「連携」モードでは：
 
-1. The team receives a user query
-2. All team members get sent a query. When running synchronously, this happens one by one. When running asynchronously, this happens concurrently.
-3. Each team member produces an output
-4. The coordinator reviews the outputs and synthesizes them into a single response
+1. チームはユーザーのクエリを受け取ります。
+2. すべてのチームメンバーにクエリが送信されます。同期実行の場合、これは一度に1つずつ行われます。非同期実行の場合、これは同時に行われます。
+3. 各チームメンバーが出力を生成します。
+4. コーディネーターが出力をレビューし、それらを単一の応答に統合します。
 
 <Steps>
-  <Step title="Create a collaborate mode team">
-    Create a file `discussion_team.py`
+  <Step title="連携モードのチームを作成する">
+    ファイル `discussion_team.py` を作成します。
 
     ```python discussion_team.py
     import asyncio
@@ -121,14 +121,14 @@ In "collaborate" mode:
     ```
   </Step>
 
-  <Step title="Run the team">
-    Install libraries
+  <Step title="チームを実行する">
+    ライブラリをインストールします。
 
     ```shell
     pip install openai duckduckgo-search arxiv pypdf googlesearch-python pycountry
     ```
 
-    Run the team
+    チームを実行します。
 
     ```shell
     python discussion_team.py
@@ -137,9 +137,9 @@ In "collaborate" mode:
 </Steps>
 
 
-## Defining Success Criteria
+## 成功基準の定義
 
-You can guide the collaborative team by specifying success criteria for the team coordinator to evaluate:
+成功基準を指定することで、連携チームをガイドすることができます。これはチームコーディネーターが評価するために使用されます。
 
 ```python
 strategy_team = Team(
@@ -153,5 +153,3 @@ strategy_team = Team(
 response = strategy_team.run(
     "What is the best way to learn to code?"
 )
-```
-

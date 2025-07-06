@@ -2,7 +2,7 @@
 title: Basic Agent
 ---
 
-## Code
+## コード
 
 ```python cookbook/models/nebius/basic.py
 from agno.agent import Agent
@@ -15,28 +15,28 @@ agent = Agent(
     debug_mode=True,
 )
 
-# Print the response in the terminal
+# ターミナルに応答を出力します
 agent.print_response("write a two sentence horror story")
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="API キーを設定する">
     ```bash 
         export NEBIUS_API_KEY=xxx 
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="ライブラリをインストールする">
     ```bash 
         pip install -U openai agno 
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="エージェントを実行する">
     <CodeGroup>
     ```bash Mac
     python cookbook/models/nebius/basic.py

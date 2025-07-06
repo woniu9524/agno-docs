@@ -1,16 +1,16 @@
 ---
-title: ArXiv Knowledge Base
-description: Learn how to use ArXiv articles in your knowledge base.
+title: ArXivナレッジベース
+description: ArXivの記事をナレッジベースで使用する方法を学びます。
 sidebarTitle: ArXiv
 ---
 
-The **ArxivKnowledgeBase** reads Arxiv articles, converts them into vector embeddings and loads them to a vector database.
+**ArxivKnowledgeBase**は、Arxivの記事を読み込み、ベクトル埋め込みに変換し、ベクトルデータベースにロードします。
 
-## Usage
+## 使用方法
 
 <Note>
 
-We are using a local PgVector database for this example. [Make sure it's running](https://docs.agno.com/vectordb/pgvector)
+この例では、ローカルのPgVectorデータベースを使用しています。[実行されていることを確認してください](https://docs.agno.com/vectordb/pgvector)
 
 </Note>
 
@@ -24,7 +24,7 @@ from agno.vectordb.pgvector import PgVector
 
 knowledge_base = ArxivKnowledgeBase(
     queries=["Generative AI", "Machine Learning"],
-    # Table name: ai.arxiv_documents
+    # テーブル名: ai.arxiv_documents
     vector_db=PgVector(
         table_name="arxiv_documents",
         db_url="postgresql+psycopg://ai:ai@localhost:5532/ai",
@@ -32,7 +32,7 @@ knowledge_base = ArxivKnowledgeBase(
 )
 ```
 
-Then use the `knowledge_base` with an `Agent`:
+次に、`Agent`で`knowledge_base`を使用します。
 
 ```python agent.py
 from agno.agent import Agent
@@ -47,12 +47,12 @@ agent.knowledge.load(recreate=False)
 agent.print_response("Ask me about something from the knowledge base")
 ```
 
-#### ArxivKnowledgeBase also supports async loading.
+#### ArxivKnowledgeBaseは非同期ロードもサポートしています。
 
 ```shell
 pip install qdrant-client
 ```
-We are using a local Qdrant database for this example. [Make sure it's running](https://docs.agno.com/vectordb/qdrant)
+この例では、ローカルのQdrantデータベースを使用しています。[実行されていることを確認してください](https://docs.agno.com/vectordb/qdrant)
 
 ```python async_knowledge_base.py
 import asyncio
@@ -65,22 +65,22 @@ COLLECTION_NAME = "arxiv-reader"
 
 vector_db = Qdrant(collection=COLLECTION_NAME, url="http://localhost:6333")
 
-# Create a knowledge base with the ArXiv documents
+# ArXivドキュメントでナレッジベースを作成します
 knowledge_base = ArxivKnowledgeBase(
     queries=["Generative AI", "Machine Learning"], vector_db=vector_db
 )
 
-# Create an agent with the knowledge base
+# ナレッジベースでエージェントを作成します
 agent = Agent(
     knowledge=knowledge_base,
     search_knowledge=True,
 )
 
 if __name__ == "__main__":
-    # Comment out after first run
+    # 初回実行後にコメントアウトしてください
     asyncio.run(knowledge_base.aload(recreate=False))
 
-    # Create and use the agent
+    # エージェントを作成して使用します
     asyncio.run(
         agent.aprint_response(
             "Ask me about generative ai from the knowledge base", markdown=True
@@ -88,16 +88,16 @@ if __name__ == "__main__":
     )
 ```
 
-## Params
+## パラメータ
 
-| Parameter | Type          | Default         | Description                                                                                        |
+| パラメータ | タイプ          | デフォルト         | 説明                                                                                        |
 | --------- | ------------- | --------------- | -------------------------------------------------------------------------------------------------- |
-| `queries` | `List[str]`   | `[]`            | Queries to search                                                                                  |
-| `reader`  | `ArxivReader` | `ArxivReader()` | A `ArxivReader` that reads the articles and converts them into `Documents` for the vector database |
+| `queries` | `List[str]`   | `[]`            | 検索クエリ                                                                                  |
+| `reader`  | `ArxivReader` | `ArxivReader()` | ベクトルデータベース用の記事を読み込み、`Documents`に変換する`ArxivReader` |
 
-`ArxivKnowledgeBase` is a subclass of the [AgentKnowledge](/reference/knowledge/base) class and has access to the same params.
+`ArxivKnowledgeBase`は、[AgentKnowledge](/reference/knowledge/base)クラスのサブクラスであり、同じパラメータにアクセスできます。
 
-## Developer Resources
+## 開発者向けリソース
 
-- View [Sync loading Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/arxiv_kb.py)
-- View [Async loading Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/arxiv_kb_async.py)
+- [同期ロードクックブック](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/arxiv_kb.py)を表示
+- [非同期ロードクックブック](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/arxiv_kb_async.py)を表示

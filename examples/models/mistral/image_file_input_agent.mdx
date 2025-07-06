@@ -1,12 +1,12 @@
 ---
-title: Image File Input Agent
-description: Example of analyzing local image files and retrieving related news using DuckDuckGo
+title: 画像ファイル入力エージェント
+description: ローカル画像ファイルを分析し、DuckDuckGoを使用して関連ニュースを取得する例
 ---
 
-## Overview
-This example shows how to process local image files using Mistral's vision model and combine it with DuckDuckGo search to provide additional context about the image content.
+## 概要
+この例では、Mistral のビジョンモデルを使用してローカル画像ファイルを処理し、DuckDuckGo 検索と組み合わせて画像コンテンツに関する追加情報を提供する方法を示します。
 
-## Code
+## コード
 
 ```python cookbook/models/mistral/image_file_input_agent.py
 from pathlib import Path
@@ -23,12 +23,12 @@ agent = Agent(
     markdown=True,
 )
 
-# Load image from local file system
+# ローカルファイルシステムから画像を読み込む
 image_path = Path(__file__).parent.joinpath("sample.jpeg")
 
-# Analyze the image and search for related news
+# 画像を分析し、関連ニュースを検索する
 agent.print_response(
-    "Tell me about this image and give me the latest news about it from duckduckgo.",
+    "この画像について教えてください。また、duckduckgo から最新のニュースを教えてください。",
     images=[
         Image(filepath=image_path),
     ],
@@ -36,24 +36,24 @@ agent.print_response(
 )
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="API キーの設定">
     ```bash
     export MISTRAL_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="ライブラリのインストール">
     ```bash
     pip install -U mistralai duckduckgo-search agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="エージェントの実行">
     <CodeGroup>
     ```bash Mac
     python cookbook/models/mistral/image_file_input_agent.py
@@ -64,4 +64,4 @@ agent.print_response(
     ```
     </CodeGroup>
   </Step>
-</Steps> 
+</Steps>

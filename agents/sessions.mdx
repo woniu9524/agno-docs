@@ -1,20 +1,20 @@
 ---
-title: Sessions
+title: セッション
 ---
 
-When we call `Agent.run()`, it creates a stateless, singular Agent run.
+`Agent.run()` を呼び出すと、ステートレスで単一の Agent 実行が作成されます。
 
-But what if we want to continue this run i.e. have a multi-turn conversation? That's where `sessions` come in. A session is collection of consecutive runs.
+しかし、この実行を継続したい場合、つまり複数ターンの会話を行いたい場合はどうすればよいでしょうか？そこで `sessions` が登場します。セッションとは、連続する実行の集まりです。
 
-In practice, a session is a multi-turn conversation between a user and an Agent. Using a `session_id`, we can connect the conversation history and state across multiple runs.
+実際には、セッションはユーザーと Agent 間の複数ターンの会話です。`session_id` を使用することで、複数の実行にわたる会話履歴と状態を接続できます。
 
-Let's outline some key concepts:
+いくつかの重要な概念を概説しましょう。
 
-- **Session:** A session is collection of consecutive runs like a multi-turn conversation between a user and an Agent. Sessions are identified by a `session_id` and each turn is a **run**.
-- **Run:** Every interaction (i.e. chat or turn) with an Agent is called a **run**. Runs are identified by a `run_id` and `Agent.run()` creates a new `run_id` when called.
-- **Messages:** are the individual messages sent between the model and the Agent. Messages are the communication protocol between the Agent and model.
+- **セッション (Session):** セッションとは、ユーザーと Agent 間の複数ターンの会話のような、連続する実行の集まりです。セッションは `session_id` によって識別され、各ターンは **実行 (run)** です。
+- **実行 (Run):** Agent とのすべての対話（チャットまたはターン）は **実行 (run)** と呼ばれます。実行は `run_id` によって識別され、`Agent.run()` が呼び出されると新しい `run_id` が作成されます。
+- **メッセージ (Messages):** モデルと Agent 間で送受信される個々のメッセージです。メッセージは Agent とモデル間の通信プロトコルです。
 
-Let's start with an example where a single run is created with an Agent. A `run_id` is automatically generated, as well as a `session_id` (because we didn't provide one to continue the conversation). This run is not yet associated with a user.
+Agent との単一の実行が作成される例から始めましょう。`run_id` は自動的に生成され、`session_id` も生成されます（会話を継続するために提供しなかったため）。この実行はまだユーザーに関連付けられていません。
 
 ```python
 from typing import Iterator
@@ -24,21 +24,21 @@ from agno.utils.pprint import pprint_run_response
 
 agent = Agent(model=OpenAIChat(id="gpt-4o-mini"))
 
-# Run agent and return the response as a variable
+# Agent を実行し、レスポンスを変数として返す
 agent.print_response("Tell me a 5 second short story about a robot")
 ```
 
-## Multi-user, multi-session Agents
+## マルチユーザー、マルチセッション Agent
 
-Each user that is interacting with an Agent gets a unique set of sessions and you can have multiple users interacting with the same Agent at the same time.
+Agent と対話する各ユーザーは一意のセッションセットを取得し、同じ Agent と同時に複数のユーザーが対話できます。
 
-Set a `user_id` to connect a user to their sessions with the Agent.
+`user_id` を設定して、ユーザーを Agent とのセッションに接続します。
 
-In the example below, we set a `session_id` to demo how to have multi-turn conversations with multiple users at the same time. In production, the `session_id` is auto generated.
+以下の例では、複数のユーザーが同時に複数ターンの会話を行う方法を示すために `session_id` を設定しています。本番環境では、`session_id` は自動生成されます。
 
 <Note>
 
-Note: Multi-user, multi-session currently only works with `Memory.v2`, which will become the default memory implementation in the next release.
+注: マルチユーザー、マルチセッションは現在 `Memory.v2` でのみ機能します。これは次回のリリースでデフォルトのメモリ実装になります。
 
 </Note>
 
@@ -49,7 +49,7 @@ from agno.memory.v2 import Memory
 
 agent = Agent(
     model=OpenAIChat(id="gpt-4o-mini"),
-    # Multi-user, multi-session only work with Memory.v2
+    # マルチユーザー、マルチセッションは Memory.v2 でのみ機能します
     memory=Memory(),
     add_history_to_messages=True,
     num_history_runs=3,
@@ -61,21 +61,21 @@ user_2_id = "user_102"
 user_1_session_id = "session_101"
 user_2_session_id = "session_102"
 
-# Start the session with user 1
+# ユーザー 1 とのセッションを開始
 agent.print_response(
     "Tell me a 5 second short story about a robot.",
     user_id=user_1_id,
     session_id=user_1_session_id,
 )
-# Continue the session with user 1
+# ユーザー 1 とのセッションを継続
 agent.print_response("Now tell me a joke.", user_id=user_1_id, session_id=user_1_session_id)
 
-# Start the session with user 2
-agent.print_response("Tell me about quantum physics.", user_id=user_2_id, session_id=user_2_session_id)
-# Continue the session with user 2
+# ユーザー 2 とのセッションを開始
+agent.print_response("Tell me about quantum physics.", user_id=user_2_id, session_id=user_2_id)
+# ユーザー 2 とのセッションを継続
 agent.print_response("What is the speed of light?", user_id=user_2_id, session_id=user_2_session_id)
 
-# Ask the agent to give a summary of the conversation, this will use the history from the previous messages
+# 会話の要約を Agent に依頼します。これは以前のメッセージの履歴を使用します
 agent.print_response(
     "Give me a summary of our conversation.",
     user_id=user_1_id,
@@ -83,14 +83,14 @@ agent.print_response(
 )
 ```
 
-## Fetch messages from last N sessions
+## 過去 N セッションからのメッセージの取得
 
-In some scenarios, you might want to fetch messages from the last N sessions to provide context or continuity in conversations.
+シナリオによっては、コンテキストや会話の継続性を提供するために、過去 N セッションからのメッセージを取得したい場合があります。
 
-Here's an example of how you can achieve this:
+以下にその方法を示す例を示します。
 
 ```python
-# Remove the tmp db file before running the script
+# スクリプトを実行する前に tmp db ファイルを削除します
 import os
 
 from agno.agent import Agent
@@ -103,8 +103,8 @@ agent = Agent(
     model=OpenAIChat(id="gpt-4o-mini"),
     user_id="user_1",
     storage=SqliteStorage(table_name="agent_sessions_new", db_file="tmp/data.db"),
-    search_previous_sessions_history=True,  # allow searching previous sessions
-    num_history_sessions=2,  # only include the last 2 sessions in the search to avoid context length issues
+    search_previous_sessions_history=True,  # 過去のセッションの検索を許可
+    num_history_sessions=2,  # コンテキスト長の課題を回避するために、検索には最後の 2 セッションのみを含める
     show_tool_calls=True,
 )
 
@@ -120,17 +120,17 @@ agent.print_response("What is the capital of France?", session_id=session_3_id)
 agent.print_response("What is the capital of Japan?", session_id=session_4_id)
 agent.print_response(
     "What did I discuss in my previous conversations?", session_id=session_5_id
-)  # It should only include the last 2 sessions
+)  # 最後の 2 セッションのみを含める必要があります
 ```
 
 <Note>
 
-To enable fetching messages from the last N sessions, you need to use the following flags:
+過去 N セッションからのメッセージの取得を有効にするには、次のフラグを使用する必要があります。
 
-- `search_previous_sessions_history`: Set this to `True` to allow searching through previous sessions.
-- `num_history_sessions`: Specify the number of past sessions to include in the search. In this example, it is set to `2` to include only the last 2 sessions.
-It's advisable to keep this number to 2 or 3 for now, as a larger number might fill up the context length of the model, potentially leading to performance issues.
+- `search_previous_sessions_history`: 前のセッションの検索を許可するには、これを `True` に設定します。
+- `num_history_sessions`: 検索に含める過去のセッション数を指定します。この例では、最後の 2 セッションのみを含めるために `2` に設定されています。
+コンテキスト長がモデルのコンテキスト長でいっぱいになり、パフォーマンスの問題が発生する可能性があるため、現時点ではこの数を 2 または 3 に保つことをお勧めします。
 
-These flags help manage the context length and ensure that only relevant session history is included in the conversation.
+これらのフラグは、コンテキスト長を管理し、関連するセッション履歴のみが会話に含まれるようにするのに役立ちます。
 
 </Note>

@@ -2,15 +2,15 @@
 title: Reasoning Tools
 ---
 
-A new class of research is emerging where giving models tools for structured thinking, like a scratchpad, greatly improves their reasoning capabilities.
+モデルにスクラッチパッドのような構造化された思考のためのツールを与えることで、推論能力を大幅に向上させる新しいクラスの研究が登場しています。
 
-For example, by giving a model a **"think" tool**, we can greatly improve its reasoning capabilities by providing a dedicated space for working through the problem. This is a simple, yet effective approach to add reasoning to non-reasoning models.
+例えば、モデルに**「思考」ツール**を与えることで、問題解決のための専用スペースを提供し、推論能力を大幅に向上させることができます。これは、推論能力を持たないモデルに推論を追加するためのシンプルでありながら効果的なアプローチです。
 
-First published by Anthropic in [this blog post](https://www.anthropic.com/engineering/claude-think-tool), this technique has been practiced by many AI Engineers (including our own team) long before it was published.
+このテクニックは、Anthropicによって[このブログ記事](https://www.anthropic.com/engineering/claude-think-tool)で初めて公開されましたが、公開されるずっと前から私たち自身のチームを含む多くのAIエンジニアによって実践されてきました。
 
 ## v0: The Think Tool
 
-The first version of the Think Tool was published by Anthropic in [this blog post](https://www.anthropic.com/engineering/claude-think-tool).
+Think Toolの最初のバージョンは、Anthropicによって[このブログ記事](https://www.anthropic.com/engineering/claude-think-tool)で公開されました。
 
 ```python claude_thinking_tools.py
 from agno.agent import Agent
@@ -44,7 +44,7 @@ if __name__ == "__main__":
 
 ## v1: The Reasoning Tools
 
-While the v0 Think Tool is a great start, it is limited in that it only allows for a thinking space. The v1 Reasoning Tools take this one step further by allowing the Agent to **analyze** the results of their actions (i.e. tool calls), greatly improving the Agents' ability to solve problems that require sequential tool calls.
+v0のThink Toolは素晴らしいスタートですが、思考スペースしか提供しないという点で制限があります。v1のReasoning Toolsは、エージェントがアクション（ツール呼び出し）の結果を**分析**できるようにすることで、これをさらに一歩進め、シーケンシャルなツール呼び出しを必要とする問題の解決能力を大幅に向上させます。
 
 **ReasoningTools = `think` + `analyze`**
 
@@ -69,9 +69,9 @@ reasoning_agent.print_response(
 
 ## v2: The Knowledge Tools
 
-The Knowledge Tools take the v1 Reasoning Tools one step further by allowing the Agent to **search** a knowledge base and **analyze** the results of their actions.
+Knowledge Toolsは、v1のReasoning Toolsをさらに一歩進め、エージェントがナレッジベースを**検索**し、アクションの結果を**分析**できるようにします。
 
-**KnowledgeTools = `think` + `search` + `analyze`** 
+**KnowledgeTools = `think` + `search` + `analyze`**
 
 ```python knowledge_tools.py
 import os
@@ -97,18 +97,18 @@ agno_docs = UrlKnowledge(
 
 knowledge_tools = KnowledgeTools(
     knowledge=agno_docs,
-    think=True,   
-    search=True,  
-    analyze=True,  
-    add_few_shot=True, 
+    think=True,
+    search=True,
+    analyze=True,
+    add_few_shot=True,
 )
 
 
 agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
     tools=[knowledge_tools],
-    show_tool_calls=True, 
-    markdown=True, 
+    show_tool_calls=True,
+    markdown=True,
 )
 
 
@@ -120,9 +120,7 @@ agent.print_response("How do I build multi-agent teams with Agno?", stream=True)
 
 ## Developer Resources
 
-
-
-- View [Agents with Reasoning Tools Examples](/examples/concepts/reasoning/tools)
-- View [Agents with Reasoning Tools Cookbook](https://github.com/agno-agi/agno/tree/main/cookbook/reasoning/tools)
-- View [Teams with Reasoning Tools Examples](/examples/concepts/reasoning/teams)
-- View [Teams with Reasoning Tools Cookbook](https://github.com/agno-agi/agno/tree/main/cookbook/reasoning/teams)
+- [Agents with Reasoning Tools Examples](/examples/concepts/reasoning/tools) を表示
+- [Agents with Reasoning Tools Cookbook](https://github.com/agno-agi/agno/tree/main/cookbook/reasoning/tools) を表示
+- [Teams with Reasoning Tools Examples](/examples/concepts/reasoning/teams) を表示
+- [Teams with Reasoning Tools Cookbook](https://github.com/agno-agi/agno/tree/main/cookbook/reasoning/teams) を表示

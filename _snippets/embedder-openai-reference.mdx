@@ -1,14 +1,14 @@
-### Parameters
+### パラメータ
 
-| Parameter | Type | Description | Default |
+| パラメータ | タイプ | 説明 | デフォルト |
 |-----------|------|-------------|---------|
-| `id` | `str` | The model ID to use for embeddings | `"text-embedding-3-small"` |
-| `dimensions` | `int` | Output dimensions of the embedding (for text-embedding-3 models) | `1536` |
-| `encoding_format` | `Literal["float", "base64"]` | Format of the embedding output | `"float"` |
-| `user` | `Optional[str]` | A unique identifier representing your end-user | `None` |
-| `api_key` | `Optional[str]` | OpenAI API key | Environment variable `OPENAI_API_KEY` |
-| `organization` | `Optional[str]` | Organization ID for API requests | `None` |
-| `base_url` | `Optional[str]` | Base URL for API requests | `None` |
-| `request_params` | `Optional[Dict[str, Any]]` | Additional parameters for embedding requests | `None` |
-| `client_params` | `Optional[Dict[str, Any]]` | Additional parameters for client initialization | `None` |
-| `openai_client` | `Optional[OpenAIClient]` | Pre-configured OpenAI client | `None` |
+| `id` | `str` | 埋め込みに使用するモデルID | `"text-embedding-3-small"` |
+| `dimensions` | `int` | 埋め込みの出力次元数（text-embedding-3モデルの場合） | `1536` |
+| `encoding_format` | `Literal["float", "base64"]` | 埋め込み出力のフォーマット | `"float"` |
+| `user` | `Optional[str]` | エンドユーザーを表す一意の識別子 | `None` |
+| `api_key` | `Optional[str]` | OpenAI APIキー | 環境変数 `OPENAI_API_KEY` |
+| `organization` | `Optional[str]` | APIリクエスト用の組織ID | `None` |
+| `base_url` | `Optional[str]` | APIリクエスト用のベースURL | `None` |
+| `request_params` | `Optional[Dict[str, Any]]` | 埋め込みリクエスト用の追加パラメータ | `None` |
+| `client_params` | `Optional[Dict[str, Any]]` | クライアント初期化用の追加パラメータ | `None` |
+| `openai_client` | `Optional[OpenAIClient]` | 事前に設定されたOpenAIクライアント | `None` |

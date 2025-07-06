@@ -1,23 +1,23 @@
-| Parameter                 | Type                          | Default             | Description                                                                  |
+| パラメータ                 | タイプ                          | デフォルト             | 説明                                                                  |
 | ------------------------- | ----------------------------- | ------------------- | ---------------------------------------------------------------------------- |
-| `id`                      | `str`                         | -                   | The specific model ID used for generating responses. This field is required. |
-| `name`                    | `str`                         | `"AzureOpenAI"`     | The name identifier for the agent.                                           |
-| `provider`                | `str`                         | `"Azure"`           | The provider of the model.                                                   |
-| `api_key`                 | `Optional[str]`               | `"None"`            | The API key for authenticating requests to the Azure OpenAI service.         |
-| `api_version`             | `str`                         | `"2024-10-21"`      | The version of the Azure OpenAI API to use.                                  |
-| `azure_endpoint`          | `Optional[str]`               | `"None"`            | The endpoint URL for the Azure OpenAI service.                               |
-| `client`                  | `Optional[ChatCompletionsClient]` | `None`              | The client for making requests to the Azure OpenAI service. |
-| `async_client`            | `Optional[AsyncChatCompletionsClient]` | `None`              | The asynchronous client for making requests to the Azure OpenAI service. |
-| `temperature`             | `Optional[float]`             | `None`              | Controls randomness in the model's output. Higher values make output more random. |
-| `max_tokens`             | `Optional[int]`               | `None`              | The maximum number of tokens to generate in the response. |
-| `frequency_penalty`      | `Optional[float]`             | `None`              | Reduces repetition by penalizing tokens based on their frequency. |
-| `presence_penalty`       | `Optional[float]`             | `None`              | Reduces repetition by penalizing tokens that have appeared at all. |
-| `top_p`                  | `Optional[float]`             | `None`              | Controls diversity by limiting cumulative probability of tokens considered. |
-| `stop`                   | `Optional[Union[str, List[str]]]` | `None`          | Sequences where the model will stop generating further tokens. |
-| `seed`                   | `Optional[int]`               | `None`              | Random seed for deterministic outputs. |
-| `model_extras`           | `Optional[Dict[str, Any]]`    | `None`              | Additional model-specific parameters. |
-| `request_params`         | `Optional[Dict[str, Any]]`    | `None`              | Additional parameters to pass with the request. |
-| `timeout`                | `Optional[float]`             | `None`              | Timeout in seconds for API requests. |
-| `max_retries`            | `Optional[int]`               | `None`              | Maximum number of retries for failed requests. |
-| `http_client`            | `Optional[httpx.Client]`      | `None`              | Custom HTTP client for making requests. |
-| `client_params`          | `Optional[Dict[str, Any]]`    | `None`              | Additional parameters for client configuration. |
+| `id`                      | `str`                         | -                   | レスポンス生成に使用される特定のモデルID。このフィールドは必須です。 |
+| `name`                    | `str`                         | `"AzureOpenAI"`     | エージェントの名前識別子。                                           |
+| `provider`                | `str`                         | `"Azure"`           | モデルのプロバイダー。                                                   |
+| `api_key`                 | `Optional[str]`               | `"None"`            | Azure OpenAIサービスへのリクエストを認証するためのAPIキー。         |
+| `api_version`             | `str`                         | `"2024-10-21"`      | 使用するAzure OpenAI APIのバージョン。                                |
+| `azure_endpoint`          | `Optional[str]`               | `"None"`            | Azure OpenAIサービスのサービスエンドポイントURL。                               |
+| `client`                  | `Optional[ChatCompletionsClient]` | `None`              | Azure OpenAIサービスへのリクエストを行うためのクライアント。 |
+| `async_client`            | `Optional[AsyncChatCompletionsClient]` | `None`              | Azure OpenAIサービスへのリクエストを行うための非同期クライアント。 |
+| `temperature`             | `Optional[float]`             | `None`              | モデルの出力におけるランダム性を制御します。値が高いほど、出力はよりランダムになります。 |
+| `max_tokens`             | `Optional[int]`               | `None`              | レスポンスで生成される最大トークン数。 |
+| `frequency_penalty`      | `Optional[float]`             | `None`              | トークンの頻度に基づいてペナルティを課すことで、繰り返しを減らします。 |
+| `presence_penalty`       | `Optional[float]`             | `None`              | 既に登場したトークンにペナルティを課すことで、繰り返しを減らします。 |
+| `top_p`                  | `Optional[float]`             | `None`              | 考慮されるトークンの累積確率を制限することで、多様性を制御します。 |
+| `stop`                   | `Optional[Union[str, List[str]]]` | `None`          | モデルがそれ以上のトークン生成を停止するシーケンス。 |
+| `seed`                   | `Optional[int]`               | `None`              | 決定論的な出力をするためのランダムシード。 |
+| `model_extras`           | `Optional[Dict[str, Any]]`    | `None`              | モデル固有の追加パラメータ。 |
+| `request_params`         | `Optional[Dict[str, Any]]`    | `None`              | リクエストと共に渡される追加パラメータ。 |
+| `timeout`                | `Optional[float]`             | `None`              | APIリクエストのタイムアウト（秒）。 |
+| `max_retries`            | `Optional[int]`               | `None`              | 失敗したリクエストの最大リトライ回数。 |
+| `http_client`            | `Optional[httpx.Client]`      | `None`              | リクエストを行うためのカスタムHTTPクライアント。 |
+| `client_params`          | `Optional[Dict[str, Any]]`    | `None`              | クライアント設定のための追加パラメータ。 |

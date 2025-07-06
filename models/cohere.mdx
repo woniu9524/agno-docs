@@ -1,25 +1,25 @@
 ---
 title: Cohere
-description: Learn how to use Cohere models in Agno.
+description: Agno で Cohere モデルを使用する方法を学ぶ
 ---
 
-Leverage Cohere's powerful command models and more.
+Cohere の強力なコマンドモデルなどを活用します。
 
-[Cohere](https://cohere.com) has a wide range of models and is really good for fine-tuning. See their library of models [here](https://docs.cohere.com/v2/docs/models).
+[Cohere](https://cohere.com) は幅広いモデルを提供しており、ファインチューニングに非常に適しています。モデルのライブラリは[こちら](https://docs.cohere.com/v2/docs/models)で確認できます。
 
-We recommend experimenting to find the best-suited model for your use-case. Here are some general recommendations:
+ユースケースに最適なモデルを見つけるために、実験することをお勧めします。一般的な推奨事項は次のとおりです。
 
-- `command` model is good for most basic use-cases.
-- `command-light` model is good for smaller tasks and faster inference.
-- `command-r7b-12-2024` model is good with RAG tasks, complex reasoning and multi-step tasks.
+- `command` モデルは、ほとんどの基本的なユースケースに適しています。
+- `command-light` モデルは、小規模なタスクや高速な推論に適しています。
+- `command-r7b-12-2024` モデルは、RAG タスク、複雑な推論、および複数ステップのタスクに適しています。
 
-Cohere also supports fine-tuning models. Here is a [guide](https://docs.cohere.com/v2/docs/fine-tuning) on how to do it.
+Cohere はモデルのファインチューニングもサポートしています。ファインチューニングの方法については、[ガイド](https://docs.cohere.com/v2/docs/fine-tuning)をご覧ください。
 
-Cohere has tier-based rate limits. See the [docs](https://docs.cohere.com/v2/docs/rate-limits) for more information.
+Cohere にはティアベースのレート制限があります。詳細については、[ドキュメント](https://docs.cohere.com/v2/docs/rate-limits)を参照してください。
 
-## Authentication
+## 認証
 
-Set your `CO_API_KEY` environment variable. Get your key from [here](https://dashboard.cohere.com/api-keys).
+`CO_API_KEY` 環境変数を設定します。キーは[こちら](https://dashboard.cohere.com/api-keys)から取得できます。
 
 <CodeGroup>
 
@@ -33,9 +33,9 @@ setx CO_API_KEY ***
 
 </CodeGroup>
 
-## Example
+## 例
 
-Use `Cohere` with your `Agent`:
+`Agent` で `Cohere` を使用します。
 
 <CodeGroup>
 
@@ -48,17 +48,17 @@ agent = Agent(
     markdown=True
 )
 
-# Print the response in the terminal
+# 応答をターミナルに出力します
 agent.print_response("Share a 2 sentence horror story.")
 
 ```
 
 </CodeGroup>
 
-<Note> View more examples [here](../examples/models/cohere). </Note>
+<Note> その他の例は[こちら](../examples/models/cohere)でご覧ください。 </Note>
 
-## Params
+## パラメータ
 
 <Snippet file="model-cohere-params.mdx" />
 
-`Cohere` is a subclass of the [Model](/reference/models/model) class and has access to the same params.
+`Cohere` は `Model` クラスのサブクラスであり、同じパラメータにアクセスできます。

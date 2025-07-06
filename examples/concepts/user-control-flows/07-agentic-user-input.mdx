@@ -1,9 +1,9 @@
 ---
-title: Dynamic User Input (Agentic)
-description: This example demonstrates how to implement dynamic user input collection using the `UserControlFlowTools`, allowing the agent to request information as needed during execution.
+title: 動的なユーザー入力 (エージェントによる制御)
+description: この例では、`UserControlFlowTools` を使用して動的なユーザー入力収集を実装する方法を示し、エージェントが実行中に必要に応じて情報を要求できるようにします。
 ---
 
-## Code
+## コード
 
 ```python cookbook/agent_concepts/user_control_flows/agentic_user_input.py
 from typing import List
@@ -22,21 +22,21 @@ class EmailTools(Toolkit):
         )
 
     def send_email(self, subject: str, body: str, to_address: str) -> str:
-        """Send an email to the given address with the given subject and body.
+        """指定された件名と本文で、指定されたアドレスにメールを送信します。
 
         Args:
-            subject (str): The subject of the email.
-            body (str): The body of the email.
-            to_address (str): The address to send the email to.
+            subject (str): メールの件名。
+            body (str): メールの本文。
+            to_address (str): 送信先のアドレス。
         """
         return f"Sent email to {to_address} with subject {subject} and body {body}"
 
     def get_emails(self, date_from: str, date_to: str) -> str:
-        """Get all emails between the given dates.
+        """指定された日付間のすべてのメールを取得します。
 
         Args:
-            date_from (str): The start date (in YYYY-MM-DD format).
-            date_to (str): The end date (in YYYY-MM-DD format).
+            date_from (str): 開始日 (YYYY-MM-DD 形式)。
+            date_to (str): 終了日 (YYYY-MM-DD 形式)。
         """
         return [
             {
@@ -61,25 +61,25 @@ agent = Agent(
 )
 
 run_response = agent.run("Send an email with the body 'What is the weather in Tokyo?'")
-# We use a while loop to continue the running until the agent is satisfied with the user input
+# エージェントがユーザー入力に満足するまで実行を継続するために while ループを使用します
 while run_response.is_paused:
     for tool in run_response.tools_requiring_user_input:
         input_schema: List[UserInputField] = tool.user_input_schema
 
         for field in input_schema:
-            # Display field information to the user
+            # フィールド情報をユーザーに表示します
             print(f"\nField: {field.name}")
             print(f"Description: {field.description}")
             print(f"Type: {field.field_type}")
 
-            # Get user input
+            # ユーザー入力を取得します
             if field.value is None:
                 user_value = input(f"Please enter a value for {field.name}: ")
             else:
                 print(f"Value: {field.value}")
                 user_value = field.value
 
-            # Update the field value
+            # フィールド値を更新します
             field.value = user_value
 
     run_response = agent.continue_run(run_response=run_response)
@@ -88,24 +88,24 @@ while run_response.is_paused:
         break
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="API キーを設定する">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="ライブラリをインストールする">
     ```bash
     pip install -U agno openai
     ```
   </Step>
 
-  <Step title="Run Example">
+  <Step title="例を実行する">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/user_control_flows/agentic_user_input.py
@@ -118,13 +118,13 @@ while run_response.is_paused:
   </Step>
 </Steps>
 
-## Key Features
+## 主な機能
 
-- Uses `UserControlFlowTools` for dynamic user input collection
-- Implements a toolkit with multiple tools that may require user input
-- Handles multiple rounds of user input collection
-- Demonstrates how to continue agent execution after each input round
+- 動的なユーザー入力収集のために `UserControlFlowTools` を使用します
+- ユーザー入力が必要になる可能性のある複数のツールを持つツールキットを実装します
+- 複数回のユーザー入力収集を処理します
+- 各入力ラウンド後にエージェントの実行を継続する方法を示します
 
-## Use Cases
+## ユースケース
 
-- Dynamic form-like interactions
+- 動的なフォームのようなインタラクション

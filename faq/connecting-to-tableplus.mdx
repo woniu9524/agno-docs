@@ -1,13 +1,13 @@
 ---
-title: Connecting to Tableplus
-sidebarTitle: Connecting to Tableplus
+title: Tableplus への接続
+sidebarTitle: Tableplus への接続
 ---
 
-If you want to inspect your pgvector container to explore your storage or knowledge base, you can use TablePlus. Follow these steps:
+pgvector コンテナを検査して、ストレージまたはナレッジベースを探索したい場合は、TablePlus を使用できます。次の手順に従ってください。
 
-## Step 1: Start Your `pgvector` Container
+## ステップ 1: `pgvector` コンテナの起動
 
-Run the following command to start a `pgvector` container locally:
+次のコマンドを実行して、`pgvector` コンテナをローカルで起動します。
 
 ```bash
 docker run -d \
@@ -21,17 +21,17 @@ docker run -d \
   agno/pgvector:16
 ```
 
-- `POSTGRES_DB=ai` sets the default database name.
-- `POSTGRES_USER=ai` and `POSTGRES_PASSWORD=ai` define the database credentials.
-- The container exposes port `5432` (mapped to `5532` on your local machine).
+- `POSTGRES_DB=ai` はデフォルトのデータベース名を設定します。
+- `POSTGRES_USER=ai` および `POSTGRES_PASSWORD=ai` はデータベースの認証情報を定義します。
+- コンテナはポート `5432` を公開します (ローカルマシンでは `5532` にマッピングされます)。
 
-## Step 2: Configure TablePlus
+## ステップ 2: TablePlus の設定
 
-1. **Open TablePlus**: Launch the TablePlus application.
-2. **Create a New Connection**: Click on the `+` icon to add a new connection.
-3. **Select `PostgreSQL`**: Choose PostgreSQL as the database type.
+1. **TablePlus を開く**: TablePlus アプリケーションを起動します。
+2. **新しい接続を作成する**: `+` アイコンをクリックして新しい接続を追加します。
+3. **`PostgreSQL` を選択する**: データベースの種類として PostgreSQL を選択します。
 
-Fill in the following connection details:
+次の接続詳細を入力します。
 
 - **Host**: `localhost`
 - **Port**: `5532`

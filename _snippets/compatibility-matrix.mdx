@@ -1,6 +1,6 @@
-### Core Features
+### 主要機能
 
-| Agno Supported Models | Tool Support | Response Models | Knowledge | History / Storage | Async Execution | Async Tool Support |
+| Agno サポートモデル | ツールサポート | レスポンスモデル | ナレッジ | ヒストリ / ストレージ | 非同期実行 | 非同期ツールサポート |
 | --------------------- | :----------: | :-------------: | :-------: | :---------------: | :-------------: | :----------------: |
 | Anthropic Claude      |      ✅      |       ✅        |    ✅     |        ✅         |       ✅        |         ✅         |
 | AWS Bedrock           |      ✅      |       ✅        |    ✅     |        ✅         |                 |                    |
@@ -34,22 +34,19 @@
 
 <Note>
 
-HuggingFace supports tool calling through the Agno framework, but not for streaming
-responses.
+HuggingFaceはAgnoフレームワークを通じてツール呼び出しをサポートしますが、ストリーミング応答はサポートしません。
 
 </Note>
 
 <Note>
 
-Perplexity supports tool calling through the Agno framework, but their models don't
-natively support tool calls in a straightforward way. This means tool usage may
-be less reliable compared to other providers.
+PerplexityはAgnoフレームワークを通じてツール呼び出しをサポートしますが、そのモデルはネイティブではツール呼び出しを直接サポートしていません。これは、他のプロバイダーと比較してツールの使用が信頼性に欠ける可能性があることを意味します。
 
 </Note>
 
-### Multimodal Support
+### マルチモーダルサポート
 
-| Agno Supported Models | Image Input | Audio Input | Audio Responses | Video Input | File Upload |
+| Agno サポートモデル | 画像入力 | 音声入力 | 音声応答 | 動画入力 | ファイルアップロード |
 | --------------------- | :---------: | :---------: | :-------------: | :---------: | :---------: |
 | Anthropic Claude      |     ✅      |             |                 |             |     ✅      |
 | AWS Bedrock           |     ✅      |             |                 |             |             |
@@ -86,9 +83,9 @@ be less reliable compared to other providers.
 | Together              |     ✅      |             |                 |             |             |
 | XAI                   |     ✅      |             |                 |             |             |
 
-### Structured Outputs
+### 構造化出力
 
-| Agno Supported Models | Structured Outputs | JSON Mode |
+| Agno サポートモデル | 構造化出力 | JSONモード |
 | --------------------- | :----------------: | :-------: |
 | Anthropic Claude      |                    |    ✅     |
 | AWS Bedrock           |                    |    ✅     |
@@ -122,8 +119,8 @@ be less reliable compared to other providers.
 
 <Note>
 
-LM Studio supports JSON schema output, but not structured outputs.
+LM StudioはJSONスキーマ出力をサポートしますが、構造化出力はサポートしません。
 
 </Note>
 
-Read more about [Structured Outputs](/faq/structured-outputs).
+[構造化出力](/faq/structured-outputs)の詳細を読む

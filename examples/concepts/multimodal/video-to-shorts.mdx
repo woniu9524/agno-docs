@@ -2,7 +2,7 @@
 title: Video to Shorts Agent
 ---
 
-## Code
+## コード
 
 ```python
 import subprocess
@@ -139,37 +139,37 @@ for short in shorts:
     print(f"Engagement Score: {short['score']}/10\n")
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="API キーを設定する">
     ```bash
     export GOOGLE_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="ライブラリをインストールする">
     ```bash
     pip install -U opencv-python google-generativeai sqlalchemy ffmpeg-python agno
     ```
   </Step>
 
-  <Step title="Install ffmpeg">
+  <Step title="ffmpeg をインストールする">
     <CodeGroup>
     ```bash Mac
     brew install ffmpeg
     ```
 
     ```bash Windows
-    # Install ffmpeg using chocolatey or download from https://ffmpeg.org/download.html
+    # choco または https://ffmpeg.org/download.html から ffmpeg をダウンロードしてインストールしてください
     choco install ffmpeg
     ```
     </CodeGroup>
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="エージェントを実行する">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/multimodal/video_to_shorts.py

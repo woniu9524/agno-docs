@@ -27,27 +27,27 @@ agent.print_response(
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set up WhatsApp Business API">
-    1. Go to [Meta for Developers](https://developers.facebook.com/docs/whatsapp/cloud-api/get-started)
-    2. Create a Meta App and set up the WhatsApp Business API.
-    3. Obtain your Phone Number ID and a permanent System User Access Token.
+  <Step title="WhatsApp Business API のセットアップ">
+    1. [Meta for Developers](https://developers.facebook.com/docs/whatsapp/cloud-api/get-started) にアクセスします。
+    2. Meta アプリを作成し、WhatsApp Business API をセットアップします。
+    3. 電話番号 ID と永続的なシステムユーザーアクセストークンを取得します。
   </Step>
 
-  <Step title="Set your API keys and identifiers">
+  <Step title="API キーと識別子の設定">
     ```bash
     export WHATSAPP_ACCESS_TOKEN=xxx
     export WHATSAPP_PHONE_NUMBER_ID=xxx
-    export OPENAI_API_KEY=xxx # Or your preferred LLM API key
+    export OPENAI_API_KEY=xxx # またはお好みの LLM API キー
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="ライブラリのインストール">
     ```bash
-    pip install -U agno openai google-generativeai # Add any other necessary WhatsApp SDKs
+    pip install -U agno openai google-generativeai # その他必要な WhatsApp SDK を追加してください
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="Agent の実行">
     <CodeGroup>
     ```bash Mac
     python cookbook/tools/whatsapp_tools.py

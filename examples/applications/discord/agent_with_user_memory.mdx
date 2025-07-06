@@ -1,8 +1,8 @@
 ---
-title: Agent with User Memory
+title: ユーザーメモリを持つエージェント
 ---
 
-## Code
+## コード
 
 ```python cookbook/apps/discord/agent_with_user_memory.py
 from textwrap import dedent
@@ -25,17 +25,17 @@ memory = Memory(
     db=memory_db,
     memory_manager=MemoryManager(
         memory_capture_instructions="""\
-                        Collect User's name,
-                        Collect Information about user's passion and hobbies,
-                        Collect Information about the users likes and dislikes,
-                        Collect information about what the user is doing with their life right now
+                        ユーザーの名前を収集する、
+                        ユーザーの情熱と趣味に関する情報を収集する、
+                        ユーザーの好き嫌いに関する情報を収集する、
+                        ユーザーが現在人生で何をしているかについての情報を収集する
                     """,
         model=Gemini(id="gemini-2.0-flash"),
     ),
 )
 
 
-# Reset the memory for this example
+# この例のメモリをリセットします
 memory.clear()
 
 personal_agent = Agent(
@@ -49,9 +49,9 @@ personal_agent = Agent(
     memory=memory,
     enable_agentic_memory=True,
     instructions=dedent("""
-        You are a personal AI friend of the user, your purpose is to chat with the user about things and make them feel good.
-        First introduce yourself and ask for their name then, ask about themeselves, their hobbies, what they like to do and what they like to talk about.
-        Use Google Search tool to find latest infromation about things in the conversations
+        あなたはユーザーの個人的なAIの友人です。あなたの目的は、ユーザーと物事についてチャットし、ユーザーが良い気分になるようにすることです。
+        まず自己紹介をし、名前を尋ねてから、自分自身、趣味、好きなこと、話したいことについて尋ねてください。
+        会話の中の最新情報を検索するためにGoogle検索ツールを使用してください。
                         """),
     debug_mode=True,
 )
@@ -61,25 +61,25 @@ if __name__ == "__main__":
     discord_agent.serve()
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API keys">
+  <Step title="APIキーを設定する">
     ```bash
     export GOOGLE_API_KEY=xxx
     export DISCORD_BOT_TOKEN=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="ライブラリをインストールする">
     ```bash
     pip install -U agno google-generativeai discord.py
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="エージェントを実行する">
     <CodeGroup>
     ```bash Mac
     python cookbook/apps/discord/agent_with_user_memory.py

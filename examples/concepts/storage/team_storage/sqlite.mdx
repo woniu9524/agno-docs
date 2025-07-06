@@ -1,13 +1,13 @@
 ---
-title: Sqlite Team Storage
+title: Sqlite チームストレージ
 sidebarTitle: Sqlite
 ---
 
-Agno supports using Sqlite as a storage backend for Teams using the `SqliteStorage` class.
+Agno は、`SqliteStorage` クラスを使用して、チームのストレージバックエンドとして Sqlite をサポートしています。
 
-## Usage
+## 使用方法
 
-You need to provide either `db_url`, `db_file` or `db_engine`. The following example uses `db_file`.
+`db_url`、`db_file`、または `db_engine` のいずれかを提供する必要があります。以下の例では `db_file` を使用しています。
 
 ```python sqlite_storage_for_team.py
 """
@@ -70,10 +70,10 @@ hn_team = Team(
 hn_team.print_response("Write an article about the top 2 stories on hackernews")
 ```
 
-## Params
+## パラメータ
 
 <Snippet file="storage-sqlite-params.mdx" />
 
-## Developer Resources
+## 開発者向けリソース
 
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/storage/sqllite_storage/sqlite_storage_for_team.py)
+- [クックブック](https://github.com/agno-agi/agno/blob/main/cookbook/storage/sqllite_storage/sqlite_storage_for_team.py)を表示

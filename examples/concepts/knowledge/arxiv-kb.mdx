@@ -40,13 +40,13 @@ agent.print_response(
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install libraries">
+  <Step title="パッケージをインストール">
     ```bash
     pip install -U sqlalchemy 'psycopg[binary]' pgvector agno
     ```
   </Step>
 
-  <Step title="Run PgVector">
+  <Step title="PgVectorを実行">
     ```bash
     docker run -d \
       -e POSTGRES_DB=ai \
@@ -60,7 +60,7 @@ agent.print_response(
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="Agentを実行">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/knowledge/arxiv_kb.py

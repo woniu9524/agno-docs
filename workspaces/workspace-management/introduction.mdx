@@ -2,13 +2,13 @@
 title: Introduction
 ---
 
-**Agno Workspaces** are standardized codebases for running Agentic Systems locally using Docker and in production on AWS. They help us manage our Agentic System as code.
+**Agno Workspaces** は、Docker を使用して Agentic Systems をローカルで実行し、AWS 上で本番稼働させるための標準化されたコードベースです。これにより、Agentic System をコードとして管理することができます。
 
 ![workspace](/images/workspace.png)
 
-## Create a new workspace
+## 新しいワークスペースを作成する
 
-Run `ag ws create` to create a new workspace, the command will ask your for a starter template and workspace name.
+`ag ws create` を実行して新しいワークスペースを作成します。コマンドは、スターターテンプレートとワークスペース名を尋ねます。
 
 <CodeGroup>
 
@@ -26,9 +26,9 @@ ag ws create -t agent-api-aws -n agent-api
 
 </CodeGroup>
 
-## Start workspace resources
+## ワークスペースリソースを開始する
 
-Run `ag ws up` to start i.e. create workspace resources
+`ag ws up` を実行してワークスペースリソースを開始（作成）します。
 
 <CodeGroup>
 
@@ -50,9 +50,9 @@ ag ws up -e dev -i docker
 
 </CodeGroup>
 
-## Stop workspace resources
+## ワークスペースリソースを停止する
 
-Run `ag ws down` to stop i.e. delete workspace resources
+`ag ws down` を実行してワークスペースリソースを停止（削除）します。
 
 <CodeGroup>
 
@@ -74,9 +74,9 @@ ag ws down -e dev -i docker
 
 </CodeGroup>
 
-## Patch workspace resources
+## ワークスペースリソースをパッチする
 
-Run `ag ws patch` to patch i.e. update workspace resources
+`ag ws patch` を実行してワークスペースリソースを更新（パッチ）します。
 
 <CodeGroup>
 
@@ -102,13 +102,13 @@ ag ws patch -e dev -i docker
 
 <Note>
 
-The `patch` command in under development for some resources. Use `restart` if needed
+一部のリソースでは `patch` コマンドは開発中です。必要に応じて `restart` を使用してください。
 
 </Note>
 
-## Restart workspace
+## ワークスペースを再起動する
 
-Run `ag ws restart` to stop resources and start them again
+`ag ws restart` を実行してリソースを停止し、再度開始します。
 
 <CodeGroup>
 
@@ -130,9 +130,9 @@ ag ws restart -e dev -i docker
 
 </CodeGroup>
 
-## Setup existing workspace
+## 既存のワークスペースをセットアップする
 
-If you clone the codebase directly (eg: if your coworker created it) - run `ag ws setup` to set it up locally
+コードベースを直接クローンした場合（例：同僚が作成した場合）は、`ag ws setup` を実行してローカルでセットアップします。
 
 <CodeGroup>
 
@@ -146,13 +146,13 @@ ag ws setup -d
 
 </CodeGroup>
 
-## Command Options
+## コマンドオプション
 
-<Note>Run `ag ws up --help` to view all options</Note>
+<Note>すべてのオプションを表示するには `ag ws up --help` を実行してください。</Note>
 
-### Environment (`--env`)
+### 環境 (`--env`)
 
-Use the `--env` or `-e` flag to filter the environment (dev/prd)
+`--env` または `-e` フラグを使用して、環境（dev/prd）でフィルタリングします。
 
 <CodeGroup>
 
@@ -170,9 +170,9 @@ ag ws up -e dev
 
 </CodeGroup>
 
-### Infra (`--infra`)
+### インフラストラクチャ (`--infra`)
 
-Use the `--infra` or `-i` flag to filter the infra (docker/aws/k8s)
+`--infra` または `-i` フラグを使用して、インフラストラクチャ（docker/aws/k8s）でフィルタリングします。
 
 <CodeGroup>
 
@@ -190,9 +190,9 @@ ag ws up -i docker
 
 </CodeGroup>
 
-### Group (`--group`)
+### グループ (`--group`)
 
-Use the `--group` or `-g` flag to filter by resource group.
+`--group` または `-g` フラグを使用して、リソースグループでフィルタリングします。
 
 <CodeGroup>
 
@@ -220,9 +220,9 @@ ag ws up \
 
 </CodeGroup>
 
-### Name (`--name`)
+### 名前 (`--name`)
 
-Use the `--name` or `-n` flag to filter by resource name
+`--name` または `-n` フラグを使用して、リソース名でフィルタリングします。
 
 <CodeGroup>
 
@@ -250,9 +250,9 @@ ag ws up \
 
 </CodeGroup>
 
-### Type (`--type`)
+### タイプ (`--type`)
 
-Use the `--type` or `-t` flag to filter by resource type.
+`--type` または `-t` フラグを使用して、リソースタイプでフィルタリングします。
 
 <CodeGroup>
 
@@ -280,9 +280,9 @@ ag ws up \
 
 </CodeGroup>
 
-### Dry Run (`--dry-run`)
+### ドライラン (`--dry-run`)
 
-The `--dry-run` or `-dr` flag can be used to **dry-run** the command. `ag ws up -dr` will only print resources, not create them.
+`--dry-run` または `-dr` フラグを使用して、コマンドを**ドライラン**できます。`ag ws up -dr` はリソースを作成せずに、リソースのみを表示します。
 
 <CodeGroup>
 
@@ -310,9 +310,9 @@ ag ws up \
 
 </CodeGroup>
 
-### Show Debug logs (`--debug`)
+### デバッグログを表示 (`--debug`)
 
-Use the `--debug` or `-d` flag to show debug logs.
+`--debug` または `-d` フラグを使用して、デバッグログを表示します。
 
 <CodeGroup>
 
@@ -340,9 +340,9 @@ ag ws up \
 
 </CodeGroup>
 
-### Force recreate images & containers (`-f`)
+### イメージとコンテナを強制的に再作成 (`-f`)
 
-Use the `--force` or `-f` flag to force recreate images & containers
+`--force` または `-f` フラグを使用して、イメージとコンテナを強制的に再作成します。
 
 <CodeGroup>
 

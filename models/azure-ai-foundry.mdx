@@ -1,37 +1,37 @@
 ---
 title: Azure AI Foundry
-description: Learn how to use Azure AI Foundry models in Agno.
+description: Agno で Azure AI Foundry モデルを使用する方法を学びます。
 ---
 
-Use various open source models hosted on Azure's infrastructure. Learn more [here](https://learn.microsoft.com/azure/ai-services/models).
+Azure のインフラストラクチャでホストされているさまざまなオープンソース モデルを使用します。詳細については、[こちら](https://learn.microsoft.com/azure/ai-services/models)をご覧ください。
 
-Azure AI Foundry provides access to models like `Phi`, `Llama`, `Mistral`, `Cohere` and more.
+Azure AI Foundry は、`Phi`、`Llama`、`Mistral`、`Cohere` などのモデルへのアクセスを提供します。
 
-## Authentication
+## 認証
 
-Navigate to Azure AI Foundry on the [Azure Portal](https://portal.azure.com/) and create a service. Then set your environment variables:
+[Azure Portal](https://portal.azure.com/) の Azure AI Foundry に移動してサービスを作成します。次に、環境変数を設定します。
 
 <CodeGroup>
 
 ```bash Mac
 export AZURE_API_KEY=***
-export AZURE_ENDPOINT=***  # Of the form https://<your-host-name>.<your-azure-region>.models.ai.azure.com/models
-# Optional:
+export AZURE_ENDPOINT=***  # https://<your-host-name>.<your-azure-region>.models.ai.azure.com/models の形式
+# オプション:
 # export AZURE_API_VERSION=***
 ```
 
 ```bash Windows
-setx AZURE_API_KEY ***  # Of the form https://<your-host-name>.<your-azure-region>.models.ai.azure.com/models
+setx AZURE_API_KEY ***  # https://<your-host-name>.<your-azure-region>.models.ai.azure.com/models の形式
 setx AZURE_ENDPOINT ***
-# Optional:
+# オプション:
 # setx AZURE_API_VERSION ***
 ```
 
 </CodeGroup>
 
-## Example
+## 例
 
-Use `AzureAIFoundry` with your `Agent`:
+`Agent` で `AzureAIFoundry` を使用します。
 
 <CodeGroup>
 
@@ -44,18 +44,18 @@ agent = Agent(
     markdown=True
 )
 
-# Print the response on the terminal
+# 応答をターミナルに出力します
 agent.print_response("Share a 2 sentence horror story.")
 ```
 
 </CodeGroup>
 
-## Advanced Examples
+## 高度な例
 
-View more examples [here](../examples/models/azure/ai_foundry).
+その他の例については、[こちら](../examples/models/azure/ai_foundry)をご覧ください。
 
-## Parameters
+## パラメータ
 
 <Snippet file="model-azure-ai-foundry-params.mdx" />
 
-`AzureAIFoundry` is a subclass of the [Model](/reference/models/model) class and has access to the same params. 
+`AzureAIFoundry` は [Model](/reference/models/model) クラスのサブクラスであり、同じパラメータにアクセスできます。

@@ -1,16 +1,16 @@
 ---
-title: Reasoning Models
+title: 推論モデル
 ---
 
-Reasoning models are a new class of large language models trained with reinforcement learning to think before they answer. They produce a long internal chain of thought before responding. Examples of reasoning models include:
-- OpenAI o1-pro and o3-mini
-- Claude 3.7 sonnet in extended-thinking mode
+推論モデルは、回答する前に思考するよう強化学習でトレーニングされた新しいクラスの大規模言語モデルです。応答する前に、長い内部思考連鎖を生成します。推論モデルの例としては、以下のようなものがあります。
+- OpenAI o1-pro および o3-mini
+- Claude 3.7 sonnet (拡張思考モード)
 - Gemini 2.0 flash thinking
 - DeepSeek-R1
 
-Reasoning models deeply consider and think through a plan before taking action. Its all about what the model does **before it starts generating a response**. Reasoning models excel at single-shot use-cases. They're perfect for solving hard problems (coding, math, physics) that don't require multiple turns, or calling tools sequentially.
+推論モデルは、行動を起こす前に計画を深く検討し、考え抜きます。それは、モデルが**応答の生成を開始する前に行うこと**すべてです。推論モデルは、シングルショットのユースケースに優れています。複数回のやり取りを必要としない難しい問題（コーディング、数学、物理学）の解決や、ツールの連続的な呼び出しに最適です。
 
-## Examples
+## 例
 
 ### o3-mini
 
@@ -20,13 +20,12 @@ from agno.models.openai import OpenAIChat
 
 agent = Agent(model=OpenAIChat(id="o3-mini"))
 agent.print_response(
-    "Solve the trolley problem. Evaluate multiple ethical frameworks. "
-    "Include an ASCII diagram of your solution.",
+    "トロッコ問題について解決策を提示してください。複数の倫理的フレームワークを評価し、解決策のASCII図を含めてください。",
     stream=True,
 )
 ```
 
-### o3-mini with tools
+### o3-mini とツール
 
 ```python o3_mini_with_tools.py
 from agno.agent import Agent
@@ -36,14 +35,14 @@ from agno.tools.yfinance import YFinanceTools
 agent = Agent(
     model=OpenAIChat(id="o3-mini"),
     tools=[YFinanceTools(stock_price=True, analyst_recommendations=True, company_info=True, company_news=True)],
-    instructions="Use tables to display data.",
+    instructions="データを表形式で表示してください。",
     show_tool_calls=True,
     markdown=True,
 )
-agent.print_response("Write a report comparing NVDA to TSLA", stream=True)
+agent.print_response("NVDAとTSLAを比較するレポートを作成してください", stream=True)
 ```
 
-### o3-mini with reasoning effort
+### o3-mini と推論努力
 
 ```python o3_mini_with_reasoning_effort.py
 from agno.agent import Agent
@@ -53,14 +52,14 @@ from agno.tools.yfinance import YFinanceTools
 agent = Agent(
     model=OpenAIChat(id="o3-mini", reasoning_effort="high"),
     tools=[YFinanceTools(stock_price=True, analyst_recommendations=True, company_info=True, company_news=True)],
-    instructions="Use tables to display data.",
+    instructions="データを表形式で表示してください。",
     show_tool_calls=True,
     markdown=True,
 )
-agent.print_response("Write a report comparing NVDA to TSLA", stream=True)
+agent.print_response("NVDAとTSLAを比較するレポートを作成してください", stream=True)
 ```
 
-### DeepSeek-R1 using Groq
+### Groq を使用した DeepSeek-R1
 
 ```python deepseek_r1_using_groq.py
 from agno.agent import Agent
@@ -72,16 +71,16 @@ agent = Agent(
     ),
     markdown=True,
 )
-agent.print_response("9.11 and 9.9 -- which is bigger?", stream=True)
+agent.print_response("9.11 と 9.9 ではどちらが大きいですか？", stream=True)
 ```
 
-## Reasoning Model + Response Model
+## 推論モデル + レスポンスモデル
 
-When you run the DeepSeek-R1 Agent above, you'll notice that the response is not that great. This is because DeepSeek-R1 is great at solving problems but not that great at responding in a natural way (like claude sonnet or gpt-4.5).
+上記の DeepSeek-R1 エージェントを実行すると、応答があまり良くないことに気づくでしょう。これは、DeepSeek-R1 は問題解決には優れていますが、自然な方法で応答すること（claude sonnet や gpt-4.5 のような）はそれほど得意ではないためです。
 
-What if we wanted to use a Reasoning Model to reason but a different model to generate the response?
+推論のために推論モデルを使用し、応答を生成するために別のモデルを使用したい場合はどうすればよいでしょうか？
 
-Great news! Agno allows you to use a Reasoning Model and a different Response Model together. By using a separate model for reasoning and a different model for responding, we can have the best of both worlds.
+朗報です！Agno では、推論モデルと別のレスポンスモデルを組み合わせて使用できます。推論には個別のモデルを使用し、応答には別のモデルを使用することで、両方の長所を活かすことができます。
 
 ### DeepSeek-R1 + Claude Sonnet
 
@@ -96,12 +95,10 @@ deepseek_plus_claude = Agent(
         id="deepseek-r1-distill-llama-70b", temperature=0.6, max_tokens=1024, top_p=0.95
     ),
 )
-deepseek_plus_claude.print_response("9.11 and 9.9 -- which is bigger?", stream=True)
+deepseek_plus_claude.print_response("9.11 と 9.9 ではどちらが大きいですか？", stream=True)
 ```
 
-## Developer Resources
+## 開発者向けリソース
 
-
-- View [Examples](/examples/concepts/reasoning/models)
-- View [Cookbook](https://github.com/agno-agi/agno/tree/main/cookbook/reasoning/models)
-
+- [例](/examples/concepts/reasoning/models) を表示
+- [クックブック](https://github.com/agno-agi/agno/tree/main/cookbook/reasoning/models) を表示

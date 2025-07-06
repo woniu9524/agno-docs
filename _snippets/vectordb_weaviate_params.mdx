@@ -1,13 +1,13 @@
-| Parameter | Type | Description | Default |
+| パラメータ | タイプ | 説明 | デフォルト |
 |-----------|------|-------------|---------|
-| `wcd_url` | `Optional[str]` | Weaviate Cloud URL (or use WCD_URL env var) | `None` |
-| `wcd_api_key` | `Optional[str]` | Weaviate Cloud API key (or use WCD_API_KEY env var) | `None` |
-| `client` | `Optional[weaviate.WeaviateClient]` | Pre-configured Weaviate client | `None` |
-| `local` | `bool` | Whether to use a local Weaviate instance | `False` |
-| `collection` | `str` | Name of the Weaviate collection | `"default"` |
-| `vector_index` | `VectorIndex` | Type of vector index (HNSW, FLAT, DYNAMIC) | `VectorIndex.HNSW` |
-| `distance` | `Distance` | Distance metric (COSINE, DOT, etc.) | `Distance.COSINE` |
-| `embedder` | `Optional[Embedder]` | Embedder to use for generating embeddings | `OpenAIEmbedder()` |
-| `search_type` | `SearchType` | Search type (vector, keyword, hybrid) | `SearchType.vector` |
-| `reranker` | `Optional[Reranker]` | Reranker to refine search results | `None` |
-| `hybrid_search_alpha` | `float` | Weighting factor for hybrid search | `0.5` |
+| `wcd_url` | `Optional[str]` | Weaviate Cloud URL (または WCD_URL 環境変数を使用) | `None` |
+| `wcd_api_key` | `Optional[str]` | Weaviate Cloud API キー (または WCD_API_KEY 環境変数を使用) | `None` |
+| `client` | `Optional[weaviate.WeaviateClient]` | 事前に設定された Weaviate クライアント | `None` |
+| `local` | `bool` | ローカルの Weaviate インスタンスを使用するかどうか | `False` |
+| `collection` | `str` | Weaviate コレクションの名前 | `"default"` |
+| `vector_index` | `VectorIndex` | ベクトルインデックスのタイプ (HNSW, FLAT, DYNAMIC) | `VectorIndex.HNSW` |
+| `distance` | `Distance` | 距離メトリック (COSINE, DOT など) | `Distance.COSINE` |
+| `embedder` | `Optional[Embedder]` | 埋め込み生成に使用する埋め込み器 | `OpenAIEmbedder()` |
+| `search_type` | `SearchType` | 検索タイプ (vector, keyword, hybrid) | `SearchType.vector` |
+| `reranker` | `Optional[Reranker]` | 検索結果を絞り込むためのランカー | `None` |
+| `hybrid_search_alpha` | `float` | ハイブリッド検索の重み付け係数 | `0.5` |

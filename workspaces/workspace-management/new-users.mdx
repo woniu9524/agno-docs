@@ -1,14 +1,14 @@
 ---
-title: Setup workspace for new users
-sidebarTitle: "Add New Users"
+title: 新規ユーザー向けワークスペースのセットアップ
+sidebarTitle: "新規ユーザーの追加"
 ---
 
-Follow these steps to setup an existing workspace:
+既存のワークスペースをセットアップするには、以下の手順に従ってください。
 
 <Steps>
 
-<Step title="Clone git repository">
-Clone the git repo and `cd` into the workspace directory
+<Step title="gitリポジトリのクローン">
+gitリポジトリをクローンして、ワークスペースディレクトリに`cd`します。
 
 <CodeGroup>
 
@@ -27,7 +27,7 @@ cd your_workspace_directory
 </CodeGroup>
 
 </Step>
-<Step title="Create and activate a virtual env">
+<Step title="仮想環境の作成とアクティベート">
 
 <CodeGroup>
 
@@ -44,7 +44,7 @@ aienv/scripts/activate
 </CodeGroup>
 
 </Step>
-<Step title="Install agno">
+<Step title="agnoのインストール">
 
 <CodeGroup>
 
@@ -59,7 +59,7 @@ pip install -U agno
 </CodeGroup>
 
 </Step>
-<Step title="Setup workspace">
+<Step title="ワークスペースのセットアップ">
 
 <CodeGroup>
 
@@ -74,9 +74,9 @@ ag ws setup
 </CodeGroup>
 
 </Step>
-<Step title="Copy secrets">
+<Step title="シークレットのコピー">
 
-Copy `workspace/example_secrets` to `workspace/secrets`
+`workspace/example_secrets` を `workspace/secrets` にコピーします。
 
 <CodeGroup>
 
@@ -91,11 +91,11 @@ cp -r workspace/example_secrets workspace/secrets
 </CodeGroup>
 
 </Step>
-<Step title="Start workspace">
+<Step title="ワークスペースの起動">
 
 <Note>
 
-Install [docker desktop](https://docs.docker.com/desktop/install/mac-install/) if needed.
+必要に応じて[docker desktop](https://docs.docker.com/desktop/install/mac-install/)をインストールしてください。
 
 </Note>
 
@@ -116,7 +116,7 @@ ag ws up dev:docker
 </CodeGroup>
 
 </Step>
-<Step title="Stop workspace">
+<Step title="ワークスペースの停止">
 
 <CodeGroup>
 

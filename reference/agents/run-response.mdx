@@ -3,162 +3,158 @@ title: RunResponse
 sidebarTitle: Run Response & Events
 ---
 
-## RunResponse Attributes
+## RunResponse の属性
 
-| Attribute        | Type                   | Default                       | Description                                                                                                                      |
-| ---------------- | ---------------------- | ----------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| `content`        | `Any`                  | `None`                        | Content of the response.                                                                                                         |
-| `content_type`   | `str`                  | `"str"`                       | Specifies the data type of the content.                                                                                          |
-| `thinking`       | `str`                  | `None`                        | Any thinking content the model produced (used by Anthropic models).                                                                                       |
-| `reasoning_content` | `str`               | `None`                     | Any reasoning content the model produced.                                                                                       |
-| `messages`       | `List[Message]`        | `None`                        | A list of messages included in the response.                                                                                     |
-| `metrics`        | `Dict[str, Any]`       | `None`                        | Usage metrics of the run.                                                                                                        |
-| `model`          | `str`                  | `None`                        | The model used in the run.                                                                                                       |
-| `model_provider` | `str`                  | `None`                        | The model provider used in the run.                                                                                              |
-| `run_id`         | `str`                  | `None`                        | Run Id.                                                                                                                          |
-| `agent_id`       | `str`                  | `None`                        | Agent Id for the run.                                                                                                            |
-| `session_id`     | `str`                  | `None`                        | Session Id for the run.                                                                                                          |
-| `tools`          | `List[Dict[str, Any]]` | `None`                        | List of tools provided to the model.                                                                                             |
-| `images`         | `List[Image]`          | `None`                        | List of images the model produced.                                                                                               |
-| `videos`         | `List[Video]`          | `None`                        | List of videos the model produced.                                                                                               |
-| `audio`          | `List[Audio]`          | `None`                        | List of audio snippets the model produced.                                                                                       |
-| `response_audio` | `ModelResponseAudio`   | `None`                        | The model's raw response in audio.                                                                                               |
-| `citations`      | `Citations`            | `None`                        | Any citations used in the response.                                                                                              |
-| `created_at`     | `int`                  | -                             | Unix timestamp of the response creation.                                                                                         |
-| `extra_data`     | `RunResponseExtraData` | `None`                        | Extra data containing optional fields like `references`, `add_messages`, `history`, `reasoning_steps`, and `reasoning_messages`. |
+| 属性 | タイプ | デフォルト | 説明 |
+|---|---|---|---|
+| `content` | `Any` | `None` | レスポンスの内容。 |
+| `content_type` | `str` | `"str"` | コンテンツのデータ型を指定します。 |
+| `thinking` | `str` | `None` | モデルが生成した思考内容（Anthropic モデルで使用されます）。 |
+| `reasoning_content` | `str` | `None` | モデルが生成した推論内容。 |
+| `messages` | `List[Message]` | `None` | レスポンスに含まれるメッセージのリスト。 |
+| `metrics` | `Dict[str, Any]` | `None` | 実行の使用状況メトリクス。 |
+| `model` | `str` | `None` | 実行で使用されたモデル。 |
+| `model_provider` | `str` | `None` | 実行で使用されたモデルプロバイダー。 |
+| `run_id` | `str` | `None` | 実行 ID。 |
+| `agent_id` | `str` | `None` | 実行のエージェント ID。 |
+| `session_id` | `str` | `None` | 実行のセッション ID。 |
+| `tools` | `List[Dict[str, Any]]` | `None` | モデルに提供されたツールのリスト。 |
+| `images` | `List[Image]` | `None` | モデルが生成した画像のリスト。 |
+| `videos` | `List[Video]` | `None` | モデルが生成したビデオのリスト。 |
+| `audio` | `List[Audio]` | `None` | モデルが生成したオーディオスニペットのリスト。 |
+| `response_audio` | `ModelResponseAudio` | `None` | モデルの生のオーディオレスポンス。 |
+| `citations` | `Citations` | `None` | レスポンスで使用された引用。 |
+| `created_at` | `int` | - | レスポンス作成のUnixタイムスタンプ。 |
+| `extra_data` | `RunResponseExtraData` | `None` | `references`、`add_messages`、`history`、`reasoning_steps`、`reasoning_messages` のようなオプションフィールドを含む追加データ。 |
 
-## RunResponseEvent Types and Attributes
+## RunResponseEvent のタイプと属性
 
-### Base RunResponseEvent Attributes
+### 基本的な RunResponseEvent の属性
 
-All events inherit from `BaseAgentRunResponseEvent` which provides these common attributes:
+すべてのイベントは `BaseAgentRunResponseEvent` を継承しており、以下の共通属性を提供します。
 
-| Attribute | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `created_at` | `int` | Current timestamp | Unix timestamp of the event creation |
-| `event` | `str` | Event type value | The type of event |
-| `agent_id` | `str` | `""` | ID of the agent generating the event |
-| `run_id` | `Optional[str]` | `None` | ID of the current run |
-| `session_id` | `Optional[str]` | `None` | ID of the current session |
-| `content` | `Optional[Any]` | `None` | For backwards compatibility |
+| 属性 | タイプ | デフォルト | 説明 |
+|---|---|---|---|
+| `created_at` | `int` | 現在のタイムスタンプ | イベント作成のUnixタイムスタンプ |
+| `event` | `str` | イベントタイプの値 | イベントのタイプ |
+| `agent_id` | `str` | `""` | イベントを生成したエージェントのID |
+| `run_id` | `Optional[str]` | `None` | 現在の実行のID |
+| `session_id` | `Optional[str]` | `None` | 現在のセッションのID |
+| `content` | `Optional[Any]` | `None` | 後方互換性のためのもの |
 
 ### RunResponseStartedEvent
 
-| Attribute | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `event` | `str` | `"RunStarted"` | Event type |
-| `model` | `str` | `""` | The model being used |
-| `model_provider` | `str` | `""` | The provider of the model |
+| 属性 | タイプ | デフォルト | 説明 |
+|---|---|---|---|
+| `event` | `str` | `"RunStarted"` | イベントタイプ |
+| `model` | `str` | `""` | 使用されているモデル |
+| `model_provider` | `str` | `""` | モデルのプロバイダー |
 
 ### RunResponseContentEvent
 
-| Attribute | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `event` | `str` | `"RunResponseContent"` | Event type |
-| `content` | `Optional[Any]` | `None` | The content of the response |
-| `content_type` | `str` | `"str"` | Type of the content |
-| `thinking` | `Optional[str]` | `None` | Internal thoughts of the model |
-| `citations` | `Optional[Citations]` | `None` | Citations used in the response |
-| `response_audio` | `Optional[AudioResponse]` | `None` | Model's audio response |
-| `image` | `Optional[ImageArtifact]` | `None` | Image attached to the response |
-| `extra_data` | `Optional[RunResponseExtraData]` | `None` | Additional response data |
+| 属性 | タイプ | デフォルト | 説明 |
+|---|---|---|---|
+| `event` | `str` | `"RunResponseContent"` | イベントタイプ |
+| `content` | `Optional[Any]` | `None` | レスポンスの内容 |
+| `content_type` | `str` | `"str"` | コンテンツのタイプ |
+| `thinking` | `Optional[str]` | `None` | モデルの内部思考 |
+| `citations` | `Optional[Citations]` | `None` | レスポンスで使用された引用 |
+| `response_audio` | `Optional[AudioResponse]` | `None` | モデルのオーディオレスポンス |
+| `image` | `Optional[ImageArtifact]` | `None` | レスポンスに添付された画像 |
+| `extra_data` | `Optional[RunResponseExtraData]` | `None` | 追加のレスポンスデータ |
 
 ### RunResponseCompletedEvent
 
-| Attribute | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `event` | `str` | `"RunCompleted"` | Event type |
-| `content` | `Optional[Any]` | `None` | Final content of the response |
-| `content_type` | `str` | `"str"` | Type of the content |
-| `reasoning_content` | `Optional[str]` | `None` | Reasoning content produced |
-| `thinking` | `Optional[str]` | `None` | Internal thoughts of the model |
-| `citations` | `Optional[Citations]` | `None` | Citations used in the response |
-| `images` | `Optional[List[ImageArtifact]]` | `None` | Images attached to the response |
-| `videos` | `Optional[List[VideoArtifact]]` | `None` | Videos attached to the response |
-| `audio` | `Optional[List[AudioArtifact]]` | `None` | Audio snippets attached to the response |
-| `response_audio` | `Optional[AudioResponse]` | `None` | Model's audio response |
-| `extra_data` | `Optional[RunResponseExtraData]` | `None` | Additional response data |
+| 属性 | タイプ | デフォルト | 説明 |
+|---|---|---|---|
+| `event` | `str` | `"RunCompleted"` | イベントタイプ |
+| `content` | `Optional[Any]` | `None` | レスポンスの最終的な内容 |
+| `content_type` | `str` | `"str"` | コンテンツのタイプ |
+| `reasoning_content` | `Optional[str]` | `None` | 生成された推論内容 |
+| `thinking` | `Optional[str]` | `None` | モデルの内部思考 |
+| `citations` | `Optional[Citations]` | `None` | レスポンスで使用された引用 |
+| `images` | `Optional[List[ImageArtifact]]` | `None` | レスポンスに添付された画像 |
+| `videos` | `Optional[List[VideoArtifact]]` | `None` | レスポンスに添付されたビデオ |
+| `audio` | `Optional[List[AudioArtifact]]` | `None` | レスポンスに添付されたオーディオ |
+| `response_audio` | `Optional[AudioResponse]` | `None` | モデルのオーディオレスポンス |
+| `extra_data` | `Optional[RunResponseExtraData]` | `None` | 追加のレスポンスデータ |
 
 ### RunResponsePausedEvent
 
-| Attribute | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `event` | `str` | `"RunPaused"` | Event type |
-| `tools` | `Optional[List[ToolExecution]]` | `None` | Tools that require confirmation |
+| 属性 | タイプ | デフォルト | 説明 |
+|---|---|---|---|
+| `event` | `str` | `"RunPaused"` | イベントタイプ |
+| `tools` | `Optional[List[ToolExecution]]` | `None` | 確認が必要なツール |
 
 ### RunResponseContinuedEvent
 
-| Attribute | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `event` | `str` | `"RunContinued"` | Event type |
-
-
+| 属性 | タイプ | デフォルト | 説明 |
+|---|---|---|---|
+| `event` | `str` | `"RunContinued"` | イベントタイプ |
 
 ### RunResponseErrorEvent
 
-| Attribute | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `event` | `str` | `"RunError"` | Event type |
-| `content` | `Optional[str]` | `None` | Error message |
+| 属性 | タイプ | デフォルト | 説明 |
+|---|---|---|---|
+| `event` | `str` | `"RunError"` | イベントタイプ |
+| `content` | `Optional[str]` | `None` | エラーメッセージ |
 
 ### RunResponseCancelledEvent
 
-| Attribute | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `event` | `str` | `"RunCancelled"` | Event type |
-| `reason` | `Optional[str]` | `None` | Reason for cancellation |
+| 属性 | タイプ | デフォルト | 説明 |
+|---|---|---|---|
+| `event` | `str` | `"RunCancelled"` | イベントタイプ |
+| `reason` | `Optional[str]` | `None` | キャンセルの理由 |
 
 ### ReasoningStartedEvent
 
-| Attribute | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `event` | `str` | `"ReasoningStarted"` | Event type |
-
+| 属性 | タイプ | デフォルト | 説明 |
+|---|---|---|---|
+| `event` | `str` | `"ReasoningStarted"` | イベントタイプ |
 
 ### ReasoningStepEvent
 
-| Attribute | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `event` | `str` | `"ReasoningStep"` | Event type |
-| `content` | `Optional[Any]` | `None` | Content of the reasoning step |
-| `content_type` | `str` | `"str"` | Type of the content |
-| `reasoning_content` | `str` | `""` | Detailed reasoning content |
+| 属性 | タイプ | デフォルト | 説明 |
+|---|---|---|---|
+| `event` | `str` | `"ReasoningStep"` | イベントタイプ |
+| `content` | `Optional[Any]` | `None` | 推論ステップの内容 |
+| `content_type` | `str` | `"str"` | コンテンツのタイプ |
+| `reasoning_content` | `str` | `""` | 詳細な推論内容 |
 
 ### ReasoningCompletedEvent
 
-| Attribute | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `event` | `str` | `"ReasoningCompleted"` | Event type |
-| `content` | `Optional[Any]` | `None` | Content of the reasoning step |
-| `content_type` | `str` | `"str"` | Type of the content |
+| 属性 | タイプ | デフォルト | 説明 |
+|---|---|---|---|
+| `event` | `str` | `"ReasoningCompleted"` | イベントタイプ |
+| `content` | `Optional[Any]` | `None` | 推論ステップの内容 |
+| `content_type` | `str` | `"str"` | コンテンツのタイプ |
 
 ### ToolCallStartedEvent
 
-| Attribute | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `event` | `str` | `"ToolCallStarted"` | Event type |
-| `tool` | `Optional[ToolExecution]` | `None` | The tool being called |
+| 属性 | タイプ | デフォルト | 説明 |
+|---|---|---|---|
+| `event` | `str` | `"ToolCallStarted"` | イベントタイプ |
+| `tool` | `Optional[ToolExecution]` | `None` | 呼び出されるツール |
 
 ### ToolCallCompletedEvent
 
-| Attribute | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `event` | `str` | `"ToolCallCompleted"` | Event type |
-| `tool` | `Optional[ToolExecution]` | `None` | The tool that was called |
-| `content` | `Optional[Any]` | `None` | Result of the tool call |
-| `images` | `Optional[List[ImageArtifact]]` | `None` | Images produced by the tool |
-| `videos` | `Optional[List[VideoArtifact]]` | `None` | Videos produced by the tool |
-| `audio` | `Optional[List[AudioArtifact]]` | `None` | Audio produced by the tool |
+| 属性 | タイプ | デフォルト | 説明 |
+|---|---|---|---|
+| `event` | `str` | `"ToolCallCompleted"` | イベントタイプ |
+| `tool` | `Optional[ToolExecution]` | `None` | 呼び出されたツール |
+| `content` | `Optional[Any]` | `None` | ツール呼び出しの結果 |
+| `images` | `Optional[List[ImageArtifact]]` | `None` | ツールによって生成された画像 |
+| `videos` | `Optional[List[VideoArtifact]]` | `None` | ツールによって生成されたビデオ |
+| `audio` | `Optional[List[AudioArtifact]]` | `None` | ツールによって生成されたオーディオ |
 
 ### MemoryUpdateStartedEvent
 
-| Attribute | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `event` | `str` | `"MemoryUpdateStarted"` | Event type |
-
+| 属性 | タイプ | デフォルト | 説明 |
+|---|---|---|---|
+| `event` | `str` | `"MemoryUpdateStarted"` | イベントタイプ |
 
 ### MemoryUpdateCompletedEvent
 
-| Attribute | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `event` | `str` | `"MemoryUpdateCompleted"` | Event type |
+| 属性 | タイプ | デフォルト | 説明 |
+|---|---|---|---|
+| `event` | `str` | `"MemoryUpdateCompleted"` | イベントタイプ |

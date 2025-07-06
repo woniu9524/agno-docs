@@ -1,6 +1,6 @@
-| Parameter | Type | Default | Description |
+| パラメータ | タイプ | デフォルト | 説明 |
 | --- | --- | --- | --- |
-| `chunk` | `bool` | `True` | Whether to chunk the documents |
-| `chunk_size` | `int` | `3000` | Size of each chunk when chunking is enabled |
-| `separators` | `List[str]` | `["\n", "\n\n", "\r", "\r\n", "\n\r", "\t", " ", "  "]` | List of separators used for chunking text |
-| `chunking_strategy` | `ChunkingStrategy` | `FixedSizeChunking` | Strategy class used for chunking documents |
+| `chunk` | `bool` | `True` | ドキュメントをチャンク化するかどうか |
+| `chunk_size` | `int` | `3000` | チャンク化が有効な場合の各チャンクのサイズ |
+| `separators` | `List[str]` | `["\n", "\n\n", "\r", "\r\n", "\n\r", "\t", " ", "  "]` | テキストのチャンク化に使用される区切り文字のリスト |
+| `chunking_strategy` | `ChunkingStrategy` | `FixedSizeChunking` | ドキュメントのチャンク化に使用される戦略クラス |

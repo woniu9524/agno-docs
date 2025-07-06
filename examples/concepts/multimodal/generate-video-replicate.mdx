@@ -1,8 +1,8 @@
 ---
-title: Generate Video using Replicate
+title: Replicate を使用したビデオ生成
 ---
 
-## Code
+## コード
 
 ```python
 from agno.agent import Agent
@@ -31,25 +31,25 @@ video_agent = Agent(
 video_agent.print_response("Generate a video of a horse in the dessert.")
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="API キーの設定">
     ```bash
     export OPENAI_API_KEY=xxx
     export REPLICATE_API_TOKEN=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="ライブラリのインストール">
     ```bash
     pip install -U openai replicate agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="エージェントの実行">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/multimodal/generate_video_using_replicate.py

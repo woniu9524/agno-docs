@@ -2,7 +2,7 @@
 title: Google Search Tools
 ---
 
-## Code
+## コード
 
 ```python cookbook/tools/googlesearch_tools.py
 from agno.agent import Agent
@@ -16,26 +16,26 @@ agent = Agent(
 agent.print_response("What are the latest developments in AI?")
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API credentials">
+  <Step title="API 認証情報を設定する">
     ```bash
     export GOOGLE_CSE_ID=xxx
     export GOOGLE_API_KEY=xxx
-    export OPENAI_API_KEY=xxx 
+    export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="ライブラリをインストールする">
     ```bash
     pip install -U google-api-python-client openai agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="エージェントを実行する">
     <CodeGroup>
     ```bash Mac
     python cookbook/tools/googlesearch_tools.py

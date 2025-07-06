@@ -1,8 +1,8 @@
 ---
-title: Giphy Tools
+title: Giphy ツール
 ---
 
-## Code
+## コード
 
 ```python cookbook/tools/giphy_tools.py
 from agno.agent import Agent
@@ -24,25 +24,25 @@ gif_agent = Agent(
 gif_agent.print_response("I want a gif to send to a friend for their birthday.")
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="API キーを設定する">
     ```bash
     export GIPHY_API_KEY=xxx
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="ライブラリをインストールする">
     ```bash
     pip install -U giphy_client openai agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="エージェントを実行する">
     <CodeGroup>
     ```bash Mac
     python cookbook/tools/giphy_tools.py

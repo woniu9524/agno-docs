@@ -25,13 +25,13 @@ agent.print_response(
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install Libraries">
+  <Step title="パッケージをインストール">
     ```bash
     pip install -U agno openai vllm
     ```
   </Step>
 
-  <Step title="Start vLLM server">
+  <Step title="vLLMサーバーを開始">
     ```bash
     vllm serve deepseek-ai/deepseek-coder-6.7b-instruct \
         --dtype float32 \
@@ -39,9 +39,9 @@ agent.print_response(
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="エージェントを実行">
     ```bash
     python cookbook/models/vllm/code_generation.py
     ```
   </Step>
-</Steps> 
+</Steps>

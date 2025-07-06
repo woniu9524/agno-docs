@@ -1,8 +1,8 @@
-| Parameter    | Type            | Default                          | Description                                                                                                                      |
+| パラメータ    | タイプ            | デフォルト                          | 説明                                                                                                                             |
 | ------------ | --------------- | -------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| `id`         | `str`           | `"gpt-4o"`                       | The specific model ID used for generating responses.                                                                             |
-| `name`       | `str`           | `"OpenRouter"`                   | The name identifier for the OpenRouter agent.                                                                                    |
-| `provider`   | `str`           | `"OpenRouter:"+id`               | The provider of the model, combining "OpenRouter" with the model ID.                                                             |
-| `api_key`    | `Optional[str]` | -                                | The API key for authenticating requests to the OpenRouter service. Retrieved from the environment variable `OPENROUTER_API_KEY`. |
-| `base_url`   | `str`           | `"https://openrouter.ai/api/v1"` | The base URL for making API requests to the OpenRouter service.                                                                  |
-| `max_tokens` | `int`           | `1024`                           | The maximum number of tokens to generate in the response.                                                                        |
+| `id`         | `str`           | `"gpt-4o"`                       | レスポンス生成に使用される特定のモデルID。                                                                                             |
+| `name`       | `str`           | `"OpenRouter"`                   | OpenRouterエージェントの名前識別子。                                                                                                 |
+| `provider`   | `str`           | `"OpenRouter:"+id`               | モデルのプロバイダー。「OpenRouter」とモデルIDを組み合わせたもの。                                                                                     |
+| `api_key`    | `Optional[str]` | -                                | OpenRouterサービスへのリクエスト認証用のAPIキー。環境変数 `OPENROUTER_API_KEY` から取得されます。                                                               |
+| `base_url`   | `str`           | `"https://openrouter.ai/api/v1"` | OpenRouterサービスへのAPIリクエストを行うためのベースURL。                                                                                             |
+| `max_tokens` | `int`           | `1024`                           | レスポンスで生成される最大トークン数。                                                                                                   |

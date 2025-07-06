@@ -27,6 +27,3 @@ evaluation = AccuracyEval(
 
 result: Optional[AccuracyResult] = evaluation.run(print_results=True)
 assert result is not None and result.avg_score >= 8
-```
-
-

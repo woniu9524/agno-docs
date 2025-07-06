@@ -1,12 +1,12 @@
 ---
-title: LlamaIndex Knowledge Base
-description: Learn how to use a LlamaIndex retriever or vector store as a knowledge base.
+title: LlamaIndexナレッジベース
+description: LlamaIndexリトリーバーまたはベクトルストアをナレッジベースとして使用する方法を学びます。
 sidebarTitle: LlamaIndex
 ---
 
-The **LlamaIndexKnowledgeBase** allows us to use a LlamaIndex retriever or vector store as a knowledge base.
+**LlamaIndexKnowledgeBase** を使用すると、LlamaIndexリトリーバーまたはベクトルストアをナレッジベースとして利用できます。
 
-## Usage
+## 使用方法
 
 ```shell
 pip install llama-index-core llama-index-readers-file llama-index-embeddings-openai
@@ -57,25 +57,25 @@ index = VectorStoreIndex(nodes=nodes, storage_context=storage_context)
 
 retriever = VectorIndexRetriever(index)
 
-# Create a knowledge base from the vector store
+# ベクトルストアからナレッジベースを作成します
 knowledge_base = LlamaIndexKnowledgeBase(retriever=retriever)
 
-# Create an agent with the knowledge base
-agent = Agent(knowledge_base=knowledge_base, search_knowledge=True, debug_mode=True, show_tool_calls=True)
+# ナレッジベースでエージェントを作成します
+agent = Agent(knowledge_base=knowledge_base, search_knowledge=true, debug_mode=true, show_tool_calls=true)
 
-# Use the agent to ask a question and print a response.
-agent.print_response("Explain what this text means: low end eats the high end", markdown=True)
+# エージェントを使用して質問し、応答を表示します。
+agent.print_response("Explain what this text means: low end eats the high end", markdown=true)
 ```
 
-## Params
+## パラメータ
 
-| Parameter   | Type                 | Default | Description                                                           |
+| パラメータ   | タイプ                 | デフォルト | 説明                                                           |
 | ----------- | -------------------- | ------- | --------------------------------------------------------------------- |
-| `retriever` | `BaseRetriever`      | `None`  | LlamaIndex retriever used for querying the knowledge base.            |
-| `loader`    | `Optional[Callable]` | `None`  | Optional callable function to load documents into the knowledge base. |
+| `retriever` | `BaseRetriever`      | `None`  | ナレッジベースのクエリに使用されるLlamaIndexリトリーバー。            |
+| `loader`    | `Optional[Callable]` | `None`  | ナレッジベースにドキュメントをロードするためのオプションの呼び出し可能な関数。 |
 
-`LlamaIndexKnowledgeBase` is a subclass of the [AgentKnowledge](/reference/knowledge/base) class and has access to the same params.
+`LlamaIndexKnowledgeBase` は [AgentKnowledge](/reference/knowledge/base) クラスのサブクラスであり、同じパラメータにアクセスできます。
 
-## Developer Resources
+## 開発者向けリソース
 
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/llamaindex_kb.py)
+- [クックブック](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/llamaindex_kb.py) を表示

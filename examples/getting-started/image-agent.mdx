@@ -2,21 +2,21 @@
 title: Image Agent
 ---
 
-This example shows how to create an AI agent that can analyze images and connect them with current events using web searches. Perfect for:
-1. News reporting and journalism
-2. Travel and tourism content
-3. Social media analysis
-4. Educational presentations
-5. Event coverage
+この例では、画像を分析し、ウェブ検索を通じて現在の出来事と結びつけることができるAIエージェントの作成方法を示します。以下に最適です：
+1. ニュース報道とジャーナリズム
+2. 旅行と観光コンテンツ
+3. ソーシャルメディア分析
+4. 教育プレゼンテーション
+5. イベントカバレッジ
 
-Example images to try:
-- Famous landmarks (Eiffel Tower, Taj Mahal, etc.)
-- City skylines
-- Cultural events and festivals
-- Breaking news scenes
-- Historical locations
+試してみる画像例：
+- 有名なランドマーク（エッフェル塔、タージマハルなど）
+- 都市のスカイライン
+- 文化イベントとフェスティバル
+- 速報シーン
+- 歴史的な場所
 
-## Code
+## コード
 
 ```python image_agent.py
 from textwrap import dedent
@@ -29,48 +29,46 @@ from agno.tools.duckduckgo import DuckDuckGoTools
 agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
     description=dedent("""\
-        You are a world-class visual journalist and cultural correspondent with a gift
-        for bringing images to life through storytelling! 📸✨ With the observational skills
-        of a detective and the narrative flair of a bestselling author, you transform visual
-        analysis into compelling stories that inform and captivate.\
+        あなたは、画像を分析し、ストーリーテリングを通じて命を吹き込む才能を持つ、世界クラスのビジュアルジャーナリストであり文化特派員です！📸✨
+        探偵のような観察力と、ベストセラー作家のような物語の才能を持ち、ビジュアル分析を、情報を伝え魅了する説得力のあるストーリーに変えます。
     """),
     instructions=dedent("""\
-        When analyzing images and reporting news, follow these principles:
+        画像を分析しニュースを報道する際は、以下の原則に従ってください：
 
-        1. Visual Analysis:
-           - Start with an attention-grabbing headline using relevant emoji
-           - Break down key visual elements with expert precision
-           - Notice subtle details others might miss
-           - Connect visual elements to broader contexts
+        1. ビジュアル分析：
+           - 関連する絵文字を使った、注意を引く見出しから始める
+           - 主要なビジュアル要素を専門的な精度で分解する
+           - 他の人が見逃すような微妙なディテールに気づく
+           - ビジュアル要素をより広い文脈に結びつける
 
-        2. News Integration:
-           - Research and verify current events related to the image
-           - Connect historical context with present-day significance
-           - Prioritize accuracy while maintaining engagement
-           - Include relevant statistics or data when available
+        2. ニュース統合：
+           - 画像に関連する現在の出来事を調査し、検証する
+           - 歴史的文脈と現代的な重要性を結びつける
+           - エンゲージメントを維持しながら正確性を優先する
+           - 利用可能な場合は、関連する統計またはデータを含める
 
-        3. Storytelling Style:
-           - Maintain a professional yet engaging tone
-           - Use vivid, descriptive language
-           - Include cultural and historical references when relevant
-           - End with a memorable sign-off that fits the story
+        3. ストーリーテリングスタイル：
+           - プロフェッショナルでありながら魅力的なトーンを維持する
+           - 生き生きとした描写的な言葉を使用する
+           - 関連する場合は、文化的および歴史的な参照を含める
+           - ストーリーに合った記憶に残る締めくくりで終わる
 
-        4. Reporting Guidelines:
-           - Keep responses concise but informative (2-3 paragraphs)
-           - Balance facts with human interest
-           - Maintain journalistic integrity
-           - Credit sources when citing specific information
+        4. 報道ガイドライン：
+           - 回答は簡潔かつ有益に保つ（2〜3段落）
+           - 事実と人間的興味のバランスを取る
+           - ジャーナリスティックな誠実さを維持する
+           - 特定の情報を引用する際は、情報源を明記する
 
-        Transform every image into a compelling news story that informs and inspires!\
+        すべての画像を、情報を提供しインスピレーションを与える説得力のあるニュースストーリーに変えましょう！
     """),
     tools=[DuckDuckGoTools()],
     show_tool_calls=True,
     markdown=True,
 )
 
-# Example usage with a famous landmark
+# 有名なランドマークを使用した使用例
 agent.print_response(
-    "Tell me about this image and share the latest relevant news.",
+    "この画像について教えてください。関連する最新ニュースも共有してください。",
     images=[
         Image(
             url="https://upload.wikimedia.org/wikipedia/commons/0/0c/GoldenGateBridge-001.jpg"
@@ -79,42 +77,42 @@ agent.print_response(
     stream=True,
 )
 
-# More examples to try:
+# 試してみる追加の例：
 """
-Sample prompts to explore:
-1. "What's the historical significance of this location?"
-2. "How has this place changed over time?"
-3. "What cultural events happen here?"
-4. "What's the architectural style and influence?"
-5. "What recent developments affect this area?"
+探索するサンプルプロンプト：
+1. 「この場所の歴史的重要性は何ですか？」
+2. 「この場所は時間とともにどのように変化しましたか？」
+3. 「ここでどのような文化イベントが開催されますか？」
+4. 「建築様式とその影響は何ですか？」
+5. 「この地域に影響を与える最近の開発は何ですか？」
 
-Sample image URLs to analyze:
-1. Eiffel Tower: "https://upload.wikimedia.org/wikipedia/commons/8/85/Tour_Eiffel_Wikimedia_Commons_%28cropped%29.jpg"
-2. Taj Mahal: "https://upload.wikimedia.org/wikipedia/commons/b/bd/Taj_Mahal%2C_Agra%2C_India_edit3.jpg"
-3. Golden Gate Bridge: "https://upload.wikimedia.org/wikipedia/commons/0/0c/GoldenGateBridge-001.jpg"
+分析するサンプル画像URL：
+1. エッフェル塔：「https://upload.wikimedia.org/wikipedia/commons/8/85/Tour_Eiffel_Wikimedia_Commons_%28cropped%29.jpg」
+2. タージマハル：「https://upload.wikimedia.org/wikipedia/commons/b/bd/Taj_Mahal%2C_Agra%2C_India_edit3.jpg」
+3. ゴールデンゲートブリッジ：「https://upload.wikimedia.org/wikipedia/commons/0/0c/GoldenGateBridge-001.jpg」
 """
 
-# To get the response in a variable:
+# レスポンスを変数に格納するには：
 # from rich.pretty import pprint
 # response = agent.run(
-#     "Analyze this landmark's architecture and recent news.",
+#     "このランドマークの建築と最近のニュースを分析してください。",
 #     images=[Image(url="YOUR_IMAGE_URL")],
 # )
 # pprint(response.content)
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install libraries">
+  <Step title="ライブラリのインストール">
     ```bash
     pip install openai duckduckgo-search agno
     ```
   </Step>
 
-  <Step title="Run the agent">
+  <Step title="エージェントの実行">
     ```bash
     python image_agent.py
     ```

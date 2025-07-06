@@ -1,12 +1,12 @@
 ---
-title: Arize Phoenix via OpenInference (Local Collector)
+title: Arize Phoenix via OpenInference (ローカルコレクター)
 ---
 
-## Overview
+## 概要
 
-This example demonstrates how to instrument your Agno agent with OpenInference and send traces to a local Arize Phoenix collector.
+この例では、Agno エージェントに OpenInference を使用して計装し、ローカルの Arize Phoenix コレクターにトレースを送信する方法を示します。
 
-## Code
+## コード
 
 ```python
 import os
@@ -16,45 +16,45 @@ from agno.models.openai import OpenAIChat
 from agno.tools.yfinance import YFinanceTools
 from phoenix.otel import register
 
-# Set the local collector endpoint for Arize Phoenix
+# Arize Phoenix のローカルコレクターのエンドポイントを設定します
 os.environ["PHOENIX_COLLECTOR_ENDPOINT"] = "http://localhost:6006"
 
-# Configure the Phoenix tracer
+# Phoenix トレーサーを設定します
 tracer_provider = register(
-    project_name="agno-stock-price-agent",  # Default is 'default'
-    auto_instrument=True,  # Automatically use the installed OpenInference instrumentation
+    project_name="agno-stock-price-agent",  # デフォルトは 'default' です
+    auto_instrument=True,  # インストールされている OpenInference 計装を自動的に使用します
 )
 
-# Create and configure the agent
+# エージェントを作成および設定します
 agent = Agent(
     name="Stock Price Agent",
     model=OpenAIChat(id="gpt-4o-mini"),
     tools=[YFinanceTools()],
-    instructions="You are a stock price agent. Answer questions in the style of a stock analyst.",
+    instructions="あなたは株価エージェントです。株価アナリストのようなスタイルで回答してください。",
     debug_mode=True,
 )
 
-# Use the agent
-agent.print_response("What is the current price of Tesla?")
+# エージェントを使用します
+agent.print_response("現在のテスラの株価はいくらですか？")
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
-  <Step title="Install Dependencies">
+  <Step title="依存関係のインストール">
     ```bash
     pip install agno arize-phoenix openai openinference-instrumentation-agno opentelemetry-sdk opentelemetry-exporter-otlp
     ```
   </Step>
 
-  <Step title="Start Local Collector">
-    Run the following command to start the local collector:
+  <Step title="ローカルコレクターの起動">
+    ローカルコレクターを起動するには、次のコマンドを実行します。
     ```bash
     phoenix serve
     ```
   </Step>
 
-  <Step title="Run the Agent">
+  <Step title="エージェントの実行">
     <CodeGroup>
     ```bash Mac
     python cookbook/observability/arize_phoenix_via_openinference_local.py

@@ -2,12 +2,12 @@
 title: GeoBuddy
 ---
 
-GeoBuddy is a geography agent that analyzes images to predict locations based on visible cues such as landmarks, architecture, and cultural symbols.
+GeoBuddy は、ランドマーク、建築、文化シンボルなどの目に見える手がかりに基づいて場所を予測する、画像を分析する地理エージェントです。
 
-### Key Capabilities
-- Location Identification: Predicts location details from uploaded images
-- Detailed Reasoning: Explains predictions based on visual cues
-- User-Friendly Ul: Built with Streamlit for an intuitive experience
+### 主な機能
+- 場所の特定：アップロードされた画像から場所の詳細を予測します
+- 詳細な推論：視覚的な手がかりに基づいて予測を説明します
+- ユーザーフレンドリーなUI：Streamlitで構築された直感的な体験
 
 <video
   autoPlay
@@ -17,65 +17,65 @@ GeoBuddy is a geography agent that analyzes images to predict locations based on
   src="/videos/geobuddy.mp4"
 ></video>
 
-### Simple Examples to Try
-- Landscape: A city skyline, a mountain panorama, or a famous landmark
-- Architecture: Distinct buildings, bridges, or unique cityscapes
-- Cultural Clues: Text on signboards, language hints, flags, or unique clothing
+### 簡単な試用例
+- 風景：都市のスカイライン、山のパノラマ、または有名なランドマーク
+- 建築：特徴的な建物、橋、またはユニークな都市景観
+- 文化的な手がかり：看板の文字、言語のヒント、旗、またはユニークな服装
 
-### Advanced Usage
-Try providing images with subtle details, like store signs in different languages or iconic but less globally famous landmarks. GeoBuddy will attempt to reason more deeply about architectural style, environment (e.g. desert vs. tropical), and cultural references.
-
-
-### Code
-The complete code is available in the [Agno repository](https://github.com/agno-agi/agno).
+### 上級者向けの使い方
+店舗の看板が異なる言語で表示されていたり、世界的に有名ではないが象徴的なランドマークであったりするような、微妙な詳細を含む画像を提供してみてください。GeoBuddy は、建築様式、環境（例：砂漠か熱帯か）、文化的な参照について、より深く推論しようとします。
 
 
-### Usage
+### コード
+完全なコードは [Agno リポジトリ](https://github.com/agno-agi/agno) で入手できます。
+
+
+### 使い方
 <Steps>
-  <Step title="Clone the repository">
+  <Step title="リポジトリをクローンする">
     ```bash
     git clone https://github.com/agno-agi/agno.git
     cd agno
     ```
   </Step>
 
-  <Step title="Create a Virtual Environment">
+  <Step title="仮想環境を作成する">
     ```bash
     python3 -m venv .venv
     source .venv/bin/activate
     ```
   </Step>
 
-  <Step title="Install Dependencies">
+  <Step title="依存関係をインストールする">
     ```bash
     pip install -r cookbook/examples/streamlit_apps/geobuddy/requirements.txt
     ```
   </Step>
 
-  <Step title="Set up API Key">
-    GeoBuddy uses the Google PaLM API for advanced image reasoning:
+  <Step title="APIキーを設定する">
+    GeoBuddy は、高度な画像推論のために Google PaLM API を使用します。
 
     ```bash
     export GOOGLE_API_KEY=***
     ```
   </Step>
 
-  <Step title="Launch the App">
+  <Step title="アプリを起動する">
     ```bash
     streamlit run cookbook/examples/streamlit_apps/geobuddy/app.py
     ```
   </Step>
 
-  <Step title="Open the App">
-    Then, open http://localhost:8501 in your browser to start using GeoBuddy.
+  <Step title="アプリを開く">
+    次に、ブラウザで http://localhost:8501 を開いて GeoBuddy の使用を開始します。
   </Step>
 </Steps>
 
 
-### Pro Tips
-- High-Resolution Images: Clearer images with visible signboards or landmarks improve accuracy.
-- Variety of Angles: Different angles (e.g. street-level vs. aerial views) can showcase unique clues.
-- Contextual Clues: Sometimes minor details like license plates, local architectural elements or even vegetation can significantly influence the location guess.
+### プロのヒント
+- 高解像度の画像：看板やランドマークがはっきりと見える鮮明な画像は、精度を向上させます。
+- さまざまな角度：さまざまな角度（例：路上からの視点 vs. 空撮）は、ユニークな手がかりを示すことができます。
+- 文脈の手がかり：時には、ナンバープレート、地元の建築要素、さらには植生のような些細な詳細が、場所の推測に大きく影響する可能性があります。
 
 
-Need help? Join our [Discourse community](https://community.agno.com) for support!
+ヘルプが必要ですか？サポートについては、[Discourse コミュニティ](https://community.agno.com) に参加してください！

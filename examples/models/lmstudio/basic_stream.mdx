@@ -25,14 +25,13 @@ agent.print_response("Share a 2 sentence horror story", stream=True)
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-<Step title="Install LM Studio">
-  Install LM Studio from [here](https://lmstudio.ai/download) and download the
-  model you want to use.
+<Step title="LM Studioのインストール">
+  LM Studioを[こちら](https://lmstudio.ai/download)からインストールし、使用したいモデルをダウンロードしてください。
 </Step>
 
-<Step title="Install libraries">```bash pip install -U agno ```</Step>
+<Step title="ライブラリのインストール">```bash pip install -U agno ```</Step>
 
-  <Step title="Run Agent">
+  <Step title="エージェントの実行">
     <CodeGroup>
     ```bash Mac
     python cookbook/models/lmstudio/basic_stream.py

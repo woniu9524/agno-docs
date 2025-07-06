@@ -1,18 +1,18 @@
 ---
-title: What is Agno?
-description: "Agno is a python framework for building multi-agent systems with shared memory, knowledge and reasoning."
-sidebarTitle: What is Agno?
+title: Agnoとは
+description: "Agnoは、共有メモリ、知識、推論を備えたマルチエージェントシステムを構築するためのPythonフレームワークです。"
+sidebarTitle: Agnoとは
 ---
 
-Engineers and researchers use Agno to build:
+エンジニアや研究者はAgnoを使用して以下を構築します。
 
-- **Level 1:** Agents with tools and instructions ([example](/introduction/agents#level-1%3A-agents-with-tools-and-instructions)).
-- **Level 2:** Agents with knowledge and storage ([example](/introduction/agents#level-2%3A-agents-with-knowledge-and-storage)).
-- **Level 3:** Agents with memory and reasoning ([example](/introduction/agents#level-3%3A-agents-with-memory-and-reasoning)).
-- **Level 4:** Agent Teams that can reason and collaborate ([example](/introduction/multi-agent-systems#level-4%3A-agent-teams-that-can-reason-and-collaborate)).
-- **Level 5:** Agentic Workflows with state and determinism ([example](/introduction/multi-agent-systems#level-5%3A-agentic-workflows-with-state-and-determinism)).
+- **レベル1:** ツールと指示を持つエージェント（[例](/introduction/agents#level-1%3A-agents-with-tools-and-instructions)）。
+- **レベル2:** 知識とストレージを持つエージェント（[例](/introduction/agents#level-2%3A-agents-with-knowledge-and-storage)）。
+- **レベル3:** メモリと推論を持つエージェント（[例](/introduction/agents#level-3%3A-agents-with-memory-and-reasoning)）。
+- **レベル4:** 推論と協調が可能なエージェントチーム（[例](/introduction/multi-agent-systems#level-4%3A-agent-teams-that-can-reason-and-collaborate)）。
+- **レベル5:** 状態と決定論を持つエージェンティックワークフロー（[例](/introduction/multi-agent-systems#level-5%3A-agentic-workflows-with-state-and-determinism)）。
 
-**Example:** Level 1 Reasoning Agent that uses the YFinance API to answer questions:
+**例:** YFinance APIを使用して質問に答えるレベル1の推論エージェント：
 
 ```python Reasoning Finance Agent
 from agno.agent import Agent
@@ -31,7 +31,7 @@ reasoning_agent = Agent(
 )
 ```
 
-<Accordion title="Watch the reasoning finance agent in action">
+<Accordion title="推論ファイナンスエージェントの動作を見る">
   <video
     autoPlay
     muted
@@ -42,123 +42,123 @@ reasoning_agent = Agent(
   ></video>
 </Accordion>
 
-# Getting Started
+# はじめに
 
-If you're new to Agno, learn how to build your [first Agent](/introduction/agents), chat with it on the [playground](/introduction/playground) and [monitor](/introduction/monitoring) it on [app.agno.com](https://app.agno.com).
+Agnoが初めての方は、[最初のエージェント](/introduction/agents)の構築方法を学び、[プレイグラウンド](/introduction/playground)で対話し、[app.agno.com](https://app.agno.com)で[監視](/introduction/monitoring)する方法を学びましょう。
 
 <CardGroup cols={3}>
   <Card
-    title="Your first Agents"
+    title="最初のエージェント"
     icon="user-astronaut"
     iconType="duotone"
     href="/introduction/agents"
   >
-    Learn how to build Agents with Agno
+    Agnoでエージェントを構築する方法を学ぶ
   </Card>
   <Card
-    title="Agent Playground"
+    title="エージェントプレイグラウンド"
     icon="comment-dots"
     iconType="duotone"
     href="introduction/playground"
   >
-    Chat with your Agents using a beautiful Agent UI
+    美しいエージェントUIを使用してエージェントとチャットする
   </Card>
   <Card
-    title="Agent Monitoring"
+    title="エージェント監視"
     icon="rocket-launch"
     iconType="duotone"
     href="introduction/monitoring"
   >
-    Monitor your Agents on [agno.com](https://app.agno.com)
+    [agno.com](https://app.agno.com)でエージェントを監視する
   </Card>
 </CardGroup>
 
-After that, dive deeper into the [concepts below](/introduction#dive-deeper) or explore the [examples gallery](/examples) to build real-world applications with Agno.
+その後、以下の[概念](/introduction#dive-deeper)を深く掘り下げるか、[例のギャラリー](/examples)を探索して、実際のアプリケーションをAgnoで構築してください。
 
-# Why Agno?
+# なぜAgnoなのか？
 
-Agno will help you build best-in-class, highly-performant agentic systems, saving you hours of research and boilerplate. Here are some key features that set Agno apart:
+Agnoは、クラス最高の高パフォーマンスなエージェンティックシステムを構築するのに役立ち、リサーチや定型コードの時間を節約します。Agnoを際立たせる主な機能は次のとおりです。
 
-- **Model Agnostic**: Agno provides a unified interface to 23+ model providers, no lock-in.
-- **Highly performant**: Agents instantiate in **~3μs** and use **~6.5Kib** memory on average.
-- **Reasoning is a first class citizen**: Reasoning improves reliability and is a must-have for complex autonomous agents. Agno supports 3 approaches to reasoning: Reasoning Models, `ReasoningTools` or our custom `chain-of-thought` approach.
-- **Natively Multi-Modal**: Agno Agents are natively multi-modal, they accept text, image, audio and video as input and generate text, image, audio and video as output.
-- **Advanced Multi-Agent Architecture**: Agno provides an industry leading multi-agent architecture (**Agent Teams**) with reasoning, memory, and shared context.
-- **Built-in Agentic Search**: Agents can search for information at runtime using 20+ vector databases. Agno provides state-of-the-art Agentic RAG, **fully async and highly performant.**
-- **Built-in Memory & Session Storage**: Agents come with built-in `Storage` & `Memory` drivers that give your Agents long-term memory and session storage.
-- **Structured Outputs**: Agno Agents can return fully-typed responses using model provided structured outputs or `json_mode`.
-- **Pre-built FastAPI Routes**: After building your Agents, serve them using pre-built FastAPI routes. 0 to production in minutes.
-- **Monitoring**: Monitor agent sessions and performance in real-time on [agno.com](https://app.agno.com).
+- **モデルに依存しない**: Agnoは23以上のモデルプロバイダーへの統一インターフェースを提供し、ロックインしません。
+- **高パフォーマンス**: エージェントは**約3μs**でインスタンス化され、平均**約6.5KiB**のメモリを使用します。
+- **推論は第一級市民**: 推論は信頼性を向上させ、複雑な自律エージェントには必須です。Agnoは3つの推論アプローチをサポートしています：推論モデル、`ReasoningTools`、またはカスタムの`chain-of-thought`アプローチ。
+- **ネイティブマルチモーダル**: Agnoエージェントはネイティブにマルチモーダルであり、テキスト、画像、音声、動画を入力として受け入れ、テキスト、画像、音声、動画を出力として生成します。
+- **高度なマルチエージェントアーキテクチャ**: Agnoは、推論、メモリ、共有コンテキストを備えた業界をリードするマルチエージェントアーキテクチャ（**エージェントチーム**）を提供します。
+- **組み込みエージェンティック検索**: エージェントは、20以上のベクトルデータベースを使用して実行時に情報を検索できます。Agnoは最先端のエージェンティックRAGを提供し、**完全に非同期で高パフォーマンス**です。
+- **組み込みメモリ＆セッションストレージ**: エージェントには組み込みの`Storage`＆`Memory`ドライバーが付属しており、エージェントに長期メモリとセッションストレージを提供します。
+- **構造化出力**: Agnoエージェントは、モデル提供の構造化出力または`json_mode`を使用して、完全に型付けされた応答を返すことができます。
+- **組み込みFastAPIルート**: エージェントを構築した後、組み込みのFastAPIルートを使用して提供します。数分で本番稼働。
+- **監視**: [agno.com](https://app.agno.com)でエージェントセッションとパフォーマンスをリアルタイムで監視します。
 
-# Dive deeper
+# 深く掘り下げる
 
-Agno is a battle-tested framework with a state of the art reasoning and multi-agent architecture, read the following guides to learn more:
+Agnoは、最先端の推論およびマルチエージェントアーキテクチャを備えた、実証済みのフレームワークです。さらに詳しく知るには、以下のガイドをお読みください。
 
 <CardGroup cols={3}>
-  <Card title="Agents" icon="user-astronaut" iconType="duotone" href="/agents">
-    Learn how to build lightning fast Agents.
+  <Card title="エージェント" icon="user-astronaut" iconType="duotone" href="/agents">
+    超高速エージェントの構築方法を学ぶ。
   </Card>
-  <Card title="Teams" icon="microchip" iconType="duotone" href="/teams">
-    Build autonomous multi-agent teams.
+  <Card title="チーム" icon="microchip" iconType="duotone" href="/teams">
+    自律的なマルチエージェントチームを構築する。
   </Card>
-  <Card title="Models" icon="cube" iconType="duotone" href="/models">
-    Use any model, any provider, no lock-in.
+  <Card title="モデル" icon="cube" iconType="duotone" href="/models">
+    任意のモデル、任意のプロバイダーを使用する、ロックインなし。
   </Card>
   <Card
-    title="Tools"
+    title="ツール"
     icon="screwdriver-wrench"
     iconType="duotone"
     href="/tools"
   >
-    100s of tools to extend your Agents.
+    エージェントを拡張するための何百ものツール。
   </Card>
   <Card
-    title="Reasoning"
+    title="推論"
     icon="brain-circuit"
     iconType="duotone"
     href="/reasoning"
   >
-    Make Agents "think" and "analyze".
+    エージェントに「思考」と「分析」をさせる。
   </Card>
-  <Card title="Knowledge" icon="server" iconType="duotone" href="/knowledge">
-    Give Agents domain-specific knowledge.
+  <Card title="知識" icon="server" iconType="duotone" href="/knowledge">
+    エージェントにドメイン固有の知識を与える。
   </Card>
   <Card
-    title="Vector Databases"
+    title="ベクトルデータベース"
     icon="spider-web"
     iconType="duotone"
     href="/vectordb"
   >
-    Store and search your knowledge base.
+    ナレッジベースを保存および検索する。
   </Card>
-  <Card title="Storage" icon="database" iconType="duotone" href="/storage">
-    Persist Agent session and state in a database.
+  <Card title="ストレージ" icon="database" iconType="duotone" href="/storage">
+    エージェントセッションと状態をデータベースに永続化する。
   </Card>
   <Card
-    title="Memory"
+    title="メモリ"
     icon="lightbulb"
     iconType="duotone"
     href="/agents/memory"
   >
-    Remember user details and session summaries.
+    ユーザーの詳細とセッションの概要を記憶する。
   </Card>
   <Card
-    title="Embeddings"
+    title="埋め込み"
     icon="network-wired"
     iconType="duotone"
     href="/embedder"
   >
-    Generate embeddings for your knowledge base.
+    ナレッジベースの埋め込みを生成する。
   </Card>
   <Card
-    title="Workflows"
+    title="ワークフロー"
     icon="diagram-project"
     iconType="duotone"
     href="/workflows"
   >
-    Deterministic, stateful, multi-agent workflows.
+    決定論的でステートフルなマルチエージェントワークフロー。
   </Card>
-  <Card title="Evals" icon="shield" iconType="duotone" href="/evals">
-    Evaluate, monitor and improve your Agents.
+  <Card title="評価" icon="shield" iconType="duotone" href="/evals">
+    エージェントを評価、監視、改善する。
   </Card>
 </CardGroup>

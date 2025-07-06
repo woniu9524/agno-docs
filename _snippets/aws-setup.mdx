@@ -1,27 +1,27 @@
-## AWS Setup
+## AWS のセットアップ
 
 <Steps>
-  <Step title="Update Credentials">
-    To run on AWS, you need **one** of the following:
+  <Step title="認証情報の更新">
+    AWS で実行するには、以下のいずれかが必要です。
 
-    1. The `~/.aws/credentials` file with your AWS credentials
-    2. **or** `AWS_ACCESS_KEY_ID` + `AWS_SECRET_ACCESS_KEY` environment variables
+    1. `~/.aws/credentials` ファイルに AWS 認証情報を設定する
+    2. **または** `AWS_ACCESS_KEY_ID` および `AWS_SECRET_ACCESS_KEY` 環境変数を設定する
 
     <Note>
 
-    To create the credentials file, install the [aws cli](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) and run `aws configure`
+    認証情報ファイルを作成するには、[aws cli](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) をインストールし、`aws configure` を実行してください。
 
     </Note>
 
   </Step>
-  <Step title="Update region and subnets">
-    Update the `aws_region` and add 2 [subnets](https://us-east-1.console.aws.amazon.com/vpc/home?#subnets:) to the `workspace/settings.py` file (required for ECS services)
+  <Step title="リージョンとサブネットの更新">
+    `workspace/settings.py` ファイルで `aws_region` を更新し、2 つの [サブネット](https://us-east-1.console.aws.amazon.com/vpc/home?#subnets:) を追加します (ECS サービスに必要)。
 
     ```python workspace/settings.py
     ws_settings = WorkspaceSettings(
         ...
         # -*- AWS settings
-        # Add your Subnet IDs here
+        # Subnet ID をここに追加してください
         subnet_ids=["subnet-xyz", "subnet-xyz"],
         ...
     )
@@ -29,7 +29,7 @@
 
     <Note>
 
-    Please check that the subnets belong to the selected `aws_region`
+    サブネットが選択した `aws_region` に属していることを確認してください。
 
     </Note>
 

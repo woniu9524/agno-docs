@@ -1,88 +1,87 @@
 <ResponseField name="llm" type="LLM">
-  LLM to use for this conversation
+  この会話で使用するLLM
 </ResponseField>
 <ResponseField name="introduction" type="str">
-  Add an introduction (from the LLM) to the chat history
+  チャット履歴に導入文（LLMから）を追加します
 </ResponseField>
 
 <ResponseField name="user_name" type="str">
-  Name of the user participating in this conversation.
+  この会話に参加しているユーザーの名前
 </ResponseField>
 <ResponseField name="user_type" type="str">
-  Type of the user participating in this conversation.
+  この会話に参加しているユーザーのタイプ
 </ResponseField>
 
 <ResponseField name="id" type="str">
-  Unique ID that can be used to continue the conversation across sessions.
+  セッション間で会話を継続するために使用できる一意のID
 </ResponseField>
 <ResponseField name="name" type="str">
-  Conversation name
+  会話の名前
 </ResponseField>
 <ResponseField name="is_active" type="bool">
-  True if this conversation is active i.e. not ended
+  この会話がアクティブである（終了していない）場合はTrue
 </ResponseField>
 <ResponseField name="meta_data" type="Dict[str, Any]">
-  Metadata associated with this conversation
+  この会話に関連付けられたメタデータ
 </ResponseField>
 <ResponseField name="extra_data" type="Dict[str, Any]">
-  Extra data associated with this conversation
+  この会話に関連付けられた追加データ
 </ResponseField>
 <ResponseField name="created_at" type="datetime">
-  The timestamp of when this conversation was created in the database
+  データベースでこの会話が作成されたときのタイムスタンプ
 </ResponseField>
 <ResponseField name="updated_at" type="datetime">
-  The timestamp of when this conversation was updated in the database
+  データベースでこの会話が更新されたときのタイムスタンプ
 </ResponseField>
 <ResponseField name="monitoring" type="bool">
-  Monitor conversations on agno.com
+  agno.comで会話を監視します
 </ResponseField>
 
 <ResponseField name="memory" type="ConversationMemory">
-  Conversation Memory
+  会話メモリ
 </ResponseField> <ResponseField name="add_chat_history_to_prompt" type="bool">
-  Add chat history to the prompt sent to the LLM.
+  LLMに送信されるプロンプトにチャット履歴を追加します。
 </ResponseField> <ResponseField name="add_chat_history_to_messages" type="bool">
-  Add chat history to the messages sent to the LLM.
+  LLMに送信されるメッセージにチャット履歴を追加します。
 </ResponseField> <ResponseField name="num_history_messages" type="int">
-  Number of previous messages to add to prompt or messages sent to the LLM.
+  LLMに送信されるプロンプトまたはメッセージに追加する過去のメッセージ数。
 </ResponseField>
 
 <ResponseField name="knowledge_base" type="KnowledgeBase">
-  Conversation Knowledge Base
+  会話ナレッジベース
 </ResponseField> <ResponseField name="add_references_to_prompt" type="bool">
-  Add references from the knowledge base to the prompt sent to the LLM.
+  ナレッジベースからの参照をLLMに送信されるプロンプトに追加します。
 </ResponseField>
 
 <ResponseField name="storage" type="ConversationStorage">
-  Conversation Storage
+  会話ストレージ
 </ResponseField> <ResponseField name="create_storage" type="bool">
-  Create table if it doesn't exist
+  存在しない場合はテーブルを作成します
 </ResponseField>
 
 <ResponseField name="function_calls" type="bool">
-  Makes the conversation Autonomous by letting the LLM call functions to achieve
-  tasks.
+  LLMがタスクを達成するために関数を呼び出すことを許可することにより、会話を自律的にします。
 </ResponseField>
 <ResponseField name="default_functions" type="bool">
-  Add a list of default functions to the LLM
+  LLMにデフォルト関数のリストを追加します
 </ResponseField>
 <ResponseField name="show_function_calls" type="bool">
-  Show function calls in LLM messages.
+  LLMメッセージに関数呼び出しを表示します。
 </ResponseField>
 <ResponseField name="functions" type="List[Callable]">
-  A list of functions to add to the LLM.
+  LLMに追加する関数のリスト。
 </ResponseField>
 <ResponseField name="function_registries" type="List[FunctionRegistry]">
-  A list of function registries to add to the LLM.
+  LLMに追加する関数レジストリのリスト。
 </ResponseField>
 
 <ResponseField name="system_prompt" type="str">
-  Provide the system prompt as a string
+  システムプロンプトを文字列として提供します
 </ResponseField>
 <ResponseField name="system_prompt_function" type="Callable[..., Optional[str]]">
-  Function to build the system prompt.
+  システムプロンプトを構築するための関数。
 
-Signature:
+シグネチャ：
 
 ```python
 def system_prompt_function(conversation: Conversation) -> str:
@@ -91,19 +90,19 @@ def system_prompt_function(conversation: Conversation) -> str:
 
 </ResponseField>
 
-This function is provided the `Conversation` as an argument and should return the system_prompt as a string.
+この関数には `Conversation` オブジェクトが引数として提供され、システムプロンプトを文字列として返す必要があります。
 
 <ResponseField name="use_default_system_prompt" type="bool">
-  If True, the conversation provides a default system prompt
+  Trueの場合、会話はデフォルトのシステムプロンプトを提供します
 </ResponseField>
 
 <ResponseField name="user_prompt" type="str">
-  Provide the user prompt as a string. This will ignore the message provided to the chat function
+  ユーザープロンプトを文字列として提供します。これにより、チャット関数に提供されたメッセージは無視されます
 </ResponseField>
 <ResponseField name="user_prompt_function" type="Callable[..., str]">
-Function to build the user prompt.
+ユーザープロンプトを構築するための関数。
 
-Signature:
+シグネチャ：
 
 ```python
 def custom_user_prompt_function(
@@ -115,21 +114,21 @@ def custom_user_prompt_function(
     ...
 ```
 
-This function is provided the `Conversation` object and the input `message` as arguments. It should return the `user_prompt` as a string.
+この関数には `Conversation` オブジェクトと入力 `message` が引数として提供されます。ユーザープロンプトを文字列として返す必要があります。
 
-If `add_references_to_prompt` is True, then `references` are also provided as an argument.
+`add_references_to_prompt` が True の場合、 `references` も引数として提供されます。
 
-If `add_chat_history_to_prompt` is True, then `chat_history` is also provided as an argument.
+`add_chat_history_to_prompt` が True の場合、 `chat_history` も引数として提供されます。
 
 </ResponseField>
 <ResponseField name="use_default_user_prompt" type="bool">
-If True, the conversation provides a default system user
+  Trueの場合、会話はデフォルトのシステムユーザーを提供します
 </ResponseField>
 
 <ResponseField name="references_function" type="Callable[..., Optional[str]]">
-Function to build references for the default `user_prompt`. This function, if provided, is called when `add_references_to_prompt` is True
+  デフォルトの `user_prompt` の参照を構築するための関数。この関数が提供されている場合、`add_references_to_prompt` が True のときに呼び出されます。
 
-Signature:
+シグネチャ：
 
 ```python
 def references(conversation: Conversation, query: str) -> Optional[str]:
@@ -138,9 +137,9 @@ def references(conversation: Conversation, query: str) -> Optional[str]:
 
 </ResponseField>
 <ResponseField name="chat_history_function" type="Callable[..., Optional[str]]">
-Function to build the chat_history for the default `user_prompt`. This function, if provided, is called when `add_chat_history_to_prompt` is True
+  デフォルトの `user_prompt` のチャット履歴を構築するための関数。この関数が提供されている場合、`add_chat_history_to_prompt` が True のときに呼び出されます。
 
-Signature:
+シグネチャ：
 
 ```python
 def chat_history(conversation: Conversation, query: str) -> Optional[str]:
@@ -150,5 +149,5 @@ def chat_history(conversation: Conversation, query: str) -> Optional[str]:
 </ResponseField>
 
 <ResponseField name="debug_mode" type="bool">
-  If True, show debug logs
+  Trueの場合、デバッグログを表示します
 </ResponseField>

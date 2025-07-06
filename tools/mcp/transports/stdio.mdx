@@ -3,17 +3,17 @@ title: Stdio Transport
 sidebarTitle: stdio
 ---
 
-Transports in the Model Context Protocol (MCP) define how messages are sent and received. The Agno integration supports the three existing types:
-[stdio](https://modelcontextprotocol.io/docs/concepts/transports#standard-input%2Foutput-stdio),
-[SSE](https://modelcontextprotocol.io/docs/concepts/transports#server-sent-events-sse) and
-[Streamable HTTP](https://modelcontextprotocol.io/specification/draft/basic/transports#streamable-http).
+Model Context Protocol (MCP) のトランスポートは、メッセージの送受信方法を定義します。Agno の統合は、既存の 3 つのタイプをサポートしています。
+[stdio](https://modelcontextprotocol.io/docs/concepts/transports#standard-input%2Foutput-stdio)、
+[SSE](https://modelcontextprotocol.io/docs/concepts/transports#server-sent-events-sse)、および
+[Streamable HTTP](https://modelcontextprotocol.io/specification/draft/basic/transports#streamable-http)。
 
-The stdio (standard input/output) transport is the default one in Agno's integration. It works best for local integrations.
+stdio (標準入出力) トランスポートは、Agno の統合におけるデフォルトのトランスポートです。ローカル統合に最適です。
 
-To use it, simply initialize the `MCPTools` class with its `command` argument.
-The command you want to pass is the one used to run the MCP server the agent will have access to.
+使用するには、`command` 引数を使用して `MCPTools` クラスを初期化するだけです。
+渡すコマンドは、エージェントがアクセスする MCP サーバーを実行するために使用されるコマンドです。
 
-For example `uvx mcp-server-git`, which runs a [git MCP server](https://github.com/modelcontextprotocol/servers/tree/main/src/git):
+たとえば `uvx mcp-server-git` は、[git MCP サーバー](https://github.com/modelcontextprotocol/servers/tree/main/src/git)を実行します。
 
 ```python
 from agno.agent import Agent
@@ -25,9 +25,7 @@ async with MCPTools(command=f"uvx mcp-server-git") as mcp_tools:
     await agent.aprint_response("What is the license for this project?", stream=True)
 ```
 
-
-You can also use multiple MCP servers at once, with the `MultiMCPTools` class. For example:
-
+また、`MultiMCPTools` クラスを使用して、複数の MCP サーバーを同時に使用することもできます。たとえば、次のようになります。
 
 ```python
 import asyncio
@@ -69,4 +67,3 @@ if __name__ == "__main__":
             "What listings are available in Cape Town for 2 people for 3 nights from 1 to 4 August 2025?"
         )
     )
-```

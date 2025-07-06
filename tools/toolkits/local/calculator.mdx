@@ -2,11 +2,11 @@
 title: Calculator
 ---
 
-**Calculator** enables an Agent to perform mathematical calculations.
+**Calculator** は、エージェントが数学的計算を実行できるようにします。
 
-## Example
+## 例
 
-The following agent will calculate the result of `10*5` and then raise it to the power of `2`:
+以下のエージェントは、`10*5` の結果を計算し、それを `2` 乗します。
 
 ```python cookbook/tools/calculator_tools.py
 from agno.agent import Agent
@@ -29,36 +29,36 @@ agent = Agent(
     markdown=True,
 )
 
-agent.print_response("What is 10*5 then to the power of 2, do it step by step")
+agent.print_response("10*5 の結果を計算してから、それを2乗してください。ステップバイステップで実行してください。")
 ```
 
-## Toolkit Params
+## Toolkit パラメータ
 
-| Parameter      | Type   | Default | Description                                                         |
-| -------------- | ------ | ------- | ------------------------------------------------------------------- |
-| `add`          | `bool` | `True`  | Enables the functionality to perform addition.                      |
-| `subtract`     | `bool` | `True`  | Enables the functionality to perform subtraction.                   |
-| `multiply`     | `bool` | `True`  | Enables the functionality to perform multiplication.                |
-| `divide`       | `bool` | `True`  | Enables the functionality to perform division.                      |
-| `exponentiate` | `bool` | `False` | Enables the functionality to perform exponentiation.                |
-| `factorial`    | `bool` | `False` | Enables the functionality to calculate the factorial of a number.   |
-| `is_prime`     | `bool` | `False` | Enables the functionality to check if a number is prime.            |
-| `square_root`  | `bool` | `False` | Enables the functionality to calculate the square root of a number. |
+| パラメータ      | タイプ   | デフォルト | 説明                                                                 |
+| -------------- | ------ | ------- | -------------------------------------------------------------------- |
+| `add`          | `bool` | `True`  | 加算を実行する機能を有効にします。                                                   |
+| `subtract`     | `bool` | `True`  | 減算を実行する機能を有効にします。                                                   |
+| `multiply`     | `bool` | `True`  | 乗算を実行する機能を有効にします。                                                   |
+| `divide`       | `bool` | `True`  | 除算を実行する機能を有効にします。                                                   |
+| `exponentiate` | `bool` | `False` | 指数計算を実行する機能を有効にします。                                                 |
+| `factorial`    | `bool` | `False` | 数値の階乗を計算する機能を有効にします。                                               |
+| `is_prime`     | `bool` | `False` | 数値が素数かどうかをチェックする機能を有効にします。                                         |
+| `square_root`  | `bool` | `False` | 数値の平方根を計算する機能を有効にします。                                               |
 
-## Toolkit Functions
+## Toolkit 関数
 
-| Function       | Description                                                                              |
-| -------------- | ---------------------------------------------------------------------------------------- |
-| `add`          | Adds two numbers and returns the result.                                                 |
-| `subtract`     | Subtracts the second number from the first and returns the result.                       |
-| `multiply`     | Multiplies two numbers and returns the result.                                           |
-| `divide`       | Divides the first number by the second and returns the result. Handles division by zero. |
-| `exponentiate` | Raises the first number to the power of the second number and returns the result.        |
-| `factorial`    | Calculates the factorial of a number and returns the result. Handles negative numbers.   |
-| `is_prime`     | Checks if a number is prime and returns the result.                                      |
-| `square_root`  | Calculates the square root of a number and returns the result. Handles negative numbers. |
+| 関数       | 説明                                                                                             |
+| -------------- | ------------------------------------------------------------------------------------------------ |
+| `add`          | 2つの数値を加算し、結果を返します。                                                                             |
+| `subtract`     | 最初の数値から2番目の数値を減算し、結果を返します。                                                                         |
+| `multiply`     | 2つの数値を乗算し、結果を返します。                                                                             |
+| `divide`       | 最初の数値を2番目の数値で除算し、結果を返します。ゼロ除算を処理します。                                                               |
+| `exponentiate` | 最初の数値を2番目の数値のべき乗にし、結果を返します。                                                                       |
+| `factorial`    | 数値の階乗を計算し、結果を返します。負の数を処理します。                                                                     |
+| `is_prime`     | 数値が素数かどうかをチェックし、結果を返します。                                                                           |
+| `square_root`  | 数値の平方根を計算し、結果を返します。負の数を処理します。                                                                     |
 
-## Developer Resources
+## 開発者向けリソース
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/calculator.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/calculator_tools.py)
+- [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/calculator.py) を表示
+- [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/calculator_tools.py) を表示

@@ -1,26 +1,26 @@
 ---
-title: Command line authentication
-sidebarTitle: Command line authentication
+title: コマンドライン認証
+sidebarTitle: コマンドライン認証
 ---
 
-If you run `ag auth` and you get the error: `CLI authentication failed` or your CLI gets stuck on
+`ag auth` を実行した際に `CLI authentication failed` というエラーが表示されるか、CLI が以下の状態から進まない場合：
 
 ```
 Waiting for a response from browser...
 ```
 
-It means that your CLI was not able to authenticate with your Agno account on [app.agno.com](https://app.agno.com)
+これは、CLI が [app.agno.com](https://app.agno.com) 上の Agno アカウントと認証できなかったことを意味します。
 
-The quickest fix for this is to export your `AGNO_API_KEY` environment variable. You can do this by running the following command:
+この問題を最も迅速に解決するには、`AGNO_API_KEY` 環境変数をエクスポートします。以下のコマンドを実行して行うことができます。
 
 ```bash
 export AGNO_API_KEY=<your_api_key>
 ```
 
-Your API key can be found on [app.agno.com](https://app.agno.com/settings) in the sidebar under `API Key`.
+API キーは、[app.agno.com](https://app.agno.com/settings) のサイドバーにある `API Key` から見つけることができます。
 
 <img src="/images/cli-faq.png" alt="agno-api-key" width={600}/>
 
-Reason for CLI authentication failure:
+CLI 認証が失敗する理由：
 
-- Some browsers like Safari and Brave block connection to the localhost domain. Browsers like Chrome work great with `ag setup`.
+- Safari や Brave のような一部のブラウザは、localhost ドメインへの接続をブロックします。Chrome のようなブラウザは `ag setup` とうまく連携します。

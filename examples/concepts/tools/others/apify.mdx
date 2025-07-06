@@ -2,7 +2,7 @@
 title: Apify Tools
 ---
 
-## Code
+## コード
 
 ```python cookbook/tools/apify_tools.py
 from agno.agent import Agent
@@ -12,25 +12,25 @@ agent = Agent(tools=[ApifyTools()], show_tool_calls=True)
 agent.print_response("Tell me about https://docs.agno.com/introduction", markdown=True)
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="API キーの設定">
     ```bash
     export APIFY_API_KEY=xxx
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="ライブラリのインストール">
     ```bash
     pip install -U apify-client openai agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="エージェントの実行">
     <CodeGroup>
     ```bash Mac
     python cookbook/tools/apify_tools.py

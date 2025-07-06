@@ -3,13 +3,13 @@ title: LanceDB Agent Knowledge
 sidebarTitle: LanceDB
 ---
 
-## Setup
+## セットアップ
 
 ```shell
 pip install lancedb
 ```
 
-## Example
+## 例
 
 ```python agent_with_knowledge.py
 import typer
@@ -64,10 +64,10 @@ if __name__ == "__main__":
     typer.run(lancedb_agent)
 ```
 
-<Card title="Async Support ⚡">
+<Card title="非同期サポート ⚡">
   <div className="mt-2">
     <p>
-      LanceDB also supports asynchronous operations, enabling concurrency and leading to better performance.
+      LanceDBは非同期操作もサポートしており、並列処理を可能にし、パフォーマンスを向上させます。
     </p>
     
     ```python async_lance_db.py
@@ -100,16 +100,16 @@ if __name__ == "__main__":
     ```
     
     <Tip className="mt-4">
-      Use <code>aload()</code> and <code>aprint_response()</code> methods with <code>asyncio.run()</code> for non-blocking operations in high-throughput applications.
+      高スループットアプリケーションでノンブロッキング操作を行うには、<code>asyncio.run()</code> と共に <code>aload()</code> および <code>aprint_response()</code> メソッドを使用してください。
     </Tip>
   </div>
 </Card>
 
-## LanceDb Params
+## LanceDb パラメータ
 
 <Snippet file="vectordb_lancedb_params.mdx" />
 
-## Developer Resources
+## 開発者向けリソース
 
-- View [Cookbook (Sync)](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/vector_dbs/lance_db/lance_db.py)
-- View [Cookbook (Async)](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/vector_dbs/lance_db/async_lance_db.py)
+- [クックブック (同期)](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/vector_dbs/lance_db/lance_db.py) を表示
+- [クックブック (非同期)](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/vector_dbs/lance_db/async_lance_db.py) を表示

@@ -1,59 +1,58 @@
 ---
-title: Could Not Connect To Docker
-sidebarTitle: Docker Connection Error
+title: Dockerに接続できませんでした
+sidebarTitle: Docker接続エラー
 ---
 
-If you have Docker up and running and get the following error, please read on:
+Dockerが起動しているにもかかわらず、以下のエラーが発生する場合は、以下をお読みください。
 
 ```bash
 ERROR    Could not connect to docker. Please confirm docker is installed and running
 ERROR    Error while fetching server API version: ('Connection aborted.', FileNotFoundError(2, 'No such file or directory'))
 ```
 
-## Quick fix
+## クイックフィックス
 
-Create the `/var/run/docker.sock` symlink using:
-
-```shell
-sudo ln -s "$HOME/.docker/run/docker.sock" /var/run/docker.sock
-```
-
-In 99% of the cases, this should work. If it doesnt, try:
-
-```shell
-sudo chown $USER /var/run/docker.sock
-```
-
-## Full details
-
-Agno uses [docker-py](https://github.com/docker/docker-py) to run containers, and if the `/var/run/docker.sock` is missing or has incorrect permissions, it cannot connect to docker.
-
-**To fix, please create the `/var/run/docker.sock` file using:**
+以下のコマンドを使用して、`/var/run/docker.sock` のシンボリックリンクを作成してください。
 
 ```shell
 sudo ln -s "$HOME/.docker/run/docker.sock" /var/run/docker.sock
 ```
 
-If that does not work, check the permissions using `ls -l /var/run/docker.sock`.
-
-If the `/var/run/docker.sock` does not exist, check if the `$HOME/.docker/run/docker.sock` file is missing. If its missing, please reinstall Docker.
-
-**If none of this works and the `/var/run/docker.sock` exists:**
-
-- Give your user permissions to the `/var/run/docker.sock` file:
+ほとんどの場合、これで解決します。それでも解決しない場合は、以下を試してください。
 
 ```shell
 sudo chown $USER /var/run/docker.sock
 ```
 
-- Give your user permissions to the docker group:
+## 詳細
+
+Agno はコンテナの実行に [docker-py](https://github.com/docker/docker-py) を使用しており、`/var/run/docker.sock` が存在しないか、パーミッションが正しくない場合、Docker に接続できません。
+
+**修正するには、以下のコマンドを使用して `/var/run/docker.sock` ファイルを作成してください。**
+
+```shell
+sudo ln -s "$HOME/.docker/run/docker.sock" /var/run/docker.sock
+```
+
+それでも解決しない場合は、`ls -l /var/run/docker.sock` を使用してパーミッションを確認してください。
+
+`/var/run/docker.sock` が存在しない場合は、`$HOME/.docker/run/docker.sock` ファイルが存在するか確認してください。もし存在しない場合は、Docker を再インストールしてください。
+
+**上記の方法でも解決せず、`/var/run/docker.sock` が存在する場合:**
+
+- `/var/run/docker.sock` ファイルに対するユーザーのパーミッションを付与してください。
+
+```shell
+sudo chown $USER /var/run/docker.sock
+```
+
+- Docker グループに対するユーザーのパーミッションを付与してください。
 
 ```shell
 sudo usermod -a -G docker $USER
 ```
 
-## More info
+## 追加情報
 
 - [Docker-py Issue](https://github.com/docker/docker-py/issues/3059#issuecomment-1294369344)
 - [Stackoverflow answer](https://stackoverflow.com/questions/48568172/docker-sock-permission-denied/56592277#56592277)
-

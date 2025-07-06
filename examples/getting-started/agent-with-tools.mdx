@@ -2,16 +2,16 @@
 title: Agent with Tools
 ---
 
-This example shows how to create an AI news reporter agent that can search the web for real-time news and present them with a distinctive NYC personality. The agent combines web searching capabilities with engaging storytelling to deliver news in an entertaining way.
+この例では、AIニュースレポーターエージェントを作成する方法を示します。このエージェントは、リアルタイムのニュースを検索し、特徴的なNYCのペルソナでそれらを提示できます。エージェントは、ウェブ検索機能と魅力的なストーリーテリングを組み合わせて、ニュースを楽しい方法で配信します。
 
-Example prompts to try:
-- "What's the latest headline from Wall Street?"
-- "Tell me about any breaking news in Central Park"
-- "What's happening at Yankees Stadium today?"
-- "Give me updates on the newest Broadway shows"
-- "What's the buzz about the latest NYC restaurant opening?"
+試してみるプロンプトの例：
+- 「ウォール街からの最新の見出しは何ですか？」
+- 「セントラルパークでの速報について教えてください」
+- 「今日のヤンキースタジアムで何が起こっていますか？」
+- 「最新のブロードウェイショーに関するアップデートを教えてください」
+- 「NYCの最新レストランのオープニングに関する話題は何ですか？」
 
-## Code
+## コード
 
 ```python agent_with_tools.py
 from textwrap import dedent
@@ -20,66 +20,66 @@ from agno.agent import Agent
 from agno.models.openai import OpenAIChat
 from agno.tools.duckduckgo import DuckDuckGoTools
 
-# Create a News Reporter Agent with a fun personality
+# Funなペルソナを持つニュースレポーターエージェントを作成します
 agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
     instructions=dedent("""\
-        You are an enthusiastic news reporter with a flair for storytelling! 🗽
-        Think of yourself as a mix between a witty comedian and a sharp journalist.
+        あなたはストーリーテリングの才能を持つ、熱狂的なニュースレポーターです！ 🗽
+        機知に富んだコメディアンと鋭いジャーナリストのミックスと考えてください。
 
-        Follow these guidelines for every report:
-        1. Start with an attention-grabbing headline using relevant emoji
-        2. Use the search tool to find current, accurate information
-        3. Present news with authentic NYC enthusiasm and local flavor
-        4. Structure your reports in clear sections:
-        - Catchy headline
-        - Brief summary of the news
-        - Key details and quotes
-        - Local impact or context
-        5. Keep responses concise but informative (2-3 paragraphs max)
-        6. Include NYC-style commentary and local references
-        7. End with a signature sign-off phrase
+        すべてのレポートで次のガイドラインに従ってください：
+        1. 関連する絵文字を使用して、注意を引く見出しで開始します
+        2. 検索ツールを使用して、現在の正確な情報を検索します
+        3. 本物のNYCの熱意と地元の風味でニュースを提示します
+        4. レポートを明確なセクションに構成します：
+        - キャッチーな見出し
+        - ニュースの簡単な概要
+        - 主要な詳細と引用
+        - 地域への影響または文脈
+        5. 回答は簡潔かつ有益に保ちます（最大2〜3段落）
+        6. NYCスタイルの解説と地元の参照を含めます
+        7. シグネチャーの締めくくりのフレーズで終了します
 
-        Sign-off examples:
-        - 'Back to you in the studio, folks!'
-        - 'Reporting live from the city that never sleeps!'
-        - 'This is [Your Name], live from the heart of Manhattan!'
+        締めくくりの例：
+        - 「スタジオのみんなに返すよ！」
+        - 「眠らない街からライブでお伝えします！」
+        - 「マンハッタンの中心からライブでお伝えしているのは、[あなたの名前]です！」
 
-        Remember: Always verify facts through web searches and maintain that authentic NYC energy!\
+        覚えておいてください：常にウェブ検索で事実を確認し、本物のNYCのエネルギーを維持してください！\
     """),
     tools=[DuckDuckGoTools()],
     show_tool_calls=True,
     markdown=True,
 )
 
-# Example usage
+# 使用例
 agent.print_response(
-    "Tell me about a breaking news story happening in Times Square.", stream=True
+    "タイムズスクエアで起こっている速報について教えてください。", stream=True
 )
 
-# More example prompts to try:
+# 試してみるその他のプロンプト：
 """
-Try these engaging news queries:
-1. "What's the latest development in NYC's tech scene?"
-2. "Tell me about any upcoming events at Madison Square Garden"
-3. "What's the weather impact on NYC today?"
-4. "Any updates on the NYC subway system?"
-5. "What's the hottest food trend in Manhattan right now?"
+これらの魅力的なニュースクエリを試してください：
+1. 「NYCのテクノロジーシーンの最新の開発は何ですか？」
+2. 「マディソン・スクエア・ガーデンでの今後のイベントについて教えてください」
+3. 「今日のNYCへの天気の影響は何ですか？」
+4. 「NYCの地下鉄システムに関するアップデートはありますか？」
+5. 「現在、マンハッタンで最も人気のあるフードトレンドは何ですか？」
 """
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install libraries">
+  <Step title="ライブラリのインストール">
     ```bash
     pip install openai duckduckgo-search agno
     ```
   </Step>
 
-  <Step title="Run the agent">
+  <Step title="エージェントの実行">
     ```bash
     python agent_with_tools.py
     ```

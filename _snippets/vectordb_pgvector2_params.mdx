@@ -1,9 +1,9 @@
-| Parameter    | Type                             | Default           | Description                                                                            |
-| ------------ | -------------------------------- | ----------------- | -------------------------------------------------------------------------------------- |
-| `collection` | `str`                            | -                 | Name of the collection to store vector data                                            |
-| `schema`     | `Optional[str]`                  | `"ai"`            | Database schema name                                                                   |
-| `db_url`     | `Optional[str]`                  | `None`            | Database connection URL                                                                |
-| `db_engine`  | `Optional[Engine]`               | `None`            | SQLAlchemy database engine                                                             |
-| `embedder`   | `Optional[Embedder]`             | `None`            | Embedder instance for creating embeddings (defaults to OpenAIEmbedder if not provided) |
-| `distance`   | `Distance`                       | `Distance.cosine` | Distance metric for vector comparisons                                                 |
-| `index`      | `Optional[Union[Ivfflat, HNSW]]` | `HNSW()`          | Vector index configuration                                                             |
+| パラメータ    | タイプ                             | デフォルト           | 説明                                                                                             |
+| ------------ | -------------------------------- | ----------------- | ------------------------------------------------------------------------------------------------ |
+| `collection` | `str`                            | -                 | ベクトルデータを格納するコレクションの名前                                                                       |
+| `schema`     | `Optional[str]`                  | `"ai"`            | データベーススキーマ名                                                                                             |
+| `db_url`     | `Optional[str]`                  | `None`            | データベース接続URL                                                                                              |
+| `db_engine`  | `Optional[Engine]`               | `None`            | SQLAlchemyデータベースエンジン                                                                                       |
+| `embedder`   | `Optional[Embedder]`             | `None`            | エンベディング作成用のEmbedderインスタンス（提供されない場合はOpenAIEmbedderがデフォルト）                                                     |
+| `distance`   | `Distance`                       | `Distance.cosine` | ベクトル比較用の距離メトリック                                                                                     |
+| `index`      | `Optional[Union[Ivfflat, HNSW]]` | `HNSW()`          | ベクトルインデックスの設定                                                                                         |

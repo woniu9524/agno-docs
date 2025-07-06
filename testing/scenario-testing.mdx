@@ -1,12 +1,12 @@
 ---
-title: Scenario Testing
+title: シナリオテスト
 ---
 
-This example demonstrates how to use the [Scenario](https://github.com/langwatch/scenario) framework for agentic simulation-based testing. Scenario enables you to simulate conversations between agents, user simulators, and judges, making it easy to test and evaluate agent behaviors in a controlled environment.
+この例では、エージェントのシミュレーションベースのテストのために[Scenario](https://github.com/langwatch/scenario)フレームワークを使用する方法を説明します。Scenarioを使用すると、エージェント、ユーザーシミュレーター、およびジャッジ間の会話をシミュレートでき、制御された環境でエージェントの動作を簡単にテストおよび評価できます。
 
-> **Tip:** For a more advanced scenario testing example, check out the [customer support scenario](https://github.com/langwatch/create-agent-app/tree/main/agno_example) for a more complex agent, including tool calls and advanced scenario features.
+> **ヒント:** より高度なシナリオテストの例については、[カスタマーサポートシナリオ](https://github.com/langwatch/create-agent-app/tree/main/agno_example)を参照してください。こちらでは、ツール呼び出しや高度なシナリオ機能を含む、より複雑なエージェントについて説明しています。
 
-## Basic Scenario Testing
+## 基本的なシナリオテスト
 
 ```python cookbook/agent_concepts/other/scenario_testing.py
 import pytest
@@ -14,13 +14,13 @@ import scenario
 from agno.agent import Agent
 from agno.models.openai import OpenAIChat
 
-# Configure Scenario defaults (model for user simulator and judge)
+# Scenarioのデフォルトを設定します（ユーザーシミュレーターとジャッジのモデル）
 scenario.configure(default_model="openai/gpt-4.1-mini")
 
 @pytest.mark.agent_test
 @pytest.mark.asyncio
 async def test_vegetarian_recipe_agent() -> None:
-    # 1. Define an AgentAdapter to wrap your agent
+    # 1. エージェントをラップするためのAgentAdapterを定義します
     class VegetarianRecipeAgentAdapter(scenario.AgentAdapter):
         agent: Agent
 
@@ -29,62 +29,62 @@ async def test_vegetarian_recipe_agent() -> None:
                 model=OpenAIChat(id="gpt-4.1-mini"),
                 markdown=True,
                 debug_mode=True,
-                instructions="You are a vegetarian recipe agent.",
+                instructions="あなたはベジタリアンレシピのエージェントです。",
             )
 
         async def call(self, input: scenario.AgentInput) -> scenario.AgentReturnTypes:
             response = self.agent.run(
-                message=input.last_new_user_message_str(), # Pass only the last user message
-                session_id=input.thread_id, # Pass the thread id, this allows the agent to track history
+                message=input.last_new_user_message_str(), # 最後のユーザーメッセージのみを渡します
+                session_id=input.thread_id, # スレッドIDを渡します。これにより、エージェントは履歴を追跡できます
             )
             return response.content
 
-    # 2. Run the scenario simulation
+    # 2. シナリオシミュレーションを実行します
     result = await scenario.run(
-        name="dinner recipe request",
-        description="User is looking for a vegetarian dinner idea.",
+        name="ディナーレシピのリクエスト",
+        description="ユーザーはベジタリアンのディナーのアイデアを探しています。",
         agents=[
             VegetarianRecipeAgentAdapter(),
             scenario.UserSimulatorAgent(),
             scenario.JudgeAgent(
                 criteria=[
-                    "Agent should not ask more than two follow-up questions",
-                    "Agent should generate a recipe",
-                    "Recipe should include a list of ingredients",
-                    "Recipe should include step-by-step cooking instructions",
-                    "Recipe should be vegetarian and not include any sort of meat",
+                    "エージェントは2つ以上のフォローアップ質問をしないこと",
+                    "エージェントはレシピを生成すること",
+                    "レシピには材料リストが含まれていること",
+                    "レシピには段階的な調理手順が含まれていること",
+                    "レシピはベジタリアンであり、いかなる種類の肉も含まないこと",
                 ]
             ),
         ],
     )
 
-    # 3. Assert and inspect the result
+    # 3. 結果をアサートして検査します
     assert result.success
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="APIキーを設定する">
     ```bash
     export OPENAI_API_KEY=xxx
-    export LANGWATCH_API_KEY=xxx # Optional, required for Simulation monitoring
+    export LANGWATCH_API_KEY=xxx # オプション、シミュレーション監視に必要
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="ライブラリをインストールする">
     ```bash
     pip install -U openai agno langwatch-scenario pytest pytest-asyncio
-    # or
+    # または
     uv add agno langwatch-scenario openai pytest
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="エージェントを実行する">
     ```bash
     pytest cookbook/agent_concepts/other/scenario_testing.py
     ```
   </Step>
-</Steps> 
+</Steps>

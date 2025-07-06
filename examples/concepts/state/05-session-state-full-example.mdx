@@ -1,8 +1,8 @@
 ---
-title: State Management Across Multiple Runs
+title: 複数回の実行にわたる状態管理
 ---
-This example demonstrates how to build a stateful agent that can manage its state across multiple runs.
-## Code
+この例では、複数回の実行にわたって状態を管理できるステートフルなエージェントの構築方法を説明します。
+## コード
 
 ```python cookbook/agent_concepts/state/shopping_list.py
 from textwrap import dedent
@@ -11,97 +11,97 @@ from agno.agent import Agent
 from agno.models.openai import OpenAIChat
 
 
-# Define tools to manage our shopping list
+# 쇼핑 목록을 관리하는 도구 정의
 def add_item(agent: Agent, item: str) -> str:
-    """Add an item to the shopping list and return confirmation."""
-    # Add the item if it's not already in the list
+    """쇼핑 목록에 항목을 추가하고 확인 메시지를 반환합니다."""
+    # 항목이 이미 목록에 없으면 추가합니다.
     if item.lower() not in [i.lower() for i in agent.session_state["shopping_list"]]:
         agent.session_state["shopping_list"].append(item)
-        return f"Added '{item}' to the shopping list"
+        return f"'{item}'을(를) 쇼핑 목록에 추가했습니다."
     else:
-        return f"'{item}' is already in the shopping list"
+        return f"'{item}'은(는) 이미 쇼핑 목록에 있습니다."
 
 
 def remove_item(agent: Agent, item: str) -> str:
-    """Remove an item from the shopping list by name."""
-    # Case-insensitive search
+    """이름으로 쇼핑 목록에서 항목을 제거합니다."""
+    # 대소문자를 구분하지 않는 검색
     for i, list_item in enumerate(agent.session_state["shopping_list"]):
         if list_item.lower() == item.lower():
             agent.session_state["shopping_list"].pop(i)
-            return f"Removed '{list_item}' from the shopping list"
+            return f"'{list_item}'을(를) 쇼핑 목록에서 제거했습니다."
 
-    return f"'{item}' was not found in the shopping list"
+    return f"'{item}'을(를) 쇼핑 목록에서 찾을 수 없습니다."
 
 
 def list_items(agent: Agent) -> str:
-    """List all items in the shopping list."""
+    """쇼핑 목록의 모든 항목을 나열합니다."""
     shopping_list = agent.session_state["shopping_list"]
 
     if not shopping_list:
-        return "The shopping list is empty."
+        return "쇼핑 목록이 비어 있습니다."
 
     items_text = "\n".join([f"- {item}" for item in shopping_list])
-    return f"Current shopping list:\n{items_text}"
+    return f"현재 쇼핑 목록:\n{items_text}"
 
 
-# Create a Shopping List Manager Agent that maintains state
+# 상태를 유지하는 쇼핑 목록 관리자 에이전트 생성
 agent = Agent(
     model=OpenAIChat(id="gpt-4o-mini"),
-    # Initialize the session state with an empty shopping list
+    # 세션 상태를 빈 쇼핑 목록으로 초기화합니다.
     session_state={"shopping_list": []},
     tools=[add_item, remove_item, list_items],
-    # You can use variables from the session state in the instructions
+    # 세션 상태의 변수를 지침에 사용할 수 있습니다.
     instructions=dedent("""\
-        Your job is to manage a shopping list.
+        당신의 임무는 쇼핑 목록을 관리하는 것입니다.
 
-        The shopping list starts empty. You can add items, remove items by name, and list all items.
+        쇼핑 목록은 비어 있는 상태에서 시작합니다. 항목을 추가하거나, 이름으로 항목을 제거하거나, 모든 항목을 나열할 수 있습니다.
 
-        Current shopping list: {shopping_list}
+        현재 쇼핑 목록: {shopping_list}
     """),
     add_state_in_messages=True,
     markdown=True,
 )
 
-# Example usage
-agent.print_response("Add milk, eggs, and bread to the shopping list", stream=True)
-print(f"Session state: {agent.session_state}")
+# 사용 예시
+agent.print_response("우유, 계란, 빵을 쇼핑 목록에 추가해 줘", stream=True)
+print(f"세션 상태: {agent.session_state}")
 
-agent.print_response("I got bread", stream=True)
-print(f"Session state: {agent.session_state}")
+agent.print_response("빵을 샀어", stream=True)
+print(f"세션 상태: {agent.session_state}")
 
-agent.print_response("I need apples and oranges", stream=True)
-print(f"Session state: {agent.session_state}")
+agent.print_response("사과와 오렌지가 필요해", stream=True)
+print(f"세션 상태: {agent.session_state}")
 
-agent.print_response("whats on my list?", stream=True)
-print(f"Session state: {agent.session_state}")
+agent.print_response("내 목록에 뭐가 있지?", stream=True)
+print(f"세션 상태: {agent.session_state}")
 
 agent.print_response(
-    "Clear everything from my list and start over with just bananas and yogurt",
+    "내 목록에서 모든 것을 지우고 바나나와 요거트만으로 다시 시작해 줘",
     stream=True,
 )
-print(f"Session state: {agent.session_state}")
+print(f"세션 상태: {agent.session_state}")
 
 
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="APIキーを設定する">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="ライブラリをインストールする">
     ```bash
     pip install -U openai agno
     ```
   </Step>
 
-  <Step title="Run Example">
+  <Step title="例を実行する">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/state/shopping_list.py

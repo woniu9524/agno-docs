@@ -1,9 +1,9 @@
 ---
-title: Streaming User Input
-description: This example demonstrates how to implement streaming user input collection, allowing for real-time interaction and response streaming while gathering user information.
+title: ストリーミングユーザー入力
+description: この例では、ユーザー入力のストリーミング収集を実装する方法を示します。これにより、リアルタイムの対話と応答ストリーミングが可能になり、ユーザー情報を収集できます。
 ---
 
-## Code
+## コード
 
 ```python cookbook/agent_concepts/user_control_flows/user_input_required_stream.py
 from typing import List
@@ -17,12 +17,12 @@ from agno.utils import pprint
 @tool(requires_user_input=True, user_input_fields=["to_address"])
 def send_email(subject: str, body: str, to_address: str) -> str:
     """
-    Send an email.
+    メールを送信します。
 
     Args:
-        subject (str): The subject of the email.
-        body (str): The body of the email.
-        to_address (str): The address to send the email to.
+        subject (str): メールの件名。
+        body (str): メールの本文。
+        to_address (str): 送信先のメールアドレス。
     """
     return f"Sent email to {to_address} with subject {subject} and body {body}"
 
@@ -40,15 +40,15 @@ for run_response in agent.run(
             input_schema: List[UserInputField] = tool.user_input_schema
 
             for field in input_schema:
-                # Display field information to the user
+                # フィールド情報をユーザーに表示
                 print(f"\nField: {field.name}")
                 print(f"Description: {field.description}")
                 print(f"Type: {field.field_type}")
 
-                # Get user input
+                # ユーザー入力を取得
                 if field.value is None:
                     user_value = input(f"Please enter a value for {field.name}: ")
-                    # Update the field value
+                    # フィールド値を更新
                     field.value = user_value
                 else:
                     print(f"Value: {field.value}")
@@ -57,24 +57,24 @@ for run_response in agent.run(
     pprint.pprint_run_response(run_response)
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="APIキーを設定">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="ライブラリをインストール">
     ```bash
     pip install -U agno openai
     ```
   </Step>
 
-  <Step title="Run Example">
+  <Step title="例を実行">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/user_control_flows/user_input_required_stream.py
@@ -87,16 +87,16 @@ for run_response in agent.run(
   </Step>
 </Steps>
 
-## Key Features
+## 主な機能
 
-- Uses `agent.run(stream=True)` for streaming responses
-- Implements streaming continuation with `agent.continue_run(stream=True)`
-- Maintains real-time interaction with user input collection
-- Demonstrates how to handle streaming responses with user input
+- ストリーミング応答のために `agent.run(stream=True)` を使用します
+- `agent.continue_run(stream=True)` でストリーミング継続を実装します
+- ユーザー入力収集でリアルタイムの対話を維持します
+- ユーザー入力によるストリーミング応答の処理方法を示します
 
-## Use Cases
+## ユースケース
 
-- Real-time user interaction
-- Streaming applications requiring user input
-- Interactive form-like interfaces
-- Progressive response generation with user input 
+- リアルタイムユーザーインタラクション
+- ユーザー入力を必要とするストリーミングアプリケーション
+- 対話型フォームライクインターフェース
+- ユーザー入力による段階的な応答生成

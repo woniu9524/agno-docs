@@ -2,21 +2,21 @@
 title: DuckDb
 ---
 
-**DuckDbTools** enable an Agent to run SQL and analyze data using DuckDb.
+**DuckDbTools** を使用すると、Agent が SQL を実行し、DuckDb を使用してデータを分析できます。
 
-## Prerequisites
+## 前提条件
 
-The following example requires DuckDB library. To install DuckDB, run the following command:
+以下の例では DuckDB ライブラリが必要です。DuckDB をインストールするには、次のコマンドを実行します。
 
 ```shell
 pip install duckdb
 ```
 
-For more installation options, please refer to [DuckDB documentation](https://duckdb.org/docs/installation).
+その他のインストールオプションについては、[DuckDB ドキュメント](https://duckdb.org/docs/installation)を参照してください。
 
-## Example
+## 例
 
-The following agent will analyze the movies file using SQL and return the result.
+以下のエージェントは、SQL を使用して映画ファイルを分析し、結果を返します。
 
 ```python cookbook/tools/duckdb_tools.py
 from agno.agent import Agent
@@ -33,39 +33,39 @@ agent.print_response("What is the average rating of movies?", markdown=True, str
 
 ## Toolkit Params
 
-| Parameter          | Type                 | Default | Description                                                       |
-| ------------------ | -------------------- | ------- | ----------------------------------------------------------------- |
-| `db_path`          | `str`                | -       | Specifies the path to the database file.                          |
-| `connection`       | `DuckDBPyConnection` | -       | Provides an existing DuckDB connection object.                    |
-| `init_commands`    | `List`               | -       | A list of initial SQL commands to run on database connection.     |
-| `read_only`        | `bool`               | `False` | Configures the database connection to be read-only.               |
-| `config`           | `dict`               | -       | Configuration options for the database connection.                |
-| `run_queries`      | `bool`               | `True`  | Determines whether to run SQL queries during the operation.       |
-| `inspect_queries`  | `bool`               | `False` | Enables inspection of SQL queries without executing them.         |
-| `create_tables`    | `bool`               | `True`  | Allows creation of tables in the database during the operation.   |
-| `summarize_tables` | `bool`               | `True`  | Enables summarization of table data during the operation.         |
-| `export_tables`    | `bool`               | `False` | Allows exporting tables to external formats during the operation. |
+| パラメータ          | タイプ                 | デフォルト | 説明                                                              |
+| ------------------- | -------------------- | ------- | ----------------------------------------------------------------- |
+| `db_path`           | `str`                | -       | データベースファイルへのパスを指定します。                          |
+| `connection`        | `DuckDBPyConnection` | -       | 既存の DuckDB 接続オブジェクトを提供します。                      |
+| `init_commands`     | `List`               | -       | データベース接続で実行する初期 SQL コマンドのリスト。               |
+| `read_only`         | `bool`               | `False` | データベース接続を読み取り専用に設定します。                        |
+| `config`            | `dict`               | -       | データベース接続の構成オプション。                                |
+| `run_queries`       | `bool`               | `True`  | 操作中に SQL クエリを実行するかどうかを決定します。                   |
+| `inspect_queries`   | `bool`               | `False` | クエリを実行せずに SQL クエリの検査を有効にします。                 |
+| `create_tables`     | `bool`               | `True`  | 操作中にデータベースにテーブルを作成することを許可します。            |
+| `summarize_tables`  | `bool`               | `True`  | テーブルデータの要約を有効にします。                                |
+| `export_tables`     | `bool`               | `False` | 操作中にテーブルを外部形式にエクスポートすることを許可します。        |
 
 ## Toolkit Functions
 
-| Function                   | Description                                                                                                                                                                                                                                    |
-| -------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `show_tables`              | Function to show tables in the database                                                                                                                                                                                                        |
-| `describe_table`           | Function to describe a table                                                                                                                                                                                                                   |
-| `inspect_query`            | Function to inspect a query and return the query plan. Always inspect your query before running them.                                                                                                                                          |
-| `run_query`                | Function that runs a query and returns the result.                                                                                                                                                                                             |
-| `summarize_table`          | Function to compute a number of aggregates over a table. The function launches a query that computes a number of aggregates over all columns, including min, max, avg, std and approx_unique.                                                  |
-| `get_table_name_from_path` | Get the table name from a path                                                                                                                                                                                                                 |
-| `create_table_from_path`   | Creates a table from a path                                                                                                                                                                                                                    |
-| `export_table_to_path`     | Save a table in a desired format (default: parquet). If the path is provided, the table will be saved under that path. Eg: If path is /tmp, the table will be saved as /tmp/table.parquet. Otherwise it will be saved in the current directory |
-| `load_local_path_to_table` | Load a local file into duckdb                                                                                                                                                                                                                  |
-| `load_local_csv_to_table`  | Load a local CSV file into duckdb                                                                                                                                                                                                              |
-| `load_s3_path_to_table`    | Load a file from S3 into duckdb                                                                                                                                                                                                                |
-| `load_s3_csv_to_table`     | Load a CSV file from S3 into duckdb                                                                                                                                                                                                            |
-| `create_fts_index`         | Create a full text search index on a table                                                                                                                                                                                                     |
-| `full_text_search`         | Full text Search in a table column for a specific text/keyword                                                                                                                                                                                 |
+| 関数                   | 説明                                                                                                                                                                                                                                   |
+| ---------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `show_tables`          | データベース内のテーブルを表示する関数                                                                                                                                                                                                   |
+| `describe_table`       | テーブルを記述する関数                                                                                                                                                                                                                 |
+| `inspect_query`        | クエリを検査し、クエリプランを返す関数。実行前に必ずクエリを検査してください。                                                                                                                                                           |
+| `run_query`            | クエリを実行し、結果を返す関数。                                                                                                                                                                                                       |
+| `summarize_table`      | テーブルに対して多数の集計を計算する関数。この関数は、min、max、avg、std、approx_unique を含む多数の集計をすべての列に対して計算するクエリを起動します。                                                                                             |
+| `get_table_name_from_path` | パスからテーブル名を取得します                                                                                                                                                                                                           |
+| `create_table_from_path`   | パスからテーブルを作成します                                                                                                                                                                                                           |
+| `export_table_to_path`     | テーブルを指定された形式（デフォルト：parquet）で保存します。パスが指定されている場合、テーブルはそのパスの下に保存されます。例：パスが /tmp の場合、テーブルは /tmp/table.parquet として保存されます。指定しない場合は、現在のディレクトリに保存されます。 |
+| `load_local_path_to_table` | ローカルファイルを duckdb にロードします                                                                                                                                                                                                 |
+| `load_local_csv_to_table`  | ローカル CSV ファイルを duckdb にロードします                                                                                                                                                                                            |
+| `load_s3_path_to_table`    | S3 からファイルを duckdb にロードします                                                                                                                                                                                                  |
+| `load_s3_csv_to_table`     | S3 から CSV ファイルを duckdb にロードします                                                                                                                                                                                             |
+| `create_fts_index`         | テーブルに全文検索インデックスを作成します                                                                                                                                                                                             |
+| `full_text_search`         | テーブルの列で特定のテキスト/キーワードに対する全文検索を実行します                                                                                                                                                                      |
 
 ## Developer Resources
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/duckdb.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/duckdb_tools.py)
+- [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/duckdb.py) を表示
+- [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/duckdb_tools.py) を表示

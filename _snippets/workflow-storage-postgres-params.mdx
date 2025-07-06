@@ -1,8 +1,8 @@
-| Parameter            | Type               | Default | Description                                                |
+| パラメータ            | タイプ               | デフォルト | 説明                                                       |
 | ------------------- | ------------------ | ------- | ---------------------------------------------------------- |
-| `table_name`        | `str`              | -       | The name of the table to store Workflow sessions.          |
-| `schema`            | `Optional[str]`    | `"ai"`  | The schema to use for the table.                          |
-| `db_url`            | `Optional[str]`    | `None`  | The database URL to connect to.                           |
-| `db_engine`         | `Optional[Engine]` | `None`  | The SQLAlchemy database engine to use.                    |
-| `schema_version`    | `int`              | `1`     | Version of the schema.                                    |
-| `auto_upgrade_schema` | `bool`           | `False` | Whether to automatically upgrade the schema.               |
+| `table_name`        | `str`              | -       | Workflow セッションを格納するテーブル名。                  |
+| `schema`            | `Optional[str]`    | `"ai"`  | テーブルに使用するスキーマ。                               |
+| `db_url`            | `Optional[str]`    | `None`  | 接続するデータベースの URL。                               |
+| `db_engine`         | `Optional[Engine]` | `None`  | 使用する SQLAlchemy データベースエンジン。                   |
+| `schema_version`    | `int`              | `1`     | スキーマのバージョン。                                     |
+| `auto_upgrade_schema` | `bool`           | `False` | スキーマを自動的にアップグレードするかどうか。             |

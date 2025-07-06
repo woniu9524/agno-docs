@@ -2,16 +2,16 @@
 title: Tool Result Caching
 ---
 
-Tool result caching is designed to avoid unnecessary recomputation by storing the results of function calls on disk. 
-This is useful during development and testing to speed up the development process, avoid rate limiting, and reduce costs.
+Tool result caching は、関数呼び出しの結果をディスクに保存することで、不要な再計算を回避するように設計されています。
+これは、開発プロセスを高速化し、レート制限を回避し、コストを削減するために、開発およびテスト中に役立ちます。
 
-This is supported for all Agno Toolkits
+これは、すべての Agno Toolkits でサポートされています。
 
-## Example
+## 例
 
-Pass `cache_results=True` to the Toolkit constructor to enable caching for that Toolkit.
+その Toolkit のキャッシュを有効にするには、`cache_results=True` を Toolkit コンストラクタに渡します。
 
-```python cache_tool_calls.py
+```cache_tool_calls.py
 import asyncio
 
 from agno.agent import Agent
@@ -31,4 +31,3 @@ asyncio.run(
         markdown=True,
     )
 )
-```

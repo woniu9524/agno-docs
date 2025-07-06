@@ -1,15 +1,15 @@
 ---
-title: Redis Team Storage
+title: Redis チームストレージ
 sidebarTitle: Redis
 ---
 
-Agno supports using Redis as a storage backend for Teams using the `RedisStorage` class.
+Agno は、`RedisStorage` クラスを使用してチームのストレージバックエンドとして Redis をサポートしています。
 
-## Usage
+## 使用方法
 
-### Run Redis
+### Redis の実行
 
-Install [docker desktop](https://docs.docker.com/desktop/install/mac-install/) and run **Redis** on port **6379** using:
+[docker desktop](https://docs.docker.com/desktop/install/mac-install/) をインストールし、以下のコマンドでポート **6379** で **Redis** を実行します。
 
 ```bash
 docker run --name my-redis -p 6379:6379 -d redis
@@ -17,7 +17,7 @@ docker run --name my-redis -p 6379:6379 -d redis
 
 ```python redis_storage_for_team.py
 """
-Run: `pip install openai duckduckgo-search newspaper4k lxml_html_clean agno redis` to install the dependencies
+実行: `pip install openai duckduckgo-search newspaper4k lxml_html_clean agno redis` で依存関係をインストールします
 """
 
 from typing import List
@@ -30,13 +30,13 @@ from agno.tools.duckduckgo import DuckDuckGoTools
 from agno.tools.hackernews import HackerNewsTools
 from pydantic import BaseModel
 
-# Initialize Redis storage with default local connection
+# デフォルトのローカル接続で Redis ストレージを初期化します
 storage = RedisStorage(
-    # Prefix for Redis keys to namespace the sessions
+    # セッションの名前空間を設定するための Redis キーのプレフィックス
     prefix="agno_test",
-    # Redis host address
+    # Redis ホストアドレス
     host="localhost",
-    # Redis port number
+    # Redis ポート番号
     port=6379,
 )
 
@@ -84,10 +84,10 @@ hn_team = Team(
 hn_team.print_response("Write an article about the top 2 stories on hackernews")
 ```
 
-## Params
+## パラメータ
 
 <Snippet file="storage-redis-params.mdx" />
 
-## Developer Resources
+## 開発者向けリソース
 
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/storage/redis_storage/redis_storage_for_team.py)
+- [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/storage/redis_storage/redis_storage_for_team.py) を表示

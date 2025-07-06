@@ -1,17 +1,17 @@
 ---
 title: Discord Bot
-description: Host agents as Discord Bots.
+description: Discord Bot としてエージェントをホストします。
 ---
 
-The Discord Bot integration allows you to serve Agents or Teams via Discord, using the discord.py library to handle Discord events and send messages.
+Discord Bot インテグレーションを使用すると、discord.py ライブラリを使用して Discord イベントを処理し、メッセージを送信することで、Discord 経由でエージェントまたはチームを提供できます。
 
-## Setup Steps
+## セットアップ手順
 
 <Snippet file="setup-discord-app.mdx" />
 
-### Example Usage
+### 使用例
 
-Create an agent, wrap it with `DiscordClient`, and run it:
+エージェントを作成し、`DiscordClient` でラップして実行します。
 
 ```python
 from agno.agent import Agent
@@ -20,7 +20,7 @@ from agno.models.openai import OpenAIChat
 
 basic_agent = Agent(
     name="Basic Agent",
-    model=OpenAIChat(id="gpt-4o"), 
+    model=OpenAIChat(id="gpt-4o"),
     add_history_to_messages=True,
     num_history_responses=3,
     add_datetime_to_instructions=True,
@@ -31,87 +31,86 @@ if __name__ == "__main__":
     discord_agent.serve()
 ```
 
-## Core Components
+## コアコンポーネント
 
-- `DiscordClient`: Wraps Agno agents/teams for Discord integration using discord.py.
-- `DiscordClient.serve`: Starts the Discord bot client with the provided token.
+- `DiscordClient`: discord.py を使用して Agno エージェント/チームを Discord インテグレーション用にラップします。
+- `DiscordClient.serve`: 指定されたトークンで Discord ボットクライアントを開始します。
 
-## `DiscordClient` Class
+## `DiscordClient` クラス
 
-Main entry point for Agno Discord bot applications.
+Agno Discord ボットアプリケーションのエントリポイントです。
 
-### Initialization Parameters
+### 初期化パラメータ
 
-| Parameter | Type              | Default | Description                           |
-| --------- | ----------------- | ------- | ------------------------------------- |
-| `agent`   | `Optional[Agent]` | `None`  | Agno `Agent` instance.                |
-| `team`    | `Optional[Team]`  | `None`  | Agno `Team` instance.                 |
+| パラメータ | タイプ              | デフォルト | 説明                                   |
+| --------- | ----------------- | ------- | -------------------------------------- |
+| `agent`   | `Optional[Agent]` | `None`  | Agno `Agent` インスタンス。              |
+| `team`    | `Optional[Team]`  | `None`  | Agno `Team` インスタンス。               |
 
-*Provide `agent` or `team`, not both.*
+*`agent` または `team` のいずれか一方を指定してください。両方を指定しないでください。*
 
-## Event Handling
+## イベント処理
 
-The Discord bot automatically handles various Discord events:
+Discord ボットは、さまざまな Discord イベントを自動的に処理します。
 
-### Message Events
-- **Description**: Processes all incoming messages from users
-- **Media Support**: Handles images, videos, audio files, and documents
-- **Threading**: Automatically creates threads for conversations
-- **Features**:
-  - Automatic thread creation for each conversation
-  - Media processing and forwarding to agents
-  - Message splitting for responses longer than 1500 characters
-  - Support for reasoning content display
-  - Context enrichment with username and message URL
+### メッセージイベント
+- **説明**: ユーザーからのすべての受信メッセージを処理します。
+- **メディアサポート**: 画像、ビデオ、音声ファイル、ドキュメントを処理します。
+- **スレッディング**: 会話のために自動的にスレッドを作成します。
+- **機能**:
+  - 各会話のための自動スレッド作成
+  - メディアの処理とエージェントへの転送
+  - 1500 文字を超える応答のためのメッセージ分割
+  - 推論コンテンツの表示のサポート
+  - ユーザー名とメッセージ URL を使用したコンテキストの強化
 
-### Supported Media Types
-- **Images**: Direct URL processing for image analysis
-- **Videos**: Downloads and processes video content
-- **Audio**: URL-based audio processing
-- **Files**: Downloads and processes document attachments
+### サポートされているメディアタイプ
+- **画像**: 画像分析のために直接 URL を処理します。
+- **ビデオ**: ビデオコンテンツをダウンロードして処理します。
+- **音声**: URL ベースの音声処理を行います。
+- **ファイル**: ドキュメント添付ファイルをダウンロードして処理します。
 
-## Environment Variables
+## 環境変数
 
-Ensure the following environment variable is set:
+以下の環境変数を設定してください。
 
 ```bash
 export DISCORD_BOT_TOKEN="your-discord-bot-token"
 ```
 
-## Message Processing
+## メッセージ処理
 
-The bot processes messages with the following workflow:
+ボットは以下のワークフローでメッセージを処理します。
 
-1. **Message Reception**: Receives messages from Discord channels
-2. **Media Processing**: Downloads and processes any attached media
-3. **Thread Management**: Creates or uses existing threads for conversations
-4. **Agent/Team Execution**: Forwards the message and media to the configured agent or team
-5. **Response Handling**: Sends the response back to Discord, splitting long messages if necessary
-6. **Reasoning Display**: Shows reasoning content in italics if available
+1. **メッセージ受信**: Discord チャネルからメッセージを受信します。
+2. **メディア処理**: 添付されたメディアをダウンロードして処理します。
+3. **スレッド管理**: 会話のためにスレッドを作成または既存のスレッドを使用します。
+4. **エージェント/チーム実行**: 設定されたエージェントまたはチームにメッセージとメディアを転送します。
+5. **応答処理**: 必要に応じて長いメッセージを分割して、応答を Discord に送信します。
+6. **推論表示**: 利用可能な場合は、推論コンテンツをイタリック体で表示します。
 
-## Features
+## 機能
 
-### Automatic Thread Creation
-- Creates a new thread for each user's first message
-- Maintains conversation context within threads
-- Uses the format: `{username}'s thread`
+### 自動スレッド作成
+- ユーザーの最初のメッセージごとに新しいスレッドを作成します。
+- スレッド内で会話コンテキストを維持します。
+- フォーマット: `{username}'s thread` を使用します。
 
-### Media Support
-- **Images**: Passed as `Image` objects with URLs
-- **Videos**: Downloaded and passed as `Video` objects with content
-- **Audio**: Passed as `Audio` objects with URLs  
-- **Files**: Downloaded and passed as `File` objects with content
+### メディアサポート
+- **画像**: URL を持つ `Image` オブジェクトとして渡されます。
+- **ビデオ**: コンテンツを持つ `Video` オブジェクトとしてダウンロードされ、渡されます。
+- **音声**: URL を持つ `Audio` オブジェクトとして渡されます。
+- **ファイル**: コンテンツを持つ `File` オブジェクトとしてダウンロードされ、渡されます。
 
-### Message Formatting
-- Long messages (>1500 characters) are automatically split
-- Reasoning content is displayed in italics
-- Batch numbering for split messages: `[1/3] message content`
+### メッセージフォーマット
+- 長いメッセージ (>1500 文字) は自動的に分割されます。
+- 推論コンテンツはイタリック体で表示されます。
+- 分割メッセージのバッチ番号: `[1/3] message content`
 
-## Testing the Integration
+## インテグレーションのテスト
 
-1. Set up your Discord bot token: `export DISCORD_BOT_TOKEN="your-token"`
-2. Run your application: `python your_discord_bot.py`
-3. Invite the bot to your Discord server
-4. Send a message in any channel where the bot has access
-5. The bot will automatically create a thread and respond
-
+1. Discord ボットトークンを設定します: `export DISCORD_BOT_TOKEN="your-token"`
+2. アプリケーションを実行します: `python your_discord_bot.py`
+3. ボットを Discord サーバーに招待します。
+4. ボットがアクセスできる任意のチャネルにメッセージを送信します。
+5. ボットは自動的にスレッドを作成して応答します。

@@ -1,11 +1,11 @@
 ---
 title: vLLM
 ---
-[vLLM](https://docs.vllm.ai/en/latest/) is a fast and easy-to-use library for LLM inference and serving, designed for high-throughput and memory-efficient LLM serving. 
+[vLLM](https://docs.vllm.ai/en/latest/) は、スループットが高くメモリ効率の良いLLMサービングのために設計された、高速で使いやすいLLM推論およびサービングライブラリです。
 
-## Prerequisites
+## 前提条件
 
-Install vLLM and start serving a model:
+vLLM をインストールしてモデルのサービングを開始します。
 
 ```bash install vLLM
 pip install vllm
@@ -20,15 +20,15 @@ vllm serve Qwen/Qwen2.5-7B-Instruct \
     --gpu-memory-utilization 0.9
 ```
 
-This spins up the vLLM server with an OpenAI-compatible API.
+これにより、OpenAI 互換 API を持つ vLLM サーバーが起動します。
 
 <Note>
-  The default vLLM server URL is `http://localhost:8000/`
+  デフォルトの vLLM サーバー URL は `http://localhost:8000/` です。
 </Note>
 
-## Example  
+## 例
 
-Basic Agent
+基本的なエージェント
 <CodeGroup>
 
 ```python agent.py
@@ -37,7 +37,7 @@ from agno.models.vllm import vLLM
 
 agent = Agent(
     model=vLLM(
-        id="meta-llama/Llama-3.1-8B-Instruct", 
+        id="meta-llama/Llama-3.1-8B-Instruct",
         base_url="http://localhost:8000/",
     ),
     markdown=True
@@ -48,11 +48,11 @@ agent.print_response("Share a 2 sentence horror story.")
 
 </CodeGroup>
 
-## Advanced Usage
+## 高度な使用方法
 
-### With Tools
+### ツールとの連携
 
-vLLM models work seamlessly with Agno tools:
+vLLM モデルは、Agno ツールとシームレスに連携します。
 
 ```python with_tools.py
 from agno.agent import Agent
@@ -69,12 +69,12 @@ agent = Agent(
 agent.print_response("What's the latest news about AI?")
 ```
 
-<Note> View more examples [here](../examples/models/vllm). </Note>
+<Note> その他の例は [こちら](../examples/models/vllm) を参照してください。 </Note>
 
-For the full list of supported models, see the [vLLM documentation](https://docs.vllm.ai/en/latest/models/supported_models.html).
+サポートされているモデルの全リストについては、[vLLM ドキュメント](https://docs.vllm.ai/en/latest/models/supported_models.html) を参照してください。
 
-## Params
+## パラメータ
 
 <Snippet file="model-vllm-params.mdx" />
 
-`vLLM` is a subclass of the [Model](/reference/models/model) class and has access to the same params.
+`vLLM` は [Model](/reference/models/model) クラスのサブクラスであり、同じパラメータにアクセスできます。

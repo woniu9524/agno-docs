@@ -1,20 +1,18 @@
+## クイックスタート
 
-## Quickstart
+以下の手順に従って、Agent API を起動してください。
 
-Follow these steps to get your Agent API up and running:
-
-**Prerequisites**: Docker Desktop should be installed and running.
-
+**前提条件**: Docker Desktop がインストールされ、実行されている必要があります。
 
 <Steps>
-  <Step title="Clone the repo">
-    ```bash 
+  <Step title="リポジトリをクローンする">
+    ```bash
     git clone https://github.com/agno-agi/agent-api.git
     cd agent-api
     ```
   </Step>
 
-  <Step title="Export your OpenAI key">
+  <Step title="OpenAI キーをエクスポートする">
 
     <CodeGroup>
     ```bash Mac
@@ -28,30 +26,30 @@ Follow these steps to get your Agent API up and running:
 
   </Step>
 
-  <Step title="Start the application">
+  <Step title="アプリケーションを起動する">
     ```bash
     docker compose up -d
     ```
   </Step>
 
-  <Step title="Test the application">
+  <Step title="アプリケーションをテストする">
 
-  This command starts:
-  
-  - The FastAPI server, running on [`localhost:8000`](http://localhost:8000).
-  - The PostgreSQL database, accessible on `localhost:5432`.
-  
-  Once started, you can:
-  
-  - Test the API at [localhost:8000/docs](http://localhost:8000/docs).
-  - Connect to Agno Playground or Agent UI:
-      - Open the Agno Playground [app.agno.com/playground/agents](https://app.agno.com/playground/agents).
-      - Add `http://localhost:8000` as a new endpoint. You can name it `Agent API` (or any name you prefer).
-      - Select your newly added endpoint and start chatting with your Agents.
+  このコマンドは以下を起動します:
+
+  - FastAPI サーバー (`localhost:8000` で実行されます)。
+  - PostgreSQL データベース (`localhost:5432` からアクセス可能です)。
+
+  起動後、以下のことができます:
+
+  - API を `localhost:8000/docs` でテストする。
+  - Agno Playground または Agent UI に接続する:
+      - Agno Playground を開く: [app.agno.com/playground/agents](https://app.agno.com/playground/agents)。
+      - 新しいエンドポイントとして `http://localhost:8000` を追加します。名前は `Agent API` (または任意の名前) にできます。
+      - 新しく追加したエンドポイントを選択し、エージェントとのチャットを開始します。
 
   </Step>
 
-  <Step title="Stop the application">  
+  <Step title="アプリケーションを停止する">
     ```bash
     docker compose down
     ```

@@ -1,15 +1,15 @@
-| Parameter             | Type                   | Default | Description                                                             |
+| パラメータ             | タイプ                   | デフォルト | 説明                                                                    |
 | --------------------- | ---------------------- | ------- | ----------------------------------------------------------------------- |
-| `table_name`          | `str`                  | -       | The name of the table to use.                                           |
-| `schema`              | `str`                  | -       | The schema to use.                                                      |
-| `db_url`              | `str`                  | -       | The database URL to connect to.                                         |
-| `db_engine`           | `Engine`               | -       | The database engine to use.                                             |
-| `embedder`            | `Embedder`             | -       | The embedder to use.                                                    |
-| `search_type`         | `SearchType`           | vector  | The search type to use.                                                 |
-| `vector_index`        | `Union[Ivfflat, HNSW]` | -       | The vector index to use.                                                |
-| `distance`            | `Distance`             | cosine  | The distance to use.                                                    |
-| `prefix_match`        | `bool`                 | -       | Whether to use prefix matching.                                         |
-| `vector_score_weight` | `float`                | 0.5     | Weight for vector similarity in hybrid search. Must be between 0 and 1. |
-| `content_language`    | `str`                  | -       | The content language to use.                                            |
-| `schema_version`      | `int`                  | -       | The schema version to use.                                              |
-| `auto_upgrade_schema` | `bool`                 | -       | Whether to auto upgrade the schema.                                     |
+| `table_name`          | `str`                  | -       | 使用するテーブルの名前。                                                |
+| `schema`              | `str`                  | -       | 使用するスキーマ。                                                      |
+| `db_url`              | `str`                  | -       | 接続するデータベースのURL。                                             |
+| `db_engine`           | `Engine`               | -       | 使用するデータベースエンジン。                                          |
+| `embedder`            | `Embedder`             | -       | 使用するエンベッダー。                                                  |
+| `search_type`         | `SearchType`           | vector  | 使用する検索タイプ。                                                    |
+| `vector_index`        | `Union[Ivfflat, HNSW]` | -       | 使用するベクトルインデックス。                                          |
+| `distance`            | `Distance`             | cosine  | 使用する距離。                                                          |
+| `prefix_match`        | `bool`                 | -       | プレフィックスマッチを使用するかどうか。                                |
+| `vector_score_weight` | `float`                | 0.5     | ハイブリッド検索におけるベクトル類似性の重み。0から1の間でなければなりません。 |
+| `content_language`    | `str`                  | -       | 使用するコンテンツの言語。                                              |
+| `schema_version`      | `int`                  | -       | 使用するスキーマバージョン。                                            |
+| `auto_upgrade_schema` | `bool`                 | -       | スキーマを自動アップグレードするかどうか。                              |

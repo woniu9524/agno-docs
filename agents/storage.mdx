@@ -1,22 +1,22 @@
 ---
-title: Session Storage
+title: セッションストレージ
 ---
 
-Use **Session Storage** to persist Agent sessions and state to a database or file.
+**セッションストレージ**を使用して、エージェントのセッションと状態をデータベースまたはファイルに永続化します。
 
 <Tip>
-**Why do we need Session Storage?**
+**なぜセッションストレージが必要なのか？**
 
-Agents are ephemeral and the built-in memory only lasts for the current execution cycle.
+エージェントは一時的なものであり、組み込みメモリは現在の実行サイクルでのみ持続します。
 
-In production environments, we serve (or trigger) Agents via an API and need to continue the same session across multiple requests. Storage persists the session history and state in a database and allows us to pick up where we left off.
+本番環境では、API経由でエージェントを提供（またはトリガー）し、複数のリクエスト間で同じセッションを継続する必要があります。ストレージは、セッション履歴と状態をデータベースに永続化し、中断したところから再開できるようにします。
 
-Storage also let's us inspect and evaluate Agent sessions, extract few-shot examples and build internal monitoring tools. It lets us **look at the data** which helps us build better Agents.
+ストレージを使用すると、エージェントセッションを検査および評価し、few-shotの例を抽出し、内部監視ツールを構築することもできます。これにより、**データを参照する**ことができ、より良いエージェントを構築するのに役立ちます。
 </Tip>
 
-Adding storage to an Agent, Team or Workflow is as simple as providing a `Storage` driver and Agno handles the rest. You can use Sqlite, Postgres, Mongo or any other database you want.
+Agent、Team、またはWorkflowにストレージを追加することは、`Storage`ドライバーを提供するのと同じくらい簡単です。Agnoが残りを処理します。Sqlite、Postgres、Mongo、またはその他の任意のデータベースを使用できます。
 
-Here's a simple example that demostrates persistence across execution cycles:
+実行サイクル間で永続化を示す簡単な例を次に示します。
 
 ```python storage.py
 from agno.agent import Agent
@@ -26,46 +26,46 @@ from rich.pretty import pprint
 
 agent = Agent(
     model=OpenAIChat(id="gpt-4o-mini"),
-    # Fix the session id to continue the same session across execution cycles
+    # 実行サイクル間で同じセッションを継続するためにセッションIDを固定します
     session_id="fixed_id_for_demo",
     storage=SqliteStorage(table_name="agent_sessions", db_file="tmp/data.db"),
     add_history_to_messages=True,
     num_history_runs=3,
 )
-agent.print_response("What was my last question?")
-agent.print_response("What is the capital of France?")
-agent.print_response("What was my last question?")
+agent.print_response("私の最後の質問は何でしたか？")
+agent.print_response("フランスの首都はどこですか？")
+agent.print_response("私の最後の質問は何でしたか？")
 pprint(agent.get_messages_for_session())
 ```
 
-The first time you run this, the answer to "What was my last question?" will not be available. But run it again and the Agent will able to answer properly. Because we have fixed the session id, the Agent will continue from the same session every time you run the script.
+これを最初に実行したとき、「私の最後の質問は何でしたか？」という質問への回答は利用できません。しかし、もう一度実行すると、エージェントは適切に回答できるようになります。セッションIDを固定したため、スクリプトを実行するたびにエージェントは同じセッションから再開します。
 
-## Benefits of Storage
+## ストレージのメリット
 
-Storage has typically been an under-discussed part of Agent Engineering -- but we see it as the unsung hero of production agentic applications.
+ストレージは通常、エージェントエンジニアリングにおいてあまり議論されない部分ですが、本番環境のエージェントアプリケーションの「縁の下の力持ち」であると私たちは考えています。
 
-In production, you need storage to:
+本番環境では、ストレージは以下に必要です。
 
-- Continue sessions: retrieve sessions history and pick up where you left off.
-- Get list of sessions: To continue a previous session, you need to maintain a list of sessions available for that agent.
-- Save state between runs: save the Agent's state to a database or file so you can inspect it later.
+- セッションの継続：セッション履歴を取得し、中断したところから再開します。
+- セッションリストの取得：以前のセッションを継続するには、そのエージェントで利用可能なセッションのリストを維持する必要があります。
+- 実行間の状態の保存：エージェントの状態をデータベースまたはファイルに保存して、後で検査できるようにします。
 
-But there is so much more:
+しかし、それだけではありません。
 
-- Storage saves our Agent's session data for inspection and evaluations.
-- Storage helps us extract few-shot examples, which can be used to improve the Agent.
-- Storage enables us to build internal monitoring tools and dashboards.
+- ストレージは、エージェントのセッションデータを検査および評価のために保存します。
+- ストレージは、エージェントの改善に使用できるfew-shotの例を抽出するのに役立ちます。
+- ストレージにより、内部監視ツールやダッシュボードを構築できます。
 
 <Warning>
-Storage is such a critical part of your Agentic infrastructure that it should never be offloaded to a third party. You should almost always use your own storage layer for your Agents.
+ストレージはエージェントインフラストラクチャの非常に重要な部分であるため、サードパーティにオフロードすることは決してありません。エージェントには、ほぼ常に独自のストレージレイヤーを使用する必要があります。
 </Warning>
 
-## Example: Use Postgres for storage
+## 例：Postgresをストレージとして使用する
 
 <Steps>
-  <Step title="Run Postgres">
+  <Step title="Postgresの実行">
 
-    Install [docker desktop](https://docs.docker.com/desktop/install/mac-install/) and run **Postgres** on port **5532** using:
+    [Docker Desktop](https://docs.docker.com/desktop/install/mac-install/)をインストールし、次のコマンドを使用してポート**5532**で**Postgres**を実行します。
 
     ```bash
     docker run -d \
@@ -80,8 +80,8 @@ Storage is such a critical part of your Agentic infrastructure that it should ne
     ```
 
   </Step>
-  <Step title="Create an Agent with Storage">
-    Create a file `agent_with_storage.py` with the following contents
+  <Step title="ストレージを持つエージェントの作成">
+    `agent_with_storage.py`という名前のファイルを作成し、以下の内容を記述します。
 
     ```python
     import typer
@@ -111,37 +111,37 @@ Storage is such a critical part of your Agentic infrastructure that it should ne
             user_id=user,
             knowledge=knowledge_base,
             storage=storage,
-            # Show tool calls in the response
+            # レスポンスでツール呼び出しを表示する
             show_tool_calls=True,
-            # Enable the agent to read the chat history
+            # エージェントがチャット履歴を読み取れるようにする
             read_chat_history=True,
-            # We can also automatically add the chat history to the messages sent to the model
-            # But giving the model the chat history is not always useful, so we give it a tool instead
-            # to only use when needed.
+            # チャット履歴をモデルに送信されるメッセージに自動的に追加することもできます
+            # ただし、モデルにチャット履歴を与えることが常に役立つとは限らないため、ツールとして提供します
+            # 必要に応じてのみ使用します
             # add_history_to_messages=True,
-            # Number of historical responses to add to the messages.
+            # メッセージに追加する履歴応答の数。
             # num_history_responses=3,
         )
         if session_id is None:
             session_id = agent.session_id
-            print(f"Started Session: {session_id}\n")
+            print(f"開始セッション: {session_id}\n")
         else:
-            print(f"Continuing Session: {session_id}\n")
+            print(f"継続セッション: {session_id}\n")
 
-        # Runs the agent as a cli app
+        # エージェントをCLIアプリとして実行します
         agent.cli_app(markdown=True)
 
 
     if __name__ == "__main__":
-        # Load the knowledge base: Comment after first run
+        # ナレッジベースをロードします: 初回実行後にコメントアウトしてください
         knowledge_base.load(upsert=True)
 
         typer.run(pdf_agent)
     ```
 
   </Step>
-  <Step title="Run the agent">
-    Install libraries
+  <Step title="エージェントの実行">
+    ライブラリをインストールします
 
     <CodeGroup>
 
@@ -155,27 +155,27 @@ Storage is such a critical part of your Agentic infrastructure that it should ne
 
     </CodeGroup>
 
-    Run the agent
+    エージェントを実行します
 
     ```bash
     python agent_with_storage.py
     ```
 
-    Now the agent continues across sessions. Ask a question:
+    これでエージェントはセッション間で継続されます。質問をしてください。
 
     ```
-    How do I make pad thai?
+    パッタイの作り方を教えてください？
     ```
 
-    Then message `bye` to exit, start the app again and ask:
+    その後、`bye`とメッセージして終了し、アプリを再度起動して次のように質問してください。
 
     ```
-    What was my last message?
+    私の最後のメッセージは何でしたか？
     ```
 
   </Step>
-  <Step title="Start a new run">
-    Run the `agent_with_storage.py` file with the `--new` flag to start a new run.
+  <Step title="新しい実行の開始">
+    新しい実行を開始するには、`agent_with_storage.py`ファイルを`--new`フラグと共に実行します。
 
     ```bash
     python agent_with_storage.py --new
@@ -184,25 +184,25 @@ Storage is such a critical part of your Agentic infrastructure that it should ne
   </Step>
 </Steps>
 
-## Schema Upgrades
+## スキーマのアップグレード
 
-When using `AgentStorage`, the SQL-based storage classes have fixed schemas. As new Agno features are released, the schemas might need to be updated.
+`AgentStorage`を使用する場合、SQLベースのストレージクラスには固定スキーマがあります。新しいAgno機能がリリースされると、スキーマを更新する必要がある場合があります。
 
-Upgrades can either be done manually or automatically.
+アップグレードは手動または自動で行うことができます。
 
-### Automatic Upgrades
+### 自動アップグレード
 
-Automatic upgrades are done when the `auto_upgrade_schema` parameter is set to `True` in the storage class constructor.
-You only need to set this once for an agent run and the schema would be upgraded.
+自動アップグレードは、ストレージクラスコンストラクタで`auto_upgrade_schema`パラメータが`True`に設定されている場合に行われます。
+エージェント実行に対してこの設定を一度行うだけで、スキーマがアップグレードされます。
 
 ```python
 db_url = "postgresql+psycopg://ai:ai@localhost:5532/ai"
 storage = PostgresStorage(table_name="agent_sessions", db_url=db_url, auto_upgrade_schema=True)
 ```
 
-### Manual Upgrades
+### 手動アップグレード
 
-Manual schema upgrades can be done by calling the `upgrade_schema` method on the storage class.
+手動スキーマアップグレードは、ストレージクラスの`upgrade_schema`メソッドを呼び出すことで実行できます。
 
 ```python
 db_url = "postgresql+psycopg://ai:ai@localhost:5532/ai"
@@ -210,12 +210,12 @@ storage = PostgresStorage(table_name="agent_sessions", db_url=db_url)
 storage.upgrade_schema()
 ```
 
-## Params
+## パラメータ
 
-| Parameter | Type | Default | Description |
+| パラメータ | タイプ | デフォルト | 説明 |
 |-----------|------|---------|-------------|
-| `storage` | `Optional[AgentStorage]` | `None` | Storage mechanism for the agent. |
+| `storage` | `Optional[AgentStorage]` | `None` | エージェントのストレージメカニズム。 |
 
- ## Developer Resources
+ ## 開発者リソース
 
-- View [Cookbook](https://github.com/agno-agi/agno/tree/main/cookbook/storage)
+- [クックブック](https://github.com/agno-agi/agno/tree/main/cookbook/storage)を表示

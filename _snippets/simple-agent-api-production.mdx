@@ -1,62 +1,62 @@
-## Running in Production
+## 本番環境での実行
 
-This repository includes a `Dockerfile` for building a production-ready container image of the application.
+このリポジトリには、アプリケーションの本番稼働に対応したコンテナイメージをビルドするための `Dockerfile` が含まれています。
 
-The general process to run in production is:
+本番環境で実行するための一般的なプロセスは以下の通りです。
 
-1.  Update the `scripts/build_image.sh` file and set your `IMAGE_NAME` and `IMAGE_TAG` variables.
-2.  Build and push the image to your container registry:
+1.  `scripts/build_image.sh` ファイルを更新し、`IMAGE_NAME` および `IMAGE_TAG` 変数を設定します。
+2.  イメージをビルドし、コンテナレジストリにプッシュします。
     ```bash
     ./scripts/build_image.sh
     ```
-3.  Run in your cloud provider of choice.
+3.  選択したクラウドプロバイダーで実行します。
 
-### Detailed Steps
+### 詳細な手順
 
-#### 1. Configure for Production
+#### 1. 本番環境の設定
 
-- Ensure your production environment variables (e.g., `OPENAI_API_KEY`, database connection strings) are securely managed. Most cloud providers offer a way to set these as environment variables for your deployed service.
-- Review the agent configurations in the `/agents` directory and ensure they are set up for your production needs (e.g., correct model versions, any production-specific settings).
+-   本番環境の環境変数（例: `OPENAI_API_KEY`、データベース接続文字列）が安全に管理されていることを確認してください。ほとんどのクラウドプロバイダーは、デプロイされたサービスに対してこれらの環境変数を設定する方法を提供しています。
+-   `/agents` ディレクトリ内のエージェント設定を確認し、本番環境のニーズ（例: 正しいモデルバージョン、本番環境固有の設定）に合わせて設定されていることを確認してください。
 
-#### 2. Build Your Production Docker Image
+#### 2. 本番用 Docker イメージのビルド
 
-Update the `scripts/build_image.sh` script to set your desired `IMAGE_NAME` and `IMAGE_TAG` (e.g., `your-repo/agent-api:v1.0.0`).
+`scripts/build_image.sh` スクリプトを更新して、希望する `IMAGE_NAME` と `IMAGE_TAG`（例: `your-repo/agent-api:v1.0.0`）を設定します。
 
-Run the script to build and push the image:
+スクリプトを実行して、イメージをビルドしプッシュします。
 
 ```bash
 ./scripts/build_image.sh
 ```
 
-#### 3. Deploy to a Cloud Service
+#### 3. クラウドサービスへのデプロイ
 
-With your image in a registry, you can deploy it to various cloud services that support containerized applications. Some common options include:
+レジストリにイメージがあれば、コンテナ化されたアプリケーションをサポートするさまざまなクラウドサービスにデプロイできます。一般的なオプションをいくつか紹介します。
 
-**Serverless Container Platforms:**
+**サーバーレスコンテナプラットフォーム:**
 
--   [Google Cloud Run](https://cloud.google.com/run): A fully managed platform that automatically scales your stateless containers.
--   [AWS App Runner](https://aws.amazon.com/apprunner/): Makes it easy to deploy containerized web applications and APIs at scale.
--   [Azure Container Apps](https://azure.microsoft.com/en-us/products/container-apps): Build and deploy modern apps and microservices using serverless containers.
+-   [Google Cloud Run](https://cloud.google.com/run): ステートレスコンテナを自動的にスケーリングする、フルマネージドプラットフォームです。
+-   [AWS App Runner](https://aws.amazon.com/apprunner/): コンテナ化されたWebアプリケーションやAPIを簡単にスケーリングしてデプロイできます。
+-   [Azure Container Apps](https://azure.microsoft.com/en-us/products/container-apps): サーバーレスコンテナを使用して最新のアプリやマイクロサービスをビルドおよびデプロイします。
 
-**Container Orchestration Services:**
+**コンテナオーケストレーションサービス:**
 
--   [Amazon Elastic Container Service (ECS)](https://aws.amazon.com/ecs/): Often used with AWS Fargate for serverless compute or EC2 instances.
--   [Google Kubernetes Engine (GKE)](https://cloud.google.com/kubernetes-engine): Managed Kubernetes service.
--   [Azure Kubernetes Service (AKS)](https://azure.microsoft.com/en-us/services/kubernetes-service/): Managed Kubernetes service.
+-   [Amazon Elastic Container Service (ECS)](https://aws.amazon.com/ecs/): サーバーレスコンピューティングの場合はAWS Fargate、またはEC2インスタンスと組み合わせてよく使用されます。
+-   [Google Kubernetes Engine (GKE)](https://cloud.google.com/kubernetes-engine): マネージドKubernetesサービスです。
+-   [Azure Kubernetes Service (AKS)](https://azure.microsoft.com/en-us/services/kubernetes-service/): マネージドKubernetesサービスです。
 
-**Platform as a Service (PaaS) with Docker Support:**
+**Dockerサポート付きのPlatform as a Service (PaaS):**
 
--   [Railway.app](https://railway.app/): Simple deployment from a Dockerfile.
--   [Render](https://render.com/): Simplifies deploying Docker containers, databases, and static sites.
--   [Heroku](https://www.heroku.com/): Supports deploying Docker containers.
+-   [Railway.app](https://railway.app/): Dockerfileからの簡単なデプロイ。
+-   [Render](https://render.com/): Dockerコンテナ、データベース、静的サイトのデプロイを簡素化します。
+-   [Heroku](https://www.heroku.com/): Dockerコンテナのデプロイをサポートします。
 
-**Specialized Platforms:**
+**専門プラットフォーム:**
 
--   [Modal](https://modal.com/): Platform for running Python code in the cloud, can serve web endpoints.
+-   [Modal](https://modal.com/): クラウドでPythonコードを実行するためのプラットフォームで、Webエンドポイントを提供できます。
 
-The specific deployment steps will vary depending on the chosen provider. Generally, you'll point the service to your container image in the registry and configure port mapping (application runs on port `8000` by default), environment variables, scaling, and database connections.
+具体的なデプロイ手順は、選択したプロバイダーによって異なります。一般的には、サービスにレジストリ内のコンテナイメージを指定し、ポートマッピング（アプリケーションはデフォルトでポート `8000` で実行されます）、環境変数、スケーリング、データベース接続を設定します。
 
-#### 4. Database Configuration
+#### 4. データベースの設定
 
-The default `docker-compose.yml` sets up a PostgreSQL database for local development. In production, use a managed database service (e.g., AWS RDS, Google Cloud SQL, Azure Database for PostgreSQL).
-Ensure your deployed application is configured with the correct database connection URL for your production database, usually via environment variables.
+デフォルトの `docker-compose.yml` は、ローカル開発用にPostgreSQLデータベースを設定します。本番環境では、マネージドデータベースサービス（例: AWS RDS、Google Cloud SQL、Azure Database for PostgreSQL）を使用してください。
+デプロイされたアプリケーションが、通常は環境変数を通じて、本番データベースの正しいデータベース接続URLで設定されていることを確認してください。

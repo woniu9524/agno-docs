@@ -1,23 +1,23 @@
 ---
 title: DeepInfra
-description: Learn how to use DeepInfra models in Agno.
+description: Agno で DeepInfra モデルを使用する方法を学びます。
 ---
 
-Leverage DeepInfra's powerful command models and more.
+DeepInfra の強力なコマンドモデルなどを活用します。
 
-[DeepInfra](https://deepinfra.com) supports a wide range of models. See their library of models [here](https://deepinfra.com/models).
+[DeepInfra](https://deepinfra.com) は、幅広いモデルをサポートしています。モデルのライブラリは[こちら](https://deepinfra.com/models)をご覧ください。
 
-We recommend experimenting to find the best-suited model for your use-case. Here are some general recommendations:
+ユースケースに最適なモデルを見つけるために、実験することをお勧めします。一般的な推奨事項を以下に示します。
 
-- `deepseek-ai/DeepSeek-R1-Distill-Llama-70B` model is good for reasoning.
-- `meta-llama/Llama-2-70b-chat-hf` model is good for basic use-cases.
-- `meta-llama/Llama-3.3-70B-Instruct` model is good for multi-step tasks.
+- `deepseek-ai/DeepSeek-R1-Distill-Llama-70B` モデルは、推論に適しています。
+- `meta-llama/Llama-2-70b-chat-hf` モデルは、基本的なユースケースに適しています。
+- `meta-llama/Llama-3.3-70B-Instruct` モデルは、複数ステップのタスクに適しています。
 
-DeepInfra has rate limits. See the [docs](https://deepinfra.com/docs/advanced/rate-limits) for more information.
+DeepInfra にはレート制限があります。詳細については、[ドキュメント](https://deepinfra.com/docs/advanced/rate-limits)をご覧ください。
 
-## Authentication
+## 認証
 
-Set your `DEEPINFRA_API_KEY` environment variable. Get your key from [here](https://deepinfra.com/dash/api_keys).
+`DEEPINFRA_API_KEY` 環境変数を設定します。キーは[こちら](https://deepinfra.com/dash/api_keys)から取得してください。
 
 <CodeGroup>
 
@@ -31,9 +31,9 @@ setx DEEPINFRA_API_KEY ***
 
 </CodeGroup>
 
-## Example
+## 例
 
-Use `DeepInfra` with your `Agent`:
+`Agent` で `DeepInfra` を使用します。
 
 <CodeGroup>
 
@@ -46,17 +46,17 @@ agent = Agent(
     markdown=True
 )
 
-# Print the response in the terminal
+# 応答をターミナルに出力します
 agent.print_response("Share a 2 sentence horror story.")
 
 ```
 
 </CodeGroup>
 
-<Note> View more examples [here](../examples/models/deepinfra). </Note>
+<Note> その他の例は[こちら](../examples/models/deepinfra)をご覧ください。 </Note>
 
-## Params
+## パラメータ
 
 <Snippet file="model-deepinfra-params.mdx" />
 
-`DeepInfra` is a subclass of the [Model](/reference/models/model) class and has access to the same params.
+`DeepInfra` は [Model](/reference/models/model) クラスのサブクラスであり、同じパラメータにアクセスできます。

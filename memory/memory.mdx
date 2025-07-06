@@ -1,18 +1,18 @@
 ---
-title: User Memories
+title: ユーザーメモリ
 ---
 
-When we speak about Memory, the commonly agreed upon understanding of Memory is the ability to store insights and facts about the user the Agent is interacting with. In short, build a persona of the user, learn about their preferences and use that to personalize the Agent's response.
+メモリについて話すとき、一般的に合意されているメモリの理解は、エージェントが対話しているユーザーに関する洞察や事実を保存する能力です。簡単に言えば、ユーザーのペルソナを構築し、その好みについて学び、それを利用してエージェントの応答をパーソナライズすることです。
 
-## Agentic Memory
+## エージェントメモリ
 
-Agno Agents natively support Agentic Memory Management and recommends it as the starting point for your memory journey.
+Agnoエージェントはネイティブでエージェントメモリ管理をサポートしており、メモリジャーニーの出発点として推奨しています。
 
-With Agentic Memory, The Agent itself creates, updates and deletes memories from user conversations.
+エージェントメモリを使用すると、エージェント自体がユーザーの会話からメモリを作成、更新、削除します。
 
-Set `enable_agentic_memory=True` to give the Agent a tool to manage memories of the user, this tool passes the task to the `MemoryManager` class.
+`enable_agentic_memory=True` を設定して、エージェントにユーザーのメモリを管理するツールを提供します。このツールはタスクを `MemoryManager` クラスに渡します。
 
-> You may also set `enable_user_memories=True` which always runs the `MemoryManager` after each user message. [See below for an example.](#create-memories-after-each-run)
+> `enable_user_memories=True` を設定することもできます。これにより、各ユーザーメッセージの後に常に `MemoryManager` が実行されます。[例については以下を参照してください。](#create-memories-after-each-run)
 
 ```python agentic_memory.py
 from agno.agent import Agent
@@ -22,135 +22,134 @@ from agno.models.openai import OpenAIChat
 from agno.storage.sqlite import SqliteStorage
 from rich.pretty import pprint
 
-# UserId for the memories
+# メモリのユーザーID
 user_id = "ava"
-# Database file for memory and storage
+# メモリとストレージのデータベースファイル
 db_file = "tmp/agent.db"
 
-# Initialize memory.v2
+# memory.v2 を初期化
 memory = Memory(
-    # Use any model for creating memories
+    # メモリ作成には任意のモデルを使用
     model=OpenAIChat(id="gpt-4.1"),
     db=SqliteMemoryDb(table_name="user_memories", db_file=db_file),
 )
-# Initialize storage
+# ストレージを初期化
 storage = SqliteStorage(table_name="agent_sessions", db_file=db_file)
 
-# Initialize Agent
+# Agent を初期化
 memory_agent = Agent(
     model=OpenAIChat(id="gpt-4.1"),
-    # Store memories in a database
+    # メモリをデータベースに保存
     memory=memory,
-    # Give the Agent the ability to update memories
+    # メモリを更新する能力をエージェントに付与
     enable_agentic_memory=True,
-    # OR - Run the MemoryManager after each response
+    # または - 各応答後にメモリマネージャーを実行
     enable_user_memories=True,
-    # Store the chat history in the database
+    # チャット履歴をデータベースに保存
     storage=storage,
-    # Add the chat history to the messages
+    # メッセージにチャット履歴を追加
     add_history_to_messages=True,
-    # Number of history runs
+    # 履歴実行数
     num_history_runs=3,
     markdown=True,
 )
 
 memory.clear()
 memory_agent.print_response(
-    "My name is Ava and I like to ski.",
+    "私の名前はAvaで、スキーが好きです。",
     user_id=user_id,
     stream=True,
     stream_intermediate_steps=True,
 )
-print("Memories about Ava:")
+print("Avaに関するメモリ:")
 pprint(memory.get_user_memories(user_id=user_id))
 
 memory_agent.print_response(
-    "I live in san francisco, where should i move within a 4 hour drive?",
+    "サンフランシスコに住んでいます。4時間以内の移動でどこに引っ越すべきですか？",
     user_id=user_id,
     stream=True,
     stream_intermediate_steps=True,
 )
-print("Memories about Ava:")
+print("Avaに関するメモリ:")
 pprint(memory.get_user_memories(user_id=user_id))
 ```
 
-- `add_history_to_messages=True` adds the chat history to the messages sent to the Model, the `num_history_runs` determines how many runs to add.
-- `read_chat_history=True` adds a tool to the Agent that allows it to read chat history, as it may be larger than what's included in the `num_history_runs`.
+- `add_history_to_messages=True` は、モデルに送信されるメッセージにチャット履歴を追加します。`num_history_runs` は追加する実行数を決定します。
+- `read_chat_history=True` は、エージェントにチャット履歴を読み取るためのツールを追加します。これは、`num_history_runs` に含まれるものよりも大きい場合があるためです。
 
-## Creating Memories after each run
+## 各実行後にメモリを作成する
 
-While `enable_agentic_memory=True` gives the Agent a tool to manage memories of the user, we can also always "trigger" the `MemoryManagement` after each user message.
+`enable_agentic_memory=True` はエージェントにユーザーメモリを管理するツールを提供しますが、各ユーザーメッセージの後に常に `MemoryManagement` を「トリガー」することもできます。
 
-Set `enable_user_memories=True` which always process memories after each user message.
+`enable_user_memories=True` を設定すると、各ユーザーメッセージの後に常にメモリが処理されます。
 
 ```python create_memories_after_each_run.py
 from agno.agent.agent import Agent
 from agno.memory.v2.db.sqlite import SqliteMemoryDb
 from agno.memory.v2.memory import Memory
-from agno.models.openai import OpenAIChat
 from rich.pretty import pprint
 
 memory_db = SqliteMemoryDb(table_name="memory", db_file="tmp/memory.db")
-# No need to set the model, it gets set to the model of the agent
+# モデルを設定する必要はありません。エージェントのモデルに設定されます。
 memory = Memory(db=memory_db, delete_memories=True, clear_memories=True)
 
-# Reset the memory for this example
+# この例のためにメモリをリセット
 memory.clear()
 
-# User ID for the memory
+# メモリのユーザーID
 john_doe_id = "john_doe@example.com"
 agent = Agent(
     model=OpenAIChat(id="gpt-4o-mini"),
     memory=memory,
-    # This will trigger the MemoryManager after each user message
+    # これにより、各ユーザーメッセージの後にメモリマネージャーがトリガーされます。
     enable_user_memories=True,
 )
 
-# Send a message to the agent that would require the memory to be used
+# メモリが使用されるメッセージをエージェントに送信します。
 agent.print_response(
-    "My name is John Doe and I like to hike in the mountains on weekends.",
+    "私の名前はJohn Doeで、週末は山でハイキングするのが好きです。",
     stream=True,
     user_id=john_doe_id,
 )
 
-# Send a message to the agent that checks the memory is working
-agent.print_response("What are my hobbies?", stream=True, user_id=john_doe_id)
+# メモリが機能しているかを確認するメッセージをエージェントに送信します。
+agent.print_response("私の趣味は何ですか？", stream=True, user_id=john_doe_id)
 
-# Print the memories for the user
+# ユーザーのメモリを印刷します。
 memories = memory.get_user_memories(user_id=john_doe_id)
-print("Memories about John Doe:")
+print("John Doeに関するメモリ:")
 pprint(memories)
 
-# Send a message to the agent that removes all memories for the user
+# ユーザーのすべてのメモリを削除するメッセージをエージェントに送信します。
 agent.print_response(
-    "Remove all existing memories of me.",
+    "私のすべての既存のメモリを削除してください。",
     stream=True,
     user_id=john_doe_id,
 )
 memories = memory.get_user_memories(user_id=john_doe_id)
-print("Memories about John Doe:")
+print("John Doeに関するメモリ:")
 pprint(memories)
 ```
 
-## Memory Management
+## メモリ管理
 
-The `Memory` class in Agno lets you manage all aspects of user memory. Let's start with some examples of using `Memory` outside of Agents. We will:
+Agnoの `Memory` クラスを使用すると、ユーザーメモリのすべての側面を管理できます。まず、エージェント以外の `Memory` の使用例を見てみましょう。以下を行います。
 
-- Add, update and delete memories
-- Store memories in a database
-- Create memories from conversations
-- Search over memories
+- メモリの追加、更新、削除
+- メモリをデータベースに保存
+- 会話からメモリを作成
+- メモリを検索
 
 ```python
 from agno.memory.v2.memory import Memory
 from agno.memory.v2.db.sqlite import SqliteMemoryDb
 
-# Create a memory instance with persistent storage
+# 永続ストレージを持つメモリインスタンスを作成します。
 memory_db = SqliteMemoryDb(table_name="memory", db_file="memory.db")
 memory = Memory(db=memory_db)
 ```
 
-### Adding a new memory
+### 新しいメモリの追加
 
 ```python
 from agno.memory.v2.memory import Memory
@@ -158,17 +157,17 @@ from agno.memory.v2.schema import UserMemory
 
 memory = Memory()
 
-# Create a user memory manually
+# ユーザーメモリを手動で作成します。
 memory_id = memory.add_user_memory(
     memory=UserMemory(
-        memory="The user's name is Jane Doe",
+        memory="ユーザーの名前はJane Doeです",
         topics=["personal", "name"]
     ),
     user_id="jane_doe@example.com"
 )
 ```
 
-### Updating a memory
+### メモリの更新
 
 ```python
 from agno.memory.v2.memory import Memory
@@ -176,31 +175,31 @@ from agno.memory.v2.schema import UserMemory
 
 memory = Memory()
 
-# Replace a user memory
+# ユーザーメモリを置き換えます。
 memory_id = memory.replace_user_memory(
-    # The id of the memory to replace
+    # 置き換えるメモリのID
     memory_id=previous_memory_id,
-    # The new memory to replace it with
+    # 置き換える新しいメモリ
     memory=UserMemory(
-        memory="The user's name is Verna Doe",
+        memory="ユーザーの名前はVerna Doeです",
         topics=["personal", "name"]
     ),
     user_id="jane_doe@example.com"
 )
 ```
 
-### Deleting a memory
+### メモリの削除
 
 ```python
 from agno.memory.v2.memory import Memory
 
 memory = Memory()
 
-# Delete a user memory
+# ユーザーメモリを削除します。
 memory.delete_user_memory(user_id="jane_doe@example.com", memory_id=memory_id)
 ```
 
-### Creating memories from user information
+### ユーザー情報からメモリを作成する
 
 ```python
 from agno.memory.v2 import Memory
@@ -214,25 +213,25 @@ john_doe_id = "john_doe@example.com"
 
 memory.create_user_memories(
     message="""
-    I enjoy hiking in the mountains on weekends,
-    reading science fiction novels before bed,
-    cooking new recipes from different cultures,
-    playing chess with friends,
-    and attending live music concerts whenever possible.
-    Photography has become a recent passion of mine, especially capturing landscapes and street scenes.
-    I also like to meditate in the mornings and practice yoga to stay centered.
+    週末は山でハイキングするのが好きで、
+    寝る前にSF小説を読み、
+    異文化の新しいレシピを調理し、
+    友達とチェスをプレイし、
+    可能な限りライブ音楽コンサートに参加します。
+    特に風景やストリートシーンを捉える写真が最近の情熱になっています。
+    朝は瞑想し、ヨガを実践して心を落ち着かせるようにしています。
     """,
     user_id=john_doe_id,
 )
 
 
 memories = memory.get_user_memories(user_id=john_doe_id)
-print("John Doe's memories:")
+print("John Doeのメモリ:")
 for i, m in enumerate(memories):
     print(f"{i}: {m.memory} - {m.topics}")
 ```
 
-### Creating memories from a conversation
+### 会話からメモリを作成する
 
 ```python
 from agno.memory.v2 import Memory
@@ -245,30 +244,30 @@ memory = Memory(model=Gemini(id="gemini-2.0-flash-exp"), db=memory_db)
 
 
 jane_doe_id = "jane_doe@example.com"
-# Send a history of messages and add memories
+# メッセージ履歴を送信し、メモリを追加します。
 memory.create_user_memories(
     messages=[
-        Message(role="user", content="My name is Jane Doe"),
-        Message(role="assistant", content="That is great!"),
-        Message(role="user", content="I like to play chess"),
-        Message(role="assistant", content="That is great!"),
+        Message(role="user", content="私の名前はJane Doeです"),
+        Message(role="assistant", content="それは素晴らしいですね！"),
+        Message(role="user", content="チェスをするのが好きです"),
+        Message(role="assistant", content="それは素晴らしいですね！"),
     ],
     user_id=jane_doe_id,
 )
 
 memories = memory.get_user_memories(user_id=jane_doe_id)
-print("Jane Doe's memories:")
+print("Jane Doeのメモリ:")
 for i, m in enumerate(memories):
     print(f"{i}: {m.memory} - {m.topics}")
 ```
 
-## Memory Search
+## メモリ検索
 
-Agno provides several retrieval methods to search and retrieve user memories:
+Agnoは、ユーザーメモリを検索および取得するためのいくつかの検索方法を提供します。
 
-### Basic Retrieval Methods
+### 基本的な検索方法
 
-You can retrieve memories using chronological methods such as `last_n` (most recent) or `first_n` (oldest first):
+`last_n`（最新）または `first_n`（古い順）のような時系列の方法を使用してメモリを取得できます。
 
 ```python
 from agno.memory.v2 import Memory, UserMemory
@@ -278,72 +277,71 @@ memory = Memory()
 john_doe_id = "john_doe@example.com"
 
 memory.add_user_memory(
-    memory=UserMemory(memory="The user enjoys hiking in the mountains on weekends"),
+    memory=UserMemory(memory="ユーザーは週末に山でハイキングすることを楽しんでいます"),
     user_id=john_doe_id,
 )
 memory.add_user_memory(
     memory=UserMemory(
-        memory="The user enjoys reading science fiction novels before bed"
+        memory="ユーザーは寝る前にSF小説を読むことを楽しんでいます"
     ),
     user_id=john_doe_id,
 )
 
-# Get the most recent memory
+# 最新のメモリを取得します。
 memories = memory.search_user_memories(
     user_id=john_doe_id, limit=1, retrieval_method="last_n"
 )
-print("John Doe's last_n memories:")
+print("John Doeのlast_nメモリ:")
 for i, m in enumerate(memories):
     print(f"{i}: {m.memory}")
 
-# Get the oldest memory
+# 最も古いメモリを取得します。
 memories = memory.search_user_memories(
     user_id=john_doe_id, limit=1, retrieval_method="first_n"
 )
-print("John Doe's first_n memories:")
+print("John Doeのfirst_nメモリ:")
 for i, m in enumerate(memories):
     print(f"{i}: {m.memory}")
 ```
 
-### Agentic Memory Search
+### エージェントメモリ検索
 
-Agentic search allows you to find memories based on meaning rather than exact keyword matches. This is particularly useful for retrieving contextually relevant information:
+エージェント検索を使用すると、正確なキーワードマッチングではなく、意味に基づいてメモリを見つけることができます。これは、文脈的に関連性の高い情報を取得する場合に特に役立ちます。
 
 ```python
 from agno.memory.v2.memory import Memory, UserMemory
 from agno.models.google.gemini import Gemini
 
-# Initialize memory with a model for agentic search
+# エージェント検索用のモデルでメモリを初期化します。
 memory = Memory(model=Gemini(id="gemini-2.0-flash-exp"))
 
 john_doe_id = "john_doe@example.com"
 
 memory.add_user_memory(
-    memory=UserMemory(memory="The user enjoys hiking in the mountains on weekends"),
+    memory=UserMemory(memory="ユーザーは週末に山でハイキングすることを楽しんでいます"),
     user_id=john_doe_id,
 )
 memory.add_user_memory(
     memory=UserMemory(
-        memory="The user enjoys reading science fiction novels before bed"
+        memory="ユーザーは寝る前にSF小説を読むことを楽しんでいます"
     ),
     user_id=john_doe_id,
 )
 
-# Search for memories related to the query
+# クエリに関連するメモリを検索します。
 memories = memory.search_user_memories(
     user_id=john_doe_id,
-    query="What does the user like to do on weekends?",
+    query="ユーザーは週末に何をすることを楽しんでいますか？",
     retrieval_method="agentic",
 )
-print("John Doe's found memories:")
+print("John Doeが見つけたメモリ:")
 for i, m in enumerate(memories):
     print(f"{i}: {m.memory}")
 ```
 
-With agentic search, the model understands the intent behind your query and returns the most relevant memories, even if they don't contain the exact keywords from your search.
+エージェント検索を使用すると、モデルはクエリの背後にある意図を理解し、検索クエリと正確なキーワードが含まれていない場合でも、最も関連性の高いメモリを返します。
 
+## 開発者向けリソース
 
-## Developer Resources
-
-- Find full examples in the [Cookbook](https://github.com/agno-agi/agno/tree/main/cookbook/agent_concepts/memory)
-- View the class reference for the `Memory` class [here](/reference/memory/memory)
+- 完全な例は[クックブック](https://github.com/agno-agi/agno/tree/main/cookbook/agent_concepts/memory)で見つけられます。
+- `Memory` クラスのクラスリファレンスは[こちら](/reference/memory/memory)で表示できます。

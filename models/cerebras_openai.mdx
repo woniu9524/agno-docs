@@ -1,17 +1,17 @@
 ---
 title: Cerebras OpenAI
-description: Learn how to use Cerebras OpenAI with Agno.
+description: Agno で Cerebras OpenAI を使用する方法を学びます。
 ---
 
-## OpenAI-Compatible Integration
+## OpenAI互換の統合
 
-Cerebras can also be used via an OpenAI-compatible interface, making it easy to integrate with tools and libraries that expect the OpenAI API.
+Cerebras は OpenAI 互換のインターフェイスを介しても使用できるため、OpenAI API を期待するツールやライブラリとの統合が容易になります。
 
-### Using the OpenAI-Compatible Class
+### OpenAI互換クラスの使用
 
-The `CerebrasOpenAI` class provides an OpenAI-style interface for Cerebras models:
+`CerebrasOpenAI` クラスは、Cerebras モデルに OpenAI スタイルのインターフェイスを提供します。
 
-First, install openai:
+まず、openai をインストールします。
 
 ```shell
 pip install openai
@@ -24,27 +24,27 @@ from agno.models.cerebras import CerebrasOpenAI
 
 agent = Agent(
     model=CerebrasOpenAI(
-        id="llama-4-scout-17b-16e-instruct",  # Model ID to use
-        # base_url="https://api.cerebras.ai", # Optional: default endpoint for Cerebras
+        id="llama-4-scout-17b-16e-instruct",  # 使用するモデル ID
+        # base_url="https://api.cerebras.ai", # オプション: Cerebras のデフォルトエンドポイント
     ),
     markdown=True,
 )
 
-# Print the response in the terminal
+# 応答をターミナルに出力します
 agent.print_response("write a two sentence horror story")
 ```
 
-### Configuration Options
+### 設定オプション
 
-The `CerebrasOpenAI` class accepts the following parameters:
+`CerebrasOpenAI` クラスは、次のパラメータを受け入れます。
 
-| Parameter   | Type         | Description                                                    | Default                        |
-| ----------- | ------------ | -------------------------------------------------------------- | ------------------------------ |
-| `id`        | str          | Model identifier (e.g., "llama-4-scout-17b-16e-instruct")      | **Required**                   |
-| `name`      | str          | Display name for the model                                     | "Cerebras"                     |
-| `provider`  | str          | Provider name                                                  | "Cerebras"                     |
-| `api_key`   | str          | API key (falls back to CEREBRAS_API_KEY environment variable)  | None                           |
-| `base_url`  | str          | URL of the Cerebras OpenAI-compatible endpoint                 | "https://api.cerebras.ai"      |
+| パラメータ   | タイプ         | 説明                                                              | デフォルト                        |
+| ----------- | ------------ | ----------------------------------------------------------------- | ------------------------------ |
+| `id`        | str          | モデル識別子 (例: "llama-4-scout-17b-16e-instruct")                 | **必須**                   |
+| `name`      | str          | モデルの表示名                                                      | "Cerebras"                     |
+| `provider`  | str          | プロバイダー名                                                    | "Cerebras"                     |
+| `api_key`   | str          | API キー (CEREBRAS_API_KEY 環境変数にフォールバックします)          | None                           |
+| `base_url`  | str          | Cerebras OpenAI 互換エンドポイントの URL                            | "https://api.cerebras.ai"      |
 
-### Examples
-- View more examples [here](../examples/models/cerebras_openai). 
+### 例
+- その他の例は[こちら](../examples/models/cerebras_openai)をご覧ください。

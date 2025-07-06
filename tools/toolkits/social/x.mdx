@@ -2,32 +2,32 @@
 title: X (Twitter)
 ---
 
-**XTools** allows an Agent to interact with X, providing functionality for posting, messaging, and searching tweets.
+**XTools** は、エージェントがXとやり取りできるようにするもので、ツイートの投稿、メッセージ送信、検索などの機能を提供します。
 
-## Prerequisites
+## 前提条件
 
-Install the required library:
+必要なライブラリをインストールします。
 
 ```shell
 pip install tweepy
 ```
 
-<Info>Tweepy is a Python library for interacting with the X API.</Info>
+<Info>Tweepyは、X APIとやり取りするためのPythonライブラリです。</Info>
 
-## Setup
+## セットアップ
 
-1. **Create X Developer Account**
-   - Visit [developer.x.com](https://developer.x.com) and apply for developer access
-   - Create a new project and app in your developer portal
+1. **X開発者アカウントの作成**
+   - [developer.x.com](https://developer.x.com) にアクセスし、開発者アクセスを申請します。
+   - 開発者ポータルで新しいプロジェクトとアプリを作成します。
 
-2. **Generate API Credentials**
-   - Navigate to your app's "Keys and tokens" section
-   - Generate and copy these credentials:
-     - API Key & Secret
-     - Bearer Token  
-     - Access Token & Secret
+2. **API認証情報の発行**
+   - アプリの「Keys and tokens」セクションに移動します。
+   - 次の認証情報を生成してコピーします。
+     - APIキーとシークレット
+     - ベアラートークン
+     - アクセストークンとシークレット
 
-3. **Configure Environment**
+3. **環境設定**
    ```shell
    export X_CONSUMER_KEY=your_api_key
    export X_CONSUMER_SECRET=your_api_secret
@@ -36,84 +36,84 @@ pip install tweepy
    export X_BEARER_TOKEN=your_bearer_token
    ```
 
-## Example
+## 例
 
 ```python cookbook/tools/x_tools.py
 from agno.agent import Agent
 from agno.tools.x import XTools
 
-# Initialize the X toolkit
+# Xツールキットの初期化
 x_tools = XTools(
-    wait_on_rate_limit=True # Retry when rate limits are reached
+    wait_on_rate_limit=True # レート制限に達した場合に再試行
 ) 
 
-# Create an agent equipped with X toolkit
+# Xツールキットを装備したエージェントの作成
 agent = Agent(
     instructions=[
-        "Use X tools to interact as the authorized user",
-        "Generate appropriate content when asked to create posts",
-        "Only post content when explicitly instructed",
-        "Respect X's usage policies and rate limits",
+        "承認されたユーザーとしてやり取りするためにXツールを使用する",
+        "投稿を作成するように求められた場合は、適切なコンテンツを生成する",
+        "明示的に指示された場合にのみ投稿する",
+        "Xの利用ポリシーとレート制限を尊重する",
     ],
     tools=[x_tools],
     show_tool_calls=True,
 )
 
-# Search for posts
-agent.print_response("Search for recent posts about AI agents", markdown=True)
+# 投稿の検索
+agent.print_response("AIエージェントに関する最近の投稿を検索する", markdown=True)
 
-# Create and post a tweet
-agent.print_response("Create a post about AI ethics", markdown=True)
+# ツイートの作成と投稿
+agent.print_response("AI倫理に関する投稿を作成する", markdown=True)
 
-# Get user timeline
-agent.print_response("Get my timeline", markdown=True)
+# ユーザータイムラインの取得
+agent.print_response("私のタイムラインを取得する", markdown=True)
 
-# Reply to a post
+# 投稿への返信
 agent.print_response(
-    "Can you reply to this [post ID] post as a general message as to how great this project is: https://x.com/AgnoAgi",
+    "この[投稿ID]の投稿に、このプロジェクトがいかに素晴らしいかという一般的なメッセージとして返信できますか？: https://x.com/AgnoAgi",
     markdown=True,
 )
 
-# Get information about a user
-agent.print_response("Can you retrieve information about this user https://x.com/AgnoAgi ", markdown=True)
+# ユーザー情報の取得
+agent.print_response("このユーザーに関する情報を取得できますか？ https://x.com/AgnoAgi ", markdown=True)
 
-# Send a direct message
+# ダイレクトメッセージの送信
 agent.print_response(
-    "Send direct message to the user @AgnoAgi telling them I want to learn more about them and a link to their community.",
+    "ユーザー@AgnoAgiに、彼らについてもっと知りたいことと、彼らのコミュニティへのリンクを伝えるダイレクトメッセージを送信してください。",
     markdown=True,
 )
 
-# Get user profile
-agent.print_response("Get my X profile", markdown=True)
+# ユーザープロフィールの取得
+agent.print_response("私のXプロフィールを取得する", markdown=True)
 ```
 
-<Note> Check out the [Tweet Analysis Agent](/examples/agents/tweet-analysis-agent) for a more advanced example. </Note>
+<Note> より高度な例については、[ツイート分析エージェント](/examples/agents/tweet-analysis-agent) を参照してください。 </Note>
 
-## Toolkit Params
+## ツールキットのパラメータ
 
-| Parameter               | Type                | Default | Description                                                      |
-| ----------------------- | ------------------- | ------- | ---------------------------------------------------------------- |
-| `bearer_token`          | `str`     | `None`  | Bearer token for authentication                                  |
-| `consumer_key`          | `str`     | `None`  | Consumer key for authentication                                  |
-| `consumer_secret`       | `str`     | `None`  | Consumer secret for authentication                               |
-| `access_token`          | `str`     | `None`  | Access token for authentication                                  |
-| `access_token_secret`   | `str`     | `None`  | Access token secret for authentication                          |
-| `include_post_metrics`  | `bool`              | `False` | Include post metrics (likes, retweets, etc.) in search results |
-| `wait_on_rate_limit`    | `bool`              | `False` | Retry when rate limits are reached                               |
+| パラメータ               | タイプ                | デフォルト | 説明                                       |
+| ----------------------- | ------------------- | ------- | ------------------------------------------ |
+| `bearer_token`          | `str`     | `None`  | 認証用のベアラートークン                               |
+| `consumer_key`          | `str`     | `None`  | 認証用のコンシューマーキー                               |
+| `consumer_secret`       | `str`     | `None`  | 認証用のコンシューマーシークレット                           |
+| `access_token`          | `str`     | `None`  | 認証用のアクセストークン                               |
+| `access_token_secret`   | `str`     | `None`  | 認証用のアクセストークンシークレット                         |
+| `include_post_metrics`  | `bool`              | `False` | 検索結果に投稿のメトリクス（いいね、リツイートなど）を含める |
+| `wait_on_rate_limit`    | `bool`              | `False` | レート制限に達した場合に再試行する                         |
 
-## Toolkit Functions
+## ツールキットの関数
 
-| Function            | Description                                 |
+| 関数            | 説明                                 |
 | ------------------- | ------------------------------------------- |
-| `create_post`      | Creates and posts a new post               |
-| `reply_to_post`    | Replies to an existing post                |
-| `send_dm`           | Sends a direct message to a X user    |
-| `get_user_info`     | Retrieves information about a X user  |
-| `get_home_timeline` | Gets the authenticated user's home timeline |
-| `search_posts`      | Searches for tweets                          |
+| `create_post`      | 新しい投稿を作成して投稿する               |
+| `reply_to_post`    | 既存の投稿に返信する                |
+| `send_dm`           | Xユーザーにダイレクトメッセージを送信する    |
+| `get_user_info`     | Xユーザーの情報を取得する  |
+| `get_home_timeline` | 認証済みユーザーのホームタイムラインを取得する |
+| `search_posts`      | ツイートを検索する                          |
 
-## Developer Resources
+## 開発者向けリソース
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/x.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/x_tools.py)
-- View [Tweet Analysis Agent Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/examples/agents/social_media_agent.py)
+- [ツール](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/x.py) を表示
+- [クックブック](https://github.com/agno-agi/agno/blob/main/cookbook/tools/x_tools.py) を表示
+- [ツイート分析エージェント クックブック](https://github.com/agno-agi/agno/blob/main/cookbook/examples/agents/social_media_agent.py) を表示

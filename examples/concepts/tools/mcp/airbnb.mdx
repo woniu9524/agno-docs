@@ -3,14 +3,14 @@ title: Airbnb MCP agent
 sidebarTitle: Airbnb
 ---
 
-Using the [Airbnb MCP server](https://github.com/openbnb-org/mcp-server-airbnb) to create an Agent that can search for Airbnb listings:
+[Airbnb MCP server](https://github.com/openbnb-org/mcp-server-airbnb) を使用して、Airbnbリスティングを検索するエージェントを作成します。
 
 ```python
-"""🏠 MCP Airbnb Agent - Search for Airbnb listings!
+"""🏠 MCP Airbnb Agent - Airbnbリスティングを検索！
 
-This example shows how to create an agent that uses MCP and Gemini 2.5 Pro to search for Airbnb listings.
+この例では、MCPとGemini 2.5 Proを使用してAirbnbリスティングを検索するエージェントを作成する方法を示します。
 
-Run: `pip install google-genai mcp agno` to install the dependencies
+実行: 依存関係をインストールするには `pip install google-genai mcp agno` を実行してください。
 """
 
 import asyncio
@@ -38,11 +38,6 @@ async def run_agent(message: str) -> None:
 if __name__ == "__main__":
     asyncio.run(
         run_agent(
-            "What listings are available in San Francisco for 2 people for 3 nights from 1 to 4 August 2025?"
+            "2025年8月1日から4日まで、サンフランシスコで2名で3泊利用可能なリスティングは何ですか？"
         )
     )
-
-```
-
-
-

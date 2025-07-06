@@ -3,13 +3,13 @@ title: Workspace Settings
 sidebarTitle: Settings
 ---
 
-The `WorkspaceSettings` object, usually defined in the `workspace/settings.py` file is used to defines common settings used by your workspace apps and resources.
+`WorkspaceSettings` オブジェクトは、通常 `workspace/settings.py` ファイルで定義され、ワークスペースのアプリやリソースで使用される共通の設定を定義するために使用されます。
 
-Its not mandatory and doesn't serve any other purpose except to hold configuration used by workspace apps and resources. The values in the `WorkspaceSettings` object can also be set using Environment variables or a `.env` file.
+これは必須ではなく、ワークスペースのアプリやリソースによって構成される値を保持する以外の目的はありません。`WorkspaceSettings` オブジェクトの値は、環境変数または `.env` ファイルを使用して設定することもできます。
 
-## Example
+## 例
 
-An example `WorkspaceSettings` used by the `llm-app` template. View this file on [github](https://github.com/agno-agi/llm-app/blob/main/workspace/settings.py)
+`llm-app` テンプレートで使用される `WorkspaceSettings` の例です。このファイルは[github](https://github.com/agno-agi/llm-app/blob/main/workspace/settings.py)で表示できます。
 
 ```python workspace/settings.py
 from pathlib import Path
@@ -17,13 +17,13 @@ from pathlib import Path
 from agno.workspace.settings import WorkspaceSettings
 
 #
-# -*- Define workspace settings using a WorkspaceSettings object
-# these values can also be set using environment variables or a .env file
+# -*- WorkspaceSettings オブジェクトを使用してワークスペース設定を定義します
+# これらの値は、環境変数または .env ファイルを使用して設定することもできます
 #
 ws_settings = WorkspaceSettings(
-    # Workspace name: used for naming resources
+    # Workspace name: リソースの命名に使用されます
     ws_name="ai",
-    # Path to the workspace root
+    # Workspace のルートへのパス
     ws_root=Path(__file__).parent.parent.resolve(),
     # -*- Dev settings
     dev_env="dev",
@@ -39,52 +39,52 @@ ws_settings = WorkspaceSettings(
     prd_api_enabled=True,
     prd_db_enabled=True,
     # -*- AWS settings
-    # Region for AWS resources
+    # AWS リソースのリージョン
     aws_region="us-east-1",
-    # Availability Zones for AWS resources
+    # AWS リソースのアベイラビリティゾーン
     aws_az1="us-east-1a",
     aws_az2="us-east-1b",
-    # Subnet IDs in the aws_region
+    # aws_region のサブネット ID
     # subnet_ids=["subnet-xyz", "subnet-xyz"],
     #
     # -*- Image Settings
     #
-    # Default repository for images
+    # イメージのデフォルトリポジトリ
     image_repo="agno"
-    # Build images locally
+    # イメージをローカルでビルドします
     build_images=False
-    # Push images after building
+    # ビルド後にイメージをプッシュします
     push_images=False
-    # Skip cache when building images
+    # イメージをビルドする際にキャッシュをスキップします
     skip_image_cache=False
-    # Force pull images in FROM
+    # FROM でイメージを強制的にプルします
     force_pull_images=False
 )
 ```
 
-## Usage
+## 使用方法
 
-Use the workspace settings to
+ワークスペース設定を使用して以下を行います。
 
-- Name resources
-- Get the workspace root path using `ws_settings.ws_root`
+- リソースに名前を付ける
+- `ws_settings.ws_root` を使用してワークスペースのルートパスを取得する
 
 ```python dev_resources.py
 ...
-# -*- Streamlit running on port 8501:8501
+# -*- Streamlit をポート 8501:8501 で実行します
 dev_streamlit = Streamlit(
     name=f"{ws_settings.dev_key}-app",
     enabled=ws_settings.dev_app_enabled,
     ...
-    # Read secrets from secrets/dev_app_secrets.yml
+    # secrets/dev_app_secrets.yml からシークレットを読み込みます
     secrets_file=ws_settings.ws_root.joinpath("workspace/secrets/dev_app_secrets.yml")
 )
 ```
 
-- Hold AWS constants like `availability zone` and `subnets`
+- `availability zone` や `subnets` などの AWS 定数を保持する
 
 ```python prd_resources.py
-# -*- FastAPI running on ECS
+# -*- FastAPI を ECS で実行します
 prd_fastapi = FastApi(
     name=f"{ws_settings.prd_key}-api",
     enabled=ws_settings.prd_api_enabled,
@@ -101,4 +101,3 @@ prd_db = DbInstance(
     availability_zone=ws_settings.aws_az1,
     ...
 )
-```

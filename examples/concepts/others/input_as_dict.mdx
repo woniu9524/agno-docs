@@ -2,9 +2,9 @@
 title: Input as Dictionary
 ---
 
-This example shows how to pass a dictionary of messages as input to an agent.
+この例では、メッセージの辞書をエージェントへの入力として渡す方法を示します。
 
-## Code
+## コード
 
 ```python cookbook/agent_concepts/other/input_as_dict.py
 from agno.agent import Agent
@@ -13,7 +13,7 @@ Agent().print_response(
     {
         "role": "user",
         "content": [
-            {"type": "text", "text": "What's in this image?"},
+            {"type": "text", "text": "この画像には何がありますか？"},
             {
                 "type": "image_url",
                 "image_url": {
@@ -27,24 +27,24 @@ Agent().print_response(
 )
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="APIキーの設定">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="ライブラリのインストール">
     ```bash
     pip install -U openai agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="エージェントの実行">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/other/input_as_dict.py
@@ -55,4 +55,4 @@ Agent().print_response(
     ```
     </CodeGroup>
   </Step>
-</Steps> 
+</Steps>

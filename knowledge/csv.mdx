@@ -1,16 +1,16 @@
 ---
-title: CSV Knowledge Base
-description: Learn how to use local CSV files in your knowledge base.
+title: CSVナレッジベース
+description: ローカルCSVファイルをナレッジベースで使用する方法を学びます。
 sidebarTitle: CSV
 ---
 
-The **CSVKnowledgeBase** reads **local CSV** files, converts them into vector embeddings and loads them to a vector database.
+**CSVKnowledgeBase** は、**ローカルCSV**ファイルを読み込み、ベクトル埋め込みに変換して、ベクトルデータベースにロードします。
 
-## Usage
+## 使用方法
 
 <Note>
 
-We are using a local PgVector database for this example. [Make sure it's running](https://docs.agno.com/vectordb/pgvector)
+この例では、ローカルのPgVectorデータベースを使用しています。[実行されていることを確認してください](https://docs.agno.com/vectordb/pgvector)
 
 </Note>
 
@@ -20,7 +20,7 @@ from agno.vectordb.pgvector import PgVector
 
 knowledge_base = CSVKnowledgeBase(
     path="data/csv",
-    # Table name: ai.csv_documents
+    # テーブル名: ai.csv_documents
     vector_db=PgVector(
         table_name="csv_documents",
         db_url="postgresql+psycopg://ai:ai@localhost:5532/ai",
@@ -28,7 +28,7 @@ knowledge_base = CSVKnowledgeBase(
 )
 ```
 
-Then use the `knowledge_base` with an `Agent`:
+次に、`Agent` で `knowledge_base` を使用します。
 
 ```python
 from agno.agent import Agent
@@ -43,12 +43,12 @@ agent.knowledge.load(recreate=False)
 agent.print_response("Ask me about something from the knowledge base")
 ```
 
-#### CSVKnowledgeBase also supports async loading.
+#### CSVKnowledgeBase は非同期ロードもサポートしています。
 
 ```shell
 pip install qdrant-client
 ```
-We are using a local Qdrant database for this example. [Make sure it's running](https://docs.agno.com/vectordb/qdrant)
+この例では、ローカルのQdrantデータベースを使用しています。[実行されていることを確認してください](https://docs.agno.com/vectordb/qdrant)
 
 ```python async_knowledge_base.py
 import asyncio
@@ -66,33 +66,33 @@ vector_db = Qdrant(collection=COLLECTION_NAME, url="http://localhost:6333")
 knowledge_base = CSVKnowledgeBase(
     path=Path("data/csv"),
     vector_db=vector_db,
-    num_documents=5,  # Number of documents to return on search
+    num_documents=5,  # 検索時に返されるドキュメント数
 )
 
-# Initialize the Agent with the knowledge_base
+# Agent を knowledge_base で初期化します
 agent = Agent(
     knowledge=knowledge_base,
     search_knowledge=True,
 )
 
 if __name__ == "__main__":
-    # Comment out after first run
+    # 初回実行後にコメントアウトしてください
     asyncio.run(knowledge_base.aload(recreate=False))
 
-    # Create and use the agent
+    # Agent を作成して使用します
     asyncio.run(agent.aprint_response("What is the csv file about", markdown=True))
 ```
 
-## Params
+## パラメータ
 
-| Parameter | Type               | Default       | Description                                                                                    |
+| パラメータ | タイプ               | デフォルト    | 説明                                                                                             |
 | --------- | ------------------ | ------------- | ---------------------------------------------------------------------------------------------- |
-| `path`    | `Union[str, Path]` | -             | Path to the CSV file                                                                           |
-| `reader`  | `CSVReader`        | `CSVReader()` | A `CSVReader` that reads the CSV file and converts it into `Documents` for the vector database |
+| `path`    | `Union[str, Path]` | -             | CSVファイルへのパス                                                                            |
+| `reader`  | `CSVReader`        | `CSVReader()` | CSVファイルを読み込み、ベクトルデータベース用の `Documents` に変換する `CSVReader` |
 
-`CSVKnowledgeBase` is a subclass of the [AgentKnowledge](/reference/knowledge/base) class and has access to the same params.
+`CSVKnowledgeBase` は [AgentKnowledge](/reference/knowledge/base) クラスのサブクラスであり、同じパラメータにアクセスできます。
 
-## Developer Resources
+## 開発者向けリソース
 
-- View [Sync loading Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/csv_kb.py)
-- View [Async loading Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/csv_kb_async.py)
+- [同期ロードクックブック](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/csv_kb.py) を表示
+- [非同期ロードクックブック](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/csv_kb_async.py) を表示

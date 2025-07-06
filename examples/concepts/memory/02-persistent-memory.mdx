@@ -1,12 +1,12 @@
 ---
-title: Persistent Memory with SQLite
+title: SQLite を使用した永続メモリ
 ---
 
-This example shows how to use the Memory class to create a persistent memory.
+この例では、`Memory` クラスを使用して永続メモリを作成する方法を示します。
 
-Every time you run this, the `Memory` object will be re-initialized from the DB.
+実行するたびに、`Memory` オブジェクトは DB から再初期化されます。
 
-## Code
+## コード
 
 ```python cookbook/agent_concepts/memory/02_persistent_memory.py
 from typing import List
@@ -21,37 +21,37 @@ memory = Memory(db=memory_db)
 
 john_doe_id = "john_doe@example.com"
 
-# Run 1
+# 実行 1
 memory.add_user_memory(
-    memory=UserMemory(memory="The user's name is John Doe", topics=["name"]),
+    memory=UserMemory(memory="ユーザーの名前は John Doe です", topics=["name"]),
     user_id=john_doe_id,
 )
 
-# Run this the 2nd time
+# 2 回目にこれを実行します
 # memory.add_user_memory(
-#     memory=UserMemory(memory="The user works at a softward company called Agno", topics=["name"]),
+#     memory=UserMemory(memory="ユーザーは Agno というソフトウェア会社で働いています", topics=["name"]),
 #     user_id=john_doe_id,
 # )
 
 
 memories: List[MemoryRow] = memory_db.read_memories()
-print("All the DB memories:")
+print("DB のすべてのメモリ:")
 for i, m in enumerate(memories):
     print(f"{i}: {m.memory['memory']} ({m.last_updated})")
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install libraries">
+  <Step title="ライブラリのインストール">
     ```bash
     pip install -U agno
     ```
   </Step>
 
-  <Step title="Run Example">
+  <Step title="例の実行">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/memory/02_persistent_memory.py

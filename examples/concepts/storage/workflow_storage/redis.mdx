@@ -3,13 +3,13 @@ title: Redis Workflow Storage
 sidebarTitle: Redis
 ---
 
-Agno supports using Redis as a storage backend for Workflows using the `RedisStorage` class.
+Agno は、`RedisStorage` クラスを使用して、ワークフローのストレージバックエンドとして Redis をサポートしています。
 
-## Usage
+## 使用方法
 
-### Run Redis
+### Redis の実行
 
-Install [docker desktop](https://docs.docker.com/desktop/install/mac-install/) and run **Redis** on port **6379** using:
+[docker desktop](https://docs.docker.com/desktop/install/mac-install/) をインストールし、次のコマンドでポート **6379** で **Redis** を実行します。
 
 ```bash
 docker run --name my-redis -p 6379:6379 -d redis
@@ -17,7 +17,7 @@ docker run --name my-redis -p 6379:6379 -d redis
 
 ```python redis_storage_for_workflow.py
 """
-Run: `pip install openai httpx newspaper4k redis agno` to install the dependencies
+実行方法: `pip install openai httpx newspaper4k redis agno` で依存関係をインストールします。
 """
 
 import json
@@ -32,59 +32,59 @@ from agno.utils.log import logger
 from agno.utils.pprint import pprint_run_response
 from agno.workflow import Workflow
 
-# Initialize Redis storage with default local connection
+# デフォルトのローカル接続で Redis ストレージを初期化します
 storage = RedisStorage(
-    # Prefix for Redis keys to namespace the sessions
+    # セッションの名前空間を設定するための Redis キーのプレフィックス
     prefix="agno_test",
-    # Redis host address
+    # Redis ホストアドレス
     host="localhost",
-    # Redis port number
+    # Redis ポート番号
     port=6379,
 )
 
 
 class HackerNewsReporter(Workflow):
     description: str = (
-        "Get the top stories from Hacker News and write a report on them."
+        "Hacker News のトップストーリーを取得し、それらに関するレポートを作成します。"
     )
 
     hn_agent: Agent = Agent(
-        description="Get the top stories from hackernews. "
-        "Share all possible information, including url, score, title and summary if available.",
+        description="Hacker News のトップストーリーを取得します。 "
+        "URL、スコア、タイトル、および利用可能な場合は要約を含む、すべての可能な情報を共有します。",
         show_tool_calls=True,
     )
 
     writer: Agent = Agent(
         tools=[Newspaper4kTools()],
-        description="Write an engaging report on the top stories from hackernews.",
+        description="Hacker News のトップストーリーに関する魅力的なレポートを作成します。",
         instructions=[
-            "You will be provided with top stories and their links.",
-            "Carefully read each article and think about the contents",
-            "Then generate a final New York Times worthy article",
-            "Break the article into sections and provide key takeaways at the end.",
-            "Make sure the title is catchy and engaging.",
-            "Share score, title, url and summary of every article.",
-            "Give the section relevant titles and provide details/facts/processes in each section."
-            "Ignore articles that you cannot read or understand.",
-            "REMEMBER: you are writing for the New York Times, so the quality of the article is important.",
+            "トップストーリーとそのリンクが提供されます。",
+            "各記事を注意深く読み、内容について考えてください。",
+            "その後、ニューヨーク・タイムズ紙にふさわしい最終記事を生成してください。",
+            "記事をセクションに分割し、最後に主要なポイントを提供してください。",
+            "タイトルはキャッチーで魅力的なものにしてください。",
+            "各記事のスコア、タイトル、URL、要約を共有してください。",
+            "セクションに適切なタイトルを付け、各セクションに詳細/事実/プロセスを提供してください。",
+            "読み取れない、または理解できない記事は無視してください。",
+            "REMEMBER: ニューヨーク・タイムズ紙向けの記事を作成しているので、記事の品質が重要です。",
         ],
     )
 
     def get_top_hackernews_stories(self, num_stories: int = 10) -> str:
-        """Use this function to get top stories from Hacker News.
+        """Hacker News のトップストーリーを取得するためにこの関数を使用します。
 
         Args:
-            num_stories (int): Number of stories to return. Defaults to 10.
+            num_stories (int): 返されるストーリーの数。デフォルトは 10 です。
 
         Returns:
-            str: JSON string of top stories.
+            str: トップストーリーの JSON 文字列。
         """
 
-        # Fetch top story IDs
+        # トップストーリー ID を取得します
         response = httpx.get("https://hacker-news.firebaseio.com/v0/topstories.json")
         story_ids = response.json()
 
-        # Fetch story details
+        # ストーリーの詳細を取得します
         stories = []
         for story_id in story_ids[:num_stories]:
             story_response = httpx.get(
@@ -96,34 +96,34 @@ class HackerNewsReporter(Workflow):
         return json.dumps(stories)
 
     def run(self, num_stories: int = 5) -> Iterator[RunResponse]:
-        # Set the tools for hn_agent here to avoid circular reference
+        # 循環参照を回避するために、ここで hn_agent のツールを設定します
         self.hn_agent.tools = [self.get_top_hackernews_stories]
 
-        logger.info(f"Getting top {num_stories} stories from HackerNews.")
+        logger.info(f"HackerNews からトップ {num_stories} 件のストーリーを取得しています。")
         top_stories: RunResponse = self.hn_agent.run(num_stories=num_stories)
         if top_stories is None or not top_stories.content:
             yield RunResponse(
-                run_id=self.run_id, content="Sorry, could not get the top stories."
+                run_id=self.run_id, content="申し訳ありませんが、トップストーリーを取得できませんでした。"
             )
             return
 
-        logger.info("Reading each story and writing a report.")
+        logger.info("各ストーリーを読み取り、レポートを作成しています。")
         yield from self.writer.run(top_stories.content, stream=True)
 
 
 if __name__ == "__main__":
-    # Run workflow
+    # ワークフローを実行します
     report: Iterator[RunResponse] = HackerNewsReporter(
         storage=storage, debug_mode=False
     ).run(num_stories=5)
-    # Print the report
+    # レポートを表示します
     pprint_run_response(report, markdown=True, show_time=True)
 ```
 
-## Params
+## パラメータ
 
 <Snippet file="storage-redis-params.mdx" />
 
-## Developer Resources
+## 開発者向けリソース
 
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/storage/redis_storage/redis_storage_for_workflow.py)
+- [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/storage/redis_storage/redis_storage_for_workflow.py) を表示

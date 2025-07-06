@@ -1,28 +1,28 @@
 ---
-title: Add Python Libraries
+title: Pythonライブラリの追加
 ---
 
-Agno templates are setup to manage dependencies using a [pyproject.toml](https://packaging.python.org/en/latest/specifications/declaring-project-metadata/#declaring-project-metadata) file, **which is used to generate the `requirements.txt` file using [uv](https://github.com/astral-sh/uv) or [pip-tools](https://pip-tools.readthedocs.io/en/latest/).**
+Agnoテンプレートは、[pyproject.toml](https://packaging.python.org/en/latest/specifications/declaring-project-metadata/#declaring-project-metadata)ファイルを使用して依存関係を管理するように設定されています。このファイルは、[uv](https://github.com/astral-sh/uv)または[pip-tools](https://pip-tools.readthedocs.io/en/latest/)を使用して`requirements.txt`ファイルを生成するために使用されます。**
 
-Adding or Updating a python library is a 2 step process:
+Pythonライブラリの追加または更新は、次の2つのステップで行います。
 
-1. Add library to the `pyproject.toml` file
-2. Auto-Generate the `requirements.txt` file
+1. `pyproject.toml`ファイルにライブラリを追加する
+2. `requirements.txt`ファイルを自動生成する
 
 <Warning>
 
-We highly recommend auto-generating the `requirements.txt` file using this process.
+このプロセスを使用して`requirements.txt`ファイルを自動生成することを強くお勧めします。
 
 </Warning>
 
-## Update pyproject.toml
+## pyproject.tomlの更新
 
-- Open the `pyproject.toml` file
-- Add new libraries to the dependencies section.
+- `pyproject.toml`ファイルを開きます。
+- 依存関係セクションに新しいライブラリを追加します。
 
-## Generate requirements
+## requirementsの生成
 
-After updating the `dependencies` in the `pyproject.toml` file, auto-generate the `requirements.txt` file using a helper script or running `pip-compile` directly.
+`pyproject.toml`ファイルで`dependencies`を更新した後、ヘルパースクリプトを実行するか、直接`pip-compile`を実行して`requirements.txt`ファイルを自動生成します。
 
 <CodeGroup>
 
@@ -39,7 +39,7 @@ pip-compile \
 
 </CodeGroup>
 
-If you'd like to upgrade all python libraries to their latest version, run:
+すべてのPythonライブラリを最新バージョンにアップグレードしたい場合は、次を実行します。
 
 <CodeGroup>
 
@@ -57,11 +57,11 @@ pip-compile \
 
 </CodeGroup>
 
-## Rebuild Images
+## イメージの再構築
 
-After updating the `requirements.txt` file, rebuild your images.
+`requirements.txt`ファイルを更新した後、イメージを再構築します。
 
-### Rebuild dev images
+### 開発用イメージの再構築
 
 <CodeGroup>
 
@@ -75,11 +75,11 @@ ag ws up -e dev -i docker -t image
 
 </CodeGroup>
 
-### Rebuild production images
+### 本番用イメージの再構築
 
 <Note>
 
-Remember to [authenticate with ECR](workspaces/workspace-management/production-app#ecr-images) if needed.
+必要に応じて、[ECRへの認証](workspaces/workspace-management/production-app#ecr-images)を忘れないでください。
 
 </Note>
 
@@ -95,11 +95,11 @@ ag ws up -e prd -i aws -t image
 
 </CodeGroup>
 
-## Recreate Resources
+## リソースの再作成
 
-After rebuilding images, recreate the resources.
+イメージを再構築した後、リソースを再作成します。
 
-### Recreate dev containers
+### 開発用コンテナの再作成
 
 <CodeGroup>
 
@@ -113,7 +113,7 @@ ag ws restart -e dev -c docker -t container
 
 </CodeGroup>
 
-### Update ECS services
+### ECSサービスの更新
 
 <CodeGroup>
 

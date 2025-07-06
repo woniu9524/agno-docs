@@ -2,34 +2,30 @@
 title: Movie Recommender
 ---
 
-This example shows how to create an intelligent movie recommendation system that provides
-comprehensive film suggestions based on your preferences. The agent combines movie databases,
-ratings, reviews, and upcoming releases to deliver personalized movie recommendations.
+この例では、ユーザーの好みに基づいて包括的な映画の提案を提供するインテリジェントな映画推薦システムを作成する方法を示します。エージェントは、映画データベース、評価、レビュー、および今後のリリースを組み合わせて、パーソナライズされた映画の推薦を提供します。
 
-Example prompts to try:
-- "Suggest thriller movies similar to Inception and Shutter Island"
-- "What are the top-rated comedy movies from the last 2 years?"
-- "Find me Korean movies similar to Parasite and Oldboy"
-- "Recommend family-friendly adventure movies with good ratings"
-- "What are the upcoming superhero movies in the next 6 months?"
+試すためのプロンプト例：
+- 「インセプションとシャッターアイランドに似たスリラー映画を提案してください」
+- 「過去2年間で評価の高いコメディ映画は何ですか？」
+- 「パラサイトとオールドボーイに似た韓国映画を見つけてください」
+- 「評価の高い家族向けの冒険映画をおすすめしてください」
+- 「今後6ヶ月以内に公開されるスーパーヒーロー映画は何ですか？」
 
-## Code
+## コード
 
 ```python movie_recommender.py
-"""🎬 Movie Recommender - Your Personal Cinema Curator!
+"""🎬 ムービーレコメンダー - あなたのパーソナルシネマキュレーター！
 
-This example shows how to create an intelligent movie recommendation system that provides
-comprehensive film suggestions based on your preferences. The agent combines movie databases,
-ratings, reviews, and upcoming releases to deliver personalized movie recommendations.
+この例では、ユーザーの好みに基づいて包括的な映画の提案を提供するインテリジェントな映画推薦システムを作成する方法を示します。エージェントは、映画データベース、評価、レビュー、および今後のリリースを組み合わせて、パーソナライズされた映画の推薦を提供します。
 
-Example prompts to try:
-- "Suggest thriller movies similar to Inception and Shutter Island"
-- "What are the top-rated comedy movies from the last 2 years?"
-- "Find me Korean movies similar to Parasite and Oldboy"
-- "Recommend family-friendly adventure movies with good ratings"
-- "What are the upcoming superhero movies in the next 6 months?"
+試すためのプロンプト例：
+- 「インセプションとシャッターアイランドに似たスリラー映画を提案してください」
+- 「過去2年間で評価の高いコメディ映画は何ですか？」
+- 「パラサイトとオールドボーイに似た韓国映画を見つけてください」
+- 「評価の高い家族向けの冒険映画をおすすめしてください」
+- 「今後6ヶ月以内に公開されるスーパーヒーロー映画は何ですか？」
 
-Run: `pip install openai exa_py agno` to install the dependencies
+実行：依存関係をインストールするには `pip install openai exa_py agno` を実行してください
 """
 
 from textwrap import dedent
@@ -43,104 +39,103 @@ movie_recommendation_agent = Agent(
     tools=[ExaTools()],
     model=OpenAIChat(id="gpt-4o"),
     description=dedent("""\
-        You are PopcornPal, a passionate and knowledgeable film curator with expertise in cinema worldwide! 🎥
+        あなたはPopcornPal、世界中の映画に精通した情熱的で知識豊富な映画キュレーターです！🎥
 
-        Your mission is to help users discover their next favorite movies by providing detailed,
-        personalized recommendations based on their preferences, viewing history, and the latest
-        in cinema. You combine deep film knowledge with current ratings and reviews to suggest
-        movies that will truly resonate with each viewer."""),
+        あなたの使命は、ユーザーの好み、視聴履歴、そして最新の映画情報を基に、
+        詳細でパーソナライズされた推薦を提供することで、ユーザーが次のお気に入りの映画を見つけるのを支援することです。
+        深い映画知識と現在の評価およびレビューを組み合わせて、各視聴者の心に響く映画を提案します。"""),
     instructions=dedent("""\
-        Approach each recommendation with these steps:
-        1. Analysis Phase
-           - Understand user preferences from their input
-           - Consider mentioned favorite movies' themes and styles
-           - Factor in any specific requirements (genre, rating, language)
+        各推薦は以下のステップでアプローチしてください：
+        1. 分析フェーズ
+           - ユーザーの入力を理解し、好みを把握する
+           - 言及されたお気に入りの映画のテーマやスタイルを考慮する
+           - 特定の要件（ジャンル、評価、言語）を考慮に入れる
 
-        2. Search & Curate
-           - Use Exa to search for relevant movies
-           - Ensure diversity in recommendations
-           - Verify all movie data is current and accurate
+        2. 検索とキュレーション
+           - Exaを使用して関連映画を検索する
+           - 推薦の多様性を確保する
+           - すべての映画データが最新かつ正確であることを確認する
 
-        3. Detailed Information
-           - Movie title and release year
-           - Genre and subgenres
-           - IMDB rating (focus on 7.5+ rated films)
-           - Runtime and primary language
-           - Brief, engaging plot summary
-           - Content advisory/age rating
-           - Notable cast and director
+        3. 詳細情報
+           - 映画のタイトルと公開年
+           - ジャンルとサブジャンル
+           - IMDB評価（7.5以上の評価に焦点を当てる）
+           - 上映時間と主要言語
+           - 短く魅力的なあらすじ
+           - コンテンツアドバイザリー/年齢評価
+           - 著名なキャストと監督
 
-        4. Extra Features
-           - Include relevant trailers when available
-           - Suggest upcoming releases in similar genres
-           - Mention streaming availability when known
+        4. 追加機能
+           - 関連する予告編があれば含める
+           - 同様のジャンルの今後のリリースを提案する
+           - 分かればストリーミングの利用可能性に言及する
 
-        Presentation Style:
-        - Use clear markdown formatting
-        - Present main recommendations in a structured table
-        - Group similar movies together
-        - Add emoji indicators for genres (🎭 🎬 🎪)
-        - Minimum 5 recommendations per query
-        - Include a brief explanation for each recommendation
+        プレゼンテーションスタイル：
+        - 明確なマークダウンフォーマットを使用する
+        - 主要な推薦は構造化されたテーブルで提示する
+        - 同様の映画をグループ化する
+        - ジャンルごとに絵文字インジケーターを追加する（🎭 🎬 🎪）
+        - クエリごとに最低5つの推薦を含める
+        - 各推薦について簡単な説明を含める
     """),
     markdown=True,
     add_datetime_to_instructions=True,
     show_tool_calls=True,
 )
 
-# Example usage with different types of movie queries
+# さまざまな種類の映画クエリを使用した使用例
 movie_recommendation_agent.print_response(
-    "Suggest some thriller movies to watch with a rating of 8 or above on IMDB. "
-    "My previous favourite thriller movies are The Dark Knight, Venom, Parasite, Shutter Island.",
+    "IMDBで8以上の評価を持つスリラー映画をいくつか提案してください。 "
+    "以前のお気に入りのスリラー映画は、ダークナイト、ヴェノム、パラサイト、シャッターアイランドです。",
     stream=True,
 )
 
-# More example prompts to explore:
+# 探求するための追加のプロンプト例：
 """
-Genre-specific queries:
-1. "Find me psychological thrillers similar to Black Swan and Gone Girl"
-2. "What are the best animated movies from Studio Ghibli?"
-3. "Recommend some mind-bending sci-fi movies like Inception and Interstellar"
-4. "What are the highest-rated crime documentaries from the last 5 years?"
+ジャンル別クエリ：
+1. 「ブラック・スワンやゴーン・ガールに似たサイコスリラーを見つけてください」
+2. 「スタジオジブリの最高の長編アニメーション映画は何ですか？」
+3. 「インセプションやインターステラーのような心を揺さぶるSF映画をおすすめしてください」
+4. 「過去5年間で評価の高い犯罪ドキュメンタリーは何ですか？」
 
-International Cinema:
-1. "Suggest Korean movies similar to Parasite and Train to Busan"
-2. "What are the must-watch French films from the last decade?"
-3. "Recommend Japanese animated movies for adults"
-4. "Find me award-winning European drama films"
+国際的な映画：
+1. 「パラサイトや新感染半島エクスプレスに似た韓国映画を提案してください」
+2. 「過去10年間の必見のフランス映画は何ですか？」
+3. 「大人向けの日本のアニメ映画をおすすめしてください」
+4. 「受賞歴のあるヨーロッパのドラマ映画を見つけてください」
 
-Family & Group Watching:
-1. "What are good family movies for kids aged 8-12?"
-2. "Suggest comedy movies perfect for a group movie night"
-3. "Find educational documentaries suitable for teenagers"
-4. "Recommend adventure movies that both adults and children would enjoy"
+家族やグループでの鑑賞：
+1. 「8歳から12歳の子ども向けの家族映画は何ですか？」
+2. 「グループ映画の夜に最適なコメディ映画を提案してください」
+3. 「10代に適した教育ドキュメンタリーを見つけてください」
+4. 「大人も子供も楽しめる冒険映画をおすすめしてください」
 
-Upcoming Releases:
-1. "What are the most anticipated movies coming out next month?"
-2. "Show me upcoming superhero movie releases"
-3. "What horror movies are releasing this Halloween season?"
-4. "List upcoming book-to-movie adaptations"
+今後のリリース：
+1. 「来月公開される最も期待されている映画は何ですか？」
+2. 「今後のスーパーヒーロー映画のリリースを見せてください」
+3. 「このハロウィンの季節に公開されるホラー映画は何ですか？」
+4. 「今後の書籍から映画化された作品をリストアップしてください」
 """
 ```
-## Usage
+## 使用方法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install libraries">
+  <Step title="ライブラリのインストール">
     ```bash
     pip install openai exa_py agno
     ```
   </Step>
 
-  <Step title="Set environment variables">
+  <Step title="環境変数の設定">
     ```bash
     export OPENAI_API_KEY=****
     export EXA_API_KEY=****
     ```
   </Step>
 
-  <Step title="Run the agent">
+  <Step title="エージェントの実行">
     ```bash
     python movie_recommender.py
     ```

@@ -1,16 +1,16 @@
 ---
-title: URL Knowledge Base
-description: Learn how to use online content in your knowledge base.
+title: URLナレッジベース
+description: ナレッジベースでオンラインコンテンツを使用する方法を学びます。
 sidebarTitle: URL
 ---
 
-The **URLKnowledgeBase** reads **URLs** links, converts them into vector embeddings and loads them to a vector database.
+**URLKnowledgeBase** は **URL** のリンクを読み込み、ベクトル埋め込みに変換してベクトルデータベースにロードします。
 
-## Usage
+## 使用方法
 
 <Note>
 
-We are using a local Qdrant database for this example. [Make sure it's running](https://docs.agno.com/vectordb/qdrant)
+この例では、ローカルのQdrantデータベースを使用しています。[実行されていることを確認してください](https://docs.agno.com/vectordb/qdrant)。
 
 </Note>
 
@@ -33,14 +33,14 @@ knowledge_base = UrlKnowledge(
 )
 ```
 
-Then use the `knowledge_base` with an `Agent`:
+次に、`Agent` で `knowledge_base` を使用します。
 
 ```python
 from agno.agent import Agent
 from agno.knowledge.url import UrlKnowledge
 from agno.models.openai import OpenAIChat
 
-# Initialize knowledge base
+# ナレッジベースの初期化
 COLLECTION_NAME = "website-content"
 
 vector_db = Qdrant(collection=COLLECTION_NAME, url="http://localhost:6333")
@@ -58,7 +58,7 @@ agent_with_knowledge = Agent(
 )
 
 if __name__ == "__main__":
-    # Comment out after first run
+    # 初回実行後にコメントアウトしてください
     knowledge_base.load()
 
     agent_with_knowledge.print_response(
@@ -66,8 +66,7 @@ if __name__ == "__main__":
     )
 ```
 
-#### URLKnowledgeBase also supports async loading.
-
+#### URLKnowledgeBase は非同期ロードもサポートしています。
 
 ```python async_knowledge_base.py
 import asyncio
@@ -79,7 +78,7 @@ from agno.vectordb.qdrant import Qdrant
 
 COLLECTION_NAME = "website-content"
 
-# Initialize knowledge base
+# ナレッジベースの初期化
 agent_knowledge = UrlKnowledge(
     urls=["https://docs.agno.com/introduction"],
     vector_db=Qdrant(
@@ -106,17 +105,16 @@ if __name__ == "__main__":
     )
 ```
 
-## Params
+## パラメータ
 
-| Parameter | Type               | Default             | Description                                                                           |
+| パラメータ | タイプ               | デフォルト             | 説明                                                                           |
 | --------- | ------------------ | ------------------- | ------------------------------------------------------------------------------------- |
-| `urls`    | `List[str]`        | -                   | URLs of the website to read.                                                                                          |
-| `reader`  | `URLReader`        | `URLReader()`       | A `URLReader` that reads the Website `URLs` and converts it into `Documents` for the vector database |
+| `urls`    | `List[str]`        | -                   | 読み込むウェブサイトのURL。                                                                                          |
+| `reader`  | `URLReader`        | `URLReader()`       | ウェブサイトの `URL` を読み込み、ベクトルデータベース用の `Documents` に変換する `URLReader`。 |
 
-`URLKnowledgeBase` is a subclass of the [AgentKnowledge](/reference/knowledge/base) class and has access to the same params.
+`URLKnowledgeBase` は [AgentKnowledge](/reference/knowledge/base) クラスのサブクラスであり、同じパラメータにアクセスできます。
 
-## Developer Resources
+## 開発者向けリソース
 
-- View [Sync loading Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/url_kb.py)
-- View [Async loading Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/url_kb_async.py)
-
+- [同期ロードクックブック](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/url_kb.py) を表示
+- [非同期ロードクックブック](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/url_kb_async.py) を表示

@@ -1,9 +1,9 @@
 ---
-title: Filtering on Weaviate
-description: Learn how to filter knowledge base searches using Pdf documents with user-specific metadata in Weaviate.
+title: Weaviateでのフィルタリング
+description: Weaviateでユーザー固有のメタデータを持つPDFドキュメントを使用して、ナレッジベース検索をフィルタリングする方法を学びます。
 ---
 
-## Code
+## コード
 
 ```python
 from agno.agent import Agent
@@ -15,21 +15,21 @@ from agno.utils.media import (
 from agno.vectordb.search import SearchType
 from agno.vectordb.weaviate import Distance, VectorIndex, Weaviate
 
-# Download all sample CVs and get their paths
+# すべてのサンプルCVをダウンロードし、そのパスを取得します
 downloaded_cv_paths = download_knowledge_filters_sample_data(
     num_files=5, file_extension=SampleDataFileExtension.PDF
 )
 
-# Step 1: Initialize knowledge base with documents and metadata
+# ステップ1: ドキュメントとメタデータでナレッジベースを初期化します
 # ------------------------------------------------------------------------------
-# When initializing the knowledge base, we can attach metadata that will be used for filtering
-# This metadata can include user IDs, document types, dates, or any other attributes
+# ナレッジベースを初期化する際に、フィルタリングに使用されるメタデータを添付できます
+# このメタデータには、ユーザーID、ドキュメントタイプ、日付、またはその他の属性を含めることができます
 
 vector_db = Weaviate(
     collection="recipes",
     vector_index=VectorIndex.HNSW,
     distance=Distance.COSINE,
-    local=False,  # Set to False if using Weaviate Cloud and True if using local instance
+    local=False,  # Weaviate Cloudを使用する場合はFalseに設定し、ローカルインスタンスを使用する場合はTrueに設定します
 )
 
 knowledge_base = PDFKnowledgeBase(
@@ -78,10 +78,10 @@ knowledge_base = PDFKnowledgeBase(
     vector_db=vector_db,
 )
 
-# Load all documents into the vector database
+# すべてのドキュメントをベクトルデータベースにロードします
 knowledge_base.load(recreate=True)
 
-# Step 2: Query the knowledge base with different filter combinations
+# ステップ2: 異なるフィルタの組み合わせでナレッジベースをクエリします
 # ------------------------------------------------------------------------------
 
 agent = Agent(
@@ -90,22 +90,22 @@ agent = Agent(
 )
 
 agent.print_response(
-    "Tell me about Jordan Mitchell's experience and skills",
+    "Jordan Mitchellの経験とスキルについて教えてください",
     knowledge_filters={"user_id": "jordan_mitchell"},
     markdown=True,
 )
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
-  <Step title="Install libraries">
+  <Step title="ライブラリのインストール">
     ```bash
     pip install -U agno weaviate-client openai
     ```
   </Step>
 
-  <Step title="Run the example">
+  <Step title="例の実行">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/knowledge/filters/filtering_weaviate.py

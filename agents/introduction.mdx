@@ -1,43 +1,43 @@
 ---
-title: What are Agents?
-sidebarTitle: Overview
-description: Learn about Agno Agents and how they work.
+title: エージェントとは
+sidebarTitle: 概要
+description: Agnoエージェントとその仕組みについて学びます。
 ---
 
-**Agents** are AI programs that operate autonomously. Traditional software follows a pre-programmed sequence of steps. Agents dynamically determine their course of action using a machine learning **model**.
+**エージェント**は自律的に動作するAIプログラムです。従来のソフトウェアは、事前にプログラムされた一連のステップに従います。エージェントは、機械学習**モデル**を使用して、動的に行動方針を決定します。
 
-The core of an Agent is the **model**, **tools** and **instructions**:
+エージェントのコアは、**モデル**、**ツール**、**指示**です。
 
-- **Model:** controls the flow of execution. It decides whether to reason, act or respond.
-- **Tools:** enable an Agent to take actions and interact with external systems.
-- **Instructions:** are how we program the Agent, teaching it how to use tools and respond.
+- **モデル:** 実行フローを制御します。推論、行動、応答のいずれを行うかを決定します。
+- **ツール:** エージェントがアクションを実行し、外部システムと対話できるようにします。
+- **指示:** エージェントをプログラムし、ツールの使用方法や応答方法を教える方法です。
 
-Agents also have **memory**, **knowledge**, **storage** and the ability to **reason**:
+エージェントは、**メモリ**、**知識**、**ストレージ**、および**推論**能力も備えています。
 
-- **Reasoning:** enables Agents to "think" before responding and "analyze" the results of their actions (i.e. tool calls), this improves reliability and quality of responses.
-- **Knowledge:** is domain-specific information that the Agent can **search at runtime** to make better decisions and provide accurate responses (RAG). Knowledge is stored in a vector database and this **search at runtime** pattern is known as Agentic RAG/Agentic Search.
-- **Storage:** is used by Agents to save session history and state in a database. Model APIs are stateless and storage enables us to continue conversations from where they left off. This makes Agents stateful, enabling multi-turn, long-term conversations.
-- **Memory:** gives Agents the ability to store and recall information from previous interactions, allowing them to learn user preferences and personalize their responses.
+- **推論:** エージェントが応答する前に「考え」、アクション（ツール呼び出し）の結果を「分析」できるようにし、応答の信頼性と品質を向上させます。
+- **知識:** エージェントが実行時に**検索**して、より良い意思決定を行い、正確な応答を提供できるドメイン固有の情報です（RAG）。知識はベクトルデータベースに保存され、この**実行時の検索**パターンはAgentic RAG/Agentic Searchとして知られています。
+- **ストレージ:** エージェントがセッション履歴と状態をデータベースに保存するために使用されます。モデルAPIはステートレスであり、ストレージにより、会話を中断したところから再開できます。これにより、エージェントはステートフルになり、マルチターン、長期的な会話が可能になります。
+- **メモリ:** エージェントが以前の対話からの情報を保存および呼び出す能力を与え、ユーザーの好みを学習し、応答をパーソナライズできるようにします。
 
 <img height="200" src="/images/agent.png" style={{ borderRadius: "8px" }} />
 
 <Check>
-If this is your first time building agents, [follow these examples](/introduction/agents#basic-agent) before diving into advanced concepts.
+エージェントを初めて構築する場合は、高度な概念に進む前に、[これらの例に従ってください](/introduction/agents#basic-agent)。
 </Check>
 
-## Example: Research Agent
+## 例：リサーチエージェント
 
-Let's build a research agent using Exa to showcase how to guide the Agent to produce the report in a specific format. In advanced cases, we should use [Structured Outputs](/agents/structured-output) instead.
+Exaを使用してリサーチエージェントを構築し、エージェントにレポートを特定の形式で生成するようにガイドする方法を示します。高度なケースでは、代わりに[構造化出力](/agents/structured-output)を使用する必要があります。
 
 <Note>
-  The description and instructions are converted to the system message and the
-  input is passed as the user message. Set `debug_mode=True` to view logs behind
-  the scenes.
+  説明と指示はシステムメッセージに変換され、
+  入力はユーザーメッセージとして渡されます。
+  `debug_mode=True` を設定すると、舞台裏のログを表示できます。
 </Note>
 
 <Steps>
-  <Step title="Create Research Agent">
-    Create a file `research_agent.py`
+  <Step title="リサーチエージェントの作成">
+    `research_agent.py` ファイルを作成します。
 
     ```python research_agent.py
     from datetime import datetime
@@ -54,91 +54,90 @@ Let's build a research agent using Exa to showcase how to guide the Agent to pro
         model=OpenAIChat(id="gpt-4o"),
         tools=[ExaTools(start_published_date=today, type="keyword")],
         description=dedent("""\
-            You are Professor X-1000, a distinguished AI research scientist with expertise
-            in analyzing and synthesizing complex information. Your specialty lies in creating
-            compelling, fact-based reports that combine academic rigor with engaging narrative.
+            あなたは、複雑な情報を分析および合成する専門知識を持つ、著名なAIリサーチサイエンティストであるProfessor X-1000です。
+            あなたの専門は、学術的な厳密さと魅力的な物語を組み合わせた、説得力のある事実に基づいたレポートを作成することです。
 
-            Your writing style is:
-            - Clear and authoritative
-            - Engaging but professional
-            - Fact-focused with proper citations
-            - Accessible to educated non-specialists\
+            あなたの文章スタイルは次のとおりです。
+            - 明確で権威がある
+            - 魅力的でありながらプロフェッショナル
+            - 正確な引用を含む事実に基づいた
+            - 教育を受けた非専門家にも分かりやすい\
         """),
         instructions=dedent("""\
-            Begin by running 3 distinct searches to gather comprehensive information.
-            Analyze and cross-reference sources for accuracy and relevance.
-            Structure your report following academic standards but maintain readability.
-            Include only verifiable facts with proper citations.
-            Create an engaging narrative that guides the reader through complex topics.
-            End with actionable takeaways and future implications.\
+            包括的な情報を収集するために、まず3つの異なる検索を実行してください。
+            ソースの正確性と関連性を分析および相互参照してください。
+            学術的な基準に従ってレポートを構成しますが、読みやすさを維持してください。
+            検証可能な事実のみを適切な引用とともに含めてください。
+            読者を複雑なトピックに導く、魅力的な物語を作成してください。
+            実行可能な要点と将来の含意で締めくくってください。\
         """),
         expected_output=dedent("""\
-        A professional research report in markdown format:
+        Markdown形式のプロフェッショナルなリサーチレポート：
 
-        # {Compelling Title That Captures the Topic's Essence}
+        # {トピックの本質を捉える魅力的なタイトル}
 
-        ## Executive Summary
-        {Brief overview of key findings and significance}
+        ## エグゼクティブサマリー
+        {主要な発見と重要性の簡単な概要}
 
-        ## Introduction
-        {Context and importance of the topic}
-        {Current state of research/discussion}
+        ## イントロダクション
+        {トピックの背景と重要性}
+        {リサーチ/議論の現状}
 
-        ## Key Findings
-        {Major discoveries or developments}
-        {Supporting evidence and analysis}
+        ## 主要な発見
+        {主要な発見または進展}
+        {裏付けとなる証拠と分析}
 
-        ## Implications
-        {Impact on field/society}
-        {Future directions}
+        ## インプリケーション
+        {分野/社会への影響}
+        {将来の方向性}
 
-        ## Key Takeaways
-        - {Bullet point 1}
-        - {Bullet point 2}
-        - {Bullet point 3}
+        ## 主要な要点
+        - {箇条書き1}
+        - {箇条書き2}
+        - {箇条書き3}
 
-        ## References
-        - [Source 1](link) - Key finding/quote
-        - [Source 2](link) - Key finding/quote
-        - [Source 3](link) - Key finding/quote
+        ## 参考文献
+        - [ソース1](link) - 主要な発見/引用
+        - [ソース2](link) - 主要な発見/引用
+        - [ソース3](link) - 主要な発見/引用
 
         ---
-        Report generated by Professor X-1000
-        Advanced Research Systems Division
-        Date: {current_date}\
+        Professor X-1000によって生成されたレポート
+        先進リサーチシステム部門
+        日付： {current_date}\
         """),
         markdown=True,
         show_tool_calls=True,
         add_datetime_to_instructions=True,
     )
 
-    # Example usage
+    # 使用例
     if __name__ == "__main__":
-        # Generate a research report on a cutting-edge topic
+        # 最先端のトピックに関するリサーチレポートを生成する
         agent.print_response(
-            "Research the latest developments in brain-computer interfaces", stream=True
+            "脳コンピューターインターフェースの最新動向を調査する", stream=True
         )
 
-    # More example prompts to try:
+    # 試すその他の例プロンプト：
     """
-    Try these research topics:
-    1. "Analyze the current state of solid-state batteries"
-    2. "Research recent breakthroughs in CRISPR gene editing"
-    3. "Investigate the development of autonomous vehicles"
-    4. "Explore advances in quantum machine learning"
-    5. "Study the impact of artificial intelligence on healthcare"
+    これらのリサーチトピックを試してください：
+    1. "全固体電池の現状を分析する"
+    2. "CRISPR遺伝子編集の最近の進歩を調査する"
+    3. "自動運転車の開発を調査する"
+    4. "量子機械学習の進歩を探る"
+    5. "人工知能が医療に与える影響を研究する"
     """
     ```
 
   </Step>
-  <Step title="Run the agent">
-    Install libraries
+  <Step title="エージェントの実行">
+    ライブラリをインストールします。
 
     ```shell
     pip install openai exa-py agno
     ```
 
-    Run the agent
+    エージェントを実行します。
 
     ```shell
     python research_agent.py

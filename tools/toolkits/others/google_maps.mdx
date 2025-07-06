@@ -1,13 +1,13 @@
 ---
 title: "Google Maps"
-description: "Tools for interacting with Google Maps services including place search, directions, geocoding, and more"
+description: "Google Mapsサービスと連携するためのツール。場所の検索、経路案内、ジオコーディングなどが含まれます"
 ---
 
-**GoogleMapTools** enable an Agent to interact with various Google Maps services for location-based operations including place search, directions, geocoding, and more.
+**GoogleMapTools** を使用すると、エージェントは場所ベースの操作のためにさまざまなGoogle Mapsサービスと連携できます。これには、場所の検索、経路案内、ジオコーディングなどが含まれます。
 
-## Prerequisites
+## 前提条件
 
-The following example requires the `googlemaps` library and an API key which can be obtained from the [Google Cloud Console](https://console.cloud.google.com/projectselector2/google/maps-apis/credentials).
+以下の例では、`googlemaps` ライブラリとAPIキーが必要です。APIキーは [Google Cloud Console](https://console.cloud.google.com/projectselector2/google/maps-apis/credentials) から取得できます。
 
 ```shell
 pip install googlemaps
@@ -17,7 +17,7 @@ pip install googlemaps
 export GOOGLE_MAPS_API_KEY=your_api_key_here
 ```
 
-You'll need to enable the following APIs in your Google Cloud Console:
+Google Cloud Console で以下のAPIを有効にする必要があります。
 - Places API
 - Directions API
 - Geocoding API
@@ -26,9 +26,9 @@ You'll need to enable the following APIs in your Google Cloud Console:
 - Elevation API
 - Time Zone API
 
-## Example
+## 例
 
-Basic usage of the Google Maps toolkit:
+Google Mapsツールの基本的な使い方：
 
 ```python
 from agno.agent import Agent
@@ -38,40 +38,40 @@ agent = Agent(tools=[GoogleMapTools()], show_tool_calls=True)
 agent.print_response("Find coffee shops in San Francisco")
 ```
 
-For more examples, see the [Google Maps Tools Examples](/examples/concepts/tools/others/google_maps).
+その他の例については、[Google Maps Tools Examples](/examples/concepts/tools/others/google_maps) を参照してください。
 
-## Toolkit Params
+## ツールキットのパラメータ
 
-| Parameter | Type | Default | Description |
+| パラメータ | タイプ | デフォルト | 説明 |
 |-----------|------|---------|-------------|
-| `key` | `Optional[str]` | `None` | Optional API key. If not provided, uses GOOGLE_MAPS_API_KEY environment variable |
-| `search_places` | `bool` | `True` | Enable places search functionality |
-| `get_directions` | `bool` | `True` | Enable directions functionality |
-| `validate_address` | `bool` | `True` | Enable address validation functionality |
-| `geocode_address` | `bool` | `True` | Enable geocoding functionality |
-| `reverse_geocode` | `bool` | `True` | Enable reverse geocoding functionality |
-| `get_distance_matrix` | `bool` | `True` | Enable distance matrix functionality |
-| `get_elevation` | `bool` | `True` | Enable elevation functionality |
-| `get_timezone` | `bool` | `True` | Enable timezone functionality |
+| `key` | `Optional[str]` | `None` | オプションのAPIキー。指定しない場合は、GOOGLE_MAPS_API_KEY 環境変数を使用します |
+| `search_places` | `bool` | `True` | 場所検索機能を有効にします |
+| `get_directions` | `bool` | `True` | 経路案内機能を有効にします |
+| `validate_address` | `bool` | `True` | 住所検証機能を有効にします |
+| `geocode_address` | `bool` | `True` | ジオコーディング機能を有効にします |
+| `reverse_geocode` | `bool` | `True` | リバースジオコーディング機能を有効にします |
+| `get_distance_matrix` | `bool` | `True` | 距離マトリックス機能を有効にします |
+| `get_elevation` | `bool` | `True` | 標高取得機能を有効にします |
+| `get_timezone` | `bool` | `True` | タイムゾーン取得機能を有効にします |
 
-## Toolkit Functions
+## ツールキットの関数
 
-| Function | Description |
+| 関数 | 説明 |
 |----------|-------------|
-| `search_places` | Search for places using Google Maps Places API. Parameters: `query` (str) for the search query. Returns stringified JSON with place details including name, address, phone, website, rating, and hours. |
-| `get_directions` | Get directions between locations. Parameters: `origin` (str), `destination` (str), optional `mode` (str) for travel mode, optional `avoid` (List[str]) for features to avoid. Returns route information. |
-| `validate_address` | Validate an address. Parameters: `address` (str), optional `region_code` (str), optional `locality` (str). Returns address validation results. |
-| `geocode_address` | Convert address to coordinates. Parameters: `address` (str), optional `region` (str). Returns location information with coordinates. |
-| `reverse_geocode` | Convert coordinates to address. Parameters: `lat` (float), `lng` (float), optional `result_type` and `location_type` (List[str]). Returns address information. |
-| `get_distance_matrix` | Calculate distances between locations. Parameters: `origins` (List[str]), `destinations` (List[str]), optional `mode` (str) and `avoid` (List[str]). Returns distance and duration matrix. |
-| `get_elevation` | Get elevation for a location. Parameters: `lat` (float), `lng` (float). Returns elevation data. |
-| `get_timezone` | Get timezone for a location. Parameters: `lat` (float), `lng` (float), optional `timestamp` (datetime). Returns timezone information. |
+| `search_places` | Google Maps Places API を使用して場所を検索します。パラメータ：検索クエリ用の `query` (str)。場所の詳細（名前、住所、電話番号、ウェブサイト、評価、営業時間など）を含む文字列化されたJSONを返します。 |
+| `get_directions` | 場所間の経路案内を取得します。パラメータ：`origin` (str)、`destination` (str)、移動手段用のオプション `mode` (str)、回避する機能用のオプション `avoid` (List[str])。ルート情報が返されます。 |
+| `validate_address` | 住所を検証します。パラメータ：`address` (str)、オプションの `region_code` (str)、オプションの `locality` (str)。住所検証の結果が返されます。 |
+| `geocode_address` | 住所を座標に変換します。パラメータ：`address` (str)、オプションの `region` (str)。座標を含む場所情報が返されます。 |
+| `reverse_geocode` | 座標を住所に変換します。パラメータ：`lat` (float)、`lng` (float)、オプションの `result_type` および `location_type` (List[str])。住所情報が返されます。 |
+| `get_distance_matrix` | 場所間の距離を計算します。パラメータ：`origins` (List[str])、`destinations` (List[str])、オプションの `mode` (str) および `avoid` (List[str])。距離と所要時間のマトリックスが返されます。 |
+| `get_elevation` | 場所の標高を取得します。パラメータ：`lat` (float)、`lng` (float)。標高データが返されます。 |
+| `get_timezone` | 場所のタイムゾーンを取得します。パラメータ：`lat` (float)、`lng` (float)、オプションの `timestamp` (datetime)。タイムゾーン情報が返されます。 |
 
-## Rate Limits
+## レート制限
 
-Google Maps APIs have usage limits and quotas that vary by service and billing plan. Please refer to the [Google Maps Platform pricing](https://cloud.google.com/maps-platform/pricing) for details.
+Google Maps API には、サービスおよび請求プランによって異なる使用制限と割り当てがあります。詳細については、[Google Maps Platform の料金](https://cloud.google.com/maps-platform/pricing) を参照してください。
 
-## Developer Resources
+## 開発者向けリソース
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/google_maps.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/google_maps_tools.py) 
+- [ツール](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/google_maps.py) を表示
+- [クックブック](https://github.com/agno-agi/agno/blob/main/cookbook/tools/google_maps_tools.py) を表示

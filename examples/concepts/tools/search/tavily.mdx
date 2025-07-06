@@ -1,8 +1,4 @@
----
-title: Tavily Tools
----
-
-## Code
+## コード
 
 ```python cookbook/tools/tavily_tools.py
 from agno.agent import Agent
@@ -16,25 +12,25 @@ agent = Agent(
 agent.print_response("Search for recent breakthroughs in quantum computing")
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API keys">
+  <Step title="API キーの設定">
     ```bash
     export TAVILY_API_KEY=xxx
-    export OPENAI_API_KEY=xxx 
+    export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="ライブラリのインストール">
     ```bash
     pip install -U openai tavily-python agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="エージェントの実行">
     <CodeGroup>
     ```bash Mac
     python cookbook/tools/tavily_tools.py

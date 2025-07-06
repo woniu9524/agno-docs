@@ -1,22 +1,22 @@
 ---
 title: OpenAI
-description: Learn how to use OpenAI models in Agno.
+description: Agno で OpenAI モデルを使用する方法を学びます。
 ---
 
-The GPT models are the best in class LLMs and used as the default LLM by **Agents**. OpenAI supports a variety of world-class models. See their models [here](https://platform.openai.com/docs/models).
+GPT モデルはクラス最高の LLM であり、**Agents** のデフォルト LLM として使用されます。OpenAI は、世界クラスのさまざまなモデルをサポートしています。モデルについては、[こちら](https://platform.openai.com/docs/models)をご覧ください。
 
-We recommend experimenting to find the best-suited model for your use-case. Here are some general recommendations:
+ユースケースに最適なモデルを見つけるために、実験することをお勧めします。一般的な推奨事項を以下に示します。
 
-- `gpt-4o` is good for most general use-cases.
-- `gpt-4o-mini` model is good for smaller tasks and faster inference.
-- `o1` models are good for complex reasoning and multi-step tasks.
-- `o3-mini` is a strong reasoning model with support for tool-calling and structured outputs, but at a much lower cost.
+- `gpt-4o` は、ほとんどの一般的なユースケースに適しています。
+- `gpt-4o-mini` モデルは、小規模なタスクと高速な推論に適しています。
+- `o1` モデルは、複雑な推論と複数ステップのタスクに適しています。
+- `o3-mini` は、ツール呼び出しと構造化された出力をサポートする強力な推論モデルですが、コストははるかに低いです。
 
-OpenAI have tier based rate limits. See the [docs](https://platform.openai.com/docs/guides/rate-limits/usage-tiers) for more information.
+OpenAI には、ティアベースのレート制限があります。詳細については、[ドキュメント](https://platform.openai.com/docs/guides/rate-limits/usage-tiers)をご覧ください。
 
-## Authentication
+## 認証
 
-Set your `OPENAI_API_KEY` environment variable. You can get one [from OpenAI here](https://platform.openai.com/account/api-keys).
+`OPENAI_API_KEY` 環境変数を設定します。[OpenAI からこちら](https://platform.openai.com/account/api-keys)で取得できます。
 
 <CodeGroup>
 
@@ -30,9 +30,9 @@ setx OPENAI_API_KEY sk-***
 
 </CodeGroup>
 
-## Example
+## 例
 
-Use `OpenAIChat` with your `Agent`:
+`Agent` で `OpenAIChat` を使用します。
 
 <CodeGroup>
 
@@ -51,18 +51,18 @@ agent.print_response("Share a 2 sentence horror story.")
 
 ```
 
-## Prompt caching
-
-Prompt caching will happen automatically using our `OpenAIChat` model. You can read more about how OpenAI handle caching in [their docs](https://platform.openai.com/docs/guides/prompt-caching).
-
 </CodeGroup>
 
-<Note> View more examples [here](../examples/models/openai). </Note>
+## プロンプト キャッシュ
 
-## Params
+プロンプト キャッシュは、`OpenAIChat` モデルを使用して自動的に行われます。OpenAI がキャッシュを処理する方法については、[ドキュメント](https://platform.openai.com/docs/guides/prompt-caching)で詳しく読むことができます。
 
-For more information, please refer to the [OpenAI docs](https://platform.openai.com/docs/api-reference/chat/create) as well.
+<Note> その他の例は、[こちら](../examples/models/openai)でご覧ください。 </Note>
+
+## パラメータ
+
+詳細については、[OpenAI ドキュメント](https://platform.openai.com/docs/api-reference/chat/create)も参照してください。
 
 <Snippet file="model-openai-params.mdx" />
 
-`OpenAIChat` is a subclass of the [Model](/reference/models/model) class and has access to the same params.
+`OpenAIChat` は、[Model](/reference/models/model) クラスのサブクラスであり、同じパラメータにアクセスできます。

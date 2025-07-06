@@ -2,40 +2,40 @@
 title: ag restart
 ---
 
-Restart resources defined in a resources.py file
+resources.py ファイルで定義されたリソースを再起動します
 
-## Params
+## パラメータ
 
 <ResponseField name="resources_file" type="str">
- Path to workspace file.
+ワークスペースファイルへのパス。
 </ResponseField>
 <ResponseField name="env_filter" type="str">
- Filter the environment to deploy `--env` `-e`
+デプロイする環境をフィルタリングします `--env` `-e`
 </ResponseField>
 <ResponseField name="infra_filter" type="str">
- Filter the infra to deploy. `--infra` `-i`
+デプロイするインフラストラクチャをフィルタリングします。 `--infra` `-i`
 </ResponseField>
 <ResponseField name="config_filter" type="str">
- Filter the config to deploy. `--config` `-c`
+デプロイする構成をフィルタリングします。 `--config` `-c`
 </ResponseField>
 <ResponseField name="group_filter" type="str">
- Filter resources using group name. `--group` `-g`
+グループ名を使用してリソースをフィルタリングします。 `--group` `-g`
 </ResponseField>
 <ResponseField name="name_filter" type="str">
- Filter resource using name. `--name` `-n`
+名前を使用してリソースをフィルタリングします。 `--name` `-n`
 </ResponseField>
 <ResponseField name="type_filter" type="str">
- Filter resource using type `--type` `-t`
+タイプを使用してリソースをフィルタリングします `--type` `-t`
 </ResponseField>
 <ResponseField name="dry_run" type="bool">
- Print resources and exit. `--dry-run` `-dr`
+リソースを出力して終了します。 `--dry-run` `-dr`
 </ResponseField>
 <ResponseField name="auto_confirm" type="bool">
- Skip the confirmation before deploying resources. `--yes` `-y`
+リソースのデプロイ前に確認をスキップします。 `--yes` `-y`
 </ResponseField>
 <ResponseField name="print_debug_log" type="bool">
- Print debug logs. `--debug` `-d`
+デバッグログを出力します。 `--debug` `-d`
 </ResponseField>
 <ResponseField name="force" type="bool">
- Force `--force` `-f`
+強制します `--force` `-f`
 </ResponseField>

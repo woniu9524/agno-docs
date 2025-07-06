@@ -2,19 +2,19 @@
 title: Docker
 ---
 
-**DockerTools** enable an Agent to interact with Docker containers, images, volumes, and networks.
+**DockerTools** は、エージェントが Docker コンテナ、イメージ、ボリューム、ネットワークと対話できるようにします。
 
-## Prerequisites
+## 前提条件
 
-The Docker tools require the `docker` Python package. You'll also need Docker installed and running on your system.
+Docker ツールには `docker` Python パッケージが必要です。また、システムに Docker がインストールされ、実行されている必要があります。
 
 ```shell
 pip install docker
 ```
 
-## Example
+## 例
 
-The following example creates an agent that can manage Docker resources:
+次の例では、Docker リソースを管理できるエージェントを作成します。
 
 ```python cookbook/tools/docker_tools.py
 import sys
@@ -30,7 +30,7 @@ try:
         enable_network_management=True,
     )
 
-    # Create an agent with Docker tools
+    # Docker ツールを使用してエージェントを作成します
     docker_agent = Agent(
         name="Docker Agent",
         instructions=[
@@ -42,10 +42,10 @@ try:
         markdown=True,
     )
 
-    # Example: List all running Docker containers
+    # 例: 実行中のすべての Docker コンテナを一覧表示します
     docker_agent.print_response("List all running Docker containers", stream=True)
 
-    # Example: Pull and run an NGINX container
+    # 例: NGINX コンテナをプルして実行します
     docker_agent.print_response("Pull the latest nginx image", stream=True)
     docker_agent.print_response("Run an nginx container named 'web-server' on port 8080", stream=True)
 
@@ -69,63 +69,63 @@ except ValueError as e:
         print("2. Check Docker Desktop settings")
 ```
 
-## Toolkit Params
+## Toolkit パラメータ
 
-| Parameter                    | Type   | Default | Description                                        |
-| ---------------------------- | ------ | ------- | -------------------------------------------------- |
-| `enable_container_management` | `bool` | `True`  | Enables container management functions (list, start, stop, etc.) |
-| `enable_image_management`    | `bool` | `True`  | Enables image management functions (pull, build, etc.) |
-| `enable_volume_management`   | `bool` | `False` | Enables volume management functions |
-| `enable_network_management`  | `bool` | `False` | Enables network management functions |
+| パラメータ                    | タイプ   | デフォルト | 説明                                                     |
+| ------------------------------ | ------ | ------- | -------------------------------------------------------- |
+| `enable_container_management` | `bool` | `True`  | コンテナ管理機能（一覧表示、開始、停止など）を有効にします |
+| `enable_image_management`    | `bool` | `True`  | イメージ管理機能（プル、ビルドなど）を有効にします         |
+| `enable_volume_management`   | `bool` | `False` | ボリューム管理機能を有効にします                         |
+| `enable_network_management`  | `bool` | `False` | ネットワーク管理機能を有効にします                       |
 
-## Toolkit Functions
+## Toolkit 関数
 
-### Container Management
+### コンテナ管理
 
-| Function           | Description                                                  |
-| ------------------ | ------------------------------------------------------------ |
-| `list_containers`  | Lists all containers or only running containers              |
-| `start_container`  | Starts a stopped container                                   |
-| `stop_container`   | Stops a running container                                    |
-| `remove_container` | Removes a container                                          |
-| `get_container_logs` | Retrieves logs from a container                            |
-| `inspect_container` | Gets detailed information about a container                 |
-| `run_container`    | Creates and starts a new container                           |
-| `exec_in_container` | Executes a command inside a running container               |
+| 関数           | 説明                                           |
+| -------------- | ---------------------------------------------- |
+| `list_containers`  | すべてのコンテナまたは実行中のコンテナのみを一覧表示します |
+| `start_container`  | 停止中のコンテナを開始します                   |
+| `stop_container`   | 実行中のコンテナを停止します                   |
+| `remove_container` | コンテナを削除します                           |
+| `get_container_logs` | コンテナからログを取得します                   |
+| `inspect_container` | コンテナの詳細情報を取得します                 |
+| `run_container`    | 新しいコンテナを作成して開始します             |
+| `exec_in_container` | 実行中のコンテナ内でコマンドを実行します       |
 
-### Image Management
+### イメージ管理
 
-| Function           | Description                                                  |
-| ------------------ | ------------------------------------------------------------ |
-| `list_images`      | Lists all images on the system                               |
-| `pull_image`       | Pulls an image from a registry                               |
-| `remove_image`     | Removes an image                                             |
-| `build_image`      | Builds an image from a Dockerfile                            |
-| `tag_image`        | Tags an image                                                |
-| `inspect_image`    | Gets detailed information about an image                     |
+| 関数           | 説明                                       |
+| -------------- | ------------------------------------------ |
+| `list_images`      | システム上のすべてのイメージを一覧表示します |
+| `pull_image`       | レジストリからイメージをプルします         |
+| `remove_image`     | イメージを削除します                       |
+| `build_image`      | Dockerfile からイメージをビルドします      |
+| `tag_image`        | イメージにタグを付けます                   |
+| `inspect_image`    | イメージの詳細情報を取得します             |
 
-### Volume Management
+### ボリューム管理
 
-| Function           | Description                                                  |
-| ------------------ | ------------------------------------------------------------ |
-| `list_volumes`     | Lists all volumes                                            |
-| `create_volume`    | Creates a new volume                                         |
-| `remove_volume`    | Removes a volume                                             |
-| `inspect_volume`   | Gets detailed information about a volume                     |
+| 関数           | 説明                           |
+| -------------- | ------------------------------ |
+| `list_volumes`     | すべてのボリュームを一覧表示します |
+| `create_volume`    | 新しいボリュームを作成します   |
+| `remove_volume`    | ボリュームを削除します         |
+| `inspect_volume`   | ボリュームの詳細情報を取得します |
 
-### Network Management
+### ネットワーク管理
 
-| Function                          | Description                                      |
-| --------------------------------- | ------------------------------------------------ |
-| `list_networks`                   | Lists all networks                               |
-| `create_network`                  | Creates a new network                            |
-| `remove_network`                  | Removes a network                                |
-| `inspect_network`                 | Gets detailed information about a network        |
-| `connect_container_to_network`    | Connects a container to a network                |
-| `disconnect_container_from_network` | Disconnects a container from a network         |
+| 関数                          | 説明                                       |
+| --------------------------------- | ------------------------------------------ |
+| `list_networks`                   | すべてのネットワークを一覧表示します       |
+| `create_network`                  | 新しいネットワークを作成します             |
+| `remove_network`                  | ネットワークを削除します                   |
+| `inspect_network`                 | ネットワークの詳細情報を取得します         |
+| `connect_container_to_network`    | コンテナをネットワークに接続します         |
+| `disconnect_container_from_network` | コンテナをネットワークから切断します       |
 
 
-## Developer Resources
+## 開発者向けリソース
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/docker.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/docker_tools.py)
+- [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/docker.py) を表示
+- [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/docker_tools.py) を表示

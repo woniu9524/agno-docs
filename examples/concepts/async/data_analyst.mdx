@@ -26,8 +26,8 @@ agent = Agent(
     markdown=True,
     show_tool_calls=True,
     additional_context=dedent("""\
-    You have access to the following tables:
-    - movies: contains information about movies from IMDB.
+    以下のテーブルにアクセスできます。
+    - movies: IMDBの映画に関する情報が含まれています。
     """),
 )
 asyncio.run(
@@ -40,7 +40,7 @@ asyncio.run(
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install libraries">
+  <Step title="ライブラリのインストール">
 
     ```bash
     pip install -U openai agno duckdb
@@ -48,7 +48,7 @@ asyncio.run(
 
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="エージェントの実行">
 
     <CodeGroup>
 

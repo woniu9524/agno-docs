@@ -2,19 +2,19 @@
 title: Newspaper4k
 ---
 
-**Newspaper4k** enables an Agent to read news articles using the Newspaper4k library.
+**Newspaper4k** は、Agent が Newspaper4k ライブラリを使用してニュース記事を読むことを可能にします。
 
-## Prerequisites
+## 前提条件
 
-The following example requires the `newspaper4k` and `lxml_html_clean` libraries.
+以下の例では、`newspaper4k` および `lxml_html_clean` ライブラリが必要です。
 
 ```shell
 pip install -U newspaper4k lxml_html_clean
 ```
 
-## Example
+## 例
 
-The following agent will summarize the article: https://www.rockymountaineer.com/blog/experience-icefields-parkway-scenic-drive-lifetime.
+以下のエージェントは、記事を要約します: https://www.rockymountaineer.com/blog/experience-icefields-parkway-scenic-drive-lifetime。
 
 ```python cookbook/tools/newspaper4k_tools.py
 from agno.agent import Agent
@@ -24,22 +24,22 @@ agent = Agent(tools=[Newspaper4kTools()], debug_mode=True, show_tool_calls=True)
 agent.print_response("Please summarize https://www.rockymountaineer.com/blog/experience-icefields-parkway-scenic-drive-lifetime")
 ```
 
-## Toolkit Params
+## Toolkit パラメータ
 
-| Parameter         | Type   | Default | Description                                                                        |
-| ----------------- | ------ | ------- | ---------------------------------------------------------------------------------- |
-| `read_article`    | `bool` | `True`  | Enables the functionality to read the full content of an article.                  |
-| `include_summary` | `bool` | `False` | Specifies whether to include a summary of the article along with the full content. |
-| `article_length`  | `int`  | -       | The maximum length of the article or its summary to be processed or returned.      |
+| パラメータ         | タイプ   | デフォルト | 説明                                                               |
+| ------------------ | ------ | ------- | ------------------------------------------------------------------ |
+| `read_article`     | `bool` | `True`  | 記事の全文を読む機能を使用可能にします。                               |
+| `include_summary`  | `bool` | `False` | 全文と合わせて記事の要約を含めるかどうかを指定します。                   |
+| `article_length`   | `int`  | -       | 処理または返される記事またはその要約の最大長。                         |
 
-## Toolkit Functions
+## Toolkit 関数
 
-| Function           | Description                                                  |
-| ------------------ | ------------------------------------------------------------ |
-| `get_article_data` | This function reads the full content and data of an article. |
-| `read_article`     | This function reads the full content of an article.          |
+| 関数           | 説明                                     |
+| -------------- | ---------------------------------------- |
+| `get_article_data` | この関数は、記事の全文およびデータを読み取ります。 |
+| `read_article`     | この関数は、記事の全文を読み取ります。       |
 
-## Developer Resources
+## 開発者向けリソース
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/newspaper4k.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/newspaper4k_tools.py)
+- [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/newspaper4k.py) を表示
+- [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/newspaper4k_tools.py) を表示

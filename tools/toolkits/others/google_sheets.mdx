@@ -2,17 +2,17 @@
 title: Google Sheets
 ---
 
-**GoogleSheetsTools** enable an Agent to interact with Google Sheets API for reading, creating, updating, and duplicating spreadsheets.
+**GoogleSheetsTools** は、エージェントがGoogle Sheets APIと対話し、スプレッドシートの読み取り、作成、更新、複製を可能にします。
 
-## Prerequisites
+## 前提条件
 
-You need to install the required Google API client libraries:
+必要なGoogle APIクライアントライブラリをインストールする必要があります。
 
 ```bash
 pip install google-api-python-client google-auth-httplib2 google-auth-oauthlib
 ```
 
-Set up the following environment variables:
+以下の環境変数を設定してください。
 
 ```bash
 export GOOGLE_CLIENT_ID=your_client_id_here
@@ -21,28 +21,28 @@ export GOOGLE_PROJECT_ID=your_project_id_here
 export GOOGLE_REDIRECT_URI=your_redirect_uri_here
 ```
 
-## How to Get Credentials
+## 認証情報の取得方法
 
-1. Go to Google Cloud Console (https://console.cloud.google.com)
-2. Create a new project or select an existing one
-3. Enable the Google Sheets API:
-   - Go to "APIs & Services" > "Enable APIs and Services"
-   - Search for "Google Sheets API"
-   - Click "Enable"
+1. Google Cloud Console (https://console.cloud.google.com) にアクセスします。
+2. 新しいプロジェクトを作成するか、既存のプロジェクトを選択します。
+3. Google Sheets API を有効にします。
+   - 「APIとサービス」>「APIとサービスの有効化」に移動します。
+   - 「Google Sheets API」を検索します。
+   - 「有効にする」をクリックします。
 
-4. Create OAuth 2.0 credentials:
-   - Go to "APIs & Services" > "Credentials"
-   - Click "Create Credentials" > "OAuth client ID"
-   - Go through the OAuth consent screen setup
-   - Give it a name and click "Create"
-   - You'll receive:
-     * Client ID (GOOGLE_CLIENT_ID)
-     * Client Secret (GOOGLE_CLIENT_SECRET)
-   - The Project ID (GOOGLE_PROJECT_ID) is visible in the project dropdown at the top of the page
+4. OAuth 2.0 認証情報を作成します。
+   - 「APIとサービス」>「認証情報」に移動します。
+   - 「認証情報を作成」>「OAuth クライアント ID」をクリックします。
+   - OAuth 同意画面の設定を完了します。
+   - 名前を付けて「作成」をクリックします。
+   - 以下の情報が表示されます。
+     * クライアント ID (GOOGLE_CLIENT_ID)
+     * クライアント シークレット (GOOGLE_CLIENT_SECRET)
+   - プロジェクト ID (GOOGLE_PROJECT_ID) は、ページ上部のプロジェクト ドロップダウンで確認できます。
 
-## Example
+## 例
 
-The following agent will use Google Sheets to read and update spreadsheet data.
+以下のエージェントは、Google Sheets を使用してスプレッドシートのデータを読み取り、更新します。
 
 ```python cookbook/tools/googlesheets_tools.py
 from agno.agent import Agent
@@ -67,31 +67,31 @@ agent.print_response("Please tell me about the contents of the spreadsheet")
 
 ```
 
-## Toolkit Params
+## Toolkit のパラメータ
 
-| Parameter          | Type            | Default | Description                                                                 |
+| パラメータ          | タイプ            | デフォルト | 説明                                                                 |
 | ------------------ | --------------- | ------- | --------------------------------------------------------------------------- |
-| `scopes`           | `List[str]`     | `None`  | Custom OAuth scopes. If None, determined by operations.                     |
-| `spreadsheet_id`   | `str`           | `None`  | ID of the target spreadsheet.                                              |
-| `spreadsheet_range`| `str`           | `None`  | Range within the spreadsheet.                                              |
-| `creds`            | `Credentials`   | `None`  | Pre-existing credentials.                                                  |
-| `creds_path`       | `str`           | `None`  | Path to credentials file.                                                  |
-| `token_path`       | `str`           | `None`  | Path to token file.                                                        |
-| `read`             | `bool`          | `True`  | Enable read operations.                                                    |
-| `create`           | `bool`          | `False` | Enable create operations.                                                  |
-| `update`           | `bool`          | `False` | Enable update operations.                                                  |
-| `duplicate`        | `bool`          | `False` | Enable duplicate operations.                                               |
+| `scopes`           | `List[str]`     | `None`  | カスタム OAuth スコープ。None の場合、操作によって決定されます。                     |
+| `spreadsheet_id`   | `str`           | `None`  | 対象のスプレッドシートの ID。                                              |
+| `spreadsheet_range`| `str`           | `None`  | スプレッドシート内の範囲。                                              |
+| `creds`            | `Credentials`   | `None`  | 事前に存在する認証情報。                                                  |
+| `creds_path`       | `str`           | `None`  | 認証情報ファイルへのパス。                                                  |
+| `token_path`       | `str`           | `None`  | トークンファイルへのパス。                                                        |
+| `read`             | `bool`          | `True`  | 読み取り操作を有効にします。                                                    |
+| `create`           | `bool`          | `False` | 作成操作を有効にします。                                                  |
+| `update`           | `bool`          | `False` | 更新操作を有効にします。                                                  |
+| `duplicate`        | `bool`          | `False` | 複製操作を有効にします。                                               |
 
-## Toolkit Functions
+## Toolkit の関数
 
-| Function                | Description                                     |
-| ----------------------- | ----------------------------------------------- |
-| `read_sheet`            | Read values from a Google Sheet                 |
-| `create_sheet`          | Create a new Google Sheet                       |
-| `update_sheet`          | Update data in a Google Sheet                   |
-| `create_duplicate_sheet`| Create a duplicate of an existing Google Sheet  |
+| 関数                | 説明                                     |
+| -------------------- | ----------------------------------------------- |
+| `read_sheet`            | Google Sheet から値を取得します。                 |
+| `create_sheet`          | 新しい Google Sheet を作成します。                       |
+| `update_sheet`          | Google Sheet のデータを更新します。                   |
+| `create_duplicate_sheet`| 既存の Google Sheet を複製します。  |
 
-## Developer Resources
+## 開発者向けリソース
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/googlesheets.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/googlesheets_tools.py)
+- [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/googlesheets.py) を表示
+- [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/googlesheets_tools.py) を表示

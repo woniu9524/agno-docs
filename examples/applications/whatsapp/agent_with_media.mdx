@@ -1,10 +1,10 @@
 ---
-title: Agent With Media
+title: メディア付きエージェント
 ---
 
-This example shows how to use the files with whatsapp app.
+この例では、WhatsAppアプリでファイルを使用する方法を示します。
 
-## Code
+## コード
 
 ```python cookbook/apps/whatsapp/agent_with_media.py
 from agno.agent import Agent
@@ -34,24 +34,24 @@ if __name__ == "__main__":
 
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="APIキーの設定">
     ```bash
     export GOOGLE_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="ライブラリのインストール">
     ```bash
     pip install -U agno google-generativeai "uvicorn[standard]"
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="エージェントの実行">
     <CodeGroup>
     ```bash Mac
     python cookbook/apps/whatsapp/agent_with_media.py
@@ -62,4 +62,4 @@ if __name__ == "__main__":
     ```
     </CodeGroup>
   </Step>
-</Steps> 
+</Steps>

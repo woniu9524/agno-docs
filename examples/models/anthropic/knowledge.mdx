@@ -21,7 +21,7 @@ knowledge_base = PDFUrlKnowledgeBase(
         embedder=AzureOpenAIEmbedder(),
     ),
 )
-knowledge_base.load(recreate=False)  # Comment out after first run
+knowledge_base.load(recreate=False)  # 初回実行後にコメントアウトしてください
 
 agent = Agent(
     model=Claude(id="claude-3-5-sonnet-20241022"),

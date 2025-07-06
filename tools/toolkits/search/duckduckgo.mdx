@@ -3,17 +3,17 @@ title: DuckDuckGo
 sidebarTitle: DuckDuckGo
 ---
 
-**DuckDuckGo** enables an Agent to search the web for information.
+**DuckDuckGo** を使用すると、エージェントがウェブで情報を検索できます。
 
-## Prerequisites
+## 前提条件
 
-The following example requires the `duckduckgo-search` library. To install DuckDuckGo, run the following command:
+次の例では、`duckduckgo-search` ライブラリが必要です。DuckDuckGo をインストールするには、次のコマンドを実行します。
 
 ```shell
 pip install -U duckduckgo-search
 ```
 
-## Example
+## 例
 
 ```python cookbook/tools/duckduckgo.py
 from agno.agent import Agent
@@ -23,26 +23,26 @@ agent = Agent(tools=[DuckDuckGoTools()], show_tool_calls=True)
 agent.print_response("Whats happening in France?", markdown=True)
 ```
 
-## Toolkit Params
+## Toolkit パラメータ
 
-| Parameter           | Type   | Default | Description                                                                                          |
+| パラメータ           | タイプ   | デフォルト | 説明                                                                                             |
 | ------------------- | ------ | ------- | ---------------------------------------------------------------------------------------------------- |
-| `search`            | `bool` | `True`  | Enables the use of the `duckduckgo_search` function to search DuckDuckGo for a query.                |
-| `news`              | `bool` | `True`  | Enables the use of the `duckduckgo_news` function to fetch the latest news via DuckDuckGo.           |
-| `fixed_max_results` | `int`  | -       | Sets a fixed number of maximum results to return. No default is provided, must be specified if used. |
-| `headers`           | `Any`  | -       | Accepts any type of header values to be sent with HTTP requests.                                     |
-| `proxy`             | `str`  | -       | Specifies a single proxy address as a string to be used for the HTTP requests.                       |
-| `proxies`           | `Any`  | -       | Accepts a dictionary of proxies to be used for HTTP requests.                                        |
-| `timeout`           | `int`  | `10`    | Sets the timeout for HTTP requests, in seconds.                                                      |
+| `search`            | `bool` | `True`  | DuckDuckGo でクエリを検索するために `duckduckgo_search` 関数を使用できるようにします。                |
+| `news`              | `bool` | `True`  | DuckDuckGo を介して最新ニュースを取得するために `duckduckgo_news` 関数を使用できるようにします。           |
+| `fixed_max_results` | `int`  | -       | 返される結果の最大数を固定します。デフォルトはないため、使用する場合は指定する必要があります。 |
+| `headers`           | `Any`  | -       | HTTP リクエストと共に送信される任意のヘッダー値を受け入れます。                                     |
+| `proxy`             | `str`  | -       | HTTP リクエストに使用される単一のプロキシアドレスを文字列として指定します。                       |
+| `proxies`           | `Any`  | -       | HTTP リクエストに使用されるプロキシの辞書を受け入れます。                                         |
+| `timeout`           | `int`  | `10`    | HTTP リクエストのタイムアウトを秒単位で設定します。                                                |
 
-## Toolkit Functions
+## Toolkit 関数
 
-| Function            | Description                                               |
+| 関数            | 説明                                          |
 | ------------------- | --------------------------------------------------------- |
-| `duckduckgo_search` | Use this function to search DuckDuckGo for a query.       |
-| `duckduckgo_news`   | Use this function to get the latest news from DuckDuckGo. |
+| `duckduckgo_search` | この関数を使用して DuckDuckGo でクエリを検索します。       |
+| `duckduckgo_news`   | この関数を使用して DuckDuckGo から最新ニュースを取得します。 |
 
-## Developer Resources
+## 開発者向けリソース
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/duckduckgo.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/duckduckgo_tools.py)
+- [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/duckduckgo.py) を表示
+- [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/duckduckgo_tools.py) を表示

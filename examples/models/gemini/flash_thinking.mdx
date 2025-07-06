@@ -2,41 +2,41 @@
 title: Flash Thinking Agent
 ---
 
-## Code
+## コード
 
 ```python cookbook/models/google/gemini/flash_thinking_agent.py
 from agno.agent import Agent
 from agno.models.google import Gemini
 
 task = (
-    "Three missionaries and three cannibals need to cross a river. "
-    "They have a boat that can carry up to two people at a time. "
-    "If, at any time, the cannibals outnumber the missionaries on either side of the river, the cannibals will eat the missionaries. "
-    "How can all six people get across the river safely? Provide a step-by-step solution and show the solutions as an ascii diagram"
+    "3人の宣教師と3人のカニバルが川を渡る必要があります。 "
+    "一度に最大2人まで乗れるボートがあります。 "
+    "川のどちらかの岸で、カニバルの数が宣教師の数を上回った場合、カニバルは宣教師を食べます。 "
+    "6人全員が安全に川を渡るにはどうすればよいですか？段階的な解決策を提供し、解決策をASCII図で示してください"
 )
 
 agent = Agent(model=Gemini(id="gemini-2.0-flash-thinking-exp-1219"), markdown=True)
 agent.print_response(task, stream=True)
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="APIキーの設定">
     ```bash
     export GOOGLE_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="ライブラリのインストール">
     ```bash
     pip install -U google-genai agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="エージェントの実行">
     <CodeGroup>
     ```bash Mac
     python cookbook/models/google/gemini/flash_thinking_agent.py

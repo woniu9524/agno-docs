@@ -2,19 +2,18 @@
 title: Linear
 ---
 
-**LinearTool** enable an Agent to perform [Linear](https://linear.app/) tasks.
+**LinearTool** は、エージェントが [Linear](https://linear.app/) タスクを実行できるようにします。
 
-## Prerequisites
-The following examples require Linear API key, which can be obtained from [here](https://linear.app/settings/account/security).
-
+## 前提条件
+以下の例では、Linear API キーが必要です。これは [こちら](https://linear.app/settings/account/security) から取得できます。
 
 ```shell
 export LINEAR_API_KEY="LINEAR_API_KEY"
 ```
 
-## Example
+## 例
 
-The following agent will use Linear API to search for issues in a project for a specific user.
+以下のエージェントは、Linear API を使用して、特定のユーザーのプロジェクト内の課題を検索します。
 
 ```python cookbook/tools/linear_tools.py
 from agno.agent import Agent
@@ -30,31 +29,31 @@ agent = Agent(
 agent.print_response("Show all the issues assigned to user id: 12021")
 ```
 
-## Toolkit Params
+## Toolkit パラメータ
 
-| Parameter                  | Type   | Default | Description                             |
-| -------------------------- | ------ | ------- | --------------------------------------- |
-| `get_user_details`         | `bool` | `True`  | Enable `get_user_details` tool.         |
-| `get_issue_details`        | `bool` | `True`  | Enable `get_issue_details` tool.        |
-| `create_issue`             | `bool` | `True`  | Enable `create_issue` tool.             |
-| `update_issue`             | `bool` | `True`  | Enable `update_issue` tool.             |
-| `get_user_assigned_issues` | `bool` | `True`  | Enable `get_user_assigned_issues` tool. |
-| `get_workflow_issues`      | `bool` | `True`  | Enable `get_workflow_issues` tool.      |
-| `get_high_priority_issues` | `bool` | `True`  | Enable `get_high_priority_issues` tool. |
+| パラメータ                  | タイプ   | デフォルト | 説明                             |
+| -------------------------- | ------ | ------- | -------------------------------- |
+| `get_user_details`         | `bool` | `True`  | `get_user_details` ツールを有効にします。 |
+| `get_issue_details`        | `bool` | `True`  | `get_issue_details` ツールを有効にします。 |
+| `create_issue`             | `bool` | `True`  | `create_issue` ツールを有効にします。     |
+| `update_issue`             | `bool` | `True`  | `update_issue` ツールを有効にします。     |
+| `get_user_assigned_issues` | `bool` | `True`  | `get_user_assigned_issues` ツールを有効にします。 |
+| `get_workflow_issues`      | `bool` | `True`  | `get_workflow_issues` ツールを有効にします。 |
+| `get_high_priority_issues` | `bool` | `True`  | `get_high_priority_issues` ツールを有効にします。 |
 
-## Toolkit Functions
+## Toolkit 関数
 
-| Function                   | Description                                                      |
-| -------------------------- | ---------------------------------------------------------------- |
-| `get_user_details`         | Fetch authenticated user details.                                |
-| `get_issue_details`        | Retrieve details of a specific issue by issue ID.                |
-| `create_issue`             | Create a new issue within a specific project and team.           |
-| `update_issue`             | Update the title or state of a specific issue by issue ID.       |
-| `get_user_assigned_issues` | Retrieve issues assigned to a specific user by user ID.          |
-| `get_workflow_issues`      | Retrieve issues within a specific workflow state by workflow ID. |
-| `get_high_priority_issues` | Retrieve issues with a high priority (priority `<=` 2).          |
+| 関数                   | 説明                                                       |
+| -------------------------- | ---------------------------------------------------------- |
+| `get_user_details`         | 認証されたユーザーの詳細を取得します。                       |
+| `get_issue_details`        | 課題 ID で特定の課題の詳細を取得します。                     |
+| `create_issue`             | 特定のプロジェクトとチーム内に新しい課題を作成します。         |
+| `update_issue`             | 課題 ID で特定の課題のタイトルまたは状態を更新します。         |
+| `get_user_assigned_issues` | ユーザー ID で特定のユーザーに割り当てられた課題を取得します。 |
+| `get_workflow_issues`      | ワークフロー ID で特定のワークフロー状態内の課題を取得します。 |
+| `get_high_priority_issues` | 優先度の高い課題（優先度 `<=` 2）を取得します。             |
 
-## Developer Resources
+## 開発者向けリソース
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/linear.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/linear_tools.py)
+- [ツール](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/linear.py) を表示
+- [クックブック](https://github.com/agno-agi/agno/blob/main/cookbook/tools/linear_tools.py) を表示

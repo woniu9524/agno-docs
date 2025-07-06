@@ -2,7 +2,7 @@
 title: Wikipedia Tools
 ---
 
-## Code
+## コード
 
 ```python cookbook/tools/wikipedia_tools.py
 from agno.agent import Agent
@@ -16,24 +16,24 @@ agent = Agent(
 agent.print_response("Search Wikipedia for information about artificial intelligence")
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="API キーを設定する">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="ライブラリをインストールする">
     ```bash
     pip install -U wikipedia openai agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="エージェントを実行する">
     <CodeGroup>
     ```bash Mac
     python cookbook/tools/wikipedia_tools.py

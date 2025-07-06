@@ -1,7 +1,7 @@
-| Parameter | Type | Description | Default |
+| パラメータ | タイプ | 説明 | デフォルト |
 |-----------|------|-------------|---------|
-| `collection` | `str` | Name of the Milvus collection | Required |
-| `embedder` | `Optional[Embedder]` | Embedder to use for embedding documents | `OpenAIEmbedder()` |
-| `distance` | `Distance` | Distance metric to use for vector similarity | `Distance.cosine` |
-| `uri` | `str` | URI of the Milvus server or path to local file | `"http://localhost:19530"` |
-| `token` | `Optional[str]` | Token for authentication with the Milvus server | `None` |
+| `collection` | `str` | Milvus コレクションの名前 | Required |
+| `embedder` | `Optional[Embedder]` | ドキュメントの埋め込みに使用する埋め込みモデル | `OpenAIEmbedder()` |
+| `distance` | `Distance` | ベクトル類似性に使用する距離メトリック | `Distance.cosine` |
+| `uri` | `str` | Milvus サーバーの URI またはローカルファイルのパス | `"http://localhost:19530"` |
+| `token` | `Optional[str]` | Milvus サーバーとの認証用トークン | `None` |

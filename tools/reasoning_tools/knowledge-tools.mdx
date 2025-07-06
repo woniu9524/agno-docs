@@ -3,24 +3,24 @@ title: Knowledge Tools
 sidebarTitle: Knowledge Tools
 ---
 
-The `KnowledgeTools` toolkit enables Agents to search, retrieve, and analyze information from knowledge bases. This toolkit integrates with `AgentKnowledge` and provides a structured workflow for finding and evaluating relevant information before responding to users.
+`KnowledgeTools` ツールキットは、エージェントがナレッジベースから情報を検索、取得、分析できるようにします。このツールキットは `AgentKnowledge` と統合されており、ユーザーに応答する前に、関連情報を検索および評価するための構造化されたワークフローを提供します。
 
-The toolkit implements a "Think → Search → Analyze" cycle that allows an Agent to:
-1. Think through the problem and plan search queries
-2. Search the knowledge base for relevant information
-3. Analyze the results to determine if they are sufficient or if additional searches are needed
+このツールキットは「思考 → 検索 → 分析」サイクルを実装しており、エージェントは以下のことができます。
+1. 問題について考え、検索クエリを計画する
+2. ナレッジベースで関連情報を検索する
+3. 結果を分析して、十分かどうか、または追加の検索が必要かどうかを判断する
 
-This approach significantly improves an Agent's ability to provide accurate information by giving it tools to find, evaluate, and synthesize knowledge.
+このアプローチにより、エージェントは知識を見つけ、評価し、統合するためのツールを持つことで、正確な情報を提供する能力が大幅に向上します。
 
-The toolkit includes the following tools:
+ツールキットには以下のツールが含まれています。
 
-- `think`: A scratchpad for planning, brainstorming keywords, and refining approaches. These thoughts remain internal to the Agent and are not shown to users.
-- `search`: Executes queries against the knowledge base to retrieve relevant documents.
-- `analyze`: Evaluates whether the returned documents are correct and sufficient, determining if further searches are needed.
+- `think`: 計画、キーワードのブレインストーミング、アプローチの洗練のためのスクラッチパッド。これらの思考はエージェントの内部に留まり、ユーザーには表示されません。
+- `search`: ナレッジベースに対してクエリを実行し、関連ドキュメントを取得します。
+- `analyze`: 返されたドキュメントが正しいか十分かを評価し、さらなる検索が必要かどうかを判断します。
 
-## Example
+## 例
 
-Here's an example of how to use the `KnowledgeTools` toolkit:
+`KnowledgeTools` ツールキットの使用例を以下に示します。
 
 ```python
 from agno.agent import Agent
@@ -30,10 +30,10 @@ from agno.models.openai import OpenAIChat
 from agno.tools.knowledge import KnowledgeTools
 from agno.vectordb.lancedb import LanceDb, SearchType
 
-# Create a knowledge base containing information from a URL
+# URLからの情報を含むナレッジベースを作成
 agno_docs = UrlKnowledge(
     urls=["https://docs.agno.com/llms-full.txt"],
-    # Use LanceDB as the vector database and store embeddings in the `agno_docs` table
+    # LanceDB をベクトルデータベースとして使用し、埋め込みを `agno_docs` テーブルに保存
     vector_db=LanceDb(
         uri="tmp/lancedb",
         table_name="agno_docs",
@@ -58,23 +58,22 @@ agent = Agent(
 )
 
 if __name__ == "__main__":
-    # Load the knowledge base, comment after first run
+    # ナレッジベースをロード（初回実行後にコメントアウト）
     agno_docs.load(recreate=True)
     agent.print_response("How do I build multi-agent teams with Agno?", stream=True)
 ```
 
-The toolkit comes with default instructions and few-shot examples to help the Agent use the tools effectively. Here is how you can configure them:
+このツールキットには、エージェントがツールを効果的に使用するのに役立つデフォルトの指示と少数例が含まれています。それらを構成する方法は次のとおりです。
 
 ```python
 from agno.tools.knowledge import KnowledgeTools
 
 knowledge_tools = KnowledgeTools(
     knowledge=my_knowledge_base,
-    think=True,                # Enable the think tool
-    search=True,               # Enable the search tool
-    analyze=True,              # Enable the analyze tool
-    add_instructions=True,     # Add default instructions
-    add_few_shot=True,         # Add few-shot examples
-    few_shot_examples=None,    # Optional custom few-shot examples
+    think=True,                # think ツールを有効にする
+    search=True,               # search ツールを有効にする
+    analyze=True,              # analyze ツールを有効にする
+    add_instructions=True,     # デフォルトの指示を追加する
+    add_few_shot=True,         # 少数例を追加する
+    few_shot_examples=None,    # オプションのカスタム少数例
 )
-```

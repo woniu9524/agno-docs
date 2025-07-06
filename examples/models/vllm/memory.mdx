@@ -51,7 +51,7 @@ agent.print_response(
 )
 ```
 <Note>
-  Ensure Postgres database is running.
+  Postgresデータベースが実行されていることを確認してください。
 </Note>
 
 ## Usage
@@ -59,19 +59,19 @@ agent.print_response(
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Start Postgres database">
+  <Step title="Postgresデータベースの起動">
     ```bash
     ./cookbook/scripts/run_pgvector.sh
     ```
   </Step>
 
-  <Step title="Install Libraries">
+  <Step title="ライブラリのインストール">
     ```bash
     pip install -U agno openai vllm sqlalchemy psycopg[binary] pgvector
     ```
   </Step>
 
-  <Step title="Start vLLM server">
+  <Step title="vLLMサーバーの起動">
     ```bash
     vllm serve microsoft/Phi-3-mini-128k-instruct \
         --dtype float32 \
@@ -80,9 +80,9 @@ agent.print_response(
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="Agentの実行">
     ```bash
     python cookbook/models/vllm/memory.py
     ```
   </Step>
-</Steps> 
+</Steps>

@@ -2,9 +2,9 @@
 title: Success Criteria
 ---
 
-This example shows how to set the success criteria of an agent.
+この例では、エージェントの成功基準を設定する方法を示します。
 
-## Code
+## コード
 
 ```python cookbook/agent_concepts/other/success_criteria.py
 from agno.agent import Agent
@@ -14,44 +14,44 @@ from agno.tools.thinking import ThinkingTools
 puzzle_master = Agent(
     model=Gemini(id="gemini-2.0-flash"),
     tools=[ThinkingTools(add_instructions=True)],
-    instructions="You are a puzzle master for small logic puzzles.",
+    instructions="あなたは小さな論理パズルのパズルマスターです。",
     show_tool_calls=False,
     markdown=False,
     stream_intermediate_steps=False,
-    success_criteria="The puzzle has been solved correctly with all drinks uniquely assigned.",
+    success_criteria="すべての飲み物が一意に割り当てられ、パズルが正しく解決されたこと。",
 )
 
 
 prompt = """
-Create a small logic puzzle:
-Three friends—Alice, Bob, and Carol—each choose a different drink from tea, coffee, and milk.
-Clues:
-1. Alice does not drink tea.
-2. The person who drinks coffee is not Carol.
-Ask: Who drinks which beverage?
+小さな論理パズルを作成してください：
+3人の友人—アリス、ボブ、キャロル—はそれぞれ、紅茶、コーヒー、ミルクから異なる飲み物を選びます。
+手がかり：
+1. アリスは紅茶を飲みません。
+2. コーヒーを飲む人はキャロルではありません。
+質問：誰がどの飲み物を飲んでいますか？
 """
 
 puzzle_master.print_response(prompt, stream=True, show_reasoning=True)
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="APIキーの設定">
     ```bash
     export GOOGLE_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="ライブラリのインストール">
     ```bash
     pip install -U google-generativeai agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="エージェントの実行">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/other/success_criteria.py
@@ -62,4 +62,4 @@ puzzle_master.print_response(prompt, stream=True, show_reasoning=True)
     ```
     </CodeGroup>
   </Step>
-</Steps> 
+</Steps>

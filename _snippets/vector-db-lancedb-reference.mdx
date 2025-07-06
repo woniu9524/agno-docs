@@ -1,13 +1,13 @@
-| Parameter | Type | Default | Description |
-| --------- | ---- | ------- | ----------- |
-| `uri` | `lancedb.URI` | `"/tmp/lancedb"` | URI path or connection string for LanceDB |
-| `table` | `Optional[lancedb.db.LanceTable]` | `None` | Pre-configured LanceDB table instance |
-| `table_name` | `Optional[str]` | `None` | Name of the table to store vectors and metadata |
-| `connection` | `Optional[lancedb.LanceDBConnection]` | `None` | Pre-configured LanceDB connection |
-| `api_key` | `Optional[str]` | `None` | API key for cloud LanceDB authentication |
-| `embedder` | `Optional[Embedder]` | `OpenAIEmbedder()` | Embedder instance to generate embeddings |
-| `search_type` | `SearchType` | `SearchType.vector` | Type of search to perform (vector, keyword, or hybrid) |
-| `distance` | `Distance` | `Distance.cosine` | Distance metric to use for similarity search |
-| `nprobes` | `Optional[int]` | `None` | Number of probes for approximate nearest neighbor search |
-| `reranker` | `Optional[Reranker]` | `None` | Optional reranker instance to rerank search results |
-| `use_tantivy` | `bool` | `True` | Whether to use Tantivy for full-text search indexing |
+| パラメータ | タイプ | デフォルト | 説明 |
+| -------- | ---- | ------- | ----------- |
+| `uri` | `lancedb.URI` | `"/tmp/lancedb"` | LanceDB の URI パスまたは接続文字列 |
+| `table` | `Optional[lancedb.db.LanceTable]` | `None` | 事前に設定された LanceDB テーブルインスタンス |
+| `table_name` | `Optional[str]` | `None` | ベクトルとメタデータを格納するテーブルの名前 |
+| `connection` | `Optional[lancedb.LanceDBConnection]` | `None` | 事前に設定された LanceDB 接続 |
+| `api_key` | `Optional[str]` | `None` | クラウド LanceDB 認証用の API キー |
+| `embedder` | `Optional[Embedder]` | `OpenAIEmbedder()` | 埋め込みを生成するための埋め込みインスタンス |
+| `search_type` | `SearchType` | `SearchType.vector` | 実行する検索タイプ（vector、keyword、または hybrid） |
+| `distance` | `Distance` | `Distance.cosine` | 類似性検索に使用する距離メトリック |
+| `nprobes` | `Optional[int]` | `None` | 近似最近傍検索のプローブ数 |
+| `reranker` | `Optional[Reranker]` | `None` | 検索結果を再ランク付けするためのオプションの再ランク付けインスタンス |
+| `use_tantivy` | `bool` | `True` | フルテキスト検索インデックスに Tantivy を使用するかどうか |

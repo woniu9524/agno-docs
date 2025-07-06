@@ -1,9 +1,9 @@
 ---
-title: Multiple Agents Sharing Memory
+title: 複数のエージェントによるメモリ共有
 ---
-In this example, we have two agents that share the same memory.
+この例では、同じメモリを共有する2つのエージェントを使用します。
 
-## Code
+## コード
 
 ```python cookbook/agent_concepts/memory/09_agents_share_memory.py
 
@@ -16,67 +16,67 @@ from rich.pretty import pprint
 
 memory_db = SqliteMemoryDb(table_name="memory", db_file="tmp/memory.db")
 
-# No need to set the model, it gets set by the agent to the agent's model
+# モデルを設定する必要はありません。エージェントによってエージェントのモデルに設定されます。
 memory = Memory(db=memory_db)
 
-# Reset the memory for this example
+# この例のためにメモリをリセットします。
 memory.clear()
 
 john_doe_id = "john_doe@example.com"
 
 chat_agent = Agent(
     model=Gemini(id="gemini-2.0-flash-exp"),
-    description="You are a helpful assistant that can chat with users",
+    description="ユーザーとチャットできる便利なアシスタントです",
     memory=memory,
     enable_user_memories=True,
 )
 
 chat_agent.print_response(
-    "My name is John Doe and I like to hike in the mountains on weekends.",
+    "私の名前はジョン・ドウです。週末は山でハイキングするのが好きです。",
     stream=True,
     user_id=john_doe_id,
 )
 
-chat_agent.print_response("What are my hobbies?", stream=True, user_id=john_doe_id)
+chat_agent.print_response("私の趣味は何ですか？", stream=True, user_id=john_doe_id)
 
 
 research_agent = Agent(
     model=Gemini(id="gemini-2.0-flash-exp"),
-    description="You are a research assistant that can help users with their research questions",
+    description="ユーザーの研究に関する質問を支援できるリサーチアシスタントです",
     tools=[DuckDuckGoTools(cache_results=True)],
     memory=memory,
     enable_user_memories=True,
 )
 
 research_agent.print_response(
-    "I love asking questions about quantum computing. What is the latest news on quantum computing?",
+    "量子コンピューティングに関する質問をするのが好きです。量子コンピューティングに関する最新ニュースは何ですか？",
     stream=True,
     user_id=john_doe_id,
 )
 
 memories = memory.get_user_memories(user_id=john_doe_id)
-print("Memories about John Doe:")
+print("ジョン・ドウに関するメモリ:")
 pprint(memories)
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="APIキーの設定">
     ```bash
     export GOOGLE_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="ライブラリのインストール">
     ```bash
     pip install -U agno google-generativeai duckduckgo-search
     ```
   </Step>
 
-  <Step title="Run Example">
+  <Step title="例の実行">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/memory/09_agents_share_memory.py

@@ -1,11 +1,11 @@
-| Parameter | Type | Default | Description |
+| パラメータ | タイプ | デフォルト | 説明 |
 |-----------|------|---------|-------------|
-| `session_id` | `str` | Required | Session UUID |
-| `team_id` | `Optional[str]` | `None` | ID of the team that this session is associated with |
-| `user_id` | `Optional[str]` | `None` | ID of the user interacting with this team |
-| `memory` | `Optional[Dict[str, Any]]` | `None` | Team Memory |
-| `team_data` | `Optional[Dict[str, Any]]` | `None` | Team Data: team_id, name and model |
-| `session_data` | `Optional[Dict[str, Any]]` | `None` | Session Data: session_name, session_state, images, videos, audio |
-| `extra_data` | `Optional[Dict[str, Any]]` | `None` | Extra Data stored with this team |
-| `created_at` | `Optional[int]` | `None` | The unix timestamp when this session was created |
-| `updated_at` | `Optional[int]` | `None` | The unix timestamp when this session was last updated |
+| `session_id` | `str` | Required | セッションのUUID |
+| `team_id` | `Optional[str]` | `None` | このセッションが関連付けられているチームのID |
+| `user_id` | `Optional[str]` | `None` | このチームとやり取りしているユーザーのID |
+| `memory` | `Optional[Dict[str, Any]]` | `None` | チームのメモリ |
+| `team_data` | `Optional[Dict[str, Any]]` | `None` | チームデータ: team_id、名前、モデル |
+| `session_data` | `Optional[Dict[str, Any]]` | `None` | セッションデータ: session_name、session_state、images、videos、audio |
+| `extra_data` | `Optional[Dict[str, Any]]` | `None` | このチームと共に保存されている追加データ |
+| `created_at` | `Optional[int]` | `None` | このセッションが作成されたときのUnixタイムスタンプ |
+| `updated_at` | `Optional[int]` | `None` | このセッションが最後に更新されたときのUnixタイムスタンプ |

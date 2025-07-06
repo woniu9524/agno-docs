@@ -1,10 +1,10 @@
 ---
-title: What are Models?
-sidebarTitle: Overview
-description: Language Models are machine-learning programs that are trained to understand natural language and code.
+title: モデルとは
+sidebarTitle: 概要
+description: 言語モデルは、自然言語とコードを理解するようにトレーニングされた機械学習プログラムです。
 
 ---
-Models act as the **brain** of the Agent - helping it reason, act, and respond to the user. The better the model, the smarter the Agent.
+モデルはエージェントの**頭脳**として機能し、推論、行動、ユーザーへの応答を支援します。モデルが優れているほど、エージェントは賢くなります。
 
 ```python
 from agno.agent import Agent
@@ -18,9 +18,9 @@ agent = Agent(
 agent.print_response("Share a breakfast recipe.", stream=True)
 ```
 
-## Error handling
+## エラー処理
 
-You can set `exponential_backoff` to `True` on the `Agent` to automatically retry requests that fail due to third-party model provider errors.
+`Agent` で `exponential_backoff` を `True` に設定すると、サードパーティのモデルプロバイダーのエラーが原因で失敗したリクエストを自動的に再試行できます。
 
 ```python
 agent = Agent(
@@ -31,9 +31,9 @@ agent = Agent(
 )
 ```
 
-## Supported Models
+## サポートされているモデル
 
-Agno supports the following model providers:
+Agno は以下のモデルプロバイダーをサポートしています。
 
 - [AI/ML API](/models/aimlapi)
 - [Anthropic](/models/anthropic)

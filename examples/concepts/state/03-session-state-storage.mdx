@@ -1,8 +1,8 @@
 ---
-title: Persistant State with Storage
+title: Storage を使用した永続的な状態
 ---
-This example demonstrates how to persist an agent’s session state using a SQLite storage, allowing continuity across multiple runs.
-## Code
+この例では、SQLite ストレージを使用してエージェントのセッション状態を永続化し、複数の実行にわたって継続性を持たせる方法を示します。
+## コード
 
 ```python cookbook/agent_concepts/state/session_state_storage.py
 
@@ -11,57 +11,57 @@ from agno.models.openai import OpenAIChat
 from agno.storage.sqlite import SqliteStorage
 
 
-# Define a tool that adds an item to the shopping list
+# ショッピングリストにアイテムを追加するツールを定義します
 def add_item(agent: Agent, item: str) -> str:
-    """Add an item to the shopping list."""
+    """ショッピングリストにアイテムを追加します。"""
     if item not in agent.session_state["shopping_list"]:
         agent.session_state["shopping_list"].append(item)
-    return f"The shopping list is now {agent.session_state['shopping_list']}"
+    return f"ショッピングリストは現在 {agent.session_state['shopping_list']} です"
 
 
 agent = Agent(
     model=OpenAIChat(id="gpt-4o-mini"),
-    # Fix the session id to continue the same session across execution cycles
+    # 実行サイクル間で同じセッションを継続するためにセッションIDを固定します
     session_id="fixed_id_for_demo",
-    # Initialize the session state with an empty shopping list
+    # セッション状態を空のショッピングリストで初期化します
     session_state={"shopping_list": []},
-    # Add a tool that adds an item to the shopping list
+    # ショッピングリストにアイテムを追加するツールを追加します
     tools=[add_item],
-    # Store the session state in a SQLite database
+    # セッション状態をSQLiteデータベースに保存します
     storage=SqliteStorage(table_name="agent_sessions", db_file="tmp/data.db"),
-    # Add the current shopping list from the state in the instructions
-    instructions="Current shopping list is: {shopping_list}",
-    # Important: Set `add_state_in_messages=True`
-    # to make `{shopping_list}` available in the instructions
+    # 現在のショッピングリストを状態から指示に追加します
+    instructions="現在のショッピングリストは: {shopping_list}",
+    # 重要: `add_state_in_messages=True` を設定します
+    # これにより、指示内で `{shopping_list}` が利用可能になります
     add_state_in_messages=True,
     markdown=True,
 )
 
-# Example usage
-agent.print_response("What's on my shopping list?", stream=True)
-print(f"Session state: {agent.session_state}")
-agent.print_response("Add milk, eggs, and bread", stream=True)
-print(f"Session state: {agent.session_state}")
+# 使用例
+agent.print_response("私のショッピングリストは何ですか？", stream=True)
+print(f"セッション状態: {agent.session_state}")
+agent.print_response("牛乳、卵、パンを追加してください", stream=True)
+print(f"セッション状態: {agent.session_state}")
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="API キーを設定する">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="ライブラリをインストールする">
     ```bash
     pip install -U openai agno
     ```
   </Step>
 
-  <Step title="Run Example">
+  <Step title="例を実行する">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/state/session_state_storage.py

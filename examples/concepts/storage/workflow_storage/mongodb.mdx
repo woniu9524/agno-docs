@@ -3,13 +3,13 @@ title: MongoDB Workflow Storage
 sidebarTitle: MongoDB
 ---
 
-Agno supports using MongoDB as a storage backend for Workflows using the `MongoDbStorage` class.
+Agno は、`MongoDbStorage` クラスを使用して、ワークフローのストレージバックエンドとして MongoDB をサポートしています。
 
-## Usage
+## 使用方法
 
-### Run MongoDB
+### MongoDB の実行
 
-Install [docker desktop](https://docs.docker.com/desktop/install/mac-install/) and run **MongoDB** on port **27017** using:
+[docker desktop](https://docs.docker.com/desktop/install/mac-install/) をインストールし、以下のコマンドでポート **27017** で **MongoDB** を実行します。
 
 ```bash
 docker run --name mongodb -d -p 27017:27017 mongodb/mongodb-community-server:latest
@@ -112,10 +112,10 @@ if __name__ == "__main__":
     pprint_run_response(report, markdown=True, show_time=True)
 ```
 
-## Params
+## パラメータ
 
 <Snippet file="workflow-storage-mongodb-params.mdx" />
 
-## Developer Resources
+## 開発者向けリソース
 
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/storage/mongodb_storage/mongodb_storage_for_workflow.py)
+- [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/storage/mongodb_storage/mongodb_storage_for_workflow.py) を表示

@@ -2,23 +2,23 @@
 title: Coordinate
 ---
 
-In **Coordinate Mode**, the Team Leader delegates tasks to team members and synthesizes their outputs into a cohesive response.
+**Coordinate Mode** では、チームリーダーがチームメンバーにタスクを委任し、それらの出力を統合して一貫性のある応答を作成します。
 
-## How Coordinate Mode Works
+## Coordinate Mode の仕組み
 
-In "coordinate" mode:
+「coordinate」モードでは：
 
-1. The team receives a user query
-2. A Team Leader analyzes the query and decides how to break it down into subtasks
-3. The Team Leader delegates specific tasks to appropriate team members
-4. Team members complete their assigned tasks and return their results
-5. The Team Leader synthesizes all outputs into a final, cohesive response
+1. チームはユーザーのクエリを受け取ります。
+2. チームリーダーがクエリを分析し、サブタスクへの分解方法を決定します。
+3. チームリーダーが適切なチームメンバーに特定のタスクを委任します。
+4. チームメンバーが割り当てられたタスクを完了し、結果を返します。
+5. チームリーダーがすべての出力を統合し、最終的で一貫性のある応答を作成します。
 
-This mode is ideal for complex tasks that require multiple specialized skills, coordination, and synthesis of different outputs.
+このモードは、複数の専門スキル、調整、およびさまざまな出力の統合を必要とする複雑なタスクに最適です。
 
 <Steps>
-  <Step title="Create a coordinate mode team">
-    Create a file `content_team.py`
+  <Step title="Coordinate モードのチームを作成する">
+    `content_team.py` ファイルを作成します。
 
     ```python content_team.py
 
@@ -79,14 +79,14 @@ This mode is ideal for complex tasks that require multiple specialized skills, c
     ```
   </Step>
 
-  <Step title="Run the team">
-    Install libraries
+  <Step title="チームを実行する">
+    ライブラリをインストールします。
 
     ```shell
     pip install openai duckduckgo-search newspaper4k lxml_html_clean
     ```
 
-    Run the team
+    チームを実行します。
 
     ```shell
     python content_team.py
@@ -94,9 +94,9 @@ This mode is ideal for complex tasks that require multiple specialized skills, c
   </Step>
 </Steps>
 
-## Defining Success Criteria
+## 成功基準の定義
 
-You can guide the coordinator by specifying success criteria for the team:
+コーディネーターは、チームの成功基準を指定することでガイドできます。
 
 ```python
 strategy_team = Team(
@@ -110,4 +110,3 @@ strategy_team = Team(
 response = strategy_team.run(
     "Develop a market entry strategy for our new AI-powered healthcare product"
 )
-```

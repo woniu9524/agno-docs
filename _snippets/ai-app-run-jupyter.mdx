@@ -1,22 +1,22 @@
-## Optional: Run Jupyterlab
+## オプション: Jupyterlab の実行
 
-A jupyter notebook is a must have for AI development and your `ai-app` comes with a notebook pre-installed with the required dependencies. To start your notebook:
+Jupyter Notebook は AI 開発に必須であり、`ai-app` には必要な依存関係がプリインストールされたノートブックが付属しています。ノートブックを開始するには、以下を実行してください。
 
 <Steps>
-  <Step title="Enable Jupyter">
-    Update the `workspace/settings.py` file and set `dev_jupyter_enabled=True`
+  <Step title="Jupyter の有効化">
+    `workspace/settings.py` ファイルを更新し、`dev_jupyter_enabled=True` を設定します。
 
     ```python workspace/settings.py
     ...
     ws_settings = WorkspaceSettings(
         ...
-        # Uncomment the following line
+        # 次の行のコメントを解除します
         dev_jupyter_enabled=True,
     ...
     ```
 
   </Step>
-  <Step title="Start Jupyter">
+  <Step title="Jupyter の起動">
 
     <CodeGroup>
 
@@ -30,12 +30,12 @@ A jupyter notebook is a must have for AI development and your `ai-app` comes wit
 
     </CodeGroup>
 
-    **Press Enter** to confirm and give a few minutes for the image to download (only the first time). Verify container status and view logs on the docker dashboard.
+    **Enter キーを押して**確認し、イメージのダウンロードに数分かかります（初回のみ）。Docker ダッシュボードでコンテナのステータスを確認し、ログを表示します。
 
   </Step>
-  <Step title="View JupyterLab UI">
-    - Open [localhost:8888](http://localhost:8888) to view the Jupyterlab UI. Password: **admin**
-    - Play around with cookbooks in the `notebooks` folder.
+  <Step title="JupyterLab UI の表示">
+    - [localhost:8888](http://localhost:8888) を開いて Jupyterlab UI を表示します。パスワード: **admin**
+    - `notebooks` フォルダ内のクックブックを試してみてください。
 
     ![Jupyter Notebook](/images/ai-app-jupyter-local.png)
 

@@ -3,7 +3,7 @@ title: Clickhouse Agent Knowledge
 sidebarTitle: Clickhouse
 ---
 
-## Setup
+## セットアップ
 
 ```shell
 docker run -d \
@@ -20,7 +20,7 @@ docker run -d \
   clickhouse/clickhouse-server
 ```
 
-## Example
+## 例
 
 ```python agent_with_knowledge.py
 from agno.agent import Agent
@@ -40,14 +40,14 @@ agent = Agent(
             password="ai",
         ),
     ),
-    # Show tool calls in the response
+    # ツールコールをレスポンスに表示
     show_tool_calls=True,
-    # Enable the agent to search the knowledge base
+    # エージェントがナレッジベースを検索できるようにする
     search_knowledge=True,
-    # Enable the agent to read the chat history
+    # エージェントがチャット履歴を読み取れるようにする
     read_chat_history=True,
 )
-# Comment out after first run
+# 初回実行後にコメントアウト
 agent.knowledge.load(recreate=False)  # type: ignore
 
 agent.print_response("How do I make pad thai?", markdown=True)
@@ -57,7 +57,7 @@ agent.print_response("What was my last question?", stream=True)
 <Card title="Async Support ⚡">
   <div className="mt-2">
     <p>
-      Clickhouse also supports asynchronous operations, enabling concurrency and leading to better performance.
+      Clickhouseは非同期操作もサポートしており、並行処理を可能にし、パフォーマンスを向上させます。
     </p>
     
     ```python async_clickhouse.py
@@ -80,29 +80,29 @@ agent.print_response("What was my last question?", stream=True)
                 password="ai",
             ),
         ),
-        # Show tool calls in the response
+        # ツールコールをレスポンスに表示
         show_tool_calls=True,
-        # Enable the agent to search the knowledge base
+        # エージェントがナレッジベースを検索できるようにする
         search_knowledge=True,
-        # Enable the agent to read the chat history
+        # エージェントがチャット履歴を読み取れるようにする
         read_chat_history=True,
     )
 
     if __name__ == "__main__":
-        # Comment out after first run
+        # 初回実行後にコメントアウト
         asyncio.run(agent.knowledge.aload(recreate=False))
 
-        # Create and use the agent
+        # エージェントを作成して使用する
         asyncio.run(agent.aprint_response("How to make Tom Kha Gai", markdown=True))
     ```
     
     <Tip className="mt-4">
-      Use <code>aload()</code> and <code>aprint_response()</code> methods with <code>asyncio.run()</code> for non-blocking operations in high-throughput applications.
+      高スループットアプリケーションでノンブロッキング操作を行うには、<code>asyncio.run()</code>と共に<code>aload()</code>および<code>aprint_response()</code>メソッドを使用してください。
     </Tip>
   </div>
 </Card>
 
-## Developer Resources
+## 開発者向けリソース
 
-- View [Cookbook (Sync)](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/vector_dbs/clickhouse_db/clickhouse.py)
-- View [Cookbook (Async)](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/vector_dbs/clickhouse_db/async_clickhouse.py)
+- [Cookbook (Sync)](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/vector_dbs/clickhouse_db/clickhouse.py)を表示
+- [Cookbook (Async)](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/vector_dbs/clickhouse_db/async_clickhouse.py)を表示

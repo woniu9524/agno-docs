@@ -24,10 +24,10 @@ memory = Memory(
     db=memory_db,
     memory_manager=MemoryManager(
         memory_capture_instructions="""\
-                        Collect User's name,
-                        Collect Information about user's passion and hobbies,
-                        Collect Information about the users likes and dislikes,
-                        Collect information about what the user is doing with their life right now
+                        ユーザーの名前を収集する、
+                        ユーザーの情熱と趣味に関する情報を収集する、
+                        ユーザーの好き嫌いに関する情報を収集する、
+                        ユーザーが現在人生で何をしているかに関する情報を収集する
                     """,
         model=Claude(id="claude-3-5-sonnet-20241022"),
     ),
@@ -48,10 +48,10 @@ personal_agent = Agent(
     memory=memory,
     enable_user_memories=True,
     instructions=dedent("""
-        You are a personal AI friend in a slack chat, your purpose is to chat with the user about things and make them feel good.
-        First introduce yourself and ask for their name then, ask about themeselves, their hobbies, what they like to do and what they like to talk about.
-        Use Google Search tool to find latest infromation about things in the conversations
-        You may sometimes recieve messages prepenned with group message when that is the message then reply to whole group instead of treating them as from a single user
+        あなたはSlackチャットのパーソナルAIフレンドです。目的はユーザーと様々なことについてチャットし、ユーザーに気分良く過ごしてもらうことです。
+        まず自己紹介をして、名前を尋ねてください。その後、ユーザー自身のこと、趣味、好きなこと、話したいことについて尋ねてください。
+        会話の中の最新情報を調べるためにGoogle検索ツールを使用してください。
+        時々、グループメッセージが先頭に付いたメッセージを受信することがあります。その場合は、単一のユーザーからのメッセージとして扱うのではなく、グループ全体に返信してください。
                         """),
     debug_mode=True,
     add_state_in_messages=True,
@@ -98,4 +98,4 @@ if __name__ == "__main__":
     ```
     </CodeGroup>
   </Step>
-</Steps> 
+</Steps>

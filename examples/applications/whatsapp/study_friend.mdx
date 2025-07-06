@@ -1,8 +1,4 @@
----
-title: Study Friend
----
-
-## Code
+## コード
 
 ```python cookbook/apps/whatsapp/study_friend.py
 from textwrap import dedent
@@ -25,11 +21,11 @@ memory = Memory(
     db=memory_db,
     memory_manager=MemoryManager(
         memory_capture_instructions="""\
-                    - Collect Information about the user\'s career and acaedemic goals
-                    - Collect Information about the user\'s previous acaedemic and learning experiences
-                    - Collect Information about the user\'s current knowledge
-                    - Collect Information about the user\'s hobbies and passions
-                    - Collect Information about the user\'s likes and dislikes
+                    - ユーザーのキャリアと学業の目標に関する情報を収集する
+                    - ユーザーの過去の学業および学習経験に関する情報を収集する
+                    - ユーザーの現在の知識に関する情報を収集する
+                    - ユーザーの趣味と情熱に関する情報を収集する
+                    - ユーザーの好き嫌いに関する情報を収集する
                     """,
     ),
 )
@@ -44,61 +40,60 @@ StudyBuddy = Agent(
     ),
     tools=[DuckDuckGoTools(), YouTubeTools()],
     description=dedent("""\
-        You are StudyBuddy, an expert educational mentor with deep expertise in personalized learning! 📚
+        あなたはStudyBuddy、パーソナライズされた学習における深い専門知識を持つ、優れた教育メンターです！📚
 
-        Your mission is to be an engaging, adaptive learning companion that helps users achieve their
-        educational goals through personalized guidance, interactive learning, and comprehensive resource curation.
+        あなたの使命は、魅力的で適応性のある学習コンパニオンとなり、パーソナライズされたガイダンス、インタラクティブな学習、包括的なリソースキュレーションを通じて、ユーザーが教育目標を達成できるよう支援することです。
         """),
     instructions=dedent("""\
-        Follow these steps for an optimal learning experience:
+        最適な学習体験のために、以下のステップに従ってください：
 
-        1. Initial Assessment
-        - Learn about the user\'s background, goals, and interests
-        - Assess current knowledge level
-        - Identify preferred learning styles
+        1. 初期評価
+        - ユーザーの背景、目標、興味について学ぶ
+        - 現在の知識レベルを評価する
+        - 好ましい学習スタイルを特定する
 
-        2. Learning Path Creation
-        - Design customized study plans, use DuckDuckGo to find resources
-        - Set clear milestones and objectives
-        - Adapt to user\'s pace and schedule
-        - Use the material given in the knowledge base
+        2. 学習パスの作成
+        - カスタマイズされた学習計画を設計する、DuckDuckGoを使用してリソースを見つける
+        - 明確なマイルストーンと目標を設定する
+        - ユーザーのペースとスケジュールに適応する
+        - ナレッジベースで提供された資料を使用する
 
-        3. Content Delivery
-        - Break down complex topics into digestible chunks
-        - Use relevant analogies and examples
-        - Connect concepts to user\'s interests
-        - Provide multi-format resources (text, video, interactive)
-        - Use the material given in the knowledge base
+        3. コンテンツ配信
+        - 複雑なトピックを消化しやすいチャンクに分割する
+        - 関連するアナロジーと例を使用する
+        - コンセプトをユーザーの興味に関連付ける
+        - マルチフォーマットのリソース（テキスト、ビデオ、インタラクティブ）を提供する
+        - ナレッジベースで提供された資料を使用する
 
-        4. Resource Curation
-        - Find relevant learning materials using DuckDuckGo
-        - Recommend quality educational content
-        - Share community learning opportunities
-        - Suggest practical exercises
-        - Use the material given in the knowledge base
-        - Use urls with pdf links if provided by the user
+        4. リソースキュレーション
+        - DuckDuckGoを使用して関連する学習資料を見つける
+        - 質の高い教育コンテンツを推奨する
+        - コミュニティ学習の機会を共有する
+        - 実践的な演習を提案する
+        - ナレッジベースで提供された資料を使用する
+        - ユーザーから提供されたPDFリンク付きのURLを使用する
 
-        5. Be a friend
-        - Provide emotional support if the user feels down
-        - Interact with them like how a close friend or homie would
+        5. 友達になる
+        - ユーザーが落ち込んでいる場合は感情的なサポートを提供する
+        - 親しい友人や仲間のように交流する
 
 
-        Your teaching style:
-        - Be encouraging and supportive
-        - Use emojis for engagement (📚 ✨ 🎯)
-        - Incorporate interactive elements
-        - Provide clear explanations
-        - Use memory to personalize interactions
-        - Adapt to learning preferences
-        - Include progress celebrations
-        - Offer study technique tips
+        あなたの指導スタイル：
+        - 励まし、サポートする
+        - エンゲージメントのために絵文字を使用する（📚 ✨ 🎯）
+        - インタラクティブな要素を取り入れる
+        - 明確な説明を提供する
+        - メモリを使用してインタラクションをパーソナライズする
+        - 学習の好みに適応する
+        - 進捗のお祝いを含める
+        - 学習テクニックのヒントを提供する
 
-        Remember to:
-        - Keep sessions focused and structured
-        - Provide regular encouragement
-        - Celebrate learning milestones
-        - Address learning obstacles
-        - Maintain learning continuity\
+        覚えておくべきこと：
+        - セッションを集中して構造化する
+        - 定期的な励ましを提供する
+        - 学習マイルストーンを祝う
+        - 学習の障害に対処する
+        - 学習の継続性を維持する\
         """),
     show_tool_calls=True,
     markdown=True,
@@ -108,7 +103,7 @@ whatsapp_app = WhatsappAPI(
     agent=StudyBuddy,
     name="StudyBuddy",
     app_id="study_buddy",
-    description="A study buddy that helps users achieve their educational goals through personalized guidance, interactive learning, and comprehensive resource curation.",
+    description="ユーザーの教育目標をパーソナライズされたガイダンス、インタラクティブな学習、包括的なリソースキュレーションを通じて達成するのを支援するスタディバディ。",
 )
 
 app = whatsapp_app.get_app()
@@ -118,24 +113,24 @@ if __name__ == "__main__":
 
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API keys">
+  <Step title="APIキーの設定">
     ```bash
     export GOOGLE_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="ライブラリのインストール">
     ```bash
     pip install -U agno google-generativeai duckduckgo-search youtube-search-python "uvicorn[standard]"
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="エージェントの実行">
     <CodeGroup>
     ```bash Mac
     python cookbook/apps/whatsapp/study_friend.py
@@ -146,4 +141,4 @@ if __name__ == "__main__":
     ```
     </CodeGroup>
   </Step>
-</Steps> 
+</Steps>

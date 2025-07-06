@@ -2,11 +2,11 @@
 title: Exa
 ---
 
-**ExaTools** enable an Agent to search the web using Exa, retrieve content from URLs, find similar content, and get AI-powered answers.
+**ExaTools** を使用すると、エージェントは Exa を使ってウェブを検索し、URL からコンテンツを取得し、類似したコンテンツを見つけ、AI による回答を得ることができます。
 
-## Prerequisites
+## 前提条件
 
-The following examples require the `exa-py` library and an API key which can be obtained from [Exa](https://exa.ai).
+以下の例では、`exa-py` ライブラリと、[Exa](https://exa.ai) から取得できる API キーが必要です。
 
 ```shell
 pip install -U exa-py
@@ -16,9 +16,9 @@ pip install -U exa-py
 export EXA_API_KEY=***
 ```
 
-## Example
+## 例
 
-The following agent will search Exa for AAPL news and print the response.
+以下のエージェントは、Exa で AAPL ニュースを検索し、応答を表示します。
 
 ```python cookbook/tools/exa_tools.py
 from agno.agent import Agent
@@ -35,44 +35,44 @@ agent = Agent(
 agent.print_response("Search for AAPL news", markdown=True)
 ```
 
-## Toolkit Functions
+## ツールキット関数
 
-| Function | Description |
+| 関数 | 説明 |
 | -------- | ----------- |
-| `search_exa` | Searches Exa for a query with optional category filtering |
-| `get_contents` | Retrieves detailed content from specific URLs |
-| `find_similar` | Finds similar content to a given URL |
-| `exa_answer` | Gets an AI-powered answer to a question using Exa search results |
+| `search_exa` | カテゴリフィルタリングをオプションで指定して Exa を検索します |
+| `get_contents` | 特定の URL から詳細なコンテンツを取得します |
+| `find_similar` | 指定された URL と類似したコンテンツを見つけます |
+| `exa_answer` | Exa の検索結果を使用して、質問に対する AI による回答を取得します |
 
-## Toolkit Parameters
+## ツールキットパラメータ
 
-| Parameter | Type | Default | Description |
+| パラメータ | タイプ | デフォルト | 説明 |
 | --------- | ---- | ------- | ----------- |
-| `search` | `bool` | `True` | Enable search functionality |
-| `get_contents` | `bool` | `True` | Enable content retrieval |
-| `find_similar` | `bool` | `True` | Enable finding similar content |
-| `answer` | `bool` | `True` | Enable AI-powered answers |
-| `text` | `bool` | `True` | Include text content in results |
-| `text_length_limit` | `int` | `1000` | Maximum length of text content per result |
-| `highlights` | `bool` | `True` | Include highlighted snippets |
-| `summary` | `bool` | `False` | Include result summaries |
-| `num_results` | `Optional[int]` | `None` | Default number of results |
-| `livecrawl` | `str` | `"always"` | Livecrawl behavior |
-| `start_crawl_date` | `Optional[str]` | `None` | Include results crawled after date (YYYY-MM-DD) |
-| `end_crawl_date` | `Optional[str]` | `None` | Include results crawled before date (YYYY-MM-DD) |
-| `start_published_date` | `Optional[str]` | `None` | Include results published after date (YYYY-MM-DD) |
-| `end_published_date` | `Optional[str]` | `None` | Include results published before date (YYYY-MM-DD) |
-| `use_autoprompt` | `Optional[bool]` | `None` | Enable autoprompt features |
-| `type` | `Optional[str]` | `None` | Content type filter (e.g., article, blog, video) |
-| `category` | `Optional[str]` | `None` | Category filter (e.g., news, research paper) |
-| `include_domains` | `Optional[List[str]]` | `None` | Restrict results to these domains |
-| `exclude_domains` | `Optional[List[str]]` | `None` | Exclude results from these domains |
-| `show_results` | `bool` | `False` | Log search results for debugging |
-| `model` | `Optional[str]` | `None` | Search model to use ('exa' or 'exa-pro') |
+| `search` | `bool` | `True` | 検索機能を有効にします |
+| `get_contents` | `bool` | `True` | コンテンツ取得機能を有効にします |
+| `find_similar` | `bool` | `True` | 類似コンテンツ検索機能を有効にします |
+| `answer` | `bool` | `True` | AI による回答機能を有効にします |
+| `text` | `bool` | `True` | 結果にテキストコンテンツを含めます |
+| `text_length_limit` | `int` | `1000` | 結果ごとのテキストコンテンツの最大長 |
+| `highlights` | `bool` | `True` | ハイライトされたスニペットを含めます |
+| `summary` | `bool` | `False` | 結果の要約を含めます |
+| `num_results` | `Optional[int]` | `None` | 結果のデフォルト数 |
+| `livecrawl` | `str` | `"always"` | Livecrawl の動作 |
+| `start_crawl_date` | `Optional[str]` | `None` | 指定された日付以降にクロールされた結果を含めます (YYYY-MM-DD) |
+| `end_crawl_date` | `Optional[str]` | `None` | 指定された日付以前にクロールされた結果を含めます (YYYY-MM-DD) |
+| `start_published_date` | `Optional[str]` | `None` | 指定された日付以降に公開された結果を含めます (YYYY-MM-DD) |
+| `end_published_date` | `Optional[str]` | `None` | 指定された日付以前に公開された結果を含めます (YYYY-MM-DD) |
+| `use_autoprompt` | `Optional[bool]` | `None` | autoprompt 機能を有効にします |
+| `type` | `Optional[str]` | `None` | コンテンツタイプのフィルタリング (例: article, blog, video) |
+| `category` | `Optional[str]` | `None` | カテゴリのフィルタリング (例: news, research paper) |
+| `include_domains` | `Optional[List[str]]` | `None` | 結果をこれらのドメインに制限します |
+| `exclude_domains` | `Optional[List[str]]` | `None` | これらのドメインからの結果を除外します |
+| `show_results` | `bool` | `False` | デバッグのために検索結果をログに記録します |
+| `model` | `Optional[str]` | `None` | 使用する検索モデル ('exa' または 'exa-pro') |
 
-### Categories
+### カテゴリ
 
-Available categories for filtering:
+フィルタリングに使用できるカテゴリ:
 - company
 - research paper
 - news
@@ -83,7 +83,7 @@ Available categories for filtering:
 - linkedin profile
 - financial report
 
-## Developer Resources
+## 開発者向けリソース
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/exa.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/exa_tools.py)
+- [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/exa.py) を表示
+- [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/exa_tools.py) を表示

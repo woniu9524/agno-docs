@@ -34,20 +34,20 @@ agent.print_response(
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="API キーを設定する">
     ```bash
     export AZURE_API_KEY=xxx
     export AZURE_ENDPOINT=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="ライブラリをインストールする">
     ```bash
     pip install -U azure-ai-inference agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="Agent を実行する">
     <CodeGroup>
     ```bash Mac
     python cookbook/reasoning/models/azure_ai_foundry/reasoning_model_deepseek.py

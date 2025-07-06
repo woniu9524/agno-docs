@@ -1,9 +1,9 @@
 ---
-title: Accuracy with Teams
-description: Learn how to evaluate the accuracy of an Agno Team.
+title: チームの精度
+description: Agnoチームの精度を評価する方法を学びます。
 ---
 
-## Code
+## コード
 
 ```python
 from typing import Optional
@@ -13,7 +13,7 @@ from agno.eval.accuracy import AccuracyEval, AccuracyResult
 from agno.models.openai import OpenAIChat
 from agno.team.team import Team
 
-# Setup a team with two members
+# 2人のメンバーを持つチームを設定します
 english_agent = Agent(
     name="English Agent",
     role="You only answer in English",
@@ -39,7 +39,7 @@ multi_language_team = Team(
     ],
 )
 
-# Evaluate the accuracy of the Team's responses
+# チームの応答の精度を評価します
 evaluation = AccuracyEval(
     model=OpenAIChat(id="o4-mini"),
     team=multi_language_team,
@@ -50,4 +50,3 @@ evaluation = AccuracyEval(
 
 result: Optional[AccuracyResult] = evaluation.run(print_results=True)
 assert result is not None and result.avg_score >= 8
-```

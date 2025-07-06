@@ -1,12 +1,12 @@
 ---
-title: Structured Output
+title: 構造化出力
 ---
 
-One of our favorite features is using Agents to generate structured data (i.e. a pydantic model). Use this feature to extract features, classify data, produce fake data etc. The best part is that they work with function calls, knowledge bases and all other features.
+私たちのお気に入りの機能の1つは、エージェントを使用して構造化データ（つまりpydanticモデル）を生成することです。この機能を使用して、機能の抽出、データの分類、偽データの生成などを行います。最も良い点は、関数呼び出し、ナレッジベース、およびその他のすべての機能と連携することです。
 
-## Example
+## 例
 
-Let's create an Movie Agent to write a `MovieScript` for us.
+映画スクリプトを記述する映画エージェントを作成しましょう。
 
 ```python movie_agent.py
 from typing import List
@@ -16,35 +16,35 @@ from agno.agent import Agent, RunResponse
 from agno.models.openai import OpenAIChat
 
 class MovieScript(BaseModel):
-    setting: str = Field(..., description="Provide a nice setting for a blockbuster movie.")
-    ending: str = Field(..., description="Ending of the movie. If not available, provide a happy ending.")
+    setting: str = Field(..., description="ブロックバスター映画の素敵な設定を提供してください。")
+    ending: str = Field(..., description="映画のエンディング。利用できない場合は、ハッピーエンディングを提供してください。")
     genre: str = Field(
-        ..., description="Genre of the movie. If not available, select action, thriller or romantic comedy."
+        ..., description="映画のジャンル。利用できない場合は、アクション、スリラー、またはロマンティックコメディを選択してください。"
     )
-    name: str = Field(..., description="Give a name to this movie")
-    characters: List[str] = Field(..., description="Name of characters for this movie.")
-    storyline: str = Field(..., description="3 sentence storyline for the movie. Make it exciting!")
+    name: str = Field(..., description="この映画に名前を付けてください")
+    characters: List[str] = Field(..., description="この映画のキャラクターの名前。")
+    storyline: str = Field(..., description="映画の3文のストーリーライン。エキサイティングにしてください！")
 
-# Agent that uses JSON mode
+# JSONモードを使用するエージェント
 json_mode_agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
-    description="You write movie scripts.",
+    description="映画のスクリプトを書きます。",
     response_model=MovieScript,
     use_json_mode=True,
 )
 json_mode_agent.print_response("New York")
 
-# Agent that uses structured outputs
+# 構造化出力を利用するエージェント
 structured_output_agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
-    description="You write movie scripts.",
+    description="映画のスクリプトを書きます。",
     response_model=MovieScript,
 )
 
 structured_output_agent.print_response("New York")
 ```
 
-Run the script to see the output.
+スクリプトを実行して出力を確認してください。
 
 ```bash
 pip install -U agno openai
@@ -52,10 +52,10 @@ pip install -U agno openai
 python movie_agent.py
 ```
 
-The output is an object of the `MovieScript` class, here's how it looks:
+出力は`MovieScript`クラスのオブジェクトです。その様子は次のとおりです。
 
 ```python
-# Using JSON mode
+# JSONモードを使用
 MovieScript(
 │   setting='The bustling streets of New York City, filled with skyscrapers, secret alleyways, and hidden underground passages.',
 │   ending='The protagonist manages to thwart an international conspiracy, clearing his name and winning the love of his life back.',
@@ -65,7 +65,7 @@ MovieScript(
 │   storyline="When Alex Monroe, an ex-CIA operative, is framed for a crime he didn't commit, he must navigate the dangerous streets of New York to clear his name. As he uncovers a labyrinth of deceit involving the city's most notorious crime syndicate, he enlists the help of an old flame, Eva Parker. Together, they race against time to expose the true villain before it's too late."
 )
 
-# Use the structured output
+# 構造化出力を利用
 MovieScript(
 │   setting='In the bustling streets and iconic skyline of New York City.',
 │   ending='Isabella and Alex, having narrowly escaped the clutches of the Syndicate, find themselves standing at the top of the Empire State Building. As the glow of the setting sun bathes the city, they share a victorious kiss. Newly emboldened and as an unstoppable duo, they vow to keep NYC safe from any future threats.',
@@ -76,24 +76,24 @@ MovieScript(
 )
 ```
 
-## Using a Parser Model
+## パーサーモデルの使用
 
-You can use an additional model to parse and structure the output from your primary model. This approach is particularly effective when the primary model is optimized for reasoning tasks, as such models may not consistently produce detailed structured responses.
+プライマリモデルからの出力を解析および構造化するために、追加のモデルを使用できます。このアプローチは、プライマリモデルが推論タスクに最適化されている場合に特に効果的です。そのようなモデルは、詳細な構造化応答を一貫して生成しない可能性があるためです。
 
 ```python
 agent = Agent(
     model=Claude(id="claude-sonnet-4-20250514"),
-    description="You write movie scripts.",
+    description="映画のスクリプトを書きます。",
     response_model=MovieScript,
     parser_model=OpenAIChat(id="gpt-4o"),
 )
 ```
 
-You can also provide a custom `parser_model_prompt` to your Parser Model.
+カスタムの`parser_model_prompt`をパーサーモデルに提供することもできます。
 
-## Streaming Structured Output
+## ストリーミング構造化出力
 
-Streaming can be used in combination with `response_model`. This returns the structured output as a single event in the stream of events.
+ストリーミングは、`response_model`と組み合わせて使用できます。これにより、構造化出力がイベントストリーム内の単一のイベントとして返されます。
 
 ```python streaming_agent.py
 import asyncio
@@ -106,31 +106,31 @@ from pydantic import BaseModel, Field
 
 class MovieScript(BaseModel):
     setting: str = Field(
-        ..., description="Provide a nice setting for a blockbuster movie."
+        ..., description="ブロックバスター映画の素敵な設定を提供してください。"
     )
     ending: str = Field(
         ...,
-        description="Ending of the movie. If not available, provide a happy ending.",
+        description="映画のエンディング。利用できない場合は、ハッピーエンディングを提供してください。",
     )
     genre: str = Field(
         ...,
-        description="Genre of the movie. If not available, select action, thriller or romantic comedy.",
+        description="映画のジャンル。利用できない場合は、アクション、スリラー、またはロマンティックコメディを選択してください。",
     )
-    name: str = Field(..., description="Give a name to this movie")
-    characters: List[str] = Field(..., description="Name of characters for this movie.")
+    name: str = Field(..., description="この映画に名前を付けてください")
+    characters: List[str] = Field(..., description="この映画のキャラクターの名前。")
     storyline: str = Field(
-        ..., description="3 sentence storyline for the movie. Make it exciting!"
+        ..., description="映画の3文のストーリーライン。エキサイティングにしてください！"
     )
     rating: Dict[str, int] = Field(
         ...,
-        description="Your own rating of the movie. 1-10. Return a dictionary with the keys 'story' and 'acting'.",
+        description="映画自身の評価。1〜10。キー「story」と「acting」を持つ辞書を返してください。",
     )
 
 
-# Agent that uses structured outputs with streaming
+# 構造化出力を利用するエージェント（ストリーミング使用）
 structured_output_agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
-    description="You write movie scripts.",
+    description="映画のスクリプトを書きます。",
     response_model=MovieScript,
 )
 
@@ -139,8 +139,8 @@ structured_output_agent.print_response(
 )
 ```
 
-## Developer Resources
+## 開発者向けリソース
 
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/async/structured_output.py)
-- View [Parser Model Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/other/parse_model.py)
-- View [Streaming Structured Output](https://github.com/agno-agi/agno/blob/main/cookbook/models/openai/chat/structured_output_stream.py)
+- [クックブック](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/async/structured_output.py)を表示
+- [パーサーモデルクックブック](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/other/parse_model.py)を表示
+- [ストリーミング構造化出力](https://github.com/agno-agi/agno/blob/main/cookbook/models/openai/chat/structured_output_stream.py)を表示

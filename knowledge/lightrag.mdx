@@ -1,12 +1,12 @@
 ---
-title: LightRAG Knowledge Base
-description: Learn how to use LightRAG, a fast graph-based retrieval-augmented generation system for enhanced knowledge querying.
+title: LightRAG 知識ベース
+description: LightRAG の使用方法を学びます。LightRAG は、知識クエリを強化するための高速なグラフベースの検索拡張生成システムです。
 sidebarTitle: LightRAG
 ---
 
-The **LightRAGKnowledgeBase** integrates with a [LightRAG Server](https://github.com/HKUDS/LightRAG), a simple and fast retrieval-augmented generation system that uses graph structures to enhance document retrieval and knowledge querying capabilities.
+**LightRAGKnowledgeBase** は、[LightRAG Server](https://github.com/HKUDS/LightRAG) と統合されます。これは、グラフ構造を使用してドキュメント検索と知識クエリ機能を強化する、シンプルで高速な検索拡張生成システムです。
 
-## Usage
+## 使用方法
 
 
 ```python knowledge_base.py
@@ -16,55 +16,55 @@ from agno.agent import Agent
 from agno.knowledge.light_rag import LightRagKnowledgeBase, lightrag_retriever
 from agno.models.anthropic import Claude
 
-# Create a knowledge base, loaded with documents from a URL
+# ナレッジベースを作成し、URL からドキュメントをロードします
 knowledge_base = LightRagKnowledgeBase(
     lightrag_server_url="http://localhost:9621",
-    path="tmp/",  # Load documents from a local directory
-    urls=["https://docs.agno.com/introduction/agents.md"],  # Load documents from a URL
+    path="tmp/",  # ローカルディレクトリからドキュメントをロードします
+    urls=["https://docs.agno.com/introduction/agents.md"],  # URL からドキュメントをロードします
 )
 
-# Load the knowledge base with the documents from the local directory and the URL
+# ローカルディレクトリと URL からのドキュメントでナレッジベースをロードします
 asyncio.run(knowledge_base.load())
 
-# Load the knowledge base with the text
+# テキストでナレッジベースをロードします
 asyncio.run(
-    knowledge_base.load_text(text="Agno is the best framework for building Agents")
+    knowledge_base.load_text(text="Agno はエージェントを構築するための最高のフレームワークです")
 )
 
 ```
 
-Then use the `lightrag_knowledge_base` with an Agent:
+次に、`lightrag_knowledge_base` を Agent と共に使用します。
 
 ```python agent.py
-# Create an agent with the knowledge base and the retriever
+# ナレッジベースとリトリーバーでエージェントを作成します
 agent = Agent(
     model=Claude(id="claude-3-7-sonnet-latest"),
-    # Agentic RAG is enabled by default when `knowledge` is provided to the Agent.
+    # Agent に `knowledge` が提供されている場合、エージェント RAG はデフォルトで有効になります。
     knowledge=knowledge_base,
     retriever=lightrag_retriever,
-    # search_knowledge=True gives the Agent the ability to search on demand
-    # search_knowledge is True by default
+    # `search_knowledge=True` は、エージェントにオンデマンドで検索する機能を与えます
+    # `search_knowledge` はデフォルトで True です
     search_knowledge=True,
     instructions=[
-        "Include sources in your response.",
-        "Always search your knowledge before answering the question.",
-        "Use the async_search method to search the knowledge base.",
+        "応答にソースを含めてください。",
+        "質問に答える前に、必ず知識を検索してください。",
+        "ナレッジベースを検索するには、async_search メソッドを使用してください。",
     ],
     markdown=True,
 )
 
-asyncio.run(agent.aprint_response("What are Agno Agents?"))
+asyncio.run(agent.aprint_response("Agno エージェントとは何ですか?"))
 ```
 
-## Params
+## パラメータ
 
-| Parameter | Type | Default | Description |
+| パラメータ | タイプ | デフォルト | 説明 |
 |-----------|------|---------|-------------|
-| `lightrag_server_url` | `str` | - | URL to LightRAG server. |
-| `path` | `Union[str, Path]` | - | Path to documents. Can point to a single file or directory of files. |
-| `url` | `str` | - | URLs of the website to read. |
+| `lightrag_server_url` | `str` | - | LightRAG サーバーへの URL。 |
+| `path` | `Union[str, Path]` | - | ドキュメントへのパス。単一ファイルまたはファイルのディレクトリを指すことができます。 |
+| `url` | `str` | - | 読み取るウェブサイトの URL。 |
 
 
-## Developer Resources
+## 開発者向けリソース
 
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/agentic_search/lightrag) 
+- [クックブック](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/agentic_search/lightrag) を表示

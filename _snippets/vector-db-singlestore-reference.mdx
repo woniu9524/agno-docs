@@ -1,9 +1,9 @@
-| Parameter | Type | Default | Description |
-| --------- | ---- | ------- | ----------- |
-| `collection` | `str` | Required | Name of the SingleStore table |
-| `schema` | `Optional[str]` | `"ai"` | Schema name for the table |
-| `db_url` | `Optional[str]` | `None` | Database connection URL |
-| `db_engine` | `Optional[Engine]` | `None` | SQLAlchemy engine instance |
-| `embedder` | `Optional[Embedder]` | `OpenAIEmbedder()` | Embedder instance to generate embeddings |
-| `distance` | `Distance` | `Distance.cosine` | Distance metric for similarity search |
-| `reranker` | `Optional[Reranker]` | `None` | Reranker for post-processing results |
+| パラメータ | タイプ | デフォルト | 説明 |
+| -------- | ---- | ------- | ----------- |
+| `collection` | `str` | Required | SingleStore テーブルの名前 |
+| `schema` | `Optional[str]` | `"ai"` | テーブルのスキーマ名 |
+| `db_url` | `Optional[str]` | `None` | データベース接続 URL |
+| `db_engine` | `Optional[Engine]` | `None` | SQLAlchemy エンジンインスタンス |
+| `embedder` | `Optional[Embedder]` | `OpenAIEmbedder()` | 埋め込みを生成するための埋め込みインスタンス |
+| `distance` | `Distance` | `Distance.cosine` | 類似性検索の距離メトリック |
+| `reranker` | `Optional[Reranker]` | `None` | 結果の後処理のためのランカー |

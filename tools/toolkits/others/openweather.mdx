@@ -2,59 +2,59 @@
 title: OpenWeather
 ---
 
-**OpenWeatherTools** enable an Agent to access weather data from the OpenWeatherMap API.
+**OpenWeatherTools** は、エージェントがOpenWeatherMap APIから天気データにアクセスできるようにします。
 
-## Prerequisites
+## 前提条件
 
-The following example requires the `requests` library and an API key which can be obtained from [OpenWeatherMap](https://openweathermap.org/api). Once you sign up the mentioned api key will be activated in a few hours so please be patient.
+次の例では、`requests` ライブラリと、[OpenWeatherMap](https://openweathermap.org/api) から取得できるAPIキーが必要です。サインアップ後、指定されたAPIキーは数時間後にアクティブになりますので、しばらくお待ちください。
 
 ```shell
 export OPENWEATHER_API_KEY=***
 ```
 
-## Example
+## 例
 
-The following agent will use OpenWeatherMap to get current weather information for Tokyo.
+以下のエージェントは、OpenWeatherMapを使用して東京の現在の天気情報を取得します。
 
 ```python cookbook/tools/openweather_tools.py
 from agno.agent import Agent
 from agno.tools.openweather import OpenWeatherTools
 
-# Create an agent with OpenWeatherTools
+# OpenWeatherTools を使用してエージェントを作成します
 agent = Agent(
     tools=[
         OpenWeatherTools(
-            units="imperial",  # Options: 'standard', 'metric', 'imperial'
+            units="imperial",  # オプション: 'standard', 'metric', 'imperial'
         )
     ],
     markdown=True,
 )
 
-# Get current weather for a location
+# 場所の現在の天気情報を取得します
 agent.print_response("What's the current weather in Tokyo?", markdown=True)
 ```
 
 ## Toolkit Params
 
-| Parameter         | Type   | Default   | Description                                                                |
-| ----------------- | ------ | --------- | -------------------------------------------------------------------------- |
-| `api_key`         | `str`  | `None`    | OpenWeatherMap API key. If not provided, uses OPENWEATHER_API_KEY env var. |
-| `units`           | `str`  | `metric`  | Units of measurement. Options: 'standard', 'metric', 'imperial'.           |
-| `current_weather` | `bool` | `True`    | Enable current weather function.                                           |
-| `forecast`        | `bool` | `True`    | Enable forecast function.                                                  |
-| `air_pollution`   | `bool` | `True`    | Enable air pollution function.                                             |
-| `geocoding`       | `bool` | `True`    | Enable geocoding function.                                                 |
+| パラメータ         | タイプ   | デフォルト   | 説明                                                                                             |
+| ------------------ | ------ | --------- | ------------------------------------------------------------------------------------------------ |
+| `api_key`          | `str`  | `None`    | OpenWeatherMap API キー。指定しない場合は、OPENWEATHER_API_KEY 環境変数を使用します。                               |
+| `units`            | `str`  | `metric`  | 測定単位。オプション: 'standard', 'metric', 'imperial'。                                                              |
+| `current_weather`  | `bool` | `True`    | 現在の天気機能を使用可能にします。                                                                                             |
+| `forecast`         | `bool` | `True`    | 予報機能を使用可能にします。                                                                                             |
+| `air_pollution`    | `bool` | `True`    | 大気汚染機能を使用可能にします。                                                                                             |
+| `geocoding`        | `bool` | `True`    | ジオコーディング機能を使用可能にします。                                                                                             |
 
 ## Toolkit Functions
 
-| Function             | Description                                                                                                |
-| -------------------- | ---------------------------------------------------------------------------------------------------------- |
-| `get_current_weather`| Gets current weather data for a location. Takes a location name (e.g., "London").                          |
-| `get_forecast`       | Gets weather forecast for a location. Takes a location name and optional number of days (default 5).       |
-| `get_air_pollution`  | Gets current air pollution data for a location. Takes a location name.                                     |
-| `geocode_location`   | Converts a location name to geographic coordinates. Takes a location name and optional result limit.       |
+| 関数                 | 説明                                                                                                                             |
+| -------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| `get_current_weather`| 場所の現在の天気データを取得します。場所の名前（例：「ロンドン」）を取ります。                                                                                                |
+| `get_forecast`       | 場所の天気予報を取得します。場所の名前とオプションで日数（デフォルトは5日）を取ります。                                                                                             |
+| `get_air_pollution`  | 場所の現在の空気汚染データを取得します。場所の名前を取ります。                                                                                               |
+| `geocode_location`   | 場所の名前を地理座標に変換します。場所の名前とオプションで結果の制限を取ります。                                                                                             |
 
 ## Developer Resources
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/openweather.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/openweather_tools.py)
+- [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/openweather.py) を表示
+- [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/openweather_tools.py) を表示

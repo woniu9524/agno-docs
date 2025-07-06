@@ -2,11 +2,11 @@
 title: Fal
 ---
 
-**FalTools** enable an Agent to perform media generation tasks.
+**FalTools** を使用すると、エージェントはメディア生成タスクを実行できます。
 
-## Prerequisites
+## 前提条件
 
-The following example requires the `fal_client` library and an API key which can be obtained from [Fal](https://fal.ai/).
+次の例では、`fal_client` ライブラリと、[Fal](https://fal.ai/) から取得できる API キーが必要です。
 
 ```shell
 pip install -U fal_client
@@ -16,9 +16,9 @@ pip install -U fal_client
 export FAL_KEY=***
 ```
 
-## Example
+## 例
 
-The following agent will use FAL to generate any video requested by the user.
+次のエージェントは、FAL を使用してユーザーが要求した任意のビデオを生成します。
 
 ```python cookbook/tools/fal_tools.py
 from agno.agent import Agent
@@ -47,17 +47,17 @@ fal_agent.print_response("Generate video of balloon in the ocean")
 
 | Parameter | Type  | Default | Description                                |
 | --------- | ----- | ------- | ------------------------------------------ |
-| `api_key` | `str` | `None`  | API key for authentication purposes.       |
-| `model`   | `str` | `None`  | The model to use for the media generation. |
+| `api_key` | `str` | `None`  | API キー（認証用）。       |
+| `model`   | `str` | `None`  | メディア生成に使用するモデル。 |
 
 ## Toolkit Functions
 
 | Function         | Description                                                    |
 | ---------------- | -------------------------------------------------------------- |
-| `generate_media` | Generate either images or videos depending on the user prompt. |
-| `image_to_image` | Transform an input image based on a text prompt.               |
+| `generate_media` | ユーザープロンプトに応じて画像またはビデオを生成します。 |
+| `image_to_image` | テキストプロンプトに基づいて入力画像を変換します。               |
 
 ## Developer Resources
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/fal.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/fal_tools.py)
+- [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/fal.py) を表示
+- [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/fal_tools.py) を表示

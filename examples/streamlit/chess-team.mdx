@@ -2,13 +2,13 @@
 title: Chess Battle
 ---
 
-Chess Battle is a chess application where multiple AI agents collaborate to play chess against each other, demonstrating the power of multi-agent systems in complex game environments.
+Chess Battle は、複数のAIエージェントが互いにチェスをプレイするために協力するチェスアプリケーションであり、複雑なゲーム環境におけるマルチエージェントシステムの力を実証します。
 
-### Key Capabilities
-- Multi-Agent System: Features White and Black Piece Agents for move selection
-- Move Validation: Dedicated Legal Move Agent ensures game rule compliance
-- Game Coordination: Master Agent oversees the game flow and end conditions
-- Interactive UI: Built with Streamlit for real-time game visualization
+### 主な機能
+- マルチエージェントシステム: 白と黒の駒エージェントが指し手を選択
+- 指し手検証: 専用の合法手エージェントがゲームルールの遵守を保証
+- ゲーム調整: マスターエージェントがゲームフローと終了条件を監督
+- インタラクティブUI: Streamlitで構築され、リアルタイムのゲーム可視化を提供
 
 <video
   autoPlay
@@ -18,61 +18,61 @@ Chess Battle is a chess application where multiple AI agents collaborate to play
   src="/videos/chess-team.mp4"
 ></video>
 
-### System Components
-- White Piece Agent: Strategizes and selects moves for white pieces
-- Black Piece Agent: Controls and determines moves for black pieces
-- Legal Move Agent: Validates all proposed moves against chess rules
-- Master Agent: Coordinates the game flow and monitors game status
+### システムコンポーネント
+- 白駒エージェント: 白の駒の戦略を立て、指し手を選択
+- 黒駒エージェント: 黒の駒の指し手を制御し、決定
+- 合法手エージェント: すべての提案された指し手をチェスルールに対して検証
+- マスターエージェント: ゲームフローを調整し、ゲーム状況を監視
 
-### Advanced Features
-The system demonstrates complex agent interactions where each AI component has a specific role. The agents communicate and coordinate to create a complete chess-playing experience, showcasing how multiple specialized AIs can work together effectively.
+### 高度な機能
+このシステムは、各AIコンポーネントが特定の役割を持つ複雑なエージェント間インタラクションを実証します。エージェントは通信および調整を行い、完全なチェスプレイ体験を創造し、複数の専門化されたAIが効果的に協力する方法を示します。
 
-### Code
-The complete code is available in the [Agno repository](https://github.com/agno-agi/agno/tree/main/cookbook/examples/streamlit_apps/chess_team).
+### コード
+完全なコードは[Agnoリポジトリ](https://github.com/agno-agi/agno/tree/main/cookbook/examples/streamlit_apps/chess_team)で利用可能です。
 
-### Usage
+### 使用方法
 <Steps>
-  <Step title="Clone the repository">
+  <Step title="リポジトリをクローンする">
     ```bash
     git clone https://github.com/agno-agi/agno.git
     cd agno
     ```
   </Step>
 
-  <Step title="Create a Virtual Environment">
+  <Step title="仮想環境を作成する">
     ```bash
     python3 -m venv .venv
-    source .venv/bin/activate  # On Windows use: .venv\Scripts\activate
+    source .venv/bin/activate  # Windowsの場合は: .venv\Scripts\activate を使用
     ```
   </Step>
 
-  <Step title="Install Dependencies">
+  <Step title="依存関係をインストールする">
     ```bash
     pip install -r cookbook/examples/streamlit_apps/chess_team/requirements.txt
     ```
   </Step>
 
-  <Step title="Set up API Key">
-    The Chess Team Agent uses the Anthropic API for agent reasoning:
+  <Step title="APIキーを設定する">
+    Chess Team Agent は、エージェントの推論に Anthropic API を使用します。
 
     ```bash
     export ANTHROPIC_API_KEY=your_api_key_here
     ```
   </Step>
 
-  <Step title="Launch the App">
+  <Step title="アプリを起動する">
     ```bash
     streamlit run cookbook/examples/streamlit_apps/chess_team/app.py
     ```
   </Step>
 
-  <Step title="Open the App">
-    Then, open http://localhost:8501 in your browser to start watching the AI agents play chess.
+  <Step title="アプリを開く">
+    次に、ブラウザで http://localhost:8501 を開いて、AIエージェントがチェスをプレイするのを見始めます。
   </Step>
 </Steps>
 
-### Pro Tips
-- Watch Complete Games: Observe full matches to understand agent decision-making
-- Monitor Agent Interactions: Pay attention to how agents communicate and coordinate
+### プロのヒント
+- 完全なゲームを視聴する: エージェントの意思決定を理解するために、完全な対戦を観察する
+- エージェント間のインタラクションを監視する: エージェントがどのように通信し、調整するかを注意深く見る
 
-Need help? Join our [Discourse community](https://agno.link/community) for support!
+ヘルプが必要ですか？サポートについては、[Discourseコミュニティ](https://agno.link/community)にご参加ください！

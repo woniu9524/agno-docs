@@ -1,8 +1,8 @@
 ---
-<title>Asynchronous Agent</title>
+<title>非同期エージェント</title>
 ---
 
-## Code
+## コード
 
 ```python cookbook/models/meta/async_basic.py
 import asyncio
@@ -20,24 +20,24 @@ async def main():
 asyncio.run(main())
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your LLAMA API key">
+  <Step title="LLAMA API キーを設定する">
     ```bash
     export LLAMA_API_KEY=YOUR_API_KEY
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="ライブラリをインストールする">
     ```bash
     pip install llama-api-client agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="エージェントを実行する">
     <CodeGroup>
     ```bash Mac
     python cookbook/models/meta/async_basic.py
@@ -48,4 +48,4 @@ asyncio.run(main())
     ```
     </CodeGroup>
   </Step>
-</Steps> 
+</Steps>

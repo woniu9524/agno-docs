@@ -2,25 +2,25 @@
 title: Advanced
 ---
 
-**Workflows are all about control and flexibility.**
+**ワークフローは、制御と柔軟性に関するものです。**
 
-Your workflow logic is just a python function, so you have full control over the workflow logic. You can:
-- Validate input before processing
-- Depending on the input, spawn agents and run them in parallel
-- Cache results as needed
-- Correct any intermediate errors
-- Stream the output
-- Return a single or multiple outputs
+ワークフローロジックは単なるPython関数であるため、ワークフローロジックを完全に制御できます。以下のことが可能です。
+- 処理前にインプットを検証する
+- インプットに応じて、エージェントを生成し、並列で実行する
+- 必要に応じて結果をキャッシュする
+- 中間エラーを修正する
+- 出力をストリーミングする
+- 単一または複数の出力を返す
 
-**This level of control is critical for reliability.**
+**このレベルの制御は、信頼性にとって不可欠です。**
 
 
-## Streaming
+## ストリーミング
 
-It is important to understand that when you build a workflow, you are writing a python function, meaning you decide if the function streams the output or not. To stream the output, yield an `Iterator[RunResponse]` from the `run()` method of your workflow.
+ワークフローを構築する際は、Python関数を作成していることを理解することが重要です。つまり、関数が出力をストリーミングするかどうかを決定するのはあなたです。出力をストリーミングするには、ワークフローの`run()`メソッドから`Iterator[RunResponse]`をyieldします。
 
 ```python news_report_generator.py
-# Define the workflow
+# ワークフローを定義する
 class GenerateNewsReport(Workflow):
     agent_1: Agent = ...
 
@@ -29,32 +29,32 @@ class GenerateNewsReport(Workflow):
     agent_3: Agent = ...
 
     def run(self, ...) -> Iterator[RunResponse]:
-        # Run agents and gather the response
-        # These can be batch responses, you can also stream intermediate results if you want
+        # エージェントを実行し、レスポンスを収集する
+        # これらはバッチレスポンスでも構いません。中間結果をストリーミングすることも可能です。
         final_agent_input = ...
 
-        # Generate the final response from the writer agent
+        # ライターエージェントから最終レスポンスを生成する
         agent_3_response_stream: Iterator[RunResponse] = self.agent_3.run(final_agent_input, stream=True)
 
-        # Yield the response
+        # レスポンスをyieldする
         yield agent_3_response_stream
 
-# Instantiate the workflow
+# ワークフローをインスタンス化する
 generate_news_report = GenerateNewsReport()
 
-# Run workflow and get the response as an iterator of RunResponse objects
+# ワークフローを実行し、レスポンスをRunResponseオブジェクトのイテレータとして取得する
 report_stream: Iterator[RunResponse] = generate_news_report.run(...)
 
-# Print the response
+# レスポンスを出力する
 pprint_run_response(report_stream, markdown=True)
 ```
 
-## Batch
+## バッチ
 
-Simply return a `RunResponse` object from the `run()` method of your workflow to return a single output.
+ワークフローの`run()`メソッドから`RunResponse`オブジェクトを返すだけで、単一の出力を返すことができます。
 
 ```python news_report_generator.py
-# Define the workflow
+# ワークフローを定義する
 class GenerateNewsReport(Workflow):
     agent_1: Agent = ...
 
@@ -63,21 +63,20 @@ class GenerateNewsReport(Workflow):
     agent_3: Agent = ...
 
     def run(self, ...) -> RunResponse:
-        # Run agents and gather the response
+        # エージェントを実行し、レスポンスを収集する
         final_agent_input = ...
 
-        # Generate the final response from the writer agent
+        # ライターエージェントから最終レスポンスを生成する
         agent_3_response: RunResponse = self.agent_3.run(final_agent_input)
 
-        # Return the response
+        # レスポンスを返す
         return agent_3_response
 
-# Instantiate the workflow
+# ワークフローをインスタンス化する
 generate_news_report = GenerateNewsReport()
 
-# Run workflow and get the response as a RunResponse object
+# ワークフローを実行し、レスポンスをRunResponseオブジェクトとして取得する
 report: RunResponse = generate_news_report.run(...)
 
-# Print the response
+# レスポンスを出力する
 pprint_run_response(report, markdown=True)
-```

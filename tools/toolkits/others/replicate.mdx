@@ -2,30 +2,30 @@
 title: Replicate
 ---
 
-**ReplicateTools** enables an Agent to generate media using the [Replicate platform](https://replicate.com/).
+**ReplicateTools** は、[Replicate プラットフォーム](https://replicate.com/) を使用してメディアを生成できる Agent を有効にします。
 
-## Prerequisites
+## 前提条件
 
 ```shell
 export REPLICATE_API_TOKEN=***
 ```
 
-The following example requires the `replicate` library. To install the Replicate client, run the following command:
+以下の例では、`replicate` ライブラリが必要です。Replicate クライアントをインストールするには、次のコマンドを実行します。
 
 ```shell
 pip install -U replicate
 ```
 
-## Example
+## 例
 
-The following agent will use Replicate to generate images or videos requested by the user.
+以下の Agent は、ユーザーからの要求に応じて Replicate を使用して画像またはビデオを生成します。
 
 ```python cookbook/tools/replicate_tool.py
 from agno.agent import Agent
 from agno.models.openai import OpenAIChat
 from agno.tools.replicate import ReplicateTools
 
-"""Create an agent specialized for Replicate AI content generation"""
+"""Replicate AI コンテンツ生成に特化した Agent を作成します"""
 
 image_agent = Agent(
     name="Image Generator Agent",
@@ -45,20 +45,20 @@ image_agent = Agent(
 image_agent.print_response("Generate an image of a horse in the dessert.")
 ```
 
-## Toolkit Params
+## Toolkit パラメータ
 
-| Parameter | Type  | Default            | Description                                                          |
+| パラメータ | タイプ  | デフォルト            | 説明                                                                 |
 | --------- | ----- | ------------------ | -------------------------------------------------------------------- |
-| `api_key` | `str` | `None`             | If you want to manually supply the Replicate API key.                |
-| `model`   | `str` | `minimax/video-01` | The replicate model to use. Find out more on the Replicate platform. |
+| `api_key` | `str` | `None`             | Replicate API キーを直接指定する場合。                                               |
+| `model`   | `str` | `minimax/video-01` | 使用する Replicate モデル。Replicate プラットフォームで詳細を確認してください。 |
 
-## Toolkit Functions
+## Toolkit 関数
 
-| Function         | Description                                                                         |
-| ---------------- | ----------------------------------------------------------------------------------- |
-| `generate_media` | Generate either an image or a video from a prompt. The output depends on the model. |
+| 関数         | 説明                                                                 |
+| ------------ | -------------------------------------------------------------------- |
+| `generate_media` | プロンプトから画像またはビデオを生成します。出力はモデルによって異なります。 |
 
-## Developer Resources
+## 開発者向けリソース
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/replicate.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/replicate_tools.py)
+- [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/replicate.py) を表示
+- [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/replicate_tools.py) を表示

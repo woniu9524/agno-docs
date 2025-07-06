@@ -1,40 +1,40 @@
 ---
 title: Arize
-description: Integrate Agno with Arize Phoenix to send traces and gain insights into your agent's performance.
+description: Agno を Arize Phoenix と統合してトレースを送信し、エージェントのパフォーマンスに関する洞察を得る。
 ---
 
-## Integrating Agno with Arize Phoenix
+## Agno と Arize Phoenix の統合
 
-[Arize Phoenix](https://phoenix.arize.com/) is a powerful platform for monitoring and analyzing AI models. By integrating Agno with Arize Phoenix, you can leverage OpenInference to send traces and gain insights into your agent's performance.
+[Arize Phoenix](https://phoenix.arize.com/) は、AI モデルの監視と分析のための強力なプラットフォームです。Agno を Arize Phoenix と統合することで、OpenInference を活用してトレースを送信し、エージェントのパフォーマンスに関する洞察を得ることができます。
 
-## Prerequisites
+## 前提条件
 
-1. **Install Dependencies**
+1. **依存関係のインストール**
 
-   Ensure you have the necessary packages installed:
+   必要なパッケージがインストールされていることを確認してください。
 
    ```bash
    pip install arize-phoenix openai openinference-instrumentation-agno opentelemetry-sdk opentelemetry-exporter-otlp
    ```
 
-2. **Setup Arize Phoenix Account**
+2. **Arize Phoenix アカウントの設定**
 
-   - Create an account at [Arize Phoenix](https://phoenix.arize.com/).
-   - Obtain your API key from the Arize Phoenix dashboard.
+   - [Arize Phoenix](https://phoenix.arize.com/) でアカウントを作成します。
+   - Arize Phoenix ダッシュボードから API キーを取得します。
 
-3. **Set Environment Variables**
+3. **環境変数の設定**
 
-   Configure your environment with the Arize Phoenix API key:
+   Arize Phoenix API キーで環境を構成します。
 
    ```bash
    export ARIZE_PHOENIX_API_KEY=<your-key>
    ```
 
-## Sending Traces to Arize Phoenix
+## Arize Phoenix へのトレース送信
 
-- ### Example: Using Arize Phoenix with OpenInference
+- ### 例: OpenInference と Arize Phoenix の使用
 
-This example demonstrates how to instrument your Agno agent with OpenInference and send traces to Arize Phoenix.
+この例では、Agno エージェントを OpenInference でインストルメントし、Arize Phoenix にトレースを送信する方法を示します。
 
 ```python
 import asyncio
@@ -45,30 +45,30 @@ from agno.models.openai import OpenAIChat
 from agno.tools.yfinance import YFinanceTools
 from phoenix.otel import register
 
-# Set environment variables for Arize Phoenix
+# Arize Phoenix の環境変数を設定
 os.environ["PHOENIX_CLIENT_HEADERS"] = f"api_key={os.getenv('ARIZE_PHOENIX_API_KEY')}"
 os.environ["PHOENIX_COLLECTOR_ENDPOINT"] = "https://app.phoenix.arize.com"
 
-# Configure the Phoenix tracer
+# Phoenix トレーサーの設定
 tracer_provider = register(
-    project_name="agno-stock-price-agent",  # Default is 'default'
-    auto_instrument=True,  # Automatically use the installed OpenInference instrumentation
+    project_name="agno-stock-price-agent",  # デフォルトは 'default'
+    auto_instrument=True,  # インストール済みの OpenInference インストルメンテーションを自動的に使用
 )
 
-# Create and configure the agent
+# エージェントの作成と設定
 agent = Agent(
     name="Stock Price Agent",
     model=OpenAIChat(id="gpt-4o-mini"),
     tools=[YFinanceTools()],
-    instructions="You are a stock price agent. Answer questions in the style of a stock analyst.",
+    instructions="あなたは株価エージェントです。株のアナリストのようなスタイルで回答してください。",
     debug_mode=True,
 )
 
-# Use the agent
-agent.print_response("What is the current price of Tesla?")
+# エージェントの使用
+agent.print_response("現在のテスラの株価はいくらですか？")
 ```
 
-Now go to the [phoenix cloud](https://app.phoenix.arize.com) and view the traces created by your agent. You can visualize the execution flow, monitor performance, and debug issues directly from the Arize Phoenix dashboard.
+次に、[phoenix cloud](https://app.phoenix.arize.com) にアクセスして、エージェントによって作成されたトレースを表示します。Arize Phoenix ダッシュボードから直接、実行フローを視覚化し、パフォーマンスを監視し、問題をデバッグできます。
 <Frame caption="Arize Phoenix Trace">
   <img
     src="/images/arize-phoenix-trace.png"
@@ -77,9 +77,9 @@ Now go to the [phoenix cloud](https://app.phoenix.arize.com) and view the traces
   />
 </Frame>
 
-- ### Example: Local Collector Setup
+- ### 例: ローカルコレクターの設定
 
-For local development, you can run a local collector using
+ローカル開発では、ローカルコレクターを実行できます。
 ```bash
 phoenix serve
 ```
@@ -92,31 +92,31 @@ from agno.models.openai import OpenAIChat
 from agno.tools.yfinance import YFinanceTools
 from phoenix.otel import register
 
-# Set the local collector endpoint
+# ローカルコレクターのエンドポイントを設定
 os.environ["PHOENIX_COLLECTOR_ENDPOINT"] = "http://localhost:6006"
 
-# Configure the Phoenix tracer
+# Phoenix トレーサーの設定
 tracer_provider = register(
-    project_name="agno-stock-price-agent",  # Default is 'default'
-    auto_instrument=True,  # Automatically use the installed OpenInference instrumentation
+    project_name="agno-stock-price-agent",  # デフォルトは 'default'
+    auto_instrument=True,  # インストール済みの OpenInference インストルメンテーションを自動的に使用
 )
 
-# Create and configure the agent
+# エージェントの作成と設定
 agent = Agent(
     name="Stock Price Agent",
     model=OpenAIChat(id="gpt-4o-mini"),
     tools=[YFinanceTools()],
-    instructions="You are a stock price agent. Answer questions in the style of a stock analyst.",
+    instructions="あなたは株価エージェントです。株のアナリストのようなスタイルで回答してください。",
     debug_mode=True,
 )
 
-# Use the agent
-agent.print_response("What is the current price of Tesla?")
+# エージェントの使用
+agent.print_response("現在のテスラの株価はいくらですか？")
 ```
 
-## Notes
+## 注意事項
 
-- **Environment Variables**: Ensure your environment variables are correctly set for the API key and collector endpoint.
-- **Local Development**: Use `phoenix serve` to start a local collector for development purposes.
+- **環境変数**: API キーとコレクター エンドポイントの環境変数が正しく設定されていることを確認してください。
+- **ローカル開発**: 開発目的でローカル コレクターを起動するには、`phoenix serve` を使用します。
 
-By following these steps, you can effectively integrate Agno with Arize Phoenix, enabling comprehensive observability and monitoring of your AI agents.
+これらの手順に従うことで、Agno と Arize Phoenix を効果的に統合し、AI エージェントの包括的なオブザーバビリティと監視を有効にすることができます。

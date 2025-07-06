@@ -1,27 +1,27 @@
-## Setup and Configuration
+## セットアップと設定
 <Steps>
 
-<Step title="Prerequisites">
-Ensure you have the following:
-- A Slack workspace with admin privileges
-- ngrok (for development)
+<Step title="前提条件">
+以下が必要です：
+- 管理者権限を持つSlackワークスペース
+- ngrok（開発用）
 - Python 3.7+
 </Step>
 
-<Step title="Create a Slack App">
-1. Go to [Slack App Directory](https://api.slack.com/apps)
-2. Click "Create New App"
-3. Select "From scratch"
-4. Provide:
-    - App name
-    - Workspace to install to
-5. Click "Create App"
+<Step title="Slackアプリの作成">
+1. [Slack App Directory](https://api.slack.com/apps)にアクセスします
+2. 「Create New App」をクリックします
+3. 「From scratch」を選択します
+4. 以下を入力します：
+    - アプリ名
+    - インストールするワークスペース
+5. 「Create App」をクリックします
 </Step>
 
-<Step title="Configure OAuth & Permissions">
-1. Navigate to "OAuth & Permissions" in your Slack App settings
-2. Under "Scopes", click "Add an OAuth Scope"
-3. Add the following Bot Token Scopes:
+<Step title="OAuthと権限の設定">
+1. Slackアプリの設定で「OAuth & Permissions」に移動します
+2. 「Scopes」の下で「Add an OAuth Scope」をクリックします
+3. 以下のBot Token Scopesを追加します：
    - `app_mention`
    - `chat:write`
    - `chat:write.customize`
@@ -29,63 +29,63 @@ Ensure you have the following:
    - `im:history`
    - `im:read`
    - `im:write`
-4. Scroll to the top and click "Install to Workspace"
-5. Click "Allow" to authorize the app
+4. 一番上までスクロールし、「Install to Workspace」をクリックします
+5. 「Allow」をクリックしてアプリを承認します
 </Step>
 
-<Step title="Setup Environment Variables">
-Create a `.envrc` file in your project root with the following content, replacing placeholder values with your actual credentials:
+<Step title="環境変数の設定">
+プロジェクトのルートに`.envrc`ファイルを作成し、プレースホルダー値を実際の認証情報に置き換えて、以下の内容を追加します：
 ```bash
 export SLACK_TOKEN="xoxb-your-bot-user-token"  # Bot User OAuth Token
 export SLACK_SIGNING_SECRET="your-signing-secret"  # App Signing Secret
 ```
 
-Find these values in your Slack App settings:
-- Bot User OAuth Token: Under "OAuth & Permissions"
-- Signing Secret: Under "Basic Information" > "App Credentials"
+これらの値はSlackアプリの設定で見つけることができます：
+- Bot User OAuth Token： 「OAuth & Permissions」の下
+- Signing Secret： 「Basic Information」 > 「App Credentials」の下
 
-Ensure this file is sourced by your shell (e.g., by using `direnv allow`).
+このファイルがシェルによってソースされていることを確認してください（例：`direnv allow`を使用）。
 </Step>
 
-<Step title="Setup Webhook with ngrok">
-1. For local development, use ngrok to expose your local server to the internet:
+<Step title="ngrokを使用したWebhookの設定">
+1. ローカル開発のために、ngrokを使用してローカルサーバーをインターネットに公開します：
    ```bash
    ngrok http 8000
-   # Or, if you have a paid ngrok plan with a static domain:
+   # または、静的ドメインを持つ有料ngrokプランをお持ちの場合：
    # ngrok http --domain=your-custom-domain.ngrok-free.app 8000
    ```
-2. Copy the `https://` URL provided by ngrok
-3. In your Slack App settings, go to "Event Subscriptions"
-4. Enable events by toggling the switch
-5. Add your Request URL:
-   - Format: `https://your-ngrok-url.ngrok.io/slack/events`
-6. Wait for Slack to verify the endpoint (your app must be running)
+2. ngrokによって提供される`https://` URLをコピーします
+3. Slackアプリの設定で、「Event Subscriptions」に移動します
+4. スイッチを切り替えてイベントを有効にします
+5. リクエストURLを追加します：
+   - フォーマット： `https://your-ngrok-url.ngrok.io/slack/events`
+6. Slackがエンドポイントを検証するのを待ちます（アプリが実行されている必要があります）
 </Step>
 
-<Step title="Configure Event Subscriptions">
-1. Under "Subscribe to bot events" in Event Subscriptions:
-2. Click "Add Bot User Event" and add:
+<Step title="イベントサブスクリプションの設定">
+1. イベントサブスクリプションの「Subscribe to bot events」の下で：
+2. 「Add Bot User Event」をクリックし、以下を追加します：
    - `app_mention`
    - `message.im`
    - `message.channels`
    - `message.groups`
-3. Click "Save Changes"
-4. Reinstall your app to apply the new permissions
+3. 「Save Changes」をクリックします
+4. 新しい権限を適用するためにアプリを再インストールします
 </Step>
 
-<Step title="Enable App Home">
-1. Go to "App Home" in your Slack App settings
-2. Under "Show Tabs":
-   - Enable "Messages Tab"
-   - Check "Allow users to send Slash commands and messages from the messages tab"
-3. Save changes
+<Step title="アプリホームの有効化">
+1. Slackアプリの設定で「App Home」に移動します
+2. 「Show Tabs」の下で：
+   - 「Messages Tab」を有効にします
+   - 「Allow users to send Slash commands and messages from the messages tab」にチェックを入れます
+3. 変更を保存します
 </Step>
 
-<Step title="Final Installation">
-1. Go back to "Install App" in your Slack App settings
-2. Click "Reinstall to Workspace"
-3. Authorize the app with the new permissions
-4. Your app is now ready to use!
+<Step title="最終インストール">
+1. Slackアプリの設定で「Install App」に戻ります
+2. 「Reinstall to Workspace」をクリックします
+3. 新しい権限でアプリを承認します
+4. これでアプリを使用する準備が整いました！
 </Step>
 
 </Steps>

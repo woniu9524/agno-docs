@@ -1,8 +1,8 @@
 ---
-title: PgVector Hybrid Search
+title: PgVector ハイブリッド検索
 ---
 
-## Code
+## コード
 
 ```python
 from agno.agent import Agent
@@ -17,7 +17,7 @@ knowledge_base = PDFUrlKnowledgeBase(
         table_name="recipes", db_url=db_url, search_type=SearchType.hybrid
     ),
 )
-# Load the knowledge base: Comment out after first run
+# ナレッジベースをロード: 初回実行後にコメントアウトしてください
 knowledge_base.load(recreate=False)
 
 agent = Agent(
@@ -28,35 +28,35 @@ agent = Agent(
     markdown=True,
 )
 agent.print_response(
-    "How do I make chicken and galangal in coconut milk soup", stream=True
+    "ココナッツミルクで鶏肉とガランガルを煮込むスープの作り方を教えてください", stream=True
 )
-agent.print_response("What was my last question?", stream=True)
+agent.print_response("私の最後の質問は何でしたか？", stream=True)
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="APIキーを設定する">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="ライブラリをインストールする">
     ```bash
     pip install -U pgvector pypdf "psycopg[binary]" sqlalchemy openai agno
     ```
   </Step>
 
-  <Step title="Run PgVector">
+  <Step title="PgVectorを実行する">
     ```bash
     ./cookbook/scripts/run_pgvector.sh
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="エージェントを実行する">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/hybrid_search/pgvector/agent.py

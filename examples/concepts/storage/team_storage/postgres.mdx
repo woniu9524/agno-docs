@@ -3,13 +3,13 @@ title: Postgres Team Storage
 sidebarTitle: Postgres
 ---
 
-Agno supports using PostgreSQL as a storage backend for Teams using the `PostgresStorage` class.
+Agno は、`PostgresStorage` クラスを使用して、PostgreSQL を Teams のストレージバックエンドとしてサポートしています。
 
-## Usage
+## 使用方法
 
-### Run PgVector
+### PgVector の実行
 
-Install [docker desktop](https://docs.docker.com/desktop/install/mac-install/) and run **PgVector** on port **5532** using:
+[docker desktop](https://docs.docker.com/desktop/install/mac-install/) をインストールし、以下のコマンドでポート **5532** で **PgVector** を実行します。
 
 ```bash
 docker run -d \
@@ -25,7 +25,7 @@ docker run -d \
 
 ```python postgres_storage_for_team.py
 """
-Run: `pip install openai duckduckgo-search newspaper4k lxml_html_clean agno` to install the dependencies
+実行方法: `pip install openai duckduckgo-search newspaper4k lxml_html_clean agno` で依存関係をインストールしてください
 """
 
 from typing import List
@@ -87,10 +87,10 @@ hn_team.print_response("Write an article about the top 2 stories on hackernews")
 
 ```
 
-## Params
+## パラメータ
 
 <Snippet file="storage-postgres-params.mdx" />
 
-## Developer Resources
+## 開発者向けリソース
 
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/storage/postgres_storage/postgres_storage_for_team.py)
+- [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/storage/postgres_storage/postgres_storage_for_team.py) を表示

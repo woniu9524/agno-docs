@@ -1,23 +1,22 @@
-
-## Managing Python Dependencies
+## Python の依存関係の管理
 
 <Steps>
 
-<Step title="Modify pyproject.toml">
+<Step title="pyproject.toml の変更">
 
-Add or update your desired Python package dependencies in the `[tool.poetry.dependencies]` section of the `pyproject.toml` file.
+`pyproject.toml` ファイルの `[tool.poetry.dependencies]` セクションに、目的の Python パッケージの依存関係を追加または更新します。
 
 </Step>
 
-<Step title="Generate requirements.txt">
+<Step title="requirements.txt の生成">
 
-The `requirements.txt` file is used to build the application image. After modifying `pyproject.toml`, regenerate `requirements.txt` using:
+`requirements.txt` ファイルは、アプリケーションイメージのビルドに使用されます。`pyproject.toml` を変更した後、以下を使用して `requirements.txt` を再生成します。
 
 ```bash
 ./scripts/generate_requirements.sh
 ```
 
-To upgrade all existing dependencies to their latest compatible versions, run:
+既存のすべての依存関係を最新の互換性のあるバージョンにアップグレードするには、以下を実行します。
 
 ```bash
 ./scripts/generate_requirements.sh upgrade
@@ -25,9 +24,9 @@ To upgrade all existing dependencies to their latest compatible versions, run:
 
 </Step>
 
-<Step title="Rebuild Docker Images">
+<Step title="Docker イメージの再ビルド">
 
-Rebuild your Docker images to include the updated dependencies:
+更新された依存関係を含めるために、Docker イメージを再ビルドします。
 
 ```bash
 docker compose up -d --build

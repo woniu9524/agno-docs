@@ -1,12 +1,12 @@
-# Agentic Knowledge Filters
+# エージェントによる知識フィルタリング
 
-Agentic filtering lets the Agent automatically extract filter criteria from your query text, making the experience more natural and interactive.
+エージェントによるフィルタリングにより、エージェントはクエリテキストからフィルタ基準を自動的に抽出し、より自然でインタラクティブなエクスペリエンスを提供します。
 
-## Step 1: Attach Metadata
+## ステップ 1: メタデータの添付
 
-There are two ways to attach metadata to your documents:
+ドキュメントにメタデータを添付するには、2つの方法があります。
 
-1. **Attach Metadata When Initializing the Knowledge Base**
+1. **知識ベースの初期化時にメタデータを添付する**
 
     ```python
     knowledge_base = PDFKnowledgeBase(
@@ -19,30 +19,30 @@ There are two ways to attach metadata to your documents:
                     "year": 2025,
                 },
             },
-            # ... more documents ...
+            # ... その他のドキュメント ...
         ],
         vector_db=vector_db,
     )
     knowledge_base.load(recreate=True)
     ```
 
-2. **Attach Metadata When Loading Documents One by One**
+2. **ドキュメントを一つずつロードする際にメタデータを添付する**
 
     ```python
-    # Initialize the PDFKnowledgeBase
+    # PDFKnowledgeBase を初期化する
     knowledge_base = PDFKnowledgeBase(
         vector_db=vector_db,
         num_documents=5,
     )
 
-    # Load first document with user_1 metadata
+    # user_1 メタデータで最初のドキュメントをロードする
     knowledge_base.load_document(
         path=path/to/cv1.pdf,
         metadata={"user_id": "jordan_mitchell", "document_type": "cv", "year": 2025},
-        recreate=True,  # Set to True only for the first run, then set to False
+        recreate=True,  # 最初の実行時のみ True に設定し、その後は False に設定してください
     )
 
-    # Load second document with user_2 metadata
+    # user_2 メタデータで 2 番目のドキュメントをロードする
     knowledge_base.load_document(
         path=path/to/cv2.pdf,
         metadata={"user_id": "taylor_brooks", "document_type": "cv", "year": 2025},
@@ -51,11 +51,11 @@ There are two ways to attach metadata to your documents:
 
 ---
 
-## How It Works
+## 仕組み
 
-When you enable agentic filtering (`enable_agentic_knowledge_filters=True`), the Agent analyzes your query and applies filters based on the metadata it detects.
+エージェントフィルタリングを有効にすると (`enable_agentic_knowledge_filters=True`)、エージェントはクエリを分析し、検出したメタデータに基づいてフィルタを適用します。
 
-**Example:**
+**例:**
 ```python
 agent = Agent(
     knowledge=knowledge_base,
@@ -68,34 +68,34 @@ agent.print_response(
 )
 ```
 
-In this example, the Agent will automatically use:
+この例では、エージェントは自動的に以下を使用します。
 - `user_id = "jordan_mitchell"`
 - `document_type = "cv"`
 
 ---
 
-## 🌟 See Agentic Filters in Action!
+## 🌟 エージェントフィルタリングを実際に体験しましょう！
 
-Experience how agentic filters automatically extract relevant metadata from your query.
+エージェントフィルタがクエリから関連メタデータを自動的に抽出する方法を体験してください。
 
 ![Agentic Filters in Action](/images/agentic_filters.png)
 
-*The Agent intelligently narrows down results based on your query.*
+*エージェントはクエリに基づいてインテリジェントに結果を絞り込みます。*
 
 ---
 
-## When to Use Agentic Filtering
+## エージェントフィルタリングを使用するタイミング
 
-- When you want a more conversational, user-friendly experience.
-- When users may not know the exact filter syntax.
+- より会話的でユーザーフレンドリーなエクスペリエンスを求めている場合。
+- ユーザーが正確なフィルタ構文を知らない可能性がある場合。
 
-## Try It Out!
+## 試してみましょう！
 
-- Enable `enable_agentic_knowledge_filters=True` on your Agent.
-- Ask questions naturally, including filter info in your query.
-- See how the Agent narrows down results automatically!
+- Agent で `enable_agentic_knowledge_filters=True` を有効にします。
+- フィルタ情報を含めて、自然に質問します。
+- エージェントが自動的に結果を絞り込む様子を確認してください！
 
 ---
 
-## Developer Resources
-- [Agentic filtering](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/filters/pdf/agentic_filtering.py)
+## 開発者向けリソース
+- [エージェントフィルタリング](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/filters/pdf/agentic_filtering.py)

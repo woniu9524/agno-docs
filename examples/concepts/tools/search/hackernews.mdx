@@ -20,19 +20,19 @@ agent.print_response("What are the top stories on Hacker News right now?")
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
-  <Step title="Set your API key">
+  <Step title="API キーの設定">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="ライブラリのインストール">
     ```bash
     pip install -U requests openai agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="Agent の実行">
     <CodeGroup>
     ```bash Mac
     python cookbook/tools/hackernews_tools.py

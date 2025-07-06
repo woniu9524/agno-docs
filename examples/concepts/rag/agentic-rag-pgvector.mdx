@@ -12,10 +12,10 @@ from agno.models.openai import OpenAIChat
 from agno.vectordb.pgvector import PgVector, SearchType
 
 db_url = "postgresql+psycopg://ai:ai@localhost:5532/ai"
-# Create a knowledge base of PDFs from URLs
+# PDFのURLから知識ベースを作成
 knowledge_base = PDFUrlKnowledgeBase(
     urls=["https://agno-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
-    # Use PgVector as the vector database and store embeddings in the `ai.recipes` table
+    # PgVectorをベクトルデータベースとして使用し、埋め込みを`ai.recipes`テーブルに保存
     vector_db=PgVector(
         table_name="recipes",
         db_url=db_url,
@@ -23,14 +23,14 @@ knowledge_base = PDFUrlKnowledgeBase(
         embedder=OpenAIEmbedder(id="text-embedding-3-small"),
     ),
 )
-# Load the knowledge base: Comment after first run as the knowledge base is already loaded
+# 知識ベースをロード: 初回実行後にコメントアウトしてください。知識ベースは既にロードされています。
 knowledge_base.load(upsert=True)
 
 agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
     knowledge=knowledge_base,
-    # Add a tool to search the knowledge base which enables agentic RAG.
-    # This is enabled by default when `knowledge` is provided to the Agent.
+    # エージェントによるRAGを可能にする知識ベース検索ツールを追加します。
+    # `knowledge`がAgentに提供されている場合、これはデフォルトで有効になります。
     search_knowledge=True,
     show_tool_calls=True,
     markdown=True,

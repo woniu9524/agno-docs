@@ -1,9 +1,9 @@
 ---
-title: Streaming User Confirmation
-description: This example demonstrates how to implement streaming user confirmation flows, allowing for real-time interaction and response streaming.
+title: ストリーミングユーザー確認
+description: この例では、リアルタイムの対話と応答ストリーミングを可能にする、ストリーミングユーザー確認フローの実装方法を示します。
 ---
 
-## Code
+## コード
 
 ```python cookbook/agent_concepts/user_control_flows/confirmation_required_stream.py
 import json
@@ -20,19 +20,19 @@ console = Console()
 
 @tool(requires_confirmation=True)
 def get_top_hackernews_stories(num_stories: int) -> str:
-    """Fetch top stories from Hacker News.
+    """Hacker Newsからトップストーリーを取得します。
 
     Args:
-        num_stories (int): Number of stories to retrieve
+        num_stories (int): 取得するストーリーの数
 
     Returns:
-        str: JSON string containing story details
+        str: ストーリーの詳細を含むJSON文字列
     """
-    # Fetch top story IDs
+    # トップストーリーIDを取得
     response = httpx.get("https://hacker-news.firebaseio.com/v0/topstories.json")
     story_ids = response.json()
 
-    # Yield story details
+    # ストーリーの詳細をyield
     all_stories = []
     for story_id in story_ids[:num_stories]:
         story_response = httpx.get(
@@ -53,7 +53,7 @@ agent = Agent(
 for run_response in agent.run("Fetch the top 2 hackernews stories", stream=True):
     if run_response.is_paused:
         for tool in run_response.tools_requiring_confirmation:
-            # Ask for confirmation
+            # 確認を求める
             console.print(
                 f"Tool name [bold blue]{tool.tool_name}({tool.tool_args})[/] requires confirmation."
             )
@@ -71,24 +71,24 @@ for run_response in agent.run("Fetch the top 2 hackernews stories", stream=True)
         pprint.pprint_run_response(run_response)
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="APIキーを設定する">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="ライブラリをインストールする">
     ```bash
     pip install -U agno httpx rich openai
     ```
   </Step>
 
-  <Step title="Run Example">
+  <Step title="例を実行する">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/user_control_flows/confirmation_required_stream.py
@@ -101,16 +101,16 @@ for run_response in agent.run("Fetch the top 2 hackernews stories", stream=True)
   </Step>
 </Steps>
 
-## Key Features
+## 主な機能
 
-- Uses `agent.run(stream=True)` for streaming responses
-- Implements streaming continuation with `agent.continue_run(stream=True)`
-- Maintains real-time interaction with user confirmation
-- Demonstrates how to handle streaming responses with user input
+- ストリーミング応答のために`agent.run(stream=True)`を使用
+- `agent.continue_run(stream=True)`によるストリーミング継続の実装
+- ユーザー確認によるリアルタイム対話の維持
+- ユーザー入力によるストリーミング応答の処理方法の実証
 
-## Use Cases
+## ユースケース
 
-- Real-time user interaction
-- Streaming applications requiring user input
-- Interactive chat interfaces
-- Progressive response generation 
+- リアルタイムユーザー対話
+- ユーザー入力を必要とするストリーミングアプリケーション
+- 対話型チャットインターフェース
+- プログレッシブ応答生成

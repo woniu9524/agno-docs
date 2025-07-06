@@ -1,15 +1,15 @@
 ---
-title: Prompt Caching
-description: Learn how to use prompt caching with Anthropic models and Agno.
+title: プロンプトキャッシング
+description: AnthropicモデルとAgnoでプロンプトキャッシングを使用する方法を学びます。
 ---
 
-Prompt caching can help reducing processing time and costs. Consider it if you are using the same prompt multiple times in any flow.
+プロンプトキャッシングは、処理時間とコストを削減するのに役立ちます。同じプロンプトをフロー内で複数回使用する場合は、検討してください。
 
-You can read more about prompt caching with Anthropic models [here](https://docs.anthropic.com/en/docs/build-with-claude/prompt-caching).
+Anthropicモデルでのプロンプトキャッシングの詳細については、[こちら](https://docs.anthropic.com/en/docs/build-with-claude/prompt-caching)をご覧ください。
 
-## Usage
+## 使用方法
 
-To use prompt caching in your Agno setup, pass the `cache_system_prompt` argument when initializing the `Claude` model:
+Agnoセットアップでプロンプトキャッシングを使用するには、`Claude`モデルを初期化する際に`cache_system_prompt`引数を渡します。
 
 ```python
 from agno.agent import Agent
@@ -23,12 +23,11 @@ agent = Agent(
 )
 ```
 
-Notice that for prompt caching to work, the prompt needs to be of a certain length. You can read more about this on Anthropic's [docs](https://docs.anthropic.com/en/docs/build-with-claude/prompt-caching#cache-limitations).
+プロンプトキャッシングを機能させるには、プロンプトがある程度の長さである必要があることに注意してください。これについては、Anthropicの[ドキュメント](https://docs.anthropic.com/en/docs/build-with-claude/prompt-caching#cache-limitations)で詳しく読むことができます。
 
+## 拡張キャッシュ
 
-## Extended cache
-
-You can also use Anthropic's extended cache beta feature. This updates the cache duration from 5 minutes to 1 hour. To activate it, pass the `extended_cache_time` argument and the following beta header:
+Anthropicの拡張キャッシュベータ機能を使用することもできます。これにより、キャッシュ期間が5分から1時間に更新されます。有効にするには、`extended_cache_time`引数と次のベータヘッダーを渡します。
 
 ```python
 from agno.agent import Agent
@@ -44,7 +43,7 @@ agent = Agent(
 )
 ```
 
-## Working example
+## 動作例
 
 ```python cookbook/models/anthropic/prompt_caching_extended.py
 from pathlib import Path
@@ -53,7 +52,7 @@ from agno.agent import Agent
 from agno.models.anthropic import Claude
 from agno.utils.media import download_file
 
-# Load an example large system message from S3. A large prompt like this would benefit from caching.
+# S3から例の大きなシステムメッセージをロードします。このような大きなプロンプトはキャッシングから恩恵を受けるでしょう。
 txt_path = Path(__file__).parent.joinpath("system_promt.txt")
 download_file(
     "https://agno-public.s3.amazonaws.com/prompts/system_promt.txt",
@@ -64,25 +63,24 @@ system_message = txt_path.read_text()
 agent = Agent(
     model=Claude(
         id="claude-sonnet-4-20250514",
-        default_headers={"anthropic-beta": "extended-cache-ttl-2025-04-11"}, # Set the beta header to use the extended cache time
+        default_headers={"anthropic-beta": "extended-cache-ttl-2025-04-11"}, # 拡張キャッシュ時間を使用するためにベータヘッダーを設定します
         system_prompt=system_message,
-        cache_system_prompt=True,  # Activate prompt caching for Anthropic to cache the system prompt
-        extended_cache_time=True,  # Extend the cache time from the default to 1 hour
+        cache_system_prompt=True,  # Anthropicがシステムプロンプトをキャッシュできるようにプロンプトキャッシングをアクティブ化します
+        extended_cache_time=True,  # デフォルトからキャッシュ時間を1時間に延長します
     ),
     system_message=system_message,
     markdown=True,
 )
 
 
-# First run - this will create the cache
+# 初回実行 - キャッシュが作成されます
 response = agent.run(
-    "Explain the difference between REST and GraphQL APIs with examples"
+    "RESTとGraphQL APIの違いを例を挙げて説明してください"
 )
-print(f"First run cache write tokens = {response.metrics['cache_write_tokens']}")  # type: ignore
+print(f"初回実行キャッシュ書き込みトークン = {response.metrics['cache_write_tokens']}")  # type: ignore
 
-# Second run - this will use the cached system prompt
+# 2回目実行 - キャッシュされたシステムプロンプトが使用されます
 response = agent.run(
-    "What are the key principles of clean code and how do I apply them in Python?"
+    "クリーンコードの主要な原則は何ですか？また、Pythonでどのように適用しますか？"
 )
-print(f"Second run cache read tokens = {response.metrics['cached_tokens']}")  # type: ignore
-```
+print(f"2回目実行キャッシュ読み取りトークン = {response.metrics['cached_tokens']}")  # type: ignore

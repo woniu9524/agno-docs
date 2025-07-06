@@ -1,8 +1,8 @@
 ---
-title: MilvusDB Hybrid Search
+title: MilvusDB ハイブリッド検索
 ---
 
-## Code
+## コード
 
 ```python cookbook/agent_concepts/knowledge/vector_dbs/milvus_db/milvus_db_hybrid_search.py
 import typer
@@ -42,24 +42,24 @@ if __name__ == "__main__":
     typer.run(milvusdb_agent)
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="APIキーの設定">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="ライブラリのインストール">
     ```bash
     pip install -U pymilvus tantivy pypdf openai agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="エージェントの実行">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/knowledge/vector_dbs/milvus_db/milvus_db_hybrid_search.py

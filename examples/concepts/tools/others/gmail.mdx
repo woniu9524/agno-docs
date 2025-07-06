@@ -36,29 +36,29 @@ agent.print_response(
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set up Google Cloud Project">
-    1. Go to [Google Cloud Console](https://console.cloud.google.com)
-    2. Create a new project or select an existing one
-    3. Enable the Gmail API for your project
-    4. Create OAuth 2.0 credentials and download the client configuration file
+  <Step title="Google Cloud プロジェクトの設定">
+    1. [Google Cloud Console](https://console.cloud.google.com) にアクセスします。
+    2. 新しいプロジェクトを作成するか、既存のプロジェクトを選択します。
+    3. プロジェクトで Gmail API を有効にします。
+    4. OAuth 2.0 認証情報を作成し、クライアント構成ファイルをダウンロードします。
   </Step>
 
-  <Step title="Set your API keys">
+  <Step title="API キーの設定">
     ```bash
     export GOOGLE_CLIENT_ID=xxx
     export GOOGLE_CLIENT_SECRET=xxx
     export GOOGLE_APPLICATION_CREDENTIALS=/path/to/your/credentials.json
-    export GOOGLE_API_KEY=xxx  # Required for Gemini model
+    export GOOGLE_API_KEY=xxx  # Gemini モデルに必要
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="ライブラリのインストール">
     ```bash
     pip install -U google-api-python-client google-auth-httplib2 google-auth-oauthlib google-generativeai agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="エージェントの実行">
     <CodeGroup>
     ```bash Mac
     python cookbook/tools/gmail_tools.py
@@ -69,4 +69,4 @@ agent.print_response(
     ```
     </CodeGroup>
   </Step>
-</Steps> 
+</Steps>

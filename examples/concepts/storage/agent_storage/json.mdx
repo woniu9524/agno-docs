@@ -1,14 +1,14 @@
 ---
-title: JSON Agent Storage
+title: JSON エージェントストレージ
 sidebarTitle: JSON
 ---
 
-Agno supports using local JSON files as a storage backend for Agents using the `JsonStorage` class.
+Agno は、`JsonStorage` クラスを使用して、エージェントのストレージバックエンドとしてローカル JSON ファイルを使用することをサポートしています。
 
-## Usage
+## 使用方法
 
 ```python json_storage_for_agent.py
-"""Run `pip install duckduckgo-search openai` to install dependencies."""
+"""依存関係をインストールするには `pip install duckduckgo-search openai` を実行してください。"""
 
 from agno.agent import Agent
 from agno.storage.json import JsonStorage
@@ -19,14 +19,14 @@ agent = Agent(
     tools=[DuckDuckGoTools()],
     add_history_to_messages=True,
 )
-agent.print_response("How many people live in Canada?")
-agent.print_response("What is their national anthem called?")
+agent.print_response("カナダには何人住んでいますか？")
+agent.print_response("国歌の名前は何と呼ばれていますか？")
 ```
 
-## Params
+## パラメータ
 
 <Snippet file="storage-json-params.mdx" />
 
-## Developer Resources
+## 開発者向けリソース
 
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/storage/json_storage/json_storage_for_agent.py)
+- [クックブック](https://github.com/agno-agi/agno/blob/main/cookbook/storage/json_storage/json_storage_for_agent.py)を表示

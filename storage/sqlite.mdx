@@ -3,31 +3,31 @@ title: Sqlite Storage
 sidebarTitle: Sqlite
 ---
 
-Agno supports using Sqlite as a storage backend for Agents using the `SqliteStorage` class.
+Agno は、`SqliteStorage` クラスを使用して、エージェントのストレージバックエンドとして Sqlite をサポートしています。
 
-## Usage
+## 使用方法
 
-You need to provide either `db_url`, `db_file` or `db_engine`. The following example uses `db_file`.
+`db_url`、`db_file`、または `db_engine` のいずれかを提供する必要があります。以下の例では `db_file` を使用しています。
 
 ```python sqlite_storage_for_agent.py
 from agno.storage.sqlite import SqliteStorage
 
-# Create a storage backend using the Sqlite database
+# Sqlite データベースを使用してストレージバックエンドを作成します
 storage = SqliteStorage(
-    # store sessions in the ai.sessions table
+    # セッションを ai.sessions テーブルに保存します
     table_name="agent_sessions",
-    # db_file: Sqlite database file
+    # db_file: Sqlite データベースファイル
     db_file="tmp/data.db",
 )
 
-# Add storage to the Agent
+# Agent にストレージを追加します
 agent = Agent(storage=storage)
 ```
 
-## Params
+## パラメータ
 
 <Snippet file="storage-sqlite-params.mdx" />
 
-## Developer Resources
+## 開発者向けリソース
 
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/storage/sqllite_storage/sqlite_storage_for_agent.py)
+- [クックブック](https://github.com/agno-agi/agno/blob/main/cookbook/storage/sqllite_storage/sqlite_storage_for_agent.py)を表示

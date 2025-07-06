@@ -3,17 +3,17 @@ title: Thinking Tools
 sidebarTitle: Thinking Tools
 ---
 
-The `ThinkingTools` toolkit provides Agents with a dedicated space for reflection during execution. This toolkit enables an Agent to use a scratchpad for thinking through problems, listing rules, checking information, verifying compliance, and evaluating results before taking actions.
+`ThinkingTools` ツールキットは、エージェントが実行中に反省するための専用スペースを提供します。このツールキットにより、エージェントはスクラッチパッドを使用して、アクションを実行する前に問題を検討し、ルールをリストし、情報をチェックし、コンプライアンスを確認し、結果を評価することができます。
 
-Unlike approaches that have agents immediately respond or take action, this toolkit encourages thoughtful consideration by giving the Agent space to "think" about its actions, examine its own responses, and maintain a log of its thought process throughout the conversation.
+エージェントがすぐに応答したりアクションを実行したりするアプローチとは異なり、このツールキットは、エージェントにアクションについて「考える」スペースを与え、自身の応答を調べ、会話全体を通して思考プロセスのログを維持することを奨励することで、慎重な検討を促します。
 
-The toolkit includes the following tool:
+このツールキットには、次のツールが含まれています。
 
-- `think`: This tool serves as a scratchpad for the Agent to reason through problems, list applicable rules, verify collected information, and evaluate planned actions for compliance and correctness.
+- `think`: このツールは、エージェントが問題を検討し、適用可能なルールをリストし、収集された情報を検証し、コンプライアンスと正確性のために計画されたアクションを評価するためのスクラッチパッドとして機能します。
 
-## Example
+## 例
 
-Here's an example of how to use the `ThinkingTools` toolkit:
+`ThinkingTools` ツールキットの使用例を以下に示します。
 
 ```python
 from agno.agent import Agent
@@ -40,7 +40,7 @@ thinking_agent = Agent(
 thinking_agent.print_response("Write a report comparing NVDA to TSLA", stream=True)
 ```
 
-The toolkit comes with default instructions to help the Agent use the tool effectively. Here is how you can enable them:
+このツールキットには、エージェントがツールを効果的に使用するのに役立つデフォルトの指示が付属しています。それらを有効にする方法は次のとおりです。
 
 ```python
 thinking_agent = Agent(
@@ -54,7 +54,7 @@ thinking_agent = Agent(
 )
 ```
 
-`ThinkingTools` can be used with any model provider that supports function calling. Here is an example with of a thinking Agent using `OpenAIChat`:
+`ThinkingTools` は、関数呼び出しをサポートする任意のモデルプロバイダーで使用できます。以下は、`OpenAIChat` を使用する思考エージェントの例です。
 
 ```python
 from textwrap import dedent
@@ -92,7 +92,7 @@ thinking_agent = Agent(
 )
 ```
 
-This Agent can be used to address complex problems where careful consideration is needed:
+このエージェントは、慎重な検討が必要な複雑な問題に対処するために使用できます。
 
 ```python
 thinking_agent.print_response(
@@ -101,7 +101,7 @@ thinking_agent.print_response(
 )
 ```
 
-or,
+または、
 
 ```python
 thinking_agent.print_response(

@@ -2,50 +2,50 @@
 title: Weave
 ---
 
-## Overview
+## 概要
 
-This example demonstrates how to use Weave by Weights & Biases (WandB) to log model calls from your Agno agent.
+この例では、Weights & Biases (WandB) の Weave を使用して、Agno エージェントからのモデル呼び出しをログに記録する方法を示します。
 
-## Code
+## コード
 
 ```python
 import weave
 from agno.agent import Agent
 from agno.models.openai import OpenAIChat
 
-# Create and configure the agent
+# エージェントを作成および設定します
 agent = Agent(model=OpenAIChat(id="gpt-4o"), markdown=True, debug_mode=True)
 
-# Initialize Weave with your project name
+# プロジェクト名で Weave を初期化します
 weave.init("agno")
 
-# Define a function to run the agent, decorated with weave.op()
+# weave.op() で装飾されたエージェントを実行する関数を定義します
 @weave.op()
 def run(content: str):
     return agent.run(content)
 
-# Use the function to log a model call
+# 関数を使用してモデル呼び出しをログに記録します
 run("Share a 2 sentence horror story")
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
-  <Step title="Install Weave">
+  <Step title="Weave のインストール">
     ```bash
     pip install agno openai weave
     ```
   </Step>
 
-  <Step title="Authenticate with WandB">
-    - Go to [WandB](https://wandb.ai) and copy your API key from [here](https://wandb.ai/authorize).
-    - Enter your API key in the terminal when prompted, or export it as an environment variable:
+  <Step title="WandB での認証">
+    - [WandB](https://wandb.ai) にアクセスし、[こちら](https://wandb.ai/authorize) から API キーをコピーします。
+    - プロンプトが表示されたらターミナルに API キーを入力するか、環境変数としてエクスポートします。
     ```bash
     export WANDB_API_KEY=<your-api-key>
     ```
   </Step>
 
-  <Step title="Run the Agent">
+  <Step title="エージェントの実行">
     <CodeGroup>
     ```bash Mac
     python cookbook/observability/weave_op.py
@@ -58,7 +58,7 @@ run("Share a 2 sentence horror story")
   </Step>
 </Steps>
 
-## Notes
+## 注意事項
 
-- **Initialization**: Call `weave.init("project-name")` to initialize Weave with your project name.
-- **Decorators**: Use `@weave.op()` to decorate functions you want to log with Weave.
+- **初期化**: `weave.init("project-name")` を呼び出して、プロジェクト名で Weave を初期化します。
+- **デコレータ**: Weave でログに記録したい関数を装飾するには `@weave.op()` を使用します。

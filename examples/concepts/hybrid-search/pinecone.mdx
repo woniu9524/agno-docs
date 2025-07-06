@@ -1,8 +1,8 @@
 ---
-title: Pinecone Hybrid Search
+title: Pinecone ハイブリッド検索
 ---
 
-## Code
+## コード
 
 ```python
 import os
@@ -52,31 +52,31 @@ def pinecone_agent(user: str = "user"):
 
 
 if __name__ == "__main__":
-    # Comment out after first run
+    # 初回実行後にコメントアウトしてください
     knowledge_base.load(recreate=False, upsert=True)
 
     typer.run(pinecone_agent)
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API keys">
+  <Step title="APIキーの設定">
     ```bash
     export OPENAI_API_KEY=xxx
     export PINECONE_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="ライブラリのインストール">
     ```bash
     pip install -U pinecone pinecone-text pypdf openai agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="エージェントの実行">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/hybrid_search/pinecone/agent.py

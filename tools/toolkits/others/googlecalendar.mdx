@@ -3,68 +3,68 @@ title: Google Calendar
 sidebarTitle: Google Calendar
 ---
 
-Enable an Agent to work with Google Calendar to view and schedule meetings.
+Google Calendar を操作して会議を表示およびスケジュール設定できるエージェントを有効にします。
 
-## Prerequisites
+## 前提条件
 
-### Install dependencies
+### 依存関係のインストール
 
 ```shell
 pip install tzlocal
 ```
 
-### Setup Google Project and OAuth
+### Google プロジェクトと OAuth のセットアップ
 
-Reference: https://developers.google.com/calendar/api/quickstart/python
+参照: https://developers.google.com/calendar/api/quickstart/python
 
-1. Enable Google Calender API
+1. Google Calendar API を有効にする
 
-   - Go to [Google Cloud Console](https://console.cloud.google.com/apis/enableflow?apiid=calendar-json.googleapis.com).
-   - Select Project and Enable.
+   - [Google Cloud Console](https://console.cloud.google.com/apis/enableflow?apiid=calendar-json.googleapis.com) にアクセスします。
+   - プロジェクトを選択して有効にします。
 
-2. Go To API & Service -> OAuth Consent Screen
+2. API とサービス -> OAuth 同意画面 に移動します。
 
-3. Select User Type
+3. ユーザーの種類を選択する
 
-   - If you are a Google Workspace user, select Internal.
-   - Otherwise, select External.
+   - Google Workspace ユーザーの場合は、「内部」を選択します。
+   - それ以外の場合は、「外部」を選択します。
 
-4. Fill in the app details (App name, logo, support email, etc).
+4. アプリの詳細（アプリ名、ロゴ、サポートメールなど）を入力します。
 
-5. Select Scope
+5. スコープを選択する
 
-   - Click on Add or Remove Scope.
-   - Search for Google Calender API (Make sure you've enabled Google calender API otherwise scopes wont be visible).
-   - Select scopes accordingly
-     - From the dropdown check on `/auth/calendar` scope
-   - Save and continue.
+   - 「スコープの追加または削除」をクリックします。
+   - Google Calendar API を検索します（Google Calendar API を有効にしたことを確認してください。そうしないと、スコープが表示されません）。
+   - スコープを適切に選択します。
+     - ドロップダウンから `/auth/calendar` スコープにチェックを入れます。
+   - 保存して続行します。
 
-6. Adding Test User
+6. テストユーザーの追加
 
-   - Click Add Users and enter the email addresses of the users you want to allow during testing.
-   - NOTE : Only these users can access the app's OAuth functionality when the app is in "Testing" mode.
-     Any other users will receive access denied errors.
-   - To make the app available to all users, you'll need to move the app's status to "In Production".
-     Before doing so, ensure the app is fully verified by Google if it uses sensitive or restricted scopes.
-   - Click on Go back to Dashboard.
+   - 「ユーザーを追加」をクリックし、テスト中に許可するユーザーのメールアドレスを入力します。
+   - 注意: アプリが「テスト」モードの場合、これらのユーザーのみがアプリの OAuth 機能にアクセスできます。
+     他のユーザーはアクセス拒否エラーを受け取ります。
+   - アプリをすべてのユーザーが利用できるようにするには、アプリのステータスを「本番稼働中」に移行する必要があります。
+     移行する前に、アプリが機密性の高いスコープまたは制限されたスコープを使用している場合は、Google による完全な検証が完了していることを確認してください。
+   - 「ダッシュボードに戻る」をクリックします。
 
-7. Generate OAuth 2.0 Client ID
+7. OAuth 2.0 クライアント ID を生成する
 
-   - Go to Credentials.
-   - Click on Create Credentials -> OAuth Client ID
-   - Select Application Type as Desktop app.
-   - Download JSON.
+   - 「認証情報」に移動します。
+   - 「認証情報を作成」->「OAuth クライアント ID」をクリックします。
+   - アプリケーションの種類として「デスクトップ アプリ」を選択します。
+   - JSON をダウンロードします。
 
-8. Using Google Calender Tool
-   - Pass the path of downloaded credentials as credentials_path to Google Calender tool.
-   - Optional: Set the `token_path` parameter to specify where the tool should create the `token.json` file.
-   - The `token.json` file is used to store the user's access and refresh tokens and is automatically created during the authorization flow if it doesn't already exist.
-   - If `token_path` is not explicitly provided, the file will be created in the default location which is your current working directory.
-   - If you choose to specify `token_path`, please ensure that the directory you provide has write access, as the application needs to create or update this file during the authentication process.
+8. Google Calendar ツールの使用
+   - ダウンロードした認証情報へのパスを Google Calendar ツールに `credentials_path` として渡します。
+   - オプション: `token_path` パラメータを設定して、ツールが `token.json` ファイルを作成する場所を指定します。
+   - `token.json` ファイルは、ユーザーのアクセス トークンと更新トークンを保存するために使用され、存在しない場合は承認フロー中に自動的に作成されます。
+   - `token_path` が明示的に指定されていない場合、ファイルはデフォルトの場所（現在の作業ディレクトリ）に作成されます。
+   - `token_path` を指定する場合は、アプリケーションが認証プロセス中にこのファイルを作成または更新する必要があるため、指定したディレクトリに書き込みアクセス権があることを確認してください。
 
-## Example
+## 例
 
-The following agent will use GoogleCalendarTools to find today's events.
+以下のエージェントは、GoogleCalendarTools を使用して今日のイベントを検索します。
 
 ```python cookbook/tools/googlecalendar_tools.py
 from agno.agent import Agent
@@ -78,10 +78,10 @@ agent = Agent(
     show_tool_calls=True,
     instructions=[
         f"""
-        You are scheduling assistant . Today is {datetime.datetime.now()} and the users timezone is {get_localzone_name()}.
-        You should help users to perform these actions in their Google calendar:
-            - get their scheduled events from a certain date and time
-            - create events based on provided details
+        あなたはスケジュールアシスタントです。今日は {datetime.datetime.now()} で、ユーザーのタイムゾーンは {get_localzone_name()} です。
+        Google カレンダーで次の操作を実行するのを支援する必要があります。
+            - 特定の日時からの予定を取得する
+            - 指定された詳細に基づいてイベントを作成する
         """
     ],
     add_datetime_to_instructions=True,
@@ -90,21 +90,21 @@ agent = Agent(
 agent.print_response("Give me the list of todays events", markdown=True)
 ```
 
-## Toolkit Params
+## Toolkit パラメータ
 
-| Parameter          | Type  | Default | Description                                                                    |
+| パラメータ          | タイプ  | デフォルト | 説明                                                                    |
 | ------------------ | ----- | ------- | ------------------------------------------------------------------------------ |
-| `credentials_path` | `str` | `None`  | Path of the file credentials.json file which contains OAuth 2.0 Client ID.     |
-| `token_path`       | `str` | `None`  | Path of the file token.json which stores the user's access and refresh tokens. |
+| `credentials_path` | `str` | `None`  | OAuth 2.0 クライアント ID を含む `credentials.json` ファイルへのパス。     |
+| `token_path`       | `str` | `None`  | ユーザーのアクセス トークンと更新トークンを保存する `token.json` ファイルへのパス。 |
 
-## Toolkit Functions
+## Toolkit 関数
 
-| Function       | Description                                        |
-| -------------- | -------------------------------------------------- |
-| `list_events`  | List events from the user's primary calendar.      |
-| `create_event` | Create a new event in the user's primary calendar. |
+| 関数       | 説明                                        |
+| -------------- | ------------------------------------------- |
+| `list_events`  | ユーザーのプライマリ カレンダーからイベントを一覧表示します。 |
+| `create_event` | ユーザーのプライマリ カレンダーに新しいイベントを作成します。 |
 
-## Developer Resources
+## 開発者向けリソース
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/googlecalendar.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/googlecalendar_tools.py)
+- [ツール](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/googlecalendar.py) を表示
+- [クックブック](https://github.com/agno-agi/agno/blob/main/cookbook/tools/googlecalendar_tools.py) を表示

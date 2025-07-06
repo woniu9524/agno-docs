@@ -2,18 +2,16 @@
 title: Youtube Agent
 ---
 
-This example shows how to create an intelligent YouTube content analyzer that provides
-detailed video breakdowns, timestamps, and summaries. Perfect for content creators,
-researchers, and viewers who want to efficiently navigate video content.
+この例では、詳細な動画の分析、タイムスタンプ、要約を提供するインテリジェントなYouTubeコンテンツアナライザーを作成する方法を示します。コンテンツクリエイター、研究者、動画コンテンツを効率的にナビゲートしたい視聴者に最適です。
 
-Example prompts to try:
-- "Analyze this tech review: [video_url]"
-- "Get timestamps for this coding tutorial: [video_url]"
-- "Break down the key points of this lecture: [video_url]"
-- "Summarize the main topics in this documentary: [video_url]"
-- "Create a study guide from this educational video: [video_url]"
+試すプロンプトの例：
+- 「このテックレビューを分析してください：[video_url]」
+- 「このコーディングチュートリアルのタイムスタンプを取得してください：[video_url]」
+- 「この講義の要点を分解してください：[video_url]」
+- 「このドキュメンタリーの主要トピックを要約してください：[video_url]」
+- 「この教育ビデオから学習ガイドを作成してください：[video_url]」
 
-## Code
+## コード
 
 ```python youtube_agent.py
 from textwrap import dedent
@@ -28,98 +26,98 @@ youtube_agent = Agent(
     tools=[YouTubeTools()],
     show_tool_calls=True,
     instructions=dedent("""\
-        You are an expert YouTube content analyst with a keen eye for detail! 🎓
-        Follow these steps for comprehensive video analysis:
-        1. Video Overview
-           - Check video length and basic metadata
-           - Identify video type (tutorial, review, lecture, etc.)
-           - Note the content structure
-        2. Timestamp Creation
-           - Create precise, meaningful timestamps
-           - Focus on major topic transitions
-           - Highlight key moments and demonstrations
-           - Format: [start_time, end_time, detailed_summary]
-        3. Content Organization
-           - Group related segments
-           - Identify main themes
-           - Track topic progression
+        あなたは、細部にまでこだわるYouTubeコンテンツの専門アナリストです！🎓
+        包括的な動画分析のために、以下の手順に従ってください：
+        1. 動画概要
+           - 動画の長さと基本メタデータをチェックする
+           - 動画の種類（チュートリアル、レビュー、講義など）を特定する
+           - コンテンツの構造をメモする
+        2. タイムスタンプ作成
+           - 正確で意味のあるタイムスタンプを作成する
+           - 主要なトピックの遷移に焦点を当てる
+           - キーとなる瞬間とデモンストレーションをハイライトする
+           - フォーマット：[開始時間, 終了時間, 詳細な要約]
+        3. コンテンツの整理
+           - 関連するセグメントをグループ化する
+           - 主要なテーマを特定する
+           - トピックの進行を追跡する
 
-        Your analysis style:
-        - Begin with a video overview
-        - Use clear, descriptive segment titles
-        - Include relevant emojis for content types:
-          📚 Educational
-          💻 Technical
-          🎮 Gaming
-          📱 Tech Review
-          🎨 Creative
-        - Highlight key learning points
-        - Note practical demonstrations
-        - Mark important references
+        あなたの分析スタイル：
+        - 動画の概要から始める
+        - 明確で説明的なセグメントタイトルを使用する
+        - コンテンツタイプに応じて関連する絵文字を含める：
+          📚 教育的
+          💻 技術的
+          🎮 ゲーム
+          📱 テックレビュー
+          🎨 クリエイティブ
+        - 主要な学習ポイントをハイライトする
+        - 実践的なデモンストレーションをメモする
+        - 重要な参照をマークする
 
-        Quality Guidelines:
-        - Verify timestamp accuracy
-        - Avoid timestamp hallucination
-        - Ensure comprehensive coverage
-        - Maintain consistent detail level
-        - Focus on valuable content markers
+        品質ガイドライン：
+        - タイムスタンプの正確性を検証する
+        - タイムスタンプの幻覚（誤った情報の生成）を避ける
+        - 包括的なカバレッジを保証する
+        - 一貫した詳細レベルを維持する
+        - 価値のあるコンテンツマーカーに焦点を当てる
     """),
     add_datetime_to_instructions=True,
     markdown=True,
 )
 
-# Example usage with different types of videos
+# 様々な種類の動画での使用例
 youtube_agent.print_response(
     "Analyze this video: https://www.youtube.com/watch?v=zjkBMFhNj_g",
     stream=True,
 )
 
-# More example prompts to explore:
+# 探索するための追加のプロンプト例：
 """
-Tutorial Analysis:
-1. "Break down this Python tutorial with focus on code examples"
-2. "Create a learning path from this web development course"
-3. "Extract all practical exercises from this programming guide"
-4. "Identify key concepts and implementation examples"
+チュートリアル分析：
+1. 「コード例に焦点を当てて、このPythonチュートリアルを分解してください」
+2. 「このWeb開発コースから学習パスを作成してください」
+3. 「このプログラミングガイドからすべての実践演習を抽出してください」
+4. 「主要な概念と実装例を特定してください」
 
-Educational Content:
-1. "Create a study guide with timestamps for this math lecture"
-2. "Extract main theories and examples from this science video"
-3. "Break down this historical documentary into key events"
-4. "Summarize the main arguments in this academic presentation"
+教育コンテンツ：
+1. 「この数学の講義のタイムスタンプ付き学習ガイドを作成してください」
+2. 「この科学ビデオから主要な理論と例を抽出してください」
+3. 「この歴史ドキュメンタリーを主要なイベントに分解してください」
+4. 「この学術プレゼンテーションの主要な議論を要約してください」
 
-Tech Reviews:
-1. "List all product features mentioned with timestamps"
-2. "Compare pros and cons discussed in this review"
-3. "Extract technical specifications and benchmarks"
-4. "Identify key comparison points and conclusions"
+テックレビュー：
+1. 「タイムスタンプ付きで、このレビューで言及されたすべての製品機能をリストアップしてください」
+2. 「このレビューで議論された長所と短所を比較してください」
+3. 「技術仕様とベンチマークを抽出してください」
+4. 「主要な比較ポイントと結論を特定してください」
 
-Creative Content:
-1. "Break down the techniques shown in this art tutorial"
-2. "Create a timeline of project steps in this DIY video"
-3. "List all tools and materials mentioned with timestamps"
-4. "Extract tips and tricks with their demonstrations"
+クリエイティブコンテンツ：
+1. 「このアートチュートリアルで示されたテクニックを分解してください」
+2. 「このDIYビデオのプロジェクトステップのタイムラインを作成してください」
+3. 「タイムスタンプ付きで、言及されたすべてのツールと材料をリストアップしてください」
+4. 「デモンストレーション付きのヒントとコツを抽出してください」
 """
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install libraries">
+  <Step title="ライブラリのインストール">
     ```bash
     pip install openai youtube_transcript_api agno
     ```
   </Step>
 
-  <Step title="Set environment variables">
+  <Step title="環境変数の設定">
     ```bash
     export OPENAI_API_KEY=****
     ```
   </Step>
 
-  <Step title="Run the agent">
+  <Step title="エージェントの実行">
     ```bash
     python youtube_agent.py
     ```

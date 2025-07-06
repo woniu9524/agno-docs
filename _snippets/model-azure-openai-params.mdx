@@ -1,12 +1,12 @@
-| Parameter                 | Type                          | Default             | Description                                                                  |
-| ------------------------- | ----------------------------- | ------------------- | ---------------------------------------------------------------------------- |
-| `id`                      | `str`                         | -                   | The specific model ID used for generating responses. This field is required. |
-| `name`                    | `str`                         | `"AzureOpenAI"`     | The name identifier for the agent.                                           |
-| `provider`                | `str`                         | `"Azure"`           | The provider of the model.                                                   |
-| `api_key`                 | `Optional[str]`               | `"None"`            | The API key for authenticating requests to the Azure OpenAI service.         |
-| `api_version`             | `str`                         | `"2024-10-21"`      | The version of the Azure OpenAI API to use.                                  |
-| `azure_endpoint`          | `Optional[str]`               | `"None"`            | The endpoint URL for the Azure OpenAI service.                               |
-| `azure_deployment`        | `Optional[str]`               | `"None"`            | The deployment name or ID in Azure.                                          |
-| `azure_ad_token`          | `Optional[str]`               | `"None"`            | The Azure Active Directory token for authenticating requests.                |
-| `azure_ad_token_provider` | `Optional[Any]`               | `"None"`            | The provider for obtaining Azure Active Directory tokens.                    |
-| `openai_client`           | `Optional[AzureOpenAIClient]` | `"None"`            | An instance of AzureOpenAIClient provided for making API requests.           |
+| パラメータ                 | タイプ                          | デフォルト             | 説明                                                                                             |
+| ------------------------- | ----------------------------- | ------------------- | ------------------------------------------------------------------------------------------------ |
+| `id`                      | `str`                         | -                   | レスポンス生成に使用される特定のモデルID。このフィールドは必須です。                                                               |
+| `name`                    | `str`                         | `"AzureOpenAI"`     | エージェントの名前識別子。                                                                                             |
+| `provider`                | `str`                         | `"Azure"`           | モデルのプロバイダー。                                                                                             |
+| `api_key`                 | `Optional[str]`               | `"None"`            | Azure OpenAIサービスへのリクエストを認証するためのAPIキー。                                                                    |
+| `api_version`             | `str`                         | `"2024-10-21"`      | 使用するAzure OpenAI APIのバージョン。                                                                                           |
+| `azure_endpoint`          | `Optional[str]`               | `"None"`            | Azure OpenAIサービスのAPIエンドポイントURL。                                                                                      |
+| `azure_deployment`        | `Optional[str]`               | `"None"`            | Azure内のデプロイメント名またはID。                                                                                             |
+| `azure_ad_token`          | `Optional[str]`               | `"None"`            | リクエストを認証するためのAzure Active Directoryトークン。                                                                           |
+| `azure_ad_token_provider` | `Optional[Any]`               | `"None"`            | Azure Active Directoryトークンを取得するためのプロバイダー。                                                                         |
+| `openai_client`           | `Optional[AzureOpenAIClient]` | `"None"`            | APIリクエストを行うために提供されるAzureOpenAIClientのインスタンス。                                                                    |

@@ -2,18 +2,18 @@
 title: Structured Output
 ---
 
-This example shows how to use structured outputs with AI agents to generate well-formatted movie script concepts. It shows two approaches:
-1. JSON Mode: Traditional JSON response parsing
-2. Structured Output: Enhanced structured data handling
+この例では、AIエージェントで構造化された出力を利用して、フォーマットの整った映画の脚本コンセプトを生成する方法を示します。ここでは2つのアプローチを紹介します。
+1. JSONモード：従来のJSONレスポンス解析
+2. 構造化出力：強化された構造化データハンドリング
 
-Example prompts to try:
-- "Tokyo" - Get a high-tech thriller set in futuristic Japan
-- "Ancient Rome" - Experience an epic historical drama
-- "Manhattan" - Explore a modern romantic comedy
-- "Amazon Rainforest" - Adventure in an exotic location
-- "Mars Colony" - Science fiction in a space settlement
+試してみる例：
+- "東京" - 未来の日本を舞台にしたハイテクスリラーを取得
+- "古代ローマ" - 壮大な歴史ドラマを体験
+- "マンハッタン" - 現代のロマンティックコメディを探求
+- "アマゾン熱帯雨林" - エキゾチックな場所での冒険
+- "火星コロニー" - 宇宙開拓地でのサイエンスフィクション
 
-## Code
+## コード
 
 ```python structured_output.py
 from textwrap import dedent
@@ -27,141 +27,141 @@ from pydantic import BaseModel, Field
 class MovieScript(BaseModel):
     setting: str = Field(
         ...,
-        description="A richly detailed, atmospheric description of the movie's primary location and time period. Include sensory details and mood.",
+        description="映画の主要な場所と時代設定を豊かで詳細な雰囲気で描写する。感覚的なディテールとムードを含める。",
     )
     ending: str = Field(
         ...,
-        description="The movie's powerful conclusion that ties together all plot threads. Should deliver emotional impact and satisfaction.",
+        description="すべてのプロットの糸をまとめる、映画の力強い結末。感情的なインパクトと満足感を与えるべきである。",
     )
     genre: str = Field(
         ...,
-        description="The film's primary and secondary genres (e.g., 'Sci-fi Thriller', 'Romantic Comedy'). Should align with setting and tone.",
+        description="映画の主要なジャンルと二次的なジャンル（例：「SFスリラー」、「ロマンティックコメディ」）。設定とトーンに合わせるべきである。",
     )
     name: str = Field(
         ...,
-        description="An attention-grabbing, memorable title that captures the essence of the story and appeals to target audience.",
+        description="ストーリーの本質を捉え、ターゲットオーディエンスにアピールする、注意を引き、記憶に残るタイトル。",
     )
     characters: List[str] = Field(
         ...,
-        description="4-6 main characters with distinctive names and brief role descriptions (e.g., 'Sarah Chen - brilliant quantum physicist with a dark secret').",
+        description="特徴的な名前と簡単な役割の説明を持つ4〜6人の主要キャラクター（例：「サラ・チェン - 秘密を抱えた優秀な量子物理学者」）。",
     )
     storyline: str = Field(
         ...,
-        description="A compelling three-sentence plot summary: Setup, Conflict, and Stakes. Hook readers with intrigue and emotion.",
+        description="説得力のある3文のプロット概要：セットアップ、葛藤、および賭け。読者を引き込むような興味と感情で。",
     )
 
 
-# Agent that uses JSON mode
+# JSONモードを使用するエージェント
 json_mode_agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
     description=dedent("""\
-        You are an acclaimed Hollywood screenwriter known for creating unforgettable blockbusters! 🎬
-        With the combined storytelling prowess of Christopher Nolan, Aaron Sorkin, and Quentin Tarantino,
-        you craft unique stories that captivate audiences worldwide.
+        あなたは忘れられない大ヒット作を生み出すことで知られる、高く評価されているハリウッドの脚本家です！🎬
+        クリストファー・ノーラン、アーロン・ソーキン、クエンティン・タランティーノのストーリーテリングの才能を組み合わせ、
+        世界中の観客を魅了するユニークなストーリーを創作します。
 
-        Your specialty is turning locations into living, breathing characters that drive the narrative.\
+        あなたの専門は、場所を物語を動かす生きた、息づくキャラクターに変えることです。\
     """),
     instructions=dedent("""\
-        When crafting movie concepts, follow these principles:
+        映画のコンセプトを創作する際は、以下の原則に従ってください：
 
-        1. Settings should be characters:
-           - Make locations come alive with sensory details
-           - Include atmospheric elements that affect the story
-           - Consider the time period's impact on the narrative
+        1. 設定はキャラクターであるべき：
+           - 場所を感覚的なディテールで生き生きとさせる
+           - 物語に影響を与える雰囲気の要素を含める
+           - 時代設定が物語に与える影響を考慮する
 
-        2. Character Development:
-           - Give each character a unique voice and clear motivation
-           - Create compelling relationships and conflicts
-           - Ensure diverse representation and authentic backgrounds
+        2. キャラクター開発：
+           - 各キャラクターにユニークな声と明確な動機を与える
+           - 説得力のある関係性と葛藤を生み出す
+           - 多様な表現と本物の背景を確保する
 
-        3. Story Structure:
-           - Begin with a hook that grabs attention
-           - Build tension through escalating conflicts
-           - Deliver surprising yet inevitable endings
+        3. ストーリー構造：
+           - 注意を引くフックで始める
+           - エスカレートする葛藤を通して緊張感を高める
+           - 驚くべきが、必然的な結末を提供する
 
-        4. Genre Mastery:
-           - Embrace genre conventions while adding fresh twists
-           - Mix genres thoughtfully for unique combinations
-           - Maintain consistent tone throughout
+        4. ジャンルの習熟：
+           - ジャンルの慣習を受け入れつつ、新鮮なひねりを加える
+           - ユニークな組み合わせのためにジャンルを慎重にミックスする
+           - 全体を通して一貫したトーンを維持する
 
-        Transform every location into an unforgettable cinematic experience!\
+        すべての場所を忘れられない映画体験に変えましょう！\
     """),
     response_model=MovieScript,
 )
 
-# Agent that uses structured outputs
+# 構造化出力を使用するエージェント
 structured_output_agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
     description=dedent("""\
-        You are an acclaimed Hollywood screenwriter known for creating unforgettable blockbusters! 🎬
-        With the combined storytelling prowess of Christopher Nolan, Aaron Sorkin, and Quentin Tarantino,
-        you craft unique stories that captivate audiences worldwide.
+        あなたは忘れられない大ヒット作を生み出すことで知られる、高く評価されているハリウッドの脚本家です！🎬
+        クリストファー・ノーラン、アーロン・ソーキン、クエンティン・タランティーノのストーリーテリングの才能を組み合わせ、
+        世界中の観客を魅了するユニークなストーリーを創作します。
 
-        Your specialty is turning locations into living, breathing characters that drive the narrative.\
+        あなたの専門は、場所を物語を動かす生きた、息づくキャラクターに変えることです。\
     """),
     instructions=dedent("""\
-        When crafting movie concepts, follow these principles:
+        映画のコンセプトを創作する際は、以下の原則に従ってください：
 
-        1. Settings should be characters:
-           - Make locations come alive with sensory details
-           - Include atmospheric elements that affect the story
-           - Consider the time period's impact on the narrative
+        1. 設定はキャラクターであるべき：
+           - 場所を感覚的なディテールで生き生きとさせる
+           - 物語に影響を与える雰囲気の要素を含める
+           - 時代設定が物語に与える影響を考慮する
 
-        2. Character Development:
-           - Give each character a unique voice and clear motivation
-           - Create compelling relationships and conflicts
-           - Ensure diverse representation and authentic backgrounds
+        2. キャラクター開発：
+           - 各キャラクターにユニークな声と明確な動機を与える
+           - 説得力のある関係性と葛藤を生み出す
+           - 多様な表現と本物の背景を確保する
 
-        3. Story Structure:
-           - Begin with a hook that grabs attention
-           - Build tension through escalating conflicts
-           - Deliver surprising yet inevitable endings
+        3. ストーリー構造：
+           - 注意を引くフックで始める
+           - エスカレートする葛藤を通して緊張感を高める
+           - 驚くべきが、必然的な結末を提供する
 
-        4. Genre Mastery:
-           - Embrace genre conventions while adding fresh twists
-           - Mix genres thoughtfully for unique combinations
-           - Maintain consistent tone throughout
+        4. ジャンルの習熟：
+           - ジャンルの慣習を受け入れつつ、新鮮なひねりを加える
+           - ユニークな組み合わせのためにジャンルを慎重にミックスする
+           - 全体を通して一貫したトーンを維持する
 
-        Transform every location into an unforgettable cinematic experience!\
+        すべての場所を忘れられない映画体験に変えましょう！\
     """),
     response_model=MovieScript,
 )
 
-# Example usage with different locations
-json_mode_agent.print_response("Tokyo", stream=True)
-structured_output_agent.print_response("Ancient Rome", stream=True)
+# 様々な場所での使用例
+json_mode_agent.print_response("東京", stream=True)
+structured_output_agent.print_response("古代ローマ", stream=True)
 
-# More examples to try:
+# 他の例：
 """
-Creative location prompts to explore:
-1. "Underwater Research Station" - For a claustrophobic sci-fi thriller
-2. "Victorian London" - For a gothic mystery
-3. "Dubai 2050" - For a futuristic heist movie
-4. "Antarctic Research Base" - For a survival horror story
-5. "Caribbean Island" - For a tropical adventure romance
+探求するためのクリエイティブな場所のプロンプト：
+1. "水中研究ステーション" - 閉所恐怖症のスリラー向け
+2. "ビクトリア朝ロンドン" - ゴシックミステリー向け
+3. "ドバイ2050" - 未来の強盗映画向け
+4. "南極研究基地" - サバイバルホラー向け
+5. "カリブ海の島" - 熱帯アドベンチャーロマンス向け
 """
 
-# To get the response in a variable:
+# 変数でレスポンスを取得するには：
 # from rich.pretty import pprint
 
-# json_mode_response: RunResponse = json_mode_agent.run("New York")
+# json_mode_response: RunResponse = json_mode_agent.run("ニューヨーク")
 # pprint(json_mode_response.content)
-# structured_output_response: RunResponse = structured_output_agent.run("New York")
+# structured_output_response: RunResponse = structured_output_agent.run("ニューヨーク")
 # pprint(structured_output_response.content)
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install libraries">
+  <Step title="ライブラリのインストール">
     ```bash
     pip install openai agno
     ```
   </Step>
 
-  <Step title="Run the agent">
+  <Step title="エージェントの実行">
     ```bash
     python structured_output.py
     ```

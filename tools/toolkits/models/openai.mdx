@@ -3,18 +3,18 @@ title: OpenAI
 sidebarTitle: OpenAI
 ---
 
-OpenAITools allow an Agent to interact with OpenAI models for performing audio transcription, image generation, and text-to-speech.
+OpenAITools を使用すると、Agent はオーディオの文字起こし、画像の生成、テキスト読み上げを実行するために OpenAI モデルと対話できます。
 
-## Prerequisites
+## 前提条件
 
-Before using `OpenAITools`, ensure you have the `openai` library installed and your OpenAI API key configured.
+`OpenAITools` を使用する前に、`openai` ライブラリがインストールされており、OpenAI API キーが設定されていることを確認してください。
 
-1. **Install the library:**
+1. **ライブラリのインストール:**
    ```bash
    pip install -U openai
    ```
 
-2. **Set your API key:** Obtain your API key from [OpenAI](https://platform.openai.com/account/api-keys) and set it as an environment variable.
+2. **API キーの設定:** [OpenAI](https://platform.openai.com/account/api-keys) から API キーを取得し、環境変数として設定します。
 
    <CodeGroup>
    ```bash Mac
@@ -25,9 +25,9 @@ Before using `OpenAITools`, ensure you have the `openai` library installed and y
    ```
    </CodeGroup>
 
-## Initialization
+## 初期化
 
-Import `OpenAITools` and add it to your Agent's tool list.
+`OpenAITools` をインポートし、Agent のツールリストに追加します。
 
 ```python
 from agno.agent import Agent
@@ -41,11 +41,11 @@ agent = Agent(
 )
 ```
 
-## Usage Examples
+## 使用例
 
-### 1. Transcribing Audio
+### 1. オーディオの文字起こし
 
-This example demonstrates an agent that transcribes an audio file.
+この例では、オーディオファイルを文字起こしする Agent を示します。
 
 ```python transcription_agent.py
 from pathlib import Path
@@ -68,9 +68,9 @@ agent = Agent(
 agent.print_response(f"Transcribe the audio file located at '{local_audio_path}'")
 ```
 
-### 2. Generating Images
+### 2. 画像の生成
 
-This example demonstrates an agent that generates an image based on a text prompt.
+この例では、テキストプロンプトに基づいて画像を生成する Agent を示します。
 
 ```python image_generation_agent.py
 from agno.agent import Agent
@@ -90,9 +90,9 @@ if response.images:
     save_base64_data(response.images[0].content, "tmp/coffee_shop.png")
 ```
 
-### 3. Generating Speech
+### 3. 音声の生成
 
-This example demonstrates an agent that generates speech from text.
+この例では、テキストから音声を生成する Agent を示します。
 
 ```python speech_synthesis_agent.py
 from agno.agent import Agent
@@ -117,11 +117,11 @@ if response and response.audio:
     save_base64_data(response.audio[0].base64_audio, "tmp/hello.mp3")
 ```
 
-<Note> View more examples [here](/examples/concepts/tools/models/openai). </Note>
+<Note> 詳細な例は[こちら](/examples/concepts/tools/models/openai)でご覧ください。 </Note>
 
-## Customization
+## カスタマイズ
 
-You can customize the underlying OpenAI models used for transcription, image generation, and TTS:
+文字起こし、画像生成、TTS に使用される基盤となる OpenAI モデルをカスタマイズできます。
 
 ```python
 OpenAITools(
@@ -133,19 +133,19 @@ OpenAITools(
 )
 ```
 
-## Toolkit Functions
+## ツールキット関数
 
-The `OpenAITools` toolkit provides the following functions:
+`OpenAITools` ツールキットは、次の関数を提供します。
 
-| Function           | Description                                                                 |
+| 関数           | 説明                                                                 |
 | ------------------ | --------------------------------------------------------------------------- |
-| `transcribe_audio` | Transcribes audio from a local file path or a public URL |
-| `generate_image`   | Generates images based on a text prompt |
-| `generate_speech`  | Synthesizes speech from text |
+| `transcribe_audio` | ローカルファイルパスまたは公開 URL からオーディオを文字起こしします |
+| `generate_image`   | テキストプロンプトに基づいて画像を生成します |
+| `generate_speech`  | テキストから音声を合成します |
 
-## Developer Resources
+## 開発者向けリソース
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/openai.py)
-- View [OpenAI Transcription Guide](https://platform.openai.com/docs/guides/speech-to-text)
-- View [OpenAI Image Generation Guide](https://platform.openai.com/docs/guides/image-generation?image-generation-model=gpt-image-1)
-- View [OpenAI Text-to-Speech Guide](https://platform.openai.com/docs/guides/text-to-speech)
+- [ツール](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/openai.py)を表示
+- [OpenAI 文字起こしガイド](https://platform.openai.com/docs/guides/speech-to-text)を表示
+- [OpenAI 画像生成ガイド](https://platform.openai.com/docs/guides/image-generation?image-generation-model=gpt-image-1)を表示
+- [OpenAI テキスト読み上げガイド](https://platform.openai.com/docs/guides/text-to-speech)を表示

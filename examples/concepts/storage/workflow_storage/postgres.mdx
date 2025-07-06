@@ -3,13 +3,13 @@ title: Postgres Workflow Storage
 sidebarTitle: Postgres
 ---
 
-Agno supports using PostgreSQL as a storage backend for Workflows using the `PostgresStorage` class.
+Agno は、`PostgresStorage` クラスを使用して、PostgreSQL をワークフローのストレージバックエンドとしてサポートしています。
 
-## Usage
+## 使用方法
 
-### Run PgVector
+### PgVector の実行
 
-Install [docker desktop](https://docs.docker.com/desktop/install/mac-install/) and run **PgVector** on port **5532** using:
+[docker desktop](https://docs.docker.com/desktop/install/mac-install/) をインストールし、以下のコマンドを使用してポート **5532** で **PgVector** を実行します。
 
 ```bash
 docker run -d \
@@ -118,10 +118,10 @@ if __name__ == "__main__":
     pprint_run_response(report, markdown=True, show_time=True)
 ```
 
-## Params
+## パラメータ
 
 <Snippet file="workflow-storage-postgres-params.mdx" />
 
-## Developer Resources
+## 開発者向けリソース
 
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/storage/postgres_storage/postgres_storage_for_workflow.py)
+- [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/storage/postgres_storage/postgres_storage_for_workflow.py) を表示

@@ -1,20 +1,20 @@
 ---
-title: Custom API
+title: カスタムAPI
 ---
 
-**CustomApiTools** enable an Agent to make HTTP requests to any external API with customizable authentication and parameters.
+**CustomApiTools** を使用すると、エージェントはカスタマイズ可能な認証とパラメータを使用して、任意の外部APIへのHTTPリクエストを実行できます。
 
-## Prerequisites
+## 前提条件
 
-The following example requires the `requests` library.
+以下の例では、`requests` ライブラリが必要です。
 
 ```shell
 pip install requests
 ```
 
-## Example
+## 例
 
-The following agent will use CustomApiTools to make API calls to the Dog CEO API.
+以下のエージェントは、CustomApiTools を使用して Dog CEO API へのAPI呼び出しを行います。
 
 ```python cookbook/tools/custom_api_tools.py
 from agno.agent import Agent
@@ -26,31 +26,30 @@ agent = Agent(
 )
 
 agent.print_response(
-    'Make API calls to the following two different endpoints: /breeds/image/random and /breeds/list/all to get a random dog image and list of dog breeds respectively. Use GET method for both calls.'
+    '以下の2つの異なるエンドポイントにAPI呼び出しを行ってください: /breeds/image/random および /breeds/list/all。それぞれランダムな犬の画像と犬種のリストを取得します。両方の呼び出しでGETメソッドを使用してください。'
 )
 ```
 
-## Toolkit Params
+## Toolkitパラメータ
 
-| Parameter     | Type                | Default | Description                                                |
-| ------------- | ------------------- | ------- | ---------------------------------------------------------- |
-| `base_url`    | `str`               | `None`  | Base URL for API calls                                     |
-| `username`    | `str`               | `None`  | Username for basic authentication                          |
-| `password`    | `str`               | `None`  | Password for basic authentication                          |
-| `api_key`     | `str`               | `None`  | API key for bearer token authentication                    |
-| `headers`     | `Dict[str, str]`    | `{}`    | Default headers to include in requests                     |
-| `verify_ssl`  | `bool`              | `True`  | Whether to verify SSL certificates                         |
-| `timeout`     | `int`               | `30`    | Request timeout in seconds                                 |
-| `make_request`| `bool`              | `True`  | Whether to register the make_request function              |
+| パラメータ     | タイプ                | デフォルト | 説明                                         |
+| ------------- | ------------------- | ------- | -------------------------------------------- |
+| `base_url`    | `str`               | `None`  | API呼び出しのベースURL                               |
+| `username`    | `str`               | `None`  | 基本認証のユーザー名                               |
+| `password`    | `str`               | `None`  | 基本認証のパスワード                               |
+| `api_key`     | `str`               | `None`  | ベアラートークン認証のAPIキー                           |
+| `headers`     | `Dict[str, str]`    | `{}`    | リクエストに含めるデフォルトヘッダー                         |
+| `verify_ssl`  | `bool`              | `True`  | SSL証明書を検証するかどうか                               |
+| `timeout`     | `int`               | `30`    | リクエストタイムアウト（秒）                               |
+| `make_request`| `bool`              | `True`  | make_request 関数を登録するかどうか                         |
 
-## Toolkit Functions
+## Toolkit関数
 
-| Function       | Description                                                                                                                                                |
-| -------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `make_request` | Makes an HTTP request to the API. Takes method (GET, POST, etc.), endpoint, and optional params, data, headers, and json_data parameters.                  |
+| 関数       | 説明                                                                                                                                                |
+| -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `make_request` | APIへのHTTPリクエストを実行します。メソッド（GET、POSTなど）、エンドポイント、およびオプションのparams、data、headers、json_dataパラメータを受け取ります。 |
 
-## Developer Resources
+## 開発者向けリソース
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/api.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/custom_api_tools.py)
-```
+- [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/api.py) を表示
+- [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/custom_api_tools.py) を表示

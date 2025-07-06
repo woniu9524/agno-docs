@@ -1,57 +1,57 @@
 ---
-title: Use Custom Domain and HTTPS
-sidebarTitle: Custom Domain & HTTPS
+title: カスタムドメインとHTTPSの使用
+sidebarTitle: カスタムドメインとHTTPS
 ---
 
-## Use a custom domain
+## カスタムドメインの使用
 
-1. Register your domain with [Route 53](https://us-east-1.console.aws.amazon.com/route53/).
-2. Point the domain to the loadbalancer DNS.
+1. [Route 53](https://us-east-1.console.aws.amazon.com/route53/)でドメインを登録します。
+2. ドメインをロードバランサーのDNSに向けます。
 
-### Custom domain for your Streamlit App
+### Streamlitアプリのカスタムドメイン
 
-Create a record in the Route53 console to point `app.[YOUR_DOMAIN]` to the Streamlit App.
+Route53コンソールでレコードを作成し、`app.[YOUR_DOMAIN]`をStreamlitアプリに向けます。
 
 <img src="/images/llm-app-aidev-run.png" alt="llm-app-aidev-run" />
 
-You can visit the app at [http://app.aidev.run](http://app.aidev.run)
+アプリは[http://app.aidev.run](http://app.aidev.run)でアクセスできます。
 
-<Note>Note the `http` in the domain name.</Note>
+<Note>ドメイン名に`http`が含まれていることに注意してください。</Note>
 
-### Custom domain for your FastAPI App
+### FastAPIアプリのカスタムドメイン
 
-Create a record in the Route53 console to point `api.[YOUR_DOMAIN]` to the FastAPI App.
+Route53コンソールでレコードを作成し、`api.[YOUR_DOMAIN]`をFastAPIアプリに向けます。
 
 <img src="/images/llm-api-aidev-run.png" alt="llm-api-aidev-run" />
 
-You can access the api at [http://api.aidev.run](http://api.aidev.run)
+APIは[http://api.aidev.run](http://api.aidev.run)でアクセスできます。
 
-<Note>Note the `http` in the domain name.</Note>
+<Note>ドメイン名に`http`が含まれていることに注意してください。</Note>
 
-## Add HTTPS
+## HTTPSの追加
 
-To add HTTPS:
+HTTPSを追加するには：
 
-1. Create a certificate using [AWS ACM](https://us-east-1.console.aws.amazon.com/acm). Request a certificat for `*.[YOUR_DOMAIN]`
+1. [AWS ACM](https://us-east-1.console.aws.amazon.com/acm)を使用して証明書を作成します。`*.[YOUR_DOMAIN]`の証明書をリクエストします。
 
 <img src="/images/llm-app-request-cert.png" alt="llm-app-request-cert" />
 
-2. Creating records in Route 53.
+2. Route 53にレコードを作成します。
 
 <img src="/images/llm-app-validate-cert.png" alt="llm-app-validate-cert" />
 
-3. Add the certificate ARN to Apps
+3. 証明書のARNをアプリに追加します。
 
-<Note>Make sure the certificate is `Issued` before adding it to your Apps</Note>
+<Note>アプリに追加する前に、証明書が`Issued`（発行済み）であることを確認してください。</Note>
 
-Update the `llm-app/workspace/prd_resources.py` file and add the `load_balancer_certificate_arn` to the `FastAPI` and `Streamlit` Apps.
+`llm-app/workspace/prd_resources.py`ファイルを更新し、`FastAPI`および`Streamlit`アプリに`load_balancer_certificate_arn`を追加します。
 
 ```python workspace/prd_resources.py
 
 # -*- Streamlit running on ECS
 prd_streamlit = Streamlit(
     ...
-    # To enable HTTPS, create an ACM certificate and add the ARN below:
+    # HTTPSを有効にするには、ACM証明書を作成し、以下のARNを追加してください:
     load_balancer_enable_https=True,
     load_balancer_certificate_arn="arn:aws:acm:us-east-1:497891874516:certificate/6598c24a-d4fc-4f17-8ee0-0d3906eb705f",
     ...
@@ -60,16 +60,16 @@ prd_streamlit = Streamlit(
 # -*- FastAPI running on ECS
 prd_fastapi = FastApi(
     ...
-    # To enable HTTPS, create an ACM certificate and add the ARN below:
+    # HTTPSを有効にするには、ACM証明書を作成し、以下のARNを追加してください:
     load_balancer_enable_https=True,
     load_balancer_certificate_arn="arn:aws:acm:us-east-1:497891874516:certificate/6598c24a-d4fc-4f17-8ee0-0d3906eb705f",
     ...
 )
 ```
 
-4. Create new Loadbalancer Listeners
+4. 新しいロードバランサーリスナーを作成します。
 
-Create new listeners for the loadbalancer to pickup the HTTPs configuration.
+HTTPS構成を取得するために、ロードバランサーに新しいリスナーを作成します。
 
 <CodeGroup>
 
@@ -83,11 +83,11 @@ ag ws up -e prd -i aws -n listener
 
 </CodeGroup>
 
-<Note>The certificate should be `Issued` before applying it.</Note>
+<Note>適用する前に、証明書が`Issued`（発行済み）である必要があります。</Note>
 
-After this, `https` should be working on your custom domain.
+これにより、カスタムドメインで`https`が機能するようになります。
 
-5. Update existing listeners to redirect HTTP to HTTPS
+5. 既存のリスナーを更新してHTTPからHTTPSへのリダイレクトを行います。
 
 <CodeGroup>
 
@@ -101,4 +101,4 @@ ag ws patch -e prd -i aws -n listener
 
 </CodeGroup>
 
-After this, all HTTP requests should redirect to HTTPS automatically.
+これにより、すべてのHTTPリクエストが自動的にHTTPSにリダイレクトされるようになります。

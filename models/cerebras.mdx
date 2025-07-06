@@ -1,28 +1,28 @@
 ---
 title: Cerebras
-description: Learn how to use Cerebras models in Agno.
+description: Agno で Cerebras モデルを使用する方法を学びます。
 ---
 
-[Cerebras Inference](https://inference-docs.cerebras.ai/introduction) provides high-speed, low-latency AI model inference powered by Cerebras Wafer-Scale Engines and CS-3 systems. Agno integrates directly with the Cerebras Python SDK, allowing you to use state-of-the-art Llama models with a simple interface.
+[Cerebras Inference](https://inference-docs.cerebras.ai/introduction) は、Cerebras Wafer-Scale Engine と CS-3 システムによって強化された、高速・低遅延の AI モデル推論を提供します。Agno は Cerebras Python SDK と直接統合されており、シンプルなインターフェースで最先端の Llama モデルを使用できます。
 
-## Prerequisites
+## 前提条件
 
-To use Cerebras with Agno, you need to:
+Agno で Cerebras を使用するには、以下の手順が必要です。
 
-1. **Install the required packages:**
+1. **必要なパッケージのインストール:**
    ```shell
    pip install cerebras-cloud-sdk
    ```
 
-2. **Set your API key:**
-   The Cerebras SDK expects your API key to be available as an environment variable:
+2. **API キーの設定:**
+   Cerebras SDK は、API キーが環境変数として利用可能であることを想定しています。
    ```shell
    export CEREBRAS_API_KEY=your_api_key_here
    ```
 
-## Basic Usage
+## 基本的な使い方
 
-Here's how to use a Cerebras model with Agno:
+Agno で Cerebras モデルを使用する方法は以下のとおりです。
 
 ```python
 from agno.agent import Agent
@@ -33,43 +33,43 @@ agent = Agent(
     markdown=True,
 )
 
-# Print the response in the terminal
+# 応答をターミナルに出力します
 agent.print_response("write a two sentence horror story")
 ```
 
-## Supported Models
+## サポートされているモデル
 
-Cerebras currently supports the following models (see [docs](https://inference-docs.cerebras.ai/introduction) for the latest list):
+Cerebras は現在、以下のモデルをサポートしています（最新リストについては[ドキュメント](https://inference-docs.cerebras.ai/introduction)を参照してください）。
 
-| Model Name                      | Model ID                       | Parameters  | Knowledge     |
+| モデル名                      | モデル ID                       | パラメータ  | 知識     |
 | ------------------------------- | ------------------------------ | ----------- | ------------- |
-| Llama 4 Scout                   | llama-4-scout-17b-16e-instruct | 109 billion | August 2024   |
-| Llama 3.1 8B                    | llama3.1-8b                    | 8 billion   | March 2023    |
-| Llama 3.3 70B                   | llama-3.3-70b                  | 70 billion  | December 2023 |
-| DeepSeek R1 Distill Llama 70B*  | deepseek-r1-distill-llama-70b  | 70 billion  | December 2023 |
+| Llama 4 Scout                   | llama-4-scout-17b-16e-instruct | 1090億 | 2024年8月   |
+| Llama 3.1 8B                    | llama3.1-8b                    | 80億   | 2023年3月    |
+| Llama 3.3 70B                   | llama-3.3-70b                  | 700億   | 2023年12月 |
+| DeepSeek R1 Distill Llama 70B*  | deepseek-r1-distill-llama-70b  | 700億   | 2023年12月 |
 
-\* DeepSeek R1 Distill Llama 70B is available in private preview.
+\* DeepSeek R1 Distill Llama 70B はプライベートプレビューで利用可能です。
 
-## Configuration Options
+## 設定オプション
 
-The `Cerebras` class accepts the following parameters:
+`Cerebras` クラスは、以下のパラメータを受け入れます。
 
-| Parameter     | Type           | Description                                         | Default                        |
+| パラメータ     | タイプ           | 説明                                         | デフォルト                        |
 | ------------- | -------------- | --------------------------------------------------- | ------------------------------ |
-| `id`          | str            | Model identifier (e.g., "llama-4-scout-17b-16e-instruct") | **Required**                   |
-| `name`        | str            | Display name for the model                          | "Cerebras"                     |
-| `provider`    | str            | Provider name                                       | "Cerebras"                     |
-| `api_key`     | Optional[str]  | API key (falls back to `CEREBRAS_API_KEY` env var)  | None                           |
-| `max_tokens`  | Optional[int]  | Maximum tokens in the response                      | None                           |
-| `temperature` | float          | Sampling temperature                                | 0.7                            |
-| `top_p`       | float          | Top-p sampling value                                | 1.0                            |
-| `request_params` | Optional[Dict[str, Any]] | Additional request parameters           | None                           |
+| `id`          | str            | モデル識別子（例: "llama-4-scout-17b-16e-instruct"） | **必須**                   |
+| `name`        | str            | モデルの表示名                          | "Cerebras"                     |
+| `provider`    | str            | プロバイダー名                                       | "Cerebras"                     |
+| `api_key`     | Optional[str]  | API キー（`CEREBRAS_API_KEY` 環境変数にフォールバック）  | None                           |
+| `max_tokens`  | Optional[int]  | 応答の最大トークン数                      | None                           |
+| `temperature` | float          | サンプリング温度                                | 0.7                            |
+| `top_p`       | float          | Top-p サンプリング値                                | 1.0                            |
+| `request_params` | Optional[Dict[str, Any]] | 追加のリクエストパラメータ           | None                           |
 
 
-## Resources
+## リソース
 
-- [Cerebras Inference Documentation](https://inference-docs.cerebras.ai/introduction)
-- [Cerebras API Reference](https://inference-docs.cerebras.ai/api-reference/chat-completions)
+- [Cerebras Inference ドキュメント](https://inference-docs.cerebras.ai/introduction)
+- [Cerebras API リファレンス](https://inference-docs.cerebras.ai/api-reference/chat-completions)
 
-### SDK Examples
-- View more examples [here](../examples/models/cerebras).
+### SDK の例
+- その他の例はこちらでご覧ください [here](../examples/models/cerebras)。

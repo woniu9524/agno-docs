@@ -1,15 +1,15 @@
 ---
-title: Running your Agent
-description: Learn how to run an agent and get the response.
+title: エージェントの実行
+description: エージェントを実行して応答を取得する方法を学びます。
 ---
 
-The `Agent.run()` function runs the agent and generates a response, either as a `RunResponse` object or a stream of `RunResponse` objects.
+`Agent.run()` 関数はエージェントを実行し、`RunResponse` オブジェクトまたは `RunResponse` オブジェクトのストリームとして応答を生成します。
 
-Many of our examples use `agent.print_response()` which is a helper utility to print the response in the terminal. It uses `agent.run()` under the hood.
+多くの例では、ターミナルで応答を印刷するためのヘルパーユーティリティである `agent.print_response()` を使用しています。これは内部的に `agent.run()` を使用しています。
 
-## Running your Agent
+## エージェントの実行
 
-Here's how to run your agent. The response is captured in the `response`.
+エージェントを実行する方法は次のとおりです。応答は `response` にキャプチャされます。
 
 ```python
 from typing import Iterator
@@ -19,31 +19,31 @@ from agno.utils.pprint import pprint_run_response
 
 agent = Agent(model=OpenAIChat(id="gpt-4o-mini"))
 
-# Run agent and return the response as a variable
-response: RunResponse = agent.run("Tell me a 5 second short story about a robot")
+# エージェントを実行し、応答を変数として返します
+response: RunResponse = agent.run("ロボットについての5秒の短い物語を教えてください")
 
-# Print the response in markdown format
+# 応答をマークダウン形式で印刷します
 pprint_run_response(response, markdown=True)
 ```
 
 ## RunResponse
 
-The `Agent.run()` function returns a `RunResponse` object when not streaming. It has the following attributes:
+`Agent.run()` 関数は、ストリーミングしない場合は `RunResponse` オブジェクトを返します。このオブジェクトには次の属性があります。
 
 <Note>
-Understanding Metrics
+メトリクスの理解
 
-For a detailed explanation of how metrics are collected and used, please refer to the [Metrics Documentation](/agents/metrics).
+メトリクスがどのように収集および使用されるかについての詳細な説明は、[メトリクスに関するドキュメント](/agents/metrics)を参照してください。
 </Note>
 
-See detailed documentation in the [RunResponse](/reference/agents/run-response) documentation.
+[RunResponse](/reference/agents/run-response) に関する詳細なドキュメントを参照してください。
 
-## Streaming Responses
+## ストリーミング応答
 
-To enable streaming, set `stream=True` when calling `run()`. This will return an iterator of `RunResponseEvent` objects instead of a single response.
+ストリーミングを有効にするには、`run()` を呼び出す際に `stream=True` を設定します。これにより、単一の応答ではなく `RunResponseEvent` オブジェクトのイテレータが返されます。
 
 <Note>
-From `agno` version `1.6.0`, the `Agent.run()` function returns an iterator of `RunResponseEvent`, not of `RunResponse` objects.
+`agno` バージョン `1.6.0` 以降、`Agent.run()` 関数は `RunResponse` オブジェクトのイテレータではなく、`RunResponseEvent` のイテレータを返します。
 </Note>
 
 ```python
@@ -54,35 +54,35 @@ from agno.utils.pprint import pprint_run_response
 
 agent = Agent(model=OpenAIChat(id="gpt-4-mini"))
 
-# Run agent and return the response as a stream
+# エージェントを実行し、応答をストリームとして返します
 response_stream: Iterator[RunResponseEvent] = agent.run(
-    "Tell me a 5 second short story about a lion",
+    "ライオンについての5秒の短い物語を教えてください",
     stream=True
 )
 
-# Print the response stream in markdown format
+# 応答ストリームをマークダウン形式で印刷します
 pprint_run_response(response_stream, markdown=True)
 ```
 
-### Streaming Intermediate Steps
+### 中間ステップのストリーミング
 
-For even more detailed streaming, you can enable intermediate steps by setting `stream_intermediate_steps=True`. This will provide real-time updates about the agent's internal processes.
+さらに詳細なストリーミングを行うには、`stream_intermediate_steps=True` を設定して中間ステップを有効にすることができます。これにより、エージェントの内部プロセスに関するリアルタイムの更新が提供されます。
 
 ```python
-# Stream with intermediate steps
+# 中間ステップでストリーミング
 response_stream: Iterator[RunResponseEvent] = agent.run(
-    "Tell me a 5 second short story about a lion",
+    "ライオンについての5秒の短い物語を教えてください",
     stream=True,
     stream_intermediate_steps=True
 )
 ```
 
-### Handling Events
+### イベントの処理
 
-You can process events as they arrive by iterating over the response stream:
+応答ストリームを反復処理することで、イベントが到着したときに処理できます。
 
 ```python
-response_stream = agent.run("Your prompt", stream=True, stream_intermediate_steps=True)
+response_stream = agent.run("あなたのプロンプト", stream=True, stream_intermediate_steps=True)
 
 for event in response_stream:
     if event.event == "RunResponseContent":
@@ -94,11 +94,11 @@ for event in response_stream:
     ...
 ```
 
-You can see this behavior in action in our [Playground](https://app.agno.com/playground/agents?endpoint=demo.agnoagents.com&agent=reasoning-agent).
+この動作は、[Playground](https://app.agno.com/playground/agents?endpoint=demo.agnoagents.com&agent=reasoning-agent) で実際に確認できます。
 
-### Storing Events
+### イベントの保存
 
-You can store all the events that happened during a run on the `RunResponse` object.
+実行中に発生したすべてのイベントを `RunResponse` オブジェクトに保存できます。
 
 ```python
 from agno.agent import Agent
@@ -107,57 +107,57 @@ from agno.utils.pprint import pprint_run_response
 
 agent = Agent(model=OpenAIChat(id="gpt-4o-mini"), store_events=True)
 
-response = agent.run("Tell me a 5 second short story about a lion", stream=True, stream_intermediate_steps=True)
+response = agent.run("ライオンについての5秒の短い物語を教えてください", stream=True, stream_intermediate_steps=True)
 pprint_run_response(response)
 
 for event in agent.run_response.events:
     print(event.event)
 ```
 
-By default the `RunResponseContentEvent` event is not stored. You can modify which events are skipped by setting the `events_to_skip` parameter.
+デフォルトでは、`RunResponseContentEvent` イベントは保存されません。`events_to_skip` パラメータを設定することで、スキップされるイベントを変更できます。
 
-For example:
+例：
 
 ```python
 agent = Agent(model=OpenAIChat(id="gpt-4o-mini"), store_events=True, events_to_skip=[RunEvent.run_started.value])
 ```
 
-### Event Types
+### イベントの種類
 
-The following events are yielded by the `Agent.run()` and `Agent.arun()` functions depending on the agent's configuration:
+エージェントの設定に応じて、`Agent.run()` および `Agent.arun()` 関数によって生成されるイベントは次のとおりです。
 
-#### Core Events
-| Event Type | Description |
+#### コアイベント
+| イベントタイプ | 説明 |
 |------------|-------------|
-| `RunStarted` | Indicates the start of a run |
-| `RunResponseContent` | Contains the model's response text as individual chunks |
-| `RunCompleted` | Signals successful completion of the run |
-| `RunError` | Indicates an error occurred during the run |
-| `RunCancelled` | Signals that the run was cancelled |
+| `RunStarted` | 実行の開始を示します |
+| `RunResponseContent` | モデルの応答テキストを個別のチャンクとして含みます |
+| `RunCompleted` | 実行の正常な完了を示します |
+| `RunError` | 実行中にエラーが発生したことを示します |
+| `RunCancelled` | 実行がキャンセルされたことを示します |
 
-#### Control Flow Events
-| Event Type | Description |
+#### コントロールフローイベント
+| イベントタイプ | 説明 |
 |------------|-------------|
-| `RunPaused` | Indicates the run has been paused |
-| `RunContinued` | Signals that a paused run has been continued |
+| `RunPaused` | 実行が一時停止されたことを示します |
+| `RunContinued` | 一時停止された実行が再開されたことを示します |
 
-#### Tool Events
-| Event Type | Description |
+#### ツールイベント
+| イベントタイプ | 説明 |
 |------------|-------------|
-| `ToolCallStarted` | Indicates the start of a tool call |
-| `ToolCallCompleted` | Signals completion of a tool call, including tool call results |
+| `ToolCallStarted` | ツール呼び出しの開始を示します |
+| `ToolCallCompleted` | ツール呼び出しの結果を含む、ツール呼び出しの完了を示します |
 
-#### Reasoning Events
-| Event Type | Description |
+#### 推論イベント
+| イベントタイプ | 説明 |
 |------------|-------------|
-| `ReasoningStarted` | Indicates the start of the agent's reasoning process |
-| `ReasoningStep` | Contains a single step in the reasoning process |
-| `ReasoningCompleted` | Signals completion of the reasoning process |
+| `ReasoningStarted` | エージェントの推論プロセスの開始を示します |
+| `ReasoningStep` | 推論プロセスの単一のステップを含みます |
+| `ReasoningCompleted` | 推論プロセスの完了を示します |
 
-#### Memory Events
-| Event Type | Description |
+#### メモリイベント
+| イベントタイプ | 説明 |
 |------------|-------------|
-| `MemoryUpdateStarted` | Indicates that the agent is updating its memory |
-| `MemoryUpdateCompleted` | Signals completion of a memory update |
+| `MemoryUpdateStarted` | エージェントがメモリを更新していることを示します |
+| `MemoryUpdateCompleted` | メモリ更新の完了を示します |
 
-See detailed documentation in the [RunResponseEvent](/reference/agents/run-response) documentation.
+[RunResponseEvent](/reference/agents/run-response) に関する詳細なドキュメントを参照してください。

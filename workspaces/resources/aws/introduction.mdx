@@ -1,32 +1,32 @@
 ---
-title: AWS Resources
+title: AWS リソース
 sidebarTitle: AWS
 ---
 
-AWS Resources enable us to create AWS services as pydantic objects, completing our vision of writing software, application and infrastructure code entirely in python.
+AWS リソースを使用すると、AWS サービスを pydantic オブジェクトとして作成でき、ソフトウェア、アプリケーション、インフラストラクチャコードをすべて Python で記述するというビジョンを完成させることができます。
 
-## Examples
+## 例
 
-### S3 Bucket
+### S3 バケット
 
-Copy the following code to a file `resources.py` and run `ag start resources.py` to create a bucket called `my-bucket-885`.
+次のコードを `resources.py` というファイルにコピーし、`ag start resources.py` を実行して `my-bucket-885` という名前のバケットを作成します。
 
 <CodeGroup>
 
 ```python resources.py
 from agno.aws.resource.s3 import S3Bucket
 
-# -*- S3 bucket called my-bucket-885
+# -*- my-bucket-885 という名前の S3 バケット
 prd_bucket = S3Bucket(name="my-bucket-885")
 ```
 
 </CodeGroup>
 
-Make sure to delete the bucket using `ag stop resources.py`
+`ag stop resources.py` を使用してバケットを削除してください。
 
 ### Secret Manager
 
-Copy the following code to a file `resources.py` and run `ag start resources.py` to create a secret called `my-secret`.
+次のコードを `resources.py` というファイルにコピーし、`ag start resources.py` を実行して `my-secret` という名前のシークレットを作成します。
 
 <CodeGroup>
 
@@ -34,18 +34,18 @@ Copy the following code to a file `resources.py` and run `ag start resources.py`
 import json
 from agno.aws.resource.secret import SecretsManager
 
-# -*- Secret called my-secret
+# -*- my-secret という名前のシークレット
 prd_secret = SecretsManager(
     name="my-secret",
     secret_string=json.dumps({"mysecretkey": "mysecretvalue"}),
-    # Read secret variables from my_secrets.yml
+    # my_secrets.yml からシークレット変数を読み込む
     # secret_files=[Path('my_secrets.yml')],
 )
 ```
 
 </CodeGroup>
 
-Read the secret in another file called `read_my_secret.py`
+`read_my_secret.py` という別のファイルでシークレットを読み込みます。
 
 <CodeGroup>
 
@@ -57,6 +57,6 @@ print(my_secret.get_secret_value("mysecretkey"))
 
 </CodeGroup>
 
-Run this file using `python read_my_secret.py`.
+このファイルを `python read_my_secret.py` を使用して実行します。
 
-Delete the secret using `ag stop resources.py`
+`ag stop resources.py` を使用してシークレットを削除してください。

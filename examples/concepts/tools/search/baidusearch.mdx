@@ -10,15 +10,15 @@ from agno.tools.baidusearch import BaiduSearchTools
 
 agent = Agent(
     tools=[BaiduSearchTools()],
-    description="You are a search agent that helps users find the most relevant information using Baidu.",
+    description="あなたはBaiduを使用して最も関連性の高い情報を見つけるのを支援する検索エージェントです。",
     instructions=[
-        "Given a topic by the user, respond with the 3 most relevant search results about that topic.",
-        "Search for 5 results and select the top 3 unique items.",
-        "Search in both English and Chinese.",
+        "ユーザーからトピックが与えられたら、そのトピックに関する最も関連性の高い検索結果を3つ返してください。",
+        "5つの結果を検索し、上位3つのユニークなアイテムを選択してください。",
+        "英語と中国語の両方で検索してください。",
     ],
     show_tool_calls=True,
 )
-agent.print_response("What are the latest advancements in AI?", markdown=True)
+agent.print_response("AIにおける最新の進歩は何ですか？", markdown=True)
 ```
 
 ## Usage
@@ -26,19 +26,19 @@ agent.print_response("What are the latest advancements in AI?", markdown=True)
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="APIキーの設定">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="ライブラリのインストール">
     ```bash
     pip install -U openai agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="エージェントの実行">
     <CodeGroup>
     ```bash Mac
     python cookbook/tools/baidusearch_tools.py

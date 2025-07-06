@@ -1,26 +1,26 @@
 ---
-title: User Memories
+title: ユーザーの記憶
 ---
 
-This example shows how to create an agent with persistent memory that stores:
-1. Personalized user memories - facts and preferences learned about specific users
-2. Session summaries - key points and context from conversations
-3. Chat history - stored in SQLite for persistence
+この例では、永続的なメモリを持つエージェントを作成する方法を示します。このメモリには以下が保存されます。
+1. パーソナライズされたユーザーの記憶 - 特定のユーザーについて学習した事実や好み
+2. セッションの要約 - 会話の要点とコンテキスト
+3. チャット履歴 - 永続化のためにSQLiteに保存
 
-Key features:
-- Stores user-specific memories in SQLite database
-- Maintains session summaries for context
-- Continues conversations across sessions with memory
-- References previous context and user information in responses
+主な機能：
+- SQLiteデータベースにユーザー固有の記憶を保存します
+- コンテキストのためにセッションの要約を維持します
+- メモリを通じてセッションをまたいで会話を継続します
+- レスポンスで以前のコンテキストとユーザー情報を参照します
 
-Examples:
-User: "My name is John and I live in NYC"
-Agent: *Creates memory about John's location*
+例：
+ユーザー：「私の名前はジョンで、ニューヨークに住んでいます」
+エージェント：「*ジョンの場所に関する記憶を作成します*」
 
-User: "What do you remember about me?"
-Agent: *Recalls previous memories about John*
+ユーザー：「私のことを何覚えていますか？」
+エージェント：「*ジョンの以前の記憶を呼び出します*」
 
-## Code
+## コード
 
 ```python user_memories.py
 import json
@@ -43,9 +43,11 @@ def create_agent(user: str = "user"):
     session_id: Optional[str] = None
 
     # Ask if user wants to start new session or continue existing one
+    # 新しいセッションを開始するか、既存のセッションを続行するかをユーザーに尋ねます
     new = typer.confirm("Do you want to start a new session?")
 
     # Initialize storage for both agent sessions and memories
+    # エージェントセッションとメモリの両方のためのストレージを初期化します
     agent_storage = SqliteStorage(table_name="agent_memories", db_file="tmp/agents.db")
 
     if not new:
@@ -58,6 +60,7 @@ def create_agent(user: str = "user"):
         user_id=user,
         session_id=session_id,
         # Configure memory system with SQLite storage
+        # メモリシステムをSQLiteストレージで設定します
         memory=Memory(
             db=SqliteMemoryDb(
                 table_name="agent_memory",
@@ -70,6 +73,7 @@ def create_agent(user: str = "user"):
         add_history_to_messages=True,
         num_history_responses=3,
         # Enhanced system prompt for better personality and memory usage
+        # より良い個性とメモリ使用のための拡張システムプロンプト
         description=dedent("""\
         You are a helpful and friendly AI assistant with excellent memory.
         - Remember important details about users and reference them naturally
@@ -92,6 +96,7 @@ def create_agent(user: str = "user"):
 
 def print_agent_memory(agent):
     """Print the current state of agent's memory systems"""
+    # エージェントのメモリシステムの現在の状態を表示します
     console = Console()
 
     messages = []
@@ -103,6 +108,7 @@ def print_agent_memory(agent):
 
 
     # Print chat history
+    # チャット履歴を表示します
     console.print(
         Panel(
             JSON(
@@ -117,6 +123,7 @@ def print_agent_memory(agent):
     )
 
     # Print user memories
+    # ユーザーの記憶を表示します
     for user_id in list(agent.memory.memories.keys()):
         console.print(
             Panel(
@@ -135,6 +142,7 @@ def print_agent_memory(agent):
         )
 
     # Print session summary
+    # セッションの要約を表示します
     for user_id in list(agent.memory.summaries.keys()):
         console.print(
             Panel(
@@ -156,9 +164,11 @@ def print_agent_memory(agent):
 
 def main(user: str = "user"):
     """Interactive chat loop with memory display"""
+    # メモリ表示付きのインタラクティブチャットループ
     agent = create_agent(user)
 
     print("Try these example inputs:")
+    # これらの例の入力を試してください：
     print("- 'My name is [name] and I live in [city]'")
     print("- 'I love [hobby/interest]'")
     print("- 'What do you remember about me?'")
@@ -185,12 +195,14 @@ if __name__ == "__main__":
   <Snippet file="create-venv-step.mdx" />
 
   <Step title="Install libraries">
+    <!-- ライブラリをインストールします -->
     ```bash
     pip install openai sqlalchemy agno
     ```
   </Step>
 
   <Step title="Run the agent">
+    <!-- エージェントを実行します -->
     ```bash
     python user_memories.py
     ```

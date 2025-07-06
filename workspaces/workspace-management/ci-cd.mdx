@@ -2,46 +2,46 @@
 title: CI/CD
 ---
 
-Agno templates come pre-configured with [Github Actions](https://docs.github.com/en/actions) for CI/CD. We can
+Agno テンプレートには、CI/CD 用の [Github Actions](https://docs.github.com/en/actions) がプリコンフィグされています。以下のことが可能です。
 
-1. [Test and Validate on every PR](#test-and-validate-on-every-pr)
-2. [Build Docker Images with Github Releases](#build-docker-images-with-github-releases)
-3. [Build ECR Images with Github Releases](#build-ecr-images-with-github-releases)
+1. [PR ごとのテストと検証](#test-and-validate-on-every-pr)
+2. [Github Releases を使用した Docker イメージのビルド](#build-docker-images-with-github-releases)
+3. [Github Releases を使用した ECR イメージのビルド](#build-ecr-images-with-github-releases)
 
-## Test and Validate on every PR
+## PR ごとのテストと検証
 
-Whenever a PR is opened against the `main` branch, a validate script runs that ensures
+`main` ブランチに対する PR が開かれるたびに、以下のことを保証する検証スクリプトが実行されます。
 
-1. The changes are formatted using ruff
-2. All unit-tests pass
-3. The changes don't have any typing or linting errors.
+1. 変更は ruff を使用してフォーマットされていること
+2. すべての単体テストがパスすること
+3. 変更に型エラーや lint エラーがないこと
 
-Checkout the `.github/workflows/validate.yml` file for more information.
+詳細については、`.github/workflows/validate.yml` ファイルを確認してください。
 
 <img src="/images/validate-cicd.png" alt="validate-cicd" />
 
-## Build Docker Images with Github Releases
+## Github Releases を使用した Docker イメージのビルド
 
-If you're using [Dockerhub](https://hub.docker.com/) for images, you can buld and push the images throug a Github Release. This action is defined in the `.github/workflows/docker-images.yml` file.
+イメージに [Dockerhub](https://hub.docker.com/) を使用している場合、Github Release を通じてイメージをビルドおよびプッシュできます。このアクションは `.github/workflows/docker-images.yml` ファイルで定義されています。
 
-1. Create a [Docker Access Token](https://hub.docker.com/settings/security) for Github Actions
+1. Github Actions 用の [Docker アクセストークン](https://hub.docker.com/settings/security)を作成します。
 
 <img src="/images/docker-access-token.png" alt="docker-access-token" />
 
-2. Create secret variables `DOCKERHUB_REPO`, `DOCKERHUB_TOKEN` and `DOCKERHUB_USERNAME` in your github repo. These variables are used by the action in `.github/workflows/docker-images.yml`
+2. GitHub リポジトリに `DOCKERHUB_REPO`、`DOCKERHUB_TOKEN`、`DOCKERHUB_USERNAME` というシークレット変数を作成します。これらの変数は、`.github/workflows/docker-images.yml` のアクションによって使用されます。
 
 <img
   src="/images/github-actions-docker-secrets.png"
   alt="github-actions-docker-secrets"
 />
 
-3. Run workflow using a Github Release
+3. Github Release を使用してワークフローを実行します。
 
-This workflow is configured to run when a release is created. Create a new release using:
+このワークフローは、リリースが作成されたときに実行されるように構成されています。新しいリリースを作成するには、以下を使用します。
 
 <Note>
 
-Confirm the image name in the `.github/workflows/docker-images.yml` file before running
+実行前に `.github/workflows/docker-images.yml` ファイルでイメージ名を確認してください。
 
 </Note>
 
@@ -64,62 +64,62 @@ gh release create v0.1.0 --title "v0.1.0" -n ""
 
 <Note>
 
-You can also run the workflow using `gh workflow run`
+`gh workflow run` を使用してワークフローを実行することもできます。
 
 </Note>
 
-## Build ECR Images with Github Releases
+## Github Releases を使用した ECR イメージのビルド
 
-If you're using ECR for images, you can buld and push the images through a Github Release. This action is defined in the `.github/workflows/ecr-images.yml` file and uses the new OpenID Connect (OIDC) approach to request the access token, without using IAM access keys.
+イメージに ECR を使用している場合、Github Release を通じてイメージをビルドおよびプッシュできます。このアクションは `.github/workflows/ecr-images.yml` ファイルで定義されており、IAM アクセスキーを使用せずにアクセストークンを要求する新しい OpenID Connect (OIDC) アプローチを使用します。
 
-We will follow this [guide](https://aws.amazon.com/blogs/security/use-iam-roles-to-connect-github-actions-to-actions-in-aws/) to create an IAM role which will be used by the github action.
+この [ガイド](https://aws.amazon.com/blogs/security/use-iam-roles-to-connect-github-actions-to-actions-in-aws/) に従って、GitHub アクションが使用する IAM ロールを作成します。
 
-1. Open the IAM console.
-2. In the left navigation menu, choose Identity providers.
-3. In the Identity providers pane, choose Add provider.
-4. For Provider type, choose OpenID Connect.
-5. For Provider URL, enter the URL of the GitHub OIDC IdP: https://token.actions.githubusercontent.com
-6. Get thumbprint to verify the server certificate
-7. For Audience, enter sts.amazonaws.com.
+1. IAM コンソールを開きます。
+2. 左側のナビゲーションメニューで、[ID プロバイダー] を選択します。
+3. [ID プロバイダー] ペインで、[プロバイダーの追加] を選択します。
+4. [プロバイダータイプ] で、[OpenID Connect] を選択します。
+5. [プロバイダー URL] に、GitHub OIDC IdP の URL を入力します: https://token.actions.githubusercontent.com
+6. サムプリントを取得してサーバー証明書を検証します。
+7. [オーディエンス] に、sts.amazonaws.com と入力します。
 
-Verify the information matches the screenshot below and Add provider
+情報が以下のスクリーンショットと一致することを確認し、[プロバイダーの追加] を選択します。
 
 <img src="/images/github-oidc-provider.png" alt="github-oidc-provider" />
 
-8. Assign a Role to the provider.
+8. プロバイダーにロールを割り当てます。
 
 <img
   src="/images/github-oidc-provider-assign-role.png"
   alt="github-oidc-provider-assign-role"
 />
 
-9. Create a new role.
+9. 新しいロールを作成します。
 
 <img
   src="/images/github-oidc-provider-create-new-role.png"
   alt="github-oidc-provider-create-new-role"
 />
 
-10. Confirm that Web identity is already selected as the trusted entity and the Identity provider field is populated with the IdP. In the Audience list, select sts.amazonaws.com, and then select Next.
+10. [信頼されたエンティティ] で Web ID が選択されており、[ID プロバイダー] フィールドに IdP が入力されていることを確認します。[オーディエンス] リストで sts.amazonaws.com を選択し、[次へ] を選択します。
 
 <img
   src="/images/github-oidc-provider-trusted-entity.png"
   alt="github-oidc-provider-trusted-entity"
 />
 
-11. Add the `AmazonEC2ContainerRegistryPowerUser` permission to this role.
+11. このロールに `AmazonEC2ContainerRegistryPowerUser` 権限を追加します。
 
-12. Create the role with the name `GithubActionsRole`.
+12. `GithubActionsRole` という名前でロールを作成します。
 
-13. Find the role `GithubActionsRole` and copy the ARN.
+13. `GithubActionsRole` ロールを見つけて、ARN をコピーします。
 
 <img src="/images/github-oidc-role.png" alt="github-oidc-role" />
 
-14. Create the ECR Repositories: `llm` and `jupyter-llm` which are built by the workflow.
+14. ワークフローによってビルドされる ECR リポジトリ `llm` および `jupyter-llm` を作成します。
 
 <img src="/images/create-ecr-image.png" alt="create-ecr-image" />
 
-15. Update the workflow with the `GithubActionsRole` ARN and ECR Repository.
+15. ワークフローを `GithubActionsRole` ARN および ECR リポジトリで更新します。
 
 ```yaml .github/workflows/ecr-images.yml
 name: Build ECR Images
@@ -140,7 +140,7 @@ env:
   AWS_REGION: us-east-1
 ```
 
-16. Update the `docker-images` workflow to **NOT** run on a release
+16. `docker-images` ワークフローを、リリース時に実行されないように更新します。
 
 ```yaml .github/workflows/docker-images.yml
 name: Build Docker Images
@@ -148,7 +148,7 @@ name: Build Docker Images
 on: workflow_dispatch
 ```
 
-17. Run workflow using a Github Release
+17. Github Release を使用してワークフローを実行します。
 
 <CodeGroup>
 
@@ -169,6 +169,6 @@ gh release create v0.2.0 --title "v0.2.0" -n ""
 
 <Note>
 
-You can also run the workflow using `gh workflow run`
+`gh workflow run` を使用してワークフローを実行することもできます。
 
 </Note>

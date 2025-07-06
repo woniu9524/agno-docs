@@ -1,18 +1,18 @@
 ---
-title: Agent with Storage
+title: ストレージ付きエージェント
 ---
 
-This example shows how to create an AI cooking assistant that combines knowledge from a curated recipe database with web searching capabilities and persistent storage. The agent uses a PDF knowledge base of authentic Thai recipes and can supplement this information with web searches when needed.
+この例では、キュレーションされたレシピデータベースからの知識と、Web検索機能および永続ストレージを組み合わせたAI料理アシスタントを作成する方法を示します。このエージェントは、本格的なタイ料理レシピのPDFナレッジベースを使用し、必要に応じてWeb検索で情報を補完できます。
 
-Example prompts to try:
-- "How do I make authentic Pad Thai?"
-- "What's the difference between red and green curry?"
-- "Can you explain what galangal is and possible substitutes?"
-- "Tell me about the history of Tom Yum soup"
-- "What are essential ingredients for a Thai pantry?"
-- "How do I make Thai basil chicken (Pad Kra Pao)?"
+試すためのプロンプト例：
+- 「本格的なパッタイの作り方を教えてください？」
+- 「レッドカレーとグリーンカレーの違いは何ですか？」
+- 「ガランガルについて説明し、代替品を教えてもらえますか？」
+- 「トムヤムクンスープの歴史について教えてください」
+- 「タイの食料庫に不可欠な材料は何ですか？」
+- 「タイバジルチキン（パット・グラパオ）の作り方を教えてください？」
 
-## Code
+## コード
 
 ```python agent_with_storage.py
 from textwrap import dedent
@@ -44,8 +44,8 @@ agent_storage = SqliteStorage(table_name="recipe_agent", db_file="tmp/agents.db"
 def recipe_agent(user: str = "user"):
     session_id: Optional[str] = None
 
-    # Ask the user if they want to start a new session or continue an existing one
-    new = typer.confirm("Do you want to start a new session?")
+    # ユーザーに新しいセッションを開始するか、既存のセッションを続行するかを尋ねます
+    new = typer.confirm("新しいセッションを開始しますか？")
 
     if not new:
         existing_sessions: List[str] = agent_storage.get_all_session_ids(user)
@@ -57,102 +57,101 @@ def recipe_agent(user: str = "user"):
         session_id=session_id,
         model=OpenAIChat(id="gpt-4o"),
         instructions=dedent("""\
-            You are a passionate and knowledgeable Thai cuisine expert! 🧑‍🍳
-            Think of yourself as a combination of a warm, encouraging cooking instructor,
-            a Thai food historian, and a cultural ambassador.
+            あなたは情熱的で知識豊富なタイ料理のエキスパートです！ 🧑‍🍳
+            温かく励みになる料理インストラクター、タイ料理の歴史家、文化大使の組み合わせと考えてください。
 
-            Follow these steps when answering questions:
-            1. First, search the knowledge base for authentic Thai recipes and cooking information
-            2. If the information in the knowledge base is incomplete OR if the user asks a question better suited for the web, search the web to fill in gaps
-            3. If you find the information in the knowledge base, no need to search the web
-            4. Always prioritize knowledge base information over web results for authenticity
-            5. If needed, supplement with web searches for:
-               - Modern adaptations or ingredient substitutions
-               - Cultural context and historical background
-               - Additional cooking tips and troubleshooting
+            質問に答える際は、次の手順に従ってください：
+            1. まず、ナレッジベースで本格的なタイ料理レシピと料理情報 を検索してください。
+            2. ナレッジベースの情報が不完全な場合、またはユーザーがWebに適した質問をした場合は、Webを検索してギャップを埋めてください。
+            3. ナレッジベースで情報が見つかった場合は、Webを検索する必要はありません。
+            4. 本格性を保つために、常にナレッジベースの情報をWeb検索の結果よりも優先してください。
+            5. 必要に応じて、Web検索で以下の情報を補完してください：
+               - 最新の適応または材料の代替品
+               - 文化的な文脈と歴史的背景
+               - 追加の料理のヒントとトラブルシューティング
 
-            Communication style:
-            1. Start each response with a relevant cooking emoji
-            2. Structure your responses clearly:
-               - Brief introduction or context
-               - Main content (recipe, explanation, or history)
-               - Pro tips or cultural insights
-               - Encouraging conclusion
-            3. For recipes, include:
-               - List of ingredients with possible substitutions
-               - Clear, numbered cooking steps
-               - Tips for success and common pitfalls
-            4. Use friendly, encouraging language
+            コミュニケーションスタイル：
+            1. 各応答は関連する料理の絵文字で始めてください。
+            2. 応答を明確に構造化してください：
+               - 簡単な紹介または文脈
+               - メインコンテンツ（レシピ、説明、または歴史）
+               - プロのヒントまたは文化的な洞察
+               - 励みになる結論
+            3. レシピには以下を含めてください：
+               - 代替品の可能性のある材料のリスト
+               - 明確で番号付けされた調理手順
+               - 成功のためのヒントと一般的な落とし穴
+            4. フレンドリーで励みになる言葉遣いを使用してください。
 
-            Special features:
-            - Explain unfamiliar Thai ingredients and suggest alternatives
-            - Share relevant cultural context and traditions
-            - Provide tips for adapting recipes to different dietary needs
-            - Include serving suggestions and accompaniments
+            特別な機能：
+            - タイの馴染みのない食材を説明し、代替案を提案してください。
+            - 関連する文化的文脈と伝統を共有してください。
+            - さまざまな食事のニーズに適応させるためのヒントを提供してください。
+            - 盛り付けの提案と付け合わせを含めてください。
 
-            End each response with an uplifting sign-off like:
-            - 'Happy cooking! ขอให้อร่อย (Enjoy your meal)!'
-            - 'May your Thai cooking adventure bring joy!'
-            - 'Enjoy your homemade Thai feast!'
+            各応答は、次のような前向きな結びの言葉で締めくくってください：
+            - 「Happy cooking! ขอให้อร่อย (お食事をお楽しみください)！」
+            - 「May your Thai cooking adventure bring joy!」
+            - 「Enjoy your homemade Thai feast!」
 
-            Remember:
-            - Always verify recipe authenticity with the knowledge base
-            - Clearly indicate when information comes from web sources
-            - Be encouraging and supportive of home cooks at all skill levels\
+            覚えておいてください：
+            - ナレッジベースでレシピの本格性を常に確認してください。
+            - 情報がWebソースから来ている場合は、明確に示してください。
+            - すべてのスキルレベルの家庭料理人を励まし、サポートしてください。
         """),
         storage=agent_storage,
         knowledge=agent_knowledge,
         tools=[DuckDuckGoTools()],
-        # Show tool calls in the response
+        # ツール呼び出しを応答に表示します
         show_tool_calls=True,
-        # To provide the agent with the chat history
-        # We can either:
-        # 1. Provide the agent with a tool to read the chat history
-        # 2. Automatically add the chat history to the messages sent to the model
+        # エージェントにチャット履歴を提供するために
+        # 次のいずれかを行うことができます：
+        # 1. エージェントにチャット履歴を読み取るツールを提供します
+        # 2. チャット履歴をモデルに送信されるメッセージに自動的に追加します
         #
-        # 1. Provide the agent with a tool to read the chat history
+        # 1. エージェントにチャット履歴を読み取るツールを提供します
         read_chat_history=True,
-        # 2. Automatically add the chat history to the messages sent to the model
+        # 2. チャット履歴をモデルに送信されるメッセージに自動的に追加します
         # add_history_to_messages=True,
-        # Number of historical responses to add to the messages.
+        # メッセージに追加する履歴応答の数。
         # num_history_responses=3,
         markdown=True,
     )
 
-    print("You are about to chat with an agent!")
+    print("エージェントとチャットを開始します！")
     if session_id is None:
         session_id = agent.session_id
         if session_id is not None:
-            print(f"Started Session: {session_id}\n")
+            print(f"セッション開始: {session_id}\n")
         else:
-            print("Started Session\n")
+            print("セッション開始\n")
     else:
-        print(f"Continuing Session: {session_id}\n")
+        print(f"セッション続行: {session_id}\n")
 
-    # Runs the agent as a command line application
+    # エージェントをコマンドラインアプリケーションとして実行します
     agent.cli_app(markdown=True)
 
 
 if __name__ == "__main__":
-    # Comment out after the knowledge base is loaded
+    # ナレッジベースがロードされた後にコメントアウトしてください
     if agent_knowledge is not None:
         agent_knowledge.load()
 
     typer.run(recipe_agent)
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install libraries">
+  <Step title="ライブラリのインストール">
     ```bash
     pip install openai lancedb tantivy pypdf duckduckgo-search sqlalchemy agno
     ```
   </Step>
 
-  <Step title="Run the agent">
+  <Step title="エージェントの実行">
     ```bash
     python agent_with_storage.py
     ```

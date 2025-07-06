@@ -1,16 +1,16 @@
-| Parameter                     | Type                          | Default        | Description                                                  |
+| パラメータ                     | タイプ                          | デフォルト        | 説明                                                         |
 | ---------------------------- | ----------------------------- | -------------- | ------------------------------------------------------------ |
-| `id`                         | `str`                         | `"llama3.1"`   | The ID of the model to use.                                  |
-| `name`                       | `str`                         | `"Ollama"`     | The name of the model.                                       |
-| `provider`                   | `str`                         | `"Ollama"`     | The provider of the model.                                   |
-| `format`                     | `Optional[Any]`               | `None`         | The format of the response.                                  |
-| `options`                    | `Optional[Any]`               | `None`         | Additional options to pass to the model.                     |
-| `keep_alive`                 | `Optional[Union[float, str]]` | `None`         | The keep alive time for the model.                           |
-| `request_params`             | `Optional[Dict[str, Any]]`    | `None`         | Additional parameters to pass to the request.                |
-| `host`                       | `Optional[str]`               | `None`         | The host to connect to.                                      |
-| `timeout`                    | `Optional[Any]`               | `None`         | The timeout for the connection.                              |
-| `client_params`              | `Optional[Dict[str, Any]]`    | `None`         | Additional parameters to pass to the client.                 |
-| `client`                     | `Optional[OllamaClient]`      | `None`         | A pre-configured instance of the Ollama client.              |
-| `async_client`               | `Optional[AsyncOllamaClient]` | `None`         | A pre-configured instance of the asynchronous Ollama client. |
-| `structured_outputs`         | `bool`                        | `False`        | Whether to use the structured outputs with this Model.       |
-| `supports_structured_outputs`| `bool`                        | `True`         | Whether the Model supports structured outputs.                |
+| `id`                         | `str`                         | `"llama3.1"`   | 使用するモデルのID。                                         |
+| `name`                       | `str`                         | `"Ollama"`     | モデルの名前。                                               |
+| `provider`                   | `str`                         | `"Ollama"`     | モデルのプロバイダー。                                       |
+| `format`                     | `Optional[Any]`               | `None`         | レスポンスのフォーマット。                                   |
+| `options`                    | `Optional[Any]`               | `None`         | モデルに渡す追加オプション。                                 |
+| `keep_alive`                 | `Optional[Union[float, str]]` | `None`         | モデルのキープアライブ時間。                                 |
+| `request_params`             | `Optional[Dict[str, Any]]`    | `None`         | リクエストに渡す追加パラメータ。                             |
+| `host`                       | `Optional[str]`               | `None`         | 接続先のホスト。                                             |
+| `timeout`                    | `Optional[Any]`               | `None`         | 接続のタイムアウト。                                         |
+| `client_params`              | `Optional[Dict[str, Any]]`    | `None`         | クライアントに渡す追加パラメータ。                           |
+| `client`                     | `Optional[OllamaClient]`      | `None`         | 事前に設定されたOllamaクライアントのインスタンス。           |
+| `async_client`               | `Optional[AsyncOllamaClient]` | `None`         | 事前に設定された非同期Ollamaクライアントのインスタンス。     |
+| `structured_outputs`         | `bool`                        | `False`        | このモデルで構造化出力を利用するかどうか。                   |
+| `supports_structured_outputs`| `bool`                        | `True`         | モデルが構造化出力をサポートしているかどうか。               |

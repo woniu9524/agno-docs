@@ -2,9 +2,9 @@
 title: Reasoning Agent
 ---
 
-This example shows how to use the reasoning with whatsapp app.
+この例では、WhatsAppアプリでの推論の使用方法を示します。
 
-## Code
+## コード
 
 ```python cookbook/apps/whatsapp/reasoning_agent.py
 from agno.agent import Agent
@@ -44,24 +44,24 @@ if __name__ == "__main__":
 
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="APIキーの設定">
     ```bash
     export ANTHROPIC_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="ライブラリのインストール">
     ```bash
     pip install -U agno anthropic yfinance "uvicorn[standard]"
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="エージェントの実行">
     <CodeGroup>
     ```bash Mac
     python cookbook/apps/whatsapp/reasoning_agent.py
@@ -72,4 +72,4 @@ if __name__ == "__main__":
     ```
     </CodeGroup>
   </Step>
-</Steps> 
+</Steps>

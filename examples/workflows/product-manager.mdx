@@ -1,9 +1,9 @@
 ---
 title: Product Manager
 ---
-**ProductManager** generates tasks from meeting notes, creates corresponding issues in Linear, and sends Slack notifications with task details to the team.
+**ProductManager** は、会議の議事録からタスクを生成し、Linear に対応する課題を作成し、チームにタスクの詳細を Slack 通知します。
 
-Create a file `product_manager.py` with the following code:
+次のコードで `product_manager.py` ファイルを作成します。
 
 ```python product_manager.py
 import os
@@ -21,44 +21,44 @@ from pydantic import BaseModel, Field
 
 
 class Task(BaseModel):
-    task_title: str = Field(..., description="The title of the task")
+    task_title: str = Field(..., description="タスクのタイトル")
     task_description: Optional[str] = Field(
-        None, description="The description of the task"
+        None, description="タスクの説明"
     )
-    task_assignee: Optional[str] = Field(None, description="The assignee of the task")
+    task_assignee: Optional[str] = Field(None, description="タスクの担当者")
 
 
 class LinearIssue(BaseModel):
-    issue_title: str = Field(..., description="The title of the issue")
+    issue_title: str = Field(..., description="課題のタイトル")
     issue_description: Optional[str] = Field(
-        None, description="The description of the issue"
+        None, description="課題の説明"
     )
-    issue_assignee: Optional[str] = Field(None, description="The assignee of the issue")
-    issue_link: Optional[str] = Field(None, description="The link to the issue")
+    issue_assignee: Optional[str] = Field(None, description="課題の担当者")
+    issue_link: Optional[str] = Field(None, description="課題へのリンク")
 
 
 class LinearIssueList(BaseModel):
-    issues: List[LinearIssue] = Field(..., description="A list of issues")
+    issues: List[LinearIssue] = Field(..., description="課題のリスト")
 
 
 class TaskList(BaseModel):
-    tasks: List[Task] = Field(..., description="A list of tasks")
+    tasks: List[Task] = Field(..., description="タスクのリスト")
 
 
 class ProductManagerWorkflow(Workflow):
-    description: str = "Generate linear tasks and send slack notifications to the team from meeting notes."
+    description: str = "会議の議事録から Linear タスクを生成し、チームに Slack 通知を送信します。"
 
     task_agent: Agent = Agent(
         name="Task Agent",
         instructions=[
-            "Given a meeting note, generate a list of tasks with titles, descriptions and assignees."
+            "会議の議事録が与えられたら、タイトル、説明、担当者を含むタスクのリストを生成してください。"
         ],
         response_model=TaskList,
     )
 
     linear_agent: Agent = Agent(
         name="Linear Agent",
-        instructions=["Given a list of tasks, create issues in Linear."],
+        instructions=["タスクのリストが与えられたら、Linear で課題を作成してください。"],
         tools=[LinearTools()],
         response_model=LinearIssueList,
     )
@@ -66,7 +66,7 @@ class ProductManagerWorkflow(Workflow):
     slack_agent: Agent = Agent(
         name="Slack Agent",
         instructions=[
-            "Send a slack notification to the #test channel with a heading (bold text) including the current date and tasks in the following format: ",
+            "現在の Сurrent Date を含む見出し（太字テキスト）と、以下の形式のタスクを #test チャンネルに Slack 通知を送信してください。",
             "*Title*: <issue_title>",
             "*Description*: <issue_description>",
             "*Assignee*: <issue_assignee>",
@@ -96,9 +96,9 @@ class ProductManagerWorkflow(Workflow):
                 ):
                     tasks = response.content
                 else:
-                    logger.warning("Invalid response from task agent, trying again...")
+                    logger.warning("タスクエージェントからの応答が無効です。再試行します...")
             except Exception as e:
-                logger.warning(f"Error generating tasks: {e}")
+                logger.warning(f"タスク生成中にエラーが発生しました: {e}")
 
         return tasks
 
@@ -108,18 +108,18 @@ class ProductManagerWorkflow(Workflow):
         project_id = os.getenv("LINEAR_PROJECT_ID")
         team_id = os.getenv("LINEAR_TEAM_ID")
         if project_id is None:
-            raise Exception("LINEAR_PROJECT_ID is not set")
+            raise Exception("LINEAR_PROJECT_ID が設定されていません")
         if team_id is None:
-            raise Exception("LINEAR_TEAM_ID is not set")
+            raise Exception("LINEAR_TEAM_ID が設定されていません")
 
-        # Create issues in Linear
-        logger.info(f"Creating issues in Linear: {tasks.model_dump_json()}")
+        # Linear で課題を作成
+        logger.info(f"Linear で課題を作成しています: {tasks.model_dump_json()}")
         linear_response: RunResponse = self.linear_agent.run(
-            f"Create issues in Linear for project {project_id} and team {team_id}: {tasks.model_dump_json()} and here is the dictionary of users and their uuid: {linear_users}. If you fail to create an issue, try again."
+            f"プロジェクト {project_id} およびチーム {team_id} の Linear で課題を作成してください: {tasks.model_dump_json()}。ユーザーとその UUID の辞書はこちらです: {linear_users}。課題の作成に失敗した場合は、再試行してください。"
         )
         linear_issues = None
         if linear_response:
-            logger.info(f"Linear response: {linear_response}")
+            logger.info(f"Linear 応答: {linear_response}")
             linear_issues = linear_response.content
 
         return linear_issues
@@ -127,7 +127,7 @@ class ProductManagerWorkflow(Workflow):
     def run(
         self, meeting_notes: str, linear_users: Dict[str, str], use_cache: bool = False
     ) -> RunResponse:
-        logger.info(f"Generating tasks from meeting notes: {meeting_notes}")
+        logger.info(f"会議の議事録からタスクを生成しています: {meeting_notes}")
         current_date = datetime.now().strftime("%Y-%m-%d")
 
         if use_cache:
@@ -139,7 +139,7 @@ class ProductManagerWorkflow(Workflow):
             return RunResponse(
                 run_id=self.run_id,
                 event=RunEvent.workflow_completed,
-                content="Sorry, could not generate tasks from meeting notes.",
+                content="申し訳ありませんが、会議の議事録からタスクを生成できませんでした。",
             )
 
         if "meeting_notes" not in self.session_state:
@@ -150,20 +150,20 @@ class ProductManagerWorkflow(Workflow):
 
         linear_issues = self.create_linear_issues(tasks, linear_users)
 
-        # Send slack notification with tasks
+        # タスクを含む Slack 通知を送信
         if linear_issues:
             logger.info(
-                f"Sending slack notification with tasks: {linear_issues.model_dump_json()}"
+                f"タスクを含む Slack 通知を送信しています: {linear_issues.model_dump_json()}"
             )
             slack_response: RunResponse = self.slack_agent.run(
                 linear_issues.model_dump_json()
             )
-            logger.info(f"Slack response: {slack_response}")
+            logger.info(f"Slack 応答: {slack_response}")
 
         return slack_response
 
 
-# Create the workflow
+# ワークフローを作成
 product_manager = ProductManagerWorkflow(
     session_id="product-manager",
     storage=PostgresStorage(
@@ -181,11 +181,11 @@ users_uuid = {
     "James": "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d",
 }
 
-# Run workflow
+# ワークフローを実行
 product_manager.run(meeting_notes=meeting_notes, linear_users=users_uuid)
 ```
 
-## Meeting Notes
+## 会議の議事録
 
 ```text meeting_notes.txt
 Daily Standup Meeting - Technical Team
@@ -221,18 +221,18 @@ Meeting ended at 9:45 AM
 
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install libraries">
+  <Step title="ライブラリのインストール">
     ```bash
     pip install "psycopg[binary]" slack-sdk
     ```
   </Step>
 
-  <Step title="Run the agent">
+  <Step title="エージェントの実行">
     ```bash
     python product_manager.py
     ```

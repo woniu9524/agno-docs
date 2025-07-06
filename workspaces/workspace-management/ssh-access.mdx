@@ -1,20 +1,20 @@
 ---
-title: SSH Access
+title: SSH アクセス
 ---
 
-SSH Access is an important part of the developer workflow.
+SSH アクセスは、開発者のワークフローにおいて重要な部分です。
 
-## Dev SSH Access
+## 開発環境 SSH アクセス
 
-SSH into the dev containers using the `docker exec` command
+`docker exec` コマンドを使用して、開発コンテナに SSH 接続します。
 
 ```bash
 docker exec -it ai-api zsh
 ```
 
-## Production SSH Access
+## 本番環境 SSH アクセス
 
-Your ECS tasks are already enabled with SSH access. SSH into the production containers using:
+ECS タスクには、すでに SSH アクセスが有効になっています。本番環境コンテナに SSH 接続するには、以下を使用します。
 
 ```bash
 ECS_CLUSTER=ai-app-prd-cluster
@@ -26,4 +26,3 @@ aws ecs execute-command --cluster $ECS_CLUSTER \
     --container $CONTAINER_NAME \
     --interactive \
     --command "zsh"
-```

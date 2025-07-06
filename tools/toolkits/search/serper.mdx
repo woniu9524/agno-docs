@@ -2,19 +2,19 @@
 title: SerperApi
 ---
 
-**SerperApiTools** enable an Agent to search Google for a query.
+**SerperApiTools** は、エージェントがGoogleでクエリを検索できるようにします。
 
-## Prerequisites
+## 前提条件
 
-The following example requires an API key from [SerperApi](https://serper.dev/).
+以下の例では、[SerperApi](https://serper.dev/) からAPIキーが必要です。
 
 ```shell
 export SERPER_API_KEY=***
 ```
 
-## Example
+## 例
 
-The following agent will search Google for the query: "Whats happening in the USA" and share results.
+以下のエージェントは、Googleで「Whats happening in the USA」というクエリを検索し、結果を共有します。
 
 ```python cookbook/tools/serper_tools.py
 from agno.agent import Agent
@@ -24,20 +24,20 @@ agent = Agent(tools=[SerperTools(location="us")], show_tool_calls=True)
 agent.print_response("Whats happening in the USA?", markdown=True)
 ```
 
-## Toolkit Params
+## Toolkit パラメータ
 
-| Parameter  | Type  | Default | Description                          |
+| パラメータ  | タイプ  | デフォルト | 説明                                 |
 | ---------- | ----- | ------- | ------------------------------------ |
-| `api_key`  | `str` | -       | API key for authentication purposes. |
-| `location` | `str` | `"us"`  | Location to search from.             |
+| `api_key`  | `str` | -       | 認証目的のAPIキー。                  |
+| `location` | `str` | `"us"`  | 検索元の場所。                       |
 
-## Toolkit Functions
+## Toolkit 関数
 
-| Function        | Description                                |
-| --------------- | ------------------------------------------ |
-| `search_google` | This function searches Google for a query. |
+| 関数        | 説明                               |
+| --------------- | ---------------------------------- |
+| `search_google` | この関数はGoogleでクエリを検索します。 |
 
-## Developer Resources
+## 開発者向けリソース
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/serper.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/serper_tools.py)
+- [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/serper.py) を表示
+- [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/serper_tools.py) を表示

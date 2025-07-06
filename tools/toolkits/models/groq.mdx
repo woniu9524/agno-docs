@@ -3,18 +3,18 @@ title: Groq
 sidebarTitle: Groq
 ---
 
-`GroqTools` allows an Agent to interact with the Groq API for performing fast audio transcription, translation, and text-to-speech (TTS).
+`GroqTools` を使用すると、Agent は Groq API と対話して、高速な音声文字起こし、翻訳、テキスト読み上げ (TTS) を実行できます。
 
-## Prerequisites
+## 前提条件
 
-Before using `GroqTools`, ensure you have the `groq` library installed and your Groq API key configured.
+`GroqTools` を使用する前に、`groq` ライブラリがインストールされており、Groq API キーが設定されていることを確認してください。
 
-1.  **Install the library:**
+1.  **ライブラリのインストール:**
     ```bash
     pip install -U groq
     ```
 
-2.  **Set your API key:** Obtain your API key from the [Groq Console](https://console.groq.com/keys) and set it as an environment variable.
+2.  **API キーの設定:** [Groq Console](https://console.groq.com/keys) から API キーを取得し、環境変数として設定します。
 
     <CodeGroup>
     ```bash Mac
@@ -25,9 +25,9 @@ Before using `GroqTools`, ensure you have the `groq` library installed and your 
     ```
     </CodeGroup>
 
-## Initialization
+## 初期化
 
-Import `GroqTools` and add it to your Agent's tool list.
+`GroqTools` をインポートし、Agent のツールリストに追加します。
 
 ```python
 from agno.agent import Agent
@@ -42,13 +42,11 @@ agent = Agent(
 )
 ```
 
+## 使用例
 
+### 1. 音声の文字起こし
 
-## Usage Examples
-
-### 1. Transcribing Audio
-
-This example demonstrates how to transcribe an audio file hosted at a URL.
+この例では、URL でホストされている音声ファイルを文字起こしする方法を示します。
 
 ```python transcription_agent.py
 import os
@@ -68,9 +66,9 @@ agent = Agent(
 agent.print_response(f"Please transcribe the audio file located at '{audio_url}'")
 ```
 
-### 2. Translating Audio and Generating Speech
+### 2. 音声の翻訳と音声生成
 
-This example shows how to translate an audio file (e.g., French) to English and then generate a new audio file from the translated text.
+この例では、音声ファイル (例: フランス語) を英語に翻訳し、その後、翻訳されたテキストから新しい音声ファイルを生成する方法を示します。
 
 ```python translation_agent.py
 from pathlib import Path
@@ -100,7 +98,8 @@ response = agent.run_response
 if response and response.audio:
     save_base64_data(response.audio[0].base64_audio, output_path)
 ```
-You can customize the underlying Groq models used for transcription, translation, and TTS during initialization:
+
+初期化中に、文字起こし、翻訳、TTS に使用される基盤となる Groq モデルをカスタマイズできます。
 
 ```python
 groq_tools = GroqTools(
@@ -111,19 +110,18 @@ groq_tools = GroqTools(
 )
 ```
 
-## Toolkit Functions
+## ツールキット関数
 
-The `GroqTools` toolkit provides the following functions:
+`GroqTools` ツールキットは、次の関数を提供します。
 
-| Function           | Description                                                                   |
-| ------------------ | ----------------------------------------------------------------------------- |
-| `transcribe_audio` | Transcribes audio from a local file path or a public URL using Groq Whisper.  |
-| `translate_audio`  | Translates audio from a local file path or public URL to English using Groq. |
-| `generate_speech`  | Generates speech from text using Groq TTS. |
+| 関数           | 説明                                                                   |
+| -------------- | ---------------------------------------------------------------------- |
+| `transcribe_audio` | Groq Whisper を使用して、ローカルファイルパスまたは公開 URL から音声を文字起こしします。 |
+| `translate_audio`  | Groq を使用して、ローカルファイルパスまたは公開 URL から音声を英語に翻訳します。 |
+| `generate_speech`  | Groq TTS を使用して、テキストから音声を生成します。                               |
 
-## Developer Resources
+## 開発者向けリソース
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/models/groq.py)
-- View [Transcription Example](https://github.com/agno-agi/agno/blob/main/cookbook/models/groq/transcription_agent.py)
-- View [Translation Example](https://github.com/agno-agi/agno/blob/main/cookbook/models/groq/translation_agent.py)
-
+- [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/models/groq.py) を表示
+- [Transcription Example](https://github.com/agno-agi/agno/blob/main/cookbook/models/groq/transcription_agent.py) を表示
+- [Translation Example](https://github.com/agno-agi/agno/blob/main/cookbook/models/groq/translation_agent.py) を表示

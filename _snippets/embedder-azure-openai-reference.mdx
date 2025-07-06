@@ -1,19 +1,19 @@
-### Parameters
+### パラメータ
 
-| Parameter | Type | Description | Default |
+| パラメータ | タイプ | 説明 | デフォルト |
 |-----------|------|-------------|---------|
-| `id` | `str` | The model ID that matches your deployed model | `"text-embedding-3-small"` |
-| `dimensions` | `int` | Output dimensions of the embedding | `1536` |
-| `encoding_format` | `Literal["float", "base64"]` | Format of the embedding output | `"float"` |
-| `user` | `Optional[str]` | A unique identifier representing your end-user | `None` |
-| `api_key` | `Optional[str]` | Azure OpenAI API key | Environment variable `AZURE_EMBEDDER_OPENAI_API_KEY` |
-| `api_version` | `str` | Azure OpenAI API version | Environment variable `AZURE_EMBEDDER_OPENAI_API_VERSION` or `"2024-10-21"` |
-| `azure_endpoint` | `Optional[str]` | Azure OpenAI endpoint URL | Environment variable `AZURE_EMBEDDER_OPENAI_ENDPOINT` |
-| `azure_deployment` | `Optional[str]` | Azure OpenAI deployment name | Environment variable `AZURE_EMBEDDER_DEPLOYMENT` |
-| `base_url` | `Optional[str]` | Base URL for API requests | `None` |
-| `azure_ad_token` | `Optional[str]` | Azure AD token for authentication | `None` |
-| `azure_ad_token_provider` | `Optional[Any]` | Provider for Azure AD tokens | `None` |
-| `organization` | `Optional[str]` | Organization ID for API requests | `None` |
-| `request_params` | `Optional[Dict[str, Any]]` | Additional parameters for embedding requests | `None` |
-| `client_params` | `Optional[Dict[str, Any]]` | Additional parameters for client initialization | `None` |
-| `openai_client` | `Optional[AzureOpenAIClient]` | Pre-configured Azure OpenAI client | `None` |
+| `id` | `str` | デプロイされたモデルと一致するモデルID | `"text-embedding-3-small"` |
+| `dimensions` | `int` | 埋め込みの出力次元数 | `1536` |
+| `encoding_format` | `Literal["float", "base64"]` | 埋め込み出力のフォーマット | `"float"` |
+| `user` | `Optional[str]` | エンドユーザーを表す一意の識別子 | `None` |
+| `api_key` | `Optional[str]` | Azure OpenAI API キー | 環境変数 `AZURE_EMBEDDER_OPENAI_API_KEY` |
+| `api_version` | `str` | Azure OpenAI API バージョン | 環境変数 `AZURE_EMBEDDER_OPENAI_API_VERSION` または `"2024-10-21"` |
+| `azure_endpoint` | `Optional[str]` | Azure OpenAI エンドポイント URL | 環境変数 `AZURE_EMBEDDER_OPENAI_ENDPOINT` |
+| `azure_deployment` | `Optional[str]` | Azure OpenAI デプロイメント名 | 環境変数 `AZURE_EMBEDDER_DEPLOYMENT` |
+| `base_url` | `Optional[str]` | API リクエストのベース URL | `None` |
+| `azure_ad_token` | `Optional[str]` | 認証用の Azure AD トークン | `None` |
+| `azure_ad_token_provider` | `Optional[Any]` | Azure AD トークンのプロバイダー | `None` |
+| `organization` | `Optional[str]` | API リクエスト用の組織 ID | `None` |
+| `request_params` | `Optional[Dict[str, Any]]` | 埋め込みリクエストの追加パラメータ | `None` |
+| `client_params` | `Optional[Dict[str, Any]]` | クライアント初期化の追加パラメータ | `None` |
+| `openai_client` | `Optional[AzureOpenAIClient]` | 事前に設定された Azure OpenAI クライアント | `None` |

@@ -2,109 +2,109 @@
 title: Introduction
 ---
 
-This guide walks through the basics of building Agents with Agno.
+このガイドでは、Agno で Agent を構築する基本について説明します。
 
-The examples build on each other, introducing new concepts and capabilities progressively. Each example contains detailed comments, example prompts, and required dependencies.
+例は互いに連携し、新しい概念と機能を段階的に紹介します。各例には、詳細なコメント、プロンプト例、および必要な依存関係が含まれています。
 
-## Setup
+## セットアップ
 
-Create a virtual environment:
+仮想環境を作成します。
 
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
 ```
 
-Install the required dependencies:
+必要な依存関係をインストールします。
 
 ```bash
 pip install openai duckduckgo-search yfinance lancedb tantivy pypdf requests exa-py newspaper4k lxml_html_clean sqlalchemy agno
 ```
 
-Export your OpenAI API key:
+OpenAI API キーをエクスポートします。
 
 ```bash
 export OPENAI_API_KEY=your_api_key
 ```
 
-## Examples
+## 例
 
 <CardGroup cols={3}>
   <Card title="Basic Agent" icon="robot" iconType="duotone" href="./basic-agent">
-    Build a news reporter with a vibrant personality. This Agent only shows basic LLM inference.
+    活気のある個性を持つニュースレポーターを作成します。この Agent は基本的な LLM 推論のみを表示します。
   </Card>
 
   <Card title="Agent with Tools" icon="toolbox" iconType="duotone" href="./agent-with-tools">
-    Add web search capabilities using DuckDuckGo for real-time information gathering.
+    DuckDuckGo を使用して Web 検索機能を追加し、リアルタイムの情報収集を行います。
   </Card>
 
   <Card title="Agent with Knowledge" icon="brain" iconType="duotone" href="./agent-with-knowledge">
-    Add a vector database to your agent to store and search knowledge.
+    ベクトルデータベースを Agent に追加して、知識を保存および検索します。
   </Card>
 
   <Card title="Agent with Storage" icon="database" iconType="duotone" href="./agent-with-storage">
-    Add persistence to your agents with session management and history capabilities.
+    セッション管理と履歴機能を使用して、Agent に永続性を追加します。
   </Card>
 
   <Card title="Agent Team" icon="users" iconType="duotone" href="./agent-team">
-    Create an agent team specializing in market research and financial analysis.
+    市場調査と財務分析を専門とする Agent チームを作成します。
   </Card>
 
   <Card title="Structured Output" icon="code" iconType="duotone" href="./structured-output">
-    Generate a structured output using a Pydantic model.
+    Pydantic モデルを使用して構造化された出力を生成します。
   </Card>
 
   <Card title="Custom Tools" icon="wrench" iconType="duotone" href="./custom-tools">
-    Create and integrate custom tools with your agent.
+    カスタムツールを作成して Agent に統合します。
   </Card>
 
   <Card title="Research Agent" icon="magnifying-glass" iconType="duotone" href="./research-agent">
-    Build an AI research agent using Exa with controlled output steering.
+    Exa を使用して AI リサーチ Agent を構築し、出力を制御します。
   </Card>
 
   <Card title="Research Workflow" icon="diagram-project" iconType="duotone" href="./research-workflow">
-    Create a research workflow combining web searches and content scraping.
+    Web 検索とコンテンツスクレイピングを組み合わせたリサーチワークフローを作成します。
   </Card>
 
   <Card title="Image Agent" icon="image" iconType="duotone" href="./image-agent">
-    Create an agent that can understand images.
+    画像を理解できる Agent を作成します。
   </Card>
 
   <Card title="Image Generation" icon="paintbrush" iconType="duotone" href="./image-generation">
-    Create an Agent that can generate images using DALL-E.
+    DALL-E を使用して画像を生成できる Agent を作成します。
   </Card>
 
   <Card title="Video Generation" icon="video" iconType="duotone" href="./video-generation">
-    Create an Agent that can generate videos using ModelsLabs.
+    ModelsLabs を使用してビデオを生成できる Agent を作成します。
   </Card>
 
   <Card title="Audio Agent" icon="microphone" iconType="duotone" href="./audio-agent">
-    Create an Agent that can process audio input and generate responses.
+    音声入力を処理し、応答を生成できる Agent を作成します。
   </Card>
 
   <Card title="Agent with State" icon="database" iconType="duotone" href="./agent-state">
-    Create an Agent with session state management.
+    セッション状態管理を備えた Agent を作成します。
   </Card>
 
   <Card title="Agent Context" icon="sitemap" iconType="duotone" href="./agent-context">
-    Evaluate dependencies at agent.run and inject them into the instructions.
+    agent.run で依存関係を評価し、それらを指示に注入します。
   </Card>
 
   <Card title="Agent Session" icon="clock-rotate-left" iconType="duotone" href="./agent-session">
-    Create an Agent with persistent session memory across conversations.
+    会話全体で永続的なセッションメモリを持つ Agent を作成します。
   </Card>
 
   <Card title="User Memories" icon="memory" iconType="duotone" href="./user-memories">
-    Create an Agent that stores user memories and summaries.
+    ユーザーの記憶と要約を保存する Agent を作成します。
   </Card>
 
   <Card title="Function Retries" icon="rotate" iconType="duotone" href="./retry-functions">
-    Handle function retries for failed or unsatisfactory outputs.
+    失敗した、または満足のいく出力が得られなかった関数リトライを処理します。
   </Card>
 
   <Card title="Human in the Loop" icon="user-check" iconType="duotone" href="./human-in-the-loop">
-    Add user confirmation and safety checks for interactive agent control.
+    対話型 Agent コントロールのためのユーザー確認と安全チェックを追加します。
   </Card>
 </CardGroup>
 
-Each example includes runnable code and detailed explanations. We recommend following them in order, as concepts build upon previous examples.
+各例には実行可能なコードと詳細な説明が含まれています。概念は前の例に基づいているため、順序に従うことをお勧めします。

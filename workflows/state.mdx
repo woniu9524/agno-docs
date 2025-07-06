@@ -1,17 +1,17 @@
 ---
-title: Workflow State
+title: ワークフローの状態
 ---
 
-All workflows come with a `session_state` dictionary that you can use to cache intermediate results. The `session_state` is tied to a `session_id` and can be persisted to a database.
+すべてのワークフローには、中間結果をキャッシュするために使用できる `session_state` 辞書が付属しています。`session_state` は `session_id` に紐付けられており、データベースに永続化できます。
 
-Provide your workflows with `storage` to enable persistence of session state in a database.
+ワークフローに `storage` を提供することで、データベースでのセッション状態の永続化を有効にできます。
 
-For example, you can use the `SqliteWorkflowStorage` to cache results in a Sqlite database.
+たとえば、`SqliteWorkflowStorage` を使用して、Sqlite データベースに結果をキャッシュできます。
 
 ```python
-# Create the workflow
+# ワークフローを作成
 generate_blog_post = BlogPostGenerator(
-    # Fix the session_id for this demo
+    # このデモのために session_id を固定
     session_id="my-session-id",
     storage=SqliteWorkflowStorage(
         table_name="generate_blog_post_workflows",
@@ -20,19 +20,19 @@ generate_blog_post = BlogPostGenerator(
 )
 ```
 
-Then in the `run()` method, you can read from and add to the `session_state` as needed.
+次に、`run()` メソッド内で、必要に応じて `session_state` から読み取ったり、追加したりできます。
 
 ```python
 
 class BlogPostGenerator(Workflow):
-    # ... agents
+    # ... エージェント
     def run(self, topic: str, use_cache: bool = True) -> Iterator[RunResponse]:
-        # Read from the session state cache
+        # セッション状態キャッシュから読み取る
         if use_cache and "blog_posts" in self.session_state:
-            logger.info("Checking if cached blog post exists")
+            logger.info("キャッシュされたブログ投稿が存在するか確認しています")
             for cached_blog_post in self.session_state["blog_posts"]:
                 if cached_blog_post["topic"] == topic:
-                    logger.info("Found cached blog post")
+                    logger.info("キャッシュされたブログ投稿が見つかりました")
                     yield RunResponse(
                         run_id=self.run_id,
                         event=RunEvent.workflow_completed,
@@ -40,20 +40,20 @@ class BlogPostGenerator(Workflow):
                     )
                     return
 
-        # ... generate the blog post
+        # ... ブログ投稿を生成
 
-        # Save to session state for future runs
+        # 将来の実行のためにセッション状態に保存
         if "blog_posts" not in self.session_state:
             self.session_state["blog_posts"] = []
         self.session_state["blog_posts"].append({"topic": topic, "blog_post": self.writer.run_response.content})
 ```
 
-When the workflow starts, the `session_state` for that particular `session_id` is read from the database and when the workflow ends, the `session_state` is stored in the database.
+ワークフローが開始されると、その特定の `session_id` の `session_state` がデータベースから読み取られ、ワークフローが終了すると、`session_state` がデータベースに保存されます。
 
 <Tip>
 
-You can always call `self.write_to_storage()` to save the `session_state` to the database at any time. In case you need to abort the workflow but want to store the intermediate results.
+いつでも `self.write_to_storage()` を呼び出して、`session_state` をデータベースに保存できます。ワークフローを中止する必要があるが、中間結果を保存したい場合などに便利です。
 
 </Tip>
 
-View the [Blog Post Generator](/workflows/introduction#full-example-blog-post-generator) for an example of how to use session state for caching.
+セッション状態をキャッシュに使用する方法の例については、[ブログ投稿ジェネレーター](/workflows/introduction#full-example-blog-post-generator) を参照してください。

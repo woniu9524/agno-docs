@@ -3,9 +3,9 @@ title: SentenceTransformers Embedder
 sidebarTitle: SentenceTransformers
 ---
 
-The `SentenceTransformerEmbedder` class is used to embed text data into vectors using the [SentenceTransformers](https://www.sbert.net/) library.
+`SentenceTransformerEmbedder` クラスは、[SentenceTransformers](https://www.sbert.net/) ライブラリを使用してテキストデータをベクトルに埋め込むために使用されます。
 
-## Usage
+## 使用方法
 
 ```python cookbook/embedders/sentence_transformer_embedder.py
 from agno.agent import AgentKnowledge
@@ -30,13 +30,13 @@ knowledge_base = AgentKnowledge(
 )
 ```
 
-## Params
+## パラメータ
 
-| Parameter                     | Type               | Default             | Description                                                  |
-| ----------------------------- | ------------------ | ------------------- | ------------------------------------------------------------ |
-| `dimensions`                  | `int`              | -                   | The dimensionality of the generated embeddings               |
-| `model`                       | `str`              | `all-mpnet-base-v2` | The name of the SentenceTransformers model to use            |
-| `sentence_transformer_client` | `Optional[Client]` | -                   | Optional pre-configured SentenceTransformers client instance |
+| パラメータ                     | タイプ               | デフォルト             | 説明                                       |
+| ----------------------------- | ------------------ | ------------------- | ------------------------------------------ |
+| `dimensions`                  | `int`              | -                   | 生成される埋め込みの次元数                 |
+| `model`                       | `str`              | `all-mpnet-base-v2` | 使用する SentenceTransformers モデルの名前 |
+| `sentence_transformer_client` | `Optional[Client]` | -                   | 事前に設定された SentenceTransformers クライアントインスタンス（オプション） |
 
-## Developer Resources
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/embedders/sentence_transformer_embedder.py)
+## 開発者向けリソース
+- [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/embedders/sentence_transformer_embedder.py) を表示

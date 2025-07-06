@@ -3,13 +3,13 @@ title: Redis Storage
 sidebarTitle: Redis
 ---
 
-Agno supports using Redis as a storage backend for Agents using the `RedisStorage` class.
+Agno は、`RedisStorage` クラスを使用して、エージェントのストレージバックエンドとして Redis をサポートしています。
 
-## Usage
+## 使用方法
 
-### Run Redis
+### Redis の実行
 
-Install [docker desktop](https://docs.docker.com/desktop/install/mac-install/) and run **Redis** on port **6379** using:
+[docker desktop](https://docs.docker.com/desktop/install/mac-install/) をインストールし、以下を使用してポート **6379** で **Redis** を実行します。
 
 ```bash
 docker run --name my-redis -p 6379:6379 -d redis
@@ -20,40 +20,40 @@ from agno.agent import Agent
 from agno.storage.redis import RedisStorage
 from agno.tools.duckduckgo import DuckDuckGoTools
 
-# Initialize Redis storage with default local connection
+# デフォルトのローカル接続で Redis ストレージを初期化
 storage = RedisStorage(
-    prefix="agno_test",    # Prefix for Redis keys to namespace the sessions
-    host="localhost",      # Redis host address
-    port=6379,             # Redis port number
+    prefix="agno_test",    # セッションの名前空間を設定するための Redis キーのプレフィックス
+    host="localhost",      # Redis ホストアドレス
+    port=6379,             # Redis ポート番号
 )
 
-# Create agent with Redis storage
+# Redis ストレージを使用してエージェントを作成
 agent = Agent(
     storage=storage,
     tools=[DuckDuckGoTools()],
     add_history_to_messages=True,
 )
 
-agent.print_response("How many people live in Canada?")
+agent.print_response("カナダの人口は何人ですか？")
 
-agent.print_response("What is their national anthem called?")
+agent.print_response("彼らの国歌は何と呼ばれていますか？")
 
-# Verify storage contents
-print("\nVerifying storage contents...")
+# ストレージの内容を確認
+print("\nストレージの内容を確認中...")
 all_sessions = storage.get_all_sessions()
-print(f"Total sessions in Redis: {len(all_sessions)}")
+print(f"Redis 内のセッション合計: {len(all_sessions)}")
 
 if all_sessions:
-    print("\nSession details:")
+    print("\nセッション詳細:")
     session = all_sessions[0]
-    print(f"Session ID: {session.session_id}")
-    print(f"Messages count: {len(session.memory['messages'])}")
+    print(f"セッション ID: {session.session_id}")
+    print(f"メッセージ数: {len(session.memory['messages'])}")
 ```
 
-## Params
+## パラメータ
 
 <Snippet file="storage-redis-params.mdx" />
 
-## Developer Resources
+## 開発者向けリソース
 
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/storage/redis_storage/redis_storage_for_agent.py)
+- [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/storage/redis_storage/redis_storage_for_agent.py) を表示

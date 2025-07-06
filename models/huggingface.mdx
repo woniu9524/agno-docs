@@ -1,18 +1,15 @@
 ---
 title: HuggingFace
-description: Learn how to use HuggingFace models in Agno.
+description: Agno で HuggingFace モデルを使用する方法を学ぶ。
 ---
 
-Hugging Face provides a wide range of state-of-the-art language models tailored to diverse NLP tasks,
-including text generation, summarization, translation, and question answering.
-These models are available through the Hugging Face Transformers library and are widely
-adopted due to their ease of use, flexibility, and comprehensive documentation.
+Hugging Face は、テキスト生成、要約、翻訳、質問応答など、さまざまな NLP タスクに対応した、幅広い最先端の言語モデルを提供しています。これらのモデルは Hugging Face Transformers ライブラリを通じて利用可能であり、使いやすさ、柔軟性、包括的なドキュメントにより広く採用されています。
 
-Explore HuggingFace’s language models [here](https://huggingface.co/docs/text-generation-inference/en/supported_models).
+HuggingFace の言語モデルは[こちら](https://huggingface.co/docs/text-generation-inference/en/supported_models)からご覧ください。
 
-## Authentication
+## 認証
 
-Set your `HF_TOKEN` environment. You can get one [from HuggingFace here](https://huggingface.co/settings/tokens).
+`HF_TOKEN` 環境変数を設定してください。トークンは[HuggingFace のこちら](https://huggingface.co/settings/tokens)から取得できます。
 
 <CodeGroup>
 
@@ -26,9 +23,9 @@ setx HF_TOKEN ***
 
 </CodeGroup>
 
-## Example
+## 例
 
-Use `HuggingFace` with your `Agent`:
+`Agent` で `HuggingFace` を使用します。
 
 <CodeGroup>
 
@@ -44,16 +41,16 @@ agent = Agent(
     markdown=True
 )
 
-# Print the response on the terminal
+# 応答をターミナルに出力します
 agent.print_response("Share a 2 sentence horror story.")
 ```
 
 </CodeGroup>
 
-<Note> View more examples [here](../examples/models/huggingface). </Note>
+<Note> その他の例は[こちら](../examples/models/huggingface)でご覧ください。 </Note>
 
-## Params
+## パラメータ
 
 <Snippet file="model-hf-params.mdx" />
 
-`HuggingFace` is a subclass of the [Model](/reference/models/model) class and has access to the same params.
+`HuggingFace` は [Model](/reference/models/model) クラスのサブクラスであり、同じパラメータにアクセスできます。

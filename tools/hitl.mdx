@@ -2,33 +2,33 @@
 title: Human in the loop
 ---
 
-Human in the loop (HITL) let's you get input from a user before or after executing a tool call.
+Human in the loop (HITL) を使用すると、ツール呼び出しを実行する前または後に、ユーザーからの入力を受け取ることができます。
 
-The example below shows how to use a tool hook to get user confirmation before executing a tool call.
+以下の例では、ツール呼び出しを実行する前にユーザーの確認を得るためにツールフックを使用する方法を示します。
 
-## Example: Human in the loop using tool hooks
+## 例: ツールフックを使用した Human in the loop
 
-This example shows how to:
-- Add hooks to tools for user confirmation
-- Handle user input during tool execution
-- Gracefully cancel operations based on user choice
+この例では、次の方法を示します。
+- ユーザー確認のためにツールにフックを追加する
+- ツール実行中にユーザー入力を処理する
+- ユーザーの選択に基づいて操作を正常にキャンセルする
 
 ```python hitl.py
-"""🤝 Human-in-the-Loop: Adding User Confirmation to Tool Calls
+"""🤝 Human-in-the-Loop: ツール呼び出しへのユーザー確認の追加
 
-This example shows how to implement human-in-the-loop functionality in your Agno tools.
-It shows how to:
-- Add tool hooks to tools for user confirmation
-- Handle user input during tool execution
-- Gracefully cancel operations based on user choice
+この例では、Agno ツールに human-in-the-loop 機能を実装する方法を示します。
+これは次の方法を示します。
+- ユーザー確認のためにツールにツールフックを追加する
+- ツール実行中にユーザー入力を処理する
+- ユーザーの選択に基づいて操作を正常にキャンセルする
 
-Some practical applications:
-- Confirming sensitive operations before execution
-- Reviewing API calls before they're made
-- Validating data transformations
-- Approving automated actions in critical systems
+実用的なアプリケーションの例:
+- 実行前の機密操作の確認
+- API 呼び出し前のレビュー
+- データ変換の検証
+- クリティカルシステムにおける自動アクションの承認
 
-Run `pip install openai httpx rich agno` to install dependencies.
+依存関係をインストールするには `pip install openai httpx rich agno` を実行してください。
 """
 
 import json
@@ -43,61 +43,61 @@ from rich.console import Console
 from rich.pretty import pprint
 from rich.prompt import Prompt
 
-# This is the console instance used by the print_response method
-# We can use this to stop and restart the live display and ask for user confirmation
+# これは print_response メソッドによって使用されるコンソールインスタンスです
+# これを使用してライブ表示を停止および再開し、ユーザー確認を求めることができます
 console = Console()
 
 
 def confirmation_hook(
     function_name: str, function_call: Callable, arguments: Dict[str, Any]
 ):
-    # Get the live display instance from the console
+    # コンソールからライブ表示インスタンスを取得します
     live = console._live
 
-    # Stop the live display temporarily so we can ask for user confirmation
+    # ユーザー確認を求めるためにライブ表示を一時的に停止します
     live.stop()  # type: ignore
 
-    # Ask for confirmation
-    console.print(f"\nAbout to run [bold blue]{fc.function.name}[/]")
+    # 確認を求めます
+    console.print(f"\n実行しようとしています [bold blue]{fc.function.name}[/]")
     message = (
-        Prompt.ask("Do you want to continue?", choices=["y", "n"], default="y")
+        Prompt.ask("続行しますか？", choices=["y", "n"], default="y")
         .strip()
         .lower()
     )
 
-    # Restart the live display
+    # ライブ表示を再開します
     live.start()  # type: ignore
 
-    # If the user does not want to continue, raise a StopExecution exception
+    # ユーザーが続行しない場合は、StopExecution 例外を発生させます
     if message != "y":
         raise StopAgentRun(
-            "Tool call cancelled by user",
-            agent_message="Stopping execution as permission was not granted.",
+            "ユーザーによってツール呼び出しがキャンセルされました",
+            agent_message="許可が得られなかったため、実行を停止しています。",
         )
     
-    # Call the function
+    # 関数を呼び出します
     result = function_call(**arguments)
 
-    # Optionally transform the result
+    # オプションで結果を変換します
 
     return result
 
 
 @tool(tool_hooks=[confirmation_hook])
 def get_top_hackernews_stories(num_stories: int) -> Iterator[str]:
-    """Fetch top stories from Hacker News.
+    """Hacker News からトップストーリーを取得します。
 
     Args:
-        num_stories (int): Number of stories to retrieve
+        num_stories (int): 取得するストーリーの数
 
     Returns:
-        str: JSON string containing story details
+        str: ストーリーの詳細を含む JSON 文字列
     """
-    # Fetch top story IDs
+    # トップストーリー ID を取得します
     response = httpx.get("https://hacker-news.firebaseio.com/v0/topstories.json")
     story_ids = response.json()
 
-    # Yield story details
+    # ストーリーの詳細を yield します
     final_stories = []
     for story_id in story_ids[:num_stories]:
         story_response = httpx.get(
@@ -111,7 +111,7 @@ def get_top_hackernews_stories(num_stories: int) -> Iterator[str]:
     return json.dumps(final_stories)
 
 
-# Initialize the agent with a tech-savvy personality and clear instructions
+# テクノロジーに精通した個性と明確な指示でエージェントを初期化します
 agent = Agent(
     model=OpenAIChat(id="gpt-4o-mini"),
     tools=[get_top_hackernews_stories],
@@ -119,6 +119,5 @@ agent = Agent(
 )
 
 agent.print_response(
-    "Fetch the top 2 hackernews stories?", stream=True, console=console
+    "トップ2件のハッカーニュースストーリーを取得しますか？", stream=True, console=console
 )
-```
