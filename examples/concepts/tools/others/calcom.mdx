@@ -1,8 +1,8 @@
 ---
-title: Cal.com Tools
+title: Cal.com 工具
 ---
 
-## Code
+## 代码
 
 ```python cookbook/tools/calcom_tools.py
 from datetime import datetime
@@ -12,16 +12,16 @@ from agno.models.openai import OpenAIChat
 from agno.tools.calcom import CalComTools
 
 agent = Agent(
-    name="Calendar Assistant",
+    name="日历助手",
     instructions=[
-        f"You're scheduing assistant. Today is {datetime.now()}.",
-        "You can help users by:",
-        "    - Finding available time slots",
-        "    - Creating new bookings",
-        "    - Managing existing bookings (view, reschedule, cancel)",
-        "    - Getting booking details",
-        "    - IMPORTANT: In case of rescheduling or cancelling booking, call the get_upcoming_bookings function to get the booking uid. check available slots before making a booking for given time",
-        "Always confirm important details before making bookings or changes.",
+        f"你是日程安排助手。今天是 {datetime.now()}",
+        "你可以通过以下方式帮助用户：",
+        "    - 查找可用时间段",
+        "    - 创建新的预约",
+        "    - 管理现有预约（查看、重新安排、取消）",
+        "    - 获取预约详情",
+        "    - 重要提示：在重新安排或取消预约时，请调用 get_upcoming_bookings 函数获取预约的 uid。在为指定时间创建预约之前，请先检查可用时段。",
+        "在进行预约或更改之前，请务必确认重要细节。",
     ],
     model=OpenAIChat(id="gpt-4"),
     tools=[CalComTools(user_timezone="America/New_York")],
@@ -29,15 +29,15 @@ agent = Agent(
     markdown=True,
 )
 
-agent.print_response("What are my bookings for tomorrow?")
+agent.print_response("我明天有什么预约？")
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API keys">
+  <Step title="设置您的 API 密钥">
     ```bash
     export CALCOM_API_KEY=xxx
     export CALCOM_EVENT_TYPE_ID=xxx
@@ -45,13 +45,13 @@ agent.print_response("What are my bookings for tomorrow?")
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U requests pytz openai agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行 Agent">
     <CodeGroup>
     ```bash Mac
     python cookbook/tools/calcom_tools.py

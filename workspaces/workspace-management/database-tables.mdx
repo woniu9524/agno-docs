@@ -1,17 +1,17 @@
 ---
-title: Database Tables
+title: 数据库表
 ---
 
-Agno templates come pre-configured with [SqlAlchemy](https://www.sqlalchemy.org/) and [alembic](https://alembic.sqlalchemy.org/en/latest/) to manage databases. The general workflow to add a table is:
+Agno 模板预配置了 [SqlAlchemy](https://www.sqlalchemy.org/) 和 [alembic](https://alembic.sqlalchemy.org/en/latest/) 来管理数据库。添加表的通用工作流程是：
 
-1. Add table definition to the `db/tables` directory.
-2. Import the table class in the `db/tables/__init__.py` file.
-3. Create a database migration.
-4. Run database migration.
+1. 将表定义添加到 `db/tables` 目录。
+2. 在 `db/tables/__init__.py` 文件中导入表类。
+3. 创建数据库迁移。
+4. 运行数据库迁移。
 
-## Table Definition
+## 表定义
 
-Let's create a `UsersTable`, copy the following code to `db/tables/user.py`
+我们来创建一个 `UsersTable`，将以下代码复制到 `db/tables/user.py`
 
 ```python db/tables/user.py
 from datetime import datetime
@@ -25,7 +25,7 @@ from db.tables.base import Base
 
 
 class UsersTable(Base):
-    """Table for storing user data."""
+    """存储用户数据的表。"""
 
     __tablename__ = "dim_users"
 
@@ -42,32 +42,32 @@ class UsersTable(Base):
     )
 ```
 
-Update the `db/tables/__init__.py` file:
+更新 `db/tables/__init__.py` 文件：
 
 ```python db/tables/__init__.py
 from db.tables.base import Base
 from db.tables.user import UsersTable
 ```
 
-## Creat a database revision
+## 创建数据库修订
 
-Run the alembic command to create a database migration in the dev container:
+在开发容器中运行 alembic 命令来创建数据库迁移：
 
 ```bash
 docker exec -it ai-api alembic -c db/alembic.ini revision --autogenerate -m "Initialize DB"
 ```
 
-## Migrate dev database
+## 迁移开发数据库
 
-Run the alembic command to migrate the dev database:
+运行 alembic 命令来迁移开发数据库：
 
 ```bash
 docker exec -it ai-api alembic -c db/alembic.ini upgrade head
 ```
 
-### Optional: Add test user
+### 可选：添加测试用户
 
-Now lets's add a test user. Copy the following code to `db/tables/test_add_user.py`
+现在我们来添加一个测试用户。将以下代码复制到 `db/tables/test_add_user.py`
 
 ```python db/tables/test_add_user.py
 from typing import Optional
@@ -79,57 +79,57 @@ from utils.log import logger
 
 
 def create_user(db_session: Session, email: str) -> UsersTable:
-    """Create a new user."""
+    """创建新用户。"""
     new_user = UsersTable(email=email)
     db_session.add(new_user)
     return new_user
 
 
 def get_user(db_session: Session, email: str) -> Optional[UsersTable]:
-    """Get a user by email."""
+    """通过电子邮件获取用户。"""
     return db_session.query(UsersTable).filter(UsersTable.email == email).first()
 
 
 if __name__ == "__main__":
     test_user_email = "test@test.com"
     with SessionLocal() as sess, sess.begin():
-        logger.info(f"Creating user: {test_user_email}")
+        logger.info(f"正在创建用户: {test_user_email}")
         create_user(db_session=sess, email=test_user_email)
-        logger.info(f"Getting user: {test_user_email}")
+        logger.info(f"正在获取用户: {test_user_email}")
         user = get_user(db_session=sess, email=test_user_email)
         if user:
-            logger.info(f"User created: {user.id_user}")
+            logger.info(f"用户已创建: {user.id_user}")
         else:
-            logger.info(f"User not found: {test_user_email}")
+            logger.info(f"用户未找到: {test_user_email}")
 
 ```
 
-Run the script to add a test adding a user:
+运行脚本以添加测试用户：
 
 ```bash
 docker exec -it ai-api python db/tables/test_add_user.py
 ```
 
-## Migrate production database
+## 迁移生产数据库
 
-We recommended migrating the production database by setting the environment variable `MIGRATE_DB = True` and restarting the production service. This runs `alembic -c db/alembic.ini upgrade head` from the entrypoint script at container startup.
+我们建议通过设置环境变量 `MIGRATE_DB = True` 并重新启动生产服务来迁移生产数据库。这将从入口点脚本在容器启动时运行 `alembic -c db/alembic.ini upgrade head`。
 
-### Update the `workspace/prd_resources.py` file
+### 更新 `workspace/prd_resources.py` 文件
 
 ```python workspace/prd_resources.py
 ...
-# -*- Build container environment
+# -*- 构建容器环境
 container_env = {
     ...
-    # Migrate database on startup using alembic
+    # 启动时使用 alembic 迁移数据库
     "MIGRATE_DB": ws_settings.prd_db_enabled,
 }
 ...
 ```
 
-### Update the ECS Task Definition
+### 更新 ECS 任务定义
 
-Because we updated the Environment Variables, we need to update the Task Definition:
+由于我们更新了环境变量，我们需要更新任务定义：
 
 <CodeGroup>
 
@@ -143,9 +143,9 @@ ag ws patch -e prd -i aws -n td
 
 </CodeGroup>
 
-### Update the ECS Service
+### 更新 ECS 服务
 
-After updating the task definition, redeploy the production application:
+更新任务定义后，重新部署生产应用程序：
 
 <CodeGroup>
 
@@ -159,9 +159,9 @@ ag ws patch -e prd -i aws -n service
 
 </CodeGroup>
 
-## Manually migrate prodution database
+## 手动迁移生产数据库
 
-Another approach is to SSH into the production container to run the migration manually. Your ECS tasks are already enabled with SSH access. Run the alembic command to migrate the production database:
+另一种方法是 SSH 进入生产容器以手动运行迁移。您的 ECS 任务已启用 SSH 访问。运行 alembic 命令来迁移生产数据库：
 
 ```bash
 ECS_CLUSTER=ai-app-prd-cluster
@@ -176,29 +176,29 @@ aws ecs execute-command --cluster $ECS_CLUSTER \
 ```
 
 ---
-## How the migrations directory was created
+## migrations 目录是如何创建的
 
 <Note>
 
-These commands have been run and are described for completeness
+这些命令已经运行过，并在此描述以供完整性参考
 
 </Note>
 
-The migrations directory was created using:
+migrations 目录是使用以下命令创建的：
 
 ```bash
 docker exec -it ai-api cd db && alembic init migrations
 ```
 
-- After running the above command, the `db/migrations` directory should be created.
-- Update `alembic.ini`
-  - set `script_location = db/migrations`
-  - uncomment `black` hook in `[post_write_hooks]`
-- Update `db/migrations/env.py` file following [this link](https://alembic.sqlalchemy.org/en/latest/autogenerate.html)
-- Add the following function to `configure` to only include tables in the target_metadata
+- 运行上述命令后，应会创建 `db/migrations` 目录。
+- 更新 `alembic.ini`
+  - 将 `script_location = db/migrations` 设置为
+  - 取消注释 `[post_write_hooks]` 中的 `black` hook
+- 按照 [此链接](https://alembic.sqlalchemy.org/en/latest/autogenerate.html) 更新 `db/migrations/env.py` 文件
+- 将以下函数添加到 `configure` 中，以仅包含 target_metadata 中的表
 
 ```python db/migrations/env.py
-# -*- Only include tables that are in the target_metadata
+# -*- 只包含 target_metadata 中的表
 def include_name(name, type_, parent_names):
     if type_ == "table":
         return name in target_metadata.tables

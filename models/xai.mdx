@@ -1,17 +1,17 @@
 ---
 title: xAI
-description: Learn how to use xAI with Agno.
+description: 了解如何将 xAI 与 Agno 结合使用。
 ---
 
-xAI is a platform for providing endpoints for Large Language models.
-See their list of models [here](https://docs.x.ai/docs/models).
+xAI 是一个为大型语言模型提供终端的平台。
+在此查看他们的模型列表：[https://docs.x.ai/docs/models](https://docs.x.ai/docs/models)。
 
-We recommend experimenting to find the best-suited model for your use-case. The `grok-3` model is good for most use-cases.
+我们建议通过实验来找到最适合您用例的模型。`grok-3` 模型适用于大多数用例。
 
 
-## Authentication
+## 身份验证
 
-Set your `XAI_API_KEY` environment variable. You can get one [from xAI here](https://console.x.ai/).
+设置您的 `XAI_API_KEY` 环境变量。您可以在 [xAI 这里](https://console.x.ai/) 获取一个。
 
 <CodeGroup>
 
@@ -25,9 +25,9 @@ setx XAI_API_KEY sk-***
 
 </CodeGroup>
 
-## Example
+## 示例
 
-Use `xAI` with your `Agent`:
+将 `xAI` 与您的 `Agent` 一起使用：
 
 <CodeGroup>
 
@@ -41,14 +41,14 @@ agent = Agent(
     markdown=True
 )
 
-agent.print_response("Share a 2 sentence horror story.")
+agent.print_response("写一个两句话的恐怖故事。")
 ```
 
 </CodeGroup>
 
-## Live Search
+## 实时搜索
 
-xAI models support live search capabilities that can access real-time information:
+xAI 模型支持实时搜索功能，可以访问实时信息：
 
 <CodeGroup>
 
@@ -68,16 +68,16 @@ agent = Agent(
     markdown=True,
 )
 
-agent.print_response("What's the latest news about AI developments?")
+agent.print_response("关于 AI 的最新发展有哪些新闻？")
 ```
 
 </CodeGroup>
 
-<Note> View more examples [here](../examples/models/xai). </Note>
+<Note> 在此查看更多示例：[../examples/models/xai](../examples/models/xai)。 </Note>
 
 
-## Params
+## 参数
 
 <Snippet file="model-xai-params.mdx" />
 
-`xAI` also supports the params of [OpenAI](/reference/models/openai).
+`xAI` 还支持 [OpenAI](/reference/models/openai) 的参数。

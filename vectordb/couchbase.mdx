@@ -1,13 +1,13 @@
 ---
-title: Couchbase Agent Knowledge
+title: Couchbase Agent 知识库
 sidebarTitle: Couchbase
 ---
 
-## Setup
+## 设置
 
-### Local Setup (Docker)
+### 本地设置（Docker）
 
-Run Couchbase locally using Docker:
+使用 Docker 在本地运行 Couchbase：
 
 ```shell
 docker run -d --name couchbase-server \
@@ -18,18 +18,18 @@ docker run -d --name couchbase-server \
   couchbase:latest
 ```
 
-1. Access the Couchbase UI at: http://localhost:8091
-2. Login with username: `Administrator` and password: `password`
-3. Create a bucket named `recipe_bucket`, a scope `recipe_scope`, and a collection `recipes`
+1. 访问 Couchbase UI：http://localhost:8091
+2. 使用用户名：`Administrator` 和密码：`password` 登录
+3. 创建一个名为 `recipe_bucket` 的 bucket，一个名为 `recipe_scope` 的 scope，以及一个名为 `recipes` 的 collection
 
-### Managed Setup (Capella)
+### 托管设置（Capella）
 
-For a managed cluster, use [Couchbase Capella](https://cloud.couchbase.com/):
-- Follow Capella's UI to create a database, bucket, scope, and collection
+对于托管集群，请使用 [Couchbase Capella](https://cloud.couchbase.com/)：
+- 遵循 Capella 的 UI 来创建数据库、bucket、scope 和 collection
 
-### Environment Variables
+### 环境变量
 
-Set up your environment variables:
+设置您的环境变量：
 
 ```shell
 export COUCHBASE_USER="Administrator"
@@ -38,15 +38,15 @@ export COUCHBASE_CONNECTION_STRING="couchbase://localhost"
 export OPENAI_API_KEY="<your-openai-api-key>"
 ```
 
-For Capella, set `COUCHBASE_CONNECTION_STRING` to your Capella connection string.
+对于 Capella，将 `COUCHBASE_CONNECTION_STRING` 设置为您的 Capella 连接字符串。
 
-### Install Dependencies
+### 安装依赖
 
 ```shell
 pip install couchbase
 ```
 
-## Example
+## 示例
 
 ```python agent_with_knowledge.py
 import os
@@ -59,12 +59,12 @@ from couchbase.options import ClusterOptions, KnownConfigProfiles
 from couchbase.auth import PasswordAuthenticator
 from couchbase.management.search import SearchIndex
 
-# Couchbase connection settings
+# Couchbase 连接设置
 username = os.getenv("COUCHBASE_USER")
 password = os.getenv("COUCHBASE_PASSWORD")
 connection_string = os.getenv("COUCHBASE_CONNECTION_STRING")
 
-# Create cluster options with authentication
+# 创建带有身份验证的集群选项
 auth = PasswordAuthenticator(username, password)
 cluster_options = ClusterOptions(auth)
 cluster_options.apply_profile(KnownConfigProfiles.WanDevelopment)
@@ -89,21 +89,21 @@ knowledge_base = PDFUrlKnowledgeBase(
     ),
 )
 
-# Load the knowledge base
+# 加载知识库
 knowledge_base.load(recreate=True)
 
-# Wait for the vector index to sync with KV
+# 等待向量索引与 KV 同步
 time.sleep(20)
 
-# Create and use the agent
+# 创建并使用 Agent
 agent = Agent(knowledge=knowledge_base, show_tool_calls=True)
 agent.print_response("How to make Thai curry?", markdown=True)
 ```
 
-<Card title="Async Support ⚡">
+<Card title="异步支持 ⚡">
   <div className="mt-2">
     <p>
-      Couchbase also supports asynchronous operations, enabling concurrency and leading to better performance.
+      Couchbase 也支持异步操作，能够实现并发并带来更好的性能。
     </p>
     
     ```python async_couchbase.py
@@ -118,12 +118,12 @@ agent.print_response("How to make Thai curry?", markdown=True)
     from couchbase.auth import PasswordAuthenticator
     from couchbase.management.search import SearchIndex
 
-    # Couchbase connection settings
+    # Couchbase 连接设置
     username = os.getenv("COUCHBASE_USER")
     password = os.getenv("COUCHBASE_PASSWORD")
     connection_string = os.getenv("COUCHBASE_CONNECTION_STRING")
 
-    # Create cluster options with authentication
+    # 创建带有身份验证的集群选项
     auth = PasswordAuthenticator(username, password)
     cluster_options = ClusterOptions(auth)
     cluster_options.apply_profile(KnownConfigProfiles.WanDevelopment)
@@ -147,36 +147,36 @@ agent.print_response("How to make Thai curry?", markdown=True)
         ),
     )
 
-    # Create and use the agent
+    # 创建并使用 Agent
     agent = Agent(knowledge=knowledge_base, show_tool_calls=True)
 
     async def run_agent():
         await knowledge_base.aload(recreate=True)
-        time.sleep(5)  # Wait for the vector index to sync with KV
+        time.sleep(5)  # 等待向量索引与 KV 同步
         await agent.aprint_response("How to make Thai curry?", markdown=True)
 
     if __name__ == "__main__":
-        # Comment out after the first run
+        # 首次运行后注释掉
         asyncio.run(run_agent())
     ```
     
     <Tip className="mt-4">
-      Use <code>aload()</code> and <code>aprint_response()</code> methods with <code>asyncio.run()</code> for non-blocking operations in high-throughput applications.
+      在 `asyncio.run()` 中使用 <code>aload()</code> 和 <code>aprint_response()</code> 方法，以实现高吞吐量应用中的非阻塞操作。
     </Tip>
   </div>
 </Card>
 
-## Key Configuration Notes
+## 关键配置说明
 
-### Connection Profiles
+### 连接配置文件
 
-Use `KnownConfigProfiles.WanDevelopment` for both local and cloud deployments to handle network latency and timeouts appropriately.
+对于本地和云部署，请使用 `KnownConfigProfiles.WanDevelopment` 来适当处理网络延迟和超时。
 
-## Couchbase Params
+## Couchbase 参数
 
 <Snippet file="vectordb_couchbase_params.mdx" />
 
-## Developer Resources
+## 开发者资源
 
-- View [Cookbook (Sync)](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/vector_dbs/couchbase/couchbase_db.py)
-- View [Cookbook (Async)](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/vector_dbs/couchbase/async_couchbase_db.py)
+- 查看 [Cookbook (Sync)](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/vector_dbs/couchbase/couchbase_db.py)
+- 查看 [Cookbook (Async)](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/vector_dbs/couchbase/async_couchbase_db.py)

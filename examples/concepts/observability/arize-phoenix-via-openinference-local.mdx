@@ -1,12 +1,12 @@
 ---
-title: Arize Phoenix via OpenInference (Local Collector)
+title: Arize Phoenix 通过 OpenInference (本地收集器)
 ---
 
-## Overview
+## 概览
 
-This example demonstrates how to instrument your Agno agent with OpenInference and send traces to a local Arize Phoenix collector.
+本示例演示了如何使用 OpenInference 对 Agno 代理进行仪器化，并将跟踪发送到本地 Arize Phoenix 收集器。
 
-## Code
+## 代码
 
 ```python
 import os
@@ -16,45 +16,45 @@ from agno.models.openai import OpenAIChat
 from agno.tools.yfinance import YFinanceTools
 from phoenix.otel import register
 
-# Set the local collector endpoint for Arize Phoenix
+# 设置 Arize Phoenix 的本地收集器端点
 os.environ["PHOENIX_COLLECTOR_ENDPOINT"] = "http://localhost:6006"
 
-# Configure the Phoenix tracer
+# 配置 Phoenix Tracer
 tracer_provider = register(
-    project_name="agno-stock-price-agent",  # Default is 'default'
-    auto_instrument=True,  # Automatically use the installed OpenInference instrumentation
+    project_name="agno-stock-price-agent",  # 默认为 'default'
+    auto_instrument=True,  # 自动使用已安装的 OpenInference 仪器化
 )
 
-# Create and configure the agent
+# 创建并配置代理
 agent = Agent(
     name="Stock Price Agent",
     model=OpenAIChat(id="gpt-4o-mini"),
     tools=[YFinanceTools()],
-    instructions="You are a stock price agent. Answer questions in the style of a stock analyst.",
+    instructions="你是一个股票价格代理。请以股票分析师的风格回答问题。",
     debug_mode=True,
 )
 
-# Use the agent
-agent.print_response("What is the current price of Tesla?")
+# 使用代理
+agent.print_response("特斯拉目前的股价是多少？")
 ```
 
-## Usage
+## 使用
 
 <Steps>
-  <Step title="Install Dependencies">
+  <Step title="安装依赖项">
     ```bash
     pip install agno arize-phoenix openai openinference-instrumentation-agno opentelemetry-sdk opentelemetry-exporter-otlp
     ```
   </Step>
 
-  <Step title="Start Local Collector">
-    Run the following command to start the local collector:
+  <Step title="启动本地收集器">
+    运行以下命令启动本地收集器：
     ```bash
     phoenix serve
     ```
   </Step>
 
-  <Step title="Run the Agent">
+  <Step title="运行代理">
     <CodeGroup>
     ```bash Mac
     python cookbook/observability/arize_phoenix_via_openinference_local.py

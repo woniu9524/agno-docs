@@ -1,16 +1,16 @@
 ---
-title: Audio Agent
+title: 音频代理
 ---
 
-This example shows how to create an AI agent that can process audio input and generate audio responses. You can use this agent for various voice-based interactions, from analyzing speech content to generating natural-sounding responses.
+此示例展示了如何创建一个可以处理音频输入并生成音频响应的 AI 代理。您可以将其用于各种语音交互，从分析语音内容到生成自然的语音响应。
 
-Example audio interactions to try:
-- Upload a recording of a conversation for analysis
-- Have the agent respond to questions with voice output
-- Process different languages and accents
-- Analyze tone and emotion in speech
+尝试的示例音频交互：
+- 上传一段对话录音进行分析
+- 让代理通过语音输出回答问题
+- 处理不同的语言和口音
+- 分析语音中的语调和情感
 
-## Code
+## 代码
 
 ```python audio_agent.py
 from textwrap import dedent
@@ -21,7 +21,7 @@ from agno.media import Audio
 from agno.models.openai import OpenAIChat
 from agno.utils.audio import write_audio_to_file
 
-# Create an AI Voice Interaction Agent
+# 创建一个 AI 语音交互代理
 agent = Agent(
     model=OpenAIChat(
         id="gpt-4o-audio-preview",
@@ -29,50 +29,49 @@ agent = Agent(
         audio={"voice": "alloy", "format": "wav"},
     ),
     description=dedent("""\
-        You are an expert in audio processing and voice interaction, capable of understanding
-        and analyzing spoken content while providing natural, engaging voice responses.
-        You excel at comprehending context, emotion, and nuance in speech.\
+        你是音频处理和语音交互方面的专家，能够理解和分析语音内容，并提供自然、引人入胜的语音响应。
+        你擅长理解语音中的上下文、情感和细微差别。\
     """),
     instructions=dedent("""\
-        As a voice interaction specialist, follow these guidelines:
-        1. Listen carefully to audio input to understand both content and context
-        2. Provide clear, concise responses that address the main points
-        3. When generating voice responses, maintain a natural, conversational tone
-        4. Consider the speaker's tone and emotion in your analysis
-        5. If the audio is unclear, ask for clarification
+        作为一名语音交互专家，请遵循以下指南：
+        1. 仔细聆听音频输入，理解内容和上下文
+        2. 提供清晰、简洁的响应，解决主要问题
+        3. 在生成语音响应时，保持自然、对话式的语调
+        4. 在分析中考虑说话者的语调和情感
+        5. 如果音频不清晰，请要求澄清
 
-        Focus on creating engaging and helpful voice interactions!\
+        专注于创造引人入胜且有用的语音交互！\
     """),
 )
 
-# Fetch the audio file and convert it to a base64 encoded string
+# 获取音频文件并将其转换为 base64 编码字符串
 url = "https://openaiassets.blob.core.windows.net/$web/API/docs/audio/alloy.wav"
 response = requests.get(url)
 response.raise_for_status()
 
-# Process the audio and get a response
+# 处理音频并获取响应
 agent.run(
-    "What's in this recording? Please analyze the content and tone.",
+    "这段录音有什么内容？请分析内容和语调。",
     audio=[Audio(content=response.content, format="wav")],
 )
 
-# Save the audio response if available
+# 如果有音频响应，则保存它
 if agent.run_response.response_audio is not None:
     write_audio_to_file(
         audio=agent.run_response.response_audio.content, filename="tmp/response.wav"
     )
 
-# More example interactions to try:
+# 更多尝试的示例交互：
 """
-Try these voice interaction scenarios:
-1. "Can you summarize the main points discussed in this recording?"
-2. "What emotions or tone do you detect in the speaker's voice?"
-3. "Please provide a detailed analysis of the speech patterns and clarity"
-4. "Can you identify any background noises or audio quality issues?"
-5. "What is the overall context and purpose of this recording?"
+尝试这些语音交互场景：
+1. “你能总结一下录音中讨论的主要内容吗？”
+2. “你能在说话者的声音中检测到什么情感或语调？”
+3. “请详细分析语音模式和清晰度”
+4. “你能识别出任何背景噪音或音频质量问题吗？”
+5. “这段录音的整体背景和目的是什么？”
 
-Note: You can use your own audio files by converting them to base64 format.
-Example for using your own audio file:
+注意：您可以通过将自己的音频文件转换为 base64 格式来使用它们。
+使用自己音频文件的示例：
 
 with open('your_audio.wav', 'rb') as audio_file:
     audio_data = audio_file.read()
@@ -80,18 +79,18 @@ with open('your_audio.wav', 'rb') as audio_file:
 """
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install openai requests agno
     ```
   </Step>
 
-  <Step title="Run the agent">
+  <Step title="运行代理">
     ```bash
     python audio_agent.py
     ```

@@ -1,48 +1,48 @@
 ---
-title: Production Application
+title: 生产应用
 ---
 
-Your production application runs on AWS and its resources are defined in the `workspace/prd_resources.py` file. This guide shows how to:
+您的生产应用运行在 AWS 上，其资源定义在 `workspace/prd_resources.py` 文件中。本指南将展示如何：
 
-1. [Build a production image](#build-your-production-image)
-2. [Update ECS Task Definitions](#ecs-task-definition)
-3. [Update ECS Services](#ecs-service)
+1. [构建生产镜像](#build-your-production-image)
+2. [更新 ECS 任务定义](#ecs-task-definition)
+3. [更新 ECS 服务](#ecs-service)
 
-## Workspace Settings
+## 工作空间设置
 
-The `WorkspaceSettings` object in the `workspace/settings.py` file defines common settings used by your workspace apps and resources.
+`workspace/settings.py` 文件中的 `WorkspaceSettings` 对象定义了工作空间应用和资源共用的设置。
 
-## Build your production image
+## 构建生产镜像
 
-Your application uses the `agno` images by default. To use your own image:
+默认情况下，您的应用使用 `agno` 镜像。若要使用您自己的镜像：
 
-- Create a Repository in `ECR` and authenticate or use `Dockerhub`.
-- Open `workspace/settings.py` file
-- Update the `image_repo` to your image repository
-- Set `build_images=True` and `push_images=True`
-- Optional - Set `build_images=False` and `push_images=False` to use an existing image in the repository
+- 在 `ECR` 中创建一个仓库并进行身份验证，或者使用 `Dockerhub`。
+- 打开 `workspace/settings.py` 文件。
+- 将 `image_repo` 更新为您的镜像仓库。
+- 设置 `build_images=True` 和 `push_images=True`。
+- 可选 - 设置 `build_images=False` 和 `push_images=False` 以使用仓库中现有的镜像。
 
-### Create an ECR Repository
+### 创建 ECR 仓库
 
-To use ECR, **create the image repo and authenticate with ECR** before pushing images.
+要使用 ECR，请在推送镜像之前 **创建镜像仓库并完成 ECR 身份验证**。
 
-**1. Create the image repository in ECR**
+**1. 在 ECR 中创建镜像仓库**
 
-The repo name should match the `ws_name`. Meaning if you're using the default workspace name, the repo name would be `ai`.
+仓库名称应与 `ws_name` 匹配。也就是说，如果使用默认工作空间名称，仓库名称将是 `ai`。
 
 <img src="/images/create-ecr-image.png" alt="create-ecr-image" />
 
-**2. Authenticate with ECR**
+**2. 验证 ECR 身份**
 
 ```bash Authenticate with ECR
 aws ecr get-login-password --region [region] | docker login --username AWS --password-stdin [account].dkr.ecr.[region].amazonaws.com
 ```
 
-You can also use a helper script to avoid running the full command
+您也可以使用一个辅助脚本来避免运行完整的命令。
 
 <Note>
 
-Update the script with your ECR repo before running.
+运行脚本前，请更新脚本中的 ECR 仓库信息。
 
 </Note>
 
@@ -54,35 +54,35 @@ Update the script with your ECR repo before running.
 
 </CodeGroup>
 
-### Update the `WorkspaceSettings`
+### 更新 `WorkspaceSettings`
 
 ```python workspace/settings.py
 ws_settings = WorkspaceSettings(
     ...
-    # Subnet IDs in the aws_region
+    # 目标区域的子网 ID
     subnet_ids=["subnet-xyz", "subnet-xyz"],
-    # -*- Image Settings
-    # Repository for images
+    # -*- 镜像设置
+    # 镜像仓库
     image_repo="your-image-repo",
-    # Build images locally
+    # 本地构建镜像
     build_images=True,
-    # Push images after building
+    # 构建后推送镜像
     push_images=True,
 )
 ```
 
 <Note>
 
-The `image_repo` defines the repo for your image.
+`image_repo` 定义了您的镜像仓库。
 
-- If using dockerhub it would be something like `agno`.
-- If using ECR it would be something like `[ACCOUNT_ID].dkr.ecr.us-east-1.amazonaws.com`
+- 如果使用 dockerhub，它将类似于 `agno`。
+- 如果使用 ECR，它将类似于 `[ACCOUNT_ID].dkr.ecr.us-east-1.amazonaws.com`
 
 </Note>
 
-### Build a new image
+### 构建新镜像
 
-Build the production image using:
+使用以下命令构建生产镜像：
 
 <CodeGroup>
 
@@ -96,7 +96,7 @@ ag ws up -e prd -i docker -t image
 
 </CodeGroup>
 
-To `force` rebuild images, use the `--force` or `-f` flag
+要强制重新构建镜像，请使用 `--force` 或 `-f` 标志。
 
 <CodeGroup>
 
@@ -110,7 +110,7 @@ ag ws up -e prd -i docker -t image -f
 
 </CodeGroup>
 
-Because the only docker resources in the production env are docker images, you can also use:
+由于生产环境中唯一的 docker 资源是 docker 镜像，您也可以使用以下命令：
 
 <CodeGroup>
 
@@ -124,9 +124,9 @@ ag ws up prd:docker -f
 
 </CodeGroup>
 
-## ECS Task Definition
+## ECS 任务定义
 
-If you updated the Image, CPU, Memory or Environment Variables, update the Task Definition using:
+如果您更新了镜像、CPU、内存或环境变量，请使用以下命令更新任务定义：
 
 <CodeGroup>
 
@@ -140,9 +140,9 @@ ag ws patch -e prd -i aws -n td
 
 </CodeGroup>
 
-## ECS Service
+## ECS 服务
 
-To redeploy the production application, update the ECS Service using:
+要重新部署生产应用，请使用以下命令更新 ECS 服务：
 
 <CodeGroup>
 
@@ -160,6 +160,6 @@ ag ws patch -e prd -i aws -n service
 
 <Note>
 
-If you **ONLY** rebuilt the image, you do not need to update the task definition and can just patch the service to pickup the new image.
+如果您 **只** 重新构建了镜像，则无需更新任务定义，只需更新服务即可拾取新镜像。
 
 </Note>

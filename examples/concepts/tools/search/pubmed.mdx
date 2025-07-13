@@ -1,8 +1,8 @@
 ---
-title: PubMed Tools
+title: PubMed 工具
 ---
 
-## Code
+## 代码
 
 ```python cookbook/tools/pubmed_tools.py
 from agno.agent import Agent
@@ -13,27 +13,27 @@ agent = Agent(
     show_tool_calls=True,
     markdown=True,
 )
-agent.print_response("Find recent research papers about COVID-19 vaccines")
+agent.print_response("查找关于 COVID-19 疫苗的最新研究论文")
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置你的 API 密钥">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U biopython openai agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行 Agent">
     <CodeGroup>
     ```bash Mac
     python cookbook/tools/pubmed_tools.py

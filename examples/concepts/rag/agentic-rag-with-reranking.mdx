@@ -1,8 +1,9 @@
+```md
 ---
-title: Agentic RAG with Reranking
+title: 代理 RAG 与重排序
 ---
 
-## Code
+## 代码
 
 ```python
 from agno.agent import Agent
@@ -12,26 +13,26 @@ from agno.models.openai import OpenAIChat
 from agno.reranker.cohere import CohereReranker
 from agno.vectordb.lancedb import LanceDb, SearchType
 
-# Create a knowledge base of PDFs from URLs
+# 创建来自 URL 的 PDF 知识库
 knowledge_base = PDFUrlKnowledgeBase(
     urls=["https://agno-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
-    # Use LanceDB as the vector database and store embeddings in the `recipes` table
+    # 将 LanceDB 用作向量数据库，并将嵌入存储在 `recipes` 表中
     vector_db=LanceDb(
         table_name="recipes",
         uri="tmp/lancedb",
         search_type=SearchType.vector,
         embedder=OpenAIEmbedder(id="text-embedding-3-small"),
-        reranker=CohereReranker(model="rerank-multilingual-v3.0"),  # Add a reranker
+        reranker=CohereReranker(model="rerank-multilingual-v3.0"),  # 添加重排序器
     ),
 )
-# Load the knowledge base: Comment after first run as the knowledge base is already loaded
+# 加载知识库：首次运行后注释掉此行，因为知识库已加载
 knowledge_base.load()
 
 agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
     knowledge=knowledge_base,
-    # Add a tool to search the knowledge base which enables agentic RAG.
-    # This is enabled by default when `knowledge` is provided to the Agent.
+    # 添加一个搜索知识库的工具，以实现代理 RAG。
+    # 当 `knowledge` 提供给 Agent 时，默认启用此功能。
     search_knowledge=True,
     show_tool_calls=True,
     markdown=True,
@@ -41,25 +42,25 @@ agent.print_response(
 )
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API keys">
+  <Step title="设置您的 API 密钥">
     ```bash
     export OPENAI_API_KEY=xxx
     export COHERE_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U openai lancedb tantivy pypdf sqlalchemy agno cohere
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行 Agent">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/rag/agentic_rag_with_reranking.py
@@ -71,3 +72,4 @@ agent.print_response(
     </CodeGroup>
   </Step>
 </Steps>
+```

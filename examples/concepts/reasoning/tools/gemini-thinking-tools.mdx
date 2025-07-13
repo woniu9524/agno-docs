@@ -1,8 +1,8 @@
 ---
-title: Gemini with Thinking Tools
+title: Gemini 与思考工具
 ---
 
-## Code
+## 代码
 
 ```python cookbook/reasoning/tools/gemini_finance_agent.py
 
@@ -22,36 +22,36 @@ thinking_agent = Agent(
             company_news=True,
         ),
     ],
-    instructions="Use tables where possible",
+    instructions="尽可能使用表格",
     show_tool_calls=True,
     markdown=True,
     stream_intermediate_steps=True,
 )
 thinking_agent.print_response(
-    "Write a report comparing NVDA to TSLA in detail", stream=True, show_reasoning=True
+    "撰写一份详细对比 NVDA 和 TSLA 的报告", stream=True, show_reasoning=True
 )
 
 
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置你的 API 密钥">
     ```bash
     export GOOGLE_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U google-genai agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行 Agent">
     <CodeGroup>
     ```bash Mac
     python cookbook/reasoning/tools/gemini_finance_agent.py

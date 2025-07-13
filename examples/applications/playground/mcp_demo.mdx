@@ -2,7 +2,7 @@
 title: Mcp Demo
 ---
 
-## Code
+## 代码
 
 ```python cookbook/apps/playground/mcp_demo.py
 import asyncio
@@ -17,34 +17,34 @@ from agno.storage.agent.sqlite import SqliteAgentStorage
 from agno.tools.mcp import MCPTools
 from mcp import StdioServerParameters
 
-# Allow nested event loops
+# 允许嵌套事件循环
 nest_asyncio.apply()
 
 agent_storage_file: str = "tmp/agents.db"
 
 
 async def run_server() -> None:
-    """Run the GitHub agent server."""
+    """运行 GitHub 代理服务器。"""
     github_token = getenv("GITHUB_TOKEN") or getenv("GITHUB_ACCESS_TOKEN")
     if not github_token:
-        raise ValueError("GITHUB_TOKEN environment variable is required")
+        raise ValueError("需要 GITHUB_TOKEN 环境变量")
 
-    # Initialize the MCP server
+    # 初始化 MCP 服务器
     server_params = StdioServerParameters(
         command="npx",
         args=["-y", "@modelcontextprotocol/server-github"],
     )
 
-    # Create a client session to connect to the MCP server
+    # 创建客户端会话以连接到 MCP 服务器
     async with MCPTools(server_params=server_params) as mcp_tools:
         agent = Agent(
             name="MCP GitHub Agent",
             tools=[mcp_tools],
             instructions=dedent("""\
-                You are a GitHub assistant. Help users explore repositories and their activity.
+                您是 GitHub 助手。帮助用户探索存储库及其活动。
 
-                - Use headings to organize your responses
-                - Be concise and focus on relevant information\
+                - 使用标题组织您的回复
+                - 简洁明了，专注于相关信息\
             """),
             model=OpenAIChat(id="gpt-4o"),
             storage=SqliteAgentStorage(
@@ -61,63 +61,63 @@ async def run_server() -> None:
         playground = Playground(
             agents=[agent],
             name="MCP Demo",
-            description="A playground for MCP",
+            description="一个 MCP 的演示场",
             app_id="mcp-demo",
         )
         playground.get_app()
 
-        # Serve the app while keeping the MCPTools context manager alive
+        # 在保持 MCPTools 上下文管理器活动的同时提供应用程序
         playground.serve(app="mcp_demo:app", reload=True)
 
 
 if __name__ == "__main__":
     asyncio.run(run_server())
 
-# Example prompts to explore:
+# 可供探索的示例提示：
 """
-Issue queries:
-1. "Find issues needing attention"
-2. "Show me issues by label"
-3. "What issues are being actively discussed?"
-4. "Find related issues"
-5. "Analyze issue resolution patterns"
+问题查询：
+1. "查找需要关注的问题"
+2. "按标签显示问题"
+3. "哪些问题正在被积极讨论？"
+4. "查找相关问题"
+5. "分析问题解决模式"
 
-Pull request queries:
-1. "What PRs need review?"
-2. "Show me recent merged PRs"
-3. "Find PRs with conflicts"
-4. "What features are being developed?"
-5. "Analyze PR review patterns"
+拉取请求查询：
+1. "哪些 PR 需要审核？"
+2. "显示最近已合并的 PR"
+3. "查找有冲突的 PR"
+4. "正在开发哪些功能？"
+5. "分析 PR 审核模式"
 
-Repository queries:
-1. "Show repository health metrics"
-2. "What are the contribution guidelines?"
-3. "Find documentation gaps"
-4. "Analyze code quality trends"
-5. "Show repository activity patterns"
+存储库查询：
+1. "显示存储库健康指标"
+2. "贡献指南是什么？"
+3. "查找文档缺失之处"
+4. "分析代码质量趋势"
+5. "显示存储库活动模式"
 """
 
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API keys">
+  <Step title="设置您的 API 密钥">
     ```bash
     export OPENAI_API_KEY=xxx
     export GITHUB_TOKEN=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U agno "uvicorn[standard]" openai nest-asyncio mcp
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行代理">
     <CodeGroup>
     ```bash Mac
     python cookbook/apps/playground/mcp_demo.py
@@ -128,4 +128,4 @@ Repository queries:
     ```
     </CodeGroup>
   </Step>
-</Steps> 
+</Steps>

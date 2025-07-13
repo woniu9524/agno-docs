@@ -1,26 +1,26 @@
 ---
-title: User Memories
+title: 用户记忆
 ---
 
-This example shows how to create an agent with persistent memory that stores:
-1. Personalized user memories - facts and preferences learned about specific users
-2. Session summaries - key points and context from conversations
-3. Chat history - stored in SQLite for persistence
+这个示例展示了如何创建一个具有持久化内存的代理，该内存可以存储：
+1. 个性化用户记忆 - 关于特定用户的学习到的事实和偏好
+2. 会话摘要 - 对话的关键点和上下文
+3. 聊天记录 - 存储在 SQLite 中以实现持久化
 
-Key features:
-- Stores user-specific memories in SQLite database
-- Maintains session summaries for context
-- Continues conversations across sessions with memory
-- References previous context and user information in responses
+主要功能：
+- 在 SQLite 数据库中存储用户特定记忆
+- 维护会话摘要以获取上下文
+- 通过记忆在会话之间延续对话
+- 在响应中引用之前的上下文和用户信息
 
-Examples:
-User: "My name is John and I live in NYC"
-Agent: *Creates memory about John's location*
+示例：
+用户：“我叫 John，住在纽约”
+代理：*创建关于 John 位置的记忆*
 
-User: "What do you remember about me?"
-Agent: *Recalls previous memories about John*
+用户：“你记得我什么？”
+代理：*回忆起关于 John 的过往记忆*
 
-## Code
+## 代码
 
 ```python user_memories.py
 import json
@@ -179,18 +179,18 @@ if __name__ == "__main__":
 
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install openai sqlalchemy agno
     ```
   </Step>
 
-  <Step title="Run the agent">
+  <Step title="运行代理">
     ```bash
     python user_memories.py
     ```

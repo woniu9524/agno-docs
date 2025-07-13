@@ -2,26 +2,26 @@
 title: Twilio
 ---
 
-**TwilioTools** enables an Agent to interact with [Twilio](https://www.twilio.com/docs) services, such as sending SMS, retrieving call details, and listing messages.
+**TwilioTools** 支持 Agent 与 [Twilio](https://www.twilio.com/docs) 服务进行交互，例如发送 SMS、检索通话详情和列出消息。
 
-## Prerequisites
+## 先决条件
 
-The following examples require the `twilio` library and appropriate Twilio credentials, which can be obtained from [here](https://www.twilio.com/console).
+以下示例需要 `twilio` 库和相应的 Twilio 凭证，可以从[此处](https://www.twilio.com/console)获取。
 
 ```shell
 pip install twilio
 ```
 
-Set the following environment variables:
+设置以下环境变量：
 
 ```shell
 export TWILIO_ACCOUNT_SID=***
 export TWILIO_AUTH_TOKEN=***
 ```
 
-## Example
+## 示例
 
-The following agent will send an SMS message using Twilio:
+以下 Agent 将使用 Twilio 发送 SMS 消息：
 
 ```python
 from agno.agent import Agent
@@ -38,27 +38,27 @@ agent = Agent(
 agent.print_response("Send an SMS to +1234567890", markdown=True)
 ```
 
-## Toolkit Params
+## Toolkit 参数
 
-| Name          | Type            | Default | Description                                       |
+| 名称          | 类型            | 默认 | 描述                                       |
 | ------------- | --------------- | ------- | ------------------------------------------------- |
-| `account_sid` | `Optional[str]` | `None`  | Twilio Account SID for authentication.            |
-| `auth_token`  | `Optional[str]` | `None`  | Twilio Auth Token for authentication.             |
-| `api_key`     | `Optional[str]` | `None`  | Twilio API Key for alternative authentication.    |
-| `api_secret`  | `Optional[str]` | `None`  | Twilio API Secret for alternative authentication. |
-| `region`      | `Optional[str]` | `None`  | Optional Twilio region (e.g., `au1`).             |
-| `edge`        | `Optional[str]` | `None`  | Optional Twilio edge location (e.g., `sydney`).   |
-| `debug`       | `bool`          | `False` | Enable debug logging for troubleshooting.         |
+| `account_sid` | `Optional[str]` | `None`  | Twilio 账户 SID，用于身份验证。            |
+| `auth_token`  | `Optional[str]` | `None`  | Twilio Auth Token，用于身份验证。             |
+| `api_key`     | `Optional[str]` | `None`  | Twilio API Key，用于替代身份验证。            |
+| `api_secret`  | `Optional[str]` | `None`  | Twilio API Secret，用于替代身份验证。         |
+| `region`      | `Optional[str]` | `None`  | 可选的 Twilio 区域 (例如：`au1`)。             |
+| `edge`        | `Optional[str]` | `None`  | 可选的 Twilio 边缘位置 (例如：`sydney`)。   |
+| `debug`       | `bool`          | `False` | 启用调试日志记录以进行故障排除。         |
 
-## Toolkit Functions
+## Toolkit 函数
 
-| Function           | Description                                                                                                                                                                 |
-| ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `send_sms`         | Sends an SMS to a recipient. Takes recipient phone number, sender number (Twilio), and message body. Returns message SID if successful or error message if failed.          |
-| `get_call_details` | Retrieves details of a call using its SID. Takes the call SID and returns a dictionary with call details (e.g., status, duration).                                          |
-| `list_messages`    | Lists recent SMS messages. Takes a limit for the number of messages to return (default 20). Returns a list of message details (e.g., SID, sender, recipient, body, status). |
+| 函数           | 描述                                                                                                                                                                 |
+| --------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `send_sms`         | 向接收者发送 SMS。需要接收者电话号码、发送者号码 (Twilio) 和消息正文。成功时返回消息 SID 或失败时返回错误消息。          |
+| `get_call_details` | 使用电话的 SID 检索通话详情。需要通话 SID，并返回包含通话详情的字典 (例如：状态、时长)。                                          |
+| `list_messages`    | 列出最近的 SMS 消息。需要返回的消息数量的限制 (默认为 20)。返回消息详情列表 (例如：SID、发送者、接收者、正文、状态)。 |
 
-## Developer Resources
+## 开发者资源
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/twilio.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/twilio_tools.py)
+- 查看 [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/twilio.py)
+- 查看 [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/twilio_tools.py)

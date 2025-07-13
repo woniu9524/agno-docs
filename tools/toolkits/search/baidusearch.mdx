@@ -3,17 +3,17 @@ title: BaiduSearch
 sidebarTitle: BaiduSearch
 ---
 
-**BaiduSearch** enables an Agent to search the web for information using the Baidu search engine.
+**BaiduSearch** 使 Agent 能够使用百度搜索引擎在网上查找信息。
 
-## Prerequisites
+## 先决条件
 
-The following example requires the `baidusearch` library. To install BaiduSearch, run the following command:
+以下示例需要 `baidusearch` 库。要安装 BaiduSearch，请运行以下命令：
 
 ```shell
 pip install -U baidusearch
 ```
 
-## Example
+## 示例
 
 ```python cookbook/tools/baidusearch_tools.py
 from agno.agent import Agent
@@ -21,35 +21,35 @@ from agno.tools.baidusearch import BaiduSearchTools
 
 agent = Agent(
     tools=[BaiduSearchTools()],
-    description="You are a search agent that helps users find the most relevant information using Baidu.",
+    description="你是一个搜索代理，帮助用户使用百度查找最相关的信息。",
     instructions=[
-        "Given a topic by the user, respond with the 3 most relevant search results about that topic.",
-        "Search for 5 results and select the top 3 unique items.",
-        "Search in both English and Chinese.",
+        "根据用户提供的主题，回复关于该主题的 3 条最相关的搜索结果。",
+        "搜索 5 条结果并选择前 3 条不重复的项。",
+        "同时使用英语和中文搜索。",
     ],
     show_tool_calls=True,
 )
 
-agent.print_response("What are the latest advancements in AI?", markdown=True)
+agent.print_response("人工智能的最新进展是什么？", markdown=True)
 ```
 
-## Toolkit Params
+## Toolkit 参数
 
-| Parameter           | Type  | Default | Description                                                                                          |
-| ------------------- | ----- | ------- | ---------------------------------------------------------------------------------------------------- |
-| `fixed_max_results` | `int` | -       | Sets a fixed number of maximum results to return. No default is provided, must be specified if used. |
-| `fixed_language`    | `str` | -       | Set the fixed language for the results.                                                              |
-| `headers`           | `Any` | -       | Headers to be used in the search request.                                                            |
-| `proxy`             | `str` | -       | Specifies a single proxy address as a string to be used for the HTTP requests.                       |
-| `timeout`           | `int` | `10`    | Sets the timeout for HTTP requests, in seconds.                                                      |
+| 参数           | 类型  | 默认值 | 描述                                                                                   |
+| -------------- | ----- | ------ | -------------------------------------------------------------------------------------- |
+| `fixed_max_results` | `int` | -      | 设置要返回的最大结果固定数量。未提供默认值，如果使用则必须指定。                                                                 |
+| `fixed_language`    | `str` | -      | 设置结果的固定语言。                                                                   |
+| `headers`           | `Any` | -      | 用于搜索请求的标头。                                                                   |
+| `proxy`             | `str` | -      | 指定要用于 HTTP 请求的单个代理地址作为字符串。                                                              |
+| `timeout`           | `int` | `10`   | 设置 HTTP 请求的超时时间（以秒为单位）。                                                               |
 
-## Toolkit Functions
+## Toolkit 函数
 
-| Function       | Description                                    |
-| -------------- | ---------------------------------------------- |
-| `baidu_search` | Use this function to search Baidu for a query. |
+| 函数       | 描述                               |
+| ---------- | ---------------------------------- |
+| `baidu_search` | 使用此函数在百度中搜索查询。 |
 
-## Developer Resources
+## 开发者资源
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/baidusearch.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/baidusearch_tools.py)
+- 查看 [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/baidusearch.py)
+- 查看 [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/baidusearch_tools.py)

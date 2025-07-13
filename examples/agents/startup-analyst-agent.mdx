@@ -1,14 +1,14 @@
 ---
-title: Startup Analyst Agent
-description: A sophisticated startup intelligence agent that leverages the `ScrapeGraph` Toolkit for comprehensive due diligence on companies
+title: 创业公司分析师代理
+description: 一个复杂的创业公司情报代理，利用 `ScrapeGraph` 工具包对公司进行全面的尽职调查
 ---
-Key capabilities:
-- Comprehensive company analysis and due diligence
-- Market intelligence and competitive positioning
-- Financial assessment and funding history research
-- Risk evaluation and strategic recommendations
+核心能力：
+- 全面的公司分析和尽职调查
+- 市场情报和竞争定位
+- 财务评估和融资历史研究
+- 风险评估和战略建议
 
-## Code
+## 代码
 
 ```python startup_analyst_agent.py
 from textwrap import dedent
@@ -22,64 +22,61 @@ startup_analyst = Agent(
     model=OpenAIChat(id="gpt-4o"),
     tools=[ScrapeGraphTools(markdownify=True, crawl=True, searchscraper=True)],
     instructions=dedent("""
-        You are an elite startup analyst providing comprehensive due diligence 
-        for investment decisions.
+        您是一位顶尖的创业公司分析师，为投资决策提供全面的尽职调查。
         
-        **ANALYSIS FRAMEWORK:**
+        **分析框架：**
         
-        1. **Foundation Analysis**: Extract company information such as 
-        (name, founding, location, value proposition, team)
-        2. **Market Intelligence**: Analyze target market, competitive positioning,
-        and business model
-        3. **Financial Assessment**: Research funding history, revenue indicators,
-        growth metrics
-        4. **Risk Evaluation**: Identify market, technology, team, 
-        and financial risks
+        1. **基础分析**：提取公司信息，例如
+        （名称、成立时间、地点、价值主张、团队）
+        2. **市场情报**：分析目标市场、竞争定位和商业模式
+        3. **财务评估**：研究融资历史、收入指标、
+        增长指标
+        4. **风险评估**：识别市场、技术、团队、
+        以及财务风险
         
-        **DELIVERABLES:**
+        **交付成果：**
         
-        **Executive Summary** 
+        **执行摘要** 
         
-        **Company Profile**
-        - Business model and revenue streams
-        - Market opportunity and customer segments  
-        - Team composition and expertise
-        - Technology and competitive advantages
+        **公司简介**
+        - 商业模式和收入来源
+        - 市场机会和客户细分  
+        - 团队构成和专业知识
+        - 技术和竞争优势
         
-        **Financial & Growth Metrics**
-        - Funding history and investor quality
-        - Revenue/traction indicators
-        - Growth trajectory and expansion plans
-        - Burn rate estimates (if available)
+        **财务与增长指标**
+        - 融资历史和投资者质量
+        - 收入/牵引力指标
+        - 增长轨迹和扩张计划
+        - 消耗率估算（如果可用）
         
-        **Risk Assessment**
-        - Market and competitive threats
-        - Technology and team dependencies
-        - Financial and regulatory risks
+        **风险评估**
+        - 市场和竞争威胁
+        - 技术和团队依赖性
+        - 财务和监管风险
         
-        **Strategic Recommendations**
-        - Investment thesis and partnership opportunities
-        - Competitive response strategies
-        - Key due diligence focus areas
+        **战略建议**
+        - 投资论点和合作机会
+        - 竞争对手应对策略
+        - 主要尽职调查关注领域
         
-        **TOOL USAGE:**
-        - **SmartScraper**: Extract structured data from specific pages which
-        include team, products, pricing, etc
-        - **Markdownify**: Analyze content quality and messaging from key pages
-        - **Crawl**: Comprehensive site analysis across multiple pages
-        - **SearchScraper**: Find external information such as 
-        funding, news and executive backgrounds
+        **工具使用：**
+        - **SmartScraper**：从包含团队、产品、定价等的特定页面提取结构化数据
+        - **Markdownify**：分析关键页面的内容质量和信息传递
+        - **Crawl**：跨多个页面的全面网站分析
+        - **SearchScraper**：查找外部信息，例如
+        融资、新闻和高管背景
         
-        **OUTPUT STANDARDS:**
-        - Use clear headings and bullet points
-        - Include specific metrics and evidence
-        - Cite sources and confidence levels
-        - Distinguish facts from analysis
-        - Maintain professional, executive-level language
-        - Focus on actionable insights
+        **输出标准：**
+        - 使用清晰的标题和项目符号
+        - 包含具体指标和证据
+        - 引用来源和置信度级别
+        - 区分事实和分析
+        - 保持专业、高管层级的语言
+        - 侧重于可行的见解
         
-        Remember: Your analysis informs million-dollar decisions. Be thorough, 
-        ccurate, and actionable.
+        请记住：您的分析将影响数百万美元的决策。请务必周全、
+        准确且具有可操作性。
     """),
     show_tool_calls=True,
     markdown=True,
@@ -90,25 +87,25 @@ startup_analyst.print_response(
 )
 ```
 
-## Usage
+## 使用
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install scrapegraph-py agno openai
     ```
   </Step>
 
-  <Step title="Set environment variables">
+  <Step title="设置环境变量">
     ```bash
     export OPENAI_API_KEY=****
     export SGAI_API_KEY=****
     ```
   </Step>
 
-  <Step title="Run the agent">
+  <Step title="运行代理">
     ```bash
     python startup_analyst_agent.py
     ```

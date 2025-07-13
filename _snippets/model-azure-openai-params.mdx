@@ -1,12 +1,12 @@
-| Parameter                 | Type                          | Default             | Description                                                                  |
-| ------------------------- | ----------------------------- | ------------------- | ---------------------------------------------------------------------------- |
-| `id`                      | `str`                         | -                   | The specific model ID used for generating responses. This field is required. |
-| `name`                    | `str`                         | `"AzureOpenAI"`     | The name identifier for the agent.                                           |
-| `provider`                | `str`                         | `"Azure"`           | The provider of the model.                                                   |
-| `api_key`                 | `Optional[str]`               | `"None"`            | The API key for authenticating requests to the Azure OpenAI service.         |
-| `api_version`             | `str`                         | `"2024-10-21"`      | The version of the Azure OpenAI API to use.                                  |
-| `azure_endpoint`          | `Optional[str]`               | `"None"`            | The endpoint URL for the Azure OpenAI service.                               |
-| `azure_deployment`        | `Optional[str]`               | `"None"`            | The deployment name or ID in Azure.                                          |
-| `azure_ad_token`          | `Optional[str]`               | `"None"`            | The Azure Active Directory token for authenticating requests.                |
-| `azure_ad_token_provider` | `Optional[Any]`               | `"None"`            | The provider for obtaining Azure Active Directory tokens.                    |
-| `openai_client`           | `Optional[AzureOpenAIClient]` | `"None"`            | An instance of AzureOpenAIClient provided for making API requests.           |
+| 参数                 | 类型                          | 默认值            | 描述                                                                  |
+| -------------------- | ----------------------------- | --------------- | ---------------------------------------------------------------------------- |
+| `id`                 | `str`                         | -               | 用于生成响应的特定模型 ID。此字段是必需的。 |
+| `name`               | `str`                         | `"AzureOpenAI"` | 代理的名称标识符。                                           |
+| `provider`           | `str`                         | `"Azure"`       | 模型提供商。                                                   |
+| `api_key`            | `Optional[str]`               | `"None"`            | 用于向 Azure OpenAI 服务验证请求的 API 密钥。         |
+| `api_version`        | `str`                         | `"2024-10-21"`      | 要使用的 Azure OpenAI API 的版本。                                  |
+| `azure_endpoint`     | `Optional[str]`               | `"None"`            | Azure OpenAI 服务的端点 URL。                               |
+| `azure_deployment`   | `Optional[str]`               | `"None"`            | Azure 中的部署名称或 ID。                                          |
+| `azure_ad_token`     | `Optional[str]`               | `"None"`            | 用于向 Azure Active Directory 进行身份验证的令牌。         |
+| `azure_ad_token_provider` | `Optional[Any]`               | `"None"`            | 用于获取 Azure Active Directory 令牌的提供商。                    |
+| `openai_client`      | `Optional[AzureOpenAIClient]` | `"None"`            | 为发出 API 请求而提供的 AzureOpenAIClient 实例。           |

@@ -1,12 +1,12 @@
-## Run your Agent App locally
+## 在本地运行您的 Agent App
 
-`cd` into the `agent-app` folder
+进入 `agent-app` 文件夹
 
 ```bash
 cd agent-app
 ```
 
-Start your Agent App using the following command:
+使用以下命令启动您的 Agent App：
 
 <CodeGroup>
 
@@ -24,15 +24,15 @@ ag ws up --env dev --infra docker
 
 </CodeGroup>
 
-**Press Enter** to confirm and give a few seconds for the image to download (only the first time). Verify container status and view logs on the docker dashboard.
+**按 Enter** 键确认，并等待几秒钟让镜像下载（仅首次运行此操作）。在 Docker Dashboard 上验证容器状态并查看日志。
 
-- Open [localhost:8501](http://localhost:8501) to view the streamlit UI.
-- Open [localhost:8000/docs](http://localhost:8000/docs) to view the FastAPI routes.
+- 打开 [localhost:8501](http://localhost:8501) 查看 Streamlit UI。
+- 打开 [localhost:8000/docs](http://localhost:8000/docs) 查看 FastAPI 路由。
 
 ![agent-app-ui](/images/agent-app-ui.png)
 
-Notes:
+备注：
 
-- The `Agents` are defined in the `agents` folder.
-- The streamlit apps are defined in the `ui` folder
-- The API routes are defined in the `api` folder.
+- `Agents` 定义在 `agents` 文件夹中。
+- Streamlit 应用定义在 `ui` 文件夹中。
+- API 路由定义在 `api` 文件夹中。

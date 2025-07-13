@@ -1,25 +1,25 @@
 ---
-title: Route
+title: 路由
 ---
 
-In **Route Mode**, the Team Leader directs user queries to the most appropriate team member based on the content of the request.
+在 **路由模式** 中，团队领导根据请求内容将用户查询导向最合适的团队成员。
 
-The Team Leader acts as a smart router, analyzing the query and selecting the best-suited agent to handle it. The member's response is then returned directly to the user.
+团队领导扮演智能路由器的角色，分析查询并选择最适合处理的代理。然后，成员的响应将直接返回给用户。
 
-## How Route Mode Works
+## 路由模式如何工作
 
-In "route" mode:
+在“route”模式下：
 
-1. The team receives a user query
-2. A Team Leader analyzes the query to determine which team member has the right expertise
-3. The query is forwarded to the selected team member
-4. The response from the team member is returned directly to the user
+1. 团队接收用户查询
+2. 团队领导分析查询，确定哪位团队成员具备正确的专业知识
+3. 查询被转发给选定的团队成员
+4. 团队成员的响应直接返回给用户
 
-This mode is particularly useful when you have specialized agents with distinct expertise areas and want to automatically direct queries to the right specialist.
+当您拥有具有不同专业领域的专业代理并希望自动将查询定向到正确的专家时，此模式特别有用。
 
 <Steps>
-  <Step title="Create Multi Language Team">
-    Create a file `multi_language_team.py`
+  <Step title="创建多语言团队">
+    创建文件 `multi_language_team.py`
 
     ```python multi_language_team.py
     from agno.agent import Agent
@@ -125,14 +125,14 @@ This mode is particularly useful when you have specialized agents with distinct 
     ```
 
   </Step>
-  <Step title="Run the team">
-    Install libraries
+  <Step title="运行团队">
+    安装库
 
     ```shell
     pip install openai mistral agno
     ```
 
-    Run the team
+    运行团队
 
     ```shell
     python multi_language_team.py
@@ -141,12 +141,12 @@ This mode is particularly useful when you have specialized agents with distinct 
   </Step>
 </Steps>
 
-## Structured Output with Route Mode
+## 使用路由模式进行结构化输出
 
-One powerful feature of route mode is its ability to maintain structured output from member agents.
-When using a Pydantic model for the response, the response from the selected team member will be automatically parsed into the specified structure.
+路由模式的一项强大功能是能够维护成员代理的结构化输出。
+当使用 Pydantic 模型作为响应时，选定团队成员的响应将自动解析为指定的结构。
 
-### Defining Structured Output Models
+### 定义结构化输出模型
 
 ```python
 from pydantic import BaseModel

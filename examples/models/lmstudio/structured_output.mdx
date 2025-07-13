@@ -1,8 +1,8 @@
 ---
-title: Agent with Structured Outputs
+title: 具有结构化输出的代理
 ---
 
-## Code
+## 代码
 
 ```python cookbook/models/lmstudio/structured_output.py
 import asyncio
@@ -43,19 +43,18 @@ structured_output_agent = Agent(
 structured_output_agent.print_response("
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install LM Studio">
+  <Step title="安装 LM Studio">
 
-    Install LM Studio from [here](https://lmstudio.ai/download) and download the
-    model you want to use.
+    从[这里](https://lmstudio.ai/download)安装 LM Studio 并下载您要使用的模型。
 
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
 
     ```bash
     pip install -U agno
@@ -63,7 +62,7 @@ structured_output_agent.print_response("
 
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行代理">
 
     <CodeGroup>
     ```bash Mac

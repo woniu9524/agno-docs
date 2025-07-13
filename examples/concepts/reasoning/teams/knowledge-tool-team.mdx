@@ -1,12 +1,12 @@
 ---
-title: Team with Knowledge Tools
+title: 知识工具团队
 ---
-This is a team reasoning example with knowledge tools.
+这是一个带有知识工具的团队推理示例。
 <Tip>
-Enabling the reasoning option on the team leader helps optimize delegation and enhances multi-agent collaboration by selectively invoking deeper reasoning when required.
+在团队领导者上启用推理选项可以通过选择性地在需要时调用更深入的推理来优化代理分配，并增强多代理协作。
 </Tip>
 
-## Code
+## 代码
 
 ```python cookbook/reasoning/teams/knowledge_tool_team.py
 from textwrap import dedent
@@ -22,7 +22,7 @@ from agno.vectordb.lancedb import LanceDb, SearchType
 
 agno_docs = UrlKnowledge(
     urls=["https://www.paulgraham.com/read.html"],
-    # Use LanceDB as the vector database and store embeddings in the `agno_docs` table
+    # 使用 LanceDB 作为向量数据库并将嵌入存储在 `agno_docs` 表中
     vector_db=LanceDb(
         uri="tmp/lancedb",
         table_name="agno_docs",
@@ -40,16 +40,16 @@ knowledge_tools = KnowledgeTools(
 
 web_agent = Agent(
     name="Web Search Agent",
-    role="Handle web search requests",
+    role="处理网络搜索请求",
     model=OpenAIChat(id="gpt-4o-mini"),
     tools=[DuckDuckGoTools()],
-    instructions="Always include sources",
+    instructions="始终包含来源",
     add_datetime_to_instructions=True,
 )
 
 finance_agent = Agent(
     name="Finance Agent",
-    role="Handle financial data requests",
+    role="处理财务数据请求",
     model=OpenAIChat(id="gpt-4o-mini"),
     tools=[
         YFinanceTools(stock_price=True, analyst_recommendations=True, company_info=True)
@@ -58,7 +58,7 @@ finance_agent = Agent(
 )
 
 team_leader = Team(
-    name="Reasoning Finance Team",
+    name="推理金融团队",
     mode="coordinate",
     model=OpenAIChat(id="gpt-4o"),
     members=[
@@ -67,20 +67,20 @@ team_leader = Team(
     ],
     tools=[knowledge_tools],
     instructions=[
-        "Only output the final answer, no other text.",
-        "Use tables to display data",
+        "只输出最终答案，不包含其他文本。",
+        "使用表格展示数据",
     ],
     markdown=True,
     show_members_responses=True,
     enable_agentic_context=True,
     add_datetime_to_instructions=True,
-    success_criteria="The team has successfully completed the task.",
+    success_criteria="团队已成功完成任务。",
     debug_mode=True,
 )
 
 
 def run_team(task: str):
-    # Comment out after first run
+    # 首次运行后注释掉此行
     agno_docs.load(recreate=True)
     team_leader.print_response(
         task,
@@ -91,27 +91,27 @@ def run_team(task: str):
 
 
 if __name__ == "__main__":
-    run_team("What does Paul Graham talk about the need to read in this essay?")
+    run_team("保罗·格雷厄姆在这篇论文中谈到阅读的必要性是什么？")
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U openai agno
     ```
   </Step>
 
-  <Step title="Run Example">
+  <Step title="运行示例">
     <CodeGroup>
     ```bash Mac
     python cookbook/reasoning/teams/knowledge_tool_team.py

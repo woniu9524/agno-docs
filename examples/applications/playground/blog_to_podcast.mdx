@@ -1,10 +1,10 @@
 ---
-title: Blog To Podcast
+title: 博客转播客
 ---
 
-This example shows how to use the blog to podcast agent with playground.
+本示例展示了如何在 Playground 中使用博客转播客代理。
 
-## Code
+## 代码
 
 ```python cookbook/apps/playground/blog_to_podcast.py
 from agno.agent import Agent
@@ -30,16 +30,16 @@ blog_to_podcast_agent = Agent(
         ),
         FirecrawlTools(),
     ],
-    description="You are an AI agent that can generate audio using the ElevenLabs API.",
+    description="您是一个可以使用 ElevenLabs API 生成音频的 AI 代理。",
     instructions=[
-        "When the user provides a blog URL:",
-        "1. Use FirecrawlTools to scrape the blog content",
-        "2. Create a concise summary of the blog content that is NO MORE than 2000 characters long",
-        "3. The summary should capture the main points while being engaging and conversational",
-        "4. Use the ElevenLabsTools to convert the summary to audio",
-        "You don\'t need to find the appropriate voice first, I already specified the voice to user",
-        "Don\'t return file name or file url in your response or markdown just tell the audio was created successfully",
-        "Ensure the summary is within the 2000 character limit to avoid ElevenLabs API limits",
+        "当用户提供博客网址时：",
+        "1. 使用 FirecrawlTools 抓取博客内容",
+        "2. 创建一篇博客内容的简洁摘要，长度不超过 2000 个字符",
+        "3. 摘要应捕捉要点，同时具有吸引力和对话性",
+        "4. 使用 ElevenLabsTools 将摘要转换为音频",
+        "您无需先找到合适的语音，我已经为用户指定了语音",
+        "不要在您的响应或 markdown 中返回文件名或文件网址，只需告知音频已成功创建",
+        "确保摘要在 2000 个字符限制内，以避免 ElevenLabs API 限制",
     ],
     markdown=True,
     debug_mode=True,
@@ -64,12 +64,12 @@ if __name__ == "__main__":
 
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API keys">
+  <Step title="设置您的 API 密钥">
     ```bash
     export OPENAI_API_KEY=xxx
     export ELEVEN_LABS_API_KEY=xxx
@@ -77,13 +77,13 @@ if __name__ == "__main__":
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U agno "uvicorn[standard]" openai elevenlabs firecrawl-py
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行代理">
     <CodeGroup>
     ```bash Mac
     python cookbook/apps/playground/blog_to_podcast.py
@@ -94,4 +94,4 @@ if __name__ == "__main__":
     ```
     </CodeGroup>
   </Step>
-</Steps> 
+</Steps>

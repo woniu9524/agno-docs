@@ -1,28 +1,28 @@
 ---
-title: Filtering on load with Pdf-Url
-description: Learn how to filter knowledge base at load time using Pdf-Url documents with user-specific metadata.
+title: 加载时使用 Pdf-Url 进行过滤
+description: 学习如何在使用具有用户特定元数据的 Pdf-Url 文档时，在加载时过滤知识库。
 ---
 
-## Code
+## 代码
 
 ```python
 from agno.agent import Agent
 from agno.knowledge.pdf_url import PDFUrlKnowledgeBase
 from agno.vectordb.lancedb import LanceDb
 
-# Initialize LanceDB
-# By default, it stores data in /tmp/lancedb
+# 初始化 LanceDB
+# 默认情况下，它将数据存储在 /tmp/lancedb
 vector_db = LanceDb(
     table_name="recipes",
-    uri="tmp/lancedb",  # You can change this path to store data elsewhere
+    uri="tmp/lancedb",  # 您可以将此路径更改为存储其他位置的数据
 )
 
-# Step 1: Initialize knowledge base with documents and metadata
+# 步骤 1：使用文档和元数据初始化知识库
 # ------------------------------------------------------------------------------
-# When loading the knowledge base, we can attach metadata that will be used for filtering
-# This metadata can include user IDs, document types, dates, or any other attributes
+# 在加载知识库时，我们可以附加用于过滤的元数据
+# 此元数据可以包含用户 ID、文档类型、日期或任何其他属性
 
-# Initialize knowledge base
+# 初始化知识库
 knowledge_base = PDFUrlKnowledgeBase(
     vector_db=vector_db,
 )
@@ -30,7 +30,7 @@ knowledge_base = PDFUrlKnowledgeBase(
 knowledge_base.load_document(
     url="https://agno-public.s3.amazonaws.com/recipes/thai_recipes_short.pdf",
     metadata={"cuisine": "Thai", "source": "Thai Cookbook"},
-    recreate=False,  # only use at the first run, True/False
+    recreate=False,  # 仅在首次运行时使用，True/False
 )
 
 knowledge_base.load_document(
@@ -39,42 +39,42 @@ knowledge_base.load_document(
 )
 
 
-# Option 1: Filters on the Agent
-# Initialize the Agent with the knowledge base
+# 选项 1：在 Agent 上过滤
+# 使用知识库初始化 Agent
 agent = Agent(
     knowledge=knowledge_base,
     search_knowledge=True,
     knowledge_filters={
         "cuisine": "Thai"
-    },  # This will only return information from documents associated with Thai cuisine
+    },  # 这将仅返回与泰式风味相关的文档信息
 )
 agent.print_response(
-    "Tell me how to make Pad Thai",
+    "告诉我如何制作泰式炒河粉",
     markdown=True,
 )
 
-# # # Option 2: Filters on the run/print_response
+# # # 选项 2：在运行时/print_response 上过滤
 # agent = Agent(
 #     knowledge=knowledge_base,
 #     search_knowledge=True,
 # )
 # agent.print_response(
-#     "Tell me how to make Cape Malay Curry",
+#     "告诉我如何制作 Cape Malay Curry",
 #     knowledge_filters={"cuisine": "Cape"},
 #     markdown=True,
 # )
 ```
 
-## Usage
+## 用法
 
 <Steps>
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U agno openai lancedb
     ```
   </Step>
 
-  <Step title="Run the example">
+  <Step title="运行示例">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/knowledge/filters/pdf_url/filtering_on_load.py
@@ -85,4 +85,4 @@ agent.print_response(
     ```
     </CodeGroup>
   </Step>
-</Steps> 
+</Steps>

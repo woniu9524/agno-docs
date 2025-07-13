@@ -14,10 +14,10 @@
   "navigation": {
     "tabs": [
       {
-        "tab": "User Guide",
+        "tab": "用户指南",
         "groups": [
           {
-            "group": "Introduction",
+            "group": "简介",
             "pages": [
               "introduction",
               "introduction/agents",
@@ -28,10 +28,10 @@
             ]
           },
           {
-            "group": "Concepts",
+            "group": "概念",
             "pages": [
               {
-                "group": "Agents",
+                "group": "代理",
                 "pages": [
                   "agents/introduction",
                   "agents/run",
@@ -51,14 +51,14 @@
                 ]
               },
               {
-                "group": "Teams",
+                "group": "团队",
                 "pages": [
                   "teams/introduction",
                   "teams/run",
                   "teams/metrics",
                   "teams/shared-state",
                   {
-                    "group": "Team Modes",
+                    "group": "团队模式",
                     "pages": [
                       "teams/route",
                       "teams/coordinate",
@@ -69,7 +69,7 @@
                 ]
               },
               {
-                "group": "Models",
+                "group": "模型",
                 "pages": [
                   "models/introduction",
                   "models/compatibility",
@@ -118,7 +118,7 @@
                 ]
               },
               {
-                "group": "Tools",
+                "group": "工具",
                 "pages": [
                   "tools/introduction",
                   "tools/tool-decorator",
@@ -126,11 +126,11 @@
                   "tools/hooks",
                   "tools/hitl",
                   {
-                    "group": "Toolkits",
+                    "group": "工具包",
                     "pages": [
                       "tools/toolkits/toolkits",
                       {
-                        "group": "Search",
+                        "group": "搜索",
                         "pages": [
                           "tools/toolkits/search/arxiv",
                           "tools/toolkits/search/baidusearch",
@@ -148,7 +148,7 @@
                         ]
                       },
                       {
-                        "group": "Social",
+                        "group": "社交",
                         "pages": [
                           "tools/toolkits/social/discord",
                           "tools/toolkits/social/email",
@@ -163,7 +163,7 @@
                         ]
                       },
                       {
-                        "group": "Web Scraping",
+                        "group": "网页抓取",
                         "pages": [
                           "tools/toolkits/web_scrape/agentql",
                           "tools/toolkits/web_scrape/browserbase",
@@ -180,7 +180,7 @@
                         ]
                       },
                       {
-                        "group": "Data",
+                        "group": "数据",
                         "pages": [
                           "tools/toolkits/database/csv",
                           "tools/toolkits/database/duckdb",
@@ -191,7 +191,7 @@
                         ]
                       },
                       {
-                        "group": "Local",
+                        "group": "本地",
                         "pages": [
                           "tools/toolkits/local/calculator",
                           "tools/toolkits/local/docker",
@@ -202,7 +202,7 @@
                         ]
                       },
                       {
-                        "group": "Models",
+                        "group": "模型",
                         "pages": [
                           "tools/toolkits/models/openai",
                           "tools/toolkits/models/gemini",
@@ -210,7 +210,7 @@
                         ]
                       },
                       {
-                        "group": "Additional Toolkits",
+                        "group": "其他工具包",
                         "pages": [
                           "tools/toolkits/others/airflow",
                           "tools/toolkits/others/apify",
@@ -257,7 +257,7 @@
                     "pages": [
                       "tools/mcp/mcp",
                       {
-                        "group": "Transports",
+                        "group": "传输",
                         "pages": [
                           "tools/mcp/transports/stdio",
                           "tools/mcp/transports/sse",
@@ -268,7 +268,7 @@
                     ]
                   },
                   {
-                    "group": "Reasoning Tools",
+                    "group": "推理工具",
                     "pages": [
                       "tools/reasoning_tools/reasoning-tools",
                       "tools/reasoning_tools/thinking-tools",
@@ -284,7 +284,7 @@
                 ]
               },
               {
-                "group": "Reasoning",
+                "group": "推理",
                 "pages": [
                   "reasoning/introduction",
                   "reasoning/reasoning-models",
@@ -293,7 +293,7 @@
                 ]
               },
               {
-                "group": "Memory",
+                "group": "记忆",
                 "pages": [
                   "memory/introduction",
                   "memory/memory",
@@ -301,17 +301,17 @@
                 ]
               },
               {
-                "group": "Knowledge",
+                "group": "知识",
                 "pages": [
                   "knowledge/introduction",
                   "knowledge/search",
                   "knowledge/hybrid_search",
                   {
-                    "group": "Knowledge Filters",
+                    "group": "知识过滤器",
                     "pages": [
-                      "filters/introduction",
-                      "filters/manual-filters",
-                      "filters/agentic-filters"
+                      "knowledge/filters/introduction",
+                      "knowledge/filters/manual-filters",
+                      "knowledge/filters/agentic-filters"
                     ]
                   },
                   "knowledge/custom_retriever",
@@ -338,7 +338,7 @@
                 ]
               },
               {
-                "group": "Chunking",
+                "group": "分块",
                 "pages": [
                   "chunking/fixed-size-chunking",
                   "chunking/agentic-chunking",
@@ -348,7 +348,7 @@
                 ]
               },
               {
-                "group": "Vector DBs",
+                "group": "向量数据库",
                 "pages": [
                   "vectordb/introduction",
                   "vectordb/pgvector",
@@ -367,7 +367,7 @@
                 ]
               },
               {
-                "group": "Storage",
+                "group": "存储",
                 "pages": [
                   "storage/introduction",
                   "storage/dynamodb",
@@ -382,7 +382,7 @@
                 ]
               },
               {
-                "group": "Embeddings",
+                "group": "嵌入器",
                 "pages": [
                   "embedder/introduction",
                   "embedder/openai",
@@ -401,11 +401,11 @@
                 ]
               },
               {
-                "group": "Evals",
+                "group": "评估",
                 "pages": ["evals/introduction", "evals/platform"]
               },
               {
-                "group": "Workflows",
+                "group": "工作流",
                 "pages": [
                   "workflows/introduction",
                   "workflows/state",
@@ -413,7 +413,7 @@
                 ]
               },
               {
-                "group": "Applications",
+                "group": "应用",
                 "pages": [
                   "applications/playground/introduction",
                   "applications/fastapi/introduction",
@@ -426,18 +426,18 @@
             ]
           },
           {
-            "group": "Other",
+            "group": "其他",
             "pages": [
               {
-                "group": "Agent UI",
+                "group": "代理UI",
                 "pages": ["agent-ui/introduction"]
               },
               {
-                "group": "Agent API",
+                "group": "代理API",
                 "pages": ["agent-api/introduction"]
               },
               {
-                "group": "Observability",
+                "group": "可观测性",
                 "pages": [
                   "observability/introduction",
                   "observability/agentops",
@@ -449,13 +449,13 @@
                 ]
               },
               {
-                "group": "Testing",
+                "group": "测试",
                 "pages": ["testing/scenario-testing"]
               }
             ]
           },
           {
-            "group": "How to",
+            "group": "操作指南",
             "pages": [
               "how-to/install",
               "how-to/contribute",
@@ -466,14 +466,14 @@
         ]
       },
       {
-        "tab": "Examples",
+        "tab": "示例",
         "groups": [
           {
-            "group": "Examples",
+            "group": "示例",
             "pages": [
               "examples/introduction",
               {
-                "group": "Getting Started",
+                "group": "入门",
                 "pages": [
                   "examples/getting-started/introduction",
                   "examples/getting-started/basic-agent",
@@ -498,7 +498,7 @@
                 ]
               },
               {
-                "group": "Agents",
+                "group": "代理",
                 "pages": [
                   "examples/agents/finance-agent",
                   "examples/agents/tweet-analysis-agent",
@@ -514,17 +514,17 @@
                 ]
               },
               {
-                "group": "Teams",
+                "group": "团队",
                 "pages": [
                   {
-                    "group": "Modes",
+                    "group": "模式",
                     "pages": [
                       {
-                        "group": "Collaborate",
+                        "group": "协作",
                         "pages": ["examples/teams/collaborate/discussion_team"]
                       },
                       {
-                        "group": "Coordinate",
+                        "group": "协调",
                         "pages": [
                           "examples/teams/coordinate/autonomous_startup_team",
                           "examples/teams/coordinate/hackernews_team",
@@ -532,7 +532,7 @@
                         ]
                       },
                       {
-                        "group": "Route",
+                        "group": "路由",
                         "pages": [
                           "examples/teams/route/ai_support_team",
                           "examples/teams/route/multi_language_team"
@@ -541,13 +541,13 @@
                     ]
                   },
                   {
-                    "group": "Shared State",
+                    "group": "共享状态",
                     "pages": ["examples/teams/shared_state/team_session_state"]
                   }
                 ]
               },
               {
-                "group": "Workflows",
+                "group": "工作流",
                 "pages": [
                   "examples/workflows/blog-post-generator",
                   "examples/workflows/investment-report-generator",
@@ -560,7 +560,7 @@
                 ]
               },
               {
-                "group": "Applications",
+                "group": "应用",
                 "pages": [
                   {
                     "group": "FastAPI",
@@ -598,7 +598,7 @@
                     ]
                   },
                   {
-                    "group": "Playground",
+                    "group": "实验场",
                     "pages": [
                       "examples/applications/playground/basic",
                       "examples/applications/playground/multimodal_agents",
@@ -623,7 +623,7 @@
                 ]
               },
               {
-                "group": "Streamlit Apps",
+                "group": "Streamlit应用",
                 "pages": [
                   "examples/streamlit/agentic-rag",
                   "examples/streamlit/answer-engine",
@@ -634,10 +634,10 @@
                 ]
               },
               {
-                "group": "Evals",
+                "group": "评估",
                 "pages": [
                   {
-                    "group": "Accuracy",
+                    "group": "准确性",
                     "pages": [
                       "examples/evals/accuracy/basic",
                       "examples/evals/accuracy/accuracy_with_given_answer",
@@ -646,7 +646,7 @@
                     ]
                   },
                   {
-                    "group": "Performance",
+                    "group": "性能",
                     "pages": [
                       "examples/evals/performance/performance_agent_instantiation",
                       "examples/evals/performance/performance_instantiation_with_tool",
@@ -656,7 +656,7 @@
                     ]
                   },
                   {
-                    "group": "Reliability",
+                    "group": "可靠性",
                     "pages": [
                       "examples/evals/reliability/basic",
                       "examples/evals/reliability/reliability_with_multiple_tools",
@@ -668,13 +668,13 @@
             ]
           },
           {
-            "group": "Agent Concepts",
+            "group": "代理概念",
             "pages": [
               {
-                "group": "Reasoning",
+                "group": "推理",
                 "pages": [
                   {
-                    "group": "Agents",
+                    "group": "代理",
                     "pages": [
                       "examples/concepts/reasoning/agents/basic-cot",
                       "examples/concepts/reasoning/agents/capture-reasoning-content-cot",
@@ -682,12 +682,12 @@
                     ]
                   },
                   {
-                    "group": "Models",
+                    "group": "模型",
                     "pages": [
                       {
                         "group": "Azure AI Foundry",
                         "pages": [
-                          "examples/concepts/reasoning/models/azure-ai-foundary/azure-ai-foundary"
+                          "examples/concepts/reasoning/models/azure-ai-foundry/azure-ai-foundry"
                         ]
                       },
                       {
@@ -734,14 +734,14 @@
                     ]
                   },
                   {
-                    "group": "Teams",
+                    "group": "团队",
                     "pages": [
                       "examples/concepts/reasoning/teams/reasoning-tool-team",
                       "examples/concepts/reasoning/teams/knowledge-tool-team"
                     ]
                   },
                   {
-                    "group": "Tools",
+                    "group": "工具",
                     "pages": [
                       "examples/concepts/reasoning/tools/reasoning-tools",
                       "examples/concepts/reasoning/tools/knowledge-tools",
@@ -753,7 +753,7 @@
                 ]
               },
               {
-                "group": "Multimodal",
+                "group": "多模态",
                 "pages": [
                   "examples/concepts/multimodal/audio-input-output",
                   "examples/concepts/multimodal/audio-to-text",
@@ -785,7 +785,7 @@
                 ]
               },
               {
-                "group": "User Control Flows",
+                "group": "用户控制流",
                 "pages": [
                   "examples/concepts/user-control-flows/01-confirmation-required",
                   "examples/concepts/user-control-flows/02-confirmation-required-async",
@@ -800,13 +800,13 @@
                 ]
               },
               {
-                "group": "Knowledge",
+                "group": "知识",
                 "pages": [
                   {
-                    "group": "Knowledge Filters",
+                    "group": "知识过滤器",
                     "pages": [
                       {
-                        "group": "Pdf",
+                        "group": "PDF",
                         "pages": [
                           "examples/concepts/knowledge/filters/pdf/filtering",
                           "examples/concepts/knowledge/filters/pdf/agentic_filtering",
@@ -814,7 +814,7 @@
                         ]
                       },
                       {
-                        "group": "Pdf-Url",
+                        "group": "PDF网址",
                         "pages": [
                           "examples/concepts/knowledge/filters/pdf_url/filtering",
                           "examples/concepts/knowledge/filters/pdf_url/agentic_filtering",
@@ -822,7 +822,7 @@
                         ]
                       },
                       {
-                        "group": "Json",
+                        "group": "JSON",
                         "pages": [
                           "examples/concepts/knowledge/filters/json/filtering",
                           "examples/concepts/knowledge/filters/json/agentic_filtering",
@@ -830,7 +830,7 @@
                         ]
                       },
                       {
-                        "group": "Docx",
+                        "group": "DOCX",
                         "pages": [
                           "examples/concepts/knowledge/filters/docx/filtering",
                           "examples/concepts/knowledge/filters/docx/agentic_filtering",
@@ -838,7 +838,7 @@
                         ]
                       },
                       {
-                        "group": "Text",
+                        "group": "文本",
                         "pages": [
                           "examples/concepts/knowledge/filters/text/filtering",
                           "examples/concepts/knowledge/filters/text/agentic_filtering",
@@ -865,7 +865,7 @@
                 ]
               },
               {
-                "group": "Memory",
+                "group": "记忆",
                 "pages": [
                   "examples/concepts/memory/00-built-in-memory",
                   "examples/concepts/memory/01-standalone-memory",
@@ -883,7 +883,7 @@
                   "examples/concepts/memory/13-session-summary-references",
                   "examples/concepts/memory/mem0-memory",
                   {
-                    "group": "DB",
+                    "group": "数据库",
                     "pages": [
                       "examples/concepts/memory/db/mem-mongodb-memory",
                       "examples/concepts/memory/db/mem-postgres-memory",
@@ -894,7 +894,7 @@
                 ]
               },
               {
-                "group": "Async",
+                "group": "异步",
                 "pages": [
                   "examples/concepts/async/basic",
                   "examples/concepts/async/data_analyst",
@@ -904,7 +904,7 @@
                 ]
               },
               {
-                "group": "Hybrid Search",
+                "group": "混合搜索",
                 "pages": [
                   "examples/concepts/hybrid-search/lancedb",
                   "examples/concepts/hybrid-search/pgvector",
@@ -915,10 +915,10 @@
                 ]
               },
               {
-                "group": "Storage",
+                "group": "存储",
                 "pages": [
                   {
-                    "group": "Agent Storage",
+                    "group": "代理存储",
                     "pages": [
                       "examples/concepts/storage/agent_storage/postgres",
                       "examples/concepts/storage/agent_storage/sqlite",
@@ -932,7 +932,7 @@
                     ]
                   },
                   {
-                    "group": "Team Storage",
+                    "group": "团队存储",
                     "pages": [
                       "examples/concepts/storage/team_storage/postgres",
                       "examples/concepts/storage/team_storage/sqlite",
@@ -946,7 +946,7 @@
                     ]
                   },
                   {
-                    "group": "Workflow Storage",
+                    "group": "工作流存储",
                     "pages": [
                       "examples/concepts/storage/workflow_storage/postgres",
                       "examples/concepts/storage/workflow_storage/sqlite",
@@ -962,14 +962,13 @@
                 ]
               },
               {
-                "group": "Tools",
+                "group": "工具",
                 "pages": [
                   {
-                    "group": "Search",
+                    "group": "搜索",
                     "pages": [
                       "examples/concepts/tools/search/arxiv",
                       "examples/concepts/tools/search/baidusearch",
-                      "examples/concepts/tools/search/crawl4ai",
                       "examples/concepts/tools/search/duckduckgo",
                       "examples/concepts/tools/search/exa",
                       "examples/concepts/tools/search/google_search",
@@ -983,7 +982,7 @@
                     ]
                   },
                   {
-                    "group": "Social",
+                    "group": "社交",
                     "pages": [
                       "examples/concepts/tools/social/discord",
                       "examples/concepts/tools/social/email",
@@ -995,7 +994,7 @@
                     ]
                   },
                   {
-                    "group": "Web Scraping",
+                    "group": "网页抓取",
                     "pages": [
                       "examples/concepts/tools/web_scrape/jina_reader",
                       "examples/concepts/tools/web_scrape/newspaper",
@@ -1008,7 +1007,7 @@
                     ]
                   },
                   {
-                    "group": "Database",
+                    "group": "数据库",
                     "pages": [
                       "examples/concepts/tools/database/csv",
                       "examples/concepts/tools/database/duckdb",
@@ -1020,7 +1019,7 @@
                     ]
                   },
                   {
-                    "group": "Local",
+                    "group": "本地",
                     "pages": [
                       "examples/concepts/tools/local/calculator",
                       "examples/concepts/tools/local/docker",
@@ -1031,7 +1030,7 @@
                     ]
                   },
                   {
-                    "group": "Native Model Toolkit",
+                    "group": "原生模型工具包",
                     "pages": [
                       {
                         "group": "OpenAI",
@@ -1043,7 +1042,7 @@
                     ]
                   },
                   {
-                    "group": "APIs & External Services",
+                    "group": "API和外部服务",
                     "pages": [
                       "examples/concepts/tools/others/airflow",
                       "examples/concepts/tools/others/apify",
@@ -1094,7 +1093,7 @@
                 ]
               },
               {
-                "group": "Vector Databases",
+                "group": "向量数据库",
                 "pages": [
                   "examples/concepts/vectordb/cassandra",
                   "examples/concepts/vectordb/chromadb",
@@ -1112,7 +1111,7 @@
                 ]
               },
               {
-                "group": "Context",
+                "group": "上下文",
                 "pages": [
                   "examples/concepts/context/01-add_context",
                   "examples/concepts/context/02-agent_context",
@@ -1120,7 +1119,7 @@
                 ]
               },
               {
-                "group": "Embedders",
+                "group": "嵌入器",
                 "pages": [
                   "examples/concepts/embedders/azure-embedder",
                   "examples/concepts/embedders/cohere-embedder",
@@ -1134,7 +1133,7 @@
                 ]
               },
               {
-                "group": "Agent State",
+                "group": "代理状态",
                 "pages": [
                   "examples/concepts/state/01-session-state",
                   "examples/concepts/state/02-state-in-prompt",
@@ -1145,7 +1144,7 @@
                 ]
               },
               {
-                "group": "Observability",
+                "group": "可观测性",
                 "pages": [
                   {
                     "group": "Arize Phoenix",
@@ -1167,11 +1166,11 @@
                 ]
               },
               {
-                "group": "Testing",
+                "group": "测试",
                 "pages": ["examples/testing/scenario/basic"]
               },
               {
-                "group": "Miscellaneous",
+                "group": "杂项",
                 "pages": [
                   "examples/concepts/others/agent_extra_metrics",
                   "examples/concepts/others/agent_metrics",
@@ -1192,7 +1191,7 @@
             ]
           },
           {
-            "group": "Models",
+            "group": "模型",
             "pages": [
               {
                 "group": "Anthropic",
@@ -1463,7 +1462,7 @@
                 "group": "OpenAI",
                 "pages": [
                   {
-                    "group": "OpenAI Chat",
+                    "group": "OpenAI聊天",
                     "pages": [
                       "examples/models/openai/chat/basic",
                       "examples/models/openai/chat/basic_stream",
@@ -1479,7 +1478,7 @@
                     ]
                   },
                   {
-                    "group": "OpenAI Responses",
+                    "group": "OpenAI响应",
                     "pages": [
                       "examples/models/openai/responses/basic",
                       "examples/models/openai/responses/basic_stream",
@@ -1557,21 +1556,21 @@
         ]
       },
       {
-        "tab": "Workspaces",
+        "tab": "工作区",
         "groups": [
           {
-            "group": "Workspaces",
+            "group": "工作区",
             "pages": [
               "workspaces/introduction",
               {
-                "group": "Agent App",
+                "group": "代理应用",
                 "pages": [
                   "workspaces/agent-app/local",
                   "workspaces/agent-app/aws"
                 ]
               },
               {
-                "group": "Agent API",
+                "group": "代理API",
                 "pages": [
                   "workspaces/agent-api/local",
                   "workspaces/agent-api/aws"
@@ -1580,7 +1579,7 @@
             ]
           },
           {
-            "group": "Workspace Management",
+            "group": "工作区管理",
             "pages": [
               "workspaces/workspace-management/introduction",
               "workspaces/workspace-management/development-app",
@@ -1602,10 +1601,10 @@
         ]
       },
       {
-        "tab": "FAQs",
+        "tab": "常见问题",
         "groups": [
           {
-            "group": "FAQs",
+            "group": "常见问题",
             "pages": [
               "faq/environment-variables",
               "faq/tpm-issues",
@@ -1622,13 +1621,13 @@
         ]
       },
       {
-        "tab": "API reference",
+        "tab": "API参考",
         "groups": [
           {
-            "group": "Reference",
+            "group": "参考",
             "pages": [
               {
-                "group": "Agents",
+                "group": "代理",
                 "pages": [
                   "reference/agents/agent",
                   "reference/agents/session",
@@ -1636,7 +1635,7 @@
                 ]
               },
               {
-                "group": "Teams",
+                "group": "团队",
                 "pages": [
                   "reference/teams/team",
                   "reference/teams/session",
@@ -1644,7 +1643,7 @@
                 ]
               },
               {
-                "group": "Workflows",
+                "group": "工作流",
                 "pages": [
                   "reference/workflows/workflow",
                   "reference/workflows/storage/mongodb",
@@ -1653,7 +1652,7 @@
                 ]
               },
               {
-                "group": "Models",
+                "group": "模型",
                 "pages": [
                   "reference/models/model",
                   "reference/models/openai",
@@ -1688,7 +1687,7 @@
                 ]
               },
               {
-                "group": "Knowledge",
+                "group": "知识",
                 "pages": [
                   "reference/knowledge/base",
                   "reference/knowledge/arxiv",
@@ -1708,7 +1707,7 @@
                 ]
               },
               {
-                "group": "Vector Databases",
+                "group": "向量数据库",
                 "pages": [
                   "reference/vector_db/cassandra",
                   "reference/vector_db/chromadb",
@@ -1725,7 +1724,7 @@
                 ]
               },
               {
-                "group": "Embedders",
+                "group": "嵌入器",
                 "pages": [
                   "reference/embedder/azure_openai",
                   "reference/embedder/cohere",
@@ -1742,11 +1741,11 @@
                 ]
               },
               {
-                "group": "Memory",
+                "group": "记忆",
                 "pages": [
                   "reference/memory/memory",
                   {
-                    "group": "Storage",
+                    "group": "存储",
                     "pages": [
                       "reference/memory/storage/mongo",
                       "reference/memory/storage/postgres",
@@ -1757,7 +1756,7 @@
                 ]
               },
               {
-                "group": "Storage",
+                "group": "存储",
                 "pages": [
                   "reference/storage/yaml",
                   "reference/storage/json",
@@ -1770,11 +1769,11 @@
                 ]
               },
               {
-                "group": "Rerankers",
+                "group": "重排器",
                 "pages": ["reference/reranker/cohere"]
               },
               {
-                "group": "Chunking",
+                "group": "分块",
                 "pages": [
                   "reference/chunking/fixed-size",
                   "reference/chunking/agentic",
@@ -1784,7 +1783,7 @@
                 ]
               },
               {
-                "group": "Document Reader",
+                "group": "文档阅读器",
                 "pages": [
                   "reference/document_reader/arxiv",
                   "reference/document_reader/base",
@@ -1807,10 +1806,10 @@
         ]
       },
       {
-        "tab": "Changelog",
+        "tab": "更新日志",
         "groups": [
           {
-            "group": "Changelog",
+            "group": "更新日志",
             "pages": ["changelog/overview"]
           }
         ]
@@ -1834,7 +1833,7 @@
         "href": "https://agno.link/discord"
       },
       {
-        "label": "Community",
+        "label": "社区",
         "href": "https://community.agno.com/"
       }
     ],

@@ -1,8 +1,8 @@
 ---
-title: Agent with Tools
+title: 拥有工具的代理
 ---
 
-## Code
+## 代码
 
 ```python cookbook/models/groq/tool_use.py
 from agno.agent import Agent
@@ -13,37 +13,37 @@ from agno.tools.newspaper4k import Newspaper4kTools
 agent = Agent(
     model=Groq(id="llama-3.1-8b-instant"),
     tools=[DuckDuckGoTools(), Newspaper4kTools()],
-    description="You are a senior NYT researcher writing an article on a topic.",
+    description="你是《纽约时报》的一名资深研究员，正在撰写一篇关于某个主题的文章。",
     instructions=[
-        "For a given topic, search for the top 5 links.",
-        "Then read each URL and extract the article text, if a URL isn't available, ignore it.",
-        "Analyse and prepare an NYT worthy article based on the information.",
+        "对于给定的主题，搜索排名前 5 的链接。",
+        "然后阅读每个 URL 并提取文章文本，如果 URL 不可用，则忽略。",
+        "根据信息分析和撰写一篇符合《纽约时报》风格的文章。",
     ],
     markdown=True,
     show_tool_calls=True,
     add_datetime_to_instructions=True,
 )
-agent.print_response("Simulation theory", stream=True)
+agent.print_response("模拟理论", stream=True)
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置你的 API 密钥">
     ```bash
     export GROQ_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U groq duckduckgo-search newspaper4k lxml_html_clean agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行代理">
     <CodeGroup>
     ```bash Mac
     python cookbook/models/groq/tool_use.py

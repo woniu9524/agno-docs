@@ -1,8 +1,8 @@
 ---
-title: Financial Datasets Tools
+title: 金融数据集工具
 ---
 
-## Code
+## 代码
 
 ```python cookbook/tools/financial_datasets_tools.py
 from agno.agent import Agent
@@ -11,55 +11,55 @@ from agno.tools.financial_datasets import FinancialDatasetsTools
 agent = Agent(
     name="Financial Data Agent",
     tools=[
-        FinancialDatasetsTools(),  # For accessing financial data
+        FinancialDatasetsTools(),  # 用于访问金融数据
     ],
-    description="You are a financial data specialist that helps analyze financial information for stocks and cryptocurrencies.",
+    description="您是一位金融数据专家，帮助用户分析股票和加密货币的金融信息。",
     instructions=[
-        "When given a financial query:",
-        "1. Use appropriate Financial Datasets methods based on the query type",
-        "2. Format financial data clearly and highlight key metrics",
-        "3. For financial statements, compare important metrics with previous periods when relevant",
-        "4. Calculate growth rates and trends when appropriate",
-        "5. Handle errors gracefully and provide meaningful feedback",
+        "当收到金融查询时：",
+        "1. 根据查询类型使用适当的金融数据集方法",
+        "2. 清晰地格式化金融数据并突出关键指标",
+        "3. 对于财务报表，在相关时比较重要指标与上期数据",
+        "4. 在适当时计算增长率和趋势",
+        "5. 优雅地处理错误并提供有意义的反馈",
     ],
     markdown=True,
     show_tool_calls=True,
 )
 
-# Example 1: Financial Statements
-print("\n=== Income Statement Example ===")
+# 示例 1：财务报表
+print("\n=== 利润表示例 ===")
 agent.print_response(
-    "Get the most recent income statement for AAPL and highlight key metrics",
+    "获取 AAPL 的最新利润表并突出关键指标",
     stream=True,
 )
 
-# Example 2: Balance Sheet Analysis
-print("\n=== Balance Sheet Analysis Example ===")
+# 示例 2：资产负债表分析
+print("\n=== 资产负债表分析示例 ===")
 agent.print_response(
-    "Analyze the balance sheets for MSFT over the last 3 years. Focus on debt-to-equity ratio and cash position.",
+    "分析 MSFT 过去 3 年的资产负债表。重点关注负债股本比和现金头寸。",
     stream=True,
 )
 
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API credentials">
+  <Step title="设置您的 API 凭证">
     ```bash
     export FINANCIAL_DATASETS_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行 Agent">
     <CodeGroup>
     ```bash Mac
       python cookbook/tools/financial_datasets_tools.py

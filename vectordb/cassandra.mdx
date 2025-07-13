@@ -1,17 +1,17 @@
 ---
-title: Cassandra Agent Knowledge
+title: Cassandra Agent 知识库
 sidebarTitle: Cassandra
 ---
 
-## Setup
+## 设置
 
-Install cassandra packages
+安装 cassandra 包
 
 ```shell
 pip install cassandra-driver
 ```
 
-Run cassandra
+运行 cassandra
 
 ```shell
 docker run -d \
@@ -20,7 +20,7 @@ docker run -d \
 cassandra:latest
 ```
 
-## Example
+## 示例
 
 ```python agent_with_knowledge.py
 from agno.agent import Agent
@@ -30,7 +30,7 @@ from agno.vectordb.cassandra import Cassandra
 from agno.embedder.mistral import MistralEmbedder
 from agno.models.mistral import MistralChat
 
-# (Optional) Set up your Cassandra DB
+# (可选) 设置你的 Cassandra 数据库
 
 cluster = Cluster()
 
@@ -48,7 +48,7 @@ knowledge_base = PDFUrlKnowledgeBase(
 )
 
 
-# knowledge_base.load(recreate=False)  # Comment out after first run
+# knowledge_base.load(recreate=False)  # 首次运行后注释掉
 
 agent = Agent(
     model=MistralChat(provider="mistral-large-latest", api_key=os.getenv("MISTRAL_API_KEY")),
@@ -61,10 +61,10 @@ agent.print_response(
 )
 ```
 
-<Card title="Async Support ⚡">
+<Card title="异步支持 ⚡">
   <div className="mt-2">
     <p>
-      Cassandra also supports asynchronous operations, enabling concurrency and leading to better performance.
+      Cassandra 也支持异步操作，能够实现并发并提高性能。
     </p>
     
     ```python async_cassandra.py
@@ -110,10 +110,10 @@ agent.print_response(
     )
 
     if __name__ == "__main__":
-        # Comment out after first run
+        # 首次运行后注释掉
         asyncio.run(knowledge_base.aload(recreate=False))
 
-        # Create and use the agent
+        # 创建并使用 agent
         asyncio.run(
             agent.aprint_response(
                 "What are the health benefits of Khao Niew Dam Piek Maphrao Awn?",
@@ -123,12 +123,12 @@ agent.print_response(
     ```
     
     <Tip className="mt-4">
-      Use <code>aload()</code> and <code>aprint_response()</code> methods with <code>asyncio.run()</code> for non-blocking operations in high-throughput applications.
+      在<code>asyncio.run()</code>中使用<code>aload()</code>和<code>aprint_response()</code>方法，以便在处理高吞吐量应用程序时进行非阻塞操作。
     </Tip>
   </div>
 </Card>
 
-## Developer Resources
+## 开发者资源
 
-- View [Cookbook (Sync)](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/vector_dbs/cassandra_db/cassandra_db.py)
-- View [Cookbook (Async)](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/vector_dbs/cassandra_db/async_cassandra_db.py)
+- 查看 [Cookbook (同步)](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/vector_dbs/cassandra_db/cassandra_db.py)
+- 查看 [Cookbook (异步)](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/vector_dbs/cassandra_db/async_cassandra_db.py)

@@ -1,12 +1,12 @@
 ---
-title: Agent with Session Summaries
+title: 带有会话摘要的代理
 ---
 
-This example demonstrates how to create session summaries.
+此示例演示了如何创建会话摘要。
 
-To enable this, set `enable_session_summaries=True` in the Agent config.
+要启用此功能，请在 Agent 配置中将 `enable_session_summaries` 设置为 `True`。
 
-## Code
+## 代码
 
 ```python cookbook/agent_concepts/memory/08_agent_with_summaries.py
 
@@ -83,24 +83,24 @@ session_summary = memory.get_session_summary(
 pprint(session_summary)
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U agno openai
     ```
   </Step>
 
-  <Step title="Run Example">
+  <Step title="运行示例">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/memory/08_agent_with_summaries.py

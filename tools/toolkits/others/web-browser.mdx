@@ -1,9 +1,9 @@
 ---
 title: Web Browser Tools
-description: WebBrowser Tools enable an Agent to open a URL in a web browser.
+description: WebBrowser Tools 使 Agent 能够通过网络浏览器打开 URL。
 ---
 
-## Example
+## 示例
 
 ```python cookbook/tools/webbrowser_tools.py
 from agno.agent import Agent
@@ -15,17 +15,17 @@ agent = Agent(
     model=Gemini("gemini-2.0-flash"),
     tools=[WebBrowserTools(), DuckDuckGoTools()],
     instructions=[
-        "Find related websites and pages using DuckDuckGo"
-        "Use web browser to open the site"
+        "使用 DuckDuckGo 查找相关网站和页面"
+        "使用网络浏览器打开该网站"
     ],
     show_tool_calls=True,
     markdown=True,
 )
-agent.print_response("Find an article explaining MCP and open it in the web browser.")
+agent.print_response("查找一篇解释 MCP 的文章，并在浏览器中打开它。")
 ```
 
 ## Toolkit Functions
 
 | Function | Description |
 | -------- | ----------- |
-| `open_page` | Opens a URL in a web browser |
+| `open_page` | 在网络浏览器中打开一个 URL |

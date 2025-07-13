@@ -1,26 +1,26 @@
 ---
-title: Command line authentication
-sidebarTitle: Command line authentication
+title: 命令行身份验证
+sidebarTitle: 命令行身份验证
 ---
 
-If you run `ag auth` and you get the error: `CLI authentication failed` or your CLI gets stuck on
+如果您运行 `ag auth` 并遇到错误：`CLI authentication failed` 或您的 CLI 卡在
 
 ```
 Waiting for a response from browser...
 ```
 
-It means that your CLI was not able to authenticate with your Agno account on [app.agno.com](https://app.agno.com)
+这意味着您的 CLI 无法在 [app.agno.com](https://app.agno.com) 上与您的 Agno 账户进行身份验证。
 
-The quickest fix for this is to export your `AGNO_API_KEY` environment variable. You can do this by running the following command:
+最快的解决方法是导出您的 `AGNO_API_KEY` 环境变量。您可以通过运行以下命令来实现：
 
 ```bash
 export AGNO_API_KEY=<your_api_key>
 ```
 
-Your API key can be found on [app.agno.com](https://app.agno.com/settings) in the sidebar under `API Key`.
+您可以在 [app.agno.com](https://app.agno.com/settings) 的侧边栏中找到您的 API 密钥，在 `API Key` 下。
 
 <img src="/images/cli-faq.png" alt="agno-api-key" width={600}/>
 
-Reason for CLI authentication failure:
+CLI 身份验证失败的原因：
 
-- Some browsers like Safari and Brave block connection to the localhost domain. Browsers like Chrome work great with `ag setup`.
+- 某些浏览器（如 Safari 和 Brave）会阻止连接到 localhost 域。Chrome 等浏览器与 `ag setup` 配合得很好。

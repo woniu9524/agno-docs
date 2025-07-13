@@ -1,8 +1,8 @@
 ---
-title: Streaming Agent
+title: 流式代理
 ---
 
-## Code
+## 代码
 
 ```python cookbook/models/cerebras/basic_stream.py
 from agno.agent import Agent, RunResponse  # noqa
@@ -16,27 +16,27 @@ agent = Agent(
     markdown=True,
 )
 
-agent.print_response("write a two sentence horror story", stream=True)
+agent.print_response("写一个两句话的恐怖故事", stream=True)
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置你的 API 密钥">
     ```bash
     export CEREBRAS_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U cerebras-cloud-sdk agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行代理">
     <CodeGroup>
     ```bash Mac
     python cookbook/models/cerebras/basic_stream.py

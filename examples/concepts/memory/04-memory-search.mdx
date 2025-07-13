@@ -1,14 +1,14 @@
 ---
-title: Memory Search
+title: 内存搜索
 ---
 
-This example demonstrates how to search for user memories using different retrieval methods
+本示例演示了如何使用不同的检索方法搜索用户内存
 
-- last_n: Retrieves the last n memories
-- first_n: Retrieves the first n memories
-- semantic: Retrieves memories using semantic search
+- last_n:检索最新的 n 条内存
+- first_n:检索最早的 n 条内存
+- semantic:使用语义搜索检索内存
 
-## Code
+## 代码
 
 ```python cookbook/agent_concepts/memory/05_memory_search.py
 from agno.memory.v2 import Memory, UserMemory
@@ -17,19 +17,19 @@ from agno.models.google.gemini import Gemini
 from rich.pretty import pprint
 
 memory_db = SqliteMemoryDb(table_name="memory", db_file="tmp/memory.db")
-# Reset for this example
+# 为本示例重置
 memory_db.clear()
 
 memory = Memory(model=Gemini(id="gemini-2.0-flash-exp"), db=memory_db)
 
 john_doe_id = "john_doe@example.com"
 memory.add_user_memory(
-    memory=UserMemory(memory="The user enjoys hiking in the mountains on weekends"),
+    memory=UserMemory(memory="该用户周末喜欢在山区徒步旅行"),
     user_id=john_doe_id,
 )
 memory.add_user_memory(
     memory=UserMemory(
-        memory="The user enjoys reading science fiction novels before bed"
+        memory="该用户喜欢睡前阅读科幻小说"
     ),
     user_id=john_doe_id,
 )
@@ -50,25 +50,25 @@ pprint(memories)
 
 memories = memory.search_user_memories(
     user_id=john_doe_id,
-    query="What does the user like to do on weekends?",
+    query="用户周末喜欢做什么？",
     retrieval_method="agentic",
 )
 print("\nJohn Doe's memories similar to the query (agentic):")
 pprint(memories)
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U agno
     ```
   </Step>
 
-  <Step title="Run Example">
+  <Step title="运行示例">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/memory/05_memory_search.py

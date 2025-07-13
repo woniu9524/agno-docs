@@ -1,8 +1,8 @@
 ---
-title: Async Streaming Agent
+title: 异步流式代理
 ---
 
-## Code
+## 代码
 
 ```python cookbook/models/xai/basic_async_stream.py
 import asyncio
@@ -13,35 +13,35 @@ from agno.models.xai import xAI
 
 agent = Agent(model=xAI(id="grok-3"), markdown=True)
 
-# Get the response in a variable
-# run_response: Iterator[RunResponseEvent] = agent.run("Share a 2 sentence horror story", stream=True)
+# 获取响应到一个变量中
+# run_response: Iterator[RunResponseEvent] = agent.run("写一个两句的恐怖故事", stream=True)
 # for chunk in run_response:
 #     print(chunk.content)
 
-# Print the response in the terminal
-asyncio.run(agent.aprint_response("Share a 2 sentence horror story", stream=True))
+# 在终端中打印响应
+asyncio.run(agent.aprint_response("写一个两句的恐怖故事", stream=True))
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">
     ```bash
     export XAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U openai agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行代理">
     ```bash
     python cookbook/models/xai/basic_async_stream.py
     ```
   </Step>
-</Steps> 
+</Steps>

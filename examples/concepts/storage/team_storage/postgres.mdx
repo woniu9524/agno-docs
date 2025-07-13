@@ -1,15 +1,15 @@
 ---
-title: Postgres Team Storage
+title: Postgres 团队存储
 sidebarTitle: Postgres
 ---
 
-Agno supports using PostgreSQL as a storage backend for Teams using the `PostgresStorage` class.
+Agno 支持使用 PostgreSQL 作为团队存储后端，通过 `PostgresStorage` 类。
 
-## Usage
+## 用法
 
-### Run PgVector
+### 运行 PgVector
 
-Install [docker desktop](https://docs.docker.com/desktop/install/mac-install/) and run **PgVector** on port **5532** using:
+安装 [Docker Desktop](https://docs.docker.com/desktop/install/mac-install/) 并使用以下命令在端口 **5532** 上运行 **PgVector**：
 
 ```bash
 docker run -d \
@@ -25,7 +25,7 @@ docker run -d \
 
 ```python postgres_storage_for_team.py
 """
-Run: `pip install openai duckduckgo-search newspaper4k lxml_html_clean agno` to install the dependencies
+运行: `pip install openai duckduckgo-search newspaper4k lxml_html_clean agno` 来安装依赖项
 """
 
 from typing import List
@@ -48,23 +48,23 @@ class Article(BaseModel):
 
 
 hn_researcher = Agent(
-    name="HackerNews Researcher",
+    name="HackerNews 研究员",
     model=OpenAIChat("gpt-4o"),
-    role="Gets top stories from hackernews.",
+    role="从 hackernews 获取热门新闻。",
     tools=[HackerNewsTools()],
 )
 
 web_searcher = Agent(
-    name="Web Searcher",
+    name="网络搜索员",
     model=OpenAIChat("gpt-4o"),
-    role="Searches the web for information on a topic",
+    role="搜索网络上的信息",
     tools=[DuckDuckGoTools()],
     add_datetime_to_instructions=True,
 )
 
 
 hn_team = Team(
-    name="HackerNews Team",
+    name="HackerNews 团队",
     mode="coordinate",
     model=OpenAIChat("gpt-4o"),
     members=[hn_researcher, web_searcher],
@@ -72,9 +72,9 @@ hn_team = Team(
         table_name="agent_sessions", db_url=db_url, auto_upgrade_schema=True
     ),
     instructions=[
-        "First, search hackernews for what the user is asking about.",
-        "Then, ask the web searcher to search for each story to get more information.",
-        "Finally, provide a thoughtful and engaging summary.",
+        "首先，在 hackernews 上搜索用户询问的内容。",
+        "然后，让网络搜索员搜索每条新闻以获取更多信息。",
+        "最后，提供一个周到且引人入胜的总结。",
     ],
     response_model=Article,
     show_tool_calls=True,
@@ -83,14 +83,14 @@ hn_team = Team(
     show_members_responses=True,
 )
 
-hn_team.print_response("Write an article about the top 2 stories on hackernews")
+hn_team.print_response("写一篇关于 hackernews 上排名前 2 的故事的文章")
 
 ```
 
-## Params
+## 参数
 
 <Snippet file="storage-postgres-params.mdx" />
 
-## Developer Resources
+## 开发者资源
 
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/storage/postgres_storage/postgres_storage_for_team.py)
+- 查看 [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/storage/postgres_storage/postgres_storage_for_team.py)

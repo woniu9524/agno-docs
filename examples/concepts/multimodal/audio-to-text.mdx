@@ -1,8 +1,8 @@
 ---
-title: Audio to text Agent
+title: 音频转文本 Agent
 ---
 
-## Code
+## 代码
 
 ```python
 import requests
@@ -22,30 +22,30 @@ audio_content = response.content
 
 
 agent.print_response(
-    "Give a transcript of this audio conversation. Use speaker A, speaker B to identify speakers.",
+    "转录此次音频对话内容，使用说话人 A、说话人 B 来区分不同的说话人。",
     audio=[Audio(content=audio_content)],
     stream=True,
 )
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置你的 API 密钥">
     ```bash
     export GOOGLE_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install google-genai
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行 Agent">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/multimodal/audio_to_text.py

@@ -1,8 +1,8 @@
 ---
-title: MLX Transcribe Tools
+title: MLX 转录工具
 ---
 
-## Code
+## 代码
 
 ```python cookbook/tools/mlx_transcribe_tools.py
 from agno.agent import Agent
@@ -13,27 +13,27 @@ agent = Agent(
     show_tool_calls=True,
     markdown=True,
 )
-agent.print_response("Transcribe this audio file: path/to/audio.mp3")
+agent.print_response("转录这个音频文件：path/to/audio.mp3")
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U mlx-transcribe openai agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行 Agent">
     <CodeGroup>
     ```bash Mac
     python cookbook/tools/mlx_transcribe_tools.py

@@ -1,9 +1,9 @@
 ---
-title: External Tool Execution
-description: This example demonstrates how to execute tool calls outside of the agent's control, allowing for custom execution logic and security measures.
+title: 外部工具执行
+description: 本示例演示了如何在代理控制之外执行工具调用，从而允许自定义执行逻辑和安全措施。
 ---
 
-## Code
+## 代码
 
 ```python cookbook/agent_concepts/user_control_flows/external_tool_execution.py
 import subprocess
@@ -15,18 +15,18 @@ from agno.utils import pprint
 
 @tool(external_execution=True)
 def execute_shell_command(command: str) -> str:
-    """Execute a shell command.
+    """执行一个 shell 命令。
 
     Args:
-        command (str): The shell command to execute
+        command (str): 要执行的 shell 命令
 
     Returns:
-        str: The output of the shell command
+        str: shell 命令的输出
     """
     if command.startswith("ls"):
         return subprocess.check_output(command, shell=True).decode("utf-8")
     else:
-        raise Exception(f"Unsupported command: {command}")
+        raise Exception(f"不支持的命令: {command}")
 
 agent = Agent(
     model=OpenAIChat(id="gpt-4o-mini"),
@@ -38,34 +38,34 @@ run_response = agent.run("What files do I have in my current directory?")
 if run_response.is_paused:
     for tool in run_response.tools_awaiting_external_execution:
         if tool.tool_name == execute_shell_command.name:
-            print(f"Executing {tool.tool_name} with args {tool.tool_args} externally")
-            # We execute the tool ourselves. You can also execute something completely external here.
+            print(f"外部执行 {tool.tool_name} 参数为 {tool.tool_args}")
+            # 我们自己执行该工具。您也可以在此处执行完全外部的内容。
             result = execute_shell_command.entrypoint(**tool.tool_args)
-            # We have to set the result on the tool execution object so that the agent can continue
+            # 我们必须将结果设置在工具执行对象上，以便代理可以继续执行
             tool.result = result
 
     run_response = agent.continue_run()
     pprint.pprint_run_response(run_response)
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U agno openai
     ```
   </Step>
 
-  <Step title="Run Example">
+  <Step title="运行示例">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/user_control_flows/external_tool_execution.py
@@ -78,12 +78,12 @@ if run_response.is_paused:
   </Step>
 </Steps>
 
-## Key Features
+## 主要特点
 
-- Uses `@tool(external_execution=True)` to mark tools that need external execution
-- Demonstrates how to handle tool execution results
+- 使用 `@tool(external_execution=True)` 标记需要外部执行的工具
+- 演示了如何处理工具执行结果
 
-## Use Cases
+## 使用场景
 
-- Executing sensitive operations outside agent control
-- Executing long-running operations outside agent control
+- 在代理控制之外执行敏感操作
+- 在代理控制之外执行长时间运行的操作

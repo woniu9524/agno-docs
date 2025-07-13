@@ -1,13 +1,13 @@
 ---
-title: DynamoDB Workflow Storage
+title: DynamoDB 工作流存储
 sidebarTitle: DynamoDB
 ---
 
-Agno supports using DynamoDB as a storage backend for Workflows using the `DynamoDbStorage` class.
+Agno 支持使用 DynamoDB 作为工作流的存储后端，通过 `DynamoDbStorage` 类实现。
 
-## Usage
+## 用法
 
-You need to provide `aws_access_key_id` and `aws_secret_access_key` parameters to the `DynamoDbStorage` class.
+您需要为 `DynamoDbStorage` 类提供 `aws_access_key_id` 和 `aws_secret_access_key` 参数。
 
 ```python dynamodb_storage_for_workflow.py
 import json
@@ -25,46 +25,46 @@ from agno.workflow import Workflow
 
 class HackerNewsReporter(Workflow):
     description: str = (
-        "Get the top stories from Hacker News and write a report on them."
+        "获取 Hacker News 的热门新闻并撰写报告。"
     )
 
     hn_agent: Agent = Agent(
-        description="Get the top stories from hackernews. "
-        "Share all possible information, including url, score, title and summary if available.",
+        description="获取 hackernews 的热门新闻。 "
+        "分享所有可能的信息，包括 url、分数、标题和摘要（如果可用）。",
         show_tool_calls=True,
     )
 
     writer: Agent = Agent(
         tools=[Newspaper4kTools()],
-        description="Write an engaging report on the top stories from hackernews.",
+        description="撰写一篇引人入胜的关于 Hacker News 热门新闻的报告。",
         instructions=[
-            "You will be provided with top stories and their links.",
-            "Carefully read each article and think about the contents",
-            "Then generate a final New York Times worthy article",
-            "Break the article into sections and provide key takeaways at the end.",
-            "Make sure the title is catchy and engaging.",
-            "Share score, title, url and summary of every article.",
-            "Give the section relevant titles and provide details/facts/processes in each section."
-            "Ignore articles that you cannot read or understand.",
-            "REMEMBER: you are writing for the New York Times, so the quality of the article is important.",
+            "将为您提供热门新闻及其链接。",
+            "仔细阅读每篇文章并思考内容",
+            "然后生成一篇能与纽约时报媲美的最终文章",
+            "将文章分成几个部分，并在末尾提供要点。",
+            "确保标题吸引人且引人入胜。",
+            "分享每篇文章的分数、标题、网址和摘要。",
+            "为各部分提供相关的标题，并在每个部分中提供详细信息/事实/过程。",
+            "忽略您无法阅读或理解的文章。",
+            "记住：您是在为《纽约时报》写作，所以文章的质量很重要。",
         ],
     )
 
     def get_top_hackernews_stories(self, num_stories: int = 10) -> str:
-        """Use this function to get top stories from Hacker News.
+        """使用此函数获取 Hacker News 的热门新闻。
 
         Args:
-            num_stories (int): Number of stories to return. Defaults to 10.
+            num_stories (int): 要返回的故事数量。默认为 10。
 
         Returns:
-            str: JSON string of top stories.
+            str: 热门新闻的 JSON 字符串。
         """
 
-        # Fetch top story IDs
+        # 获取热门故事 ID
         response = httpx.get("https://hacker-news.firebaseio.com/v0/topstories.json")
         story_ids = response.json()
 
-        # Fetch story details
+        # 获取故事详细信息
         stories = []
         for story_id in story_ids[:num_stories]:
             story_response = httpx.get(
@@ -76,37 +76,37 @@ class HackerNewsReporter(Workflow):
         return json.dumps(stories)
 
     def run(self, num_stories: int = 5) -> Iterator[RunResponse]:
-        # Set the tools for hn_agent here to avoid circular reference
+        # 在此处设置 hn_agent 的工具，以避免循环引用
         self.hn_agent.tools = [self.get_top_hackernews_stories]
 
-        logger.info(f"Getting top {num_stories} stories from HackerNews.")
+        logger.info(f"正在从 HackerNews 获取前 {num_stories} 条热门新闻。")
         top_stories: RunResponse = self.hn_agent.run(num_stories=num_stories)
         if top_stories is None or not top_stories.content:
             yield RunResponse(
-                run_id=self.run_id, content="Sorry, could not get the top stories."
+                run_id=self.run_id, content="抱歉，无法获取热门新闻。"
             )
             return
 
-        logger.info("Reading each story and writing a report.")
+        logger.info("正在阅读每篇新闻并撰写报告。")
         yield from self.writer.run(top_stories.content, stream=True)
 
 
 if __name__ == "__main__":
-    # Run workflow
+    # 运行工作流
     report: Iterator[RunResponse] = HackerNewsReporter(
         storage=DynamoDbStorage(
             table_name="workflow_sessions", region_name="us-east-1"
         ),
         debug_mode=False,
     ).run(num_stories=5)
-    # Print the report
+    # 打印报告
     pprint_run_response(report, markdown=True, show_time=True)
 ```
 
-## Params
+## 参数
 
 <Snippet file="storage-dynamodb-params.mdx" />
 
-## Developer Resources
+## 开发者资源
 
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/storage/dynamodb_storage/dynamodb_storage_for_workflow.py)
+- 查看 [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/storage/dynamodb_storage/dynamodb_storage_for_workflow.py)

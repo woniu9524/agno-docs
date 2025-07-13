@@ -1,8 +1,8 @@
 ---
-title: Multimodal Agents
+title: 多模态代理
 ---
 
-## Code
+## 代码
 
 ```python cookbook/apps/playground/multimodal_agents.py
 from agno.agent import Agent
@@ -23,10 +23,10 @@ image_agent = Agent(
     agent_id="image_agent",
     model=OpenAIChat(id="gpt-4o"),
     tools=[DalleTools(model="dall-e-3", size="1792x1024", quality="hd", style="vivid")],
-    description="You are an AI agent that can generate images using DALL-E.",
+    description="您是一个可以使用 DALL-E 生成图像的 AI 代理。",
     instructions=[
-        "When the user asks you to create an image, use the `create_image` tool to create the image.",
-        "Don\'t provide the URL of the image in the response. Only describe what image was generated.",
+        "当用户要求您创建图像时，请使用 `create_image` 工具来创建图像。",
+        "请勿在响应中提供图像的 URL。只需描述生成的图像。",
     ],
     markdown=True,
     add_history_to_messages=True,
@@ -43,10 +43,10 @@ ml_gif_agent = Agent(
     agent_id="ml_gif_agent",
     model=OpenAIChat(id="gpt-4o"),
     tools=[ModelsLabTools(wait_for_completion=True, file_type=FileType.GIF)],
-    description="You are an AI agent that can generate gifs using the ModelsLabs API.",
+    description="您是一个可以使用 ModelsLabs API 生成 gif 的 AI 代理。",
     instructions=[
-        "When the user asks you to create an image, use the `generate_media` tool to create the image.",
-        "Don\'t provide the URL of the image in the response. Only describe what image was generated.",
+        "当用户要求您创建图像时，请使用 `generate_media` 工具来创建图像。",
+        "请勿在响应中提供图像的 URL。只需描述生成的图像。",
     ],
     markdown=True,
     add_history_to_messages=True,
@@ -63,17 +63,17 @@ ml_music_agent = Agent(
     agent_id="ml_music_agent",
     model=OpenAIChat(id="gpt-4o"),
     tools=[ModelsLabTools(wait_for_completion=True, file_type=FileType.MP3)],
-    description="You are an AI agent that can generate music using the ModelsLabs API.",
+    description="您是一个可以使用 ModelsLabs API 生成音乐的 AI 代理。",
     instructions=[
-        "When generating music, use the `generate_media` tool with detailed prompts that specify:",
-        "- The genre and style of music (e.g., classical, jazz, electronic)",
-        "- The instruments and sounds to include",
-        "- The tempo, mood and emotional qualities",
-        "- The structure (intro, verses, chorus, bridge, etc.)",
-        "Create rich, descriptive prompts that capture the desired musical elements.",
-        "Focus on generating high-quality, complete instrumental pieces.",
-        "Keep responses simple and only confirm when music is generated successfully.",
-        "Do not include any file names, URLs or technical details in responses.",
+        "生成音乐时，请使用 `generate_media` 工具，并附带详细的提示，说明：",
+        "- 音乐的流派和风格（例如，古典、爵士、电子音乐）",
+        "- 要包含的乐器和声音",
+        "- 节奏、情绪和情感特质",
+        "- 结构（前奏、主歌、副歌、桥梁等）",
+        "创建丰富且描述性的提示，以捕捉所需的音乐元素。",
+        "专注于生成高质量、完整的器乐作品。",
+        "保持响应简洁，仅在成功生成音乐时进行确认。",
+        "请勿在响应或 markdown 中包含任何文件名、URL 或技术细节。",
     ],
     markdown=True,
     add_history_to_messages=True,
@@ -90,10 +90,10 @@ ml_video_agent = Agent(
     agent_id="ml_video_agent",
     model=OpenAIChat(id="gpt-4o"),
     tools=[ModelsLabTools(wait_for_completion=True, file_type=FileType.MP4)],
-    description="You are an AI agent that can generate videos using the ModelsLabs API.",
+    description="您是一个可以使用 ModelsLabs API 生成视频的 AI 代理。",
     instructions=[
-        "When the user asks you to create a video, use the `generate_media` tool to create the video.",
-        "Don\'t provide the URL of the video in the response. Only describe what video was generated.",
+        "当用户要求您创建视频时，请使用 `generate_media` 工具来创建视频。",
+        "请勿在响应中提供视频的 URL。只需描述生成的视频。",
     ],
     markdown=True,
     add_history_to_messages=True,
@@ -110,10 +110,10 @@ fal_agent = Agent(
     agent_id="fal_agent",
     model=OpenAIChat(id="gpt-4o"),
     tools=[FalTools("fal-ai/hunyuan-video")],
-    description="You are an AI agent that can generate videos using the Fal API.",
+    description="您是一个可以使用 Fal API 生成视频的 AI 代理。",
     instructions=[
-        "When the user asks you to create a video, use the `generate_media` tool to create the video.",
-        "Don\'t provide the URL of the video in the response. Only describe what video was generated.",
+        "当用户要求您创建视频时，请使用 `generate_media` 工具来创建视频。",
+        "请勿在响应中提供视频的 URL。只需描述生成的视频。",
     ],
     markdown=True,
     add_history_to_messages=True,
@@ -130,10 +130,10 @@ gif_agent = Agent(
     agent_id="gif_agent",
     model=OpenAIChat(id="gpt-4o"),
     tools=[GiphyTools()],
-    description="You are an AI agent that can generate gifs using Giphy.",
+    description="您是一个可以使用 Giphy 生成 gif 的 AI 代理。",
     instructions=[
-        "When the user asks you to create a gif, come up with the appropriate Giphy query and use the `search_gifs` tool to find the appropriate gif.",
-        "Don\'t return the URL, only describe what you created.",
+        "当用户要求您创建 gif 时，请构思合适的 Giphy 查询并使用 `search_gifs` 工具查找合适的 gif。",
+        "不要返回 URL，只需描述您创建的内容。",
     ],
     markdown=True,
     add_history_to_messages=True,
@@ -156,13 +156,13 @@ audio_agent = Agent(
             target_directory="audio_generations",
         )
     ],
-    description="You are an AI agent that can generate audio using the ElevenLabs API.",
+    description="您是一个可以使用 ElevenLabs API 生成音频的 AI 代理。",
     instructions=[
-        "When the user asks you to generate audio, use the `text_to_speech` tool to generate the audio.",
-        "You\'ll generate the appropriate prompt to send to the tool to generate audio.",
-        "You don\'t need to find the appropriate voice first, I already specified the voice to user."
-        "Don\'t return file name or file url in your response or markdown just tell the audio was created successfully.",
-        "The audio should be long and detailed.",
+        "当用户要求您生成音频时，请使用 `text_to_speech` 工具来生成音频。",
+        "您将生成适当的提示发送到工具以生成音频。",
+        "您无需先找到合适的语音，我已经为用户指定了语音。",
+        "请勿在您的响应或 markdown 中返回文件名或文件 URL，只需告知音频已成功创建。",
+        "音频应该长且详细。",
     ],
     markdown=True,
     add_history_to_messages=True,
@@ -196,28 +196,28 @@ if __name__ == "__main__":
 
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API keys">
+  <Step title="设置您的 API 密钥">
     ```bash
     export OPENAI_API_KEY=xxx
     export ELEVEN_LABS_API_KEY=xxx
-    export MODELS_LAB_API_KEY=xxx # Get from https://console.modelslab.com/settings/api-keys
-    export FAL_API_KEY=xxx # Get from https://fal.ai/dashboard/keys
-    export GIPHY_API_KEY=xxx # Get from https://developers.giphy.com/
+    export MODELS_LAB_API_KEY=xxx # 从 https://console.modelslab.com/settings/api-keys 获取
+    export FAL_API_KEY=xxx # 从 https://fal.ai/dashboard/keys 获取
+    export GIPHY_API_KEY=xxx # 从 https://developers.giphy.com/ 获取
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U agno "uvicorn[standard]" openai elevenlabs fal-ai giphy-sdk-python sqlalchemy 
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行代理">
     <CodeGroup>
     ```bash Mac
     python cookbook/apps/playground/multimodal_agents.py
@@ -228,4 +228,4 @@ if __name__ == "__main__":
     ```
     </CodeGroup>
   </Step>
-</Steps> 
+</Steps>

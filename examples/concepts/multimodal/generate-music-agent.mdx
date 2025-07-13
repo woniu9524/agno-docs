@@ -1,8 +1,8 @@
 ---
-title: Generate Music using Models Lab
+title: 使用 Models Lab 生成音乐
 ---
 
-## Code
+## 代码
 
 ```python
 import os
@@ -20,21 +20,21 @@ agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
     show_tool_calls=True,
     tools=[ModelsLabTools(wait_for_completion=True, file_type=FileType.MP3)],
-    description="You are an AI agent that can generate music using the ModelsLabs API.",
+    description="你是一个可以使用 ModelsLabs API 生成音乐的 AI 代理。",
     instructions=[
-        "When generating music, use the `generate_media` tool with detailed prompts that specify:",
-        "- The genre and style of music (e.g., classical, jazz, electronic)",
-        "- The instruments and sounds to include",
-        "- The tempo, mood and emotional qualities",
-        "- The structure (intro, verses, chorus, bridge, etc.)",
-        "Create rich, descriptive prompts that capture the desired musical elements.",
-        "Focus on generating high-quality, complete instrumental pieces.",
+        "生成音乐时，请使用 `generate_media` 工具，并提供详细的提示，指定：",
+        "- 音乐的流派和风格（例如，古典、爵士、电子）",
+        "- 要包含的乐器和声音",
+        "- 节奏、情绪和情感特质",
+        "- 结构（前奏、主歌、副歌、桥段等）",
+        "创建丰富、描述性的提示，以捕捉所需的音乐元素。",
+        "专注于生成高质量、完整的器乐作品。",
     ],
     markdown=True,
     debug_mode=True,
 )
 
-music: RunResponse = agent.run("Generate a 30 second classical music piece")
+music: RunResponse = agent.run("生成一段 30 秒的古典音乐")
 
 save_dir = "audio_generations"
 
@@ -45,28 +45,28 @@ if music.audio is not None and len(music.audio) > 0:
     filename = f"{save_dir}/sample_music{uuid4()}.wav"
     with open(filename, "wb") as f:
         f.write(response.content)
-    logger.info(f"Music saved to {filename}")
+    logger.info(f"音乐已保存到 {filename}")
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">
     ```bash
     export OPENAI_API_KEY=xxx
     export MODELS_LAB_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U openai agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行 Agent">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/multimodal/generate_music_agent.py

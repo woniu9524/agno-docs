@@ -1,8 +1,8 @@
 ---
-title: Agent with Storage
+title: 带有存储的代理
 ---
 
-## Code
+## 代码
 
 ```python cookbook/models/ollama/storage.py
 from agno.agent import Agent
@@ -22,25 +22,25 @@ agent.print_response("How many people live in Canada?")
 agent.print_response("What is their national anthem called?")
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install Ollama">
-    Follow the [installation guide](https://github.com/ollama/ollama?tab=readme-ov-file#macos) and run:
+  <Step title="安装 Ollama">
+    请遵循[安装指南](https://github.com/ollama/ollama?tab=readme-ov-file#macos)，然后运行：
     ```bash
     ollama pull llama3.1:8b
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U ollama sqlalchemy psycopg duckduckgo-search agno
     ```
   </Step>
 
-  <Step title="Run PgVector">
+  <Step title="运行 PgVector">
     ```bash
     docker run -d \
       -e POSTGRES_DB=ai \
@@ -54,7 +54,7 @@ agent.print_response("What is their national anthem called?")
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行代理">
     <CodeGroup>
     ```bash Mac
     python cookbook/models/ollama/storage.py

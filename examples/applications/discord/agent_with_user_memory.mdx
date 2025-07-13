@@ -1,8 +1,8 @@
 ---
-title: Agent with User Memory
+title: 具备用户记忆的 Agent
 ---
 
-## Code
+## 代码
 
 ```python cookbook/apps/discord/agent_with_user_memory.py
 from textwrap import dedent
@@ -25,17 +25,17 @@ memory = Memory(
     db=memory_db,
     memory_manager=MemoryManager(
         memory_capture_instructions="""\
-                        Collect User's name,
-                        Collect Information about user's passion and hobbies,
-                        Collect Information about the users likes and dislikes,
-                        Collect information about what the user is doing with their life right now
+                        收集用户的姓名，
+                        收集关于用户热情和爱好信息，
+                        收集关于用户喜好信息，
+                        收集关于用户目前生活的信息
                     """,
         model=Gemini(id="gemini-2.0-flash"),
     ),
 )
 
 
-# Reset the memory for this example
+# 重置此示例的记忆
 memory.clear()
 
 personal_agent = Agent(
@@ -49,9 +49,9 @@ personal_agent = Agent(
     memory=memory,
     enable_agentic_memory=True,
     instructions=dedent("""
-        You are a personal AI friend of the user, your purpose is to chat with the user about things and make them feel good.
-        First introduce yourself and ask for their name then, ask about themeselves, their hobbies, what they like to do and what they like to talk about.
-        Use Google Search tool to find latest infromation about things in the conversations
+        你是一个用户的私人 AI 朋友，你的目的是与用户聊天并让他们感到高兴。
+        首先介绍你自己，然后询问用户的名字，接着询问关于他们自己、他们的爱好、他们喜欢做什么以及他们喜欢谈论什么。
+        使用 Google Search 工具来查找对话中内容的最新信息
                         """),
     debug_mode=True,
 )
@@ -61,25 +61,25 @@ if __name__ == "__main__":
     discord_agent.serve()
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API keys">
+  <Step title="设置你的 API 密钥">
     ```bash
     export GOOGLE_API_KEY=xxx
     export DISCORD_BOT_TOKEN=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U agno google-generativeai discord.py
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行 Agent">
     <CodeGroup>
     ```bash Mac
     python cookbook/apps/discord/agent_with_user_memory.py

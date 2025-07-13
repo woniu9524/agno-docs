@@ -1,13 +1,13 @@
 ---
-title: Updating Tools
-description: Learn how to add/update tools on Agents and Teams after they have been created.
+title: 更新工具
+description: 了解如何在创建代理和团队后添加/更新工具。
 ---
 
-Tools can be added to Agents and Teams post-creation. This gives you the flexibility to add tools to an existing Agent or Team instance after initialization, which is useful for dynamic tool management or when you need to conditionally add tools based on runtime requirements.
-The whole collection of tools available to an Agent or Team can also be updated by using the `set_tools` call. Note that this will remove any other tools already assigned to your Agent or Team and override it with the list of tools provided to `set_tools`.
-## Agent Example
+可以向代理和团队添加工具。这使您可以在初始化后灵活地向现有的代理或团队实例添加工具，这对于动态工具管理或根据运行时需求有条件地添加工具非常有用。
+还可以通过调用 `set_tools` 来更新代理或团队可用的全部工具。请注意，这会移除已分配给您的代理或团队的任何其他工具，并用提供给 `set_tools` 的工具列表进行覆盖。
+## 代理示例
 
-Create your own tool, for example `get_weather`. Then call `add_tool` to attach it to your Agent.
+创建您自己的工具，例如 `get_weather`。然后调用 `add_tool` 将其附加到您的代理。
 
 ```python add_agent_tool_post_initialization.py
 import random
@@ -39,9 +39,9 @@ agent.add_tool(get_weather)
 agent.print_response("What is the weather in San Francisco?", stream=True)
 ```
 
-# Team Example
+# 团队示例
 
-Create a list of tools, and assign them to your Team with `set_tools`
+创建工具列表，并使用 `set_tools` 将它们分配给您的团队
 
 ```python add_team_tool_post_initialization.py
 import random
@@ -94,14 +94,14 @@ team.print_response("How much stock NVDA stock is available?", stream=True)
 
 <Tip>
 
-The `add_tool` method allows you to dynamically extend an Agent's or a Team's capabilities. This is particularly useful when you want to add tools based on user input or other runtime conditions.
-The `set_tool` method allows you to override an Agent's or a Team's capabilities. Note that this will remove any existing tools previously assigned to your Agent or Team.
+`add_tool` 方法允许您动态扩展代理或团队的功能。当您希望根据用户输入或其他运行时条件添加工具时，这特别有用。
+`set_tool` 方法允许您覆盖代理或团队的功能。请注意，这将移除先前分配给您的代理或团队的任何现有工具。
 
 
 </Tip>
 
-## Related Documentation
+## 相关文档
 
-- [Tool Decorator](/tools/tool-decorator) - Learn how to create custom tools
-- [Available Toolkits](/tools/toolkits) - Explore pre-built toolkits
-- [Selecting Tools](/tools/selecting-tools) - Learn how to filter tools in toolkits
+- [Tool Decorator](/tools/tool-decorator) - 学习如何创建自定义工具
+- [Available Toolkits](/tools/toolkits) - 探索预构建的工具包
+- [Selecting Tools](/tools/selecting-tools) - 学习如何过滤工具包中的工具

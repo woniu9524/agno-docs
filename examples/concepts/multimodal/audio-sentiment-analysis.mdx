@@ -1,8 +1,8 @@
 ---
-title: Audio Sentiment Analysis Agent
+title: 音频情感分析代理
 ---
 
-## Code
+## 代码
 
 ```python
 import requests
@@ -22,30 +22,30 @@ audio_content = response.content
 
 
 agent.print_response(
-    "Give a sentiment analysis of this audio conversation. Use speaker A, speaker B to identify speakers.",
+    "对这次音频对话进行情感分析。使用说话人 A、说话人 B 来识别说话人。",
     audio=[Audio(content=audio_content)],
     stream=True,
 )
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">
     ```bash
     export GOOGLE_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install google-genai
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行代理">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/multimodal/audio_sentiment_analysis.py

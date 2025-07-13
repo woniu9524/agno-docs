@@ -1,18 +1,18 @@
 ---
-title: Agent with Storage
+title: 带有存储的 Agent
 ---
 
-This example shows how to create an AI cooking assistant that combines knowledge from a curated recipe database with web searching capabilities and persistent storage. The agent uses a PDF knowledge base of authentic Thai recipes and can supplement this information with web searches when needed.
+本示例展示了如何创建一个 AI 烹饪助手，该助手结合了来自精选食谱数据库的知识、网络搜索能力和持久化存储。该代理使用真实的泰国食谱的 PDF 知识库，并在需要时通过网络搜索来补充这些信息。
 
-Example prompts to try:
-- "How do I make authentic Pad Thai?"
-- "What's the difference between red and green curry?"
-- "Can you explain what galangal is and possible substitutes?"
-- "Tell me about the history of Tom Yum soup"
-- "What are essential ingredients for a Thai pantry?"
-- "How do I make Thai basil chicken (Pad Kra Pao)?"
+您可以尝试的示例提示：
+- "authentic Pad Thai" 怎么做？
+- 红咖喱和绿咖喱有什么区别？
+- 能解释一下高良姜（galangal）是什么，以及可能的替代品吗？
+- 讲讲冬阴功汤的历史
+- 泰式厨房必备的食材有哪些？
+- 泰式罗勒鸡（Pad Kra Pao）怎么做？
 
-## Code
+## 代码
 
 ```python agent_with_storage.py
 from textwrap import dedent
@@ -141,18 +141,18 @@ if __name__ == "__main__":
     typer.run(recipe_agent)
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install openai lancedb tantivy pypdf duckduckgo-search sqlalchemy agno
     ```
   </Step>
 
-  <Step title="Run the agent">
+  <Step title="运行 Agent">
     ```bash
     python agent_with_storage.py
     ```

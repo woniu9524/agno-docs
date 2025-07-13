@@ -2,35 +2,33 @@
 title: AWS SES
 ---
 
-**AWSSESTool** enables an Agent to send emails using Amazon Simple Email Service (SES).
+**AWSSESTool** 支持智能体使用 Amazon Simple Email Service (SES) 发送电子邮件。
 
-## Prerequisites
+## 先决条件
 
-The following example requires the `boto3` library and valid AWS credentials. You can install `boto3` via pip:
+下面的示例需要 `boto3` 库和有效的 AWS 凭证。您可以通过 pip 安装 `boto3`：
 
 ```shell
 pip install boto3
 ```
 
-You must also configure your AWS credentials so that the SDK can authenticate to SES. The easiest way is via the AWS CLI:
+您还必须配置您的 AWS 凭证，以便 SDK 能够向 SES 进行身份验证。最简单的方法是通过 AWS CLI：
 
 ```shell
 aws configure
-# OR set environment variables manually
+# 或手动设置环境变量
 export AWS_ACCESS_KEY_ID=****
 export AWS_SECRET_ACCESS_KEY=****
 export AWS_DEFAULT_REGION=us-east-1
 ```
 
 <Note>
-  Make sure to add the domain or email address you want to send FROM (and, if
-  still in sandbox mode, the TO address) to the verified emails in the [SES
-  Console](https://console.aws.amazon.com/ses/home).
+  请确保您已在 [SES 控制台](https://console.aws.amazon.com/ses/home) 中验证了您想用作发件人的域名或电子邮件地址（如果仍处于沙盒模式，也包括收件人地址）。
 </Note>
 
-## Example
+## 示例
 
-The following agent researches the latest AI news and then emails a summary via AWS SES:
+下面的智能体将研究最新的 AI 新闻，然后通过 AWS SES 发送摘要电子邮件：
 
 ```python aws_ses_tools.py
 from agno.agent import Agent
@@ -38,13 +36,13 @@ from agno.models.openai import OpenAIChat
 from agno.tools.aws_ses import AWSSESTool
 from agno.tools.duckduckgo import DuckDuckGoTools
 
-# Configure email settings
-sender_email = "verified-sender@example.com"  # Your verified SES email
-sender_name = "Sender Name"
+# 配置邮件设置
+sender_email = "verified-sender@example.com"  # 您已验证的 SES 邮箱
+sender_name = "发件人名称"
 region_name = "us-east-1"
 
 agent = Agent(
-    name="Research Newsletter Agent",
+    name="研究新闻快报智能体",
     model=OpenAIChat(id="gpt-4o"),
     tools=[
         AWSSESTool(
@@ -57,35 +55,35 @@ agent = Agent(
     markdown=True,
     show_tool_calls=True,
     instructions=[
-        "When given a prompt:",
-        "1. Extract the recipient's complete email address (e.g. user@domain.com)",
-        "2. Research the latest AI developments using DuckDuckGo",
-        "3. Compose a concise, engaging email summarising 3 – 4 key developments",
-        "4. Send the email using AWS SES via the send_email tool",
+        "当收到提示时：",
+        "1. 提取收件人的完整电子邮件地址（例如 user@domain.com）",
+        "2. 使用 DuckDuckGo 研究最新的 AI 发展动态",
+        "3. 撰写一封简洁、吸引人的电子邮件，总结 3-4 个关键发展",
+        "4. 使用 AWS SES 通过 send_email 工具发送电子邮件",
     ],
 )
 
 agent.print_response(
-    "Research recent AI developments in healthcare and email the summary to johndoe@example.com"
+    "研究医疗保健领域的最新 AI 发展动态，并将摘要发送至 johndoe@example.com"
 )
 ```
 
-## Toolkit Params
+## 工具包参数
 
-| Parameter      | Type  | Default       | Description                              |
-| -------------- | ----- | ------------- | ---------------------------------------- |
-| `sender_email` | `str` | `None`        | Verified SES sender address.             |
-| `sender_name`  | `str` | `None`        | Display name that appears to recipients. |
-| `region_name`  | `str` | `"us-east-1"` | AWS region where SES is provisioned.     |
+| 参数           | 类型  | 默认值        | 描述                       |
+| -------------- | ----- | ------------- | -------------------------- |
+| `sender_email` | `str` | `None`        | 已验证的 SES 发件人地址。 |
+| `sender_name`  | `str` | `None`        | 显示给收件人的名称。       |
+| `region_name`  | `str` | `"us-east-1"` | SES 所在的 AWS 区域。      |
 
-## Toolkit Functions
+## 工具包函数
 
-| Function     | Description                                                                          |
-| ------------ | ------------------------------------------------------------------------------------ |
-| `send_email` | Send a plain-text email. Accepts the arguments: `subject`, `body`, `receiver_email`. |
+| 函数       | 描述                                                                 |
+| ---------- | -------------------------------------------------------------------- |
+| `send_email` | 发送纯文本电子邮件。接受参数：`subject`、`body`、`receiver_email`。 |
 
-## Developer Resources
+## 开发者资源
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/aws_ses.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/aws_ses_tools.py)
-- [Amazon SES Documentation](https://docs.aws.amazon.com/ses/latest/dg/)
+- 查看 [工具](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/aws_ses.py)
+- 查看 [ Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/aws_ses_tools.py)
+- [Amazon SES 文档](https://docs.aws.amazon.com/ses/latest/dg/)

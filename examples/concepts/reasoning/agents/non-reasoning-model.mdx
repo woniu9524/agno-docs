@@ -1,10 +1,10 @@
 ---
-title: Non-Reasoning Model Agent
+title: 非推理模型代理
 ---
-This example demonstrates how it works when you pass a non-reasoning model as a reasoning model.
-It defaults to using the default OpenAI reasoning model.
-We recommend using the appropriate reasoning model or passing `reasoning=True` to use the default Chain-of-Thought reasoning.
-## Code
+此示例演示了将非推理模型作为推理模型传递时的工作方式。
+它默认使用 OpenAI 的默认推理模型。
+我们建议使用适当的推理模型，或者传递 `reasoning=True` 来使用默认的思维链推理。
+## 代码
 
 ```python cookbook/reasoning/agents/default_chain_of_thought.py
 from agno.agent import Agent
@@ -14,7 +14,7 @@ reasoning_agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
     reasoning_model=OpenAIChat(
         id="gpt-4o", max_tokens=1200
-    ),  # Should default to manual COT because it is not a native reasoning model
+    ),  # 应默认为手动 COT，因为它不是原生推理模型
     markdown=True,
 )
 reasoning_agent.print_response(
@@ -24,7 +24,7 @@ reasoning_agent.print_response(
 )
 
 
-# It uses the default model of the Agent
+# 它使用 Agent 的默认模型
 reasoning_agent = Agent(
     model=OpenAIChat(id="gpt-4o", max_tokens=1200),
     reasoning=True,
@@ -39,24 +39,24 @@ reasoning_agent.print_response(
 
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U openai agno
     ```
   </Step>
 
-  <Step title="Run Example">
+  <Step title="运行示例">
     <CodeGroup>
     ```bash Mac
     python cookbook/reasoning/agents/default_chain_of_thought.py

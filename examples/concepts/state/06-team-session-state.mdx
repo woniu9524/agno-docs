@@ -1,8 +1,8 @@
 ---
-title: Team with Shared State
+title: 共享状态的团队
 ---
-This example demonstrates how a team of agents can collaboratively manage and update a shared session state.
-## Code
+这个示例展示了一个由多个代理组成的团队如何协同管理和更新共享的会话状态。
+## 代码
 
 ```python cookbook/teams/team_with_shared_state.py
 from agno.agent.agent import Agent
@@ -10,64 +10,64 @@ from agno.models.openai.chat import OpenAIChat
 from agno.team import Team
 
 
-# Define tools to manage our shopping list
+# 定义用于管理购物列表的工具
 def add_item(agent: Agent, item: str) -> str:
-    """Add an item to the shopping list and return confirmation.
+    """将商品添加到购物列表并返回确认信息。
 
     Args:
-        item (str): The item to add to the shopping list.
+        item (str): 要添加到购物列表的商品。
     """
-    # Add the item if it's not already in the list
+    # 如果商品尚未在列表中，则添加该商品
     if item.lower() not in [
         i.lower() for i in agent.team_session_state["shopping_list"]
     ]:
         agent.team_session_state["shopping_list"].append(item)
-        return f"Added '{item}' to the shopping list"
+        return f"已将 '{item}' 添加到购物列表"
     else:
-        return f"'{item}' is already in the shopping list"
+        return f"'{item}' 已在购物列表中"
 
 
 def remove_item(agent: Agent, item: str) -> str:
-    """Remove an item from the shopping list by name.
+    """按名称从购物列表中移除商品。
 
     Args:
-        item (str): The item to remove from the shopping list.
+        item (str): 要从购物列表中移除的商品。
     """
-    # Case-insensitive search
+    # 忽略大小写进行搜索
     for i, list_item in enumerate(agent.team_session_state["shopping_list"]):
         if list_item.lower() == item.lower():
             agent.team_session_state["shopping_list"].pop(i)
-            return f"Removed '{list_item}' from the shopping list"
+            return f"已从购物列表中移除 '{list_item}'"
 
-    return f"'{item}' was not found in the shopping list. Current shopping list: {agent.team_session_state['shopping_list']}"
+    return f"在购物列表中未找到 '{item}'。当前购物列表：{agent.team_session_state['shopping_list']}"
 
 
 def remove_all_items(agent: Agent) -> str:
-    """Remove all items from the shopping list."""
+    """移除购物列表中的所有商品。"""
     agent.team_session_state["shopping_list"] = []
-    return "All items removed from the shopping list"
+    return "购物列表中的所有商品均已移除"
 
 
 shopping_list_agent = Agent(
     name="Shopping List Agent",
-    role="Manage the shopping list",
+    role="管理购物列表",
     model=OpenAIChat(id="gpt-4o-mini"),
     tools=[add_item, remove_item, remove_all_items],
     instructions=[
-        "Find information about the company in the wikipedia",
+        "查找维基百科中关于公司的信息",
     ],
 )
 
 
 def list_items(team: Team) -> str:
-    """List all items in the shopping list."""
+    """列出购物列表中的所有商品。"""
     shopping_list = team.session_state["shopping_list"]
 
     if not shopping_list:
-        return "The shopping list is empty."
+        return "购物列表为空。"
 
     items_text = "\n".join([f"- {item}" for item in shopping_list])
-    return f"Current shopping list:\n{items_text}"
+    return f"当前购物列表：\n{items_text}"
 
 
 shopping_team = Team(
@@ -82,55 +82,55 @@ shopping_team = Team(
     show_tool_calls=True,
     markdown=True,
     instructions=[
-        "You are a team that manages a shopping list.",
-        "If you need to add or remove items from the shopping list, forward the full request to the shopping list agent (don't break it up into multiple requests).",
-        "If you need to list the items in the shopping list, use the list_items tool.",
-        "If the user got something from the shopping list, it means it can be removed from the shopping list.",
+        "你们是一个管理购物列表的团队。",
+        "如果需要添加或删除购物列表中的商品，请将完整的请求转发给购物列表代理（不要将其拆分为多个请求）。",
+        "如果需要列出购物列表中的商品，请使用 list_items 工具。",
+        "如果用户从购物列表中获取了某件商品，意味着可以将其从购物列表中移除。",
     ],
     show_members_responses=True,
 )
 
-# Example usage
+# 示例用法
 shopping_team.print_response(
-    "Add milk, eggs, and bread to the shopping list", stream=True
+    "将牛奶、鸡蛋和面包添加到购物列表", stream=True
 )
 print(f"Session state: {shopping_team.session_state}")
 
-shopping_team.print_response("I got bread", stream=True)
+shopping_team.print_response("我拿到了面包", stream=True)
 print(f"Session state: {shopping_team.session_state}")
 
-shopping_team.print_response("I need apples and oranges", stream=True)
+shopping_team.print_response("我需要苹果和橘子", stream=True)
 print(f"Session state: {shopping_team.session_state}")
 
-shopping_team.print_response("whats on my list?", stream=True)
+shopping_team.print_response("我的列表里有什么？", stream=True)
 print(f"Session state: {shopping_team.session_state}")
 
 shopping_team.print_response(
-    "Clear everything from my list and start over with just bananas and yogurt",
+    "将我列表中的所有东西都清空，然后重新开始，只添加香蕉和酸奶",
     stream=True,
 )
 print(f"Session state: {shopping_team.session_state}")
 
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置你的 API 密钥">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U openai agno
     ```
   </Step>
 
-  <Step title="Run Example">
+  <Step title="运行示例">
     <CodeGroup>
     ```bash Mac
     python cookbook/teams/team_with_shared_state.py

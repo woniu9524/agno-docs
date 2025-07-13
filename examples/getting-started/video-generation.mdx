@@ -1,18 +1,17 @@
 ---
-title: Video Generation
+title: 视频生成
 ---
 
-This example shows how to create an AI agent that generates videos using ModelsLabs.
-You can use this agent to create various types of short videos, from animated scenes
-to creative visual stories.
+本示例展示了如何创建一个使用 ModelsLabs 生成视频的 AI 代理。
+您可以使用此代理创建各种类型的短视频，从动画场景到创意视觉故事。
 
-Example prompts to try:
-- "Create a serene video of waves crashing on a beach at sunset"
-- "Generate a magical video of butterflies flying in a enchanted forest"
-- "Create a timelapse of a blooming flower in a garden"
-- "Generate a video of northern lights dancing in the night sky"
+可尝试的示例提示：
+- "创作一段宁静的视频，描绘日落时分海浪拍打沙滩的景象"
+- "生成一段魔法视频，展示蝴蝶在魔法森林中飞舞"
+- "创作一段花园中花朵绽放的延时视频"
+- "生成一段描绘夜空中舞动的北极光的视频"
 
-## Code
+## 代码
 
 ```python video_generation.py
 from textwrap import dedent
@@ -21,70 +20,69 @@ from agno.agent import Agent
 from agno.models.openai import OpenAIChat
 from agno.tools.models_labs import ModelsLabTools
 
-# Create a Creative AI Video Director Agent
+# 创建一个创意 AI 视频导演代理
 video_agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
     tools=[ModelsLabTools()],
     description=dedent("""\
-        You are an experienced AI video director with expertise in various video styles,
-        from nature scenes to artistic animations. You have a deep understanding of motion,
-        timing, and visual storytelling through video content.\
+        你是一位经验丰富的 AI 视频导演，精通各种视频风格，
+        从自然场景到艺术动画。你对动态、节奏和通过视频内容进行的视觉叙事有深刻的理解。\
     """),
     instructions=dedent("""\
-        As an AI video director, follow these guidelines:
-        1. Analyze the user's request carefully to understand the desired style and mood
-        2. Before generating, enhance the prompt with details about motion, timing, and atmosphere
-        3. Use the `generate_media` tool with detailed, well-crafted prompts
-        4. Provide a brief explanation of the creative choices made
-        5. If the request is unclear, ask for clarification about style preferences
+        作为一名 AI 视频导演，请遵循以下指南：
+        1. 仔细分析用户的请求，理解所需的风格和情绪
+        2. 在生成之前，用动态、节奏和氛围的细节来增强提示
+        3. 使用 `generate_media` 工具，输入详细、精心设计的提示
+        4. 对所做的创意选择进行简要解释
+        5. 如果请求不明确，请询问有关风格偏好的细节
 
-        The video will be displayed in the UI automatically below your response.
-        Always aim to create captivating and meaningful videos that bring the user's vision to life!\
+        视频将在下方自动显示在 UI 中。
+        始终致力于创作引人入胜且有意义的视频，将用户的愿景变为现实！\
     """),
     markdown=True,
     show_tool_calls=True,
 )
 
-# Example usage
+# 示例用法
 video_agent.print_response(
-    "Generate a cosmic journey through a colorful nebula", stream=True
+    "生成一段穿越彩色星云的宇宙之旅", stream=True
 )
 
-# Retrieve and display generated videos
+# 检索并显示生成的视频
 videos = video_agent.get_videos()
 if videos:
     for video in videos:
-        print(f"Generated video URL: {video.url}")
+        print(f"生成的视频 URL：{video.url}")
 
-# More example prompts to try:
+# 更多示例提示可供尝试：
 """
-Try these creative prompts:
-1. "Create a video of autumn leaves falling in a peaceful forest"
-2. "Generate a video of a cat playing with a ball"
-3. "Create a video of a peaceful koi pond with rippling water"
-4. "Generate a video of a cozy fireplace with dancing flames"
-5. "Create a video of a mystical portal opening in a magical realm"
+尝试这些创意提示：
+1. "创作一段视频，描绘秋天的落叶坠入宁静的森林"
+2. "生成一段视频，展示一只猫在玩球"
+3. "创作一段视频，描绘宁静的锦鲤池塘和荡漾的水波"
+4. "生成一段视频，展示舒适的壁炉和跳舞的火焰"
+5. "创作一段视频，描绘一道神秘的传送门在一个魔法领域中打开"
 """
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install openai agno
     ```
   </Step>
 
-  <Step title="Set environment variables">
+  <Step title="设置环境变量">
     ```bash
     export MODELS_LAB_API_KEY=****
     ```
   </Step>
 
-  <Step title="Run the agent">
+  <Step title="运行代理">
     ```bash
     python video_generation.py
     ```

@@ -1,55 +1,55 @@
 ---
-title: User Control Flows
-description: Learn how to control the flow of an agent's execution in Agno. This is also called "Human in the Loop".
+title: 用户控制流
+description: 了解如何在 Agno 中控制代理的执行流程。这也称为“人工干预”。
 ---
 
-User control flows in Agno enable you to implement "Human in the Loop" patterns, where human oversight and input are required during agent execution. This is crucial for:
+Agno 中的用户控制流使你能够实现“人工干预”模式，在代理执行期间需要人工监督和输入。这对于以下方面至关重要：
 
-- Validating sensitive operations
-- Reviewing tool calls before execution
-- Gathering user input for decision-making
-- Managing external tool execution
+- 验证敏感操作
+- 在执行前审查工具调用
+- 收集用户输入以进行决策
+- 管理外部工具执行
 
-## Types of User Control Flows
+## 用户控制流类型
 
-Agno supports four main types of user control flows:
+Agno 支持四种主要的用户控制流类型：
 
-1. **User Confirmation**: Require explicit user approval before executing tool calls
-2. **User Input**: Gather specific information from users during execution
-3. **Dynamic User Input**: Have the agent collect user input as it needs it
-4. **External Tool Execution**: Execute tools outside of the agent's control
+1. **用户確認**: 在执行工具调用前需要用户明确批准
+2. **用户输入**: 在执行期间从用户那里收集特定信息
+3. **动态用户输入**: 让代理根据需要收集用户输入
+4. **外部工具执行**: 执行代理控制之外的工具
 
 
-## Pausing Agent Execution
+## 暂停代理执行
 
-User control flows interrupt the agent's execution and require human oversight. The run can then be continued by calling the `continue_run` method.
+用户控制流会中断代理的执行并需要人工监督。然后可以通过调用 `continue_run` 方法来继续执行。
 
-For example:
+例如：
 
 ```python
 agent.run("Perform sensitive operation")
 
 if agent.is_paused:
-    # The agent will pause while human input is provided
-    # ... perform other tasks
+    # 当提供人工输入时，代理将暂停
+    # ... 执行其他任务
 
-    # The user can then continue the run
+    # 然后用户可以继续执行
     response = agent.continue_run()
-    # or response = await agent.acontinue_run()
+    # 或者 response = await agent.acontinue_run()
 ```
 
-The `continue_run` method continues with the state of the agent at the time of the pause.  You can also pass the `run_response` of a specific run to the `continue_run` method, or the `run_id`.
+`continue_run` 方法会根据暂停时的代理状态继续执行。你也可以将特定运行的 `run_response` 或 `run_id` 传递给 `continue_run` 方法。
 
 
-## User Confirmation
+## 用户确认
 
-User confirmation allows you to pause execution and require explicit user approval before proceeding with tool calls. This is useful for:
+用户确认允许你在继续工具调用之前暂停执行并需要用户明确批准。这对于以下情况很有用：
 
-- Sensitive operations
-- API calls that modify data
-- Actions with significant consequences
+- 敏感操作
+- 修改数据的 API 调用
+- 具有重大后果的行动
 
-The following example shows how to implement user confirmation.
+以下示例展示了如何实现用户确认。
 
 ```python
 from agno.tools import tool
@@ -58,8 +58,8 @@ from agno.models.openai import OpenAIChat
 
 @tool(requires_confirmation=True)
 def sensitive_operation(data: str) -> str:
-    """Perform a sensitive operation that requires confirmation."""
-    # Implementation here
+    """执行需要确认的敏感操作。"""
+    # 在此处实现
     return "Operation completed"
 
 agent = Agent(
@@ -67,22 +67,22 @@ agent = Agent(
     tools=[sensitive_operation],
 )
 
-# Run the agent
+# 运行代理
 agent.run("Perform sensitive operation")
 
-# Handle confirmation
+# 处理确认
 if agent.is_paused:
     for tool in agent.run_response.tools_requiring_confirmation:
-        # Get user confirmation
+        # 获取用户确认
         print(f"Tool {tool.tool_name}({tool.tool_args}) requires confirmation")
         confirmed = input(f"Confirm? (y/n): ").lower() == "y"
         tool.confirmed = confirmed
 
-  # Continue execution
+  # 继续执行
   response = agent.continue_run()
 ```
 
-You can also specify which tools in a toolkit require confirmation.
+你还可以指定工具包中的哪些工具需要确认。
 
 ```python
 from agno.agent import Agent
@@ -105,22 +105,22 @@ if agent.is_paused:
         if message == "n":
             tool.confirmed = False
         else:
-            # We update the tools in place
+            # 我们会就地更新工具
             tool.confirmed = True
 
     run_response = agent.continue_run()
     pprint.pprint_run_response(run_response)
 ```
 
-## User Input
+## 用户输入
 
-User input flows allow you to gather specific information from users during execution. This is useful for:
+用户输入流允许你在执行期间从用户那里收集特定信息。这对于以下情况很有用：
 
-- Collecting required parameters
-- Getting user preferences
-- Gathering missing information
+- 收集必需的参数
+- 获取用户偏好
+- 收集缺失的信息
 
-In the example below, we require all the input for the `send_email` tool from the user.
+在下面的示例中，我们需要用户提供 `send_email` 工具的所有输入。
 
 ```python
 from typing import List
@@ -128,17 +128,17 @@ from agno.agent import Agent
 from agno.models.openai import OpenAIChat
 from agno.tools.function import UserInputField
 
-# We still provide a docstring to the tool; This will be used to populate the `user_input_schema`
+# 我们仍然为工具提供文档字符串；这将用于填充 `user_input_schema`
 @tool(requires_user_input=True)
 def send_email(to: str, subject: str, body: str) -> dict:
-    """Send an email to the user.
+    """向用户发送电子邮件。
 
     Args:
-        to (str): The address to send the email to.
-        subject (str): The subject of the email.
-        body (str): The body of the email.
+        to (str): 要发送电子邮件的地址。
+        subject (str): 电子邮件的主题。
+        body (str): 电子邮件的正文。
     """
-    # Implementation here
+    # 在此处实现
     return f"Email sent to {to} with subject {subject} and body {body}"
 
 agent = Agent(
@@ -152,13 +152,13 @@ if agent.is_paused:
         input_schema: List[UserInputField] = tool.user_input_schema
 
         for field in input_schema:
-            # Display field information to the user
+            # 向用户显示字段信息
             print(f"\nField: {field.name} ({field.field_type.__name__}) -> {field.description}")
 
-            # Get user input
+            # 获取用户输入
             user_value = input(f"Please enter a value for {field.name}: ")
 
-            # Update the field value
+            # 更新字段值
             field.value = user_value
 
     run_response = (
@@ -166,31 +166,31 @@ if agent.is_paused:
     )
 ```
 
-The `RunResponse` object has a list of tools and in the case of `requires_user_input`, the tools that require input will have `user_input_schema` populated.
-This is a list of `UserInputField` objects.
+`RunResponse` 对象有一个工具列表，在 `requires_user_input` 的情况下，需要输入的工具会填充 `user_input_schema`。
+这是一个 `UserInputField` 对象列表。
 
 ```python
 class UserInputField:
-    name: str  # The name of the field
-    field_type: Type  # The required type of the field
-    description: Optional[str] = None  # The description of the field
-    value: Optional[Any] = None  # The value of the field. Populated by the agent or the user.
+    name: str  # 字段的名称
+    field_type: Type  # 字段的必需类型
+    description: Optional[str] = None  # 字段的描述
+    value: Optional[Any] = None  # 字段的值。由代理或用户填充。
 ```
 
-You can also specify which fields should be filled by the user while the agent will provide the rest of the fields.
+你还可以指定哪些字段应由用户填写，而代理将提供其余字段。
 
 ```python
 
-# You can either specify the user_input_fields leave empty for all fields to be provided by the user
+# 你可以指定 `user_input_fields`，将其他字段留空，由用户提供所有字段
 @tool(requires_user_input=True, user_input_fields=["to_address"])
 def send_email(subject: str, body: str, to_address: str) -> str:
     """
-    Send an email.
+    发送电子邮件。
 
     Args:
-        subject (str): The subject of the email.
-        body (str): The body of the email.
-        to_address (str): The address to send the email to.
+        subject (str): 电子邮件的主题。
+        body (str): 电子邮件的正文。
+        to_address (str): 要发送电子邮件的地址。
     """
     return f"Sent email to {to_address} with subject {subject} and body {body}"
 
@@ -205,10 +205,10 @@ if agent.is_paused:
         input_schema: List[UserInputField] = tool.user_input_schema
 
         for field in input_schema:
-            # Display field information to the user
+            # 向用户显示字段信息
             print(f"\nField: {field.name} ({field.field_type.__name__}) -> {field.description}")
 
-            # Get user input (if the value is not set, it means the user needs to provide the value)
+            # 获取用户输入（如果值未设置，则表示用户需要提供该值）
             if field.value is None:
                 user_value = input(f"Please enter a value for {field.name}: ")
                 field.value = user_value
@@ -220,14 +220,14 @@ if agent.is_paused:
     )
 ```
 
-## Dynamic User Input
+## 动态用户输入
 
-This pattern provides the agent with tools to indicate when it needs user input. It's ideal for:
+此模式为代理提供了在需要用户输入时发出信号的工具。它非常适合：
 
-- Cases where it is unknown how the user will interact with the agent
-- When you want a form-like interaction with the user
+- 不确定用户如何与代理交互的情况
+- 当你希望与用户进行表单式交互时
 
-In the following example, we use a specialized tool to allow the agent to collect user feedback when it needs it.
+在以下示例中，我们使用了一个专用工具来允许代理在需要时收集用户反馈。
 
 ```python
 from typing import Any, Dict
@@ -239,7 +239,7 @@ from agno.tools.toolkit import Toolkit
 from agno.tools.user_control_flow import UserControlFlowTools
 from agno.utils import pprint
 
-# Example toolkit for handling emails
+# 处理电子邮件的示例工具包
 class EmailTools(Toolkit):
     def __init__(self, *args, **kwargs):
         super().__init__(
@@ -247,21 +247,21 @@ class EmailTools(Toolkit):
         )
 
     def send_email(self, subject: str, body: str, to_address: str) -> str:
-        """Send an email to the given address with the given subject and body.
+        """使用给定的主题和正文向给定的地址发送电子邮件。
 
         Args:
-            subject (str): The subject of the email.
-            body (str): The body of the email.
-            to_address (str): The address to send the email to.
+            subject (str): 电子邮件的主题。
+            body (str): 电子邮件的正文。
+            to_address (str): 要发送电子邮件的地址。
         """
         return f"Sent email to {to_address} with subject {subject} and body {body}"
 
     def get_emails(self, date_from: str, date_to: str) -> str:
-        """Get all emails between the given dates.
+        """获取给定日期范围内的所有电子邮件。
 
         Args:
-            date_from (str): The start date.
-            date_to (str): The end date.
+            date_from (str): 开始日期。
+            date_to (str): 结束日期。
         """
         return [
             {
@@ -288,16 +288,16 @@ agent = Agent(
 
 run_response = agent.run("Send an email with the body 'How is it going in Tokyo?'")
 
-# We use a while loop to continue the running until the agent is satisfied with the user input
+# 我们使用 while 循环继续运行，直到代理对用户输入感到满意为止
 while run_response.is_paused:
     for tool in run_response.tools_requiring_user_input:
         input_schema: List[UserInputField] = tool.user_input_schema
 
         for field in input_schema:
-            # Display field information to the user
+            # 向用户显示字段信息
             print(f"\nField: {field.name} ({field.field_type.__name__}) -> {field.description}")
 
-            # Get user input (if the value is not set, it means the user needs to provide the value)
+            # 获取用户输入（如果值未设置，则表示用户需要提供该值）
             if field.value is None:
                 user_value = input(f"Please enter a value for {field.name}: ")
                 field.value = user_value
@@ -306,18 +306,18 @@ while run_response.is_paused:
 
     run_response = agent.continue_run(run_response=run_response)
 
-    # If the agent is not paused for input, we are done
+    # 如果代理没有因输入而暂停，则表示已完成
     if not run_response.is_paused:
         pprint.pprint_run_response(run_response)
         break
 ```
 
-## External Tool Execution
+## 外部工具执行
 
-External tool execution allows you to execute tools outside of the agent's control. This is useful for:
+外部工具执行允许你在代理控制之外执行工具。这对于以下情况很有用：
 
-- External service calls
-- Database operations
+- 外部服务调用
+- 数据库操作
 
 ```python
 import subprocess
@@ -328,16 +328,16 @@ from agno.tools import tool
 from agno.utils import pprint
 
 
-# We have to create a tool with the correct name, arguments and docstring for the agent to know what to call.
+# 我们必须创建一个具有正确名称、参数和文档字符串的工具，以便代理知道要调用哪个工具。
 @tool(external_execution=True)
 def execute_shell_command(command: str) -> str:
-    """Execute a shell command.
+    """执行 shell 命令。
 
     Args:
-        command (str): The shell command to execute
+        command (str): 要执行的 shell 命令
 
     Returns:
-        str: The output of the shell command
+        str: shell 命令的输出
     """
     return subprocess.check_output(command, shell=True).decode("utf-8")
 
@@ -354,23 +354,22 @@ if run_response.is_paused:
         if tool.tool_name == execute_shell_command.name:
             print(f"Executing {tool.tool_name} with args {tool.tool_args} externally")
 
-            # We execute the tool ourselves. You can execute any function or process here and use the tool_args as input.
+            # 我们自己执行工具。你可以执行任何函数或进程，并使用 tool_args 作为输入。
             result = execute_shell_command.entrypoint(**tool.tool_args)
-            # We have to set the result on the tool execution object so that the agent can continue
+            # 我们必须将结果设置在 tool execution 对象上，以便代理可以继续
             tool.result = result
 
     run_response = agent.continue_run()
     pprint.pprint_run_response(run_response)
 ```
 
-## Best Practices
+## 最佳实践
 
-1. **Sanitise user input**: Always validate and sanitize user input to prevent security vulnerabilities.
-2. **Error Handling**: Always implement proper error handling for user input and external calls
-3. **Input Validation**: Validate user input before processing
+1. **净化用户输入**: 始终验证和净化用户输入，以防止安全漏洞。
+2. **错误处理**: 始终为用户输入和外部调用实现适当的错误处理。
+3. **输入验证**: 在处理之前验证用户输入。
 
-## Developer Resources
+## 开发者资源
 
-- View more [Examples](/examples/concepts/user-control-flows)
-- View [Cookbook](https://github.com/agno-agi/agno/tree/main/cookbook/agent_concepts/user_control_flows)
-
+- 查看更多 [示例](/examples/concepts/user-control-flows)
+- 查看 [Cookbook](https://github.com/agno-agi/agno/tree/main/cookbook/agent_concepts/user_control_flows)

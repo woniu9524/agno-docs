@@ -1,9 +1,9 @@
 ---
-title: E2B Code Execution
-description: Learn to use Agno's E2B integration to run your Agent-generated code in a secure sandbox.
+title: E2B 代码执行
+description: 了解如何使用 Agno 的 E2B 集成在安全的沙箱中运行 Agent 生成的代码。
 ---
 
-## Code
+## 代码
 
 ```python cookbook/tools/e2b_tools.py
 from agno.agent import Agent
@@ -11,7 +11,7 @@ from agno.models.openai import OpenAIChat
 from agno.tools.e2b import E2BTools
 
 e2b_tools = E2BTools(
-    timeout=600,  # 10 minutes timeout (in seconds)
+    timeout=600,  # 10 分钟超时（以秒为单位）
     filesystem=True,
     internet_access=True,
     sandbox_management=True,
@@ -57,22 +57,22 @@ agent.print_response("What's the current status of our sandbox and how much time
 agent.print_response("Create a text file with the current date and time, then read it back")
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Create an E2B account">
-    Create an account at [E2B](https://e2b.dev/) and get your API key from the dashboard.
+  <Step title="创建 E2B 账户">
+    请在 [E2B](https://e2b.dev/) 创建账户，并从仪表板获取您的 API 密钥。
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install e2b_code_interpreter
     ```
   </Step>
 
-  <Step title="Set your API Key">
+  <Step title="设置您的 API 密钥">
     <CodeGroup>
     ```bash Mac/Linux
     export E2B_API_KEY=your_api_key_here
@@ -88,7 +88,7 @@ agent.print_response("Create a text file with the current date and time, then re
     </CodeGroup>
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行 Agent">
     <CodeGroup>
     ```bash Mac/Linux
     python cookbook/tools/e2b_tools.py

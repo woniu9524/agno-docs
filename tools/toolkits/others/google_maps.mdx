@@ -1,13 +1,13 @@
 ---
 title: "Google Maps"
-description: "Tools for interacting with Google Maps services including place search, directions, geocoding, and more"
+description: "用于与 Google Maps 服务交互的工具，包括地点搜索、路线、地理编码等更多功能"
 ---
 
-**GoogleMapTools** enable an Agent to interact with various Google Maps services for location-based operations including place search, directions, geocoding, and more.
+**GoogleMapTools** 使 Agent 能够与各种 Google Maps 服务进行交互，以执行基于位置的操作，包括地点搜索、路线、地理编码等更多功能。
 
-## Prerequisites
+## 先决条件
 
-The following example requires the `googlemaps` library and an API key which can be obtained from the [Google Cloud Console](https://console.cloud.google.com/projectselector2/google/maps-apis/credentials).
+以下示例需要 `googlemaps` 库和一个 API 密钥，可以通过 [Google Cloud Console](https://console.cloud.google.com/projectselector2/google/maps-apis/credentials) 获取。
 
 ```shell
 pip install googlemaps
@@ -17,7 +17,7 @@ pip install googlemaps
 export GOOGLE_MAPS_API_KEY=your_api_key_here
 ```
 
-You'll need to enable the following APIs in your Google Cloud Console:
+您需要在 Google Cloud Console 中启用以下 API：
 - Places API
 - Directions API
 - Geocoding API
@@ -26,9 +26,9 @@ You'll need to enable the following APIs in your Google Cloud Console:
 - Elevation API
 - Time Zone API
 
-## Example
+## 示例
 
-Basic usage of the Google Maps toolkit:
+Google Maps 工具的基本用法：
 
 ```python
 from agno.agent import Agent
@@ -38,40 +38,40 @@ agent = Agent(tools=[GoogleMapTools()], show_tool_calls=True)
 agent.print_response("Find coffee shops in San Francisco")
 ```
 
-For more examples, see the [Google Maps Tools Examples](/examples/concepts/tools/others/google_maps).
+更多示例，请参阅 [Google Maps Tools 示例](/examples/concepts/tools/others/google_maps)。
 
-## Toolkit Params
+## 工具箱参数
 
-| Parameter | Type | Default | Description |
+| 参数 | 类型 | 默认值 | 描述 |
 |-----------|------|---------|-------------|
-| `key` | `Optional[str]` | `None` | Optional API key. If not provided, uses GOOGLE_MAPS_API_KEY environment variable |
-| `search_places` | `bool` | `True` | Enable places search functionality |
-| `get_directions` | `bool` | `True` | Enable directions functionality |
-| `validate_address` | `bool` | `True` | Enable address validation functionality |
-| `geocode_address` | `bool` | `True` | Enable geocoding functionality |
-| `reverse_geocode` | `bool` | `True` | Enable reverse geocoding functionality |
-| `get_distance_matrix` | `bool` | `True` | Enable distance matrix functionality |
-| `get_elevation` | `bool` | `True` | Enable elevation functionality |
-| `get_timezone` | `bool` | `True` | Enable timezone functionality |
+| `key` | `Optional[str]` | `None` | 可选的 API 密钥。如果未提供，则使用 GOOGLE_MAPS_API_KEY 环境变量 |
+| `search_places` | `bool` | `True` | 启用地点搜索功能 |
+| `get_directions` | `bool` | `True` | 启用路线功能 |
+| `validate_address` | `bool` | `True` | 启用地址验证功能 |
+| `geocode_address` | `bool` | `True` | 启用地理编码功能 |
+| `reverse_geocode` | `bool` | `True` | 启用反向地理编码功能 |
+| `get_distance_matrix` | `bool` | `True` | 启用距离矩阵功能 |
+| `get_elevation` | `bool` | `True` | 启用海拔功能 |
+| `get_timezone` | `bool` | `True` | 启用时区功能 |
 
-## Toolkit Functions
+## 工具箱函数
 
-| Function | Description |
+| 函数 | 描述 |
 |----------|-------------|
-| `search_places` | Search for places using Google Maps Places API. Parameters: `query` (str) for the search query. Returns stringified JSON with place details including name, address, phone, website, rating, and hours. |
-| `get_directions` | Get directions between locations. Parameters: `origin` (str), `destination` (str), optional `mode` (str) for travel mode, optional `avoid` (List[str]) for features to avoid. Returns route information. |
-| `validate_address` | Validate an address. Parameters: `address` (str), optional `region_code` (str), optional `locality` (str). Returns address validation results. |
-| `geocode_address` | Convert address to coordinates. Parameters: `address` (str), optional `region` (str). Returns location information with coordinates. |
-| `reverse_geocode` | Convert coordinates to address. Parameters: `lat` (float), `lng` (float), optional `result_type` and `location_type` (List[str]). Returns address information. |
-| `get_distance_matrix` | Calculate distances between locations. Parameters: `origins` (List[str]), `destinations` (List[str]), optional `mode` (str) and `avoid` (List[str]). Returns distance and duration matrix. |
-| `get_elevation` | Get elevation for a location. Parameters: `lat` (float), `lng` (float). Returns elevation data. |
-| `get_timezone` | Get timezone for a location. Parameters: `lat` (float), `lng` (float), optional `timestamp` (datetime). Returns timezone information. |
+| `search_places` | 使用 Google Maps Places API 搜索地点。参数：`query` (str) 用于搜索查询。返回字符串化的 JSON，包含地点详情，如名称、地址、电话、网站、评分和营业时间。 |
+| `get_directions` | 获取地点之间的路线。参数：`origin` (str)，`destination` (str)，可选 `mode` (str) 用于出行方式，可选 `avoid` (List[str]) 用于需要避开的设施。返回路线信息。 |
+| `validate_address` | 验证地址。参数：`address` (str)，可选 `region_code` (str)，可选 `locality` (str)。返回地址验证结果。 |
+| `geocode_address` | 将地址转换为坐标。参数：`address` (str)，可选 `region` (str)。返回包含坐标的位置信息。 |
+| `reverse_geocode` | 将坐标转换为地址。参数：`lat` (float)，`lng` (float)，可选 `result_type` 和 `location_type` (List[str])。返回地址信息。 |
+| `get_distance_matrix` | 计算地点之间的距离。参数：`origins` (List[str])，`destinations` (List[str])，可选 `mode` (str) 和 `avoid` (List[str])。返回距离和时长矩阵。 |
+| `get_elevation` | 获取某个地点的高程。参数：`lat` (float)，`lng` (float)。返回高程数据。 |
+| `get_timezone` | 获取某个地点的时间区。参数：`lat` (float)，`lng` (float)，可选 `timestamp` (datetime)。返回时区信息。 |
 
-## Rate Limits
+## 用量限制
 
-Google Maps APIs have usage limits and quotas that vary by service and billing plan. Please refer to the [Google Maps Platform pricing](https://cloud.google.com/maps-platform/pricing) for details.
+Google Maps API 有使用限制和配额，具体取决于服务和账单计划。请参阅 [Google Maps Platform 定价](https://cloud.google.com/maps-platform/pricing)获取详细信息。
 
-## Developer Resources
+## 开发者资源
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/google_maps.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/google_maps_tools.py) 
+- 查看 [工具](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/google_maps.py)
+- 查看 [食谱](https://github.com/agno-agi/agno/blob/main/cookbook/tools/google_maps_tools.py)

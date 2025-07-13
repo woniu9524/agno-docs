@@ -1,8 +1,8 @@
 ---
-title: Agent with PDF Input (URL)
+title: 带有 PDF 输入的 Agent (URL)
 ---
 
-## Code
+## 代码
 
 ```python cookbook/models/google/gemini/pdf_input_url.py
 from agno.agent import Agent
@@ -15,29 +15,29 @@ agent = Agent(
 )
 
 agent.print_response(
-    "Summarize the contents of the attached file.",
+    "请总结附件文件的内容。",
     files=[File(url="https://agno-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf")],
 )
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">
     ```bash
     export GOOGLE_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U google-genai agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行 Agent">
     <CodeGroup>
     ```bash Mac
     python cookbook/models/google/gemini/pdf_input_url.py
@@ -48,4 +48,4 @@ agent.print_response(
     ```
     </CodeGroup>
   </Step>
-</Steps> 
+</Steps>

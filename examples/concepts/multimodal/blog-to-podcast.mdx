@@ -1,8 +1,8 @@
 ---
-title: Blog to Podcast Agent
+title: 博客转播客代理
 ---
 
-## Code
+## 代码
 
 ```python
 import os
@@ -19,7 +19,7 @@ from agno.utils.log import logger
 url = "https://www.bcg.com/capabilities/artificial-intelligence/ai-agents"
 
 blog_to_podcast_agent = Agent(
-    name="Blog to Podcast Agent",
+    name="博客转播客代理",
     agent_id="blog_to_podcast_agent",
     model=OpenAIChat(id="gpt-4o"),
     tools=[
@@ -30,22 +30,22 @@ blog_to_podcast_agent = Agent(
         ),
         FirecrawlTools(),
     ],
-    description="You are an AI agent that can generate audio using the ElevenLabs API.",
+    description="你是一个可以使用 ElevenLabs API 生成音频的 AI 代理。",
     instructions=[
-        "When the user provides a blog URL:",
-        "1. Use FirecrawlTools to scrape the blog content",
-        "2. Create a concise summary of the blog content that is NO MORE than 2000 characters long", 
-        "3. The summary should capture the main points while being engaging and conversational",
-        "4. Use the ElevenLabsTools to convert the summary to audio",
-        "You don't need to find the appropriate voice first, I already specified the voice to user",
-        "Ensure the summary is within the 2000 character limit to avoid ElevenLabs API limits",
+        "当用户提供博客网址时：",
+        "1. 使用 FirecrawlTools 抓取博客内容",
+        "2. 创建博客内容的简洁摘要，长度不超过 2000 个字符",
+        "3. 摘要应包含要点，同时具有吸引力和对话性",
+        "4. 使用 ElevenLabsTools 将摘要转换为音频",
+        "你不需要先找到合适的语音，我已经为用户指定了语音",
+        "确保摘要在 2000 个字符的限制内，以避免 ElevenLabs API 的限制",
     ],
     markdown=True,
     debug_mode=True,
 )
 
 podcast: RunResponse = blog_to_podcast_agent.run(
-    f"Convert the blog content to a podcast: {url}"
+    f"将博客内容转换为播客：{url}"
 )
 
 save_dir = "audio_generations"
@@ -58,30 +58,30 @@ if podcast.audio is not None and len(podcast.audio) > 0:
             audio=podcast.audio[0].base64_audio,
             filename=filename
         )
-        print(f"Audio saved successfully to: {filename}")
+        print(f"音频已成功保存到：{filename}")
     except Exception as e:
-        print(f"Error saving audio file: {e}")
+        print(f"保存音频文件时出错：{e}")
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">
     ```bash
     export OPENAI_API_KEY=xxx
     export ELEVEN_LABS_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U openai elevenlabs firecrawl-py agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行代理">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/multimodal/blog_to_podcast.py

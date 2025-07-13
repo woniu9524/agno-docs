@@ -1,13 +1,13 @@
 ---
-title: Connecting to Tableplus
-sidebarTitle: Connecting to Tableplus
+title: 连接到 Tableplus
+sidebarTitle: 连接到 Tableplus
 ---
 
-If you want to inspect your pgvector container to explore your storage or knowledge base, you can use TablePlus. Follow these steps:
+如果您想检查 `pgvector` 容器以探索您的存储或知识库，您可以使用 TablePlus。请按照以下步骤操作：
 
-## Step 1: Start Your `pgvector` Container
+## 步骤 1：启动您的 `pgvector` 容器
 
-Run the following command to start a `pgvector` container locally:
+运行以下命令在本地启动一个 `pgvector` 容器：
 
 ```bash
 docker run -d \
@@ -21,17 +21,17 @@ docker run -d \
   agno/pgvector:16
 ```
 
-- `POSTGRES_DB=ai` sets the default database name.
-- `POSTGRES_USER=ai` and `POSTGRES_PASSWORD=ai` define the database credentials.
-- The container exposes port `5432` (mapped to `5532` on your local machine).
+- `POSTGRES_DB=ai` 设置默认数据库名称。
+- `POSTGRES_USER=ai` 和 `POSTGRES_PASSWORD=ai` 定义了数据库的凭据。
+- 该容器公开端口 `5432`（在您的本地计算机上映射到 `5532`）。
 
-## Step 2: Configure TablePlus
+## 步骤 2：配置 TablePlus
 
-1. **Open TablePlus**: Launch the TablePlus application.
-2. **Create a New Connection**: Click on the `+` icon to add a new connection.
-3. **Select `PostgreSQL`**: Choose PostgreSQL as the database type.
+1. **打开 TablePlus**: 启动 TablePlus 应用程序。
+2. **创建新连接**: 点击 `+` 图标添加新连接。
+3. **选择 `PostgreSQL`**: 为数据库类型选择 PostgreSQL。
 
-Fill in the following connection details:
+填写以下连接详细信息：
 
 - **Host**: `localhost`
 - **Port**: `5532`

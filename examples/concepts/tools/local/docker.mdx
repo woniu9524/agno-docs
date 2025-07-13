@@ -1,8 +1,8 @@
 ---
-title: Docker Tools
+title: Docker 工具
 ---
 
-## Code
+## 代码
 
 ```python cookbook/tools/docker_tools.py
 import sys
@@ -18,7 +18,7 @@ try:
         enable_network_management=True,
     )
 
-    # Create an agent with Docker tools
+    # 使用 Docker 工具创建代理
     docker_agent = Agent(
         name="Docker Agent",
         instructions=[
@@ -30,39 +30,39 @@ try:
         markdown=True,
     )
 
-    # Example: List running containers
+    # 示例：列出正在运行的容器
     docker_agent.print_response("List all running Docker containers", stream=True)
 
-    # Example: List all images
+    # 示例：列出所有镜像
     docker_agent.print_response("List all Docker images on this system", stream=True)
 
-    # Example: Pull an image
+    # 示例：拉取镜像
     docker_agent.print_response("Pull the latest nginx image", stream=True)
 
-    # Example: Run a container
+    # 示例：运行容器
     docker_agent.print_response(
         "Run an nginx container named 'web-server' on port 8080", stream=True
     )
 
-    # Example: Get container logs
+    # 示例：获取容器日志
     docker_agent.print_response("Get logs from the 'web-server' container", stream=True)
 
-    # Example: List volumes
+    # 示例：列出卷
     docker_agent.print_response("List all Docker volumes", stream=True)
 
-    # Example: Create a network
+    # 示例：创建网络
     docker_agent.print_response(
         "Create a new Docker network called 'test-network'", stream=True
     )
 
-    # Example: Stop and remove container
+    # 示例：停止并移除容器
     docker_agent.print_response(
         "Stop and remove the 'web-server' container", stream=True
     )
 
 except ValueError as e:
     print(f"\n❌ Docker Tool Error: {e}")
-    print("\n🔍 Troubleshooting steps:")
+    print("\n🔍 故障排除步骤:")
 
     if sys.platform == "darwin":  # macOS
         print("1. Ensure Docker Desktop is running")
@@ -80,29 +80,29 @@ except ValueError as e:
         print("2. Check Docker Desktop settings")
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install Docker">
-    Install Docker Desktop (for macOS/Windows) or Docker Engine (for Linux) from [Docker's official website](https://www.docker.com/products/docker-desktop).
+  <Step title="安装 Docker">
+    请从[Docker 官方网站](https://www.docker.com/products/docker-desktop)安装 Docker Desktop（适用于 macOS/Windows）或 Docker Engine（适用于 Linux）。
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U docker agno
     ```
   </Step>
 
-  <Step title="Start Docker">
-    Make sure Docker is running on your system:
+  <Step title="启动 Docker">
+    确保您的系统上 Docker 正在运行：
     
-    - **macOS/Windows**: Start Docker Desktop application
-    - **Linux**: Run `sudo systemctl start docker`
+    - **macOS/Windows**: 启动 Docker Desktop 应用程序
+    - **Linux**: 运行 `sudo systemctl start docker`
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行 Agent">
     <CodeGroup>
     ```bash Mac/Linux
     python cookbook/tools/docker_tools.py

@@ -1,8 +1,9 @@
+```md
 ---
-title: Traditional RAG with LanceDB
+title: 传统的 RAG 与 LanceDB
 ---
 
-## Code
+## 代码
 
 ```python
 from agno.agent import Agent
@@ -11,10 +12,10 @@ from agno.knowledge.pdf_url import PDFUrlKnowledgeBase
 from agno.models.openai import OpenAIChat
 from agno.vectordb.lancedb import LanceDb, SearchType
 
-# Create a knowledge base of PDFs from URLs
+# 从 URL 创建 PDF 知识库
 knowledge_base = PDFUrlKnowledgeBase(
     urls=["https://agno-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
-    # Use LanceDB as the vector database and store embeddings in the `recipes` table
+    # 使用 LanceDB 作为向量数据库，并将嵌入存储在 `recipes` 表中
     vector_db=LanceDb(
         table_name="recipes",
         uri="tmp/lancedb",
@@ -22,42 +23,42 @@ knowledge_base = PDFUrlKnowledgeBase(
         embedder=OpenAIEmbedder(id="text-embedding-3-small"),
     ),
 )
-# Load the knowledge base: Comment after first run as the knowledge base is already loaded
+# 加载知识库：首次运行后可注释掉此行，因为知识库已加载
 knowledge_base.load()
 
 agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
     knowledge=knowledge_base,
-    # Enable RAG by adding references from AgentKnowledge to the user prompt.
+    # 通过将 AgentKnowledge 的引用添加到用户提示中来启用 RAG。
     add_references=True,
-    # Set as False because Agents default to `search_knowledge=True`
+    # 设置为 False，因为代理默认启用 `search_knowledge=True`
     search_knowledge=False,
     show_tool_calls=True,
     markdown=True,
 )
 agent.print_response(
-    "How do I make chicken and galangal in coconut milk soup", stream=True
+    "如何制作椰奶鸡肉高良姜汤", stream=True
 )
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U openai lancedb tantivy pypdf sqlalchemy agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行 Agent">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/rag/traditional_rag_lancedb.py
@@ -69,3 +70,4 @@ agent.print_response(
     </CodeGroup>
   </Step>
 </Steps>
+```

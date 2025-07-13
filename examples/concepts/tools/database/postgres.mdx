@@ -1,8 +1,8 @@
 ---
-title: Postgres Tools
+title: Postgres 工具
 ---
 
-## Code
+## 代码
 
 ```python cookbook/tools/postgres_tools.py
 from agno.agent import Agent
@@ -16,30 +16,30 @@ agent = Agent(
 agent.print_response("Show me all tables in the database")
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置你的 API 密钥">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Set your database URL">
+  <Step title="设置你的数据库 URL">
     ```bash
     export DATABASE_URL=postgresql://user:pass@localhost:5432/db
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U psycopg2-binary sqlalchemy openai agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行 Agent">
     <CodeGroup>
     ```bash Mac
     python cookbook/tools/postgres_tools.py

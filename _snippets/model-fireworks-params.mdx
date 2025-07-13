@@ -1,7 +1,7 @@
-| Parameter  | Type            | Default                                                | Description                                                                                                        |
-| ---------- | --------------- | ------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ |
-| `id`       | `str`           | `"accounts/fireworks/models/llama-v3p1-405b-instruct"` | The specific model ID used for generating responses.                                                               |
-| `name`     | `str`           | `"Fireworks: {id}"`                                    | The name identifier for the agent. Defaults to "Fireworks: " followed by the model ID.                             |
-| `provider` | `str`           | `"Fireworks"`                                          | The provider of the model.                                                                                         |
-| `api_key`  | `Optional[str]` | -                                                      | The API key for authenticating requests to the service. Retrieved from the environment variable FIREWORKS_API_KEY. |
-| `base_url` | `str`           | `"https://api.fireworks.ai/inference/v1"`              | The base URL for making API requests to the Fireworks service.                                                     |
+| 参数  | 类型            | 默认值                                                 | 描述                                                                                                               |
+| --- | --------------- | ------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ |
+| `id` | `str` | `"accounts/fireworks/models/llama-v3p1-405b-instruct"` | 用于生成响应的具体模型 ID。 |
+| `name` | `str` | `"Fireworks: {id}"` | 代理的名称标识符。默认值为“Fireworks: ”后跟模型 ID。 |
+| `provider` | `str` | `"Fireworks"` | 模型提供商。 |
+| `api_key` | `Optional[str]` | - | 用于向服务进行身份验证请求的 API 密钥。从环境变量 FIREWORKS_API_KEY 检索。 |
+| `base_url` | `str` | `"https://api.fireworks.ai/inference/v1"` | 向 Fireworks 服务发出 API 请求的基础 URL。 |

@@ -2,7 +2,7 @@
 title: Ollama DeepSeek R1
 ---
 
-## Code
+## 代码
 
 ```python cookbook/reasoning/models/ollama/reasoning_model_deepseek.py
 from agno.agent import Agent
@@ -13,32 +13,31 @@ agent = Agent(
     reasoning_model=Ollama(id="deepseek-r1:14b", max_tokens=4096),
 )
 agent.print_response(
-    "Solve the trolley problem. Evaluate multiple ethical frameworks. "
-    "Include an ASCII diagram of your solution.",
+    "解决电车难题。评估多种伦理框架。包含一个解决此问题的 ASCII 图。",
     stream=True,
 )
 
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install Ollama">
-    Follow the [installation guide](https://github.com/ollama/ollama?tab=readme-ov-file#macos) and run:
+  <Step title="安装 Ollama">
+    遵循 [安装指南](https://github.com/ollama/ollama?tab=readme-ov-file#macos)，然后运行：
     ```bash
     ollama pull llama3.2:latest
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U ollama agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行 Agent">
     <CodeGroup>
     ```bash Mac
     python cookbook/reasoning/models/ollama/reasoning_model_deepseek.py

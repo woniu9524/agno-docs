@@ -1,28 +1,28 @@
 ---
 title: Cerebras
-description: Learn how to use Cerebras models in Agno.
+description: 了解如何在 Agno 中使用大语言模型。
 ---
 
-[Cerebras Inference](https://inference-docs.cerebras.ai/introduction) provides high-speed, low-latency AI model inference powered by Cerebras Wafer-Scale Engines and CS-3 systems. Agno integrates directly with the Cerebras Python SDK, allowing you to use state-of-the-art Llama models with a simple interface.
+[Cerebras Inference](https://inference-docs.cerebras.ai/introduction) 通过 Cerebras Wafer-Scale Engine 和 CS-3 系统提供高速、低延迟的 AI 模型推理。Agno 直接集成 Cerebras Python SDK，让您能够通过简单的接口使用最先进的 Llama 模型。
 
-## Prerequisites
+## 先决条件
 
-To use Cerebras with Agno, you need to:
+要将 Cerebras 与 Agno 结合使用，您需要：
 
-1. **Install the required packages:**
+1. **安装必需的软件包：**
    ```shell
    pip install cerebras-cloud-sdk
    ```
 
-2. **Set your API key:**
-   The Cerebras SDK expects your API key to be available as an environment variable:
+2. **设置您的 API 密钥：**
+   Cerebras SDK 要求您的 API 密钥作为环境变量可用：
    ```shell
    export CEREBRAS_API_KEY=your_api_key_here
    ```
 
-## Basic Usage
+## 基本用法
 
-Here's how to use a Cerebras model with Agno:
+以下是如何在 Agno 中使用 Cerebras 模型：
 
 ```python
 from agno.agent import Agent
@@ -33,43 +33,43 @@ agent = Agent(
     markdown=True,
 )
 
-# Print the response in the terminal
+# 在终端中打印响应
 agent.print_response("write a two sentence horror story")
 ```
 
-## Supported Models
+## 支持的模型
 
-Cerebras currently supports the following models (see [docs](https://inference-docs.cerebras.ai/introduction) for the latest list):
+Cerebras 目前支持以下模型（有关最新列表，请参阅 [文档](https://inference-docs.cerebras.ai/introduction)）：
 
-| Model Name                      | Model ID                       | Parameters  | Knowledge     |
-| ------------------------------- | ------------------------------ | ----------- | ------------- |
-| Llama 4 Scout                   | llama-4-scout-17b-16e-instruct | 109 billion | August 2024   |
-| Llama 3.1 8B                    | llama3.1-8b                    | 8 billion   | March 2023    |
-| Llama 3.3 70B                   | llama-3.3-70b                  | 70 billion  | December 2023 |
-| DeepSeek R1 Distill Llama 70B*  | deepseek-r1-distill-llama-70b  | 70 billion  | December 2023 |
+| 模型名称                      | 模型 ID                       | 参数  | 知识库     |
+| ----------------------------- | ------------------------------ | ----------- | ------------- |
+| Llama 4 Scout                   | llama-4-scout-17b-16e-instruct | 1090亿 | 2024年8月   |
+| Llama 3.1 8B                    | llama3.1-8b                    | 80亿   | 2023年3月   |
+| Llama 3.3 70B                   | llama-3.3-70b                  | 700亿  | 2023年12月  |
+| DeepSeek R1 Distill Llama 70B*  | deepseek-r1-distill-llama-70b  | 700亿  | 2023年12月  |
 
-\* DeepSeek R1 Distill Llama 70B is available in private preview.
+\* DeepSeek R1 Distill Llama 70B 目前处于私有预览阶段。
 
-## Configuration Options
+## 配置选项
 
-The `Cerebras` class accepts the following parameters:
+`Cerebras` 类接受以下参数：
 
-| Parameter     | Type           | Description                                         | Default                        |
-| ------------- | -------------- | --------------------------------------------------- | ------------------------------ |
-| `id`          | str            | Model identifier (e.g., "llama-4-scout-17b-16e-instruct") | **Required**                   |
-| `name`        | str            | Display name for the model                          | "Cerebras"                     |
-| `provider`    | str            | Provider name                                       | "Cerebras"                     |
-| `api_key`     | Optional[str]  | API key (falls back to `CEREBRAS_API_KEY` env var)  | None                           |
-| `max_tokens`  | Optional[int]  | Maximum tokens in the response                      | None                           |
-| `temperature` | float          | Sampling temperature                                | 0.7                            |
-| `top_p`       | float          | Top-p sampling value                                | 1.0                            |
-| `request_params` | Optional[Dict[str, Any]] | Additional request parameters           | None                           |
+| 参数     | 类型           | 描述                                         | 默认值                        |
+| ------------- | -------------- | -------------------------------------------- | ------------------------------ |
+| `id`          | str            | 模型标识符（例如 "llama-4-scout-17b-16e-instruct"） | **必需**                   |
+| `name`        | str            | 模型的显示名称                          | "Cerebras"                     |
+| `provider`    | str            | 提供商名称                                       | "Cerebras"                     |
+| `api_key`     | Optional[str]  | API 密钥（将回退到 `CEREBRAS_API_KEY` 环境变量）  | None                           |
+| `max_tokens`  | Optional[int]  | 响应中的最大令牌数                      | None                           |
+| `temperature` | float          | 采样温度                                       | 0.7                            |
+| `top_p`       | float          | Top-p 采样值                                     | 1.0                            |
+| `request_params` | Optional[Dict[str, Any]] | 其他请求参数           | None                           |
 
 
-## Resources
+## 资源
 
-- [Cerebras Inference Documentation](https://inference-docs.cerebras.ai/introduction)
-- [Cerebras API Reference](https://inference-docs.cerebras.ai/api-reference/chat-completions)
+- [Cerebras Inference 文档](https://inference-docs.cerebras.ai/introduction)
+- [Cerebras API 参考](https://inference-docs.cerebras.ai/api-reference/chat-completions)
 
-### SDK Examples
-- View more examples [here](../examples/models/cerebras).
+### SDK 示例
+- 在此查看更多示例 [here](../examples/models/cerebras)。

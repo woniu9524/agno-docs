@@ -1,20 +1,20 @@
 ---
-title: What is Memory?
-sidebarTitle: Overview
-description: Memory gives an Agent the ability to recall relevant information.
+title: 什么是记忆？
+sidebarTitle: 概览
+description: 记忆使代理能够回忆相关信息。
 ---
-Memory is a part of the Agent's context that helps it provide the best, most personalized response.
+记忆是代理的上下文的一部分，有助于它提供最佳、最个性化的响应。
 
 <Check>
-If the user tells the Agent they like to ski, then future responses can reference this information to provide a more personalized experience.
+如果用户告诉代理他们喜欢滑雪，那么未来的响应可以引用此信息，以提供更个性化的体验。
 </Check>
 
-1. **Session Storage (chat history and session state):** Session storage saves an Agent's sessions in a database and enables Agents to have multi-turn conversations. Session storage also holds the session state, which is persisted across runs because it is saved to the database after each run. Session storage is a form of short-term memory **called "Storage" in Agno**.
+1. **会话存储（聊天记录和会话状态）：** 会话存储将代理的会话保存在数据库中，并使代理能够进行多轮对话。会话存储还保存会话状态，该状态在每次运行后保存到数据库，因此会在多次运行中持久存在。会话存储是一种短期记忆，**在 Agno 中称为“Storage”**。
 
-2. **User Memories (user preferences):** The Agent can store insights and facts about the user that it learns through conversation. This helps the agents personalize its response to the user it is interacting with. Think of this as adding "ChatGPT like memory" to your agent. **This is called "Memory" in Agno**.
+2. **用户记忆（用户偏好）：** 代理可以存储它通过对话了解到的关于用户的见解和事实。这有助于代理个性化其对正在与之交互的用户的响应。将其视为在您的代理中添加“类似 ChatGPT 的记忆”。**在 Agno 中称为“Memory”**。
 
-3. **Session Summaries (chat summary):** The Agent can store a condensed representations of the session, useful when chat histories gets too long. **This is called "Summary" in Agno**.
+3. **会话摘要（聊天摘要）：** 代理可以存储会话的精简表示，当聊天记录过长时非常有用。**在 Agno 中称为“Summary”**。
 
 <Note>
-If you haven't, we also recommend reading the Memory section of the [Agents](/agents/memory) to get familiar with the basics.
+如果您还没有读过，我们还建议阅读 [Agents](/agents/memory) 中的记忆部分，以熟悉基本知识。
 </Note>

@@ -1,8 +1,8 @@
 ---
-title: Agent with Knowledge Base
+title: 带有知识库的 Agent
 ---
 
-## Code
+## 代码
 
 ```python cookbook/models/azure/ai_foundry/knowledge.py
 from agno.agent import Agent
@@ -21,7 +21,7 @@ knowledge_base = PDFUrlKnowledgeBase(
         embedder=AzureOpenAIEmbedder(id="text-embedding-3-small"),
     ),
 )
-knowledge_base.load(recreate=False)  # Comment out after first run
+knowledge_base.load(recreate=False)  # 首次运行后注释掉此行
 
 agent = Agent(
     model=AzureAIFoundry(id="Cohere-command-r-08-2024"),
@@ -32,25 +32,25 @@ agent = Agent(
 agent.print_response("How to make Thai curry?", markdown=True)
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">
     ```bash
     export AZURE_API_KEY=xxx
     export AZURE_ENDPOINT=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U azure-ai-inference agno duckduckgo-search sqlalchemy pgvector pypdf
     ```
   </Step>
 
-  <Step title="Run PgVector">
+  <Step title="运行 PgVector">
     ```bash
     docker run -d \
       -e POSTGRES_DB=ai \
@@ -64,7 +64,7 @@ agent.print_response("How to make Thai curry?", markdown=True)
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行 Agent">
     <CodeGroup>
     ```bash Mac
     python cookbook/models/azure/ai_foundry/knowledge.py

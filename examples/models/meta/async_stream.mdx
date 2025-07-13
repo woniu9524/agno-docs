@@ -1,8 +1,8 @@
 ---
-<title>Asynchronous Streaming Agent</title>
+<title>异步流式 Agent</title>
 ---
 
-## Code
+## 代码
 
 ```python cookbook/models/meta/async_stream.py
 import asyncio
@@ -16,31 +16,31 @@ async def main():
     )
     
     await agent.aprint_response(
-        "Share a two-sentence horror story.",
+        "写一个两句话的恐怖故事。",
         stream=True
     )
 
 asyncio.run(main())
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your LLAMA API key">
+  <Step title="设置您的 LLAMA API 密钥">
     ```bash
     export LLAMA_API_KEY=YOUR_API_KEY
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install llama-api-client agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行 Agent">
     <CodeGroup>
     ```bash Mac
     python cookbook/models/meta/async_stream.py
@@ -51,4 +51,4 @@ asyncio.run(main())
     ```
     </CodeGroup>
   </Step>
-</Steps> 
+</Steps>

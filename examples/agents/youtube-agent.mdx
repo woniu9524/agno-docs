@@ -1,19 +1,17 @@
 ---
-title: Youtube Agent
+title: YouTube 智能助手
 ---
 
-This example shows how to create an intelligent YouTube content analyzer that provides
-detailed video breakdowns, timestamps, and summaries. Perfect for content creators,
-researchers, and viewers who want to efficiently navigate video content.
+此示例展示了如何创建一个智能化的 YouTube 内容分析器，该分析器提供详细的视频分解、时间戳和摘要。非常适合内容创作者、研究人员以及希望高效浏览视频内容的用户。
 
-Example prompts to try:
-- "Analyze this tech review: [video_url]"
-- "Get timestamps for this coding tutorial: [video_url]"
-- "Break down the key points of this lecture: [video_url]"
-- "Summarize the main topics in this documentary: [video_url]"
-- "Create a study guide from this educational video: [video_url]"
+可尝试的示例提示：
+- “分析这个科技评测：[video_url]”
+- “获取这个编码教程的时间戳：[video_url]”
+- “分解这个讲座的关键点：[video_url]”
+- “总结这个纪录片的主要主题：[video_url]”
+- “从这个教育视频创建一个学习指南：[video_url]”
 
-## Code
+## 代码
 
 ```python youtube_agent.py
 from textwrap import dedent
@@ -28,98 +26,98 @@ youtube_agent = Agent(
     tools=[YouTubeTools()],
     show_tool_calls=True,
     instructions=dedent("""\
-        You are an expert YouTube content analyst with a keen eye for detail! 🎓
-        Follow these steps for comprehensive video analysis:
-        1. Video Overview
-           - Check video length and basic metadata
-           - Identify video type (tutorial, review, lecture, etc.)
-           - Note the content structure
-        2. Timestamp Creation
-           - Create precise, meaningful timestamps
-           - Focus on major topic transitions
-           - Highlight key moments and demonstrations
-           - Format: [start_time, end_time, detailed_summary]
-        3. Content Organization
-           - Group related segments
-           - Identify main themes
-           - Track topic progression
+        你是一位经验丰富的 YouTube 内容分析专家，眼光敏锐！ 🎓
+        请按照以下步骤进行全面的视频分析：
+        1. 视频概述
+           - 查看视频时长和基本元数据
+           - 识别视频类型（教程、评测、讲座等）
+           - 注意内容结构
+        2. 时间戳创建
+           - 创建精准、有意义的时间戳
+           - 侧重于主要主题的过渡
+           - 突出关键时刻和演示
+           - 格式：[开始时间, 结束时间, 详细摘要]
+        3. 内容组织
+           - 对相关片段进行分组
+           - 识别主要主题
+           - 追踪主题进展
 
-        Your analysis style:
-        - Begin with a video overview
-        - Use clear, descriptive segment titles
-        - Include relevant emojis for content types:
-          📚 Educational
-          💻 Technical
-          🎮 Gaming
-          📱 Tech Review
-          🎨 Creative
-        - Highlight key learning points
-        - Note practical demonstrations
-        - Mark important references
+        你的分析风格：
+        - 以视频概述开始
+        - 使用清晰、描述性的片段标题
+        - 为内容类型包含相关的表情符号：
+          📚 教育类
+          💻 技术类
+          🎮 游戏类
+          📱 科技评测
+          🎨 创意类
+        - 强调关键学习点
+        - 注意实际演示
+        - 标记重要参考信息
 
-        Quality Guidelines:
-        - Verify timestamp accuracy
-        - Avoid timestamp hallucination
-        - Ensure comprehensive coverage
-        - Maintain consistent detail level
-        - Focus on valuable content markers
+        质量指南：
+        - 核实时间戳的准确性
+        - 避免时间戳臆想
+        - 确保内容涵盖全面
+        - 保持一致的细节级别
+        - 侧重于有价值的内容标记
     """),
     add_datetime_to_instructions=True,
     markdown=True,
 )
 
-# Example usage with different types of videos
+# 使用不同类型的视频进行示例使用
 youtube_agent.print_response(
     "Analyze this video: https://www.youtube.com/watch?v=zjkBMFhNj_g",
     stream=True,
 )
 
-# More example prompts to explore:
+# 更多待探索的示例提示：
 """
-Tutorial Analysis:
-1. "Break down this Python tutorial with focus on code examples"
-2. "Create a learning path from this web development course"
-3. "Extract all practical exercises from this programming guide"
-4. "Identify key concepts and implementation examples"
+教程分析：
+1. “分解这个 Python 教程，重点关注代码示例”
+2. “从这个 Web 开发课程创建一个学习路径”
+3. “提取这个编程指南中的所有实践练习”
+4. “识别关键概念和实现示例”
 
-Educational Content:
-1. "Create a study guide with timestamps for this math lecture"
-2. "Extract main theories and examples from this science video"
-3. "Break down this historical documentary into key events"
-4. "Summarize the main arguments in this academic presentation"
+教育内容：
+1. “为这个数学讲座创建带时间戳的学习指南”
+2. “从这个科学视频中提取主要理论和示例”
+3. “将这个历史纪录片分解为关键事件”
+4. “总结这个学术演讲的主要论点”
 
-Tech Reviews:
-1. "List all product features mentioned with timestamps"
-2. "Compare pros and cons discussed in this review"
-3. "Extract technical specifications and benchmarks"
-4. "Identify key comparison points and conclusions"
+科技评测：
+1. “列出所有提及的产品功能及其时间戳”
+2. “比较这个评测中讨论的优缺点”
+3. “提取技术规格和基准测试”
+4. “识别关键比较点和结论”
 
-Creative Content:
-1. "Break down the techniques shown in this art tutorial"
-2. "Create a timeline of project steps in this DIY video"
-3. "List all tools and materials mentioned with timestamps"
-4. "Extract tips and tricks with their demonstrations"
+创意内容：
+1. “分解这个艺术教程中展示的技术”
+2. “创建这个 DIY 视频中的项目步骤时间线”
+3. “列出所有提及的工具和材料及其时间戳”
+4. “提取带有演示技巧和窍门”
 """
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install openai youtube_transcript_api agno
     ```
   </Step>
 
-  <Step title="Set environment variables">
+  <Step title="设置环境变量">
     ```bash
     export OPENAI_API_KEY=****
     ```
   </Step>
 
-  <Step title="Run the agent">
+  <Step title="运行智能助手">
     ```bash
     python youtube_agent.py
     ```

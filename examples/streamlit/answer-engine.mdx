@@ -1,23 +1,23 @@
 ---
-title: "Sage: Answer Engine"
+title: "Sage：答案引擎"
 ---
 
-This example shows how to build Sage, a Perplexity-like Answer Engine that intelligently determines whether to perform a web search or conduct a deep analysis using ExaTools based on the user's query.
+本示例展示了如何构建 Sage，一个类似 Perplexity 的答案引擎，它可以根据用户的查询智能地决定是执行网络搜索还是使用 ExaTools 进行深度分析。
 
-Sage:
-1. Uses real-time web search (DuckDuckGo) and deep contextual analysis (ExaTools) to provide comprehensive answers
-2. Intelligently selects tools based on query complexity
-3. Provides an interactive Streamlit UI with session management and chat history export
-4. Supports multiple LLM providers (OpenAI, Anthropic, Google, Groq)
+Sage：
+1. 使用实时网络搜索（DuckDuckGo）和深度上下文分析（ExaTools）来提供全面的答案
+2. 根据查询的复杂性智能地选择工具
+3. 提供交互式 Streamlit 用户界面，支持会话管理和聊天记录导出
+4. 支持多个 LLM 提供商（OpenAI、Anthropic、Google、Groq）
 
-## Key capabilities
-- Natural language query understanding and processing
-- Real-time web search integration with DuckDuckGo
-- Deep contextual analysis using ExaTools
-- Multiple LLM provider support
-- Session management using SQLite
-- Chat history export
-- Interactive Streamlit UI
+## 主要功能
+- 自然语言查询理解和处理
+- 与 DuckDuckGo 的实时网络搜索集成
+- 使用 ExaTools 进行深度上下文分析
+- 支持多个 LLM 提供商
+- 使用 SQLite 进行会话管理
+- 聊天记录导出
+- 交互式 Streamlit 用户界面
 
 <video
   autoPlay
@@ -27,79 +27,79 @@ Sage:
   src="/videos/answer-engine.mp4"
 ></video>
 
-## Simple queries to try
-- "Tell me about the tariffs the US is imposing in 2025"
-- "Which is a better reasoning model: o3-mini or DeepSeek R1?"
-- "Tell me about Agno"
-- "What are the latest trends in renewable energy?"
+## 可以尝试的简单查询
+- "告诉我关于美国在 2025 年实施的关税"
+- "哪个推理模型更好：o3-mini 还是 DeepSeek R1？"
+- "告诉我关于 Agno"
+- "可再生能源的最新趋势是什么？"
 
-## Advanced analysis queries
-- "Evaluate how emerging AI regulations could influence innovation"
-- "Compare the environmental impact of electric vs hydrogen vehicles"
-- "Analyze the global semiconductor supply chain challenges"
-- "Explain the implications of quantum computing on cryptography"
+## 高级分析查询
+- "评估新兴的 AI 法规如何影响创新"
+- "比较电动汽车与氢燃料汽车对环境的影响"
+- "分析全球半导体供应链的挑战"
+- "解释量子计算对加密技术的影响"
 
-## Code
+## 代码
 
-The complete code is available in the [Agno repository](https://github.com/agno-agi/agno).
+完整的代码可在 [Agno 仓库](https://github.com/agno-agi/agno) 中找到。
 
-## Usage
+## 使用方法
 
 <Steps>
-  <Step title="Clone the repository">
+  <Step title="克隆仓库">
     ```bash
     git clone https://github.com/agno-agi/agno.git
     cd agno
     ```
   </Step>
 
-  <Step title="Create virtual environment">
+  <Step title="创建虚拟环境">
     ```bash
     python3 -m venv .venv
-    source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+    source .venv/bin/activate  # 在 Windows 上：.venv\Scripts\activate
     ```
   </Step>
 
-  <Step title="Install dependencies">
+  <Step title="安装依赖项">
     ```bash
     pip install -r cookbook/examples/streamlit_apps/answer_engine/requirements.txt
     ```
   </Step>
 
-  <Step title="Set up API keys">
+  <Step title="设置 API 密钥">
     ```bash
-    # Required
+    # 必需
     export OPENAI_API_KEY=***
     export EXA_API_KEY=***
 
-    # Optional (for additional models)
+    # 可选（用于额外模型）
     export ANTHROPIC_API_KEY=***
     export GOOGLE_API_KEY=***
     export GROQ_API_KEY=***
     ```
-    We recommend using gpt-4o for optimal performance.
+    我们建议使用 gpt-4o 以获得最佳性能。
   </Step>
 
-  <Step title="Launch the app">
+  <Step title="启动应用程序">
     ```bash
     streamlit run cookbook/examples/streamlit_apps/answer_engine/app.py
     ```
-    Open [localhost:8501](http://localhost:8501) to start using Sage.
+    打开 [localhost:8501](http://localhost:8501) 开始使用 Sage。
   </Step>
 </Steps>
 
-## Model Selection
-The application supports multiple model providers:
+## 模型选择
+该应用程序支持多个模型提供商：
 - OpenAI (o3-mini, gpt-4o)
 - Anthropic (claude-3-5-sonnet)
 - Google (gemini-2.0-flash-exp)
 - Groq (llama-3.3-70b-versatile)
 
-## Agent Configuration
-The agent configuration is in `agents.py` and the prompts are in `prompts.py`:
-- To modify prompts, update the `prompts.py` file
-- To add new tools or models, update the `agents.py` file
+## 代理配置
+代理配置在 `agents.py` 中，提示在 `prompts.py` 中：
+- 要修改提示，请更新 `prompts.py` 文件
+- 要添加新工具或模型，请更新 `agents.py` 文件
 
-## Support
+## 支持
 
-Need help? Join our [Discourse community](https://community.agno.com) for support!
+需要帮助？加入我们的 [Discourse 社区](https://community.agno.com) 获取支持！

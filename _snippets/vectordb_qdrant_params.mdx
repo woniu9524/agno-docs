@@ -1,16 +1,16 @@
-| Name          | Type              | Default            | Description                                  |
-| ------------- | ----------------- | ------------------ | -------------------------------------------- |
-| `collection`  | `str`             | -                  | Name of the Qdrant collection                |
-| `embedder`    | `Embedder`        | `OpenAIEmbedder()` | Embedder for embedding the document contents |
-| `distance`    | `Distance`        | `Distance.cosine`  | Distance metric for similarity search        |
-| `location`    | `Optional[str]`   | `None`             | Location of the Qdrant database              |
-| `url`         | `Optional[str]`   | `None`             | URL of the Qdrant server                     |
-| `port`        | `Optional[int]`   | `6333`             | Port number for the Qdrant server            |
-| `grpc_port`   | `int`             | `6334`             | gRPC port number for the Qdrant server       |
-| `prefer_grpc` | `bool`            | `False`            | Whether to prefer gRPC over HTTP             |
-| `https`       | `Optional[bool]`  | `None`             | Whether to use HTTPS                         |
-| `api_key`     | `Optional[str]`   | `None`             | API key for authentication                   |
-| `prefix`      | `Optional[str]`   | `None`             | Prefix for the Qdrant API                    |
-| `timeout`     | `Optional[float]` | `None`             | Timeout for Qdrant operations                |
-| `host`        | `Optional[str]`   | `None`             | Host address for the Qdrant server           |
-| `path`        | `Optional[str]`   | `None`             | Path to the Qdrant database                  |
+| 名称          | 类型              | 默认            | 描述                                     |
+| ------------- | ----------------- | --------------- | ---------------------------------------- |
+| `collection`  | `str`             | -               | Qdrant 集合的名称                        |
+| `embedder`    | `Embedder`        | `OpenAIEmbedder()` | 用于嵌入文档内容的 Embedder           |
+| `distance`    | `Distance`        | `Distance.cosine` | 用于相似性搜索的距离度量                |
+| `location`    | `Optional[str]`   | `None`          | Qdrant 数据库的位置                      |
+| `url`         | `Optional[str]`   | `None`          | Qdrant 服务器的 URL                      |
+| `port`        | `Optional[int]`   | `6333`          | Qdrant 服务器的端口号                    |
+| `grpc_port`   | `int`             | `6334`          | Qdrant 服务器的 gRPC 端口号              |
+| `prefer_grpc` | `bool`            | `False`         | 是否优先使用 gRPC 而非 HTTP            |
+| `https`       | `Optional[bool]`  | `None`          | 是否使用 HTTPS                           |
+| `api_key`     | `Optional[str]`   | `None`          | 用于身份验证的 API 密钥                  |
+| `prefix`      | `Optional[str]`   | `None`          | Qdrant API 的前缀                        |
+| `timeout`     | `Optional[float]` | `None`          | Qdrant 操作的超时时间                   |
+| `host`        | `Optional[str]`   | `None`          | Qdrant 服务器的主机地址                  |
+| `path`        | `Optional[str]`   | `None`          | Qdrant 数据库的路径                      |

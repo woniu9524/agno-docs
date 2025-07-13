@@ -1,14 +1,14 @@
 ---
-title: Reasoning Agents
+title: 推理代理
 ---
 
-Reasoning Agents are a new type of multi-agent system developed by Agno that combines chain of thought reasoning with tool use.
+推理代理 (Reasoning Agents) 是 Agno 开发的一类新型多代理系统，它将思维链推理与工具使用相结合。
 
-You can enable reasoning on any Agent by setting `reasoning=True`.
+您可以通过设置 `reasoning=True` 来为任何代理启用推理功能。
 
-When an Agent with `reasoning=True` is given a task, a separate "Reasoning Agent" first solves the problem using chain-of-thought. At each step, it calls tools to gather information, validate results, and iterate until it reaches a final answer. Once the Reasoning Agent has a final answer, it hands the results back to the original Agent to validate and provide a response.
+当一个启用了 `reasoning=True` 的代理被赋予任务时，一个独立的“推理代理”会首先使用思维链来解决问题。在每一步中，它都会调用工具来收集信息、验证结果并进行迭代，直到得出最终答案。一旦推理代理得出了最终答案，它会将结果交还给原始代理进行验证和响应。
 
-### Example
+### 示例
 
 ```python reasoning_agent.py
 from agno.agent import Agent
@@ -20,28 +20,27 @@ reasoning_agent = Agent(
     markdown=True,
 )
 reasoning_agent.print_response(
-    "Solve the trolley problem. Evaluate multiple ethical frameworks. "
-    "Include an ASCII diagram of your solution.",
+    "解决电车难题。评估多种伦理框架。包含解决方案的 ASCII 图。",
     stream=True,
     show_full_reasoning=True,
 )
 ```
 
-## Enabling Agentic Reasoning
+## 启用代理推理
 
-To enable Agentic Reasoning, set `reasoning=True` or set the `reasoning_model` to a model that supports structured outputs. If you do not set `reasoning_model`, the primary `Agent` model will be used for reasoning.
+要启用代理推理，请设置 `reasoning=True` 或将 `reasoning_model` 设置为支持结构化输出的模型。如果您不设置 `reasoning_model`，则将使用主要的 `Agent` 模型进行推理。
 
-### Reasoning Model Requirements
+### 推理模型要求
 
-The `reasoning_model` must be able to handle structured outputs, this includes models like gpt-4o and claude-3-7-sonnet that support structured outputs natively or gemini models that support structured outputs using JSON mode.
+`reasoning_model` 必须能够处理结构化输出，这包括像 gpt-4o 和 claude-3-7-sonnet 这样支持原生结构化输出的模型，或者使用 JSON 模式支持结构化输出的 gemini 模型。
 
-### Using a Reasoning Model that supports native Reasoning
+### 使用支持原生推理的推理模型
 
-If you set `reasoning_model` to a model that supports native Reasoning like o3-mini or deepseek-r1, the reasoning model will be used to reason and the primary `Agent` model will be used to respond. See [Reasoning Models + Response Models](/reasoning/reasoning-models#reasoning-model-response-model) for more information.
+如果您将 `reasoning_model` 设置为支持原生推理的模型，例如 o3-mini 或 deepseek-r1，那么推理模型将用于推理，而主要的 `Agent` 模型将用于响应。更多信息请参阅 [推理模型 + 响应模型](/reasoning/reasoning-models#reasoning-model-response-model)。
 
-## Reasoning with tools
+## 使用工具进行推理
 
-You can also use tools with a reasoning agent. Lets create a finance agent that can reason.
+您也可以将工具与推理代理一起使用。让我们创建一个可以进行推理的金融代理。
 
 ```python finance_reasoning.py
 from agno.agent import Agent
@@ -51,27 +50,24 @@ from agno.tools.yfinance import YFinanceTools
 reasoning_agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
     tools=[YFinanceTools(stock_price=True, analyst_recommendations=True, company_info=True, company_news=True)],
-    instructions=["Use tables to show data"],
+    instructions=["使用表格展示数据"],
     show_tool_calls=True,
     markdown=True,
     reasoning=True,
 )
-reasoning_agent.print_response("Write a report comparing NVDA to TSLA", stream=True, show_full_reasoning=True)
+reasoning_agent.print_response("撰写一份比较 NVDA 和 TSLA 的报告", stream=True, show_full_reasoning=True)
 ```
 
-## More Examples
+## 更多示例
 
-### Logical puzzles
+### 逻辑谜题
 
 ```python logical_puzzle.py
 from agno.agent import Agent
 from agno.models.openai import OpenAIChat
 
 task = (
-    "Three missionaries and three cannibals need to cross a river. "
-    "They have a boat that can carry up to two people at a time. "
-    "If, at any time, the cannibals outnumber the missionaries on either side of the river, the cannibals will eat the missionaries. "
-    "How can all six people get across the river safely? Provide a step-by-step solution and show the solutions as an ascii diagram"
+    "三名传教士和三名食人族需要过河。他们有一艘船，一次最多可搭载两人。任何时候，如果食人族在河的任何一侧人数多于传教士，食人族就会吃掉传教士。如何才能让所有六个人安全过河？请提供分步解决方案并以 ASCII 图的形式展示。"
 )
 reasoning_agent = Agent(
     model=OpenAIChat(id="gpt-4o-2024-08-06"), reasoning=True, markdown=True
@@ -79,32 +75,28 @@ reasoning_agent = Agent(
 reasoning_agent.print_response(task, stream=True, show_full_reasoning=True)
 ```
 
-### Mathematical proofs
+### 数学证明
 
 ```python mathematical_proof.py
 from agno.agent import Agent
 from agno.models.openai import OpenAIChat
 
-task = "Prove that for any positive integer n, the sum of the first n odd numbers is equal to n squared. Provide a detailed proof."
+task = "证明对于任何正整数 n，前 n 个奇数的和等于 n 的平方。请提供详细证明。"
 reasoning_agent = Agent(
     model=OpenAIChat(id="gpt-4o-2024-08-06"), reasoning=True, markdown=True
 )
 reasoning_agent.print_response(task, stream=True, show_full_reasoning=True)
 ```
 
-### Scientific research
+### 科学研究
 
 ```python scientific_research.py
 from agno.agent import Agent
 from agno.models.openai import OpenAIChat
 
 task = (
-    "Read the following abstract of a scientific paper and provide a critical evaluation of its methodology,"
-    "results, conclusions, and any potential biases or flaws:\n\n"
-    "Abstract: This study examines the effect of a new teaching method on student performance in mathematics. "
-    "A sample of 30 students was selected from a single school and taught using the new method over one semester. "
-    "The results showed a 15% increase in test scores compared to the previous semester. "
-    "The study concludes that the new teaching method is effective in improving mathematical performance among high school students."
+    "阅读以下科学论文摘要，并对其方法论、结果、结论以及任何潜在的偏见或缺陷进行批判性评估：\n\n"
+    "摘要：本研究考察了一种新的教学方法对学生数学成绩的影响。选择了一所学校的 30 名学生样本，在整个学期中使用新方法进行教学。结果显示，与上一学期相比，考试成绩提高了 15%。研究得出结论，新的教学方法能够有效提高高中生的数学成绩。"
 )
 reasoning_agent = Agent(
     model=OpenAIChat(id="gpt-4o-2024-08-06"), reasoning=True, markdown=True
@@ -112,18 +104,14 @@ reasoning_agent = Agent(
 reasoning_agent.print_response(task, stream=True, show_full_reasoning=True)
 ```
 
-### Ethical dilemma
+### 伦理困境
 
 ```python ethical_dilemma.py
 from agno.agent import Agent
 from agno.models.openai import OpenAIChat
 
 task = (
-    "You are a train conductor faced with an emergency: the brakes have failed, and the train is heading towards "
-    "five people tied on the track. You can divert the train onto another track, but there is one person tied there. "
-    "Do you divert the train, sacrificing one to save five? Provide a well-reasoned answer considering utilitarian "
-    "and deontological ethical frameworks. "
-    "Provide your answer also as an ascii art diagram."
+    "你是一名火车司机，面临紧急情况：刹车失灵，火车正驶向轨道上绑着的五个人。你可以将火车转向另一条轨道，但那里绑着一个人。你会选择转向轨道，牺牲一人以拯救五人吗？请根据功利主义和义务论伦理框架提供一个经过深思熟虑的答案。也请以 ASCII 艺术图的形式提供你的答案。"
 )
 reasoning_agent = Agent(
     model=OpenAIChat(id="gpt-4o-2024-08-06"), reasoning=True, markdown=True
@@ -131,33 +119,33 @@ reasoning_agent = Agent(
 reasoning_agent.print_response(task, stream=True, show_full_reasoning=True)
 ```
 
-### Planning an itinerary
+### 规划行程
 
 ```python planning_itinerary.py
 from agno.agent import Agent
 from agno.models.openai import OpenAIChat
 
-task = "Plan an itinerary from Los Angeles to Las Vegas"
+task = "规划从洛杉矶到拉斯维加斯的行程"
 reasoning_agent = Agent(
     model=OpenAIChat(id="gpt-4o-2024-08-06"), reasoning=True, markdown=True
 )
 reasoning_agent.print_response(task, stream=True, show_full_reasoning=True)
 ```
 
-### Creative writing
+### 创意写作
 
 ```python creative_writing.py
 from agno.agent import Agent
 from agno.models.openai import OpenAIChat
 
-task = "Write a short story about life in 5000000 years"
+task = "写一个关于 500 万年后生活的短篇故事"
 reasoning_agent = Agent(
     model=OpenAIChat(id="gpt-4o-2024-08-06"), reasoning=True, markdown=True
 )
 reasoning_agent.print_response(task, stream=True, show_full_reasoning=True)
 ```
 
-## Developer Resources
+## 开发者资源
 
-- View [Examples](/examples/concepts/reasoning/agents)
-- View [Cookbook](https://github.com/agno-agi/agno/tree/main/cookbook/reasoning/agents)
+- 查看 [示例](/examples/concepts/reasoning/agents)
+- 查看 [Cookbook](https://github.com/agno-agi/agno/tree/main/cookbook/reasoning/agents)

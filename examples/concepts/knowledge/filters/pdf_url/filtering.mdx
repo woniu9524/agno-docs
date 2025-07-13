@@ -1,44 +1,44 @@
 ---
-title: Filtering with Pdf-Url
-description: Learn how to filter knowledge base searches using Pdf-Url documents with user-specific metadata.
+title: 使用 Pdf-Url 进行过滤
+description: 了解如何使用用户特定的元数据，通过 Pdf-Url 文档过滤知识库搜索。
 ---
 
-## Code
+## 代码
 
 ```python
 """
-User-Level Knowledge Filtering Example with PDF URLs
+用户级知识过滤示例（使用 PDF URL）
 
-This cookbook demonstrates how to use knowledge filters with PDF documents accessed via URLs,
-showing how to restrict knowledge base searches to specific cuisines, sources, or any other metadata attributes.
+本食谱演示了如何使用知识过滤器和通过 URL 访问的 PDF 文档，
+展示了如何将知识库搜索限制在特定的菜肴、来源或任何其他元数据属性。
 
-Key concepts demonstrated:
-1. Loading PDF documents from URLs with specific metadata
-2. Filtering knowledge base searches by cuisine type
-3. Combining multiple filter criteria
-4. Comparing results across different filter combinations
+演示的关键概念：
+1. 从具有特定元数据的 URL 加载 PDF 文档
+2. 按菜肴类型过滤知识库搜索
+3. 组合多个过滤条件
+4. 比较不同过滤条件组合的结果
 
-You can pass filters in the following ways:
-1. If you pass on Agent only, we use that for all runs
-2. If you pass on run/print_response only, we use that for that run
-3. If you pass on both, we override with the filters passed on run/print_response for that run
+您可以通过以下方式传递过滤器：
+1. 如果仅在 Agent 上传递，我们将用于所有运行
+2. 如果在 run/print_response 上传递，我们将用于该运行
+3. 如果在两者上都传递，我们将使用在 run/print_response 上传递的过滤器来覆盖该运行
 """
 
 from agno.agent import Agent
 from agno.knowledge.pdf_url import PDFUrlKnowledgeBase
 from agno.vectordb.lancedb import LanceDb
 
-# Initialize LanceDB
-# By default, it stores data in /tmp/lancedb
+# 初始化 LanceDB
+# 默认情况下，它将数据存储在 /tmp/lancedb
 vector_db = LanceDb(
     table_name="recipes",
-    uri="tmp/lancedb",  # You can change this path to store data elsewhere
+    uri="tmp/lancedb",  # 您可以将此路径更改为存储其他位置的数据
 )
 
-# Step 1: Initialize knowledge base with URLs and metadata
+# 步骤 1：使用 URL 和元数据初始化知识库
 # ------------------------------------------------------------------------------
-# When initializing the knowledge base, we can attach metadata that will be used for filtering
-# This metadata can include cuisine type, source, region, or any other attributes
+# 在初始化知识库时，我们可以附加将用于过滤的元数据
+# 此元数据可以包括菜肴类型、来源、地区或任何其他属性
 
 knowledge_base = PDFUrlKnowledgeBase(
     urls=[
@@ -62,51 +62,51 @@ knowledge_base = PDFUrlKnowledgeBase(
     vector_db=vector_db,
 )
 
-# Load all documents into the vector database
+# 将所有文档加载到向量数据库中
 knowledge_base.load(recreate=True)
 
-# Step 2: Query the knowledge base with different filter combinations
+# 步骤 2：使用不同的过滤条件组合查询知识库
 # ------------------------------------------------------------------------------
 
-# Option 1: Filters on the Agent
-# Initialize the Agent with the knowledge base and filters
+# 选项 1：在 Agent 上设置过滤器
+# 使用知识库和过滤器初始化 Agent
 agent = Agent(
     knowledge=knowledge_base,
     search_knowledge=True,
-    # This will only return information from documents with Thai cuisine
+    # 这将仅返回具有泰式菜肴的文档中的信息
     knowledge_filters={"cuisine": "Thai"},
 )
 
-# Query for Thai recipes
+# 查询泰式食谱
 agent.print_response(
-    "Tell me how to make Pad Thai",
+    "告诉我如何制作泰式炒河粉",
     markdown=True,
 )
 
-# # Option 2: Filters on the run/print_response
+# # 选项 2：在 run/print_response 上设置过滤器
 # agent = Agent(
 #     knowledge=knowledge_base,
 #     search_knowledge=True,
 # )
 
-# # Query for Cape Malay recipes
+# # 查询 Cape Malay 咖喱
 # agent.print_response(
-#     "Tell me how to make Cape Malay Curry",
+#     "告诉我如何制作 Cape Malay 咖喱",
 #     knowledge_filters={"cuisine": "Cape"},
 #     markdown=True,
 # )
 ```
 
-## Usage
+## 用法
 
 <Steps>
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U agno openai lancedb
     ```
   </Step>
 
-  <Step title="Run the example">
+  <Step title="运行示例">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/knowledge/filters/pdf_url/filtering.py

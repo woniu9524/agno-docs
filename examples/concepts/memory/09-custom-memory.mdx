@@ -1,14 +1,14 @@
 ---
-title: Custom Memory
+title: 自定义记忆
 ---
 
-This example shows how you can configure the Memory Manager and Summarizer models individually. 
+本示例展示了如何单独配置记忆管理器（Memory Manager）和摘要器（Summarizer）模型。
 
-In this example, we use OpenRouter and LLama 3.3-70b-instruct for the memory manager and Claude 3.5 Sonnet for the summarizer, while using Gemini for the Agent. 
+在此示例中，我们将OpenRouter和LLama 3.3-70b-instruct用作记忆管理器，将Claude 3.5 Sonnet用作摘要器，同时将Gemini用作Agent。
 
-We also set custom system prompts for the memory manager and summarizer.
+我们还为记忆管理器和摘要器设置了自定义系统提示。
 
-## Code
+## 代码
 
 ```python cookbook/agent_concepts/memory/10_custom_memory.py
 from agno.agent.agent import Agent
@@ -21,19 +21,19 @@ from rich.pretty import pprint
 
 memory_db = SqliteMemoryDb(table_name="memory", db_file="tmp/memory.db")
 
-# You can also override the entire `system_message` for the memory manager
+# 您也可以覆盖记忆管理器的整个 `system_message`
 memory_manager = MemoryManager(
     model=OpenRouter(id="meta-llama/llama-3.3-70b-instruct"),
     additional_instructions="""
-    IMPORTANT: Don't store any memories about the user's name. Just say "The User" instead of referencing the user's name.
+    重要提示：不要存储任何关于用户姓名的记忆。请直接说“用户”（The User），而不是引用用户的名字。
     """,
 )
 
-# You can also override the entire `system_message` for the session summarizer
+# 您也可以覆盖会话摘要器的整个 `system_message`
 session_summarizer = SessionSummarizer(
     model=Claude(id="claude-3-5-sonnet-20241022"),
     additional_instructions="""
-    Make the summary very informal and conversational.
+    让摘要非常口语化和对话化。
     """,
 )
 
@@ -43,7 +43,7 @@ memory = Memory(
     summarizer=session_summarizer,
 )
 
-# Reset the memory for this example
+# 重置此示例的记忆
 memory.clear()
 
 john_doe_id = "john_doe@example.com"
@@ -57,33 +57,33 @@ agent = Agent(
 )
 
 agent.print_response(
-    "My name is John Doe and I like to swim and play soccer.", stream=True
+    "我的名字叫John Doe，我喜欢游泳和踢足球。", stream=True
 )
 
-agent.print_response("I dont like to swim", stream=True)
+agent.print_response("我不喜欢游泳", stream=True)
 
 memories = memory.get_user_memories(user_id=john_doe_id)
 
-print("John Doe's memories:")
+print("John Doe 的记忆：")
 pprint(memories)
 
 summary = agent.get_session_summary()
-print("Session summary:")
+print("会话摘要：")
 pprint(summary)
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U agno rich
     ```
   </Step>
 
-  <Step title="Run Example">
+  <Step title="运行示例">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/memory/10_custom_memory.py
@@ -94,4 +94,4 @@ pprint(summary)
     ```
     </CodeGroup>
   </Step>
-</Steps> 
+</Steps>

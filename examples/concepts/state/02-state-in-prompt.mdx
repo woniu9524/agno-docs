@@ -1,8 +1,8 @@
 ---
-title: State in Instructions
+title: 在指令中注入状态
 ---
-This example demonstrates how to inject `session_state` variables directly into the agent’s instructions using `add_state_in_messages`.
-## Code
+此示例演示了如何使用 `add_state_in_messages` 将 `session_state` 变量直接注入代理的指令中。
+## 代码
 
 ```python cookbook/agent_concepts/state/state_in_prompt.py
 from agno.agent import Agent
@@ -10,10 +10,10 @@ from agno.models.openai import OpenAIChat
 
 agent = Agent(
     model=OpenAIChat(id="gpt-4o-mini"),
-    # Initialize the session state with a variable
+    # 使用变量初始化 session state
     session_state={"user_name": "John"},
-    # You can use variables from the session state in the instructions
-    instructions="Users name is {user_name}",
+    # 您可以在指令中使用来自 session state 的变量
+    instructions="用户的名字叫 {user_name}",
     show_tool_calls=True,
     add_state_in_messages=True,
     markdown=True,
@@ -22,24 +22,24 @@ agent = Agent(
 agent.print_response("What is my name?", stream=True)
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U openai agno
     ```
   </Step>
 
-  <Step title="Run Example">
+  <Step title="运行示例">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/state/state_in_prompt.py

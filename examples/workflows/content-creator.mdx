@@ -1,9 +1,9 @@
 ---
-title: Content Creator
+title: 内容创作者
 ---
-**ContentCreator** streamlines the process of planning, creating, and distributing engaging content across LinkedIn and Twitter.
+**ContentCreator** 简化了在 LinkedIn 和 Twitter 上规划、创建和分发引人入胜的内容的过程。
 
-Create a file `config.py` with the following code:
+创建一个名为 `config.py` 的文件，其中包含以下代码：
 
 ```python config.py
 import os
@@ -19,125 +19,125 @@ TYPEFULLY_API_KEY = os.getenv("TYPEFULLY_API_KEY")
 HEADERS = {"X-API-KEY": f"Bearer {TYPEFULLY_API_KEY}"}
 
 
-# Define the enums
+# 定义枚举
 class PostType(Enum):
     TWITTER = "Twitter"
     LINKEDIN = "LinkedIn"
 ```
-Add prompts in `prompts.py`
+在 `prompts.py` 中添加提示
 
 ```python prompts.py
-# Planner Agents Configuration
+# 规划师代理配置
 agents_config = {
     "blog_analyzer": {
-        "role": "Blog Analyzer",
-        "goal": "Analyze blog and identify key ideas, sections, and technical concepts",
+        "role": "博客分析师",
+        "goal": "分析博客并识别关键想法、部分和技术概念",
         "backstory": (
-            "You are a technical writer with years of experience writing, editing, and reviewing technical blogs. "
-            "You have a talent for understanding and documenting technical concepts.\n\n"
+            "您是一位拥有多年撰写、编辑和审查技术博客经验的技术撰稿人。 "
+            "您擅长理解和记录技术概念。\n\n"
         ),
         "verbose": False,
     },
     "twitter_thread_planner": {
-        "role": "Twitter Thread Planner",
-        "goal": "Create a Twitter thread plan based on the provided blog analysis",
+        "role": "Twitter 线索规划师",
+        "goal": "根据提供的博客分析创建 Twitter 线索计划",
         "backstory": (
-            "You are a technical writer with years of experience in converting long technical blogs into Twitter threads. "
-            "You have a talent for breaking longform content into bite-sized tweets that are engaging and informative. "
-            "And identify relevant URLs to media that can be associated with a tweet.\n\n"
+            "您是一位拥有多年将长篇技术博客转换为 Twitter 线索经验的技术撰稿人。 "
+            "您擅长将长篇内容分解成引人入胜且信息丰富的简短推文。 "
+            "并识别可与推文关联的相关媒体 URL。\n\n"
         ),
         "verbose": False,
     },
     "linkedin_post_planner": {
-        "role": "LinkedIn Post Planner",
-        "goal": "Create an engaging LinkedIn post based on the provided blog analysis",
+        "role": "LinkedIn 帖子规划师",
+        "goal": "根据提供的博客分析创建引人入胜的 LinkedIn 帖子",
         "backstory": (
-            "You are a technical writer with extensive experience crafting technical LinkedIn content. "
-            "You excel at distilling technical concepts into clear, authoritative posts that resonate with a professional audience "
-            "while maintaining technical accuracy. You know how to balance technical depth with accessibility and incorporate "
-            "relevant hashtags and mentions to maximize engagement.\n\n"
+            "您是一位拥有丰富撰写技术性 LinkedIn 内容经验的技术撰稿人。 "
+            "您善于将技术概念提炼成清晰、权威的帖子，以引起专业受众的共鸣，"
+            "同时保持技术的准确性。您知道如何平衡技术深度与易懂性，并整合"
+            "相关的标签和提及以最大化参与度。\n\n"
         ),
         "verbose": False,
     },
 }
 
-# Planner Tasks Configuration
+# 规划师任务配置
 tasks_config = {
     "analyze_blog": {
         "description": (
-            "Analyze the markdown file at {blog_path} to create a developer-focused technical overview\n\n"
-            "1. Map out the core idea that the blog discusses\n"
-            "2. Identify key sections and what each section is about\n"
-            "3. For each section, extract all URLs that appear inside image markdown syntax ![](image_url)\n"
-            "4. You must associate these identified image URLs to their corresponding sections, so that we can use them with the tweets as media pieces\n\n"
-            "Focus on details that are important for a comprehensive understanding of the blog.\n\n"
+            "分析 {blog_path} 的 markdown 文件，创建一个以开发者为中心的技术概述\n\n"
+            "1. 梳理博客讨论的核心思想\n"
+            "2. 识别关键部分及其内容\n"
+            "3. 对于每个部分，提取所有出现在图片 markdown 语法 ![](image_url) 中的 URL\n"
+            "4. 必须将这些识别出的图片 URL 与其对应的部分关联起来，以便我们可以在推文中用作媒体。\n\n"
+            "重点关注对全面理解博客很重要的细节。\n\n"
         ),
         "expected_output": (
-            "A technical analysis containing:\n"
-            "- Blog title and core concept/idea\n"
-            "- Key technical sections identified with their main points\n"
-            "- Important code examples or technical concepts covered\n"
-            "- Key takeaways for developers\n"
-            "- Relevant URLs to media that are associated with the key sections and can be associated with a tweet, this must be done.\n\n"
+            "一份技术分析，包含：\n"
+            "- 博客标题和核心概念/思想\n"
+            "- 识别出的关键技术部分及其要点\n"
+            "- 涵盖的重要代码示例或技术概念\n"
+            "- 开发者的关键收获\n"
+            "- 与关键部分相关且可与推文关联的相关媒体 URL，必须这样做。\n\n"
         ),
     },
     "create_twitter_thread_plan": {
         "description": (
-            "Develop an engaging Twitter thread based on the blog analysis provided and closely follow the writing style provided in the {path_to_example_threads}\n\n"
-            "The thread should break down complex technical concepts into digestible, tweet-sized chunks "
-            "that maintain technical accuracy while being accessible.\n\n"
-            "Plan should include:\n"
-            "- A strong hook tweet that captures attention, it should be under 10 words, it must be the same as the title of the blog\n"
-            "- Logical flow from basic to advanced concepts\n"
-            "- Code snippets or key technical highlights that fit Twitter's format\n"
-            "- Relevant URLs to media that are associated with the key sections and must be associated with their corresponding tweets\n"
-            "- Clear takeaways for engineering audience\n\n"
-            "Make sure to cover:\n"
-            "- The core problem being solved\n"
-            "- Key technical innovations or approaches\n"
-            "- Interesting implementation details\n"
-            "- Real-world applications or benefits\n"
-            "- Call to action for the conclusion\n"
-            "- Add relevant URLs to each tweet that can be associated with a tweet\n\n"
-            "Focus on creating a narrative that technical audiences will find valuable "
-            "while keeping each tweet concise, accessible, and impactful.\n\n"
+            "根据提供的博客分析开发一个引人入胜的 Twitter 线索，并严格遵循 {path_to_example_threads} 中提供的写作风格\n\n"
+            "该线索应将复杂的技术概念分解为易于理解的、适合推文的块，"
+            "在保持技术准确性的同时使其易于理解。\n\n"
+            "计划应包括：\n"
+            "- 一个引人注目的开场推文，应在 10 个字以内，必须与博客标题相同\n"
+            "- 从基础到高级概念的逻辑流程\n"
+            "- 适合 Twitter 格式的代码片段或关键技术亮点\n"
+            "- 与关键部分相关且必须与其对应推文关联的相关媒体 URL\n"
+            "- 为工程受众提供清晰的收获\n\n"
+            "请确保涵盖：\n"
+            "- 要解决的核心问题\n"
+            "- 关键技术创新或方法\n"
+            "- 有趣的实现细节\n"
+            "- 实际应用或优势\n"
+            "- 结论号召行动\n"
+            "- 添加与推文相关的相关 URL\n\n"
+            "专注于创造技术受众认为有价值的叙述，"
+            "同时保持每条推文的简洁、易懂和有影响力。\n\n"
         ),
         "expected_output": (
-            "A Twitter thread with a list of tweets, where each tweet has the following:\n"
-            "- content\n"
-            "- URLs to media that are associated with the tweet, whenever possible\n"
-            "- is_hook: true if the tweet is a hook tweet, false otherwise\n\n"
+            "一个包含推文列表的 Twitter 线索，每条推文都包含：\n"
+            "- 内容\n"
+            "- 可能相关的媒体 URL\n"
+            "- is_hook：如果推文是开场推文，则为 true，否则为 false\n\n"
         ),
     },
     "create_linkedin_post_plan": {
         "description": (
-            "Develop a comprehensive LinkedIn post based on the blog analysis provided\n\n"
-            "The post should present technical content in a professional, long-form format "
-            "while maintaining engagement and readability.\n\n"
-            "Plan should include:\n"
-            "- An attention-grabbing opening statement, it should be the same as the title of the blog\n"
-            "- Well-structured body that breaks down the technical content\n"
-            "- Professional tone suitable for LinkedIn's business audience\n"
-            "- One main blog URL placed strategically at the end of the post\n"
-            "- Strategic use of line breaks and formatting\n"
-            "- Relevant hashtags (3-5 maximum)\n\n"
-            "Make sure to cover:\n"
-            "- The core technical problem and its business impact\n"
-            "- Key solutions and technical approaches\n"
-            "- Real-world applications and benefits\n"
-            "- Professional insights or lessons learned\n"
-            "- Clear call to action\n\n"
-            "Focus on creating content that resonates with both technical professionals "
-            "and business leaders while maintaining technical accuracy.\n\n"
+            "根据提供的博客分析开发一个全面的 LinkedIn 帖子\n\n"
+            "该帖子应以专业、长篇的格式呈现技术内容，"
+            "同时保持参与度和可读性。\n\n"
+            "计划应包括：\n"
+            "- 一个引人注目的开场白，应与博客标题相同\n"
+            "- 一个好的结构体来分解技术内容\n"
+            "- 适合 LinkedIn 商务受众的专业语气\n"
+            "- 一个主要博客 URL，策略性地放置在帖子末尾\n"
+            "- 巧妙使用换行和格式\n"
+            "- 相关标签（最多 3-5 个）\n\n"
+            "请确保涵盖：\n"
+            "- 核心技术问题及其业务影响\n"
+            "- 关键解决方案和技术方法\n"
+            "- 实际应用和效益\n"
+            "- 专业见解或经验教训\n"
+            "- 明确的号召行动\n\n"
+            "专注于创造与技术专业人士和商业领袖都能产生共鸣的内容，"
+            "同时保持技术准确性。\n\n"
         ),
         "expected_output": (
-            "A LinkedIn post plan containing:\n- content\n- a main blog URL that is associated with the post\n\n"
+            "一个包含以下内容的 LinkedIn 帖子计划：\n- 内容\n- 与帖子关联的主要博客 URL\n\n"
         ),
     },
 }
 ```
 
-For Scheduling logic, create `scheduler.py`
+对于调度逻辑，创建 `scheduler.py`
 
 ```python scheduler.py
 import datetime
@@ -158,7 +158,7 @@ load_dotenv()
 
 
 def json_to_typefully_content(thread_json: Dict[str, Any]) -> str:
-    """Convert JSON thread format to Typefully's format with 4 newlines between tweets."""
+    """将 JSON 线索格式转换为 Typefully 的格式，每个推文之间有 4 个换行符。"""
     tweets = thread_json["tweets"]
     formatted_tweets = []
     for tweet in tweets:
@@ -171,7 +171,7 @@ def json_to_typefully_content(thread_json: Dict[str, Any]) -> str:
 
 
 def json_to_linkedin_content(thread_json: Dict[str, Any]) -> str:
-    """Convert JSON thread format to Typefully's format."""
+    """将 JSON 线索格式转换为 Typefully 的格式。"""
     content = thread_json["content"]
     if "url" in thread_json and thread_json["url"]:
         content += f"\n{thread_json['url']}"
@@ -186,7 +186,7 @@ def schedule_thread(
     auto_retweet_enabled: bool = False,
     auto_plug_enabled: bool = False,
 ) -> Optional[Dict[str, Any]]:
-    """Schedule a thread on Typefully."""
+    """在 Typefully 上调度线索。"""
     payload = {
         "content": content,
         "schedule-date": schedule_date,
@@ -203,7 +203,7 @@ def schedule_thread(
         response.raise_for_status()
         return response.json()
     except requests.exceptions.RequestException as e:
-        logger.error(f"Error: {e}")
+        logger.error(f"错误：{e}")
         return None
 
 
@@ -215,35 +215,35 @@ def schedule(
     post_type: PostType = PostType.TWITTER,
 ) -> Optional[Dict[str, Any]]:
     """
-    Schedule a thread from a Pydantic model.
+    从 Pydantic 模型调度线索。
 
-    Args:
-        thread_model: Pydantic model containing thread data
-        hours_from_now: Hours from now to schedule the thread (default: 1)
-        threadify: Whether to let Typefully split the content (default: False)
-        share: Whether to get a share URL in response (default: True)
+    参数：
+        thread_model: 包含线索数据的 Pydantic 模型
+        hours_from_now: 从现在开始的小时数用于调度线索（默认为 1）
+        threadify: 是否让 Typefully 分割内容（默认为 False）
+        share: 是否在响应中获取共享 URL（默认为 True）
 
-    Returns:
-        API response dictionary or None if failed
+    返回：
+        API 响应字典或失败时返回 None
     """
     try:
         thread_content = ""
-        # Convert Pydantic model to dict
+        # 将 Pydantic 模型转换为字典
         thread_json = thread_model.model_dump()
-        logger.info("######## Thread JSON: ", thread_json)
-        # Convert to Typefully format
+        logger.info("######## 线索 JSON：", thread_json)
+        # 转换为 Typefully 格式
         if post_type == PostType.TWITTER:
             thread_content = json_to_typefully_content(thread_json)
         elif post_type == PostType.LINKEDIN:
             thread_content = json_to_linkedin_content(thread_json)
 
-        # Calculate schedule time
+        # 计算调度时间
         schedule_date = (
             datetime.datetime.utcnow() + datetime.timedelta(hours=hours_from_now)
         ).isoformat() + "Z"
 
         if thread_content:
-            # Schedule the thread
+            # 调度线索
             response = schedule_thread(
                 content=thread_content,
                 schedule_date=schedule_date,
@@ -252,18 +252,18 @@ def schedule(
             )
 
             if response:
-                logger.info("Thread scheduled successfully!")
+                logger.info("线索调度成功！")
                 return response
             else:
-                logger.error("Failed to schedule the thread.")
+                logger.error("未能调度线索。")
                 return None
         return None
 
     except Exception as e:
-        logger.error(f"Error: {str(e)}")
+        logger.error(f"错误：{str(e)}")
         return None
 ```
-Define workflow in `workflow.py`:
+在 `workflow.py` 中定义工作流：
 
 ```python workflow.py
 import json
@@ -285,15 +285,15 @@ from cookbook.workflows.content_creator_workflow.prompts import (
 )
 from cookbook.workflows.content_creator_workflow.scheduler import schedule
 
-# Load environment variables
+# 加载环境变量
 load_dotenv()
 
 
-# Define Pydantic models to structure responses
+# 定义 Pydantic 模型来构建响应
 class BlogAnalyzer(BaseModel):
     """
-    Represents the response from the Blog Analyzer agent.
-    Includes the blog title and content in Markdown format.
+    表示来自博客分析师代理的响应。
+    包含博客标题和 Markdown 格式的内容。
     """
 
     title: str
@@ -302,21 +302,21 @@ class BlogAnalyzer(BaseModel):
 
 class Tweet(BaseModel):
     """
-    Represents an individual tweet within a Twitter thread.
+    表示 Twitter 线索中的单个推文。
     """
 
     content: str
     is_hook: bool = Field(
-        default=False, description="Marks if this tweet is the 'hook' (first tweet)"
+        default=False, description="标记此推文是否为“钩子”（第一条推文）"
     )
     media_urls: Optional[List[str]] = Field(
-        default_factory=list, description="Associated media URLs, if any"
+        default_factory=list, description="关联的媒体 URL，如果有的话"
     )  # type: ignore
 
 
 class Thread(BaseModel):
     """
-    Represents a complete Twitter thread containing multiple tweets.
+    表示包含多条推文的完整 Twitter 线索。
     """
 
     topic: str
@@ -325,44 +325,44 @@ class Thread(BaseModel):
 
 class LinkedInPost(BaseModel):
     """
-    Represents a LinkedIn post.
+    表示 LinkedIn 帖子。
     """
 
     content: str
-    media_url: Optional[List[str]] = None  # Optional media attachment URL
+    media_url: Optional[List[str]] = None  # 可选的媒体附件 URL
 
 
 class ContentPlanningWorkflow(Workflow):
     """
-    This workflow automates the process of:
-    1. Scraping a blog post using the Blog Analyzer agent.
-    2. Generating a content plan for either Twitter or LinkedIn based on the scraped content.
-    3. Scheduling and publishing the planned content.
+    此工作流自动执行以下过程：
+    1. 使用博客分析师代理抓取博客帖子。
+    2. 根据抓取的内容为 Twitter 或 LinkedIn 生成内容计划。
+    3. 调度和发布计划的内容。
     """
 
-    # This description is used only in workflow UI
+    # 此描述仅用于工作流 UI
     description: str = (
-        "Plan, schedule, and publish social media content based on a blog post."
+        "根据博客帖子规划、调度和发布社交媒体内容。"
     )
 
-    # Blog Analyzer Agent: Extracts blog content (title, sections) and converts it into Markdown format for further use.
+    # 博客分析师代理：提取博客内容（标题、部分）并将其转换为 Markdown 格式以供进一步使用。
     blog_analyzer: Agent = Agent(
         model=OpenAIChat(id="gpt-4o"),
         tools=[
             FirecrawlTools(scrape=True, crawl=False)
-        ],  # Enables blog scraping capabilities
+        ],  # 启用博客抓取功能
         description=f"{agents_config['blog_analyzer']['role']} - {agents_config['blog_analyzer']['goal']}",
         instructions=[
             f"{agents_config['blog_analyzer']['backstory']}",
             tasks_config["analyze_blog"][
                 "description"
-            ],  # Task-specific instructions for blog analysis
+            ],  # 用于博客分析的任务特定说明
         ],
-        response_model=BlogAnalyzer,  # Expects response to follow the BlogAnalyzer Pydantic model
+        response_model=BlogAnalyzer,  # 期望响应遵循 BlogAnalyzer Pydantic 模型
     )
 
-    # Twitter Thread Planner: Creates a Twitter thread from the blog content, each tweet is concise, engaging,
-    # and logically connected with relevant media.
+    # Twitter 线索规划师：从博客内容创建 Twitter 线索，每条推文都简洁、引人入胜，
+    # 并与相关媒体逻辑地连接起来。
     twitter_thread_planner: Agent = Agent(
         model=OpenAIChat(id="gpt-4o"),
         description=f"{agents_config['twitter_thread_planner']['role']} - {agents_config['twitter_thread_planner']['goal']}",
@@ -370,11 +370,10 @@ class ContentPlanningWorkflow(Workflow):
             f"{agents_config['twitter_thread_planner']['backstory']}",
             tasks_config["create_twitter_thread_plan"]["description"],
         ],
-        response_model=Thread,  # Expects response to follow the Thread Pydantic model
+        response_model=Thread,  # 期望响应遵循 Thread Pydantic 模型
     )
 
-    # LinkedIn Post Planner: Converts blog content into a structured LinkedIn post, optimized for a professional
-    # audience with relevant hashtags.
+    # LinkedIn 帖子规划师：将博客内容转换为结构化的 LinkedIn 帖子，针对专业受众进行优化，并包含相关标签。
     linkedin_post_planner: Agent = Agent(
         model=OpenAIChat(id="gpt-4o"),
         description=f"{agents_config['linkedin_post_planner']['role']} - {agents_config['linkedin_post_planner']['goal']}",
@@ -382,33 +381,33 @@ class ContentPlanningWorkflow(Workflow):
             f"{agents_config['linkedin_post_planner']['backstory']}",
             tasks_config["create_linkedin_post_plan"]["description"],
         ],
-        response_model=LinkedInPost,  # Expects response to follow the LinkedInPost Pydantic model
+        response_model=LinkedInPost,  # 期望响应遵循 LinkedInPost Pydantic 模型
     )
 
     def scrape_blog_post(self, blog_post_url: str, use_cache: bool = True):
         if use_cache and blog_post_url in self.session_state:
-            logger.info(f"Using cache for blog post: {blog_post_url}")
+            logger.info(f"使用缓存的博客帖子：{blog_post_url}")
             return self.session_state[blog_post_url]
         else:
             response: RunResponse = self.blog_analyzer.run(blog_post_url)
             if isinstance(response.content, BlogAnalyzer):
                 result = response.content
-                logger.info(f"Blog title: {result.title}")
+                logger.info(f"博客标题：{result.title}")
                 self.session_state[blog_post_url] = result.blog_content_markdown
                 return result.blog_content_markdown
             else:
-                raise ValueError("Unexpected content type received from blog analyzer.")
+                raise ValueError("收到的博客分析师内容类型意外。")
 
     def generate_plan(self, blog_content: str, post_type: PostType):
         plan_response: RunResponse = RunResponse(content=None)
         if post_type == PostType.TWITTER:
-            logger.info(f"Generating post plan for {post_type}")
+            logger.info(f"正在为 {post_type} 生成帖子计划")
             plan_response = self.twitter_thread_planner.run(blog_content)
         elif post_type == PostType.LINKEDIN:
-            logger.info(f"Generating post plan for {post_type}")
+            logger.info(f"正在为 {post_type} 生成帖子计划")
             plan_response = self.linkedin_post_planner.run(blog_content)
         else:
-            raise ValueError(f"Unsupported post type: {post_type}")
+            raise ValueError(f"不支持的帖子类型：{post_type}")
 
         if isinstance(plan_response.content, (Thread, LinkedInPost)):
             return plan_response.content
@@ -419,68 +418,68 @@ class ContentPlanningWorkflow(Workflow):
             else:
                 return LinkedInPost(**data)
         else:
-            raise ValueError("Unexpected content type received from planner.")
+            raise ValueError("收到的规划师内容类型意外。")
 
     def schedule_and_publish(self, plan, post_type: PostType) -> RunResponse:
         """
-        Schedules and publishes the content leveraging Typefully api.
+        利用 Typefully API 调度和发布内容。
         """
-        logger.info(f"# Publishing content for post type: {post_type}")
+        logger.info(f"# 发布帖子类型的内容：{post_type}")
 
-        # Use the `scheduler` module directly to schedule the content
+        # 直接使用 `scheduler` 模块来调度内容
         response = schedule(
             thread_model=plan,
-            post_type=post_type,  # Either "Twitter" or "LinkedIn"
+            post_type=post_type,  # “Twitter”或“LinkedIn”
         )
 
-        logger.info(f"Response: {response}")
+        logger.info(f"响应：{response}")
 
         if response:
             return RunResponse(content=response, event=RunEvent.workflow_completed)
         else:
             return RunResponse(
-                content="Failed to schedule content.", event=RunEvent.workflow_completed
+                content="未能调度内容。", event=RunEvent.workflow_completed
             )
 
     def run(self, blog_post_url, post_type) -> RunResponse:
         """
-        Args:
-            blog_post_url: URL of the blog post to analyze.
-            post_type: Type of post to generate (e.g., Twitter or LinkedIn).
+        参数：
+            blog_post_url：要分析的博客帖子的 URL。
+            post_type：要生成的帖子类型（例如，Twitter 或 LinkedIn）。
         """
-        # Scrape the blog post
+        # 抓取博客帖子
         blog_content = self.scrape_blog_post(blog_post_url)
 
-        # Generate the plan based on the blog and post type
+        # 根据博客和帖子类型生成计划
         plan = self.generate_plan(blog_content, post_type)
 
-        # Schedule and publish the content
+        # 调度和发布内容
         response = self.schedule_and_publish(plan, post_type)
 
         return response
 
 
 if __name__ == "__main__":
-    # Initialize and run the workflow
+    # 初始化并运行工作流
     blogpost_url = "https://blog.dailydoseofds.com/p/5-chunking-strategies-for-rag"
     workflow = ContentPlanningWorkflow()
     post_response = workflow.run(
         blog_post_url=blogpost_url, post_type=PostType.TWITTER
-    )  # PostType.LINKEDIN for LinkedIn post
+    )  # PostType.LINKEDIN 用于 LinkedIn 帖子
     logger.info(post_response.content)
 ```
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install agno firecrawl-py openai packaging requests python-dotenv
     ```
   </Step>
 
-  <Step title="Run the agent">
+  <Step title="运行代理">
     ```bash
     python workflow.py
     ```

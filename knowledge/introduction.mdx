@@ -1,81 +1,79 @@
 ---
-title: What is Knowledge?
-sidebarTitle: Overview
-description: Knowledge is domain-specific information that the Agent can search at runtime to make better decisions (dynamic few-shot learning) and provide accurate responses (agentic RAG).
+title: 什么是知识？
+sidebarTitle: 概览
+description: 知识是 Agent 在运行时可以搜索的领域特定信息，用于做出更好的决策（动态少样本学习）和提供准确的响应（Agentic RAG）。
 ---
-Knowledge is stored in a vector db and this searching on demand pattern is called Agentic RAG.
+知识存储在向量数据库中，这种按需搜索模式被称为 Agentic RAG。
 
-<Accordion title="Dynamic Few-Shot Learning: Text2Sql Agent" icon="database">
-Example: If we're building a Text2Sql Agent, we'll need to give the table schemas, column names, data types, example queries, common "gotchas" to help it generate the best-possible SQL query.
+<Accordion title="动态少样本学习：Text2Sql Agent" icon="database">
+示例：如果我们正在构建一个 Text2Sql Agent，我们需要提供表模式、列名、数据类型、示例查询以及常见的“陷阱”来帮助它生成最佳 SQL 查询。
 
-We're obviously not going to put this all in the system prompt, instead we store this information in a vector database and let the Agent query it at runtime.
+我们显然不会将所有这些都放在系统提示中，而是将这些信息存储在向量数据库中，并在运行时让 Agent 查询它。
 
-Using this information, the Agent can then generate the best-possible SQL query. This is called dynamic few-shot learning.
+利用这些信息，Agent 可以生成最佳 SQL 查询。这就是所谓的动态少样本学习。
 </Accordion>
 
-**Agno Agents use Agentic RAG** by default, meaning if you add `knowledge` to an Agent, it will search this knowledge base, at runtime, for the specific information it needs to achieve its task.
+**Agno Agents 默认使用 Agentic RAG**，这意味着如果您将 `knowledge` 添加到 Agent 中，它将在运行时搜索该知识库，以获取完成任务所需的特定信息。
 
-The pseudo steps for adding knowledge to an Agent are:
+将知识添加到 Agent 的伪步骤如下：
 
 ```python
 from agno.agent import Agent, AgentKnowledge
 
-# Create a knowledge base for the Agent
+# 为 Agent 创建一个知识库
 knowledge_base = AgentKnowledge(vector_db=...)
 
-# Add information to the knowledge base
+# 向知识库添加信息
 knowledge_base.load_text("The sky is blue")
 
-# Add the knowledge base to the Agent and
-# give it a tool to search the knowledge base as needed
+# 将知识库添加到 Agent，并
+# 提供一个工具以便在需要时搜索知识库
 agent = Agent(knowledge=knowledge_base, search_knowledge=True)
 ```
 
-We can give our agent access to the knowledge base in the following ways:
+我们可以通过以下方式让我们的 Agent 访问知识库：
 
-- We can set `search_knowledge=True` to add a `search_knowledge_base()` tool to the Agent. `search_knowledge` is `True` **by default** if you add `knowledge` to an Agent.
-- We can set `add_references=True` to automatically add references from the knowledge base to the Agent's prompt. This is the traditional 2023 RAG approach.
+- 我们可以设置 `search_knowledge=True` 来向 Agent 添加一个 `search_knowledge_base()` 工具。如果将 `knowledge` 添加到 Agent 中，`search_knowledge` **默认**为 `True`。
+- 我们可以设置 `add_references=True` 来自动将知识库中的引用添加到 Agent 的提示中。这是传统的 2023 RAG 方法。
 
 <Tip>
 
-If you need complete control over the knowledge base search, you can pass your own `retriever` function with the following signature:
+如果您需要完全控制知识库搜索，可以传递一个具有以下签名的自定义 `retriever` 函数：
 
 ```python
 def retriever(agent: Agent, query: str, num_documents: Optional[int], **kwargs) -> Optional[list[dict]]:
   ...
 ```
 
-This function is called during `search_knowledge_base()` and is used by the Agent to retrieve references from the knowledge base.
-For more details check out the [Custom Retriever](../knowledge/custom_retriever) page.
+该函数在 `search_knowledge_base()` 调用期间被调用，并用于 Agent 从知识库检索引用。
+有关更多详细信息，请参阅 [Custom Retriever](../knowledge/custom_retriever) 页面。
 
 </Tip>
 
-## Vector Databases
+## 向量数据库
 
-While any type of storage can act as a knowledge base, vector databases offer the best solution for retrieving relevant results from dense information quickly. Here's how vector databases are used with Agents:
+虽然任何类型的存储都可以作为知识库，但向量数据库为从密集信息中快速检索相关结果提供了最佳解决方案。以下是向量数据库如何与 Agents 一起使用：
 
 <Steps>
-  <Step title="Chunk the information">
-    Break down the knowledge into smaller chunks to ensure our search query
-    returns only relevant results.
+  <Step title="分块信息">
+    将知识分解成更小的块，以确保我们的搜索查询
+    仅返回相关结果。
   </Step>
-  <Step title="Load the knowledge base">
-    Convert the chunks into embedding vectors and store them in a vector
-    database.
+  <Step title="加载知识库">
+    将块转换为嵌入向量，并将其存储在向量数据库中。
   </Step>
-  <Step title="Search the knowledge base">
-    When the user sends a message, we convert the input message into an
-    embedding and "search" for nearest neighbors in the vector database.
+  <Step title="搜索知识库">
+    当用户发送消息时，我们将输入消息转换为嵌入，并在向量数据库中“搜索”最近邻居。
   </Step>
 </Steps>
 
-## Loading the Knowledge Base
+## 加载知识库
 
-Before you can use a knowledge base, it needs to be loaded with embeddings that will be used for retrieval. 
+在使用知识库之前，需要用将用于检索的嵌入来加载它。
 
-### Asynchronous Loading
+### 异步加载
 
-Many vector databases support asynchronous operations, which can significantly improve performance when loading large knowledge bases. You can leverage this capability using the `aload()` method:
+许多向量数据库支持异步操作，这可以在加载大型知识库时显著提高性能。您可以使用 `aload()` 方法来利用此功能：
 
 ```python
 import asyncio
@@ -88,44 +86,44 @@ COLLECTION_NAME = "pdf-reader"
 
 vector_db = Qdrant(collection=COLLECTION_NAME, url="http://localhost:6333")
 
-# Create a knowledge base with the PDFs from the data/pdfs directory
+# 使用 data/pdfs 目录中的 PDF 创建知识库
 knowledge_base = PDFKnowledgeBase(
     path="data/pdf",
     vector_db=vector_db,
     reader=PDFReader(chunk=True),
 )
 
-# Create an agent with the knowledge base
+# 创建一个带有知识库的 Agent
 agent = Agent(
     knowledge=knowledge_base,
     search_knowledge=True,
 )
 
 if __name__ == "__main__":
-    # Comment out after first run
+    # 首次运行后注释掉
     asyncio.run(knowledge_base.aload(recreate=False))
 
-    # Create and use the agent
+    # 创建并使用 Agent
     asyncio.run(agent.aprint_response("How to make Thai curry?", markdown=True))
 ```
 
-Using `aload()` ensures you take full advantage of the non-blocking operations, concurrent processing, and reduced latency that async vector database operations offer. This is especially valuable in production environments with high throughput requirements.
+使用 `aload()` 可以确保您充分利用非阻塞操作、并发处理以及异步向量数据库操作提供的较低延迟。这在吞吐量要求高的生产环境中尤其有价值。
 
-For more details on vector database async capabilities, see the [Vector Database Introduction](/vectordb/introduction).
+有关向量数据库异步功能的更多详细信息，请参阅 [Vector Database Introduction](/vectordb/introduction)。
 
 
-Use one of the following knowledge bases to simplify the chunking, loading, searching and optimization process:
-- [ArXiv knowledge base](/knowledge/arxiv): Load ArXiv papers to a knowledge base
-- [Combined knowledge base](/knowledge/combined): Combine multiple knowledge bases into 1
-- [CSV knowledge base](/knowledge/csv): Load local CSV files to a knowledge base
-- [CSV URL knowledge base](/knowledge/csv-url): Load CSV files from a URL to a knowledge base
-- [Document knowledge base](/knowledge/document): Load local docx files to a knowledge base
-- [JSON knowledge base](/knowledge/json): Load JSON files to a knowledge base
-- [LangChain knowledge base](/knowledge/langchain): Use a Langchain retriever as a knowledge base
-- [PDF knowledge base](/knowledge/pdf): Load local PDF files to a knowledge base
-- [PDF URL knowledge base](/knowledge/pdf-url): Load PDF files from a URL to a knowledge base
-- [S3 PDF knowledge base](/knowledge/s3_pdf): Load PDF files from S3 to a knowledge base
-- [S3 Text knowledge base](/knowledge/s3_text): Load text files from S3 to a knowledge base
-- [Text knowledge base](/knowledge/text): Load text/docx files to a knowledge base
-- [Website knowledge base](/knowledge/website): Load website data to a knowledge base
-- [Wikipedia knowledge base](/knowledge/wikipedia): Load wikipedia articles to a knowledge base
+使用以下知识库之一来简化分块、加载、搜索和优化过程：
+- [ArXiv 知识库](/knowledge/arxiv): 将 ArXiv 论文加载到知识库
+- [组合知识库](/knowledge/combined): 将多个知识库合并为一个
+- [CSV 知识库](/knowledge/csv): 加载本地 CSV 文件到知识库
+- [CSV URL 知识库](/knowledge/csv-url): 从 URL 加载 CSV 文件到知识库
+- [文档知识库](/knowledge/document): 加载本地 docx 文件到知识库
+- [JSON 知识库](/knowledge/json): 加载 JSON 文件到知识库
+- [LangChain 知识库](/knowledge/langchain): 将 Langchain retriever 用作知识库
+- [PDF 知识库](/knowledge/pdf): 加载本地 PDF 文件到知识库
+- [PDF URL 知识库](/knowledge/pdf-url): 从 URL 加载 PDF 文件到知识库
+- [S3 PDF 知识库](/knowledge/s3_pdf): 从 S3 加载 PDF 文件到知识库
+- [S3 Text 知识库](/knowledge/s3_text): 从 S3 加载文本文件到知识库
+- [Text 知识库](/knowledge/text): 加载文本/docx 文件到知识库
+- [网站知识库](/knowledge/website): 加载网站数据到知识库
+- [Wikipedia 知识库](/knowledge/wikipedia): 加载维基百科文章到知识库

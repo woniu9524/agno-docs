@@ -1,8 +1,8 @@
 ---
-title: RAG with LanceDB and SQLite
+title: 使用 LanceDB 和 SQLite 进行 RAG
 ---
 
-## Code
+## 代码
 
 ```python
 from agno.agent import Agent
@@ -12,69 +12,69 @@ from agno.models.ollama import Ollama
 from agno.storage.sqlite import SqliteStorage
 from agno.vectordb.lancedb import LanceDb
 
-# Define the database URL where the vector database will be stored
+# 定义将存储向量数据库的数据库 URL
 db_url = "/tmp/lancedb"
 
-# Configure the language model
+# 配置语言模型
 model = Ollama(id="llama3.1:8b")
 
-# Create Ollama embedder
+# 创建 Ollama 嵌入器
 embedder = OllamaEmbedder(id="nomic-embed-text", dimensions=768)
 
-# Create the vector database
+# 创建向量数据库
 vector_db = LanceDb(
-    table_name="recipes",  # Table name in the vector database
-    uri=db_url,  # Location to initiate/create the vector database
-    embedder=embedder,  # Without using this, it will use OpenAIChat embeddings by default
+    table_name="recipes",  # 向量数据库中的表名
+    uri=db_url,  # 初始化/创建向量数据库的位置
+    embedder=embedder,  # 不使用此项，将默认使用 OpenAI Chat 嵌入器
 )
 
-# Create a knowledge base from a PDF URL using LanceDb for vector storage and OllamaEmbedder for embedding
+# 使用 LanceDb 进行向量存储和 OllamaEmbedder 进行嵌入，从 PDF URL 创建知识库
 knowledge_base = PDFUrlKnowledgeBase(
     urls=["https://agno-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
     vector_db=vector_db,
 )
 
-# Load the knowledge base without recreating it if it already exists in Vector LanceDB
+# 加载知识库，如果它已存在于 Vector LanceDB 中，则不重新创建
 knowledge_base.load(recreate=False)
 
-# Set up SQL storage for the agent's data
+# 设置代理数据的 SQL 存储
 storage = SqliteStorage(table_name="recipes", db_file="data.db")
-storage.create()  # Create the storage if it doesn't exist
+storage.create()  # 如果存储不存在，则创建它
 
-# Initialize the Agent with various configurations including the knowledge base and storage
+# 初始化 Agent，并配置各种设置，包括知识库和存储
 agent = Agent(
-    session_id="session_id",  # use any unique identifier to identify the run
-    user_id="user",  # user identifier to identify the user
+    session_id="session_id",  # 使用任何唯一的标识符来识别运行
+    user_id="user",  # 用户标识符，用于识别用户
     model=model,
     knowledge=knowledge_base,
     storage=storage,
     show_tool_calls=True,
-    debug_mode=True,  # Enable debug mode for additional information
+    debug_mode=True,  # 启用调试模式以获取额外信息
 )
 
-# Use the agent to generate and print a response to a query, formatted in Markdown
+# 使用 agent 生成并打印对查询的响应，格式化为 Markdown
 agent.print_response(
-    "What is the first step of making Gluai Buat Chi from the knowledge base?",
+    "根据知识库，制作 Gluai Buat Chi 的第一步是什么？",
     markdown=True,
 )
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install Ollama">
-    Follow the installation instructions at [Ollama's website](https://ollama.ai)
+  <Step title="安装 Ollama">
+    请遵循 [Ollama 网站](https://ollama.ai) 上的安装说明
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U lancedb sqlalchemy agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行 Agent">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/rag/rag_with_lance_db_and_sqlite.py

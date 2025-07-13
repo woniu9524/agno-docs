@@ -1,14 +1,14 @@
 ---
-title: Writing your own Toolkit
+title: 编写自己的 Toolkit
 ---
 
-Many advanced use-cases will require writing custom Toolkits. Here's the general flow:
+许多高级用例都需要您编写自定义的 Toolkits。以下是通用流程：
 
-1. Create a class inheriting the `agno.tools.Toolkit` class.
-2. Add your functions to the class.
-3. **Important:** Include all the functions in the `tools` argument to the `Toolkit` constructor.
+1. 创建一个继承 `agno.tools.Toolkit` 类的类。
+2. 将您的函数添加到该类中。
+3. **重要提示：** 在 `Toolkit` 构造函数的 `tools` 参数中包含所有函数。
 
-Now your Toolkit is ready to use with an Agent. For example:
+现在您的 Toolkit 已准备好与 Agent 一起使用。例如：
 
 ```python shell_toolkit.py
 from typing import List
@@ -23,13 +23,13 @@ class ShellTools(Toolkit):
 
     def run_shell_command(self, args: List[str], tail: int = 100) -> str:
         """
-        Runs a shell command and returns the output or error.
+        运行一个 shell 命令并返回输出或错误。
 
         Args:
-            args (List[str]): The command to run as a list of strings.
-            tail (int): The number of lines to return from the output.
+            args (List[str]): 要运行的命令，以字符串列表形式表示。
+            tail (int): 要从输出中返回的行数。
         Returns:
-            str: The output of the command.
+            str: 命令的输出。
         """
         import subprocess
 

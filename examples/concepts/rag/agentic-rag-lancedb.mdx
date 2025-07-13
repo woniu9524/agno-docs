@@ -1,3 +1,4 @@
+```markdown
 ---
 title: Agentic RAG with LanceDB
 ---
@@ -44,19 +45,19 @@ agent.print_response(
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置你的 API Key">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U openai lancedb tantivy pypdf sqlalchemy agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行 Agent">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/rag/agentic_rag_lancedb.py
@@ -68,3 +69,4 @@ agent.print_response(
     </CodeGroup>
   </Step>
 </Steps>
+```

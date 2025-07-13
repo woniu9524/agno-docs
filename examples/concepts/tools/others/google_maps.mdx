@@ -1,108 +1,108 @@
 ---
-title: Google Maps Tools
+title: Google Maps 工具
 ---
 
-## Code
+## 代码
 
 ```python cookbook/tools/google_maps_tools.py
 from agno.agent import Agent
 from agno.tools.google_maps import GoogleMapTools
-from agno.tools.crawl4ai import Crawl4aiTools  # Optional: for enriching place data
+from agno.tools.crawl4ai import Crawl4aiTools  # 可选：用于丰富地点数据
 
 agent = Agent(
-    name="Maps API Demo Agent",
+    name="地图 API 演示 Agent",
     tools=[
         GoogleMapTools(),
-        Crawl4aiTools(max_length=5000),  # Optional: for scraping business websites
+        Crawl4aiTools(max_length=5000),  # 可选：用于抓取企业网站
     ],
-    description="Location and business information specialist for mapping and location-based queries.",
+    description="地理位置和商业信息专家，擅长处理地图和基于位置的查询。",
     markdown=True,
     show_tool_calls=True,
 )
 
-# Example 1: Business Search
-print("\n=== Business Search Example ===")
+# 示例 1：商业搜索
+print("\n=== 商业搜索示例 ===")
 agent.print_response(
-    "Find me highly rated Indian restaurants in Phoenix, AZ with their contact details",
+    "帮我找凤凰城亚利桑那州评价高的印度餐厅，并提供它们的联系方式",
     markdown=True,
     stream=True,
 )
 
-# Example 2: Directions
-print("\n=== Directions Example ===")
+# 示例 2：路线
+print("\n=== 路线示例 ===")
 agent.print_response(
-    """Get driving directions from 'Phoenix Sky Harbor Airport' to 'Desert Botanical Garden', 
-    avoiding highways if possible""",
+    """获取从 '凤凰城天港国际机场' 到 '沙漠植物园' 的驾车路线，
+    如果可能的话，尽量避开高速公路""",
     markdown=True,
     stream=True,
 )
 
-# Example 3: Address Validation and Geocoding
-print("\n=== Address Validation and Geocoding Example ===")
+# 示例 3：地址验证和地理编码
+print("\n=== 地址验证和地理编码示例 ===")
 agent.print_response(
-    """Please validate and geocode this address: 
+    """请验证并进行地理编码：
     '1600 Amphitheatre Parkway, Mountain View, CA'""",
     markdown=True,
     stream=True,
 )
 
-# Example 4: Distance Matrix
-print("\n=== Distance Matrix Example ===")
+# 示例 4：距离矩阵
+print("\n=== 距离矩阵示例 ===")
 agent.print_response(
-    """Calculate the travel time and distance between these locations in Phoenix:
-    Origins: ['Phoenix Sky Harbor Airport', 'Downtown Phoenix']
-    Destinations: ['Desert Botanical Garden', 'Phoenix Zoo']""",
+    """计算凤凰城以下地点之间的行程时间和距离：
+    起点：['凤凰城天港国际机场', '凤凰城市中心']
+    终点：['沙漠植物园', '凤凰城动物园']""",
     markdown=True,
     stream=True,
 )
 
-# Example 5: Location Analysis
-print("\n=== Location Analysis Example ===")
+# 示例 5：位置分析
+print("\n=== 位置分析示例 ===")
 agent.print_response(
-    """Analyze this location in Phoenix:
-    Address: '2301 N Central Ave, Phoenix, AZ 85004'
-    Please provide:
-    1. Exact coordinates
-    2. Nearby landmarks
-    3. Elevation data
-    4. Local timezone""",
+    """分析凤凰城的这个位置：
+    地址：'2301 N Central Ave, Phoenix, AZ 85004'
+    请提供：
+    1. 精确坐标
+    2. 附近地标
+    3. 海拔数据
+    4. 当地时区""",
     markdown=True,
     stream=True,
 )
 
-# Example 6: Multi-mode Transit Comparison
-print("\n=== Transit Options Example ===")
+# 示例 6：多模式交通方式比较
+print("\n=== 交通方式示例 ===")
 agent.print_response(
-    """Compare different travel modes from 'Phoenix Convention Center' to 'Phoenix Art Museum':
-    1. Driving
-    2. Walking
-    3. Transit (if available)
-    Include estimated time and distance for each option.""",
+    """比较从 '凤凰城会议中心' 到 '凤凰城艺术博物馆' 的不同出行方式：
+    1. 驾车
+    2. 步行
+    3. 公共交通（如果可用）
+    包含每种方式的预估时间和距离。""",
     markdown=True,
     stream=True,
 )
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API keys">
+  <Step title="设置您的 API 密钥">
     ```bash
     export GOOGLE_MAPS_API_KEY=xxx
     export OPENAI_API_KEY=xxx
     ```
-    Get your API key from the [Google Cloud Console](https://console.cloud.google.com/projectselector2/google/maps-apis/credentials)
+    从 [Google Cloud Console](https://console.cloud.google.com/projectselector2/google/maps-apis/credentials) 获取您的 API 密钥
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U openai googlemaps agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行 Agent">
     <CodeGroup>
     ```bash Mac
     python cookbook/tools/google_maps_tools.py
@@ -113,4 +113,4 @@ agent.print_response(
     ```
     </CodeGroup>
   </Step>
-</Steps> 
+</Steps>

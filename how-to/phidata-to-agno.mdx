@@ -1,103 +1,103 @@
 ---
-title: Migrate from Phidata to Agno
+title: 从 Phidata 迁移到 Agno
 ---
 
-This guide helps you migrate your codebase to adapt to the major refactor accompanying the launch of Agno.
+本指南将帮助您迁移代码库以适应 Agno 发布伴随的主要重构。
 
-## General Namespace Updates
-This refactor includes comprehensive updates to namespaces to improve clarity and consistency. Pay close attention to the following changes:
+## 通用命名空间更新
+此重构包括对命名空间的全面更新，以提高清晰度和一致性。请密切关注以下更改：
 
-- All `phi` namespaces are now replaced with `agno` to reflect the updated structure.
-- Submodules and classes have been renamed to better represent their functionality and context.
+- 所有 `phi` 命名空间现已替换为 `agno`，以反映更新后的结构。
+- 子模块和类已重命名，以更好地代表其功能和上下文。
 
-## Interface Changes
+## 接口更改
 
-### Module and Namespace Updates
+### 模块和命名空间更新
 - **Models**:
   - `phi.model.x` ➔ `agno.models.x`
-    - All model classes now reside under the `agno.models` namespace, consolidating related functionality in a single location.
+    - 所有模型类现在都位于 `agno.models` 命名空间下，将相关功能集中在同一个位置。
 - **Knowledge Bases**:
   - `phi.knowledge_base.x` ➔ `agno.knowledge.x`
-    - Knowledge bases have been restructured for better organization under `agno.knowledge`.
+    - 知识库已进行了重构，以便在 `agno.knowledge` 下更好地组织。
 - **Document Readers**:
   - `phi.document.reader.xxx` ➔ `agno.document.reader.xxx_reader`
-    - Document readers now include a `_reader` suffix for clarity and consistency.
+    - 文档阅读器现在包含一个 `_reader` 后缀，以增强清晰度和一致性。
 - **Toolkits**:
-  - All Agno toolkits now have a `Tools` suffix. For example, `DuckDuckGo` ➔ `DuckDuckGoTools`.
-    - This change standardizes the naming of tools, making their purpose more explicit.
+  - 所有 Agno 工具包现在都有一个 `Tools` 后缀。例如：`DuckDuckGo` ➔ `DuckDuckGoTools`。
+    - 此更改标准化了工具的命名，使其用途更加明确。
 
-### Multi-Modal Interface Updates
-The multi-modal interface now uses specific types for different media inputs and outputs:
+### 多模态接口更新
+多模态接口现在使用特定类型来处理不同的媒体输入和输出：
 
-#### Inputs
+#### 输入
 - **Images**:
   ```python
   class Image(BaseModel):
-      url: Optional[str] = None  # Remote location for image
-      filepath: Optional[Union[Path, str]] = None  # Absolute local location for image
-      content: Optional[Any] = None  # Actual image bytes content
-      detail: Optional[str] = None # Low, medium, high, or auto
+      url: Optional[str] = None  # 图像的远程位置
+      filepath: Optional[Union[Path, str]] = None  # 图像的本地绝对位置
+      content: Optional[Any] = None  # 实际图像字节内容
+      detail: Optional[str] = None # low, medium, high, or auto
       id: Optional[str] = None
   ```
-  - Images are now represented by a dedicated `Image` class, providing additional metadata and control over image handling.
+  - 现在使用专门的 `Image` 类来表示图像，为图像处理提供额外的元数据和控制。
 
 - **Audio**:
   ```python
   class Audio(BaseModel):
-      filepath: Optional[Union[Path, str]] = None  # Absolute local location for audio
-      content: Optional[Any] = None  # Actual audio bytes content
+      filepath: Optional[Union[Path, str]] = None  # 音频的本地绝对位置
+      content: Optional[Any] = None  # 实际音频字节内容
       format: Optional[str] = None
   ```
-  - Audio files are handled through the `Audio` class, allowing specification of content and format.
+  - 音频文件通过 `Audio` 类处理，允许指定内容和格式。
 
 - **Video**:
   ```python
   class Video(BaseModel):
-      filepath: Optional[Union[Path, str]] = None  # Absolute local location for video
-      content: Optional[Any] = None  # Actual video bytes content
+      filepath: Optional[Union[Path, str]] = None  # 视频的本地绝对位置
+      content: Optional[Any] = None  # 实际视频字节内容
   ```
-  - Videos have their own `Video` class, enabling better handling of video data.
+  - 视频拥有自己的 `Video` 类，能够更好地处理视频数据。
 
-#### Outputs
-- `RunResponse` now includes updated artifact types:
-  - `RunResponse.images` is a list of type `ImageArtifact`:
+#### 输出
+- `RunResponse` 现在包含更新的工件类型：
+  - `RunResponse.images` 是 `ImageArtifact` 类型的列表：
     ```python
     class ImageArtifact(Media):
         id: str
-        url: str  # Remote location for file
+        url: str  # 文件的远程位置
         alt_text: Optional[str] = None
     ```
 
-  - `RunResponse.audio` is a list of type `AudioArtifact`:
+  - `RunResponse.audio` 是 `AudioArtifact` 类型的列表：
     ```python
     class AudioArtifact(Media):
         id: str
-        url: Optional[str] = None  # Remote location for file
-        base64_audio: Optional[str] = None  # Base64-encoded audio data
+        url: Optional[str] = None  # 文件的远程位置
+        base64_audio: Optional[str] = None  # Base64 编码的音频数据
         length: Optional[str] = None
         mime_type: Optional[str] = None
     ```
 
-  - `RunResponse.videos` is a list of type `VideoArtifact`:
+  - `RunResponse.videos` 是 `VideoArtifact` 类型的列表：
     ```python
     class VideoArtifact(Media):
         id: str
-        url: str  # Remote location for file
+        url: str  # 文件的远程位置
         eta: Optional[str] = None
         length: Optional[str] = None
     ```
 
-  - `RunResponse.response_audio` is of type `AudioOutput`:
+  - `RunResponse.response_audio` 是 `AudioOutput` 类型：
     ```python
     class AudioOutput(BaseModel):
         id: str
-        content: str  # Base64 encoded
+        content: str  # Base64 编码
         expires_at: int
         transcript: str
     ```
-    - This response audio corresponds to the model's response in audio format.
+    - 此响应音频对应于模型以音频格式的响应。
 
-### Model Name Changes
+### 模型名称更改
 - `Hermes` ➔ `OllamaHermes`
 - `AzureOpenAIChat` ➔ `AzureOpenAI`
 - `CohereChat` ➔ `Cohere`
@@ -105,7 +105,7 @@ The multi-modal interface now uses specific types for different media inputs and
 - `GeminiOpenAIChat` ➔ `GeminiOpenAI`
 - `HuggingFaceChat` ➔ `HuggingFace`
 
-For example:
+例如：
 ```python
 from agno.agent import Agent
 from agno.models.ollama.hermes import OllamaHermes
@@ -118,7 +118,7 @@ agent = Agent(
 agent.print_response("Share a breakfast recipe.")
 ```
 
-### Storage Class Updates
+### Storage 类更新
 - **Agent Storage**:
   - `PgAgentStorage` ➔ `PostgresAgentStorage`
   - `SqlAgentStorage` ➔ `SqliteAgentStorage`
@@ -129,15 +129,15 @@ agent.print_response("Share a breakfast recipe.")
   - `PgWorkflowStorage` ➔ `PostgresWorkflowStorage`
   - `MongoWorkflowStorage` ➔ `MongoDbWorkflowStorage`
 
-### Knowledge Base Updates
+### Knowledge Base 更新
 - `phi.knowledge.pdf.PDFUrlKnowledgeBase` ➔ `agno.knowledge.pdf_url.PDFUrlKnowledgeBase`
 - `phi.knowledge.csv.CSVUrlKnowledgeBase` ➔ `agno.knowledge.csv_url.CSVUrlKnowledgeBase`
 
-### Embedders updates
-Embedders now all take id instead of model as a parameter. For example:
+### Embedders 更新
+Embedders 现在都接受 `id` 作为参数，而不是 `model`。例如：
 - `OllamaEmbedder(model="llama3.2")` -> `OllamaEmbedder(id="llama3.2")`
 
-### Reader Updates
+### Reader 更新
 - `phi.document.reader.arxiv` ➔ `agno.document.reader.arxiv_reader`
 - `phi.document.reader.docx` ➔ `agno.document.reader.docx_reader`
 - `phi.document.reader.json` ➔ `agno.document.reader.json_reader`
@@ -147,10 +147,10 @@ Embedders now all take id instead of model as a parameter. For example:
 - `phi.document.reader.text` ➔ `agno.document.reader.text_reader`
 - `phi.document.reader.website` ➔ `agno.document.reader.website_reader`
 
-## Agent Updates
-- `guidelines`, `prevent_hallucinations`, `prevent_prompt_leakage`, `limit_tool_access`, and `task` have been removed from the `Agent` class. They can be incorporated into the `instructions` parameter as you see fit.
+## Agent 更新
+- `guidelines`, `prevent_hallucinations`, `prevent_prompt_leakage`, `limit_tool_access`, 和 `task` 已从 `Agent` 类中移除。您可以根据需要将它们纳入 `instructions` 参数中。
 
-For example:
+例如：
 ```python
 from agno.agent import Agent
 
@@ -169,10 +169,10 @@ agent = Agent(
 )
 ```
 
-## CLI and Infrastructure Updates
+## CLI 和基础设施更新
 
-### Command Line Interface Changes
-The Agno CLI has been refactored from `phi` to `ag`. Here are the key changes:
+### 命令行界面更改
+Agno CLI 已从 `phi` 重构为 `ag`。以下是主要更改：
 
 ```bash
 # General commands
@@ -196,29 +196,27 @@ phi ws restart <environment> -> ag ws restart <environment>
 ```
 
 <Note>
-The commands `ag ws up dev` and `ag ws up prod` have to be used instead of `ag ws up` to start the workspace in development and production mode respectively.
+现在必须使用命令 `ag ws up dev` 和 `ag ws up prod` 来分别在开发模式和生产模式下启动工作空间，而不是使用 `ag ws up`。
 </Note>
 
-### New Commands
-- `ag ping` -> Check if you are authenticated
+### 新增命令
+- `ag ping` -> 检查您是否已通过身份验证
 
-### Removed Commands
-- `phi ws setup` -> Replaced by `ag setup`
+### 移除命令
+- `phi ws setup` -> 已被 `ag setup` 取代
 
-### Infrastructure Path Changes
-The infrastructure-related code has been reorganized for better clarity:
+### 基础设施路径更改
+已对与基础设施相关的代码进行了重新组织，以提高清晰度：
 
-- **Docker Infrastructure**: This has been moved to a separate package in `/libs/infra/agno_docker` and has a separate PyPi package [`agno-docker`](https://pypi.org/project/agno-docker/).
-- **AWS Infrastructure**: This has been moved to a separate package in `/libs/infra/agno_aws` and has a separate PyPi package [`agno-aws`](https://pypi.org/project/agno-aws/).
+- **Docker Infrastructure**: 已移至 `/libs/infra/agno_docker` 中的一个单独包，并有一个单独的 PyPi 包 [`agno-docker`](https://pypi.org/project/agno-docker/)。
+- **AWS Infrastructure**: 已移至 `/libs/infra/agno_aws` 中的一个单独包，并有一个单独的 PyPi 包 [`agno-aws`](https://pypi.org/project/agno-aws/)。
 
-We recommend installing these packages in applications that you intend to deploy to AWS using Agno, or if you are migrating from a Phidata application.
+我们建议在您打算使用 Agno 部署到 AWS 的应用程序中安装这些包，或者如果您是从 Phidata 应用程序迁移。
 
-The specific path changes are:
+具体路径更改如下：
 - `import phi.aws.resource.xxx` ➔ `import agno.aws.resource.xxx`
 - `import phi.docker.xxx` ➔ `import agno.docker.xxx`
 
-
 ---
 
-Follow the steps above to ensure your codebase is compatible with the latest version of Agno AI. If you encounter any issues, don't hesitate to contact us on [Discourse](https://community.phidata.com/) or [Discord](https://discord.gg/4MtYHHrgA8).
-
+请按照上述步骤确保您的代码库与最新版本的 Agno AI 兼容。如果您遇到任何问题，请随时通过 [Discourse](https://community.phidata.com/) 或 [Discord](https://discord.gg/4MtYHHrgA8) 与我们联系。

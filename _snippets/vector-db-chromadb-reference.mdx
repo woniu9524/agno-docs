@@ -1,8 +1,8 @@
-| Parameter | Type | Default | Description |
-| --------- | ---- | ------- | ----------- |
-| `collection` | `str` | `None` | Name of the collection to store vectors and metadata in ChromaDB |
-| `embedder` | `Optional[Embedder]` | `OpenAIEmbedder()` | Embedder instance to generate embeddings |
-| `distance` | `Distance` | `Distance.cosine` | Distance metric to use for similarity search |
-| `path` | `str` | `"tmp/chromadb"` | Path to store ChromaDB data when using persistent client |
-| `persistent_client` | `bool` | `False` | Whether to use persistent ChromaDB client |
-| `reranker` | `Optional[Reranker]` | `None` | Optional reranker instance to rerank search results |
+| 参数名 | 类型 | 默认值 | 描述 |
+| --------- | -------- | -------- | ----------- |
+| `collection` | `str` | `None` | 要将向量和元数据存储在 ChromaDB 中的集合名称 |
+| `embedder` | `Optional[Embedder]` | `OpenAIEmbedder()` | 用于生成嵌入的 embedder 实例 |
+| `distance` | `Distance` | `Distance.cosine` | 用于相似性搜索的距离度量 |
+| `path` | `str` | `"tmp/chromadb"` | 使用持久化客户端时用于存储 ChromaDB 数据的路径 |
+| `persistent_client` | `bool` | `False` | 是否使用持久化 ChromaDB 客户端 |
+| `reranker` | `Optional[Reranker]` | `None` | 用于重新排序搜索结果的可选 reranker 实例 |

@@ -1,55 +1,55 @@
 ---
-title: Standardized Codebases for Agentic Systems
-sidebarTitle: Overview
+title: 标准化 Agentic Systems 的代码库
+sidebarTitle: 概述
 ---
 
-When building an Agentic System, you'll need an API to serve your Agents, a database to store session and vector data and an admin interface for testing and evaluation. You'll also need cron jobs, alerting and data pipelines for ingestion and cleaning. This system would generally take a few months to build, we're open-sourcing it for the community for free.
+在构建 Agentic System 时，您需要一个 API 来服务您的 Agent、一个数据库来存储会话和向量数据，以及一个用于测试和评估的管理界面。您还需要 cron 作业、警报和用于摄取和清理的数据管道。这个系统通常需要几个月才能构建完成，我们将其开源，免费提供给社区。
 
-# What are Workspaces?
+# 什么是 Workspaces？
 
-**Workspaces are standardized codebases for production Agentic Systems.** They contain:
+**Workspaces 是生产 Agentic Systems 的标准化代码库。** 它们包含：
 
-- A RestAPI (FastAPI) for serving Agents, Teams and Workflows.
-- A streamlit application for testing -- think of this as an admin interface.
-- A postgres database for session and vector storage.
+- 一个 RestAPI (FastAPI)，用于服务 Agents、Teams 和 Workflows。
+- 一个 streamlit 应用程序用于测试——可以将其视为管理界面。
+- 一个 postgres 数据库用于会话和向量存储。
 
-Workspaces are setup to run locally using docker and be easily deployed to AWS. They're a fantastic starting point and exactly what we use for our customers. You'll definitely need to customize them to fit your specific needs, but they'll get you started much faster.
+Workspaces 设置为使用 docker 本地元运行，并易于部署到 AWS。它们是一个出色的起点，也是我们为客户使用的确切方案。您肯定需要根据您的具体需求进行定制，但它们将帮助您更快地启动。
 
-They contain years of learnings, available for free for the open-source community.
+它们包含了多年的经验总结，免费提供给开源社区。
 
-# Here's how they work
+# 它们是如何工作的
 
-- Create your codebase using: `ag ws create`
-- Run locally using docker: `ag ws up`
-- Run on AWS: `ag ws up prd:aws`
+- 使用以下命令创建您的代码库：`ag ws create`
+- 使用 docker 本地元运行：`ag ws up`
+- 在 AWS 上运行：`ag ws up prd:aws`
 
-We recommend starting with the `agent-app` template and taking it from there.
+我们建议从 `agent-app` 模板开始，并在此基础上进行扩展。
 
 <CardGroup cols={2}>
   <Card title="Agent App" icon="books" href="/workspaces/agent-app/local">
-    An Agentic System built with FastAPI, Streamlit and a Postgres database.
+    一个使用 FastAPI、Streamlit 和 Postgres 数据库构建的 Agentic System。
   </Card>
   <Card title="Agent Api" icon="bolt" href="/workspaces/agent-api/local">
-    An Agent API built with FastAPI and Postgres.
+    一个使用 FastAPI 和 Postgres 构建的 Agent API。
   </Card>
 </CardGroup>
 
-# How we build Agentic Systems
+# 我们如何构建 Agentic Systems
 
-When building Agents, we experiment locally till we achieve 6/10 quality.
-This helps us see quick results and get a rough idea of how our solution should look like in production.
+在构建 Agent 时，我们会在本地进行实验，直到达到 6/10 的质量。
+这有助于我们快速看到结果，并对我们的解决方案在生产环境中应有的样子有一个大致的了解。
 
-Then, we start moving to a production environment and iterate from there. Here's how __*we*__ build production systems:
-- Serve Agents, Teams and Workflows via a REST API (FastAPI).
-- Use a streamlit application for debugging and testing. This streamlit app is generally used as an admin interface for the agentic system and shows all sorts of data.
-- Monitor, evaluate and improve the implementation until we reach 9/10 quality.
-- In parallel, we start integrating our front-end with the REST API above.
+然后，我们开始迁移到生产环境并从中进行迭代。以下是 __我们__ 构建生产系统的方式：
+- 通过 REST API (FastAPI) 服务 Agents、Teams 和 Workflows。
+- 使用 streamlit 应用程序进行调试和测试。这个 streamlit 应用程序通常用作 Agentic System 的管理界面，并显示各种数据。
+- 监控、评估和改进实现，直到我们达到 9/10 的质量。
+- 同时，我们开始将我们的前端与上述 REST API 集成。
 
-Having built 100s of such systems, we have a standard set of codebases we use and we call them **Workspaces**. They help us manage our Agentic System as code.
+在构建了数百个此类系统之后，我们拥有了一套标准的、可用的代码库，我们称之为 **Workspaces**。它们帮助我们以代码的形式管理我们的 Agentic System。
 
 ![workspace](/images/workspace.png)
 
 <Note>
-We strongly believe that your AI applications should run securely inside your VPC.
-We fully support BYOC (Bring Your Own Cloud) and encourage you to use your own cloud account.
+我们坚信您的 AI 应用程序应该安全地运行在您的 VPC 中。
+我们完全支持 BYOC（自带云）并鼓励您使用自己的云账户。
 </Note>

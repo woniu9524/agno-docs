@@ -1,15 +1,15 @@
 ---
-title: Redis Team Storage
+title: Redis 团队存储
 sidebarTitle: Redis
 ---
 
-Agno supports using Redis as a storage backend for Teams using the `RedisStorage` class.
+Agno 支持使用 Redis 作为团队的存储后端，使用的是 `RedisStorage` 类。
 
-## Usage
+## 用法
 
-### Run Redis
+### 运行 Redis
 
-Install [docker desktop](https://docs.docker.com/desktop/install/mac-install/) and run **Redis** on port **6379** using:
+安装 [docker desktop](https://docs.docker.com/desktop/install/mac-install/) 并运行 **Redis**，端口为 **6379**，使用以下命令：
 
 ```bash
 docker run --name my-redis -p 6379:6379 -d redis
@@ -17,7 +17,7 @@ docker run --name my-redis -p 6379:6379 -d redis
 
 ```python redis_storage_for_team.py
 """
-Run: `pip install openai duckduckgo-search newspaper4k lxml_html_clean agno redis` to install the dependencies
+运行: `pip install openai duckduckgo-search newspaper4k lxml_html_clean agno redis` 来安装依赖
 """
 
 from typing import List
@@ -30,13 +30,13 @@ from agno.tools.duckduckgo import DuckDuckGoTools
 from agno.tools.hackernews import HackerNewsTools
 from pydantic import BaseModel
 
-# Initialize Redis storage with default local connection
+# 使用默认的本地连接初始化 Redis 存储
 storage = RedisStorage(
-    # Prefix for Redis keys to namespace the sessions
+    # 用于为 session 命名空间的 Redis 键前缀
     prefix="agno_test",
-    # Redis host address
+    # Redis 主机地址
     host="localhost",
-    # Redis port number
+    # Redis 端口号
     port=6379,
 )
 
@@ -48,31 +48,31 @@ class Article(BaseModel):
 
 
 hn_researcher = Agent(
-    name="HackerNews Researcher",
+    name="HackerNews 研究员",
     model=OpenAIChat("gpt-4o"),
-    role="Gets top stories from hackernews.",
+    role="获取 hackernews 的热门新闻。",
     tools=[HackerNewsTools()],
 )
 
 web_searcher = Agent(
-    name="Web Searcher",
+    name="网络搜索员",
     model=OpenAIChat("gpt-4o"),
-    role="Searches the web for information on a topic",
+    role="搜索网络信息。",
     tools=[DuckDuckGoTools()],
     add_datetime_to_instructions=True,
 )
 
 
 hn_team = Team(
-    name="HackerNews Team",
+    name="HackerNews 团队",
     mode="coordinate",
     model=OpenAIChat("gpt-4o"),
     members=[hn_researcher, web_searcher],
     storage=storage,
     instructions=[
-        "First, search hackernews for what the user is asking about.",
-        "Then, ask the web searcher to search for each story to get more information.",
-        "Finally, provide a thoughtful and engaging summary.",
+        "首先，在 hackernews 上搜索用户正在查询的内容。",
+        "然后，让网络搜索员搜索每个故事以获取更多信息。",
+        "最后，提供一个有见地且引人入胜的总结。",
     ],
     response_model=Article,
     show_tool_calls=True,
@@ -81,13 +81,13 @@ hn_team = Team(
     show_members_responses=True,
 )
 
-hn_team.print_response("Write an article about the top 2 stories on hackernews")
+hn_team.print_response("写一篇关于 hackernews 上排名前2的故事的文章")
 ```
 
-## Params
+## 参数
 
 <Snippet file="storage-redis-params.mdx" />
 
-## Developer Resources
+## 开发者资源
 
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/storage/redis_storage/redis_storage_for_team.py)
+- 查看 [ Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/storage/redis_storage/redis_storage_for_team.py)

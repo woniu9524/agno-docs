@@ -1,11 +1,11 @@
-| Parameter | Type | Default | Description |
+| 参数 | 类型 | 默认值 | 描述 |
 |-----------|------|---------|-------------|
-| `session_id` | `str` | Required | Session UUID |
-| `team_id` | `Optional[str]` | `None` | ID of the team that this session is associated with |
-| `user_id` | `Optional[str]` | `None` | ID of the user interacting with this team |
-| `memory` | `Optional[Dict[str, Any]]` | `None` | Team Memory |
-| `team_data` | `Optional[Dict[str, Any]]` | `None` | Team Data: team_id, name and model |
-| `session_data` | `Optional[Dict[str, Any]]` | `None` | Session Data: session_name, session_state, images, videos, audio |
-| `extra_data` | `Optional[Dict[str, Any]]` | `None` | Extra Data stored with this team |
-| `created_at` | `Optional[int]` | `None` | The unix timestamp when this session was created |
-| `updated_at` | `Optional[int]` | `None` | The unix timestamp when this session was last updated |
+| `session_id` | `str` | 必填 | Session UUID |
+| `team_id` | `Optional[str]` | `None` | 此 session 所属的团队 ID |
+| `user_id` | `Optional[str]` | `None` | 与此团队交互的用户的 ID |
+| `memory` | `Optional[Dict[str, Any]]` | `None` | 团队记忆 |
+| `team_data` | `Optional[Dict[str, Any]]` | `None` | 团队数据：team_id，name and model |
+| `session_data` | `Optional[Dict[str, Any]]` | `None` | Session 数据：session_name, session_state, images, videos, audio |
+| `extra_data` | `Optional[Dict[str, Any]]` | `None` | 与此团队一起存储的额外数据 |
+| `created_at` | `Optional[int]` | `None` | 此 session 创建时的 unix 时间戳 |
+| `updated_at` | `Optional[int]` | `None` | 此 session 最后更新时的 unix 时间戳 |

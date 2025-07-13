@@ -1,9 +1,9 @@
 ---
-title: PgVector Agent Knowledge
+title: PgVector 代理知识
 sidebarTitle: PgVector
 ---
 
-## Setup
+## 设置
 
 ```shell
 docker run -d \
@@ -17,7 +17,7 @@ docker run -d \
   agnohq/pgvector:16
 ```
 
-## Example
+## 示例
 
 ```python agent_with_knowledge.py
 from agno.agent import Agent
@@ -30,13 +30,13 @@ knowledge_base = PDFUrlKnowledgeBase(
     urls=["https://agno-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
     vector_db=PgVector(table_name="recipes", db_url=db_url, search_type=SearchType.hybrid),
 )
-# Load the knowledge base: Comment out after first run
+# 加载知识库：首次运行后注释掉此行
 knowledge_base.load(recreate=True, upsert=True)
 
 agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
     knowledge=knowledge_base,
-    # Add a tool to read chat history.
+    # 添加一个读取聊天记录的工具。
     read_chat_history=True,
     show_tool_calls=True,
     markdown=True,
@@ -46,10 +46,10 @@ agent.print_response("How do I make chicken and galangal in coconut milk soup", 
 agent.print_response("What was my last question?", stream=True)
 ```
 
-<Card title="Async Support ⚡">
+<Card title="异步支持 ⚡">
   <div className="mt-2">
     <p>
-      PgVector also supports asynchronous operations, enabling concurrency and leading to better performance.
+      PgVector 还支持异步操作，能够实现并发，从而带来更好的性能。
     </p>
     
     ```python async_pgvector.py
@@ -71,24 +71,24 @@ agent.print_response("What was my last question?", stream=True)
     agent = Agent(knowledge=knowledge_base, show_tool_calls=True)
 
     if __name__ == "__main__":
-        # Comment out after first run
+        # 首次运行后注释掉此行
         asyncio.run(knowledge_base.aload(recreate=False))
 
-        # Create and use the agent
+        # 创建并使用代理
         asyncio.run(agent.aprint_response("How to make Tom Kha Gai", markdown=True))
     ```
     
     <Tip className="mt-4">
-      Use <code>aload()</code> and <code>aprint_response()</code> methods with <code>asyncio.run()</code> for non-blocking operations in high-throughput applications.
+      在处理高吞吐量应用程序时，请使用 <code>aload()</code> 和 <code>aprint_response()</code> 方法与 <code>asyncio.run()</code> 一起使用，以实现非阻塞操作。
     </Tip>
   </div>
 </Card>
 
-## PgVector Params
+## PgVector 参数
 
 <Snippet file="vectordb_pgvector_params.mdx" />
 
-## Developer Resources
+## 开发者资源
 
-- View [Cookbook (Sync)](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/vector_dbs/pgvector_db/pg_vector.py)
-- View [Cookbook (Async)](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/vector_dbs/pgvector_db/async_pg_vector.py)
+- 查看 [Cookbook (同步)](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/vector_dbs/pgvector_db/pg_vector.py)
+- 查看 [Cookbook (异步)](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/vector_dbs/pgvector_db/async_pg_vector.py)

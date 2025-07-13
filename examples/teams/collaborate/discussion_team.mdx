@@ -1,10 +1,10 @@
 ---
-title: "Discussion Team"
+title: "讨论团队"
 ---
 
-This example shows how to create a discussion team that allows multiple agents to collaborate on a topic.
+此示例展示了如何创建一个允许多个代理就某一主题进行协作的讨论团队。
 
-## Code
+## 代码
 
 ```python discussion_team.py
 import asyncio
@@ -25,9 +25,9 @@ reddit_researcher = Agent(
     tools=[DuckDuckGoTools()],
     add_name_to_instructions=True,
     instructions=dedent("""
-    You are a Reddit researcher.
-    You will be given a topic to research on Reddit.
-    You will need to find the most relevant posts on Reddit.
+    你是 Reddit 研究者。
+    你将获得一个要在 Reddit 上研究的主题。
+    你需要找到最相关的帖子。
     """),
 )
 
@@ -38,9 +38,9 @@ hackernews_researcher = Agent(
     tools=[HackerNewsTools()],
     add_name_to_instructions=True,
     instructions=dedent("""
-    You are a HackerNews researcher.
-    You will be given a topic to research on HackerNews.
-    You will need to find the most relevant posts on HackerNews.
+    你是 HackerNews 研究者。
+    你将获得一个要在 HackerNews 上研究的主题。
+    你需要找到最相关的帖子。
     """),
 )
 
@@ -51,11 +51,11 @@ academic_paper_researcher = Agent(
     tools=[GoogleSearchTools(), ArxivTools()],
     add_name_to_instructions=True,
     instructions=dedent("""
-    You are a academic paper researcher.
-    You will be given a topic to research in academic literature.
-    You will need to find relevant scholarly articles, papers, and academic discussions.
-    Focus on peer-reviewed content and citations from reputable sources.
-    Provide brief summaries of key findings and methodologies.
+    你是学术论文研究者。
+    你将获得一个要在学术文献中研究的主题。
+    你需要找到相关的学术文章、论文和学术讨论。
+    专注于同行评审的内容和来自可靠来源的引用。
+    简要总结关键发现和研究方法。
     """),
 )
 
@@ -66,11 +66,11 @@ twitter_researcher = Agent(
     tools=[DuckDuckGoTools()],
     add_name_to_instructions=True,
     instructions=dedent("""
-    You are a Twitter/X researcher.
-    You will be given a topic to research on Twitter/X.
-    You will need to find trending discussions, influential voices, and real-time updates.
-    Focus on verified accounts and credible sources when possible.
-    Track relevant hashtags and ongoing conversations.
+    你是 Twitter/X 研究者。
+    你将获得一个要在 Twitter/X 上研究的主题。
+    你需要找到热门讨论、有影响力的人物和实时更新。
+    尽可能专注于已验证的账户和可信的来源。
+    追踪相关的标签和正在进行的对话。
     """),
 )
 
@@ -86,8 +86,8 @@ agent_team = Team(
         twitter_researcher,
     ],
     instructions=[
-        "You are a discussion master.",
-        "You have to stop the discussion when you think the team has reached a consensus.",
+        "你是讨论主持人。",
+        "当您认为团队已达成共识时，请停止讨论。",
     ],
     success_criteria="The team has reached a consensus.",
     enable_agentic_context=True,
@@ -108,7 +108,7 @@ if __name__ == "__main__":
     )
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
 
@@ -133,4 +133,3 @@ if __name__ == "__main__":
     </Step>
 
 </Steps>
-

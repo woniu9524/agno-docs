@@ -1,55 +1,55 @@
 ---
 title: LiteLLM
-description: Integrate LiteLLM with Agno for a unified LLM experience.
+description: 将 LiteLLM 集成到 Agno 中，获得统一的 LLM 体验。
 ---
 
-[LiteLLM](https://docs.litellm.ai/docs/) provides a unified interface for various LLM providers, allowing you to use different models with the same code.
+[LiteLLM](https://docs.litellm.ai/docs/) 为各种 LLM 提供商提供了一个统一的接口，让您可以使用相同的代码来使用不同的模型。
 
-Agno integrates with LiteLLM in two ways:
-1. **Direct SDK integration** - Using the LiteLLM Python SDK
-2. **Proxy Server integration** - Using LiteLLM as an OpenAI-compatible proxy
+Agno 通过两种方式与 LiteLLM 集成：
+1. **直接 SDK 集成** - 使用 LiteLLM Python SDK
+2. **代理服务器集成** - 将 LiteLLM 用作兼容 OpenAI 的代理
 
-## Prerequisites
+## 先决条件
 
-For both integration methods, you'll need:
+对于这两种集成方法，您需要：
 
 ```shell
-# Install required packages
+# 安装所需的包
 pip install agno litellm
 ```
 
-Set up your API key:
-Regardless of the model used(OpenAI, Hugging Face, or XAI) the API key is referenced as `LITELLM_API_KEY`.
+设置您的 API 密钥：
+无论使用哪种模型（OpenAI、Hugging Face 或 XAI），API 密钥都引用为 `LITELLM_API_KEY`。
 ```shell
 export LITELLM_API_KEY=your_api_key_here
 ```
 
-## SDK Integration
+## SDK 集成
 
-The `LiteLLM` class provides direct integration with the LiteLLM Python SDK.
+`LiteLLM` 类提供了直接与 LiteLLM Python SDK 的集成。
 
-### Basic Usage
+### 基本用法
 
 ```python
 from agno.agent import Agent
 from agno.models.litellm import LiteLLM
 
-# Create an agent with GPT-4o
+# 创建一个使用 GPT-4o 的 agent
 agent = Agent(
     model=LiteLLM(
-        id="gpt-4o",  # Model ID to use
-        name="LiteLLM",  # Optional display name
+        id="gpt-4o",  # 要使用的模型 ID
+        name="LiteLLM",  # 可选的显示名称
     ),
     markdown=True,
 )
 
-# Get a response
-agent.print_response("Share a 2 sentence horror story")
+# 获取响应
+agent.print_response("请分享一个两句话的恐怖故事")
 ```
 
-### Using Hugging Face Models
+### 使用 Hugging Face 模型
 
-LiteLLM can also work with Hugging Face models:
+LiteLLM 也可以与 Hugging Face 模型配合使用：
 
 ```python
 from agno.agent import Agent
@@ -63,24 +63,24 @@ agent = Agent(
     markdown=True,
 )
 
-agent.print_response("What's happening in France?")
+agent.print_response("法国现在是什么情况？")
 ```
 
-### Configuration Options
+### 配置选项
 
-The `LiteLLM` class accepts the following parameters:
+`LiteLLM` 类接受以下参数：
 
-| Parameter | Type | Description | Default |
+| 参数 | 类型 | 描述 | 默认值 |
 | --- | --- | --- | --- |
-| `id` | str | Model identifier (e.g., "gpt-4o" or "huggingface/mistralai/Mistral-7B-Instruct-v0.2") | "gpt-4o" |
-| `name` | str | Display name for the model | "LiteLLM" |
-| `provider` | str | Provider name | "LiteLLM" |
-| `api_key` | Optional[str] | API key (falls back to LITELLM_API_KEY environment variable) | None |
-| `api_base` | Optional[str] | Base URL for API requests | None |
-| `max_tokens` | Optional[int] | Maximum tokens in the response | None |
-| `temperature` | float | Sampling temperature | 0.7 |
-| `top_p` | float | Top-p sampling value | 1.0 |
-| `request_params` | Optional[Dict[str, Any]] | Additional request parameters | None |
+| `id` | str | 模型标识符（例如，"gpt-4o" 或 "huggingface/mistralai/Mistral-7B-Instruct-v0.2"） | "gpt-4o" |
+| `name` | str | 模型的显示名称 | "LiteLLM" |
+| `provider` | str | 提供商名称 | "LiteLLM" |
+| `api_key` | Optional[str] | API 密钥（回退到 LITELLM_API_KEY 环境变量） | None |
+| `api_base` | Optional[str] | API 请求的基 URL | None |
+| `max_tokens` | Optional[int] | 响应中的最大 token 数 | None |
+| `temperature` | float | 采样温度 | 0.7 |
+| `top_p` | float | Top-p 采样值 | 1.0 |
+| `request_params` | Optional[Dict[str, Any]] | 其他请求参数 | None |
 
-### SDK Examples
-<Note> View more examples [here](../examples/models/litellm). </Note>
+### SDK 示例
+<Note> 在此处查看更多示例：[../examples/models/litellm](../examples/models/litellm)。 </Note>

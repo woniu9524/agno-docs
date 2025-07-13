@@ -1,8 +1,8 @@
 ---
-title: Structured Output
+title: 结构化输出
 ---
 
-## Code
+## 代码
 
 ```python cookbook/models/vllm/structured_output.py
 from typing import List
@@ -13,21 +13,21 @@ from pydantic import BaseModel, Field
 
 
 class MovieScript(BaseModel):
-    name: str = Field(..., description="Give a name to this movie")
+    name: str = Field(..., description="为这部电影起个名字")
     setting: str = Field(
-        ..., description="Provide a nice setting for a blockbuster movie."
+        ..., description="为一部大片提供一个精彩的场景。"
     )
     ending: str = Field(
         ...,
-        description="Ending of the movie. If not available, provide a happy ending.",
+        description="电影结局。如果不可用，请提供一个圆满的结局。",
     )
     genre: str = Field(
         ...,
-        description="Genre of the movie. If not available, select action, thriller or romantic comedy.",
+        description="电影类型。如果不可用，请选择动作、惊悚或浪漫喜剧。",
     )
-    characters: List[str] = Field(..., description="Name of characters for this movie.")
+    characters: List[str] = Field(..., description="这部电影的角色名字。")
     storyline: str = Field(
-        ..., description="3 sentence storyline for the movie. Make it exciting!"
+        ..., description="电影的3句话故事梗概。要令人兴奋！"
     )
 
 
@@ -35,25 +35,25 @@ agent = Agent(
     model=vLLM(
         id="NousResearch/Nous-Hermes-2-Mistral-7B-DPO", top_k=20, enable_thinking=False
     ),
-    description="You write movie scripts.",
+    description="你负责写电影剧本。",
     response_model=MovieScript,
 )
 
 agent.print_response("Llamas ruling the world")
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install Libraries">
+  <Step title="安装库">
     ```bash
     pip install -U agno pydantic vllm openai
     ```
   </Step>
 
-  <Step title="Start vLLM server">
+  <Step title="启动 vLLM 服务器">
     ```bash
     vllm serve NousResearch/Nous-Hermes-2-Mistral-7B-DPO \
         --enable-auto-tool-choice \
@@ -64,9 +64,9 @@ agent.print_response("Llamas ruling the world")
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行 Agent">
     ```bash
     python cookbook/models/vllm/structured_output.py
     ```
   </Step>
-</Steps> 
+</Steps>

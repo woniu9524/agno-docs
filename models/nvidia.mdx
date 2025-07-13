@@ -1,19 +1,17 @@
 ---
 title: Nvidia
-description: Learn how to use Nvidia models in Agno.
+description: 在 Agno 中使用 Nvidia 模型。
 ---
 
-NVIDIA offers a suite of high-performance language models optimized for advanced NLP tasks.
-These models are part of the NeMo framework, which provides tools for training, fine-tuning
-and deploying state-of-the-art models efficiently. NVIDIA’s language models are designed to
-handle large-scale workloads with GPU acceleration for faster inference and training.
-We recommend experimenting with NVIDIA’s models to find the best fit for your application.
+NVIDIA 提供了一系列高性能语言模型，专为高级 NLP 任务进行了优化。
+这些模型是 NeMo 框架的一部分，该框架提供了高效训练、微调和部署最先进模型的工具。NVIDIA 的语言模型旨在使用 GPU 加速处理大规模工作负载，从而实现更快的推理和训练。
+我们建议尝试 NVIDIA 的模型，以找到最适合您应用的模型。
 
-Explore NVIDIA’s models [here](https://build.nvidia.com/models).
+[在此处](https://build.nvidia.com/models)探索 NVIDIA 的模型。
 
-## Authentication
+## 认证
 
-Set your `NVIDIA_API_KEY` environment variable. Get your key [from Nvidia here](https://build.nvidia.com/explore/discover).
+设置您的 `NVIDIA_API_KEY` 环境变量。在此[从 Nvidia 获取](https://build.nvidia.com/explore/discover)您的密钥。
 
 <CodeGroup>
 
@@ -27,9 +25,9 @@ setx NVIDIA_API_KEY ***
 
 </CodeGroup>
 
-## Example
+## 示例
 
-Use `Nvidia` with your `Agent`:
+在 `Agent` 中使用 `Nvidia`：
 
 <CodeGroup>
 
@@ -39,17 +37,17 @@ from agno.models.nvidia import Nvidia
 
 agent = Agent(model=Nvidia(), markdown=True)
 
-# Print the response in the terminal
-agent.print_response("Share a 2 sentence horror story")
+# 在终端中打印响应
+agent.print_response("分享一个两句话的恐怖故事")
 
 ```
 
 </CodeGroup>
 
-<Note> View more examples [here](../examples/models/nvidia). </Note>
+<Note> 在[此处](../examples/models/nvidia)查看更多示例。</Note>
 
-## Params
+## 参数
 
 <Snippet file="model-nvda-params.mdx" />
 
-`Nvidia` also supports the params of [OpenAI](/reference/models/openai).
+`Nvidia` 还支持 [OpenAI](/reference/models/openai) 的参数。

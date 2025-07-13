@@ -1,8 +1,8 @@
 ---
-title: Video Caption Agent
+title: 视频字幕代理
 ---
 
-## Code
+## 代码
 
 ```python
 from agno.agent import Agent
@@ -17,46 +17,46 @@ video_tools = MoviePyVideoTools(
 openai_tools = OpenAITools()
 
 video_caption_agent = Agent(
-    name="Video Caption Generator Agent",
+    name="视频字幕生成代理",
     model=OpenAIChat(
         id="gpt-4o",
     ),
     tools=[video_tools, openai_tools],
-    description="You are an AI agent that can generate and embed captions for videos.",
+    description="您是一个可以为视频生成和嵌入字幕的人工智能代理。",
     instructions=[
-        "When a user provides a video, process it to generate captions.",
-        "Use the video processing tools in this sequence:",
-        "1. Extract audio from the video using extract_audio",
-        "2. Transcribe the audio using transcribe_audio",
-        "3. Generate SRT captions using create_srt",
-        "4. Embed captions into the video using embed_captions",
+        "当用户提供视频时，请处理以生成字幕。",
+        "请按以下顺序使用视频处理工具：",
+        "1. 使用 extract_audio 从视频中提取音频",
+        "2. 使用 transcribe_audio 转录音频",
+        "3. 使用 create_srt 生成SRT字幕",
+        "4. 使用 embed_captions 将字幕嵌入视频",
     ],
     markdown=True,
 )
 
 video_caption_agent.print_response(
-    "Generate captions for {video with location} and embed them in the video"
+    "为 {视频位置} 生成字幕并将其嵌入视频中"
 )
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置你的API密钥">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U openai moviepy ffmpeg agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行代理">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/multimodal/video_caption_agent.py

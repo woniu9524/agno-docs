@@ -1,16 +1,16 @@
 ---
-title: JSON Knowledge Base
-description: Learn how to use local JSON files in your knowledge base.
+title: JSON 知识库
+description: 了解如何在知识库中使用本地 JSON 文件。
 sidebarTitle: JSON
 ---
 
-The **JSONKnowledgeBase** reads **local JSON** files, converts them into vector embeddings and loads them to a vector database.
+**JSONKnowledgeBase** 读取**本地 JSON** 文件，将其转换为向量嵌入，并加载到向量数据库中。
 
-## Usage
+## 用法
 
 <Note>
 
-We are using a local PgVector database for this example. [Make sure it's running](https://docs.agno.com/vectordb/pgvector)
+本示例中使用本地 PgVector 数据库。[请确保它正在运行](https://docs.agno.com/vectordb/pgvector)
 
 </Note>
 
@@ -20,7 +20,7 @@ from agno.vectordb.pgvector import PgVector
 
 knowledge_base = JSONKnowledgeBase(
     path="data/json",
-    # Table name: ai.json_documents
+    # 表名: ai.json_documents
     vector_db=PgVector(
         table_name="json_documents",
         db_url="postgresql+psycopg://ai:ai@localhost:5532/ai",
@@ -28,7 +28,7 @@ knowledge_base = JSONKnowledgeBase(
 )
 ```
 
-Then use the `knowledge_base` with an `Agent`:
+然后将 `knowledge_base` 与 `Agent` 一起使用：
 
 ```python agent.py
 from agno.agent import Agent
@@ -43,12 +43,12 @@ agent.knowledge.load(recreate=False)
 agent.print_response("Ask me about something from the knowledge base")
 ```
 
-#### JSONKnowledgeBase also supports async loading.
+#### JSONKnowledgeBase 也支持异步加载。
 
 ```shell
 pip install qdrant-client
 ```
-We are using a local Qdrant database for this example. [Make sure it's running](https://docs.agno.com/vectordb/qdrant)
+本示例中使用本地 Qdrant 数据库。[请确保它正在运行](https://docs.agno.com/vectordb/qdrant)
 
 ```python async_knowledge_base.py
 import asyncio
@@ -65,20 +65,20 @@ vector_db = Qdrant(collection=COLLECTION_NAME, url="http://localhost:6333")
 knowledge_base = JSONKnowledgeBase(
     path=Path("tmp/docs"),
     vector_db=vector_db,
-    num_documents=5,  # Number of documents to return on search
+    num_documents=5,  # 搜索时返回的文档数量
 )
 
-# Initialize the Agent with the knowledge_base
+# 使用 knowledge_base 初始化 Agent
 agent = Agent(
     knowledge=knowledge_base,
     search_knowledge=True,
 )
 
 if __name__ == "__main__":
-    # Comment out after first run
+    # 首次运行时注释掉此行
     asyncio.run(knowledge_base.aload(recreate=False))
 
-    # Create and use the agent
+    # 创建并使用 Agent
     asyncio.run(
         agent.aprint_response(
             "Ask anything from the json knowledge base", markdown=True
@@ -86,16 +86,16 @@ if __name__ == "__main__":
     )
 ```
 
-## Params
+## 参数
 
-| Parameter | Type               | Default        | Description                                                                             |
-| --------- | ------------------ | -------------- | --------------------------------------------------------------------------------------- |
-| `path`    | `Union[str, Path]` | -              | Path to `JSON` files.<br/>Can point to a single JSON file or a directory of JSON files. |
-| `reader`  | `JSONReader`       | `JSONReader()` | A `JSONReader` that converts the `JSON` files into `Documents` for the vector database. |
+| 参数 | 类型               | 默认值 | 描述                                                                                                    |
+| ---- | ------------------ | ------ | ------------------------------------------------------------------------------------------------------- |
+| `path` | `Union[str, Path]` | -      | 指向 `JSON` 文件的路径。<br/>可以指向单个 JSON 文件或 JSON 文件目录。 |
+| `reader` | `JSONReader`       | `JSONReader()` | 一个 `JSONReader`，用于将 `JSON` 文件转换为向量数据库的 `Documents`。                                 |
 
-`JSONKnowledgeBase` is a subclass of the [AgentKnowledge](/reference/knowledge/base) class and has access to the same params.
+`JSONKnowledgeBase` 是 `AgentKnowledge` 类的一个子类，可以访问相同的参数。
 
-## Developer Resources
+## 开发者资源
 
-- View [Sync loading Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/json_kb.py)
-- View [Async loading Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/json_kb_async.py)
+- 查看 [同步加载 Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/json_kb.py)
+- 查看 [异步加载 Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/json_kb_async.py)

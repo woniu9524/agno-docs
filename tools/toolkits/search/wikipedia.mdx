@@ -2,19 +2,19 @@
 title: Wikipedia
 ---
 
-**WikipediaTools** enable an Agent to search wikipedia a website and add its contents to the knowledge base.
+**WikipediaTools** 使代理能够搜索维基百科网站并将内容添加到知识库中。
 
-## Prerequisites
+## 先决条件
 
-The following example requires the `wikipedia` library.
+以下示例需要 `wikipedia` 库。
 
 ```shell
 pip install -U wikipedia
 ```
 
-## Example
+## 示例
 
-The following agent will run seach wikipedia for "ai" and print the response.
+以下代理将搜索维基百科的“ai”并打印响应。
 
 ```python cookbook/tools/wikipedia_tools.py
 from agno.agent import Agent
@@ -24,20 +24,20 @@ agent = Agent(tools=[WikipediaTools()], show_tool_calls=True)
 agent.print_response("Search wikipedia for 'ai'")
 ```
 
-## Toolkit Params
+## Toolkit 参数
 
-| Name             | Type                     | Default | Description                                                                                                        |
-| ---------------- | ------------------------ | ------- | ------------------------------------------------------------------------------------------------------------------ |
-| `knowledge_base` | `WikipediaKnowledgeBase` | -       | The knowledge base associated with Wikipedia, containing various data and resources linked to Wikipedia's content. |
+| 名称             | 类型                     | 默认值 | 描述                                                                                                   |
+| ---------------- | ------------------------ | ------- | ------------------------------------------------------------------------------------------------------ |
+| `knowledge_base` | `WikipediaKnowledgeBase` | -       | 与维基百科关联的知识库，包含与维基百科内容相关的各种数据和资源。 |
 
-## Toolkit Functions
+## Toolkit 函数
 
-| Function Name                                | Description                                                                                            |
-| -------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
-| `search_wikipedia_and_update_knowledge_base` | This function searches wikipedia for a topic, adds the results to the knowledge base and returns them. |
-| `search_wikipedia`                           | Searches Wikipedia for a query.                                                                        |
+| 函数名称                                     | 描述                                                                       |
+| -------------------------------------------- | -------------------------------------------------------------------------- |
+| `search_wikipedia_and_update_knowledge_base` | 此函数在维基百科中搜索主题，将结果添加到知识库并返回它们。 |
+| `search_wikipedia`                           | 在维基百科中搜索查询。                                                     |
 
-## Developer Resources
+## 开发人员资源
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/wikipedia.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/wikipedia_tools.py)
+- 查看 [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/wikipedia.py)
+- 查看 [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/wikipedia_tools.py)

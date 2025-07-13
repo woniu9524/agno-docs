@@ -1,8 +1,8 @@
 ---
-title: Basic
+title: 基础用法
 ---
 
-## Code
+## 代码
 
 ```python cookbook/apps/slack/basic.py
 from agno.agent import Agent
@@ -10,7 +10,7 @@ from agno.app.slack.app import SlackAPI
 from agno.models.openai import OpenAIChat
 
 basic_agent = Agent(
-    name="Basic Agent",
+    name="基础代理",
     model=OpenAIChat(id="gpt-4o"),
     add_history_to_messages=True,
     num_history_responses=3,
@@ -19,9 +19,9 @@ basic_agent = Agent(
 
 slack_api_app = SlackAPI(
     agent=basic_agent,
-    name="Basic Agent",
+    name="基础代理",
     app_id="basic_agent",
-    description="A basic agent that can answer questions and help with tasks.",
+    description="一个可以回答问题和协助处理任务的基础代理。",
 )
 app = slack_api_app.get_app()
 
@@ -30,24 +30,24 @@ if __name__ == "__main__":
 
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U agno openai "uvicorn[standard]"
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行代理">
     <CodeGroup>
     ```bash Mac
     python cookbook/apps/slack/basic.py
@@ -58,4 +58,4 @@ if __name__ == "__main__":
     ```
     </CodeGroup>
   </Step>
-</Steps> 
+</Steps>

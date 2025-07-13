@@ -1,23 +1,23 @@
 ---
 title: DeepInfra
-description: Learn how to use DeepInfra models in Agno.
+description: 了解如何在 Agno 中使用 DeepInfra 模型。
 ---
 
-Leverage DeepInfra's powerful command models and more.
+利用 DeepInfra 强大的命令模型以及更多功能。
 
-[DeepInfra](https://deepinfra.com) supports a wide range of models. See their library of models [here](https://deepinfra.com/models).
+[DeepInfra](https://deepinfra.com) 支持广泛的模型。在此处查看其模型库：[https://deepinfra.com/models](https://deepinfra.com/models)。
 
-We recommend experimenting to find the best-suited model for your use-case. Here are some general recommendations:
+我们建议您进行实验，以找到最适合您用例的模型。以下是一些通用建议：
 
-- `deepseek-ai/DeepSeek-R1-Distill-Llama-70B` model is good for reasoning.
-- `meta-llama/Llama-2-70b-chat-hf` model is good for basic use-cases.
-- `meta-llama/Llama-3.3-70B-Instruct` model is good for multi-step tasks.
+- `deepseek-ai/DeepSeek-R1-Distill-Llama-70B` 模型适用于推理。
+- `meta-llama/Llama-2-70b-chat-hf` 模型适用于基本用例。
+- `meta-llama/Llama-3.3-70B-Instruct` 模型适用于多步任务。
 
-DeepInfra has rate limits. See the [docs](https://deepinfra.com/docs/advanced/rate-limits) for more information.
+DeepInfra 有速率限制。有关更多信息，请参阅文档：[https://deepinfra.com/docs/advanced/rate-limits](https://deepinfra.com/docs/advanced/rate-limits)。
 
-## Authentication
+## 身份验证
 
-Set your `DEEPINFRA_API_KEY` environment variable. Get your key from [here](https://deepinfra.com/dash/api_keys).
+设置您的 `DEEPINFRA_API_KEY` 环境变量。在此处获取您的密钥：[https://deepinfra.com/dash/api_keys](https://deepinfra.com/dash/api_keys)。
 
 <CodeGroup>
 
@@ -31,9 +31,9 @@ setx DEEPINFRA_API_KEY ***
 
 </CodeGroup>
 
-## Example
+## 示例
 
-Use `DeepInfra` with your `Agent`:
+在您的 `Agent` 中使用 `DeepInfra`：
 
 <CodeGroup>
 
@@ -46,17 +46,17 @@ agent = Agent(
     markdown=True
 )
 
-# Print the response in the terminal
+# 在终端中打印响应
 agent.print_response("Share a 2 sentence horror story.")
 
 ```
 
 </CodeGroup>
 
-<Note> View more examples [here](../examples/models/deepinfra). </Note>
+<Note>在此处查看更多示例：[../examples/models/deepinfra](../examples/models/deepinfra)。</Note>
 
-## Params
+## 参数
 
 <Snippet file="model-deepinfra-params.mdx" />
 
-`DeepInfra` is a subclass of the [Model](/reference/models/model) class and has access to the same params.
+`DeepInfra` 是 `Model` 类的一个子类，并且可以访问相同的参数。

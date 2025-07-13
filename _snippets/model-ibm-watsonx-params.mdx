@@ -1,18 +1,18 @@
-## Parameters
+## 参数
 
-| Parameter | Type | Default | Description |
+| 参数 | 类型 | 默认值 | 描述 |
 | --- | --- | --- | --- |
-| id | str | `"ibm/granite-20b-code-instruct"` | The model ID to use |
-| frequency_penalty | float | `None` | Penalty for using frequent tokens. Higher values discourage repetition |
-| presence_penalty | float | `None` | Penalty for using tokens already present in the text. Higher values encourage new topics |
-| max_tokens | int | `None` | Maximum number of tokens to generate in the response |
-| temperature | float | `None` | Controls randomness in responses. Higher values make output more random |
-| top_p | float | `None` | Controls diversity of responses via nucleus sampling |
-| logprobs | int | `None` | Number of log probabilities to return |
-| top_logprobs | int | `None` | Number of most likely tokens to return log probabilities for |
-| response_format | Any | `None` | Format specification for the response |
-| api_key | str | `None` | IBM WatsonX API key |
-| project_id | str | `None` | IBM WatsonX project ID |
-| url | str | `"https://eu-de.ml.cloud.ibm.com"` | IBM WatsonX API endpoint URL |
-| verify | bool | `True` | Whether to verify SSL certificates |
-| client_params | Dict[str, Any] | `None` | Additional parameters to pass to the client |
+| id | str | `"ibm/granite-20b-code-instruct"` | 要使用的模型 ID |
+| frequency_penalty | float | `None` | 对频繁使用的 token 的惩罚。较高的值会抑制重复 |
+| presence_penalty | float | `None` | 对文本中已存在的 token 的惩罚。较高的值会鼓励新话题 |
+| max_tokens | int | `None` | 响应中要生成的最大 token 数 |
+| temperature | float | `None` | 控制响应的随机性。较高的值使输出更随机 |
+| top_p | float | `None` | 通过核心采样控制响应的多样性 |
+| logprobs | int | `None` | 要返回的对数概率的数量 |
+| top_logprobs | int | `None` | 要为之返回对数概率的最有可能的 token 数量 |
+| response_format | Any | `None` | 响应的格式规范 |
+| api_key | str | `None` | IBM WatsonX API 密钥 |
+| project_id | str | `None` | IBM WatsonX 项目 ID |
+| url | str | `"https://eu-de.ml.cloud.ibm.com"` | IBM WatsonX API 端点 URL |
+| verify | bool | `True` | 是否验证 SSL 证书 |
+| client_params | Dict[str, Any] | `None` | 要传递给客户端的其他参数 |

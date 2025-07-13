@@ -1,17 +1,17 @@
 ---
-title: Agent with Tools
+title: 代理与工具
 ---
 
-This example shows how to create an AI news reporter agent that can search the web for real-time news and present them with a distinctive NYC personality. The agent combines web searching capabilities with engaging storytelling to deliver news in an entertaining way.
+这个示例展示了如何创建一个人工智能新闻记者代理，该代理可以搜索实时新闻并在网上呈现它们，并带有独特的纽约市个性。该代理结合了网络搜索能力和引人入胜的叙事方式，以一种有趣的方式传递新闻。
 
-Example prompts to try:
-- "What's the latest headline from Wall Street?"
-- "Tell me about any breaking news in Central Park"
-- "What's happening at Yankees Stadium today?"
-- "Give me updates on the newest Broadway shows"
-- "What's the buzz about the latest NYC restaurant opening?"
+尝试用的示例提示：
+- “华尔街的最新头条是什么？”
+- “告诉我中央公园的突发新闻”
+- “今天扬基体育场发生了什么？”
+- “给我最新百老汇演出的更新”
+- “关于最新纽约餐厅开业有什么传闻？”
 
-## Code
+## 代码
 
 ```python agent_with_tools.py
 from textwrap import dedent
@@ -20,66 +20,66 @@ from agno.agent import Agent
 from agno.models.openai import OpenAIChat
 from agno.tools.duckduckgo import DuckDuckGoTools
 
-# Create a News Reporter Agent with a fun personality
+# 创建一个具有趣味个性的新闻报道代理
 agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
     instructions=dedent("""\
-        You are an enthusiastic news reporter with a flair for storytelling! 🗽
-        Think of yourself as a mix between a witty comedian and a sharp journalist.
+        你是一位充满热情的新闻记者，擅长讲故事！ 🗽
+        将自己想象成一个融合了机智的喜剧演员和敏锐的记者的风格。
 
-        Follow these guidelines for every report:
-        1. Start with an attention-grabbing headline using relevant emoji
-        2. Use the search tool to find current, accurate information
-        3. Present news with authentic NYC enthusiasm and local flavor
-        4. Structure your reports in clear sections:
-        - Catchy headline
-        - Brief summary of the news
-        - Key details and quotes
-        - Local impact or context
-        5. Keep responses concise but informative (2-3 paragraphs max)
-        6. Include NYC-style commentary and local references
-        7. End with a signature sign-off phrase
+        每次报道都要遵循以下指南：
+        1. 使用相关的表情符号开始一个吸引人的标题
+        2. 使用搜索工具查找当前、准确的信息
+        3. 以真实的纽约市热情和地方风味呈现新闻
+        4. 将你的报道结构化为清晰的部分：
+        - 引人注目的标题
+        - 新闻简报
+        - 关键细节和引述
+        - 地方影响或背景
+        5. 保持回应简洁但信息丰富（最多 2-3 段）
+        6. 加入纽约风格的评论和地方参考
+        7. 以标志性的结束语结尾
 
-        Sign-off examples:
-        - 'Back to you in the studio, folks!'
-        - 'Reporting live from the city that never sleeps!'
-        - 'This is [Your Name], live from the heart of Manhattan!'
+        结束语示例：
+        - “回到演播室了，各位！”
+        - “现场报道，来自永不眠的城市！”
+        - “这是[你的名字]，现场来自曼哈顿心脏地带！”
 
-        Remember: Always verify facts through web searches and maintain that authentic NYC energy!\
+        记住：始终通过网络搜索核实事实，并保持真实的纽约能量！\
     """),
     tools=[DuckDuckGoTools()],
     show_tool_calls=True,
     markdown=True,
 )
 
-# Example usage
+# 示例用法
 agent.print_response(
-    "Tell me about a breaking news story happening in Times Square.", stream=True
+    "告诉我发生在时代广场的突发新闻。", stream=True
 )
 
-# More example prompts to try:
+# 更多示例提示：
 """
-Try these engaging news queries:
-1. "What's the latest development in NYC's tech scene?"
-2. "Tell me about any upcoming events at Madison Square Garden"
-3. "What's the weather impact on NYC today?"
-4. "Any updates on the NYC subway system?"
-5. "What's the hottest food trend in Manhattan right now?"
+尝试这些引人入胜的新闻查询：
+1. “纽约市科技界的最新发展是什么？”
+2. “告诉我麦迪逊广场花园即将举行的活动”
+3. “今天纽约市的天气有什么影响？”
+4. “关于纽约市地铁系统有什么更新吗？”
+5. “曼哈顿目前最热门的美食趋势是什么？”
 """
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install openai duckduckgo-search agno
     ```
   </Step>
 
-  <Step title="Run the agent">
+  <Step title="运行代理">
     ```bash
     python agent_with_tools.py
     ```

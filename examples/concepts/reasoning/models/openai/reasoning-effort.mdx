@@ -1,8 +1,8 @@
 ---
-title: OpenAI o3-mini with reasoning effort
+title: OpenAI o3-mini 配合推理能力
 ---
 
-## Code
+## 代码
 
 ```python cookbook/reasoning/models/openai/reasoning_effort.py
 from agno.agent import Agent
@@ -19,33 +19,33 @@ agent = Agent(
             company_news=True,
         )
     ],
-    instructions="Use tables to display data.",
+    instructions="使用表格展示数据。",
     show_tool_calls=True,
     markdown=True,
 )
-agent.print_response("Write a report comparing NVDA to TSLA", stream=True)
+agent.print_response("撰写一份比较NVDA和TSLA的报告", stream=True)
 
 
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U openai agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行 Agent">
     <CodeGroup>
     ```bash Mac
       python cookbook/reasoning/models/openai/reasoning_effort.py

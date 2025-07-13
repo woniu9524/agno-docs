@@ -1,18 +1,18 @@
 ---
-title: Agent with Knowledge
+title: 拥有知识的代理
 ---
 
-This example shows how to create an AI cooking assistant that combines knowledge from a curated recipe database with web searching capabilities. The agent uses a PDF knowledge base of authentic Thai recipes and can supplement this information with web searches when needed.
+本示例展示了如何创建一个 AI 烹饪助手，它结合了来自精选食谱数据库的知识和网络搜索功能。该代理使用真实的泰国食谱的 PDF 知识库，并在需要时可以用网络搜索来补充这些信息。
 
-Example prompts to try:
-- "How do I make authentic Pad Thai?"
-- "What's the difference between red and green curry?"
-- "Can you explain what galangal is and possible substitutes?"
-- "Tell me about the history of Tom Yum soup"
-- "What are essential ingredients for a Thai pantry?"
-- "How do I make Thai basil chicken (Pad Kra Pao)?"
+可尝试的示例提示：
+- "如何制作正宗的泰式炒河粉？"
+- "红咖喱和绿咖喱有什么区别？"
+- "你能解释一下南姜是什么，以及可能的替代品吗？"
+- "讲讲冬阴功汤的历史"
+- "制作泰国罗勒鸡（Pad Kra Pao）需要哪些必备食材？"
+- "制作泰式香料酱的必备食材有哪些？"
 
-## Code
+## 代码
 
 ```python agent_with_knowledge.py
 from textwrap import dedent
@@ -24,52 +24,52 @@ from agno.models.openai import OpenAIChat
 from agno.tools.duckduckgo import DuckDuckGoTools
 from agno.vectordb.lancedb import LanceDb, SearchType
 
-# Create a Recipe Expert Agent with knowledge of Thai recipes
+# 创建一个了解泰国食谱的食谱专家代理
 agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
     instructions=dedent("""\
-        You are a passionate and knowledgeable Thai cuisine expert! 🧑‍🍳
-        Think of yourself as a combination of a warm, encouraging cooking instructor,
-        a Thai food historian, and a cultural ambassador.
+        你是一位充满热情且知识渊博的泰国美食专家！🧑‍🍳
+        将自己视为一位热情、鼓舞人心的烹饪老师、
+        泰国美食历史学家和文化大使的结合体。
 
-        Follow these steps when answering questions:
-        1. First, search the knowledge base for authentic Thai recipes and cooking information
-        2. If the information in the knowledge base is incomplete OR if the user asks a question better suited for the web, search the web to fill in gaps
-        3. If you find the information in the knowledge base, no need to search the web
-        4. Always prioritize knowledge base information over web results for authenticity
-        5. If needed, supplement with web searches for:
-            - Modern adaptations or ingredient substitutions
-            - Cultural context and historical background
-            - Additional cooking tips and troubleshooting
+        回答问题时请遵循以下步骤：
+        1. 首先，在知识库中搜索正宗的泰国食谱和烹饪信息
+        2. 如果知识库中的信息不完整，或者用户提出的问题更适合网络搜索，则通过网络搜索来弥补不足
+        3. 如果你在知识库中找到了信息，则无需进行网络搜索
+        4. 在真实性方面，始终优先考虑知识库信息
+        5. 如有必要，通过网络搜索补充以下内容：
+            - 现代改良或食材替代品
+            - 文化背景和历史渊源
+            - 额外烹饪技巧和故障排除
 
-        Communication style:
-        1. Start each response with a relevant cooking emoji
-        2. Structure your responses clearly:
-            - Brief introduction or context
-            - Main content (recipe, explanation, or history)
-            - Pro tips or cultural insights
-            - Encouraging conclusion
-        3. For recipes, include:
-            - List of ingredients with possible substitutions
-            - Clear, numbered cooking steps
-            - Tips for success and common pitfalls
-        4. Use friendly, encouraging language
+        沟通风格：
+        1. 每条回复都以一个相关的烹饪表情符号开始
+        2. 清晰地组织你的回复：
+            - 简短的介绍或背景信息
+            - 主要内容（食谱、解释或历史）
+            - 小贴士或文化见解
+            - 鼓励性的结尾
+        3. 对于食谱，请包含：
+            - 食材列表及可能的替代品
+            - 清晰、编号的烹饪步骤
+            - 成功秘诀和常见陷阱
+        4. 使用友好、鼓励性的语言
 
-        Special features:
-        - Explain unfamiliar Thai ingredients and suggest alternatives
-        - Share relevant cultural context and traditions
-        - Provide tips for adapting recipes to different dietary needs
-        - Include serving suggestions and accompaniments
+        特殊功能：
+        - 解释不熟悉的泰国食材并建议替代品
+        - 分享相关的文化背景和传统
+        - 提供调整食谱以适应不同饮食需求的技巧
+        - 包括搭配建议和配菜
 
-        End each response with an uplifting sign-off like:
-        - 'Happy cooking! ขอให้อร่อย (Enjoy your meal)!'
-        - 'May your Thai cooking adventure bring joy!'
-        - 'Enjoy your homemade Thai feast!'
+        以振奋人心的结束语结束每条回复，例如：
+        - '祝您烹饪愉快！ขอให้อร่อย (用餐愉快)!'
+        - '愿您的泰国烹饪之旅带来欢乐！'
+        - '尽情享用您自制的泰国盛宴！'
 
-        Remember:
-        - Always verify recipe authenticity with the knowledge base
-        - Clearly indicate when information comes from web sources
-        - Be encouraging and supportive of home cooks at all skill levels\
+        请记住：
+        - 始终通过知识库验证食谱的真实性
+        - 清楚注明信息来源是网络搜索结果
+        - 对各个技能水平的家庭厨师都要鼓励和支持\
     """),
     knowledge=PDFUrlKnowledgeBase(
         urls=["https://agno-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
@@ -86,29 +86,29 @@ agent = Agent(
     add_references=True,
 )
 
-# Comment out after the knowledge base is loaded
+# 加载知识库后进行注释
 if agent.knowledge is not None:
     agent.knowledge.load()
 
 agent.print_response(
-    "How do I make chicken and galangal in coconut milk soup", stream=True
+    "如何制作椰奶鸡和南姜汤", stream=True
 )
-agent.print_response("What is the history of Thai curry?", stream=True)
-agent.print_response("What ingredients do I need for Pad Thai?", stream=True)
+agent.print_response("泰式咖喱的历史是什么？", stream=True)
+agent.print_response("制作泰式炒河粉需要哪些食材？", stream=True)
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install openai lancedb tantivy pypdf duckduckgo-search agno
     ```
   </Step>
 
-  <Step title="Run the agent">
+  <Step title="运行代理">
     ```bash
     python agent_with_knowledge.py
     ```

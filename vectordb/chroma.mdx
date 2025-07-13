@@ -1,15 +1,15 @@
 ---
-title: ChromaDB Agent Knowledge
+title: ChromaDB 代理知识
 sidebarTitle: ChromaDB
 ---
 
-## Setup
+## 设置
 
 ```shell
 pip install chromadb
 ```
 
-## Example
+## 示例
 
 ```python agent_with_knowledge.py
 import typer
@@ -55,10 +55,10 @@ if __name__ == "__main__":
     typer.run(pdf_agent)
 ```
 
-<Card title="Async Support ⚡">
+<Card title="异步支持 ⚡">
   <div className="mt-2">
     <p>
-      ChromaDB also supports asynchronous operations, enabling concurrency and leading to better performance.
+      ChromaDB 也支持异步操作，可以实现并发并带来更好的性能。
     </p>
     
     ```python async_chroma_db.py
@@ -91,16 +91,16 @@ if __name__ == "__main__":
     ```
     
     <Tip className="mt-4">
-      Use <code>aload()</code> and <code>aprint_response()</code> methods with <code>asyncio.run()</code> for non-blocking operations in high-throughput applications.
+      在吞吐量高的应用程序中使用 <code>aload()</code> 和 <code>aprint_response()</code> 方法配合 <code>asyncio.run()</code> 进行非阻塞操作。
     </Tip>
   </div>
 </Card>
 
-## ChromaDb Params
+## ChromaDb 参数
 
 <Snippet file="vectordb_chromadb_params.mdx" />
 
-## Developer Resources
+## 开发者资源
 
-- View [Cookbook (Sync)](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/vector_dbs/chroma_db/chroma_db.py)
-- View [Cookbook (Async)](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/vector_dbs/chroma_db/async_chroma_db.py)
+- 查看 [Cookbook (同步)](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/vector_dbs/chroma_db/chroma_db.py)
+- 查看 [Cookbook (异步)](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/vector_dbs/chroma_db/async_chroma_db.py)

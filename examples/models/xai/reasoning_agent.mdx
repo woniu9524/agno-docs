@@ -1,8 +1,8 @@
 ---
-title: Reasoning Agent
+title: 推理代理
 ---
 
-## Code
+## 代码
 
 ```python cookbook/models/xai/reasoning_agent.py
 from agno.agent import Agent
@@ -22,39 +22,39 @@ reasoning_agent = Agent(
         ),
     ],
     instructions=[
-        "Use tables to display data",
-        "Only output the report, no other text",
+        "使用表格展示数据",
+        "只输出报告，不输出其他文字",
     ],
     markdown=True,
 )
 reasoning_agent.print_response(
-    "Write a report on TSLA",
+    "撰写一份关于 TSLA 的报告",
     stream=True,
     show_full_reasoning=True,
     stream_intermediate_steps=True,
 )
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置你的 API 密钥">
     ```bash
     export XAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U openai yfinance agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行代理">
     ```bash
     python cookbook/models/xai/reasoning_agent.py
     ```
   </Step>
-</Steps> 
+</Steps>

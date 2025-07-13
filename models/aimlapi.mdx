@@ -1,13 +1,13 @@
 ---
 title: AI/ML API
-description: Learn how to use AI/ML API with Agno.
+description: 了解如何使用 Agno 操作 AI/ML API。
 ---
 
-AI/ML API is a platform providing unified access to 300+ AI models including **Deepseek**, **Gemini**, **ChatGPT**, and more — with production-grade uptime and high rate limits.
+AI/ML API 是一个提供统一接口的平台，支持 300+ 个 AI 模型，包括 **Deepseek**、**Gemini**、**ChatGPT** 等，并提供生产级别的正常运行时间和高额请求限制。
 
-## Authentication
+## 认证
 
-Set your `AIMLAPI_API_KEY` environment variable. Get your key at [aimlapi.com](https://aimlapi.com/?utm_source=agno&utm_medium=github&utm_campaign=integration).
+设置您的 `AIMLAPI_API_KEY` 环境变量。在 [aimlapi.com](https://aimlapi.com/?utm_source=agno&utm_medium=github&utm_campaign=integration) 获取您的密钥。
 
 <CodeGroup>
 
@@ -21,9 +21,9 @@ setx AIMLAPI_API_KEY ***
 
 </CodeGroup>
 
-## Example
+## 示例
 
-Use `AI/ML API` with your `Agent`:
+将 `AI/ML API` 用于您的 `Agent`：
 
 <CodeGroup>
 
@@ -41,8 +41,8 @@ agent.print_response("Explain how black holes are formed.")
 
 </CodeGroup>
 
-## Params
+## 参数
 
 <Snippet file="model-aimlapi-params.mdx" />
 
-`AIMLApi` also supports the params of [OpenAI](/reference/models/openai), where applicable.
+在适用情况下，`AIMLApi` 还支持 [OpenAI](/reference/models/openai) 的参数。

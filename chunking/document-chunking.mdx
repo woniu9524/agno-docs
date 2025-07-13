@@ -1,10 +1,10 @@
 ---
-title: Document Chunking
+title: 文档分块
 ---
 
-Document chunking is a method of splitting documents into smaller chunks based on document structure like paragraphs and sections. It analyzes natural document boundaries rather than splitting at fixed character counts. This is useful when you want to process large documents while preserving semantic meaning and context.
+文档分块是一种根据段落和章节等文档结构将文档拆分成更小块的方法。它分析自然的文档边界，而不是在固定的字符数处进行分割。当您想在保留语义含义和上下文的同时处理大型文档时，这非常有用。
 
-## Usage
+## 用法
 
 ```python
 from agno.agent import Agent
@@ -19,7 +19,7 @@ knowledge_base = PDFUrlKnowledgeBase(
     vector_db=PgVector(table_name="recipes_document_chunking", db_url=db_url),
     chunking_strategy=DocumentChunking(),
 )
-knowledge_base.load(recreate=False)  # Comment out after first run
+knowledge_base.load(recreate=False)  # 首次运行后注释掉此行
 
 agent = Agent(
     knowledge_base=knowledge_base,
@@ -30,6 +30,6 @@ agent.print_response("How to make Thai curry?", markdown=True)
 
 ```
 
-## Document Chunking Params
+## 文档分块参数
 
 <Snippet file="chunking-document.mdx" />

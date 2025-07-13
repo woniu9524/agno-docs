@@ -1,8 +1,8 @@
 ---
-title: Agent with Tools
+title: 包含工具的 Agent
 ---
 
-## Code
+## 代码
 
 ```python cookbook/models/ollama/tool_use.py
 from agno.agent import Agent
@@ -18,25 +18,25 @@ agent = Agent(
 agent.print_response("Whats happening in France?", stream=True)
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install Ollama">
-    Follow the [installation guide](https://github.com/ollama/ollama?tab=readme-ov-file#macos) and run:
+  <Step title="安装 Ollama">
+    请遵循[安装指南](https://github.com/ollama/ollama?tab=readme-ov-file#macos)并运行：
     ```bash
     ollama pull llama3.1:8b
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U ollama duckduckgo-search agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行 Agent">
     <CodeGroup>
     ```bash Mac
     python cookbook/models/ollama/tool_use.py

@@ -1,20 +1,17 @@
 ---
-title: Recipe Creator
+title: 菜谱创建器
 ---
 
-This example shows how to create an intelligent recipe recommendation system that provides
-detailed, personalized recipes based on your ingredients, dietary preferences, and time constraints.
-The agent combines culinary knowledge, nutritional data, and cooking techniques to deliver
-comprehensive cooking instructions.
+这个示例展示了如何创建一个智能菜谱推荐系统，该系统可以根据您的食材、饮食偏好和时间限制，提供详细的个性化菜谱。该代理结合了烹饪知识、营养数据和烹饪技巧，以提供全面的烹饪说明。
 
-Example prompts to try:
-- "I have chicken, rice, and vegetables. What can I make in 30 minutes?"
-- "Create a vegetarian pasta recipe with mushrooms and spinach"
-- "Suggest healthy breakfast options with oats and fruits"
-- "What can I make with leftover turkey and potatoes?"
-- "Need a quick dessert recipe using chocolate and bananas"
+可以尝试的示例提示：
+- “我有鸡肉、米饭和蔬菜。我能在 30 分钟内做什么？”
+- “用蘑菇和菠菜制作一个素食意面菜谱”
+- “推荐一些用燕麦和水果制作的健康早餐选择”
+- “剩火鸡和土豆能做什么？”
+- “需要一个用巧克力和香蕉制作的快手甜点菜谱”
 
-## Code
+## 代码
 
 ```python recipe_creator.py
 from textwrap import dedent
@@ -28,132 +25,129 @@ recipe_agent = Agent(
     tools=[ExaTools()],
     model=OpenAIChat(id="gpt-4o"),
     description=dedent("""\
-        You are ChefGenius, a passionate and knowledgeable culinary expert with expertise in global cuisine! 🍳
+        你是 ChefGenius，一位充满热情且知识渊博的烹饪专家，精通全球美食！🍳
 
-        Your mission is to help users create delicious meals by providing detailed,
-        personalized recipes based on their available ingredients, dietary restrictions,
-        and time constraints. You combine deep culinary knowledge with nutritional wisdom
-        to suggest recipes that are both practical and enjoyable."""),
+        你的使命是通过根据用户可用的食材、饮食限制和时间限制提供详细的个性化菜谱，帮助用户制作美味佳肴。你将深厚的烹饪知识与营养智慧相结合，推荐实用且令人愉悦的菜谱。"""),
     instructions=dedent("""\
-        Approach each recipe recommendation with these steps:
+        在推荐每份菜谱时，请遵循以下步骤：
 
-        1. Analysis Phase 📋
-           - Understand available ingredients
-           - Consider dietary restrictions
-           - Note time constraints
-           - Factor in cooking skill level
-           - Check for kitchen equipment needs
+        1. 分析阶段 📋
+           - 了解可用食材
+           - 考虑饮食限制
+           - 注意时间限制
+           - 考虑烹饪技能水平
+           - 检查所需的厨房设备
 
-        2. Recipe Selection 🔍
-           - Use Exa to search for relevant recipes
-           - Ensure ingredients match availability
-           - Verify cooking times are appropriate
-           - Consider seasonal ingredients
-           - Check recipe ratings and reviews
+        2. 菜谱选择 🔍
+           - 使用 Exa 搜索相关菜谱
+           - 确保食材与可用性匹配
+           - 验证烹饪时间是否合适
+           - 考虑时令食材
+           - 查看菜谱评分和评论
 
-        3. Detailed Information 📝
-           - Recipe title and cuisine type
-           - Preparation time and cooking time
-           - Complete ingredient list with measurements
-           - Step-by-step cooking instructions
-           - Nutritional information per serving
-           - Difficulty level
-           - Serving size
-           - Storage instructions
+        3. 详细信息 📝
+           - 菜谱名称和菜系
+           - 准备时间和烹饪时间
+           - 完整的食材清单及用量
+           - 分步烹饪说明
+           - 每份的营养信息
+           - 难度级别
+           - 份量大小
+           - 储存说明
 
-        4. Extra Features ✨
-           - Ingredient substitution options
-           - Common pitfalls to avoid
-           - Plating suggestions
-           - Wine pairing recommendations
-           - Leftover usage tips
-           - Meal prep possibilities
+        4. 额外功能 ✨
+           - 食材替换选项
+           - 避免常见失误
+           - 装盘建议
+           - 葡萄酒搭配建议
+           - 剩菜利用技巧
+           - 备餐可能性
 
-        Presentation Style:
-        - Use clear markdown formatting
-        - Present ingredients in a structured list
-        - Number cooking steps clearly
-        - Add emoji indicators for:
-          🌱 Vegetarian
-          🌿 Vegan
-          🌾 Gluten-free
-          🥜 Contains nuts
-          ⏱️ Quick recipes
-        - Include tips for scaling portions
-        - Note allergen warnings
-        - Highlight make-ahead steps
-        - Suggest side dish pairings"""),
+        呈现风格：
+        - 使用清晰的 markdown 格式
+        - 将食材以结构化列表形式呈现
+        - 清晰地编号烹饪步骤
+        - 添加表情符号指示：
+          🌱 素食
+          🌿 纯素
+          🌾 无麸质
+          🥜 含坚果
+          ⏱️ 快手菜
+        - 包含调整份量的技巧
+        - 注明过敏原警告
+        - 突出可提前准备的步骤
+        - 建议搭配配菜"""),
     markdown=True,
     add_datetime_to_instructions=True,
     show_tool_calls=True,
 )
 
-# Example usage with different types of recipe queries
+# 使用不同类型的菜谱查询进行示例用法
 recipe_agent.print_response(
-    "I have chicken breast, broccoli, garlic, and rice. Need a healthy dinner recipe that takes less than 45 minutes.",
+    "我有鸡胸肉、西兰花、大蒜和米饭。需要一个健康晚餐菜谱，耗时不到 45 分钟。",
     stream=True,
 )
 
-# More example prompts to explore:
+# 更多示例提示以供探索：
 """
-Quick Meals:
-1. "15-minute dinner ideas with pasta and vegetables"
-2. "Quick healthy lunch recipes for meal prep"
-3. "Easy breakfast recipes with eggs and avocado"
-4. "No-cook dinner ideas for hot summer days"
+快手餐：
+1. “15 分钟内的意面和蔬菜晚餐创意”
+2. “适合备餐的快速健康午餐菜谱”
+3. “用鸡蛋牛油果制作的简单早餐菜谱”
+4. “炎热夏日无需烹饪的晚餐创意”
 
-Dietary Restrictions:
-1. "Keto-friendly dinner recipes with salmon"
-2. "Gluten-free breakfast options without eggs"
-3. "High-protein vegetarian meals for athletes"
-4. "Low-carb alternatives to pasta dishes"
+饮食限制：
+1. “适合生酮饮食的三文鱼晚餐菜谱”
+2. “无需鸡蛋的无麸质早餐选择”
+3. “适合运动员的高蛋白素食餐”
+4. “意面菜肴的低碳水化合物替代品”
 
-Special Occasions:
-1. "Impressive dinner party main course for 6 people"
-2. "Romantic dinner recipes for two"
-3. "Kid-friendly birthday party snacks"
-4. "Holiday desserts that can be made ahead"
+特殊场合：
+1. “为 6 人准备的令人印象深刻的晚宴主菜”
+2. “两人的浪漫晚餐菜谱”
+3. “儿童友好型生日派对小吃”
+4. “可以提前准备的节日甜点”
 
-International Cuisine:
-1. "Authentic Thai curry with available ingredients"
-2. "Simple Japanese recipes for beginners"
-3. "Mediterranean diet dinner ideas"
-4. "Traditional Mexican recipes with modern twists"
+国际美食：
+1. “用现有食材制作的正宗泰式咖喱”
+2. “适合初学者的简单日式菜谱”
+3. “地中海饮食晚餐创意”
+4. “传统墨西哥菜肴的新式演绎”
 
-Seasonal Cooking:
-1. "Summer salad recipes with seasonal produce"
-2. "Warming winter soups and stews"
-3. "Fall harvest vegetable recipes"
-4. "Spring picnic recipe ideas"
+时令烹饪：
+1. “包含时令农产品的夏季沙拉菜谱”
+2. “温暖的冬季汤和炖菜”
+3. “秋季丰收蔬菜菜谱”
+4. “春季野餐菜谱创意”
 
-Batch Cooking:
-1. "Freezer-friendly meal prep recipes"
-2. "One-pot meals for busy weeknights"
-3. "Make-ahead breakfast ideas"
-4. "Bulk cooking recipes for large families"
+批量烹饪：
+1. “适合冷冻的备餐菜谱”
+2. “工作日晚上的一锅煮菜肴”
+3. “可提前准备的早餐创意”
+4. “适合大家庭的大批量烹饪菜谱”
 """
 ```
 
-## Usage
+## 用法
 
 <Steps>
 
     <Snippet file="create-venv-step.mdx" />
 
-    <Step title="Install required libraries">
+    <Step title="安装所需库">
         ```bash
         pip install agno openai exa_py
         ```
     </Step>
 
-    <Step title="Set environment variables">
+    <Step title="设置环境变量">
         ```bash
         export OPENAI_API_KEY=****
         export EXA_API_KEY=****
         ```
     </Step>
 
-    <Step title="Run the agent">
+    <Step title="运行代理">
         ```bash
         python recipe_creator.py
         ```

@@ -1,16 +1,16 @@
 ---
-title: PDF Bytes Knowledge Base
-description: Learn how to use in-memory PDF bytes in your knowledge base.
-sidebarTitle: PDF Bytes
+title: PDF 字节知识库
+description: 了解如何在您的知识库中使用内存中的 PDF 字节。
+sidebarTitle: PDF 字节
 ---
 
-The **PDFBytesKnowledgeBase** reads **PDF content from bytes or IO streams**, converts them into vector embeddings and loads them to a vector database. This is useful when working with dynamically generated PDFs, API responses, or file uploads without needing to save files to disk.
+**PDFBytesKnowledgeBase** 从**字节或 IO 流中读取 PDF 内容**，将其转换为向量嵌入并加载到向量数据库中。这在使用动态生成的 PDF、API 响应或文件上传时非常有用，无需将文件保存到磁盘。
 
-## Usage
+## 用法
 
 <Note>
 
-We are using a local LanceDB database for this example. [Make sure it's running](https://docs.agno.com/vectordb/lancedb)
+我们在此示例中使用本地 LanceDB 数据库。[请确保它正在运行](https://docs.agno.com/vectordb/lancedb)
 
 </Note>
 
@@ -35,7 +35,7 @@ knowledge_base = PDFBytesKnowledgeBase(
     pdfs=[pdf_bytes],
     vector_db=vector_db,
 )
-knowledge_base.load(recreate=False)  # Comment out after first run
+knowledge_base.load(recreate=False)  # 首次运行后注释掉此行
 
 agent = Agent(
     knowledge=knowledge_base,
@@ -45,18 +45,17 @@ agent = Agent(
 agent.print_response("How to make Tom Kha Gai?", markdown=True)
 ```
 
-## Params
+## 参数
 
-| Parameter | Type           | Default | Description                                                                         |
-| --------- | -------------- | ------- | ----------------------------------------------------------------------------------- |
-| pdfs | Union[List[bytes], List[IO]] | - | List of PDF content as bytes or IO streams. |
-| exclude_files | List[str] | [] | List of file patterns to exclude (inherited from base class). |
-| reader | Union[PDFReader, PDFImageReader] | PDFReader() | A PDFReader or PDFImageReader that converts the PDFs into Documents for the vector database. |
+| 参数 | 类型 | 默认值 | 描述 |
+| --------- | -------------- | ------- | --------- |
+| pdfs | Union[List[bytes], List[IO]] | - | PDF 内容列表（以字节或 IO 流形式）。 |
+| exclude_files | List[str] | [] | 要排除的文件模式列表（从基类继承）。 |
+| reader | Union[PDFReader, PDFImageReader] | PDFReader() | 将 PDF 转换为向量数据库的 Document 的 PDFReader 或 PDFImageReader。 |
 
-`PDFBytesKnowledgeBase` is a subclass of the [AgentKnowledge](/reference/knowledge/base) class and has access to the same params.
+`PDFBytesKnowledgeBase` 是 [AgentKnowledge](/reference/knowledge/base) 类的子类，拥有相同的参数访问权限。
 
-## Developer Resources
+## 开发者资源
 
-- View [Sync loading Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/pdf_bytes_kb.py)
-- View [Async loading Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/pdf_bytes_kb_async.py)
-
+- 查看 [同步加载食谱](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/pdf_bytes_kb.py)
+- 查看 [异步加载食谱](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/pdf_bytes_kb_async.py)

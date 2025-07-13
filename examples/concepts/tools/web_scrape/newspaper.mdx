@@ -1,8 +1,8 @@
 ---
-title: Newspaper Tools
+title: 报纸工具
 ---
 
-## Code
+## 代码
 
 ```python cookbook/tools/newspaper_tools.py
 from agno.agent import Agent
@@ -13,27 +13,27 @@ agent = Agent(
     show_tool_calls=True,
     markdown=True,
 )
-agent.print_response("Extract the main article content from https://example.com/article")
+agent.print_response("从 https://example.com/article 提取主要文章内容")
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key"> 
+  <Step title="设置您的 API 密钥">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U newspaper3k openai agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行代理">
     <CodeGroup>
     ```bash Mac
     python cookbook/tools/newspaper_tools.py

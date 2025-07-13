@@ -1,9 +1,9 @@
 ---
-title: User Input Required
-description: This example demonstrates how to implement user input collection during agent execution, allowing users to provide specific information for tool parameters.
+title: 需要用户输入
+description: 此示例演示了如何在代理执行过程中收集用户输入，允许用户提供工具参数的特定信息。
 ---
 
-## Code
+## 代码
 
 ```python cookbook/agent_concepts/user_control_flows/user_input_required.py
 from typing import List
@@ -14,18 +14,18 @@ from agno.tools import tool
 from agno.tools.function import UserInputField
 from agno.utils import pprint
 
-# You can either specify the user_input_fields leave empty for all fields to be provided by the user
+# 您可以指定 user_input_fields，或留空以允许用户提供所有字段
 @tool(requires_user_input=True, user_input_fields=["to_address"])
 def send_email(subject: str, body: str, to_address: str) -> str:
     """
-    Send an email.
+    发送电子邮件。
 
     Args:
-        subject (str): The subject of the email.
-        body (str): The body of the email.
-        to_address (str): The address to send the email to.
+        subject (str): 电子邮件的主题。
+        body (str): 电子邮件的正文。
+        to_address (str): 要发送电子邮件的地址。
     """
-    return f"Sent email to {to_address} with subject {subject} and body {body}"
+    return f"已发送邮件到 {to_address}，主题为 {subject}，正文为 {body}"
 
 agent = Agent(
     model=OpenAIChat(id="gpt-4o-mini"),
@@ -39,41 +39,41 @@ if agent.is_paused:
         input_schema: List[UserInputField] = tool.user_input_schema
 
         for field in input_schema:
-            # Display field information to the user
-            print(f"\nField: {field.name}")
-            print(f"Description: {field.description}")
-            print(f"Type: {field.field_type}")
+            # 向用户显示字段信息
+            print(f"\n字段: {field.name}")
+            print(f"描述: {field.description}")
+            print(f"类型: {field.field_type}")
 
-            # Get user input
+            # 获取用户输入
             if field.value is None:
-                user_value = input(f"Please enter a value for {field.name}: ")
-                # Update the field value
+                user_value = input(f"请输入字段 {field.name} 的值: ")
+                # 更新字段值
                 field.value = user_value
             else:
-                print(f"Value: {field.value}")
+                print(f"值: {field.value}")
 
     run_response = agent.continue_run()
     pprint.pprint_run_response(run_response)
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U agno openai
     ```
   </Step>
 
-  <Step title="Run Example">
+  <Step title="运行示例">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/user_control_flows/user_input_required.py
@@ -86,13 +86,13 @@ if agent.is_paused:
   </Step>
 </Steps>
 
-## Key Features
+## 主要功能
 
-- Uses `@tool(requires_user_input=True)` to mark tools that need user input
-- Can specify which fields require user input using `user_input_fields`
-- Implements a dynamic form-like interface for collecting user input
-- Handles both user-provided and agent-provided values
+- 使用 `@tool(requires_user_input=True)` 标记需要用户输入的工具
+- 可以使用 `user_input_fields` 指定需要用户输入的字段
+- 实现动态表单式界面以收集用户输入
+- 处理用户提供和代理提供的值
 
-## Use Cases
+## 用例
 
-- Collecting required parameters for operations
+- 收集操作所需的参数

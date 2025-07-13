@@ -1,13 +1,13 @@
 ---
-title: Agent Context
+title: Agent 上下文
 ---
 
-Agent Context is another amazing feature of Agno. `context` is a dictionary that contains a set of functions (or dependencies) that are resolved before the agent runs.
+Agent 上下文是 Agno 的另一项强大功能。`context` 是一个字典，其中包含一组在 agent 运行前解析的函数（或依赖项）。
 
 <Note>
-Context is a way to inject dependencies into the description and instructions of the agent.
+上下文是向 agent 的描述和指令注入依赖项的一种方式。
 
-You can use context to inject memories, dynamic few-shot examples, "retrieved" documents, etc.
+您可以使用上下文注入记忆、动态少样本示例、“检索到的”文档等。
 </Note>
 
 ```python agent_context.py
@@ -20,14 +20,14 @@ from agno.models.openai import OpenAIChat
 
 
 def get_top_hackernews_stories(num_stories: int = 5) -> str:
-    """Fetch and return the top stories from HackerNews.
+    """获取并返回 HackerNews 的热门故事。
 
-    Args:
-        num_stories: Number of top stories to retrieve (default: 5)
-    Returns:
-        JSON string containing story details (title, url, score, etc.)
+    参数:
+        num_stories: 要检索的热门故事数量（默认：5）
+    返回:
+        包含故事详情（标题、URL、分数等）的 JSON 字符串
     """
-    # Get top stories
+    # 获取热门故事
     stories = [
         {
             k: v
@@ -36,7 +36,7 @@ def get_top_hackernews_stories(num_stories: int = 5) -> str:
             )
             .json()
             .items()
-            if k != "kids"  # Exclude discussion threads
+            if k != "kids"  # 排除讨论串
         }
         for id in httpx.get(
             "https://hacker-news.firebaseio.com/v0/topstories.json"
@@ -45,35 +45,35 @@ def get_top_hackernews_stories(num_stories: int = 5) -> str:
     return json.dumps(stories, indent=4)
 
 
-# Create a Context-Aware Agent that can access real-time HackerNews data
+# 创建一个可以访问实时 HackerNews 数据的上下文感知 Agent
 agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
-    # Each function in the context is evaluated when the agent is run,
-    # think of it as dependency injection for Agents
+    # 上下文中的每个函数都会在 agent 运行时进行评估，
+    # 可以将其视为 Agent 的依赖注入
     context={"top_hackernews_stories": get_top_hackernews_stories},
-    # Alternatively, you can manually add the context to the instructions
+    # 或者，您可以手动将上下文添加到指令中
     instructions=dedent("""\
-        You are an insightful tech trend observer! 📰
+        你是一个敏锐的技术趋势观察者！📰
 
-        Here are the top stories on HackerNews:
+        这是 HackerNews 的热门故事：
         {top_hackernews_stories}\
     """),
-    # add_state_in_messages will make the `top_hackernews_stories` variable
-    # available in the instructions
+    # add_state_in_messages 会使 `top_hackernews_stories` 变量
+    # 在指令中可用
     add_state_in_messages=True,
     markdown=True,
 )
 
-# Example usage
+# 示例用法
 agent.print_response(
-    "Summarize the top stories on HackerNews and identify any interesting trends.",
+    "总结 HackerNews 的热门故事并识别任何有趣的趋势。",
     stream=True,
 )
 ```
 
-## Adding the entire context to the user message
+## 将整个上下文添加到用户消息中
 
-Set `add_context=True` to add the entire context to the user message. This way you don't have to manually add the context to the instructions.
+设置 `add_context=True` 将整个上下文添加到用户消息中。这样您就不必手动将上下文添加到指令中了。
 
 ```python agent_context_instructions.py
 import json
@@ -85,14 +85,14 @@ from agno.models.openai import OpenAIChat
 
 
 def get_top_hackernews_stories(num_stories: int = 5) -> str:
-    """Fetch and return the top stories from HackerNews.
+    """获取并返回 HackerNews 的热门故事。
 
-    Args:
-        num_stories: Number of top stories to retrieve (default: 5)
-    Returns:
-        JSON string containing story details (title, url, score, etc.)
+    参数:
+        num_stories: 要检索的热门故事数量（默认：5）
+    返回:
+        包含故事详情（标题、URL、分数等）的 JSON 字符串
     """
-    # Get top stories
+    # 获取热门故事
     stories = [
         {
             k: v
@@ -101,7 +101,7 @@ def get_top_hackernews_stories(num_stories: int = 5) -> str:
             )
             .json()
             .items()
-            if k != "kids"  # Exclude discussion threads
+            if k != "kids"  # 排除讨论串
         }
         for id in httpx.get(
             "https://hacker-news.firebaseio.com/v0/topstories.json"
@@ -110,20 +110,20 @@ def get_top_hackernews_stories(num_stories: int = 5) -> str:
     return json.dumps(stories, indent=4)
 
 
-# Create a Context-Aware Agent that can access real-time HackerNews data
+# 创建一个可以访问实时 HackerNews 数据的上下文感知 Agent
 agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
-    # Each function in the context is resolved when the agent is run,
-    # think of it as dependency injection for Agents
+    # 上下文中的每个函数都会在 agent 运行时解析，
+    # 可以将其视为 Agent 的依赖注入
     context={"top_hackernews_stories": get_top_hackernews_stories},
-    # We can add the entire context dictionary to the instructions
+    # 我们可以将整个上下文字典添加到指令中
     add_context=True,
     markdown=True,
 )
 
-# Example usage
+# 示例用法
 agent.print_response(
-    "Summarize the top stories on HackerNews and identify any interesting trends.",
+    "总结 HackerNews 的热门故事并识别任何有趣的趋势。",
     stream=True,
 )
 ```

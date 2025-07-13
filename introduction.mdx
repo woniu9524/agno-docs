@@ -1,18 +1,18 @@
 ---
-title: What is Agno?
-description: "Agno is a python framework for building multi-agent systems with shared memory, knowledge and reasoning."
-sidebarTitle: What is Agno?
+title: Agno 是什么？
+description: "Agno 是一个用于构建具有共享内存、知识和推理能力的多代理系统的 Python 框架。"
+sidebarTitle: Agno 是什么？
 ---
 
-Engineers and researchers use Agno to build:
+工程师和研究人员使用 Agno 来构建：
 
-- **Level 1:** Agents with tools and instructions ([example](/introduction/agents#level-1%3A-agents-with-tools-and-instructions)).
-- **Level 2:** Agents with knowledge and storage ([example](/introduction/agents#level-2%3A-agents-with-knowledge-and-storage)).
-- **Level 3:** Agents with memory and reasoning ([example](/introduction/agents#level-3%3A-agents-with-memory-and-reasoning)).
-- **Level 4:** Agent Teams that can reason and collaborate ([example](/introduction/multi-agent-systems#level-4%3A-agent-teams-that-can-reason-and-collaborate)).
-- **Level 5:** Agentic Workflows with state and determinism ([example](/introduction/multi-agent-systems#level-5%3A-agentic-workflows-with-state-and-determinism)).
+- **Level 1:** 具有工具和指令的代理（[示例](/introduction/agents#level-1%3A-agents-with-tools-and-instructions)）。
+- **Level 2:** 具有知识和存储的代理（[示例](/introduction/agents#level-2%3A-agents-with-knowledge-and-storage)）。
+- **Level 3:** 具有内存和推理能力的代理（[示例](/introduction/agents#level-3%3A-agents-with-memory-and-reasoning)）。
+- **Level 4:** 可以推理和协作的代理团队（[示例](/introduction/multi-agent-systems#level-4%3A-agent-teams-that-can-reason-and-collaborate)）。
+- **Level 5:** 具有状态和确定性的代理工作流（[示例](/introduction/multi-agent-systems#level-5%3A-agentic-workflows-with-state-and-determinism)）。
 
-**Example:** Level 1 Reasoning Agent that uses the YFinance API to answer questions:
+**示例：** 一个使用 YFinance API 回答问题的 Level 1 推理代理：
 
 ```python Reasoning Finance Agent
 from agno.agent import Agent
@@ -31,7 +31,7 @@ reasoning_agent = Agent(
 )
 ```
 
-<Accordion title="Watch the reasoning finance agent in action">
+<Accordion title="观看推理金融代理的实际演示">
   <video
     autoPlay
     muted
@@ -42,67 +42,67 @@ reasoning_agent = Agent(
   ></video>
 </Accordion>
 
-# Getting Started
+# 开始使用
 
-If you're new to Agno, learn how to build your [first Agent](/introduction/agents), chat with it on the [playground](/introduction/playground) and [monitor](/introduction/monitoring) it on [app.agno.com](https://app.agno.com).
+如果您是 Agno 新手，请了解如何构建您的[第一个 Agent](/introduction/agents)，在[沙盒环境](/introduction/playground)中与其聊天，并在 [app.agno.com](https://app.agno.com) 上对其进行[监控](/introduction/monitoring)。
 
 <CardGroup cols={3}>
   <Card
-    title="Your first Agents"
+    title="你的第一个 Agent"
     icon="user-astronaut"
     iconType="duotone"
     href="/introduction/agents"
   >
-    Learn how to build Agents with Agno
+    学习如何使用 Agno 构建 Agent
   </Card>
   <Card
-    title="Agent Playground"
+    title="Agent 沙盒环境"
     icon="comment-dots"
     iconType="duotone"
     href="introduction/playground"
   >
-    Chat with your Agents using a beautiful Agent UI
+    使用精美的 Agent UI 与您的 Agent 聊天
   </Card>
   <Card
-    title="Agent Monitoring"
+    title="Agent 监控"
     icon="rocket-launch"
     iconType="duotone"
     href="introduction/monitoring"
   >
-    Monitor your Agents on [agno.com](https://app.agno.com)
+    在 [agno.com](https://app.agno.com) 上监控您的 Agent
   </Card>
 </CardGroup>
 
-After that, dive deeper into the [concepts below](/introduction#dive-deeper) or explore the [examples gallery](/examples) to build real-world applications with Agno.
+在那之后，深入了解[以下概念](/introduction#dive-deeper)或探索[示例库](/examples)，以使用 Agno 构建实际应用。
 
-# Why Agno?
+# 为什么选择 Agno？
 
-Agno will help you build best-in-class, highly-performant agentic systems, saving you hours of research and boilerplate. Here are some key features that set Agno apart:
+Agno 将帮助您构建一流的、高性能的 Agent 系统，为您节省数小时的研究和样板代码编写时间。以下是 Agno 的一些关键特色：
 
-- **Model Agnostic**: Agno provides a unified interface to 23+ model providers, no lock-in.
-- **Highly performant**: Agents instantiate in **~3μs** and use **~6.5Kib** memory on average.
-- **Reasoning is a first class citizen**: Reasoning improves reliability and is a must-have for complex autonomous agents. Agno supports 3 approaches to reasoning: Reasoning Models, `ReasoningTools` or our custom `chain-of-thought` approach.
-- **Natively Multi-Modal**: Agno Agents are natively multi-modal, they accept text, image, audio and video as input and generate text, image, audio and video as output.
-- **Advanced Multi-Agent Architecture**: Agno provides an industry leading multi-agent architecture (**Agent Teams**) with reasoning, memory, and shared context.
-- **Built-in Agentic Search**: Agents can search for information at runtime using 20+ vector databases. Agno provides state-of-the-art Agentic RAG, **fully async and highly performant.**
-- **Built-in Memory & Session Storage**: Agents come with built-in `Storage` & `Memory` drivers that give your Agents long-term memory and session storage.
-- **Structured Outputs**: Agno Agents can return fully-typed responses using model provided structured outputs or `json_mode`.
-- **Pre-built FastAPI Routes**: After building your Agents, serve them using pre-built FastAPI routes. 0 to production in minutes.
-- **Monitoring**: Monitor agent sessions and performance in real-time on [agno.com](https://app.agno.com).
+- **与模型无关**：Agno 为 23+ 个模型提供商提供了统一的接口，没有厂商锁定。
+- **高性能**：Agent 的实例化时间约为 **3μs**，平均内存使用量约为 **6.5Kib**。
+- **推理是核心**：推理可提高可靠性，是复杂自主代理的必备功能。Agno 支持三种推理方法：推理模型、`ReasoningTools` 或我们自定义的 `chain-of-thought` 方法。
+- **原生多模态**：Agno Agent 原生支持多模态，可以接受文本、图像、音频和视频作为输入，并生成文本、图像、音频和视频作为输出。
+- **高级多代理架构**：Agno 提供行业领先的多代理架构（**Agent Teams**），具备推理、内存和共享上下文功能。
+- **内置 Agentic 搜索**：Agent 可以在运行时使用 20 多个向量数据库搜索信息。Agno 提供最先进的 Agentic RAG，**完全异步且性能卓越**。
+- **内置内存和会话存储**：Agent 配备了内置的 `Storage` 和 `Memory` 驱动程序，为您的 Agent 提供长期记忆和会话存储能力。
+- **结构化输出**：Agno Agent 可以使用模型提供的结构化输出或 `json_mode` 返回完全类型化的响应。
+- **预构建的 FastAPI 路由**：构建完 Agent 后，可以使用预构建的 FastAPI 路由来部署它们。数分钟内即可上线生产环境。
+- **监控**：在 [agno.com](https://app.agno.com) 上实时监控 Agent 会话和性能。
 
-# Dive deeper
+# 深入了解
 
-Agno is a battle-tested framework with a state of the art reasoning and multi-agent architecture, read the following guides to learn more:
+Agno 是一个经过实战检验的框架，拥有最先进的推理和多代理架构，请阅读以下指南以了解更多信息：
 
 <CardGroup cols={3}>
   <Card title="Agents" icon="user-astronaut" iconType="duotone" href="/agents">
-    Learn how to build lightning fast Agents.
+    学习如何构建闪电般快速的 Agents。
   </Card>
   <Card title="Teams" icon="microchip" iconType="duotone" href="/teams">
-    Build autonomous multi-agent teams.
+    构建自主的多代理团队。
   </Card>
   <Card title="Models" icon="cube" iconType="duotone" href="/models">
-    Use any model, any provider, no lock-in.
+    使用任何模型，任何提供商，无厂商锁定。
   </Card>
   <Card
     title="Tools"
@@ -110,7 +110,7 @@ Agno is a battle-tested framework with a state of the art reasoning and multi-ag
     iconType="duotone"
     href="/tools"
   >
-    100s of tools to extend your Agents.
+    数百种工具扩展您的 Agents。
   </Card>
   <Card
     title="Reasoning"
@@ -118,10 +118,10 @@ Agno is a battle-tested framework with a state of the art reasoning and multi-ag
     iconType="duotone"
     href="/reasoning"
   >
-    Make Agents "think" and "analyze".
+    让 Agents 进行“思考”和“分析”。
   </Card>
   <Card title="Knowledge" icon="server" iconType="duotone" href="/knowledge">
-    Give Agents domain-specific knowledge.
+    为 Agent 提供领域特定的知识。
   </Card>
   <Card
     title="Vector Databases"
@@ -129,10 +129,10 @@ Agno is a battle-tested framework with a state of the art reasoning and multi-ag
     iconType="duotone"
     href="/vectordb"
   >
-    Store and search your knowledge base.
+    存储和搜索您的知识库。
   </Card>
   <Card title="Storage" icon="database" iconType="duotone" href="/storage">
-    Persist Agent session and state in a database.
+    将 Agent 会话和状态持久化到数据库中。
   </Card>
   <Card
     title="Memory"
@@ -140,7 +140,7 @@ Agno is a battle-tested framework with a state of the art reasoning and multi-ag
     iconType="duotone"
     href="/agents/memory"
   >
-    Remember user details and session summaries.
+    记住用户详细信息和会话摘要。
   </Card>
   <Card
     title="Embeddings"
@@ -148,7 +148,7 @@ Agno is a battle-tested framework with a state of the art reasoning and multi-ag
     iconType="duotone"
     href="/embedder"
   >
-    Generate embeddings for your knowledge base.
+    为您的知识库生成 embeddings。
   </Card>
   <Card
     title="Workflows"
@@ -156,9 +156,9 @@ Agno is a battle-tested framework with a state of the art reasoning and multi-ag
     iconType="duotone"
     href="/workflows"
   >
-    Deterministic, stateful, multi-agent workflows.
+    确定性的、有状态的、多代理的工作流。
   </Card>
   <Card title="Evals" icon="shield" iconType="duotone" href="/evals">
-    Evaluate, monitor and improve your Agents.
+    评估、监控和改进您的 Agents。
   </Card>
 </CardGroup>

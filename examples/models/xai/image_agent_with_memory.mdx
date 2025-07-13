@@ -1,8 +1,8 @@
 ---
-title: Image Agent with Memory
+title: 带记忆的图像代理
 ---
 
-## Code
+## 代码
 
 ```python cookbook/models/xai/image_agent_with_memory.py
 from agno.agent import Agent
@@ -19,7 +19,7 @@ agent = Agent(
 )
 
 agent.print_response(
-    "Tell me about this image and give me the latest news about it.",
+    "告诉我关于这张图片的信息，并提供与之相关的最新新闻。",
     images=[
         Image(
             url="https://upload.wikimedia.org/wikipedia/commons/0/0c/GoldenGateBridge-001.jpg"
@@ -27,29 +27,29 @@ agent.print_response(
     ],
 )
 
-agent.print_response("Tell me where I can get more images?")
+agent.print_response("告诉我哪里可以获取更多图片？")
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">
     ```bash
     export XAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U openai duckduckgo-search agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行代理">
     ```bash
     python cookbook/models/xai/image_agent_with_memory.py
     ```
   </Step>
-</Steps> 
+</Steps>

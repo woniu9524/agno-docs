@@ -1,8 +1,8 @@
 ---
-title: Generate Video using Models Lab
+title: 使用 Models Lab 生成视频
 ---
 
-## Code
+## 代码
 
 ```python
 from agno.agent import Agent
@@ -12,39 +12,39 @@ from agno.tools.models_labs import ModelsLabTools
 video_agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
     tools=[ModelsLabTools()],
-    description="You are an AI agent that can generate videos using the ModelsLabs API.",
+    description="您是一个可以利用 ModelsLabs API 生成视频的 AI 代理。",
     instructions=[
-        "When the user asks you to create a video, use the `generate_media` tool to create the video.",
-        "The video will be displayed in the UI automatically below your response, so you don't need to show the video URL in your response.",
-        "Politely and courteously let the user know that the video has been generated and will be displayed below as soon as its ready.",
+        "当用户要求您创建视频时，请使用 `generate_media` 工具来创建视频。",
+        "视频将自动显示在您响应下方的用户界面中，因此您无需在响应中显示视频 URL。",
+        "请礼貌地告知用户视频已生成，并在准备就绪后立即在下方显示。",
     ],
     markdown=True,
     debug_mode=True,
     show_tool_calls=True,
 )
 
-video_agent.print_response("Generate a video of a cat playing with a ball")
+video_agent.print_response("生成一个关于猫玩球的视频")
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">
     ```bash
     export OPENAI_API_KEY=xxx
     export MODELS_LAB_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U openai agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行代理">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/multimodal/generate_video_using_models_lab.py

@@ -1,9 +1,9 @@
 ---
-title: Clickhouse Agent Knowledge
+title: Clickhouse Agent 知识
 sidebarTitle: Clickhouse
 ---
 
-## Setup
+## 设置
 
 ```shell
 docker run -d \
@@ -20,7 +20,7 @@ docker run -d \
   clickhouse/clickhouse-server
 ```
 
-## Example
+## 示例
 
 ```python agent_with_knowledge.py
 from agno.agent import Agent
@@ -57,7 +57,7 @@ agent.print_response("What was my last question?", stream=True)
 <Card title="Async Support ⚡">
   <div className="mt-2">
     <p>
-      Clickhouse also supports asynchronous operations, enabling concurrency and leading to better performance.
+      Clickhouse 也支持异步操作，能够实现并发并带来更好的性能。
     </p>
     
     ```python async_clickhouse.py
@@ -97,12 +97,12 @@ agent.print_response("What was my last question?", stream=True)
     ```
     
     <Tip className="mt-4">
-      Use <code>aload()</code> and <code>aprint_response()</code> methods with <code>asyncio.run()</code> for non-blocking operations in high-throughput applications.
+      在吞吐量高的应用中使用 <code>aload()</code> 和 <code>aprint_response()</code> 方法配合 <code>asyncio.run()</code> 即可实现非阻塞操作。
     </Tip>
   </div>
 </Card>
 
-## Developer Resources
+## 开发者资源
 
-- View [Cookbook (Sync)](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/vector_dbs/clickhouse_db/clickhouse.py)
-- View [Cookbook (Async)](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/vector_dbs/clickhouse_db/async_clickhouse.py)
+- 查看 [Cookbook (Sync)](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/vector_dbs/clickhouse_db/clickhouse.py)
+- 查看 [Cookbook (Async)](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/vector_dbs/clickhouse_db/async_clickhouse.py)

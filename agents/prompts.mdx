@@ -1,23 +1,23 @@
 ---
-title: Prompts
+title: 提示词
 ---
 
-We prompt Agents using `description` and `instructions` and a number of other settings. These settings are used to build the **system** message that is sent to the language model.
+我们通过 `description` 和 `instructions` 以及许多其他设置来提示 Agents。这些设置用于构建发送给语言模型的**系统**消息。
 
-Understanding how these prompts are created will help you build better Agents.
+理解这些提示词是如何创建的将帮助您构建更好的 Agent。
 
-The 2 key parameters are:
+关键的两个参数是：
 
-1. **Description**: A description that guides the overall behaviour of the agent.
-2. **Instructions**: A list of precise, task-specific instructions on how to achieve its goal.
+1. **Description**: 指导 Agent 整体行为的描述。
+2. **Instructions**: 关于如何实现其目标的精确、任务特定的指令列表。
 
 <Note>
-  Description and instructions only provide a formatting benefit, we do not alter or abstract any information and you can always set the `system_message` to provide your own system prompt.
+Description and instructions only provide a formatting benefit, we do not alter or abstract any information and you can always set the `system_message` to provide your own system prompt.
 </Note>
 
-## System message
+## 系统消息
 
-The system message is created using `description`, `instructions` and a number of other settings. The `description` is added to the start of the system message and `instructions` are added as a list after `Instructions`. For example:
+系统消息是通过 `description`、`instructions` 和其他一些设置创建的。`description` 会添加到系统消息的开头，而 `instructions` 则作为列表添加到 "Instructions" 之后。例如：
 
 ```python instructions.py
 from agno.agent import Agent
@@ -31,7 +31,7 @@ agent = Agent(
 agent.print_response("Tell me a 2 sentence horror story.", stream=True)
 ```
 
-Will translate to (set `debug_mode=True` to view the logs):
+将转换为（设置 `debug_mode=True` 以查看日志）：
 
 ```js
 DEBUG    ============== system ==============
@@ -59,9 +59,9 @@ DEBUG    * Completion tokens details:   {'reasoning_tokens': 0}
 DEBUG    **************** METRICS END ******************
 ```
 
-## Set the system message directly
+## 直接设置系统消息
 
-You can manually set the system message using the `system_message` parameter.
+您可以通过 `system_message` 参数手动设置系统消息。
 
 ```python
 from agno.agent import Agent
@@ -71,52 +71,52 @@ agent.print_response("Love in the year 12000.")
 ```
 
 <Tip>
-Some models via some model providers, like `llama-3.2-11b-vision-preview` on Groq, require no system message with other messages. To remove the system message, set `create_default_system_message=False` and `system_message=None`. Additionally, if `markdown=True` is set, it will add a system message, so either remove it or explicitly disable the system message.
+一些模型提供商的模型，例如 Groq 上的 `llama-3.2-11b-vision-preview`，在需要其他消息时不需要系统消息。要删除系统消息，请设置 `create_default_system_message=False` 和 `system_message=None`。此外，如果设置了 `markdown=True`，它将添加一个系统消息，因此请删除它或显式禁用系统消息。
 </Tip>
 
-## User message
+## 用户消息
 
-The input `message` sent to the `Agent.run()` or `Agent.print_response()` functions is used as the user message.
+发送给 `Agent.run()` 或 `Agent.print_response()` 函数的输入 `message` 用作用户消息。
 
-## Default system message
+## 默认系统消息
 
-The Agent creates a default system message that can be customized using the following parameters:
+Agent 会创建一个默认的系统消息，可以使用以下参数进行自定义：
 
-| Parameter | Type | Default | Description |
+| 参数 | 类型 | 默认值 | 描述 |
 |-----------|------|---------|-------------|
-| `description` | `str` | `None` | A description of the Agent that is added to the start of the system message. |
-| `goal` | `str` | `None` | Describe the task the agent should achieve. |
-| `instructions` | `List[str]` | `None` | List of instructions added to the system prompt in `<instructions>` tags. Default instructions are also created depending on values for `markdown`, `output_model` etc. |
-| `additional_context` | `str` | `None` | Additional context added to the end of the system message. |
-| `expected_output` | `str` | `None` | Provide the expected output from the Agent. This is added to the end of the system message. |
-| `markdown` | `bool` | `False` | Add an instruction to format the output using markdown. |
-| `add_datetime_to_instructions` | `bool` | `False` | If True, add the current datetime to the prompt to give the agent a sense of time. This allows for relative times like "tomorrow" to be used in the prompt |
-| `system_message` | `str` | `None` | System prompt: provide the system prompt as a string |
-| `system_message_role` | `str` | `system` | Role for the system message. |
-| `create_default_system_message` | `bool` | `True` | If True, build a default system prompt using agent settings and use that. |
+| `description` | `str` | `None` | Agent 的描述，添加到系统消息的开头。 |
+| `goal` | `str` | `None` | 描述 Agent 应完成的任务。 |
+| `instructions` | `List[str]` | `None` | 添加到系统提示中的指令列表，包含在 `<instructions>` 标签内。默认指令也会根据 `markdown`、`output_model` 等值创建。 |
+| `additional_context` | `str` | `None` | 添加到系统消息末尾的额外上下文。 |
+| `expected_output` | `str` | `None` | 提供 Agent 的预期输出。这会添加到系统消息的末尾。 |
+| `markdown` | `bool` | `False` | 添加一条指令，使用 markdown 格式化输出。 |
+| `add_datetime_to_instructions` | `bool` | `False` |如果为 True，则将当前日期时间添加到提示词中，让 Agent 了解时间概念。这允许在提示词中使用相对时间，如“明天”。 |
+| `system_message` | `str` | `None` | 系统提示：提供系统提示作为字符串。 |
+| `system_message_role` | `str` | `system` | 系统消息的角色。 |
+| `create_default_system_message` | `bool` | `True` | 如果为 True，则使用 Agent 设置构建默认系统提示。 |
 
 <Tip>
-Disable the default system message by setting `create_default_system_message=False`.
+通过将 `create_default_system_message` 设置为 `False` 来禁用默认系统消息。
 </Tip>
 
-## Default user message
+## 默认用户消息
 
-The Agent creates a default user message, which is either the input message or a message with the `context` if `enable_rag=True`. The default user message can be customized using:
+Agent 会创建一个默认的用户消息，该消息是输入消息或带有 `context` 的消息（如果 `enable_rag=True`）。默认用户消息可以使用以下内容进行自定义：
 
-| Parameter | Type | Default | Description |
+| 参数 | 类型 | 默认值 | 描述 |
 |-----------|------|---------|-------------|
-| `context` | `str` | `None` | Additional context added to the end of the user message. |
-| `add_context` | `bool` | `False` | If True, add the context to the user prompt. |
-| `resolve_context` | `bool` | `True` | If True, resolve the context (i.e. call any functions in the context) before adding it to the user prompt. |
-| `add_references` | `bool` | `False` | Enable RAG by adding references from the knowledge base to the prompt. |
-| `retriever` | `Callable` | `None` | Function to get references to add to the user_message. This function, if provided, is called when `add_references` is True. |
-| `references_format` | `Literal["json", "yaml"]` | `"json"` | Format of the references. |
-| `add_history_to_messages` | `bool` | `False` | If true, adds the chat history to the messages sent to the Model. |
-| `num_history_responses` | `int` | `3` | Number of historical responses to add to the messages. |
-| `user_message` | `Union[List, Dict, str]` | `None` | Provide the user prompt as a string. Note: this will ignore the message sent to the run function. |
-| `user_message_role` | `str` | `user` | Role for the user message. |
-| `create_default_user_message` | `bool` | `True` | If True, build a default user prompt using references and chat history. |
+| `context` | `str` | `None` | 添加到用户消息末尾的额外上下文。 |
+| `add_context` | `bool` | `False` | 如果为 True，则将上下文添加到用户提示词中。 |
+| `resolve_context` | `bool` | `True` | 如果为 True，则在将上下文添加到用户提示词之前解析上下文（即调用上下文中的任何函数）。 |
+| `add_references` | `bool` | `False` | 通过从知识库中添加引用来启用 RAG。 |
+| `retriever` | `Callable` | `None` | 获取要添加到 user_message 的引用的函数。如果提供了此函数，则在 `add_references` 为 True 时调用它。 |
+| `references_format` | `Literal["json", "yaml"]` | `"json"` | 引用的格式。 |
+| `add_history_to_messages` | `bool` | `False` | 如果为 True，则将聊天历史记录添加到发送给模型的消息中。 |
+| `num_history_responses` | `int` | `3` | 要添加到消息中的历史响应数量。 |
+| `user_message` | `Union[List, Dict, str]` | `None` | 提供用户提示作为字符串。注意：这将忽略发送到 run 函数的消息。 |
+| `user_message_role` | `str` | `user` | 用户消息的角色。 |
+| `create_default_user_message` | `bool` | `True` | 如果为 True，则使用引用和聊天历史记录构建默认用户提示。 |
 
 <Tip>
-Disable the default user message by setting `create_default_user_message=False`.
+通过将 `create_default_user_message` 设置为 `False` 来禁用默认用户消息。
 </Tip>

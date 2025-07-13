@@ -1,8 +1,8 @@
 ---
-title: Data Analyst
+title: 数据分析师
 ---
 
-## Code
+## 代码
 
 ```python cookbook/agent_concepts/async/data_analyst.py
 import asyncio
@@ -26,8 +26,8 @@ agent = Agent(
     markdown=True,
     show_tool_calls=True,
     additional_context=dedent("""\
-    You have access to the following tables:
-    - movies: contains information about movies from IMDB.
+    您可以使用以下表：
+    - movies：包含有关 IMDB 电影的信息。
     """),
 )
 asyncio.run(
@@ -35,12 +35,12 @@ asyncio.run(
 )
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install libraries">
+  <Step title="安装库">
 
     ```bash
     pip install -U openai agno duckdb
@@ -48,7 +48,7 @@ asyncio.run(
 
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行 Agent">
 
     <CodeGroup>
 

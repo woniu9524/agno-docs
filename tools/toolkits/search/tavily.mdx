@@ -2,11 +2,11 @@
 title: Tavily
 ---
 
-**TavilyTools** enable an Agent to search the web using the Tavily API.
+**TavilyTools** 使 Agent 能够使用 Tavily API 搜索网络。
 
-## Prerequisites
+## 先决条件
 
-The following examples requires the `tavily-python` library and an API key from [Tavily](https://tavily.com/).
+以下示例需要 `tavily-python` 库和来自 [Tavily](https://tavily.com/) 的 API 密钥。
 
 ```shell
 pip install -U tavily-python
@@ -16,9 +16,9 @@ pip install -U tavily-python
 export TAVILY_API_KEY=***
 ```
 
-## Example
+## 示例
 
-The following agent will run a search on Tavily for "language models" and print the response.
+下面的 agent 将在 Tavily 上搜索“language models”并打印响应。
 
 ```python cookbook/tools/tavily_tools.py
 from agno.agent import Agent
@@ -28,26 +28,26 @@ agent = Agent(tools=[TavilyTools()], show_tool_calls=True)
 agent.print_response("Search tavily for 'language models'", markdown=True)
 ```
 
-## Toolkit Params
+## Toolkit 参数
 
-| Parameter            | Type                           | Default      | Description                                                                                  |
-| -------------------- | ------------------------------ | ------------ | -------------------------------------------------------------------------------------------- |
-| `api_key`            | `str`                          | -            | API key for authentication. If not provided, will check TAVILY_API_KEY environment variable. |
-| `search`             | `bool`                         | `True`       | Enables search functionality.                                                                |
-| `max_tokens`         | `int`                          | `6000`       | Maximum number of tokens to use in search results.                                           |
-| `include_answer`     | `bool`                         | `True`       | Whether to include an AI-generated answer summary in the response.                           |
-| `search_depth`       | `Literal['basic', 'advanced']` | `'advanced'` | Depth of search - 'basic' for faster results or 'advanced' for more comprehensive search.    |
-| `format`             | `Literal['json', 'markdown']`  | `'markdown'` | Output format - 'json' for raw data or 'markdown' for formatted text.                        |
-| `use_search_context` | `bool`                         | `False`      | Whether to use Tavily's search context API instead of regular search.                        |
+| 参数            | 类型                           | 默认值      | 描述                                                                                                                               |
+| -------------- | ------------------------------ | ------------ | ---------------------------------------------------------------------------------------------------------------------------------- |
+| `api_key`      | `str`                          | -            | 用于身份验证的 API 密钥。如果未提供，将检查 TAVILY_API_KEY 环境变量。                                                                    |
+| `search`       | `bool`                         | `True`       | 启用搜索功能。                                                                                                                     |
+| `max_tokens`   | `int`                          | `6000`       | 搜索结果中使用的最大 token 数。                                                                                                      |
+| `include_answer` | `bool`                         | `True`       | 是否在响应中包含 AI 生成的答案摘要。                                                                                                  |
+| `search_depth` | `Literal['basic', 'advanced']` | `'advanced'` | 搜索深度 - 'basic' 用于更快的结果，或 'advanced' 用于更全面的搜索。                                                                          |
+| `format`       | `Literal['json', 'markdown']`  | `'markdown'` | 输出格式 - 'json' 用于原始数据或 'markdown' 用于格式化文本。                                                                            |
+| `use_search_context` | `bool`                         | `False`      | 是否使用 Tavily 的搜索上下文 API 而不是常规搜索。                                                                                         |
 
-## Toolkit Functions
+## Toolkit 功能
 
-| Function                  | Description                                                                                                                                                                                              |
-| ------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `web_search_using_tavily` | Searches the web for a query using Tavily API. Takes a query string and optional max_results parameter (default 5). Returns results in specified format with titles, URLs, content and relevance scores. |
-| `web_search_with_tavily`  | Alternative search function that uses Tavily's search context API. Takes a query string and returns contextualized search results. Only available if use_search_context is True.                         |
+| 功能                  | 描述                                                                                                                                                                                                    |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `web_search_using_tavily` | 使用 Tavily API 搜索特定查询的网络。接受一个查询字符串和可选的 max_results 参数（默认为 5）。以指定的格式返回结果，包括标题、URL、内容和相关性分数。                                                                      |
+| `web_search_with_tavily`  | 使用 Tavily 搜索上下文 API 的替代搜索功能。接受一个查询字符串并返回情境化搜索结果。仅当 use_search_context 为 True 时可用。                                                                                         |
 
-## Developer Resources
+## 开发者资源
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/tavily.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/tavily_tools.py)
+- 查看 [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/tavily.py)
+- 查看 [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/tavily_tools.py)

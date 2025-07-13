@@ -1,65 +1,65 @@
 ---
-title: Webex Tools
+title: Webex 工具
 ---
 
-## Code
+## 代码
 
 ```python cookbook/tools/webex_tools.py
 from agno.agent import Agent
 from agno.tools.webex import WebexTools
 
 agent = Agent(
-    name="Webex Assistant",
+    name="Webex 助手",
     tools=[WebexTools()],
-    description="You are a Webex assistant that can send messages and manage spaces.",
+    description="你是一个 Webex 助手，可以发送消息和管理空间。",
     instructions=[
-        "You can help users by:",
-        "- Listing available Webex spaces",
-        "- Sending messages to spaces",
-        "Always confirm the space exists before sending messages.",
+        "你可以通过以下方式帮助用户：",
+        "- 列出可用的 Webex 空间",
+        "- 向空间发送消息",
+        "发送消息前，请务必确认空间存在。",
     ],
     show_tool_calls=True,
     markdown=True,
 )
 
-# List all spaces in Webex
-agent.print_response("List all spaces on our Webex", markdown=True)
+# 列出 Webex 中的所有空间
+agent.print_response("列出我们 Webex 中的所有空间", markdown=True)
 
-# Send a message to a Space in Webex
+# 向 Webex 中的一个空间发送消息
 agent.print_response(
-    "Send a funny ice-breaking message to the webex Welcome space", markdown=True
+    "向 Webex 的 Welcome 空间发送一条有趣的破冰消息", markdown=True
 )
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set up Webex Bot">
-    1. Go to [Webex Developer Portal](https://developer.webex.com/)
-    2. Create a Bot:
-       - Navigate to My Webex Apps → Create a Bot
-       - Fill in the bot details and click Add Bot
-    3. Get your access token:
-       - Copy the token shown after bot creation
-       - Or regenerate via My Webex Apps → Edit Bot
+  <Step title="设置 Webex 机器人">
+    1. 前往 [Webex 开发者门户](https://developer.webex.com/)
+    2. 创建一个机器人：
+       - 导航到 我的 Webex 应用 → 创建机器人
+       - 填写机器人详细信息并点击 添加机器人
+    3. 获取你的访问令牌：
+       - 复制创建机器人后显示的令牌
+       - 或者通过 我的 Webex 应用 → 编辑机器人 重新生成
   </Step>
 
-  <Step title="Set your API keys">
+  <Step title="设置你的 API 密钥">
     ```bash
     export WEBEX_ACCESS_TOKEN=xxx
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U webexpythonsdk openai agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行 Agent">
     <CodeGroup>
     ```bash Mac
     python cookbook/tools/webex_tools.py
@@ -70,4 +70,4 @@ agent.print_response(
     ```
     </CodeGroup>
   </Step>
-</Steps> 
+</Steps>

@@ -1,8 +1,8 @@
 ---
-title: Cohere Embedder
+title: Cohere 嵌入器
 ---
 
-## Code
+## 代码
 
 ```python
 from agno.agent import AgentKnowledge
@@ -10,13 +10,13 @@ from agno.embedder.cohere import CohereEmbedder
 from agno.vectordb.pgvector import PgVector
 
 embeddings = CohereEmbedder().get_embedding(
-    "The quick brown fox jumps over the lazy dog."
+    "敏捷的棕色狐狸跃过懒狗。"
 )
-# Print the embeddings and their dimensions
-print(f"Embeddings: {embeddings[:5]}")
-print(f"Dimensions: {len(embeddings)}")
+# 打印嵌入向量及其维度
+print(f"嵌入向量: {embeddings[:5]}")
+print(f"维度: {len(embeddings)}")
 
-# Example usage:
+# 用法示例:
 knowledge_base = AgentKnowledge(
     vector_db=PgVector(
         db_url="postgresql+psycopg://ai:ai@localhost:5532/ai",
@@ -27,24 +27,24 @@ knowledge_base = AgentKnowledge(
 )
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">
     ```bash
     export COHERE_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U sqlalchemy 'psycopg[binary]' pgvector cohere agno
     ```
   </Step>
 
-  <Step title="Run PgVector">
+  <Step title="运行 PgVector">
     ```bash
     docker run -d \
       -e POSTGRES_DB=ai \
@@ -58,7 +58,7 @@ knowledge_base = AgentKnowledge(
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行 Agent">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/knowledge/embedders/cohere_embedder.py

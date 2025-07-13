@@ -3,90 +3,90 @@ title: Zoom
 sidebarTitle: Zoom
 ---
 
-**Zoom** enables an Agent to interact with Zoom, allowing it to schedule meetings, manage recordings, and handle various meeting-related operations through the Zoom API. The toolkit uses Zoom's Server-to-Server OAuth authentication for secure API access.
+**Zoom** 使 Agent 能够与 Zoom 互动，允许它通过 Zoom API 安排会议、管理录制文件并处理各种与会议相关的操作。该工具包使用 Zoom 的服务器到服务器 OAuth 身份验证来实现安全的 API 访问。
 
-## Prerequisites
+## 前提条件
 
-The Zoom toolkit requires the following setup:
+Zoom 工具包需要进行以下设置：
 
-1. Install required dependencies:
+1. 安装必要的依赖项：
 ```shell
 pip install requests
 ```
 
-2. Set up Server-to-Server OAuth app in Zoom Marketplace:
-   - Go to [Zoom Marketplace](https://marketplace.zoom.us/)
-   - Click "Develop" → "Build App"
-   - Choose "Server-to-Server OAuth" app type
-   - Configure the app with required scopes:
+2. 在 Zoom Marketplace 中设置服务器到服务器 OAuth 应用：
+   - 前往 [Zoom Marketplace](https://marketplace.zoom.us/)
+   - 点击“Develop” → “Build App”
+   - 选择“Server-to-Server OAuth”应用类型
+   - 使用必需的作用域配置应用：
      - `/meeting:write:admin`
      - `/meeting:read:admin`
      - `/recording:read:admin`
-   - Note your Account ID, Client ID, and Client Secret
+   - 记下您的 Account ID、Client ID 和 Client Secret
 
-3. Set up environment variables:
+3. 设置环境变量：
 ```shell
 export ZOOM_ACCOUNT_ID=your_account_id
 export ZOOM_CLIENT_ID=your_client_id
 export ZOOM_CLIENT_SECRET=your_client_secret
 ```
 
-## Example Usage
+## 示例用法
 
 ```python
 from agno.agent import Agent
 from agno.tools.zoom import ZoomTools
 
-# Initialize Zoom tools with credentials
+# 使用凭证初始化 Zoom 工具
 zoom_tools = ZoomTools(
     account_id="your_account_id",
     client_id="your_client_id",
     client_secret="your_client_secret"
 )
 
-# Create an agent with Zoom capabilities
+# 创建一个具有 Zoom 功能的 Agent
 agent = Agent(tools=[zoom_tools], show_tool_calls=True)
 
-# Schedule a meeting
+# 安排会议
 response = agent.print_response("""
-Schedule a team meeting with the following details:
+安排一次团队会议，具体详情如下：
 - Topic: Weekly Team Sync
 - Time: Tomorrow at 2 PM UTC
 - Duration: 45 minutes
 """, markdown=True)
 ```
 
-## Toolkit Parameters
+## 工具包参数
 
-| Parameter           | Type     | Default      | Description                                                |
-| ------------------ | -------- | ------------ | ---------------------------------------------------------- |
-| `account_id`       | `str`    | `None`       | Zoom account ID (from Server-to-Server OAuth app)          |
-| `client_id`        | `str`    | `None`       | Client ID (from Server-to-Server OAuth app)                |
-| `client_secret`    | `str`    | `None`       | Client secret (from Server-to-Server OAuth app)            |
-
-
-## Toolkit Functions
-
-| Function                | Description                                                |
-| ---------------------- | ---------------------------------------------------------- |
-| `schedule_meeting`     | Schedule a new Zoom meeting                                |
-| `get_upcoming_meetings`| Get a list of upcoming meetings                            |
-| `list_meetings`        | List all meetings based on type                            |
-| `get_meeting_recordings`| Get recordings for a specific meeting                      |
-| `delete_meeting`       | Delete a scheduled meeting                                 |
-| `get_meeting`          | Get detailed information about a specific meeting          |
+| 参数           | 类型     | 默认值      | 描述                                                     |
+| -------------- | -------- | ------------ | -------------------------------------------------------- |
+| `account_id`   | `str`    | `None`       | Zoom 账户 ID（来自服务器到服务器 OAuth 应用）          |
+| `client_id`    | `str`    | `None`       | 客户端 ID（来自服务器到服务器 OAuth 应用）               |
+| `client_secret`| `str`    | `None`       | 客户端密钥（来自服务器到服务器 OAuth 应用）              |
 
 
-## Rate Limits
+## 工具包函数
 
-The Zoom API has rate limits that vary by endpoint and account type:
-- Server-to-Server OAuth apps: 100 requests/second
-- Meeting endpoints: Specific limits apply based on account type
-- Recording endpoints: Lower rate limits, check Zoom documentation
+| 函数                | 描述                                           |
+| -------------------- | ---------------------------------------------- |
+| `schedule_meeting`   | 安排新的 Zoom 会议                             |
+| `get_upcoming_meetings`| 获取即将举行的会议列表                         |
+| `list_meetings`      | 根据类型列出所有会议                           |
+| `get_meeting_recordings`| 获取特定会议的录制文件                         |
+| `delete_meeting`     | 删除已安排的会议                                 |
+| `get_meeting`        | 获取特定会议的详细信息                           |
 
-For detailed rate limits, refer to [Zoom API Rate Limits](https://developers.zoom.us/docs/api/#rate-limits).
 
-## Developer Resources
+## 速率限制
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/zoom.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/zoom_tools.py)
+Zoom API 的速率限制因端点和账户类型而异：
+- 服务器到服务器 OAuth 应用：100 次请求/秒
+- 会议端点：根据账户类型有特定的限制
+- 录制文件端点：速率限制较低，请查阅 Zoom 文档
+
+有关详细的速率限制，请参阅 [Zoom API 速率限制](https://developers.zoom.us/docs/api/#rate-limits)。
+
+## 开发者资源
+
+- 查看 [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/zoom.py)
+- 查看 [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/zoom_tools.py)

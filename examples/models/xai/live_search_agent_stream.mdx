@@ -1,8 +1,8 @@
 ---
-title: Live Search Streaming Agent
+title: 实时搜索流式传输代理
 ---
 
-## Code
+## 代码
 
 ```python cookbook/models/xai/live_search_agent_stream.py
 from agno.agent import Agent
@@ -20,30 +20,30 @@ agent = Agent(
     markdown=True,
 )
 agent.print_response(
-    "Provide me a digest of world news in the last 24 hours.", stream=True
+    "为我提供过去 24 小时内世界新闻的摘要。", stream=True
 )
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">
     ```bash
     export XAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U openai agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行代理">
     ```bash
     python cookbook/models/xai/live_search_agent_stream.py
     ```
   </Step>
-</Steps> 
+</Steps>

@@ -1,23 +1,23 @@
 ---
-title: What is Reasoning?
-sidebarTitle: Overview
-description: Reasoning gives Agents the ability to "think" before responding and "analyze" the results of their actions (i.e. tool calls), greatly improving the Agents' ability to solve problems that require sequential tool calls.
+title: 什么是推理？
+sidebarTitle: 概述
+description: 推理使智能体（Agents）在响应前能够“思考”，并“分析”其行动（即工具调用）的结果，极大地提高了智能体解决需要顺序工具调用的问题的能力。
 ---
 
-Reasoning Agents go through an internal chain of thought before responding, working through different ideas, validating and correcting as needed. Agno supports 3 approaches to reasoning:
-1. [Reasoning Models](#reasoning-models)
-2. [Reasoning Tools](#reasoning-tools)
-3. [Reasoning Agents](#reasoning-agents)
+推理智能体（Reasoning Agents）在响应前会经历一个内部的思考链（chain of thought），尝试不同的想法，并在需要时进行验证和纠正。Agno 支持 3 种推理方法：
+1. [推理模型](#reasoning-models)
+2. [推理工具](#reasoning-tools)
+3. [推理智能体](#reasoning-agents)
 
-Which approach works best will depend on your use case, we recommend trying them all and immersing yourself in this new era of Reasoning Agents.
+哪种方法最适合取决于您的用例，我们建议您尝试所有方法，并沉浸在推理智能体这个新时代中。
 
-## Reasoning Models
+## 推理模型
 
-Reasoning models are a separate class of large language models trained with reinforcement learning to think before they answer. They produce an internal chain of thought before responding. Examples of reasoning models include OpenAI o-series, Claude 3.7 sonnet in extended-thinking mode, Gemini 2.0 flash thinking and DeepSeek-R1.
+推理模型是一类专门的大型语言模型，通过强化学习训练，使其能够在回答前进行思考。它们在响应前会产生一个内部的思考链。推理模型的例子包括 OpenAI o-series、扩展思考模式下的 Claude 3.7 sonnet、Gemini 2.0 flash thinking 和 DeepSeek-R1。
 
-Reasoning at the model layer is all about what the model does **before it starts generating a response**. Reasoning models excel at single-shot use-cases. They're perfect for solving hard problems (coding, math, physics) that don't require multiple turns, or calling tools sequentially.
+模型层的推理关系到模型在**开始生成响应之前**所做的一切。推理模型在单次解决（single-shot）用例方面表现出色。它们非常适合解决不需要多次交互或顺序调用工具的难题（编码、数学、物理）。
 
-### Example
+### 示例
 
 ```python o3_mini.py
 from agno.agent import Agent
@@ -31,17 +31,17 @@ agent.print_response(
 )
 ```
 
-Read more about reasoning models in the [Reasoning Models Guide](/reasoning/reasoning-models).
+在 [推理模型指南](/reasoning/reasoning-models) 中阅读更多关于推理模型的信息。
 
-## Reasoning Model + Response Model
+## 推理模型 + 回应模型
 
-What if we wanted to use a Reasoning Model to reason but a different model to generate the response? It is well known that reasoning models are great at solving problems but not that great at responding in a natural way (like claude sonnet or gpt-4o).
+如果我们想使用一个推理模型进行推理，但使用另一个模型来生成响应，会怎么样？众所周知，推理模型在解决问题方面非常出色，但在以自然的方式进行响应方面（如 Claude sonnet 或 GPT-4o）却不是那么擅长。
 
-By using a separate model for reasoning and a different model for responding, we can have the best of both worlds.
+通过使用一个单独的模型进行推理，另一个模型进行响应，我们可以获得两全其美的好处。
 
-### Example
+### 示例
 
-Let's use deepseek-r1 from Groq for reasoning and claude sonnet for a natural response.
+让我们使用 Groq 的 deepseek-r1 进行推理，并使用 Claude sonnet 进行自然回应。
 
 ```python deepseek_plus_claude.py
 from agno.agent import Agent
@@ -54,16 +54,16 @@ deepseek_plus_claude = Agent(
         id="deepseek-r1-distill-llama-70b", temperature=0.6, max_tokens=1024, top_p=0.95
     ),
 )
-deepseek_plus_claude.print_response("9.11 and 9.9 -- which is bigger?", stream=True)
+deepseek_plus_claude.print_response("9.11 和 9.9 -- 哪个更大?", stream=True)
 ```
 
-## Reasoning Tools
+## 推理工具
 
-By giving a model a **"think" tool**, we can greatly improve its reasoning capabilities by providing a dedicated space for structured thinking. This is a simple, yet effective approach to add reasoning to non-reasoning models.
+通过向模型提供一个 **“思考”工具**，我们可以为一个专门的结构化思考空间，从而极大地提高其推理能力。这是一种简单而有效的方法，可以为非推理模型添加推理能力。
 
-The research was first published by Anthropic in [this blog post](https://www.anthropic.com/engineering/claude-think-tool) but has been practiced by many AI Engineers (including our own team) long before it was published.
+该研究最初由 Anthropic 在[这篇博文](https://www.anthropic.com/engineering/claude-think-tool)中发布，但在此之前已被许多 AI 工程师（包括我们自己的团队）实践了。
 
-### Example
+### 示例
 
 ```python claude_thinking_tools.py
 from agno.agent import Agent
@@ -95,17 +95,17 @@ if __name__ == "__main__":
     )
 ```
 
-Read more about reasoning tools in the [Reasoning Tools Guide](/reasoning/reasoning-tools).
+在 [推理工具指南](/reasoning/reasoning-tools) 中阅读更多关于推理工具的信息。
 
-## Reasoning Agents
+## 推理智能体
 
-Reasoning Agents are a new type of multi-agent system developed by Agno that combines chain of thought reasoning with tool use.
+推理智能体（Reasoning Agents）是 Agno 开发的一种新型多智能体系统，它将思考链推理与工具使用相结合。
 
-You can enable reasoning on any Agent by setting `reasoning=True`.
+您可以通过设置 `reasoning=True` 来为任何智能体启用推理。
 
-When an Agent with `reasoning=True` is given a task, a separate "Reasoning Agent" first solves the problem using chain-of-thought. At each step, it calls tools to gather information, validate results, and iterate until it reaches a final answer. Once the Reasoning Agent has a final answer, it hands the results back to the original Agent to validate and provide a response.
+当一个设置了 `reasoning=True` 的智能体接到任务时，一个独立的“推理智能体”会首先使用思考链来解决问题。在每个步骤中，它会调用工具来收集信息、验证结果并进行迭代，直到得出最终答案。一旦推理智能体得出最终答案，它会将结果交回给原始智能体进行验证并提供响应。
 
-### Example
+### 示例
 
 ```python reasoning_agent.py
 from agno.agent import Agent
@@ -124,4 +124,4 @@ reasoning_agent.print_response(
 )
 ```
 
-Read more about reasoning agents in the [Reasoning Agents Guide](/reasoning/reasoning-agents).
+在 [推理智能体指南](/reasoning/reasoning-agents) 中阅读更多关于推理智能体的信息。

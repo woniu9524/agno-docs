@@ -3,11 +3,11 @@ title: Python
 sidebarTitle: Python
 ---
 
-**PythonTools** enable an Agent to write and run python code.
+**PythonTools** 使 Agent 能够编写和运行 Python 代码。
 
-## Example
+## 示例
 
-The following agent will write a python script that creates the fibonacci series, save it to a file, run it and return the result.
+下面的 Agent 将编写一个创建斐波那契数列的 Python 脚本，将其保存到文件，运行它并返回结果。
 
 ```python cookbook/tools/python_tools.py
 from agno.agent import Agent
@@ -17,32 +17,32 @@ agent = Agent(tools=[PythonTools()], show_tool_calls=True)
 agent.print_response("Write a python script for fibonacci series and display the result till the 10th number")
 ```
 
-## Toolkit Params
+## Toolkit 参数
 
-| Parameter      | Type   | Default | Description                                                                                             |
-| -------------- | ------ | ------- | ------------------------------------------------------------------------------------------------------- |
-| `base_dir`     | `Path` | `None`  | Specifies the base directory for operations. Default is None, indicating the current working directory. |
-| `save_and_run` | `bool` | `True`  | If True, saves and runs the code. Useful for execution of scripts after saving.                         |
-| `pip_install`  | `bool` | `False` | Enables pip installation of required packages before running the code.                                  |
-| `run_code`     | `bool` | `False` | Determines whether the code should be executed.                                                         |
-| `list_files`   | `bool` | `False` | If True, lists all files in the specified base directory.                                               |
-| `run_files`    | `bool` | `False` | If True, runs the Python files found in the specified directory.                                        |
-| `read_files`   | `bool` | `False` | If True, reads the contents of the files in the specified directory.                                    |
-| `safe_globals` | `dict` | -       | Specifies a dictionary of global variables that are considered safe to use during the execution.        |
-| `safe_locals`  | `dict` | -       | Specifies a dictionary of local variables that are considered safe to use during the execution.         |
+| 参数      | 类型   | 默认值 | 描述                                                                                                                            |
+| -------------- | ------ | ------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| `base_dir`     | `Path` | `None`  | 指定操作的基目录。默认为 `None`，表示当前工作目录。 |
+| `save_and_run` | `bool` | `True`  | 如果为 `True`，则保存并运行代码。适用于保存后执行脚本。                                                                         |
+| `pip_install`  | `bool` | `False` | 在运行代码之前启用必需包的 pip 安装。                                                                                             |
+| `run_code`     | `bool` | `False` | 确定是否应执行代码。                                                                                                              |
+| `list_files`   | `bool` | `False` | 如果为 `True`，则列出指定基目录中的所有文件。                                                                                     |
+| `run_files`    | `bool` | `False` | 如果为 `True`，则运行在指定目录中找到的 Python 文件。                                                                              |
+| `read_files`   | `bool` | `False` | 如果为 `True`，则读取指定目录中文件的内容。                                                                                       |
+| `safe_globals` | `dict` | -       | 指定一组全局变量，这些变量在执行期间被认为是安全的。                                                                            |
+| `safe_locals`  | `dict` | -       | 指定一组局部变量，这些变量在执行期间被认为是安全的。                                                                            |
 
-## Toolkit Functions
+## Toolkit 函数
 
-| Function                          | Description                                                                                                                                                                                                                                                           |
-| --------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `save_to_file_and_run`            | This function saves Python code to a file called `file_name` and then runs it. If successful, returns the value of `variable_to_return` if provided otherwise returns a success message. If failed, returns an error message. Make sure the file_name ends with `.py` |
-| `run_python_file_return_variable` | This function runs code in a Python file. If successful, returns the value of `variable_to_return` if provided otherwise returns a success message. If failed, returns an error message.                                                                              |
-| `read_file`                       | Reads the contents of the file `file_name` and returns the contents if successful.                                                                                                                                                                                    |
-| `list_files`                      | Returns a list of files in the base directory                                                                                                                                                                                                                         |
-| `run_python_code`                 | This function runs Python code in the current environment. If successful, returns the value of `variable_to_return` if provided otherwise returns a success message. If failed, returns an error message.                                                             |
-| `pip_install_package`             | This function installs a package using pip in the current environment. If successful, returns a success message. If failed, returns an error message.                                                                                                                 |
+| 函数                          | 描述                                                                                                                                                                                                                         |
+| ----------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `save_to_file_and_run`        | 此函数将 Python 代码保存到名为 `file_name` 的文件中，然后运行它。如果成功，则返回 `variable_to_return` 的值（如果已提供），否则返回成功消息。如果失败，则返回错误消息。请确保 `file_name` 以 `.py` 结尾。 |
+| `run_python_file_return_variable` | 此函数运行 Python 文件中的代码。如果成功，则返回 `variable_to_return` 的值（如果已提供），否则返回成功消息。如果失败，则返回错误消息。                                                                                                       |
+| `read_file`                   | 读取 `file_name` 文件的内容，成功时返回文件内容。                                                                                                                                                                             |
+| `list_files`                  | 返回基目录中的文件列表。                                                                                                                                                                                                     |
+| `run_python_code`             | 此函数在当前环境中运行 Python 代码。如果成功，则返回 `variable_to_return` 的值（如果已提供），否则返回成功消息。如果失败，则返回错误消息。                                                                                            |
+| `pip_install_package`         | 此函数使用 pip 在当前环境中安装一个包。如果成功，则返回成功消息。如果失败，则返回错误消息。                                                                                                                                    |
 
-## Developer Resources
+## 开发者资源
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/python.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/python_tools.py)
+- 查看 [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/python.py)
+- 查看 [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/python_tools.py)

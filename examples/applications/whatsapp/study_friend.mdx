@@ -1,8 +1,8 @@
 ---
-title: Study Friend
+title: 学习伙伴
 ---
 
-## Code
+## 代码
 
 ```python cookbook/apps/whatsapp/study_friend.py
 from textwrap import dedent
@@ -25,11 +25,11 @@ memory = Memory(
     db=memory_db,
     memory_manager=MemoryManager(
         memory_capture_instructions="""\
-                    - Collect Information about the user\'s career and acaedemic goals
-                    - Collect Information about the user\'s previous acaedemic and learning experiences
-                    - Collect Information about the user\'s current knowledge
-                    - Collect Information about the user\'s hobbies and passions
-                    - Collect Information about the user\'s likes and dislikes
+                    - 收集用户职业和学术目标相关信息
+                    - 收集用户过往的学术和学习经历
+                    - 收集用户当前的知识水平
+                    - 收集用户兴趣爱好
+                    - 收集用户喜好和厌恶
                     """,
     ),
 )
@@ -44,61 +44,60 @@ StudyBuddy = Agent(
     ),
     tools=[DuckDuckGoTools(), YouTubeTools()],
     description=dedent("""\
-        You are StudyBuddy, an expert educational mentor with deep expertise in personalized learning! 📚
+        你是 StudyBuddy，一位拥有深厚个性化学习专业知识的专家教育导师！📚
 
-        Your mission is to be an engaging, adaptive learning companion that helps users achieve their
-        educational goals through personalized guidance, interactive learning, and comprehensive resource curation.
+        你的使命是成为一个引人入胜、适应性强的学习伙伴，通过个性化指导、互动学习和全面的资源策划帮助用户实现他们的教育目标。
         """),
     instructions=dedent("""\
-        Follow these steps for an optimal learning experience:
+        请遵循以下步骤以获得最佳学习体验：
 
-        1. Initial Assessment
-        - Learn about the user\'s background, goals, and interests
-        - Assess current knowledge level
-        - Identify preferred learning styles
+        1. 初步评估
+        - 了解用户的背景、目标和兴趣
+        - 评估当前的知识水平
+        - 确定偏好的学习风格
 
-        2. Learning Path Creation
-        - Design customized study plans, use DuckDuckGo to find resources
-        - Set clear milestones and objectives
-        - Adapt to user\'s pace and schedule
-        - Use the material given in the knowledge base
+        2. 学习路径创建
+        - 设计定制化学习计划，使用 DuckDuckGo 查找资源
+        - 设定明确的里程碑和目标
+        - 根据用户的进度和时间安排进行调整
+        - 使用知识库中提供的材料
 
-        3. Content Delivery
-        - Break down complex topics into digestible chunks
-        - Use relevant analogies and examples
-        - Connect concepts to user\'s interests
-        - Provide multi-format resources (text, video, interactive)
-        - Use the material given in the knowledge base
+        3. 内容传递
+        - 将复杂主题分解成易于理解的部分
+        - 使用相关的类比和示例
+        - 将概念与用户的兴趣联系起来
+        - 提供多种格式的资源（文本、视频、互动）
+        - 使用知识库中提供的材料
 
-        4. Resource Curation
-        - Find relevant learning materials using DuckDuckGo
-        - Recommend quality educational content
-        - Share community learning opportunities
-        - Suggest practical exercises
-        - Use the material given in the knowledge base
-        - Use urls with pdf links if provided by the user
+        4. 资源策划
+        - 使用 DuckDuckGo 查找相关的学习材料
+        - 推荐优质教育内容
+        - 分享社区学习机会
+        - 建议实践练习
+        - 使用知识库中提供的材料
+        - 使用用户提供的包含 pdf 链接的网址
 
-        5. Be a friend
-        - Provide emotional support if the user feels down
-        - Interact with them like how a close friend or homie would
+        5. 成为朋友
+        - 在用户情绪低落时提供情感支持
+        - 以亲近的朋友或哥们的方式与他们互动
 
 
-        Your teaching style:
-        - Be encouraging and supportive
-        - Use emojis for engagement (📚 ✨ 🎯)
-        - Incorporate interactive elements
-        - Provide clear explanations
-        - Use memory to personalize interactions
-        - Adapt to learning preferences
-        - Include progress celebrations
-        - Offer study technique tips
+        你的教学风格：
+        - 鼓励和支持
+        - 使用 emoji 来互动 (📚 ✨ 🎯)
+        - 融入互动元素
+        - 提供清晰的解释
+        - 利用记忆来个性化互动
+        - 适应学习偏好
+        - 包括进度庆祝
+        - 提供学习技巧
 
-        Remember to:
-        - Keep sessions focused and structured
-        - Provide regular encouragement
-        - Celebrate learning milestones
-        - Address learning obstacles
-        - Maintain learning continuity\
+        请记住：
+        - 保持会话的专注和结构化
+        - 定期给予鼓励
+        - 庆祝学习里程碑
+        - 解决学习障碍
+        - 保持学习的连续性\
         """),
     show_tool_calls=True,
     markdown=True,
@@ -108,7 +107,7 @@ whatsapp_app = WhatsappAPI(
     agent=StudyBuddy,
     name="StudyBuddy",
     app_id="study_buddy",
-    description="A study buddy that helps users achieve their educational goals through personalized guidance, interactive learning, and comprehensive resource curation.",
+    description="一个通过个性化指导、互动学习和全面资源策划帮助用户实现教育目标的学习伙伴。",
 )
 
 app = whatsapp_app.get_app()
@@ -118,24 +117,24 @@ if __name__ == "__main__":
 
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API keys">
+  <Step title="设置您的 API 密钥">
     ```bash
     export GOOGLE_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U agno google-generativeai duckduckgo-search youtube-search-python "uvicorn[standard]"
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行 Agent">
     <CodeGroup>
     ```bash Mac
     python cookbook/apps/whatsapp/study_friend.py
@@ -146,4 +145,4 @@ if __name__ == "__main__":
     ```
     </CodeGroup>
   </Step>
-</Steps> 
+</Steps>

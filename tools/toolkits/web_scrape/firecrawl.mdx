@@ -1,13 +1,13 @@
 ---
 title: Firecrawl
-description: "Use Firecrawl with Agno to scrape and crawl the web."
+description: "在 Agno 中使用 Firecrawl 来抓取和爬取网络。"
 ---
 
-**FirecrawlTools** enable an Agent to perform web crawling and scraping tasks.
+**FirecrawlTools** 使 Agent 能够执行网页爬取和抓取任务。
 
-## Prerequisites
+## 前提条件
 
-The following example requires the `firecrawl-py` library and an API key which can be obtained from [Firecrawl](https://firecrawl.dev).
+以下示例需要 `firecrawl-py` 库以及可以在 [Firecrawl](https://firecrawl.dev) 获取的 API 密钥。
 
 ```shell
 pip install -U firecrawl-py
@@ -17,9 +17,9 @@ pip install -U firecrawl-py
 export FIRECRAWL_API_KEY=***
 ```
 
-## Example
+## 示例
 
-The following agent will scrape the content from https://finance.yahoo.com/ and return a summary of the content:
+以下 Agent 将从 https://finance.yahoo.com/ 抓取内容，并返回内容的摘要：
 
 ```python cookbook/tools/firecrawl_tools.py
 from agno.agent import Agent
@@ -29,30 +29,30 @@ agent = Agent(tools=[FirecrawlTools(scrape=False, crawl=True)], show_tool_calls=
 agent.print_response("Summarize this https://finance.yahoo.com/")
 ```
 
-## Toolkit Params
+## Toolkit 参数
 
-| Parameter | Type | Default | Description |
+| 参数 | 类型 | 默认值 | 描述 |
 | --------- | ----------- | ------- | ------------------------------------------------------------- |
-| `api_key` | `str` | `None` | Optional API key for authentication purposes. Falls back to FIRECRAWL_API_KEY environment variable. |
-| `formats` | `List[str]` | `None` | Optional list of formats to be used for the operation. |
-| `limit` | `int` | `10` | Maximum number of items to retrieve. The default value is 10. |
-| `poll_interval` | `int` | `30` | Interval in seconds between polling for results. |
-| `scrape` | `bool` | `True` | Enables the scraping functionality. Default is True. |
-| `crawl` | `bool` | `False` | Enables the crawling functionality. Default is False. |
-| `mapping` | `bool` | `False` | Enables the website mapping functionality. |
-| `search` | `bool` | `False` | Enables the web search functionality. |
-| `search_params` | `Dict[str, Any]` | `None` | Optional parameters for search operations. |
+| `api_key` | `str` | `None` | 用于身份验证的可选 API 密钥。将回退到 FIRECRAWL_API_KEY 环境变量。 |
+| `formats` | `List[str]` | `None` | 用于操作的可选格式列表。 |
+| `limit` | `int` | `10` | 要检索的最大项目数。默认值为 10。 |
+| `poll_interval` | `int` | `30` | 轮询结果之间的间隔（秒）。 |
+| `scrape` | `bool` | `True` | 启用抓取功能。默认为 True。 |
+| `crawl` | `bool` | `False` | 启用爬取功能。默认为 False。 |
+| `mapping` | `bool` | `False` | 启用网站映射功能。 |
+| `search` | `bool` | `False` | 启用网络搜索功能。 |
+| `search_params` | `Dict[str, Any]` | `None` | 搜索操作的可选参数。 |
 
-## Toolkit Functions
+## Toolkit 函数
 
-| Function | Description |
-| ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `scrape_website` | Scrapes a website using Firecrawl. Parameters include `url` to specify the URL to scrape. The function supports optional formats if specified. Returns the results of the scraping in JSON format. |
-| `crawl_website` | Crawls a website using Firecrawl. Parameters include `url` to specify the URL to crawl, and an optional `limit` to define the maximum number of pages to crawl. The function supports optional formats and returns the crawling results in JSON format. |
-| `map_website` | Maps a website structure using Firecrawl. Parameters include `url` to specify the URL to map. Returns the mapping results in JSON format. |
-| `search` | Performs a web search using Firecrawl. Parameters include `query` for the search term and optional `limit` for maximum results. Returns search results in JSON format. |
+| 函数 | 描述 |
+| ---- | ---- |
+| `scrape_website` | 使用 Firecrawl 抓取网站。参数包括用于指定要抓取的 URL 的 `url`。如果指定了可选格式，该函数将支持。以 JSON 格式返回抓取结果。 |
+| `crawl_website` | 使用 Firecrawl 爬取网站。参数包括用于指定要爬取的 URL 的 `url`，以及用于定义要爬取的最大页面数的可选 `limit`。该函数支持可选格式，并以 JSON 格式返回爬取结果。 |
+| `map_website` | 使用 Firecrawl 映射网站结构。参数包括用于指定要映射的 URL 的 `url`。以 JSON 格式返回映射结果。 |
+| `search` | 使用 Firecrawl 执行网络搜索。参数包括用于搜索词的 `query` 和可选的最大结果数 `limit`。以 JSON 格式返回搜索结果。 |
 
-## Developer Resources
+## 开发者资源
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/firecrawl.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/firecrawl_tools.py)
+- 查看 [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/firecrawl.py)
+- 查看 [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/firecrawl_tools.py)

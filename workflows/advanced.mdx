@@ -1,26 +1,26 @@
 ---
-title: Advanced
+title: 高级
 ---
 
-**Workflows are all about control and flexibility.**
+**工作流的关键在于控制和灵活性。**
 
-Your workflow logic is just a python function, so you have full control over the workflow logic. You can:
-- Validate input before processing
-- Depending on the input, spawn agents and run them in parallel
-- Cache results as needed
-- Correct any intermediate errors
-- Stream the output
-- Return a single or multiple outputs
+您的工作流逻辑就是一个 python 函数，因此您对工作流逻辑拥有完全的控制权。您可以：
+- 在处理前验证输入
+- 根据输入，创建代理并并行运行它们
+- 根据需要缓存结果
+- 纠正任何中间错误
+- 流式传输输出
+- 返回单个或多个输出
 
-**This level of control is critical for reliability.**
+**这种程度的控制对于可靠性至关重要。**
 
 
-## Streaming
+## 流式传输
 
-It is important to understand that when you build a workflow, you are writing a python function, meaning you decide if the function streams the output or not. To stream the output, yield an `Iterator[RunResponse]` from the `run()` method of your workflow.
+理解工作流的关键在于，您编写的是一个 python 函数，这意味着您可以决定该函数是否流式传输输出。要流式传输输出，请从工作流的 `run()` 方法中 yield 一个 `Iterator[RunResponse]`。
 
 ```python news_report_generator.py
-# Define the workflow
+# 定义工作流
 class GenerateNewsReport(Workflow):
     agent_1: Agent = ...
 
@@ -29,32 +29,32 @@ class GenerateNewsReport(Workflow):
     agent_3: Agent = ...
 
     def run(self, ...) -> Iterator[RunResponse]:
-        # Run agents and gather the response
-        # These can be batch responses, you can also stream intermediate results if you want
+        # 运行代理并收集响应
+        # 这些可以是批量响应，您也可以根据需要流式传输中间结果
         final_agent_input = ...
 
-        # Generate the final response from the writer agent
+        # 从 writer 代理生成最终响应
         agent_3_response_stream: Iterator[RunResponse] = self.agent_3.run(final_agent_input, stream=True)
 
-        # Yield the response
+        # Yield 响应
         yield agent_3_response_stream
 
-# Instantiate the workflow
+# 实例化工作流
 generate_news_report = GenerateNewsReport()
 
-# Run workflow and get the response as an iterator of RunResponse objects
+# 运行工作流并获取 RunResponse 对象迭代器形式的响应
 report_stream: Iterator[RunResponse] = generate_news_report.run(...)
 
-# Print the response
+# 打印响应
 pprint_run_response(report_stream, markdown=True)
 ```
 
-## Batch
+## 批量
 
-Simply return a `RunResponse` object from the `run()` method of your workflow to return a single output.
+只需从工作流的 `run()` 方法返回一个 `RunResponse` 对象即可返回单个输出。
 
 ```python news_report_generator.py
-# Define the workflow
+# 定义工作流
 class GenerateNewsReport(Workflow):
     agent_1: Agent = ...
 
@@ -63,21 +63,21 @@ class GenerateNewsReport(Workflow):
     agent_3: Agent = ...
 
     def run(self, ...) -> RunResponse:
-        # Run agents and gather the response
+        # 运行代理并收集响应
         final_agent_input = ...
 
-        # Generate the final response from the writer agent
+        # 从 writer 代理生成最终响应
         agent_3_response: RunResponse = self.agent_3.run(final_agent_input)
 
-        # Return the response
+        # 返回响应
         return agent_3_response
 
-# Instantiate the workflow
+# 实例化工作流
 generate_news_report = GenerateNewsReport()
 
-# Run workflow and get the response as a RunResponse object
+# 运行工作流并获取 RunResponse 对象形式的响应
 report: RunResponse = generate_news_report.run(...)
 
-# Print the response
+# 打印响应
 pprint_run_response(report, markdown=True)
 ```

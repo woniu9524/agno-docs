@@ -2,26 +2,26 @@
 title: Travel Planner MCP Team
 ---
 
-This example shows how to create a travel planner team where members use Agno's MCP integration.
+此示例展示了如何创建一个让成员使用 Agno 的 MCP 集成的旅行规划师团队。
 
 ## Code
 
 ```python travel_planner_mcp_team.py
 """
-This example demonstrates how to use the MCP protocol to coordinate a team of agents.
+本示例演示如何使用 MCP 协议来协调一个代理团队。
 
-Prerequisites:
-- Google Maps:
-    - Set the environment variable `GOOGLE_MAPS_API_KEY` with your Google Maps API key.
-    You can obtain the API key from the Google Cloud Console:
+先决条件：
+- Google Maps：
+    - 将环境变量 `GOOGLE_MAPS_API_KEY` 设置为你的 Google Maps API 密钥。
+    你可以在 Google Cloud Console 中获取 API 密钥：
     https://console.cloud.google.com/projectselector2/google/maps-apis/credentials
 
-    - You also need to activate the Address Validation API for your .
+    - 你还需要为你的项目激活地址验证 API。
     https://console.developers.google.com/apis/api/addressvalidation.googleapis.com
 
-- Apify:
-    - Set the environment variable `APIFY_TOKEN` with your Apify API token.
-    You can obtain the API key from the Apify Console:
+- Apify：
+    - 将环境变量 `APIFY_TOKEN` 设置为你的 Apify API 令牌。
+    你可以在 Apify Console 中获取 API 密钥：
     https://console.apify.com/settings/integrations
 
 """
@@ -41,7 +41,7 @@ from mcp import StdioServerParameters
 from pydantic import BaseModel
 
 
-# Define response models
+# 定义响应模型
 class AirbnbListing(BaseModel):
     name: str
     description: str
@@ -78,7 +78,7 @@ async def run_team():
         **os.environ,
         "GOOGLE_MAPS_API_KEY": os.getenv("GOOGLE_MAPS_API_KEY"),
     }
-    # Define server parameters
+    # 定义服务器参数
     airbnb_server_params = StdioServerParameters(
         command="npx",
         args=["-y", "@openbnb/mcp-server-airbnb", "--ignore-robots-txt"],
@@ -89,12 +89,12 @@ async def run_team():
         command="npx", args=["-y", "@modelcontextprotocol/server-google-maps"], env=env
     )
 
-    # Use AsyncExitStack to manage multiple context managers
+    # 使用 AsyncExitStack 来管理多个上下文管理器
     async with (
         MCPTools(server_params=airbnb_server_params) as airbnb_tools,
         MCPTools(server_params=maps_server_params) as maps_tools,
     ):
-        # Create all agents
+        # 创建所有代理
         airbnb_agent = Agent(
             name="Airbnb",
             role="Airbnb Agent",
@@ -143,7 +143,7 @@ async def run_team():
             add_datetime_to_instructions=True,
         )
 
-        # Create and run the team
+        # 创建并运行团队
         team = Team(
             name="TravelPlanner",
             mode="coordinate",
@@ -168,7 +168,7 @@ async def run_team():
             add_datetime_to_instructions=True,
         )
 
-        # Execute the team's task
+        # 执行团队任务
         await team.aprint_response(
             dedent("""\
             I want to travel to San Francisco from New York sometime in May.
@@ -183,3 +183,4 @@ async def run_team():
 
 if __name__ == "__main__":
     asyncio.run(run_team())
+```

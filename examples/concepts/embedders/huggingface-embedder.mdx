@@ -1,3 +1,4 @@
+```md
 ---
 title: Huggingface Embedder
 ---
@@ -33,7 +34,7 @@ knowledge_base = AgentKnowledge(
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置你的 API 密钥">
     ```bash
     export HUGGINGFACE_API_KEY=xxx
     ```
@@ -45,7 +46,7 @@ knowledge_base = AgentKnowledge(
     ```
   </Step>
 
-  <Step title="Run PgVector">
+  <Step title="运行 PgVector">
     ```bash
     docker run -d \
       -e POSTGRES_DB=ai \
@@ -59,7 +60,7 @@ knowledge_base = AgentKnowledge(
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行 Agent">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/knowledge/embedders/huggingface_embedder.py
@@ -71,3 +72,4 @@ knowledge_base = AgentKnowledge(
     </CodeGroup>
   </Step>
 </Steps>
+```

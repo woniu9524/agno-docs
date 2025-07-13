@@ -1,12 +1,12 @@
 ---
-title: LlamaIndex Knowledge Base
-description: Learn how to use a LlamaIndex retriever or vector store as a knowledge base.
+title: LlamaIndex 知识库
+description: 了解如何将 LlamaIndex 检索器或向量存储用作知识库。
 sidebarTitle: LlamaIndex
 ---
 
-The **LlamaIndexKnowledgeBase** allows us to use a LlamaIndex retriever or vector store as a knowledge base.
+**LlamaIndexKnowledgeBase** 允许我们将 LlamaIndex 检索器或向量存储用作知识库。
 
-## Usage
+## 用法
 
 ```shell
 pip install llama-index-core llama-index-readers-file llama-index-embeddings-openai
@@ -67,15 +67,15 @@ agent = Agent(knowledge_base=knowledge_base, search_knowledge=True, debug_mode=T
 agent.print_response("Explain what this text means: low end eats the high end", markdown=True)
 ```
 
-## Params
+## 参数
 
-| Parameter   | Type                 | Default | Description                                                           |
-| ----------- | -------------------- | ------- | --------------------------------------------------------------------- |
-| `retriever` | `BaseRetriever`      | `None`  | LlamaIndex retriever used for querying the knowledge base.            |
-| `loader`    | `Optional[Callable]` | `None`  | Optional callable function to load documents into the knowledge base. |
+| 参数       | 类型             | 默认值 | 描述                                                 |
+| ------------- | ---------------- | ------ | ---------------------------------------------------- |
+| `retriever`   | `BaseRetriever`  | `None` | LlamaIndex 检索器，用于查询知识库。                  |
+| `loader`      | `Optional[Callable]` | `None` | 可选的调用函数，用于将文档加载到知识库中。 |
 
-`LlamaIndexKnowledgeBase` is a subclass of the [AgentKnowledge](/reference/knowledge/base) class and has access to the same params.
+`LlamaIndexKnowledgeBase` 是 [AgentKnowledge](/reference/knowledge/base) 类的子类，并拥有与其相同的参数。
 
-## Developer Resources
+## 开发者资源
 
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/llamaindex_kb.py)
+- 查看 [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/llamaindex_kb.py)

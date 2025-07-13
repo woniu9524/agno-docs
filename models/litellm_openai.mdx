@@ -1,29 +1,29 @@
 ---
 title: LiteLLM OpenAI
-description: Use LiteLLM with Agno with an openai-compatible proxy server.
+description: 使用 LiteLLM 和 Agno 进行 OpenAI 兼容代理服务器集成。
 ---
 
-## Proxy Server Integration
+## 代理服务器集成
 
-LiteLLM can also be used as an OpenAI-compatible proxy server, allowing you to route requests to different models through a unified API.
+LiteLLM 也可以用作 OpenAI 兼容的代理服务器，允许您通过统一的 API 将请求路由到不同的模型。
 
-### Starting the Proxy Server
+### 启动代理服务器
 
-First, install LiteLLM with proxy support:
+首先，安装 LiteLLM 并启用代理支持：
 
 ```shell
 pip install 'litellm[proxy]'
 ```
 
-Start the proxy server:
+启动代理服务器：
 
 ```shell
-litellm --model gpt-4o --host 127.0.0.1 --port 4000
+litellm --model gpt-4o --host 10.10.10.10 --port 4000
 ```
 
-### Using the Proxy
+### 使用代理
 
-The `LiteLLMOpenAI` class connects to the LiteLLM proxy using an OpenAI-compatible interface:
+`LiteLLMOpenAI` 类使用 OpenAI 兼容接口连接到 LiteLLM 代理：
 
 ```python
 from agno.agent import Agent
@@ -31,29 +31,29 @@ from agno.models.litellm import LiteLLMOpenAI
 
 agent = Agent(
     model=LiteLLMOpenAI(
-        id="gpt-4o",  # Model ID to use
+        id="gpt-4o",  # 要使用的模型 ID
     ),
     markdown=True,
 )
 
-agent.print_response("Share a 2 sentence horror story")
+agent.print_response("写一个两句话的恐怖故事")
 ```
 
-### Configuration Options
+### 配置选项
 
-The `LiteLLMOpenAI` class accepts the following parameters:
+`LiteLLMOpenAI` 类接受以下参数：
 
-| Parameter | Type | Description | Default |
+| 参数 | 类型 | 描述 | 默认值 |
 | --- | --- | --- | --- |
-| `id` | str | Model identifier | "gpt-4o" |
-| `name` | str | Display name for the model | "LiteLLM" |
-| `provider` | str | Provider name | "LiteLLM" |
-| `api_key` | str | API key (falls back to LITELLM_API_KEY environment variable) | None |
-| `base_url` | str | URL of the LiteLLM proxy server | "http://0.0.0.0:4000" |
+| `id` | str | 模型标识符 | "gpt-4o" |
+| `name` | str | 模型的显示名称 | "LiteLLM" |
+| `provider` | str | 提供商名称 | "LiteLLM" |
+| `api_key` | str | API 密钥（回退到 LITELLM_API_KEY 环境变量） | None |
+| `base_url` | str | LiteLLM 代理服务器的 URL | "http://0.0.0.0:4000" |
 
-## Examples
+## 示例
 
-Check out these examples in the cookbook:
+请在食谱中查看这些示例：
 
-### Proxy Examples
-<Note> View more examples [here](../examples/models/litellm_openai). </Note>
+### 代理示例
+<Note> 在此查看更多示例 [here](../examples/models/litellm_openai)。 </Note>

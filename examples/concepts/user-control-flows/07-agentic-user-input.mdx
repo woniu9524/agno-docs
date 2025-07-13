@@ -1,9 +1,9 @@
 ---
-title: Dynamic User Input (Agentic)
-description: This example demonstrates how to implement dynamic user input collection using the `UserControlFlowTools`, allowing the agent to request information as needed during execution.
+title: 动态用户输入（Agentic）
+description: 本示例演示了如何使用 `UserControlFlowTools` 实现动态用户输入收集，使代理能够在执行过程中根据需要请求信息。
 ---
 
-## Code
+## 代码
 
 ```python cookbook/agent_concepts/user_control_flows/agentic_user_input.py
 from typing import List
@@ -22,21 +22,21 @@ class EmailTools(Toolkit):
         )
 
     def send_email(self, subject: str, body: str, to_address: str) -> str:
-        """Send an email to the given address with the given subject and body.
+        """向给定地址发送带有给定主题和正文的电子邮件。
 
         Args:
-            subject (str): The subject of the email.
-            body (str): The body of the email.
-            to_address (str): The address to send the email to.
+            subject (str): 邮件主题。
+            body (str): 邮件正文。
+            to_address (str): 要发送邮件的地址。
         """
         return f"Sent email to {to_address} with subject {subject} and body {body}"
 
     def get_emails(self, date_from: str, date_to: str) -> str:
-        """Get all emails between the given dates.
+        """获取给定日期范围内的所有邮件。
 
         Args:
-            date_from (str): The start date (in YYYY-MM-DD format).
-            date_to (str): The end date (in YYYY-MM-DD format).
+            date_from (str): 开始日期（格式为 YYYY-MM-DD）。
+            date_to (str): 结束日期（格式为 YYYY-MM-DD）。
         """
         return [
             {
@@ -61,25 +61,25 @@ agent = Agent(
 )
 
 run_response = agent.run("Send an email with the body 'What is the weather in Tokyo?'")
-# We use a while loop to continue the running until the agent is satisfied with the user input
+# 我们使用一个 while 循环来持续运行，直到代理对用户输入感到满意为止
 while run_response.is_paused:
     for tool in run_response.tools_requiring_user_input:
         input_schema: List[UserInputField] = tool.user_input_schema
 
         for field in input_schema:
-            # Display field information to the user
-            print(f"\nField: {field.name}")
-            print(f"Description: {field.description}")
-            print(f"Type: {field.field_type}")
+            # 向用户显示字段信息
+            print(f"\n字段: {field.name}")
+            print(f"描述: {field.description}")
+            print(f"类型: {field.field_type}")
 
-            # Get user input
+            # 获取用户输入
             if field.value is None:
-                user_value = input(f"Please enter a value for {field.name}: ")
+                user_value = input(f"请输入 {field.name} 的值: ")
             else:
-                print(f"Value: {field.value}")
+                print(f"值: {field.value}")
                 user_value = field.value
 
-            # Update the field value
+            # 更新字段值
             field.value = user_value
 
     run_response = agent.continue_run(run_response=run_response)
@@ -88,24 +88,24 @@ while run_response.is_paused:
         break
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U agno openai
     ```
   </Step>
 
-  <Step title="Run Example">
+  <Step title="运行示例">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/user_control_flows/agentic_user_input.py
@@ -118,13 +118,13 @@ while run_response.is_paused:
   </Step>
 </Steps>
 
-## Key Features
+## 主要特性
 
-- Uses `UserControlFlowTools` for dynamic user input collection
-- Implements a toolkit with multiple tools that may require user input
-- Handles multiple rounds of user input collection
-- Demonstrates how to continue agent execution after each input round
+- 使用 `UserControlFlowTools` 进行动态用户输入收集
+- 实现了一个包含多个可能需要用户输入的工具的工具集
+- 处理多轮用户输入收集
+- 演示了如何在每轮输入后继续代理执行
 
-## Use Cases
+## 用例
 
-- Dynamic form-like interactions
+- 动态表单式交互

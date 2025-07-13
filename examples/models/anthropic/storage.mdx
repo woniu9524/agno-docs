@@ -1,8 +1,8 @@
 ---
-title: Agent with Storage
+title: 代理与存储
 ---
 
-## Code
+## 代码
 
 ```python cookbook/models/anthropic/storage.py
 from agno.agent import Agent
@@ -18,28 +18,28 @@ agent = Agent(
     tools=[DuckDuckGoTools()],
     add_history_to_messages=True,
 )
-agent.print_response("How many people live in Canada?")
-agent.print_response("What is their national anthem called?")
+agent.print_response("加拿大有多少人？")
+agent.print_response("他们的国歌叫什么名字？")
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置你的 API 密钥">
     ```bash
     export ANTHROPIC_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U anthropic sqlalchemy psycopg duckduckgo-search agno
     ```
   </Step>
 
-  <Step title="Run PgVector">
+  <Step title="运行 PgVector">
     ```bash
     docker run -d \
       -e POSTGRES_DB=ai \
@@ -53,7 +53,7 @@ agent.print_response("What is their national anthem called?")
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行代理">
     <CodeGroup>
     ```bash Mac
     python cookbook/models/anthropic/storage.py

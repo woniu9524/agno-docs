@@ -1,8 +1,8 @@
 ---
-title: State Management Across Multiple Runs
+title: 跨多轮的管理状态
 ---
-This example demonstrates how to build a stateful agent that can manage its state across multiple runs.
-## Code
+本示例演示了如何构建一个能够跨多轮管理其状态的具有状态的代理。
+## 代码
 
 ```python cookbook/agent_concepts/state/shopping_list.py
 from textwrap import dedent
@@ -11,97 +11,97 @@ from agno.agent import Agent
 from agno.models.openai import OpenAIChat
 
 
-# Define tools to manage our shopping list
+# 定义管理购物列表的工具
 def add_item(agent: Agent, item: str) -> str:
-    """Add an item to the shopping list and return confirmation."""
-    # Add the item if it's not already in the list
+    """将商品添加到购物列表并返回确认信息。"""
+    # 如果商品不在列表中，则添加
     if item.lower() not in [i.lower() for i in agent.session_state["shopping_list"]]:
         agent.session_state["shopping_list"].append(item)
-        return f"Added '{item}' to the shopping list"
+        return f"已将 '{item}' 添加到购物列表"
     else:
-        return f"'{item}' is already in the shopping list"
+        return f"'{item}' 已在购物列表中"
 
 
 def remove_item(agent: Agent, item: str) -> str:
-    """Remove an item from the shopping list by name."""
-    # Case-insensitive search
+    """按名称从购物列表中移除商品。"""
+    # 忽略大小写搜索
     for i, list_item in enumerate(agent.session_state["shopping_list"]):
         if list_item.lower() == item.lower():
             agent.session_state["shopping_list"].pop(i)
-            return f"Removed '{list_item}' from the shopping list"
+            return f"已从购物列表中移除 '{list_item}'"
 
-    return f"'{item}' was not found in the shopping list"
+    return f"在购物列表中未找到 '{item}'"
 
 
 def list_items(agent: Agent) -> str:
-    """List all items in the shopping list."""
+    """列出购物列表中的所有商品。"""
     shopping_list = agent.session_state["shopping_list"]
 
     if not shopping_list:
-        return "The shopping list is empty."
+        return "购物列表为空。"
 
     items_text = "\n".join([f"- {item}" for item in shopping_list])
-    return f"Current shopping list:\n{items_text}"
+    return f"当前的购物列表:\n{items_text}"
 
 
-# Create a Shopping List Manager Agent that maintains state
+# 创建一个维护状态的购物列表管理器代理
 agent = Agent(
     model=OpenAIChat(id="gpt-4o-mini"),
-    # Initialize the session state with an empty shopping list
+    # 使用一个空的购物列表初始化会话状态
     session_state={"shopping_list": []},
     tools=[add_item, remove_item, list_items],
-    # You can use variables from the session state in the instructions
+    # 您可以使用来自会话状态的变量来编写指令
     instructions=dedent("""\
-        Your job is to manage a shopping list.
+        你的工作是管理一个购物列表。
 
-        The shopping list starts empty. You can add items, remove items by name, and list all items.
+        购物列表一开始是空的。你可以添加商品、按名称移除商品以及列出所有商品。
 
-        Current shopping list: {shopping_list}
+        当前的购物列表: {shopping_list}
     """),
     add_state_in_messages=True,
     markdown=True,
 )
 
-# Example usage
-agent.print_response("Add milk, eggs, and bread to the shopping list", stream=True)
-print(f"Session state: {agent.session_state}")
+# 示例用法
+agent.print_response("在购物列表中添加牛奶、鸡蛋和面包", stream=True)
+print(f"会话状态: {agent.session_state}")
 
-agent.print_response("I got bread", stream=True)
-print(f"Session state: {agent.session_state}")
+agent.print_response("我买了面包", stream=True)
+print(f"会话状态: {agent.session_state}")
 
-agent.print_response("I need apples and oranges", stream=True)
-print(f"Session state: {agent.session_state}")
+agent.print_response("我需要苹果和橘子", stream=True)
+print(f"会话状态: {agent.session_state}")
 
-agent.print_response("whats on my list?", stream=True)
-print(f"Session state: {agent.session_state}")
+agent.print_response("我的列表里有什么？", stream=True)
+print(f"会话状态: {agent.session_state}")
 
 agent.print_response(
-    "Clear everything from my list and start over with just bananas and yogurt",
+    "清空我的列表，然后重新开始，只保留香蕉和酸奶",
     stream=True,
 )
-print(f"Session state: {agent.session_state}")
+print(f"会话状态: {agent.session_state}")
 
 
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置你的 API 密钥">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U openai agno
     ```
   </Step>
 
-  <Step title="Run Example">
+  <Step title="运行示例">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/state/shopping_list.py

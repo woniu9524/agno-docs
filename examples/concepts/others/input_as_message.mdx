@@ -1,10 +1,10 @@
 ---
-title: Input as Message
+title: 使用 Input 作为 Message
 ---
 
-This example shows how to pass a message as input to an agent.
+此示例展示了如何将消息作为输入传递给代理。
 
-## Code
+## 代码
 
 ```python cookbook/agent_concepts/other/input_as_message.py
 from agno.agent import Agent, Message
@@ -13,7 +13,7 @@ Agent().print_response(
     Message(
         role="user",
         content=[
-            {"type": "text", "text": "What's in this image?"},
+            {"type": "text", "text": "这张图片里有什么？"},
             {
                 "type": "image_url",
                 "image_url": {
@@ -27,24 +27,24 @@ Agent().print_response(
 )
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U openai agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行代理">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/other/input_as_message.py
@@ -55,4 +55,4 @@ Agent().print_response(
     ```
     </CodeGroup>
   </Step>
-</Steps> 
+</Steps>

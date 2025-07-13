@@ -1,16 +1,16 @@
 ---
-title: URL Knowledge Base
-description: Learn how to use online content in your knowledge base.
+title: URL 知识库
+description: 了解如何在您的知识库中使用在线内容。
 sidebarTitle: URL
 ---
 
-The **URLKnowledgeBase** reads **URLs** links, converts them into vector embeddings and loads them to a vector database.
+**URLKnowledgeBase** 读取 **URLs** 链接，将其转换为向量嵌入并加载到向量数据库中。
 
-## Usage
+## 用法
 
 <Note>
 
-We are using a local Qdrant database for this example. [Make sure it's running](https://docs.agno.com/vectordb/qdrant)
+我们在此示例中使用本地 Qdrant 数据库。[确保它正在运行](https://docs.agno.com/vectordb/qdrant)
 
 </Note>
 
@@ -33,14 +33,14 @@ knowledge_base = UrlKnowledge(
 )
 ```
 
-Then use the `knowledge_base` with an `Agent`:
+然后将 `knowledge_base` 与 `Agent` 一起使用：
 
 ```python
 from agno.agent import Agent
 from agno.knowledge.url import UrlKnowledge
 from agno.models.openai import OpenAIChat
 
-# Initialize knowledge base
+# 初始化知识库
 COLLECTION_NAME = "website-content"
 
 vector_db = Qdrant(collection=COLLECTION_NAME, url="http://localhost:6333")
@@ -58,16 +58,15 @@ agent_with_knowledge = Agent(
 )
 
 if __name__ == "__main__":
-    # Comment out after first run
+    # 首次运行时注释掉
     knowledge_base.load()
 
     agent_with_knowledge.print_response(
-        "Tell me about teams with context to agno", stream=True
+        "请告诉我关于团队的相关信息，并提供 agno 的上下文", stream=True
     )
 ```
 
-#### URLKnowledgeBase also supports async loading.
-
+#### URLKnowledgeBase 还支持异步加载。
 
 ```python async_knowledge_base.py
 import asyncio
@@ -79,7 +78,7 @@ from agno.vectordb.qdrant import Qdrant
 
 COLLECTION_NAME = "website-content"
 
-# Initialize knowledge base
+# 初始化知识库
 agent_knowledge = UrlKnowledge(
     urls=["https://docs.agno.com/introduction"],
     vector_db=Qdrant(
@@ -101,22 +100,21 @@ if __name__ == "__main__":
 
     asyncio.run(
         agent_with_knowledge.aprint_response(
-            "Tell me about teams with context to agno", stream=True
+            "请告诉我关于团队的相关信息，并提供 agno 的上下文", stream=True
         )
     )
 ```
 
-## Params
+## 参数
 
-| Parameter | Type               | Default             | Description                                                                           |
-| --------- | ------------------ | ------------------- | ------------------------------------------------------------------------------------- |
-| `urls`    | `List[str]`        | -                   | URLs of the website to read.                                                                                          |
-| `reader`  | `URLReader`        | `URLReader()`       | A `URLReader` that reads the Website `URLs` and converts it into `Documents` for the vector database |
+| 参数 | 类型 | 默认值 | 描述 |
+|---|---|---|---|
+| `urls` | `List[str]` | - | 要读取的网站 URL。 |
+| `reader` | `URLReader` | `URLReader()` | 一个 `URLReader`，用于读取网站 `URLs` 并将其转换为 `Documents` 以便存入向量数据库。 |
 
-`URLKnowledgeBase` is a subclass of the [AgentKnowledge](/reference/knowledge/base) class and has access to the same params.
+`URLKnowledgeBase` 是 `AgentKnowledge` 类的一个子类，并且可以访问相同的参数。
 
-## Developer Resources
+## 开发者资源
 
-- View [Sync loading Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/url_kb.py)
-- View [Async loading Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/url_kb_async.py)
-
+- 查看 [同步加载食谱](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/url_kb.py)
+- 查看 [异步加载食谱](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/url_kb_async.py)

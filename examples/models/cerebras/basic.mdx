@@ -1,8 +1,8 @@
 ---
-title: Basic Agent
+title: 基础 Agent
 ---
 
-## Code
+## 代码
 
 ```python cookbook/models/cerebras/basic.py
 from agno.agent import Agent
@@ -15,27 +15,27 @@ agent = Agent(
     markdown=True,
 )
 
-agent.print_response("write a two sentence horror story")
+agent.print_response("写一个两句话的恐怖故事")
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">
     ```bash
     export CEREBRAS_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U cerebras-cloud-sdk agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行 Agent">
     <CodeGroup>
     ```bash Mac
     python cookbook/models/cerebras/basic.py

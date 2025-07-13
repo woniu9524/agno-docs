@@ -1,13 +1,13 @@
 ---
-title: Running your Team
-description: Learn how to run a team and get the response.
+title: 运行您的团队
+description: 了解如何运行团队并获得响应。
 ---
 
-The `Team.run()` function runs the team and generates a response, either as a `TeamRunResponse` object or a stream of `TeamRunResponseEvent` objects.
+`Team.run()` 函数会运行团队并生成响应，响应形式可以是一个 `TeamRunResponse` 对象，也可以是一系列的 `TeamRunResponseEvent` 对象。
 
-Many of our examples use `team.print_response()` which is a helper utility to print the response in the terminal. It uses `team.run()` under the hood.
+我们的许多示例都使用了 `team.print_response()`，这是一个在终端打印响应的辅助工具。它底层调用的是 `team.run()`。
 
-Here's how to run your team. The response is captured in the `response` and `response_stream` variables.
+以下是运行团队的方法。响应会被捕获在 `response` 和 `response_stream` 变量中。
 
 ```python
 from agno.team import Team
@@ -37,11 +37,11 @@ async for chunk in await team.arun("What is the weather in Tokyo?", stream=True)
 ```
 
 
-## Streaming Intermediate Steps
+## 流式传输中间步骤
 
-Throughout the execution of a team, multiple events take place, and we provide these events in real-time for enhanced team transparency.
+在团队执行过程中，会发生多个事件，我们实时提供这些事件以增强团队的透明度。
 
-You can enable streaming of intermediate steps by setting `stream_intermediate_steps=True`.
+您可以通过设置 `stream_intermediate_steps=True` 来启用中间步骤的流式传输。
 
 ```python
 # Stream with intermediate steps
@@ -52,9 +52,9 @@ response_stream = team.run(
 )
 ```
 
-### Handling Events
+### 处理事件
 
-You can process events as they arrive by iterating over the response stream:
+您可以通过迭代响应流来处理到达的事件：
 
 ```python
 response_stream = team.run("Your prompt", stream=True, stream_intermediate_steps=True)
@@ -74,13 +74,13 @@ for event in response_stream:
 ```
 
 <Note>
-Team member events are yielded during team execution when a team member is being executed.  You can disable this by setting `stream_member_events=False`.
+当团队成员正在执行时，团队成员事件会在团队执行期间产生。您可以通过设置 `stream_member_events=False` 来禁用此功能。
 </Note>
 
 
-### Storing Events
+### 存储事件
 
-You can store all the events that happened during a run on the `RunResponse` object.
+您可以将运行期间发生的所有事件存储在 `RunResponse` 对象上。
 
 ```python
 from agno.team import Team
@@ -96,45 +96,44 @@ for event in agent.run_response.events:
     print(event.event)
 ```
 
-By default the `TeamRunResponseContentEvent` and `RunResponseContentEvent` events are not stored. You can modify which events are skipped by setting the `events_to_skip` parameter.
+默认情况下，`TeamRunResponseContentEvent` 和 `RunResponseContentEvent` 事件不会被存储。您可以通过设置 `events_to_skip` 参数来修改要跳过的事件。
 
-For example:
+例如：
 
 ```python
 team = Team(model=OpenAIChat(id="gpt-4o-mini"), members=[], store_events=True, events_to_skip=[TeamRunEvent.run_started.value])
 ```
 
+### 事件类型
 
-### Event Types
+根据团队的配置，`Team.run()` 和 `Team.arun()` 函数会发送以下事件：
 
-The following events are sent by the `Team.run()` and `Team.arun()` functions depending on team's configuration:
-
-#### Core Events
+#### 核心事件
 | Event Type | Description |
 |------------|-------------|
-| `TeamRunStarted` | Indicates the start of a run |
-| `TeamRunResponseContent` | Contains the model's response text as individual chunks |
-| `TeamRunCompleted` | Signals successful completion of the run |
-| `TeamRunError` | Indicates an error occurred during the run |
-| `TeamRunCancelled` | Signals that the run was cancelled |
+| `TeamRunStarted` | 指示运行开始 |
+| `TeamRunResponseContent` | 以单个块形式包含模型的响应文本 |
+| `TeamRunCompleted` | 表示运行成功完成 |
+| `TeamRunError` | 指示在运行期间发生错误 |
+| `TeamRunCancelled` | 表示运行已被取消 |
 
-#### Tool Events
+#### 工具事件
 | Event Type | Description |
 |------------|-------------|
-| `TeamToolCallStarted` | Indicates the start of a tool call |
-| `TeamToolCallCompleted` | Signals completion of a tool call, including tool call results |
+| `TeamToolCallStarted` | 指示工具调用开始 |
+| `TeamToolCallCompleted` | 表示工具调用完成，包括工具调用结果 |
 
-#### Reasoning Events
+#### 推理事件
 | Event Type | Description |
 |------------|-------------|
-| `TeamReasoningStarted` | Indicates the start of the agent's reasoning process |
-| `TeamReasoningStep` | Contains a single step in the reasoning process |
-| `TeamReasoningCompleted` | Signals completion of the reasoning process |
+| `TeamReasoningStarted` | 指示代理的推理过程开始 |
+| `TeamReasoningStep` | 包含推理过程中的单个步骤 |
+| `TeamReasoningCompleted` | 表示推理过程完成 |
 
-#### Memory Events
+#### 内存事件
 | Event Type | Description |
 |------------|-------------|
-| `TeamMemoryUpdateStarted` | Indicates that the agent is updating its memory |
-| `TeamMemoryUpdateCompleted` | Signals completion of a memory update |
+| `TeamMemoryUpdateStarted` | 指示代理正在更新其内存 |
+| `TeamMemoryUpdateCompleted` | 表示内存更新完成 |
 
-See detailed documentation in the [TeamRunResponse](/reference/teams/team-response) documentation.
+有关详细文档，请参阅 [TeamRunResponse](/reference/teams/team-response) 文档。

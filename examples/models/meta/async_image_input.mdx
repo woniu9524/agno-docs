@@ -1,8 +1,8 @@
 ---
-<title>Asynchronous Agent with Image Input</title>
+<title>带有图像输入的异步代理</title>
 ---
 
-## Code
+## 代码
 
 ```python cookbook/models/meta/async_image_input.py
 import asyncio
@@ -17,7 +17,7 @@ async def main():
     )
 
     await agent.aprint_response(
-        "Describe the scene in this image asynchronously.",
+        "请描述这张图片中的场景。",
         images=[Image(content=image_bytes)],
         stream=True,
     )
@@ -25,24 +25,24 @@ async def main():
 asyncio.run(main())
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your LLAMA API key">
+  <Step title="设置你的 LLAMA API 密钥">
     ```bash
     export LLAMA_API_KEY=YOUR_API_KEY
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install llama-api-client agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行代理">
     <CodeGroup>
     ```bash Mac
     python cookbook/models/meta/async_image_input.py
@@ -53,4 +53,4 @@ asyncio.run(main())
     ```
     </CodeGroup>
   </Step>
-</Steps> 
+</Steps>

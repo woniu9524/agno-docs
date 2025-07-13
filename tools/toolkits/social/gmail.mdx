@@ -3,32 +3,32 @@ title: Gmail
 sidebarTitle: Gmail
 ---
 
-**Gmail** enables an Agent to interact with Gmail, allowing it to read, search, send, and manage emails.
+**Gmail** 允许 Agent 与 Gmail 进行交互，从而读取、搜索、发送和管理电子邮件。
 
-## Prerequisites
+## 前提条件
 
-The Gmail toolkit requires Google API client libraries and proper authentication setup. Install the required dependencies:
+Gmail 工具包需要 Google API 客户端库和正确的身份验证设置。安装所需的依赖项：
 
 ```shell
 pip install google-api-python-client google-auth-httplib2 google-auth-oauthlib
 ```
 
-You'll also need to set up Google Cloud credentials:
+您还需要设置 Google Cloud 凭据：
 
-1. Go to [Google Cloud Console](https://console.cloud.google.com)
-2. Create a project or select an existing one
-3. Enable the Gmail API
-4. Create OAuth 2.0 credentials
-5. Set up environment variables:
+1. 前往 [Google Cloud Console](https://console.cloud.google.com)
+2. 创建一个项目或选择一个现有项目
+3. 启用 Gmail API
+4. 创建 OAuth 2.0 凭据
+5. 设置环境变量：
 
 ```shell
 export GOOGLE_CLIENT_ID=your_client_id_here
 export GOOGLE_CLIENT_SECRET=your_client_secret_here
 export GOOGLE_PROJECT_ID=your_project_id_here
-export GOOGLE_REDIRECT_URI=http://localhost  # Default value
+export GOOGLE_REDIRECT_URI=http://localhost  # 默认值
 ```
 
-## Example
+## 示例
 
 ```python cookbook/tools/gmail_tools.py
 from agno.agent import Agent
@@ -38,36 +38,36 @@ agent = Agent(tools=[GmailTools()], show_tool_calls=True)
 agent.print_response("Show me my latest 5 unread emails", markdown=True)
 ```
 
-## Toolkit Params
+## 工具包参数
 
-| Parameter              | Type    | Default | Description                                                |
-| --------------------- | ------- | ------- | ---------------------------------------------------------- |
-| `get_latest_emails`   | `bool`  | `True`  | Enable retrieving latest emails from inbox                 |
-| `get_emails_from_user`| `bool`  | `True`  | Enable getting emails from specific senders                |
-| `get_unread_emails`   | `bool`  | `True`  | Enable fetching unread emails                             |
-| `get_starred_emails`  | `bool`  | `True`  | Enable retrieving starred emails                          |
-| `get_emails_by_context`| `bool` | `True`  | Enable searching emails by context                        |
-| `get_emails_by_date`  | `bool`  | `True`  | Enable retrieving emails within date ranges               |
-| `create_draft_email`  | `bool`  | `True`  | Enable creating email drafts                              |
-| `send_email`          | `bool`  | `True`  | Enable sending emails                                     |
-| `search_emails`       | `bool`  | `True`  | Enable searching emails                                   |
+| 参数              | 类型    | 默认值 | 描述                                     |
+|--------------------|-------|-------|------------------------------------------|
+| `get_latest_emails`| `bool`  | `True`  | 启用从收件箱检索最新电子邮件             |
+| `get_emails_from_user`| `bool`  | `True`  | 启用从特定发件人获取电子邮件             |
+| `get_unread_emails`| `bool`  | `True`  | 启用获取未读电子邮件                     |
+| `get_starred_emails`| `bool`  | `True`  | 启用检索已加星标的电子邮件               |
+| `get_emails_by_context`| `bool` | `True`  | 启用通过上下文搜索电子邮件               |
+| `get_emails_by_date`| `bool`  | `True`  | 启用在日期范围内检索电子邮件             |
+| `create_draft_email`| `bool`  | `True`  | 启用创建电子邮件草稿                     |
+| `send_email`         | `bool`  | `True`  | 启用立即发送电子邮件                     |
+| `search_emails`      | `bool`  | `True`  | 启用搜索电子邮件                         |
 
-## Toolkit Functions
+## 工具包函数
 
-| Function               | Description                                                |
-| --------------------- | ---------------------------------------------------------- |
-| `get_latest_emails`   | Get the latest X emails from the user's inbox              |
-| `get_emails_from_user`| Get X number of emails from a specific sender              |
-| `get_unread_emails`   | Get the latest X unread emails                            |
-| `get_starred_emails`  | Get X number of starred emails                            |
-| `get_emails_by_context`| Get X number of emails matching a specific context        |
-| `get_emails_by_date`  | Get emails within a specific date range                   |
-| `create_draft_email`  | Create and save an email draft                            |
-| `send_email`          | Send an email immediately                                 |
-| `search_emails`       | Search emails using natural language queries              |
+| 函数               | 描述                                     |
+|--------------------|------------------------------------------|
+| `get_latest_emails`| 从用户收件箱获取最新的 X 封邮件           |
+| `get_emails_from_user`| 从特定发件人获取 X 封邮件                |
+| `get_unread_emails`| 获取最新的 X 封未读邮件                    |
+| `get_starred_emails`| 获取 X 封已加星标的邮件                    |
+| `get_emails_by_context`| 获取匹配特定上下文的 X 封邮件            |
+| `get_emails_by_date`| 在特定日期范围内获取邮件                 |
+| `create_draft_email`| 创建并保存电子邮件草稿                   |
+| `send_email`         | 立即发送电子邮件                         |
+| `search_emails`      | 使用自然语言查询搜索电子邮件               |
 
 
-## Developer Resources
+## 开发者资源
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/gmail.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/gmail_tools.py)
+- 查看 [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/gmail.py)
+- 查看 [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/gmail_tools.py)

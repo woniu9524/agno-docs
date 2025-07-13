@@ -2,19 +2,19 @@
 title: SerperApi
 ---
 
-**SerperApiTools** enable an Agent to search Google for a query.
+**SerperApiTools** 使 Agent 能够搜索 Google 的查询。
 
-## Prerequisites
+## 前提条件
 
-The following example requires an API key from [SerperApi](https://serper.dev/).
+下面的示例需要来自 [SerperApi](https://serper.dev/) 的 API 密钥。
 
 ```shell
 export SERPER_API_KEY=***
 ```
 
-## Example
+## 示例
 
-The following agent will search Google for the query: "Whats happening in the USA" and share results.
+下面的 agent 将搜索 Google 的查询：“美国正在发生什么事”，并分享结果。
 
 ```python cookbook/tools/serper_tools.py
 from agno.agent import Agent
@@ -24,20 +24,20 @@ agent = Agent(tools=[SerperTools(location="us")], show_tool_calls=True)
 agent.print_response("Whats happening in the USA?", markdown=True)
 ```
 
-## Toolkit Params
+## Toolkit 参数
 
-| Parameter  | Type  | Default | Description                          |
-| ---------- | ----- | ------- | ------------------------------------ |
-| `api_key`  | `str` | -       | API key for authentication purposes. |
-| `location` | `str` | `"us"`  | Location to search from.             |
+| 参数名  | 类型  | 默认值 | 描述                          |
+| ------- | ----- | ------ | ----------------------------- |
+| `api_key` | `str` | -      | 用于身份验证目的的 API 密钥。 |
+| `location` | `str` | `"us"` | 要搜索的地点。              |
 
-## Toolkit Functions
+## Toolkit 函数
 
-| Function        | Description                                |
-| --------------- | ------------------------------------------ |
-| `search_google` | This function searches Google for a query. |
+| 函数名        | 描述                               |
+| ------------- | ------------------------------------ |
+| `search_google` | 此函数搜索 Google 的查询。           |
 
-## Developer Resources
+## 开发者资源
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/serper.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/serper_tools.py)
+- 查看 [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/serper.py)
+- 查看 [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/serper_tools.py)

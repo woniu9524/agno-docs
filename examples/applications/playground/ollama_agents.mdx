@@ -1,10 +1,10 @@
 ---
-title: Ollama Agents
+title: Ollama 代理
 ---
 
-## Code
+## 代码
 
-```python cookbook/apps/playground/ollama_agents.py 
+```python cookbook/apps/playground/ollama_agents.py
 from agno.agent import Agent
 from agno.models.ollama import Ollama
 from agno.playground import Playground
@@ -15,16 +15,16 @@ from agno.tools.youtube import YouTubeTools
 
 local_agent_storage_file: str = "tmp/local_agents.db"
 common_instructions = [
-    "If the user about you or your skills, tell them your name and role.",
+    "如果用户询问关于你或你的技能，请告知你的名字和角色。",
 ]
 
 web_agent = Agent(
     name="Web Agent",
-    role="Search the web for information",
+    role="搜索网络信息",
     agent_id="web-agent",
     model=Ollama(id="llama3.1:8b"),
     tools=[DuckDuckGoTools()],
-    instructions=["Always include sources."] + common_instructions,
+    instructions=["始终包含来源。"] + common_instructions,
     storage=SqliteStorage(
         table_name="web_agent",
         db_file=local_agent_storage_file,
@@ -40,7 +40,7 @@ web_agent = Agent(
 
 finance_agent = Agent(
     name="Finance Agent",
-    role="Get financial data",
+    role="获取财务数据",
     agent_id="finance-agent",
     model=Ollama(id="llama3.1:8b"),
     tools=[
@@ -51,8 +51,8 @@ finance_agent = Agent(
             company_news=True,
         )
     ],
-    description="You are an investment analyst that researches stocks and helps users make informed decisions.",
-    instructions=["Always use tables to display data"] + common_instructions,
+    description="你是一位投资分析师，负责研究股票并帮助用户做出明智的决策。",
+    instructions=["始终使用表格展示数据"] + common_instructions,
     storage=SqliteStorage(
         table_name="finance_agent",
         db_file=local_agent_storage_file,
@@ -68,16 +68,16 @@ finance_agent = Agent(
 
 youtube_agent = Agent(
     name="YouTube Agent",
-    role="Understand YouTube videos and answer questions",
+    role="理解 YouTube 视频并回答问题",
     agent_id="youtube-agent",
     model=Ollama(id="llama3.1:8b"),
     tools=[YouTubeTools()],
-    description="You are a YouTube agent that has the special skill of understanding YouTube videos and answering questions about them.",
+    description="你是一个 YouTube 代理，拥有理解 YouTube 视频和回答相关问题的特殊技能。",
     instructions=[
-        "Using a video URL, get the video data using the `get_youtube_video_data` tool and captions using the `get_youtube_video_data` tool.",
-        "Using the data and captions, answer the user\'s question in an engaging and thoughtful manner. Focus on the most important details.",
-        "If you cannot find the answer in the video, say so and ask the user to provide more details.",
-        "Keep your answers concise and engaging.",
+        "使用视频 URL，通过 `get_youtube_video_data` 工具获取视频数据，并通过 `get_youtube_video_data` 工具获取字幕。",
+        "根据视频数据和字幕，以引人入胜且深思熟虑的方式回答用户的问题。重点关注最重要的细节。",
+        "如果你在视频中找不到答案，请说明情况并请求用户提供更多详细信息。",
+        "保持回答简洁而引人入胜。",
     ]
     + common_instructions,
     add_history_to_messages=True,
@@ -96,7 +96,7 @@ youtube_agent = Agent(
 playground = Playground(
     agents=[web_agent, finance_agent, youtube_agent],
     name="Ollama Agents",
-    description="A playground for ollama agents",
+    description="Ollama 代理的游乐场",
     app_id="ollama-agents",
 )
 app = playground.get_app(use_async=False)
@@ -107,30 +107,30 @@ if __name__ == "__main__":
 
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install Ollama">
+  <Step title="安装 Ollama">
     <p>
-      Follow the instructions on [Ollama.com](https://ollama.com) to download and install Ollama.
+      请按照 [Ollama.com](https://ollama.com) 上的说明下载并安装 Ollama。
     </p>
   </Step>
 
-  <Step title="Pull a model">
+  <Step title="拉取模型">
     ```bash
     ollama pull llama3.1:8b
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U "uvicorn[standard]" ollama duckduckgo-search yfinance pypdf sqlalchemy 'fastapi[standard]' youtube-transcript-api agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行代理">
     <CodeGroup>
     ```bash Mac
     python cookbook/apps/playground/ollama_agents.py
@@ -141,4 +141,4 @@ if __name__ == "__main__":
     ```
     </CodeGroup>
   </Step>
-</Steps> 
+</Steps>

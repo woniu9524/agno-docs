@@ -1,8 +1,8 @@
 ---
-title: Cassandra Integration
+title: Cassandra 集成
 ---
 
-## Code
+## 代码
 
 ```python cookbook/agent_concepts/vector_dbs/cassandra_db.py
 from agno.agent import Agent
@@ -15,7 +15,7 @@ try:
     from cassandra.cluster import Cluster
 except (ImportError, ModuleNotFoundError):
     raise ImportError(
-        "Could not import cassandra-driver python package.Please install it with pip install cassandra-driver."
+        "无法导入 cassandra-driver python 包。请使用 pip install cassandra-driver 进行安装。"
     )
 
 cluster = Cluster()
@@ -38,7 +38,7 @@ knowledge_base = PDFUrlKnowledgeBase(
     ),
 )
 
-knowledge_base.load(recreate=True)  # Comment out after first run
+knowledge_base.load(recreate=True)  # 首次运行时注释掉此行
 
 agent = Agent(
     model=MistralChat(),
@@ -47,24 +47,24 @@ agent = Agent(
 )
 
 agent.print_response(
-    "What are the health benefits of Khao Niew Dam Piek Maphrao Awn?",
+    "Khao Niew Dam Piek Maphrao Awn 的健康益处是什么？",
     markdown=True,
     show_full_reasoning=True,
 )
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U cassandra-driver pypdf openai agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行 Agent">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/vector_dbs/cassandra_db.py

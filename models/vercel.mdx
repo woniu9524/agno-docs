@@ -1,15 +1,15 @@
 ---
 title: Vercel v0
-description: Learn how to use Vercel v0 models with Agno.
+description: 了解如何将 Vercel v0 模型与 Agno 结合使用。
 ---
 
-The Vercel v0 API provides large language models, designed for building modern web applications. It supports text and image inputs, provides fast streaming responses, and is compatible with the OpenAI Chat Completions API format. It is optimized for frontend and full-stack web development code generation.
+Vercel v0 API 提供了大型语言模型，旨在构建现代 Web 应用程序。它支持文本和图像输入，提供快速的流式响应，并与 OpenAI Chat Completions API 格式兼容。它针对前端和全栈 Web 开发代码生成进行了优化。
 
-For more details, refer to the [official Vercel v0 API documentation](https://vercel.com/docs/v0/api).
+更多详情，请参阅 [官方 Vercel v0 API 文档](https://vercel.com/docs/v0/api)。
 
-## Authentication
+## 身份验证
 
-Set your `V0_API_KEY` environment variable. You can create an API key on [v0.dev](https://v0.dev/chat/settings/keys).
+设置您的 `V0_API_KEY` 环境变量。您可以在 [v0.dev](https://v0.dev/chat/settings/keys) 上创建 API 密钥。
 
 <CodeGroup>
 
@@ -23,9 +23,9 @@ setx V0_API_KEY your-v0-api-key
 
 </CodeGroup>
 
-## Example
+## 示例
 
-Use `v0` with your `Agent`. The following example assumes you have the `v0` Python class (as you provided) located at `agno/models/vercel.py`.
+将 `v0` 与您的 `Agent` 一起使用。以下示例假定您在 `agno/models/vercel.py` 位置拥有 `v0` Python 类（如您所提供）。
 
 <CodeGroup>
 
@@ -38,7 +38,7 @@ agent = Agent(
     markdown=True
 )
 
-# Print the response in the terminal
+# 在终端打印响应
 agent.print_response("Create a simple web app that displays a random number between 1 and 100.")
 
 # agent.print_response("Create a webapp to fetch the weather of a city and display humidity, temperature, and wind speed in cards, use shadcn components and tailwind css")
@@ -47,10 +47,10 @@ agent.print_response("Create a simple web app that displays a random number betw
 
 </CodeGroup>
 
-<Note> View more examples [here](/examples/models/vercel). </Note>
+<Note>在此处查看更多示例：[/examples/models/vercel](/examples/models/vercel)。 </Note>
 
-## Params
+## 参数
 
 <Snippet file="model-v0-params.mdx" />
 
-v0 also supports the params of [OpenAI](/reference/models/openai).
+v0 还支持 [OpenAI](/reference/models/openai) 的参数。

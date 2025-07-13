@@ -1,8 +1,8 @@
 ---
-title: Image Agent
+title: 图片代理
 ---
 
-## Code
+## 代码
 
 ```python cookbook/models/lmstudio/image_agent.py
 import httpx
@@ -17,29 +17,28 @@ agent = Agent(
 )
 
 response = httpx.get(
-    "https://upload.wikimedia.org/wikipedia/commons/0/0c/GoldenGateBridge-001.jpg"
+    "https://upload.wikimedia.org/wikipedia/commons/0/07/GoldenGateBridge-001.jpg"
 )
 
 agent.print_response(
-    "Tell me about this image",
+    "给我讲讲这张图片",
     images=[Image(content=response.content)],
     stream=True,
 )
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-<Step title="Install LM Studio">
-  Install LM Studio from [here](https://lmstudio.ai/download) and download the
-  model you want to use.
+<Step title="安装 LM Studio">
+  从[这里](https://lmstudio.ai/download)下载 LM Studio 并下载您想使用的模型。
 </Step>
 
-<Step title="Install libraries">```bash pip install -U agno ```</Step>
+<Step title="安装库">```bash pip install -U agno ```</Step>
 
-  <Step title="Run Agent">
+  <Step title="运行代理">
     <CodeGroup>
     ```bash Mac
     python cookbook/models/lmstudio/image_agent.py

@@ -1,13 +1,13 @@
-| Parameter | Type | Description | Default |
+| 参数 | 类型 | 描述 | 默认值 |
 |-----------|------|-------------|---------|
-| `wcd_url` | `Optional[str]` | Weaviate Cloud URL (or use WCD_URL env var) | `None` |
-| `wcd_api_key` | `Optional[str]` | Weaviate Cloud API key (or use WCD_API_KEY env var) | `None` |
-| `client` | `Optional[weaviate.WeaviateClient]` | Pre-configured Weaviate client | `None` |
-| `local` | `bool` | Whether to use a local Weaviate instance | `False` |
-| `collection` | `str` | Name of the Weaviate collection | `"default"` |
-| `vector_index` | `VectorIndex` | Type of vector index (HNSW, FLAT, DYNAMIC) | `VectorIndex.HNSW` |
-| `distance` | `Distance` | Distance metric (COSINE, DOT, etc.) | `Distance.COSINE` |
-| `embedder` | `Optional[Embedder]` | Embedder to use for generating embeddings | `OpenAIEmbedder()` |
-| `search_type` | `SearchType` | Search type (vector, keyword, hybrid) | `SearchType.vector` |
-| `reranker` | `Optional[Reranker]` | Reranker to refine search results | `None` |
-| `hybrid_search_alpha` | `float` | Weighting factor for hybrid search | `0.5` |
+| `wcd_url` | `Optional[str]` | Weaviate Cloud URL (或使用 WCD_URL 环境变量) | `None` |
+| `wcd_api_key` | `Optional[str]` | Weaviate Cloud API 密钥 (或使用 WCD_API_KEY 环境变量) | `None` |
+| `client` | `Optional[weaviate.WeaviateClient]` | 已预先配置的 Weaviate 客户端 | `None` |
+| `local` | `bool` | 是否使用本地的 Weaviate 实例 | `False` |
+| `collection` | `str` | Weaviate 集合的名称 | `"default"` |
+| `vector_index` | `VectorIndex` | 向量索引的类型 (HNSW, FLAT, DYNAMIC) | `VectorIndex.HNSW` |
+| `distance` | `Distance` | 距离度量 (COSINE, DOT, 等) | `Distance.COSINE` |
+| `embedder` | `Optional[Embedder]` | 用于生成嵌入的 Embedder | `OpenAIEmbedder()` |
+| `search_type` | `SearchType` | 搜索类型 (向量, 关键字, 混合) | `SearchType.vector` |
+| `reranker` | `Optional[Reranker]` | 用于优化搜索结果的 Reranker | `None` |
+| `hybrid_search_alpha` | `float` | 混合搜索的权重因子 | `0.5` |

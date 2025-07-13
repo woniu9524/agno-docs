@@ -1,8 +1,8 @@
 ---
-title: Audio Input (Upload the file)
+title: 音频输入（上传文件）
 ---
 
-## Code
+## 代码
 
 ```python cookbook/models/google/gemini/audio_input_file_upload.py
 from pathlib import Path
@@ -17,7 +17,7 @@ agent = Agent(
     markdown=True,
 )
 
-# Please download a sample audio file to test this Agent and upload using:
+# 请下载一个音频文件样本用于测试此 Agent，并使用以下方式上传：
 audio_path = Path(__file__).parent.joinpath("sample.mp3")
 audio_file = None
 
@@ -45,24 +45,24 @@ agent.print_response(
 )
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">
     ```bash
     export GOOGLE_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U google-genai agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行 Agent">
     <CodeGroup>
     ```bash Mac
     python cookbook/models/google/gemini/audio_input_file_upload.py
@@ -73,4 +73,4 @@ agent.print_response(
     ```
     </CodeGroup>
   </Step>
-</Steps> 
+</Steps>

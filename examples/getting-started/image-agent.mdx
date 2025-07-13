@@ -1,22 +1,22 @@
 ---
-title: Image Agent
+title: 图片代理
 ---
 
-This example shows how to create an AI agent that can analyze images and connect them with current events using web searches. Perfect for:
-1. News reporting and journalism
-2. Travel and tourism content
-3. Social media analysis
-4. Educational presentations
-5. Event coverage
+本示例展示了如何创建一个 AI 代理，该代理能够分析图像，并通过网络搜索将它们与时事联系起来。非常适合：
+1. 新闻报道和新闻业
+2. 旅游内容
+3. 社交媒体分析
+4. 教育演示文稿
+5. 活动报道
 
-Example images to try:
-- Famous landmarks (Eiffel Tower, Taj Mahal, etc.)
-- City skylines
-- Cultural events and festivals
-- Breaking news scenes
-- Historical locations
+可以尝试的示例图片：
+- 著名地标（埃菲尔铁塔、泰姬陵等）
+- 城市天际线
+- 文化活动和节日
+- 重大新闻场景
+- 历史遗迹
 
-## Code
+## 代码
 
 ```python image_agent.py
 from textwrap import dedent
@@ -29,48 +29,45 @@ from agno.tools.duckduckgo import DuckDuckGoTools
 agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
     description=dedent("""\
-        You are a world-class visual journalist and cultural correspondent with a gift
-        for bringing images to life through storytelling! 📸✨ With the observational skills
-        of a detective and the narrative flair of a bestselling author, you transform visual
-        analysis into compelling stories that inform and captivate.\
+        你是一位世界级的视觉记者和文化记者，擅长通过讲故事让图像焕发生机！📸✨ 凭借侦探般的观察力和畅销书作家般的叙事风格，你将视觉分析转化为引人入胜的故事，既能启发又能吸引读者。\
     """),
     instructions=dedent("""\
-        When analyzing images and reporting news, follow these principles:
+        在分析图像和报道新闻时，请遵循以下原则：
 
-        1. Visual Analysis:
-           - Start with an attention-grabbing headline using relevant emoji
-           - Break down key visual elements with expert precision
-           - Notice subtle details others might miss
-           - Connect visual elements to broader contexts
+        1. 视觉分析：
+           - 用相关的表情符号写一个引人注目的标题
+           - 以专业的精度分解关键视觉元素
+           - 注意他人可能忽略的细微之处
+           - 将视觉元素与更广泛的背景联系起来
 
-        2. News Integration:
-           - Research and verify current events related to the image
-           - Connect historical context with present-day significance
-           - Prioritize accuracy while maintaining engagement
-           - Include relevant statistics or data when available
+        2. 新闻整合：
+           - 研究和核实与图像相关的时事
+           - 将历史背景与当代意义联系起来
+           - 在保持参与度的同时优先考虑准确性
+           - 在可用时包含相关统计数据或信息
 
-        3. Storytelling Style:
-           - Maintain a professional yet engaging tone
-           - Use vivid, descriptive language
-           - Include cultural and historical references when relevant
-           - End with a memorable sign-off that fits the story
+        3. 讲故事风格：
+           - 保持专业而引人入胜的语气
+           - 使用生动、描述性的语言
+           - 在相关时包含文化和历史参考文献
+           - 以符合故事的令人难忘的结束语来结尾
 
-        4. Reporting Guidelines:
-           - Keep responses concise but informative (2-3 paragraphs)
-           - Balance facts with human interest
-           - Maintain journalistic integrity
-           - Credit sources when citing specific information
+        4. 报道指南：
+           - 回答保持简洁但信息丰富（2-3 段）
+           - 平衡事实与人文兴趣
+           - 保持新闻业的诚信
+           - 引用特定信息时注明来源
 
-        Transform every image into a compelling news story that informs and inspires!\
+        将每张图片都变成一个引人入胜的新闻故事，以启发和激励！\
     """),
     tools=[DuckDuckGoTools()],
     show_tool_calls=True,
     markdown=True,
 )
 
-# Example usage with a famous landmark
+# 使用著名地标的示例用法
 agent.print_response(
-    "Tell me about this image and share the latest relevant news.",
+    "告诉我关于这张图片的信息，并分享最新的相关新闻。",
     images=[
         Image(
             url="https://upload.wikimedia.org/wikipedia/commons/0/0c/GoldenGateBridge-001.jpg"
@@ -79,42 +76,42 @@ agent.print_response(
     stream=True,
 )
 
-# More examples to try:
+# 更多示例供尝试：
 """
-Sample prompts to explore:
-1. "What's the historical significance of this location?"
-2. "How has this place changed over time?"
-3. "What cultural events happen here?"
-4. "What's the architectural style and influence?"
-5. "What recent developments affect this area?"
+样本提示供探索：
+1. “这个地方的历史意义是什么？”
+2. “这个地方随着时间的推移发生了怎样的变化？”
+3. “这里会发生什么文化活动？”
+4. “它的建筑风格和影响力是什么？”
+5. “该地区有哪些近期发展会受到影响？”
 
-Sample image URLs to analyze:
-1. Eiffel Tower: "https://upload.wikimedia.org/wikipedia/commons/8/85/Tour_Eiffel_Wikimedia_Commons_%28cropped%29.jpg"
-2. Taj Mahal: "https://upload.wikimedia.org/wikipedia/commons/b/bd/Taj_Mahal%2C_Agra%2C_India_edit3.jpg"
-3. Golden Gate Bridge: "https://upload.wikimedia.org/wikipedia/commons/0/0c/GoldenGateBridge-001.jpg"
+要分析的图片网址示例：
+1. 埃菲尔铁塔：“https://upload.wikimedia.org/wikipedia/commons/8/85/Tour_Eiffel_Wikimedia_Commons_%28cropped%29.jpg”
+2. 泰姬陵：“https://upload.wikimedia.org/wikipedia/commons/b/bd/Taj_Mahal%2C_Agra%2C_India_edit3.jpg”
+3. 金门大桥：“https://upload.wikimedia.org/wikipedia/commons/0/0c/GoldenGateBridge-001.jpg”
 """
 
-# To get the response in a variable:
+# 要在变量中获取响应：
 # from rich.pretty import pprint
 # response = agent.run(
-#     "Analyze this landmark's architecture and recent news.",
+#     "分析这个地标的建筑和近期新闻。",
 #     images=[Image(url="YOUR_IMAGE_URL")],
 # )
 # pprint(response.content)
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install openai duckduckgo-search agno
     ```
   </Step>
 
-  <Step title="Run the agent">
+  <Step title="运行代理">
     ```bash
     python image_agent.py
     ```

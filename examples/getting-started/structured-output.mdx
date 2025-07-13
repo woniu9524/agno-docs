@@ -1,19 +1,19 @@
 ---
-title: Structured Output
+title: 结构化输出
 ---
 
-This example shows how to use structured outputs with AI agents to generate well-formatted movie script concepts. It shows two approaches:
-1. JSON Mode: Traditional JSON response parsing
-2. Structured Output: Enhanced structured data handling
+此示例展示了如何使用结构化输出与 AI 代理，以生成格式良好的电影剧本概念。它展示了两种方法：
+1. JSON 模式：传统的 JSON 响应解析
+2. 结构化输出：增强的结构化数据处理
 
-Example prompts to try:
-- "Tokyo" - Get a high-tech thriller set in futuristic Japan
-- "Ancient Rome" - Experience an epic historical drama
-- "Manhattan" - Explore a modern romantic comedy
-- "Amazon Rainforest" - Adventure in an exotic location
-- "Mars Colony" - Science fiction in a space settlement
+可以尝试的示例提示：
+- “东京” - 获取一个设定在未来日本的高科技惊悚片
+- “古罗马” - 体验一部史诗历史剧
+- “曼哈顿” - 探索一部现代浪漫喜剧
+- “亚马逊雨林” - 在异国情调的地点进行冒险
+- “火星殖民地” - 太空定居点中的科幻小说
 
-## Code
+## 代码
 
 ```python structured_output.py
 from textwrap import dedent
@@ -27,121 +27,121 @@ from pydantic import BaseModel, Field
 class MovieScript(BaseModel):
     setting: str = Field(
         ...,
-        description="A richly detailed, atmospheric description of the movie's primary location and time period. Include sensory details and mood.",
+        description="对电影主要地点和时代背景的丰富细节和氛围描述。包含感官细节和情绪。",
     )
     ending: str = Field(
         ...,
-        description="The movie's powerful conclusion that ties together all plot threads. Should deliver emotional impact and satisfaction.",
+        description="将所有情节线索联系起来的电影精彩结局。应具有情感冲击力和满意度。",
     )
     genre: str = Field(
         ...,
-        description="The film's primary and secondary genres (e.g., 'Sci-fi Thriller', 'Romantic Comedy'). Should align with setting and tone.",
+        description="电影的主要和次要类型（例如，“科幻惊悚片”、“浪漫喜剧”）。应与设定和基调保持一致。",
     )
     name: str = Field(
         ...,
-        description="An attention-grabbing, memorable title that captures the essence of the story and appeals to target audience.",
+        description="一个引人注目、令人难忘的标题，捕捉故事的精髓并吸引目标受众。",
     )
     characters: List[str] = Field(
         ...,
-        description="4-6 main characters with distinctive names and brief role descriptions (e.g., 'Sarah Chen - brilliant quantum physicist with a dark secret').",
+        description="4-6 位主要角色，带有独特的姓名和简短的角色描述（例如，“Sarah Chen - 拥有黑暗秘密的杰出量子物理学家”）。",
     )
     storyline: str = Field(
         ...,
-        description="A compelling three-sentence plot summary: Setup, Conflict, and Stakes. Hook readers with intrigue and emotion.",
+        description="一个引人入胜的三句话情节摘要：铺垫、冲突和风险。用悬念和情感吸引读者。",
     )
 
 
-# Agent that uses JSON mode
+# 使用 JSON 模式的代理
 json_mode_agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
     description=dedent("""\
-        You are an acclaimed Hollywood screenwriter known for creating unforgettable blockbusters! 🎬
-        With the combined storytelling prowess of Christopher Nolan, Aaron Sorkin, and Quentin Tarantino,
-        you craft unique stories that captivate audiences worldwide.
+        你是一位著名的好莱坞编剧，以创作令人难忘的卖座大片而闻名！🎬
+        结合了克里斯托弗·诺兰、艾伦·索金和昆汀·塔伦蒂诺的故事叙述能力，
+        你创作出能够吸引全球观众的独特故事。
 
-        Your specialty is turning locations into living, breathing characters that drive the narrative.\
+        你的专长是将地点变成鲜活的人物，推动叙事发展。\
     """),
     instructions=dedent("""\
-        When crafting movie concepts, follow these principles:
+        在构思电影概念时，请遵循以下原则：
 
-        1. Settings should be characters:
-           - Make locations come alive with sensory details
-           - Include atmospheric elements that affect the story
-           - Consider the time period's impact on the narrative
+        1. 情境即角色：
+           - 让地点充满感官细节，栩栩如生
+           - 包含影响故事的氛围元素
+           - 考虑时代对叙事的影响
 
-        2. Character Development:
-           - Give each character a unique voice and clear motivation
-           - Create compelling relationships and conflicts
-           - Ensure diverse representation and authentic backgrounds
+        2. 角色发展：
+           - 让每个角色都有独特的声音和明确的动机
+           - 创造引人入胜的关系和冲突
+           - 确保多元化代表性和真实背景
 
-        3. Story Structure:
-           - Begin with a hook that grabs attention
-           - Build tension through escalating conflicts
-           - Deliver surprising yet inevitable endings
+        3. 故事结构：
+           - 以吸引人的开头开始
+           - 通过不断升级的冲突来建立紧张感
+           - 提供令人惊讶但又不可避免的结局
 
-        4. Genre Mastery:
-           - Embrace genre conventions while adding fresh twists
-           - Mix genres thoughtfully for unique combinations
-           - Maintain consistent tone throughout
+        4. 类型精通：
+           - 在拥抱类型惯例的同时，加入新颖的转折
+           - 深思熟虑地混合类型以创造独特的组合
+           - 在整个过程中保持一致的基调
 
-        Transform every location into an unforgettable cinematic experience!\
+        将每个地点都变成一次难忘的电影体验！\
     """),
     response_model=MovieScript,
 )
 
-# Agent that uses structured outputs
+# 使用结构化输出的代理
 structured_output_agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
     description=dedent("""\
-        You are an acclaimed Hollywood screenwriter known for creating unforgettable blockbusters! 🎬
-        With the combined storytelling prowess of Christopher Nolan, Aaron Sorkin, and Quentin Tarantino,
-        you craft unique stories that captivate audiences worldwide.
+        你是一位著名的好莱坞编剧，以创作令人难忘的卖座大片而闻名！🎬
+        结合了克里斯托弗·诺兰、艾伦·索金和昆汀·塔伦蒂诺的故事叙述能力，
+        你创作出能够吸引全球观众的独特故事。
 
-        Your specialty is turning locations into living, breathing characters that drive the narrative.\
+        你的专长是将地点变成鲜活的人物，推动叙事发展。\
     """),
     instructions=dedent("""\
-        When crafting movie concepts, follow these principles:
+        在构思电影概念时，请遵循以下原则：
 
-        1. Settings should be characters:
-           - Make locations come alive with sensory details
-           - Include atmospheric elements that affect the story
-           - Consider the time period's impact on the narrative
+        1. 情境即角色：
+           - 让地点充满感官细节，栩栩如生
+           - 包含影响故事的氛围元素
+           - 考虑时代对叙事的影响
 
-        2. Character Development:
-           - Give each character a unique voice and clear motivation
-           - Create compelling relationships and conflicts
-           - Ensure diverse representation and authentic backgrounds
+        2. 角色发展：
+           - 让每个角色都有独特的声音和明确的动机
+           - 创造引人入胜的关系和冲突
+           - 确保多元化代表性和真实背景
 
-        3. Story Structure:
-           - Begin with a hook that grabs attention
-           - Build tension through escalating conflicts
-           - Deliver surprising yet inevitable endings
+        3. 故事结构：
+           - 以吸引人的开头开始
+           - 通过不断升级的冲突来建立紧张感
+           - 提供令人惊讶但又不可避免的结局
 
-        4. Genre Mastery:
-           - Embrace genre conventions while adding fresh twists
-           - Mix genres thoughtfully for unique combinations
-           - Maintain consistent tone throughout
+        4. 类型精通：
+           - 在拥抱类型惯例的同时，加入新颖的转折
+           - 深思熟虑地混合类型以创造独特的组合
+           - 在整个过程中保持一致的基调
 
-        Transform every location into an unforgettable cinematic experience!\
+        将每个地点都变成一次难忘的电影体验！\
     """),
     response_model=MovieScript,
 )
 
-# Example usage with different locations
+# 使用不同地点的示例用法
 json_mode_agent.print_response("Tokyo", stream=True)
 structured_output_agent.print_response("Ancient Rome", stream=True)
 
-# More examples to try:
+# 更多示例可以尝试：
 """
-Creative location prompts to explore:
-1. "Underwater Research Station" - For a claustrophobic sci-fi thriller
-2. "Victorian London" - For a gothic mystery
-3. "Dubai 2050" - For a futuristic heist movie
-4. "Antarctic Research Base" - For a survival horror story
-5. "Caribbean Island" - For a tropical adventure romance
+创意地点提示以供探索：
+1. “水下研究站” - 用于幽闭恐怖的科幻惊悚片
+2. “维多利亚时代的伦敦” - 用于哥特式悬疑片
+3. “2050 年迪拜” - 用于未来抢劫电影
+4. “南极研究基地” - 用于生存恐怖故事
+5. “加勒比海岛” - 用于热带冒险浪漫片
 """
 
-# To get the response in a variable:
+# 若要在变量中获取响应：
 # from rich.pretty import pprint
 
 # json_mode_response: RunResponse = json_mode_agent.run("New York")
@@ -150,18 +150,18 @@ Creative location prompts to explore:
 # pprint(structured_output_response.content)
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install openai agno
     ```
   </Step>
 
-  <Step title="Run the agent">
+  <Step title="运行代理">
     ```bash
     python structured_output.py
     ```

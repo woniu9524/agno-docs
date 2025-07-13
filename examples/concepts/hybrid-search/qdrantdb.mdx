@@ -1,8 +1,8 @@
 ---
-title: QdrantDB Hybrid Search
+title: QdrantDB 混合搜索
 ---
 
-## Code
+## 代码
 
 ```python cookbook/agent_concepts/knowledge/vector_dbs/qdrant_db/qdrant_db_hybrid_search.py
 from typing import Optional
@@ -39,30 +39,30 @@ def qdrantdb_agent(user: str = "user"):
 
 
 if __name__ == "__main__":
-    # Comment out after first run
+    # 首次运行时注释掉此行
     knowledge_base.load(recreate=True)
 
     typer.run(qdrantdb_agent)
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U qdrant-client fastembed tantivy pypdf openai agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行 Agent">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/knowledge/vector_dbs/qdrant_db/qdrant_db_hybrid_search.py

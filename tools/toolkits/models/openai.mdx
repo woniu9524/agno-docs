@@ -3,18 +3,18 @@ title: OpenAI
 sidebarTitle: OpenAI
 ---
 
-OpenAITools allow an Agent to interact with OpenAI models for performing audio transcription, image generation, and text-to-speech.
+OpenAITools 允许代理与 OpenAI 模型进行交互，以执行音频转录、图像生成和文本转语音。
 
-## Prerequisites
+## 前提条件
 
-Before using `OpenAITools`, ensure you have the `openai` library installed and your OpenAI API key configured.
+在使用 `OpenAITools` 之前，请确保已安装 `openai` 库并已配置好你的 OpenAI API 密钥。
 
-1. **Install the library:**
+1. **安装库：**
    ```bash
    pip install -U openai
    ```
 
-2. **Set your API key:** Obtain your API key from [OpenAI](https://platform.openai.com/account/api-keys) and set it as an environment variable.
+2. **设置 API 密钥：** 从 [OpenAI](https://platform.openai.com/account/api-keys) 获取你的 API 密钥，并将其设置为环境变量。
 
    <CodeGroup>
    ```bash Mac
@@ -25,9 +25,9 @@ Before using `OpenAITools`, ensure you have the `openai` library installed and y
    ```
    </CodeGroup>
 
-## Initialization
+## 初始化
 
-Import `OpenAITools` and add it to your Agent's tool list.
+导入 `OpenAITools` 并将其添加到 Agent 的工具列表中。
 
 ```python
 from agno.agent import Agent
@@ -41,11 +41,11 @@ agent = Agent(
 )
 ```
 
-## Usage Examples
+## 使用示例
 
-### 1. Transcribing Audio
+### 1. 转录音频
 
-This example demonstrates an agent that transcribes an audio file.
+此示例演示了一个转录音频文件的 Agent。
 
 ```python transcription_agent.py
 from pathlib import Path
@@ -68,9 +68,9 @@ agent = Agent(
 agent.print_response(f"Transcribe the audio file located at '{local_audio_path}'")
 ```
 
-### 2. Generating Images
+### 2. 生成图像
 
-This example demonstrates an agent that generates an image based on a text prompt.
+此示例演示了一个根据文本提示生成图像的 Agent。
 
 ```python image_generation_agent.py
 from agno.agent import Agent
@@ -90,9 +90,9 @@ if response.images:
     save_base64_data(response.images[0].content, "tmp/coffee_shop.png")
 ```
 
-### 3. Generating Speech
+### 3. 生成语音
 
-This example demonstrates an agent that generates speech from text.
+此示例演示了一个从文本生成语音的 Agent。
 
 ```python speech_synthesis_agent.py
 from agno.agent import Agent
@@ -117,11 +117,11 @@ if response and response.audio:
     save_base64_data(response.audio[0].base64_audio, "tmp/hello.mp3")
 ```
 
-<Note> View more examples [here](/examples/concepts/tools/models/openai). </Note>
+<Note> 在此查看更多示例：[here](/examples/concepts/tools/models/openai) </Note>
 
-## Customization
+## 定制化
 
-You can customize the underlying OpenAI models used for transcription, image generation, and TTS:
+你可以定制用于转录、图像生成和 TTS 的底层 OpenAI 模型：
 
 ```python
 OpenAITools(
@@ -133,19 +133,19 @@ OpenAITools(
 )
 ```
 
-## Toolkit Functions
+## 工具集函数
 
-The `OpenAITools` toolkit provides the following functions:
+`OpenAITools` 工具集提供以下函数：
 
 | Function           | Description                                                                 |
 | ------------------ | --------------------------------------------------------------------------- |
-| `transcribe_audio` | Transcribes audio from a local file path or a public URL |
-| `generate_image`   | Generates images based on a text prompt |
-| `generate_speech`  | Synthesizes speech from text |
+| `transcribe_audio` | 从本地文件路径或公共 URL 转录音频 |
+| `generate_image`   | 根据文本提示生成图像 |
+| `generate_speech`  | 从文本合成语音 |
 
-## Developer Resources
+## 开发者资源
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/openai.py)
-- View [OpenAI Transcription Guide](https://platform.openai.com/docs/guides/speech-to-text)
-- View [OpenAI Image Generation Guide](https://platform.openai.com/docs/guides/image-generation?image-generation-model=gpt-image-1)
-- View [OpenAI Text-to-Speech Guide](https://platform.openai.com/docs/guides/text-to-speech)
+- 查看 [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/openai.py)
+- 查看 [OpenAI Speech-to-Text 指南](https://platform.openai.com/docs/guides/speech-to-text)
+- 查看 [OpenAI 图像生成指南](https://platform.openai.com/docs/guides/image-generation?image-generation-model=gpt-image-1)
+- 查看 [OpenAI Text-to-Speech 指南](https://platform.openai.com/docs/guides/text-to-speech)

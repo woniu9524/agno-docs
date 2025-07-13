@@ -1,10 +1,10 @@
 ---
-title: Success Criteria
+title: 成功标准
 ---
 
-This example shows how to set the success criteria of an agent.
+此示例展示了如何设置代理的成功标准。
 
-## Code
+## 代码
 
 ```python cookbook/agent_concepts/other/success_criteria.py
 from agno.agent import Agent
@@ -34,24 +34,24 @@ Ask: Who drinks which beverage?
 puzzle_master.print_response(prompt, stream=True, show_reasoning=True)
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">
     ```bash
     export GOOGLE_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U google-generativeai agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行 Agent">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/other/success_criteria.py
@@ -62,4 +62,4 @@ puzzle_master.print_response(prompt, stream=True, show_reasoning=True)
     ```
     </CodeGroup>
   </Step>
-</Steps> 
+</Steps>

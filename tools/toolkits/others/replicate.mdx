@@ -1,31 +1,31 @@
 ---
-title: Replicate
+title: 复制
 ---
 
-**ReplicateTools** enables an Agent to generate media using the [Replicate platform](https://replicate.com/).
+**ReplicateTools** 使 Agent 能够使用 [Replicate 平台](https://replicate.com/) 生成媒体。
 
-## Prerequisites
+## 先决条件
 
 ```shell
 export REPLICATE_API_TOKEN=***
 ```
 
-The following example requires the `replicate` library. To install the Replicate client, run the following command:
+下面的示例需要 `replicate` 库。要安装 Replicate 客户端，请运行以下命令：
 
 ```shell
 pip install -U replicate
 ```
 
-## Example
+## 示例
 
-The following agent will use Replicate to generate images or videos requested by the user.
+下面的 Agent 将使用 Replicate 来生成用户请求的图像或视频。
 
 ```python cookbook/tools/replicate_tool.py
 from agno.agent import Agent
 from agno.models.openai import OpenAIChat
 from agno.tools.replicate import ReplicateTools
 
-"""Create an agent specialized for Replicate AI content generation"""
+"""创建专门用于 Replicate AI 内容生成的 Agent"""
 
 image_agent = Agent(
     name="Image Generator Agent",
@@ -45,20 +45,20 @@ image_agent = Agent(
 image_agent.print_response("Generate an image of a horse in the dessert.")
 ```
 
-## Toolkit Params
+## Toolkit 参数
 
-| Parameter | Type  | Default            | Description                                                          |
-| --------- | ----- | ------------------ | -------------------------------------------------------------------- |
-| `api_key` | `str` | `None`             | If you want to manually supply the Replicate API key.                |
-| `model`   | `str` | `minimax/video-01` | The replicate model to use. Find out more on the Replicate platform. |
+| 参数 | 类型 | 默认 | 说明 |
+| -------- | -------- | -------- | -------- |
+| `api_key` | `str` | `None` | 如果您想手动提供 Replicate API 密钥。 |
+| `model` | `str` | `minimax/video-01` | 要使用的 Replicate 模型。在 Replicate 平台上了解更多信息。 |
 
-## Toolkit Functions
+## Toolkit 函数
 
-| Function         | Description                                                                         |
-| ---------------- | ----------------------------------------------------------------------------------- |
-| `generate_media` | Generate either an image or a video from a prompt. The output depends on the model. |
+| 函数 | 说明 |
+| -------- | -------- |
+| `generate_media` | 从提示生成图像或视频。输出取决于模型。 |
 
-## Developer Resources
+## 开发者资源
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/replicate.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/replicate_tools.py)
+- 查看 [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/replicate.py)
+- 查看 [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/replicate_tools.py)

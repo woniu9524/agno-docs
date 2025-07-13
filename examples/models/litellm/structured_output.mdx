@@ -1,8 +1,8 @@
 ---
-title: Agent with Structured Outputs
+title: 具有结构化输出的代理
 ---
 
-## Code
+## 代码
 
 ```python cookbook/models/litellm/structured_output.py
 from typing import List
@@ -15,51 +15,51 @@ from rich.pretty import pprint  # noqa
 
 class MovieScript(BaseModel):
     setting: str = Field(
-        ..., description="Provide a nice setting for a blockbuster movie."
+        ..., description="为一部大片电影提供一个漂亮的场景。"
     )
     ending: str = Field(
         ...,
-        description="Ending of the movie. If not available, provide a happy ending.",
+        description="电影的结局。如果不可用，请提供一个快乐的结局。",
     )
     genre: str = Field(
         ...,
-        description="Genre of the movie. If not available, select action, thriller or romantic comedy.",
+        description="电影的类型。如果不可用，请选择动作片、惊悚片或浪漫喜剧。",
     )
-    name: str = Field(..., description="Give a name to this movie")
-    characters: List[str] = Field(..., description="Name of characters for this movie.")
+    name: str = Field(..., description="为这部电影起个名字")
+    characters: List[str] = Field(..., description="这部电影的角色名字。")
     storyline: str = Field(
-        ..., description="3 sentence storyline for the movie. Make it exciting!"
+        ..., description="这部电影的 3 句话故事情节。要令人兴奋！"
     )
 
 
 json_mode_agent = Agent(
     model=LiteLLM(id="gpt-4o"),
-    description="You write movie scripts.",
+    description="你负责写电影剧本。",
     response_model=MovieScript,
     debug_mode=True,
 )
 
-json_mode_agent.print_response("New York")
+json_mode_agent.print_response("纽约")
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置你的 API 密钥">
     ```bash
     export LITELLM_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U litellm openai agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行代理">
     <CodeGroup>
     ```bash Mac
     python cookbook/models/litellm/structured_output.py

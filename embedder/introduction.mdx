@@ -1,35 +1,35 @@
 ---
-title: What are Embedders?
-sidebarTitle: Overview
-description: Learn how to use embedders with Agno to convert complex information into vector representations.
+title: 什么是 Embedder？
+sidebarTitle: 概述
+description: 了解如何使用 Agno 的 Embedder 将复杂信息转换为向量表示。
 ---
 
-An Embedder converts complex information into vector representations, allowing it to be stored in a vector database. By transforming data into embeddings, the embedder enables efficient searching and retrieval of contextually relevant information. This process enhances the responses of language models by providing them with the necessary business context, ensuring they are context-aware. Agno uses the `OpenAIEmbedder` as the default embedder, but other embedders are supported as well. Here is an example:
+Embedder 将复杂信息转换为向量表示，使其能够存储在向量数据库中。通过将数据转换为嵌入，Embedder 可以高效地搜索和检索上下文相关的​​信息。此过程通过为语言模型提供必要的业务上下文来增强其响应，确保它们具有上下文感知能力。Agno 使用 `OpenAIEmbedder` 作为默认 Embedder，但也支持其他 Embedder。这是一个示例：
 
 ```python
 from agno.agent import Agent, AgentKnowledge
 from agno.vectordb.pgvector import PgVector
 from agno.embedder.openai import OpenAIEmbedder
 
-# Create knowledge base
+# 创建知识库
 knowledge_base=AgentKnowledge(
     vector_db=PgVector(
         db_url=db_url,
         table_name=embeddings_table,
         embedder=OpenAIEmbedder(),
     ),
-    # 2 references are added to the prompt
+    # 2 个参考被添加到提示中
     num_documents=2,
 ),
 
-# Add information to the knowledge base
-knowledge_base.load_text("The sky is blue")
+# 将信息添加到知识库
+knowledge_base.load_text("天空是蓝色的")
 
-# Add the knowledge base to the Agent
+# 将知识库添加到 Agent
 agent = Agent(knowledge_base=knowledge_base)
 ```
 
-The following embedders are supported:
+支持以下 Embedder：
 
 - [OpenAI](/embedder/openai)
 - [Gemini](/embedder/gemini)

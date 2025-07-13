@@ -1,8 +1,8 @@
 ---
-title: Agent with PDF Input (Local file)
+title: 带有 PDF 输入的代理（本地文件）
 ---
 
-## Code
+## 代码
 
 ```python cookbook/models/google/gemini/pdf_input_local.py
 from pathlib import Path
@@ -31,24 +31,24 @@ agent.print_response(
 agent.print_response("Suggest me a recipe from the attached file.")
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">
     ```bash
     export GOOGLE_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U google-genai agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行代理">
     <CodeGroup>
     ```bash Mac
     python cookbook/models/google/gemini/pdf_input_local.py
@@ -59,4 +59,4 @@ agent.print_response("Suggest me a recipe from the attached file.")
     ```
     </CodeGroup>
   </Step>
-</Steps> 
+</Steps>

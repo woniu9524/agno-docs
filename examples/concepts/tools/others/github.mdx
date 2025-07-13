@@ -1,8 +1,8 @@
 ---
-title: GitHub Tools
+title: GitHub 工具
 ---
 
-## Code
+## 代码
 
 ```python cookbook/tools/github_tools.py
 from agno.agent import Agent
@@ -10,8 +10,8 @@ from agno.tools.github import GithubTools
 
 agent = Agent(
     instructions=[
-        "Use your tools to answer questions about the repo: agno-agi/agno",
-        "Do not create any issues or pull requests unless explicitly asked to do so",
+        "使用你的工具回答有关 agno-agi/agno 仓库的问题",
+        "除非被明确要求，否则不要创建任何 issue 或 pull request",
     ],
     tools=[GithubTools()],
     show_tool_calls=True,
@@ -19,25 +19,25 @@ agent = Agent(
 agent.print_response("List open pull requests", markdown=True)
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your GitHub token">
+  <Step title="设置你的 GitHub 令牌">
     ```bash
     export GITHUB_TOKEN=xxx
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U PyGithub openai agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行 Agent">
     <CodeGroup>
     ```bash Mac
     python cookbook/tools/github_tools.py

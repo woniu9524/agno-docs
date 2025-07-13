@@ -1,88 +1,88 @@
-## Setup and Configuration
+## 设置和配置
 <Steps>
 
-<Step title="Prerequisites">
-Ensure you have the following:
-- A Meta Developer Account
-- A Meta Business Account
-- A valid Facebook account
-- ngrok (for development)
+<Step title="先决条件">
+请确保您拥有以下条件：
+- Meta 开发者账户
+- Meta 商务账户
+- 有效的 Facebook 账户
+- ngrok (用于开发)
 - Python 3.7+
 </Step>
 
-<Step title="Create a Meta App">
-1. Go to [Meta for Developers](https://developers.facebook.com/) and verify your account.
-2. Create a new app at [Meta Apps Dashboard](https://developers.facebook.com/apps/).
-3. Under "Use Case", select "Other".
-4. Choose "Business" as the app type.
-5. Provide:
-    - App name
-    - Contact email
-6. Click "Create App".
+<Step title="创建 Meta 应用">
+1. 前往 [Meta for Developers](https://developers.facebook.com/) 并验证您的账户。
+2. 在 [Meta Apps Dashboard](https://developers.facebook.com/apps/) 创建一个新应用。
+3. 在“用例”下，选择“其他”。
+4. 选择“商务”作为应用类型。
+5. 提供：
+    - 应用名称
+    - 联系邮箱
+6. 点击“创建应用”。
 </Step>
 
-<Step title="Set Up a Meta Business Account">
-1. Navigate to [Meta Business Manager](https://business.facebook.com/).
-2. Create a new business account or use an existing one.
-3. Verify your business by clicking on the email link.
-4. Go to your App page, navigate to "App settings / Basic", and click "Start Verification" under "Business Verification". Complete the verification process for production.
-5. Associate the app with your business account and click "Create App".
+<Step title="设置 Meta 商务账户">
+1. 导航至 [Meta Business Manager](https://business.facebook.com/)。
+2. 创建新的商务账户或使用现有账户。
+3. 点击邮件链接验证您的企业。
+4. 前往您的应用页面，导航至“应用设置/基本设置”，然后在“企业验证”下点击“开始验证”。完成生产环境的验证过程。
+5. 将应用与您的商务账户关联并点击“创建应用”。
 </Step>
 
-<Step title="Setup WhatsApp Business API">
-1. Go to your app's WhatsApp Setup page.
-2. Click on "Start using the API" (API Setup).
-3. Generate an Access Token.
-4. Copy your Phone Number ID.
-5. Copy your WhatsApp Business Account ID.
-6. Add a "To" number that you will use for testing (this will likely be your personal number).
+<Step title="设置 WhatsApp Business API">
+1. 前往您应用的 WhatsApp 设置页面。
+2. 点击“开始使用 API”（API 设置）。
+3. 生成访问令牌。
+4. 复制您的手机号码 ID。
+5. 复制您的 WhatsApp Business 账户 ID。
+6. 添加一个您将用于测试的“收件人”号码（这可能通常是您的个人号码）。
 </Step>
 
-<Step title="Setup Environment Variables">
-Create a `.envrc` file in your project root with the following content, replacing placeholder values with your actual credentials:
+<Step title="设置环境变量">
+在您的项目根目录创建一个 `.envrc` 文件，并包含以下内容，将占位符值替换为您自己的凭证：
 ```bash
 export WHATSAPP_ACCESS_TOKEN="your_whatsapp_access_token"
 export WHATSAPP_PHONE_NUMBER_ID="your_phone_number_id"
-export WHATSAPP_WEBHOOK_URL="your_ngrok_url_plus_webhook_path" # e.g., https://xxxxx.ngrok-free.app/webhook
-export WHATSAPP_VERIFY_TOKEN="your_chosen_verify_token" # A string you create
+export WHATSAPP_WEBHOOK_URL="your_ngrok_url_plus_webhook_path" # 例如：https://xxxxx.ngrok-free.app/webhook
+export WHATSAPP_VERIFY_TOKEN="your_chosen_verify_token" # 您创建的字符串
 ```
-Ensure this file is sourced by your shell (e.g., by using `direnv allow`).
+确保您的 shell 加载了此文件（例如，通过使用 `direnv allow`）。
 </Step>
 
-<Step title="Setup Webhook with ngrok">
-1. For local development, use ngrok to expose your local server to the internet. If you don't have a static ngrok URL, you'll need to update the `WHATSAPP_WEBHOOK_URL` environment variable and your Meta App webhook configuration each time ngrok assigns a new URL.
-2. Run ngrok, ensuring the port matches the port your Agno WhatsApp app will run on (e.g., 8000):
+<Step title="使用 ngrok 设置 Webhook">
+1. 对于本地开发，请使用 ngrok 将您的本地服务器暴露给互联网。如果您没有静态 ngrok URL，每次 ngrok 分配新 URL 时都需要更新 `WHATSAPP_WEBHOOK_URL` 环境变量和您的 Meta 应用 webhook 配置。
+2. 运行 ngrok，确保端口与您的 Agno WhatsApp 应用运行的端口匹配（例如 8000）：
    ```bash
    ngrok http 8000
-   # Or, if you have a paid ngrok plan with a static domain:
+   # 或者，如果您有付费 ngrok 账户并使用静态域名：
    # ngrok http --domain=your-custom-domain.ngrok-free.app 8000
    ```
-3.  Copy the `https://` URL provided by ngrok. This is your base ngrok URL.
-4.  Construct your full webhook URL by appending `/webhook` (or your chosen prefix) to the ngrok URL (e.g., `https://<random-string>.ngrok-free.app/webhook`). Update `WHATSAPP_WEBHOOK_URL` in your `.envrc` if necessary.
-5.  In your Meta App's WhatsApp Setup page, navigate to the "Webhook" section and click "Edit".
-6.  Configure the webhook:
-    -   **Callback URL**: Enter your full ngrok webhook URL.
-    -   **Verify Token**: Enter the same value you used for `WHATSAPP_VERIFY_TOKEN` in your `.envrc` file.
-7.  Click "Verify and save". Your Agno application must be running locally for verification to succeed.
-8.  After successful verification, click "Manage" next to Webhook fields. Subscribe to the `messages` field under `whatsapp_business_account`.
+3. 复制 ngrok 提供的 `https://` URL。这是您的基础 ngrok URL。
+4. 通过在 ngrok URL 后面添加 `/webhook`（或者您选择的前缀）来构建完整的 webhook URL（例如 `https://<random-string>.ngrok-free.app/webhook`）。如有必要，请更新 `.envrc` 中的 `WHATSAPP_WEBHOOK_URL`。
+5. 在您的 Meta 应用的 WhatsApp 设置页面，导航至“Webhook”部分并点击“编辑”。
+6. 配置 webhook：
+    - **回调 URL（Callback URL）**: 输入您完整的 ngrok webhook URL。
+    - **验证令牌（Verify Token）**: 输入与您在 `.envrc` 文件中 `WHATSAPP_VERIFY_TOKEN` 相同的值。
+7. 点击“验证并保存”。您的 Agno 应用程序必须在本地运行才能成功验证。
+8. 在成功验证后，点击 Webhook 字段旁边的“管理”。在 `whatsapp_business_account` 下订阅 `messages` 字段。
 </Step>
 
-<Step title="Configure Application Environment">
-Set the `APP_ENV` environment variable:
-- For **Development Mode**:
+<Step title="配置应用程序环境">
+设置 `APP_ENV` 环境变量：
+- **开发模式**:
   ```bash
   export APP_ENV="development"
   ```
-  (Webhook signature validation might be less strict or bypassed).
-- For **Production Mode**:
+  （此时 webhook 签名验证可能不严格或被绕过）。
+- **生产模式**:
   ```bash
   export APP_ENV="production"
   ```
-  You will also need to set the `WHATSAPP_APP_SECRET` for webhook signature validation:
+  您还需要设置 `WHATSAPP_APP_SECRET` 以进行 webhook 签名验证：
   ```bash
   export WHATSAPP_APP_SECRET="your_meta_app_secret"
   ```
-  This should be the "App Secret" found in your Meta App's "App settings > Basic" page.
+  这应该是您在 Meta 应用的“应用设置 > 基本设置”页面中找到的“应用密钥”。
 </Step>
 
 </Steps>

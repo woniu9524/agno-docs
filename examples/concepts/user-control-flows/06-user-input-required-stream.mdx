@@ -1,9 +1,9 @@
 ---
-title: Streaming User Input
-description: This example demonstrates how to implement streaming user input collection, allowing for real-time interaction and response streaming while gathering user information.
+title: 流式用户输入
+description: 此示例演示了如何实现流式用户输入收集，在收集用户信息时允许实时交互和响应流。
 ---
 
-## Code
+## 代码
 
 ```python cookbook/agent_concepts/user_control_flows/user_input_required_stream.py
 from typing import List
@@ -17,12 +17,12 @@ from agno.utils import pprint
 @tool(requires_user_input=True, user_input_fields=["to_address"])
 def send_email(subject: str, body: str, to_address: str) -> str:
     """
-    Send an email.
+    发送电子邮件。
 
-    Args:
-        subject (str): The subject of the email.
-        body (str): The body of the email.
-        to_address (str): The address to send the email to.
+    参数:
+        subject (str): 电子邮件的主题。
+        body (str): 电子邮件的正文。
+        to_address (str): 要发送电子邮件的地址。
     """
     return f"Sent email to {to_address} with subject {subject} and body {body}"
 
@@ -40,41 +40,41 @@ for run_response in agent.run(
             input_schema: List[UserInputField] = tool.user_input_schema
 
             for field in input_schema:
-                # Display field information to the user
-                print(f"\nField: {field.name}")
-                print(f"Description: {field.description}")
-                print(f"Type: {field.field_type}")
+                # 向用户显示字段信息
+                print(f"\n字段: {field.name}")
+                print(f"描述: {field.description}")
+                print(f"类型: {field.field_type}")
 
-                # Get user input
+                # 获取用户输入
                 if field.value is None:
-                    user_value = input(f"Please enter a value for {field.name}: ")
-                    # Update the field value
+                    user_value = input(f"请输入 {field.name} 的值： ")
+                    # 更新字段值
                     field.value = user_value
                 else:
-                    print(f"Value: {field.value}")
+                    print(f"值: {field.value}")
 
         run_response = agent.continue_run(stream=True)
     pprint.pprint_run_response(run_response)
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U agno openai
     ```
   </Step>
 
-  <Step title="Run Example">
+  <Step title="运行示例">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/user_control_flows/user_input_required_stream.py
@@ -87,16 +87,16 @@ for run_response in agent.run(
   </Step>
 </Steps>
 
-## Key Features
+## 主要特点
 
-- Uses `agent.run(stream=True)` for streaming responses
-- Implements streaming continuation with `agent.continue_run(stream=True)`
-- Maintains real-time interaction with user input collection
-- Demonstrates how to handle streaming responses with user input
+- 使用 `agent.run(stream=True)` 进行流式响应
+- 使用 `agent.continue_run(stream=True)` 实现流式续传
+- 通过用户输入收集保持实时交互
+- 演示了如何处理带有用户输入的流式响应
 
-## Use Cases
+## 用途
 
-- Real-time user interaction
-- Streaming applications requiring user input
-- Interactive form-like interfaces
-- Progressive response generation with user input 
+- 实时用户交互
+- 需要用户输入的流式应用程序
+- 交互式表单类界面
+- 带用户输入的渐进式响应生成

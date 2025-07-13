@@ -1,26 +1,26 @@
 ---
-title: Financial Datasets API
+title: 金融数据集 API
 ---
 
-**FinancialDatasetsTools** provide a comprehensive API for retrieving and analyzing diverse financial datasets, including stock prices, financial statements, company information, SEC filings, and cryptocurrency data from multiple providers.
+**FinancialDatasetsTools** 提供了一个全面的 API，用于从多个提供商检索和分析各种金融数据集，包括股价、财务报表、公司信息、SEC 备案文件和加密货币数据。
 
-## Prerequisites
+## 先决条件
 
-The toolkit requires a Financial Datasets API key that can be obtained by creating an account at [financialdatasets.ai](https://financialdatasets.ai).
+该工具包需要一个 Financial Datasets API 密钥，可以通过在 [financialdatasets.ai](https://financialdatasets.ai) 注册账户获得。
 
 ```bash
 pip install agno
 ```
 
-Set your API key as an environment variable:
+将您的 API 密钥设置为环境变量：
 
 ```bash
 export FINANCIAL_DATASETS_API_KEY=your_api_key_here
 ```
 
-## Example
+## 示例
 
-Basic usage of the Financial Datasets toolkit:
+Financial Datasets 工具包的基本用法：
 
 ```python
 from agno.agent import Agent
@@ -46,46 +46,46 @@ agent = Agent(
 agent.print_response("Get the most recent income statement for AAPL and highlight key metrics")
 ```
 
-For more examples, see the [Financial Datasets Examples](/examples/concepts/tools/others/financial_datasets).
+更多示例，请参阅 [Financial Datasets Examples](/examples/concepts/tools/others/financial_datasets)。
 
-## Toolkit Params
+## 工具包参数
 
 | Parameter                     | Type            | Default | Description                                                                             |
 | ----------------------------- | --------------- | ------- | --------------------------------------------------------------------------------------- |
-| `api_key`                     | `Optional[str]` | `None`  | Optional API key. If not provided, uses FINANCIAL_DATASETS_API_KEY environment variable |
-| `enable_financial_statements` | `bool`          | `True`  | Enable financial statement related functions (income statements, balance sheets, etc.)  |
-| `enable_company_info`         | `bool`          | `True`  | Enable company information related functions                                            |
-| `enable_market_data`          | `bool`          | `True`  | Enable market data related functions (stock prices, earnings, metrics)                  |
-| `enable_ownership_data`       | `bool`          | `True`  | Enable ownership data related functions (insider trades, institutional ownership)       |
-| `enable_news`                 | `bool`          | `True`  | Enable news related functions                                                           |
-| `enable_sec_filings`          | `bool`          | `True`  | Enable SEC filings related functions                                                    |
-| `enable_crypto`               | `bool`          | `True`  | Enable cryptocurrency related functions                                                 |
-| `enable_search`               | `bool`          | `True`  | Enable search related functions                                                         |
+| `api_key`                     | `Optional[str]` | `None`  | 可选的 API 密钥。如果未提供，则使用 FINANCIAL_DATASETS_API_KEY 环境变量            |
+| `enable_financial_statements` | `bool`          | `True`  | 启用与财务报表相关的函数（损益表、资产负债表等）                                        |
+| `enable_company_info`         | `bool`          | `True`  | 启用公司信息相关函数                                                                    |
+| `enable_market_data`          | `bool`          | `True`  | 启用市场数据相关函数（股价、收益、指标）                                                |
+| `enable_ownership_data`       | `bool`          | `True`  | 启用所有权数据相关函数（内部交易、机构持股）                                              |
+| `enable_news`                 | `bool`          | `True`  | 启用新闻相关函数                                                                        |
+| `enable_sec_filings`          | `bool`          | `True`  | 启用 SEC 备案文件相关函数                                                               |
+| `enable_crypto`               | `bool`          | `True`  | 启用加密货币相关函数                                                                    |
+| `enable_search`               | `bool`          | `True`  | 启用搜索相关函数                                                                        |
 
-## Toolkit Functions
+## 工具包函数
 
 | Function                                                                         | Description                                                                                                     |
 | -------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
-| `get_income_statements(ticker: str, period: str = "annual", limit: int = 10)`    | Get income statements for a company with options for annual, quarterly, or trailing twelve months (ttm) periods |
-| `get_balance_sheets(ticker: str, period: str = "annual", limit: int = 10)`       | Get balance sheets for a company with period options                                                            |
-| `get_cash_flow_statements(ticker: str, period: str = "annual", limit: int = 10)` | Get cash flow statements for a company                                                                          |
-| `get_company_info(ticker: str)`                                                  | Get company information including business description, sector, and industry                                    |
-| `get_crypto_prices(symbol: str, interval: str = "1d", limit: int = 100)`         | Get cryptocurrency prices with configurable time intervals                                                      |
-| `get_earnings(ticker: str, limit: int = 10)`                                     | Get earnings reports with EPS estimates, actuals, and revenue data                                              |
-| `get_financial_metrics(ticker: str)`                                             | Get key financial metrics and ratios for a company                                                              |
-| `get_insider_trades(ticker: str, limit: int = 50)`                               | Get data on insider buying and selling activity                                                                 |
-| `get_institutional_ownership(ticker: str)`                                       | Get information about institutional investors and their positions                                               |
-| `get_news(ticker: Optional[str] = None, limit: int = 50)`                        | Get market news, optionally filtered by company                                                                 |
-| `get_stock_prices(ticker: str, interval: str = "1d", limit: int = 100)`          | Get historical stock prices with configurable time intervals                                                    |
-| `search_tickers(query: str, limit: int = 10)`                                    | Search for stock tickers based on a query string                                                                |
-| `get_sec_filings(ticker: str, form_type: Optional[str] = None, limit: int = 50)` | Get SEC filings with optional filtering by form type (10-K, 10-Q, etc.)                                         |
-| `get_segmented_financials(ticker: str, period: str = "annual", limit: int = 10)` | Get segmented financial data by product category and geographic region                                          |
+| `get_income_statements(ticker: str, period: str = "annual", limit: int = 10)`    | 获取公司损益表，可选择年度、季度或过去十二个月（ttm）期间                                                      |
+| `get_balance_sheets(ticker: str, period: str = "annual", limit: int = 10)`       | 获取公司资产负债表，可选择期间                                                                                  |
+| `get_cash_flow_statements(ticker: str, period: str = "annual", limit: int = 10)` | 获取公司现金流量表                                                                                              |
+| `get_company_info(ticker: str)`                                                  | 获取公司信息，包括业务描述、行业和细分行业                                                                    |
+| `get_crypto_prices(symbol: str, interval: str = "1d", limit: int = 100)`         | 获取加密货币价格，可配置时间间隔                                                                                |
+| `get_earnings(ticker: str, limit: int = 10)`                                     | 获取收益报告，包含每股收益（EPS）预估、实际值和收入数据                                                         |
+| `get_financial_metrics(ticker: str)`                                             | 获取公司的关键财务指标和比率                                                                                    |
+| `get_insider_trades(ticker: str, limit: int = 50)`                               | 获取内部人士买卖活动数据                                                                                        |
+| `get_institutional_ownership(ticker: str)`                                       | 获取机构投资者及其持仓信息                                                                                      |
+| `get_news(ticker: Optional[str] = None, limit: int = 50)`                        | 获取市场新闻，可选择按公司筛选                                                                                  |
+| `get_stock_prices(ticker: str, interval: str = "1d", limit: int = 100)`          | 获取历史股价，可配置时间间隔                                                                                    |
+| `search_tickers(query: str, limit: int = 10)`                                    | 根据查询字符串搜索股票代码                                                                                      |
+| `get_sec_filings(ticker: str, form_type: Optional[str] = None, limit: int = 50)` | 获取 SEC 备案文件，可选择按文件类型过滤（10-K、10-Q 等）                                                        |
+| `get_segmented_financials(ticker: str, period: str = "annual", limit: int = 10)` | 获取按产品类别和地理区域划分的细分财务数据                                                                      |
 
-## Rate Limits and Usage
+## 速率限制和使用
 
-The Financial Datasets API may have usage limits based on your subscription tier. Please refer to their documentation for specific rate limit information.
+Financial Datasets API 可能会根据您的订阅级别设置使用限制。请参阅其文档了解具体的速率限制信息。
 
-## Developer Resources
+## 开发者资源
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/financial_datasets.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/financial_datasets_tools.py)
+- 查看 [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/financial_datasets.py)
+- 查看 [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/financial_datasets_tools.py)

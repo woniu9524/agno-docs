@@ -1,17 +1,17 @@
 ---
-title: Discord Bot
-description: Host agents as Discord Bots.
+title: Discord 机器人
+description: 将代理托管为 Discord 机器人。
 ---
 
-The Discord Bot integration allows you to serve Agents or Teams via Discord, using the discord.py library to handle Discord events and send messages.
+Discord 机器人集成允许您通过 Discord 提供代理或团队，使用 discord.py 库来处理 Discord 事件和发送消息。
 
-## Setup Steps
+## 设置步骤
 
 <Snippet file="setup-discord-app.mdx" />
 
-### Example Usage
+### 示例用法
 
-Create an agent, wrap it with `DiscordClient`, and run it:
+创建一个代理，用 `DiscordClient` 包装它，然后运行它：
 
 ```python
 from agno.agent import Agent
@@ -20,7 +20,7 @@ from agno.models.openai import OpenAIChat
 
 basic_agent = Agent(
     name="Basic Agent",
-    model=OpenAIChat(id="gpt-4o"), 
+    model=OpenAIChat(id="gpt-4o"),
     add_history_to_messages=True,
     num_history_responses=3,
     add_datetime_to_instructions=True,
@@ -31,87 +31,86 @@ if __name__ == "__main__":
     discord_agent.serve()
 ```
 
-## Core Components
+## 核心组件
 
-- `DiscordClient`: Wraps Agno agents/teams for Discord integration using discord.py.
-- `DiscordClient.serve`: Starts the Discord bot client with the provided token.
+- `DiscordClient`: 使用 discord.py 为 Discord 集成包装 Agno 代理/团队。
+- `DiscordClient.serve`: 使用提供的令牌启动 Discord 机器人客户端。
 
-## `DiscordClient` Class
+## `DiscordClient` 类
 
-Main entry point for Agno Discord bot applications.
+Agno Discord 机器人应用程序的主入口点。
 
-### Initialization Parameters
+### 初始化参数
 
-| Parameter | Type              | Default | Description                           |
-| --------- | ----------------- | ------- | ------------------------------------- |
-| `agent`   | `Optional[Agent]` | `None`  | Agno `Agent` instance.                |
-| `team`    | `Optional[Team]`  | `None`  | Agno `Team` instance.                 |
+| 参数 | 类型 | 默认值 | 描述 |
+| --------- | --- | --- | --- |
+| `agent` | `Optional[Agent]` | `None` | Agno `Agent` 实例。 |
+| `team` | `Optional[Team]` | `None` | Agno `Team` 实例。 |
 
-*Provide `agent` or `team`, not both.*
+*请提供 `agent` 或 `team`，但不要同时提供。*
 
-## Event Handling
+## 事件处理
 
-The Discord bot automatically handles various Discord events:
+Discord 机器人会自动处理各种 Discord 事件：
 
-### Message Events
-- **Description**: Processes all incoming messages from users
-- **Media Support**: Handles images, videos, audio files, and documents
-- **Threading**: Automatically creates threads for conversations
-- **Features**:
-  - Automatic thread creation for each conversation
-  - Media processing and forwarding to agents
-  - Message splitting for responses longer than 1500 characters
-  - Support for reasoning content display
-  - Context enrichment with username and message URL
+### 消息事件
+- **描述**: 处理用户的所有传入消息
+- **媒体支持**: 处理图像、视频、音频文件和文档
+- **线程**: 自动为对话创建线程
+- **功能**:
+  - 为每次对话自动创建线程
+  - 媒体处理和转发给代理
+  - 对超过 1500 个字符的响应进行消息拆分
+  - 支持推理内容显示
+  - 使用用户名和消息 URL 丰富上下文
 
-### Supported Media Types
-- **Images**: Direct URL processing for image analysis
-- **Videos**: Downloads and processes video content
-- **Audio**: URL-based audio processing
-- **Files**: Downloads and processes document attachments
+### 支持的媒体类型
+- **图像**: 直接处理 URL 以进行图像分析
+- **视频**: 下载并处理视频内容
+- **音频**: 基于 URL 的音频处理
+- **文件**: 下载并处理文档附件
 
-## Environment Variables
+## 环境变量
 
-Ensure the following environment variable is set:
+确保设置了以下环境变量：
 
 ```bash
 export DISCORD_BOT_TOKEN="your-discord-bot-token"
 ```
 
-## Message Processing
+## 消息处理
 
-The bot processes messages with the following workflow:
+机器人通过以下工作流程处理消息：
 
-1. **Message Reception**: Receives messages from Discord channels
-2. **Media Processing**: Downloads and processes any attached media
-3. **Thread Management**: Creates or uses existing threads for conversations
-4. **Agent/Team Execution**: Forwards the message and media to the configured agent or team
-5. **Response Handling**: Sends the response back to Discord, splitting long messages if necessary
-6. **Reasoning Display**: Shows reasoning content in italics if available
+1. **消息接收**: 从 Discord 频道接收消息
+2. **媒体处理**: 下载并处理任何附加媒体
+3. **线程管理**: 为对话创建或使用现有线程
+4. **代理/团队执行**: 将消息和媒体转发给配置的代理或团队
+5. **响应处理**: 将响应发送回 Discord，如有必要则拆分长消息
+6. **推理显示**: 在可用时以斜体显示推理内容
 
-## Features
+## 功能
 
-### Automatic Thread Creation
-- Creates a new thread for each user's first message
-- Maintains conversation context within threads
-- Uses the format: `{username}'s thread`
+### 自动创建线程
+- 为用户的每条第一条消息创建一个新线程
+- 在线程内维护对话上下文
+- 使用格式: `{username}'s thread`
 
-### Media Support
-- **Images**: Passed as `Image` objects with URLs
-- **Videos**: Downloaded and passed as `Video` objects with content
-- **Audio**: Passed as `Audio` objects with URLs  
-- **Files**: Downloaded and passed as `File` objects with content
+### 媒体支持
+- **图像**: 作为带有 URL 的 `Image` 对象传递
+- **视频**: 下载并作为带有内容的 `Video` 对象传递
+- **音频**: 作为带有 URL 的 `Audio` 对象传递
+- **文件**: 下载并作为带有内容的 `File` 对象传递
 
-### Message Formatting
-- Long messages (>1500 characters) are automatically split
-- Reasoning content is displayed in italics
-- Batch numbering for split messages: `[1/3] message content`
+### 消息格式化
+- 长消息（>1500 个字符）会被自动拆分
+- 推理内容将以斜体显示
+- 拆分消息的批次编号: `[1/3] 消息内容`
 
-## Testing the Integration
+## 测试集成
 
-1. Set up your Discord bot token: `export DISCORD_BOT_TOKEN="your-token"`
-2. Run your application: `python your_discord_bot.py`
-3. Invite the bot to your Discord server
-4. Send a message in any channel where the bot has access
-5. The bot will automatically create a thread and respond
-
+1. 设置您的 Discord 机器人令牌: `export DISCORD_BOT_TOKEN="your-token"`
+2. 运行您的应用程序: `python your_discord_bot.py`
+3. 将机器人邀请到您的 Discord 服务器
+4. 在机器人有访问权限的任何频道中发送消息
+5. 机器人将自动创建线程并响应

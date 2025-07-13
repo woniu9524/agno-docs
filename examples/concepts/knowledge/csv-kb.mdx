@@ -1,8 +1,8 @@
 ---
-title: CSV Knowledge Base
+title: CSV 知识库
 ---
 
-## Code
+## 代码
 
 ```python
 from pathlib import Path
@@ -19,33 +19,33 @@ knowledge_base = CSVKnowledgeBase(
         table_name="csv_documents",
         db_url=db_url,
     ),
-    num_documents=5,  # Number of documents to return on search
+    num_documents=5,  # 搜索时返回的文档数量
 )
-# Load the knowledge base
+# 加载知识库
 knowledge_base.load(recreate=False)
 
-# Initialize the Agent with the knowledge_base
+# 初始化 Agent 并传入 knowledge_base
 agent = Agent(
     knowledge=knowledge_base,
     search_knowledge=True,
 )
 
-# Use the agent
+# 使用 Agent
 agent.print_response("Ask me about something from the knowledge base", markdown=True)
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U sqlalchemy 'psycopg[binary]' pgvector agno
     ```
   </Step>
 
-  <Step title="Run PgVector">
+  <Step title="运行 PgVector">
     ```bash
     docker run -d \
       -e POSTGRES_DB=ai \
@@ -59,7 +59,7 @@ agent.print_response("Ask me about something from the knowledge base", markdown=
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行 Agent">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/knowledge/csv_kb.py

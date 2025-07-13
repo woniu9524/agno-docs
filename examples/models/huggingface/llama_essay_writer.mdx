@@ -1,8 +1,8 @@
 ---
-title: Llama Essay Writer
+title: Llama 论文写作助手
 ---
 
-## Code
+## 代码
 
 ```python cookbook/models/huggingface/llama_essay_writer.py
 import os
@@ -16,29 +16,29 @@ agent = Agent(
         id="meta-llama/Meta-Llama-3-8B-Instruct",
         max_tokens=4096,
     ),
-    description="You are an essay writer. Write a 300 words essay on topic that will be provided by user",
+    description="你是一位论文写作助手。请根据用户提供的主题撰写一篇 300 字的论文。",
 )
 agent.print_response("topic: AI")
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">
     ```bash
     export HF_TOKEN=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U huggingface_hub agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行 Agent">
     <CodeGroup>
     ```bash Mac
     python cookbook/models/huggingface/llama_essay_writer.py

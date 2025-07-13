@@ -1,9 +1,9 @@
 ---
-title: Firecrawl Tools
-description: "Use Firecrawl with Agno to scrape and crawl the web."
+title: Firecrawl 工具
+description: "将 Firecrawl 与 Agno 一起使用来抓取和爬取网络。"
 ---
 
-## Code
+## 代码
 
 ```python cookbook/tools/firecrawl_tools.py
 from agno.agent import Agent
@@ -17,25 +17,25 @@ agent = Agent(
 agent.print_response("Summarize this https://finance.yahoo.com/")
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">
     ```bash
     export FIRECRAWL_API_KEY=xxx
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U firecrawl openai agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行 Agent">
     <CodeGroup>
     ```bash Mac
     python cookbook/tools/firecrawl_tools.py

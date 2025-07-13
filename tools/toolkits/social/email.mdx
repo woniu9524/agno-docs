@@ -2,9 +2,9 @@
 title: Email
 ---
 
-**EmailTools** enable an Agent to send an email to a user. The Agent can send an email to a user with a specific subject and body.
+**EmailTools** 允许智能体 (Agent) 向用户发送电子邮件。智能体可以发送带有特定主题和正文的电子邮件给用户。
 
-## Example
+## 示例
 
 ```python cookbook/tools/email_tools.py
 from agno.agent import Agent
@@ -29,22 +29,22 @@ agent = Agent(
 agent.print_response("send an email to <receiver_email>")
 ```
 
-## Toolkit Params
+## Toolkit 参数
 
-| Parameter        | Type  | Default | Description                         |
-| ---------------- | ----- | ------- | ----------------------------------- |
-| `receiver_email` | `str` | -       | The email address of the receiver.  |
-| `sender_name`    | `str` | -       | The name of the sender.             |
-| `sender_email`   | `str` | -       | The email address of the sender.    |
-| `sender_passkey` | `str` | -       | The passkey for the sender's email. |
+| 参数           | 类型  | 默认值 | 描述                         |
+| -------------- | ----- | ------ | ---------------------------- |
+| `receiver_email` | `str` | -      | 接收者的电子邮件地址。       |
+| `sender_name`    | `str` | -      | 发件人的名称。               |
+| `sender_email`   | `str` | -      | 发件人的电子邮件地址。       |
+| `sender_passkey` | `str` | -      | 发件人邮箱的密钥。           |
 
-## Toolkit Functions
+## Toolkit 函数
 
-| Function     | Description                                                                  |
-| ------------ | ---------------------------------------------------------------------------- |
-| `email_user` | Emails the user with the given subject and body. Currently works with Gmail. |
+| 函数         | 描述                                           |
+| ------------ | ---------------------------------------------- |
+| `email_user` | 使用给定的主题和正文向用户发送电子邮件。目前支持 Gmail。 |
 
-## Developer Resources
+## 开发者资源
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/email.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/email_tools.py)
+- 查看 [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/email.py)
+- 查看 [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/email_tools.py)

@@ -3,17 +3,17 @@ title: Thinking Tools
 sidebarTitle: Thinking Tools
 ---
 
-The `ThinkingTools` toolkit provides Agents with a dedicated space for reflection during execution. This toolkit enables an Agent to use a scratchpad for thinking through problems, listing rules, checking information, verifying compliance, and evaluating results before taking actions.
+`ThinkingTools` 工具集为代理在执行过程中提供了专用的反思空间。该工具集使代理可以使用一个“思绪板”（scratchpad）来解决问题、列出规则、检查信息、验证合规性以及在采取行动前评估结果。
 
-Unlike approaches that have agents immediately respond or take action, this toolkit encourages thoughtful consideration by giving the Agent space to "think" about its actions, examine its own responses, and maintain a log of its thought process throughout the conversation.
+与让代理立即响应或采取行动的方法不同，该工具集通过为代理提供思考其行动、审视自身响应并记录整个对话过程中思考过程的空间，鼓励周密的考虑。
 
-The toolkit includes the following tool:
+该工具集包含以下工具：
 
-- `think`: This tool serves as a scratchpad for the Agent to reason through problems, list applicable rules, verify collected information, and evaluate planned actions for compliance and correctness.
+- `think`：此工具充当代理的“思绪板”，用于解决问题、列出适用的规则、验证收集到的信息以及评估计划行动的合规性和正确性。
 
-## Example
+## 示例
 
-Here's an example of how to use the `ThinkingTools` toolkit:
+以下是使用 `ThinkingTools` 工具集的示例：
 
 ```python
 from agno.agent import Agent
@@ -40,7 +40,7 @@ thinking_agent = Agent(
 thinking_agent.print_response("Write a report comparing NVDA to TSLA", stream=True)
 ```
 
-The toolkit comes with default instructions to help the Agent use the tool effectively. Here is how you can enable them:
+该工具集附带默认指令，以帮助代理有效地使用该工具。以下是启用这些指令的方法：
 
 ```python
 thinking_agent = Agent(
@@ -54,7 +54,7 @@ thinking_agent = Agent(
 )
 ```
 
-`ThinkingTools` can be used with any model provider that supports function calling. Here is an example with of a thinking Agent using `OpenAIChat`:
+`ThinkingTools` 可与支持函数调用的任何模型提供商一起使用。以下是一个使用 `OpenAIChat` 的思考型代理示例：
 
 ```python
 from textwrap import dedent
@@ -92,7 +92,7 @@ thinking_agent = Agent(
 )
 ```
 
-This Agent can be used to address complex problems where careful consideration is needed:
+此代理可用于处理需要仔细考虑的复杂问题：
 
 ```python
 thinking_agent.print_response(
@@ -101,7 +101,7 @@ thinking_agent.print_response(
 )
 ```
 
-or,
+或者：
 
 ```python
 thinking_agent.print_response(

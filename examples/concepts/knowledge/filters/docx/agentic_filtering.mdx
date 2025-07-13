@@ -1,9 +1,9 @@
 ---
-title: Agentic filtering with Docx
-description: Learn how to do agentic knowledge filtering using Docx documents with user-specific metadata.
+title: 使用 Docx 进行代理过滤
+description: 了解如何使用具有用户特定元数据的 Docx 文档进行代理知识过滤。
 ---
 
-## Code
+## 代码
 
 ```python
 from pathlib import Path
@@ -16,22 +16,22 @@ from agno.utils.media import (
 )
 from agno.vectordb.lancedb import LanceDb
 
-# Download all sample CVs and get their paths
+# 下载所有样本简历并获取其路径
 downloaded_cv_paths = download_knowledge_filters_sample_data(
     num_files=5, file_extension=SampleDataFileExtension.DOCX
 )
 
-# Initialize LanceDB
-# By default, it stores data in /tmp/lancedb
+# 初始化 LanceDB
+# 默认情况下，它将数据存储在 /tmp/lancedb
 vector_db = LanceDb(
     table_name="recipes",
-    uri="tmp/lancedb",  # You can change this path to store data elsewhere
+    uri="tmp/lancedb",  # 您可以将此路径更改为存储其他位置的数据
 )
 
-# Step 1: Initialize knowledge base with documents and metadata
+# 步骤 1：使用文档和元数据初始化知识库
 # ------------------------------------------------------------------------------
-# When initializing the knowledge base, we can attach metadata that will be used for filtering
-# This metadata can include user IDs, document types, dates, or any other attributes
+# 在初始化知识库时，我们可以附加将用于过滤的元数据
+# 此元数据可以包括用户 ID、文档类型、日期或任何其他属性
 
 knowledge_base = DocxKnowledgeBase(
     path=[
@@ -79,36 +79,36 @@ knowledge_base = DocxKnowledgeBase(
     vector_db=vector_db,
 )
 
-# Load all documents into the vector database
+# 将所有文档加载到向量数据库中
 knowledge_base.load(recreate=True)
 
-# Step 2: Query the knowledge base with Agent using filters from query automatically
+# 步骤 2：使用具有从查询中自动提取的过滤器的 Agent 查询知识库
 # -----------------------------------------------------------------------------------
 
-# Enable agentic filtering
+# 启用代理过滤
 agent = Agent(
     knowledge=knowledge_base,
     search_knowledge=True,
     enable_agentic_knowledge_filters=True,
 )
 
-# Query for Jordan Mitchell's experience and skills with filters in query so that Agent can automatically pick them up
+# 查询 Jordan Mitchell 的经验和技能，并在查询中包含过滤器，以便 Agent 可以自动获取它们
 agent.print_response(
     "Tell me about Jordan Mitchell's experience and skills with jordan_mitchell as user id and document type cv",
     markdown=True,
 )
 ```
 
-## Usage
+## 用法
 
 <Steps>
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U agno openai lancedb
     ```
   </Step>
 
-  <Step title="Run the example">
+  <Step title="运行示例">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/knowledge/filters/docx/agentic_filtering.py

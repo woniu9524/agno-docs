@@ -1,7 +1,7 @@
-| Parameter | Type | Description | Default |
+| 参数 | 类型 | 描述 | 默认值 |
 |-----------|------|-------------|---------|
-| `collection` | `str` | Name of the Milvus collection | Required |
-| `embedder` | `Optional[Embedder]` | Embedder to use for embedding documents | `OpenAIEmbedder()` |
-| `distance` | `Distance` | Distance metric to use for vector similarity | `Distance.cosine` |
-| `uri` | `str` | URI of the Milvus server or path to local file | `"http://localhost:19530"` |
-| `token` | `Optional[str]` | Token for authentication with the Milvus server | `None` |
+| `collection` | `str` | Milvus collection 的名称 | Required |
+| `embedder` | `Optional[Embedder]` | 用于嵌入文档的 embedder | `OpenAIEmbedder()` |
+| `distance` | `Distance` | 用于向量相似度的距离度量 | `Distance.cosine` |
+| `uri` | `str` | Milvus 服务器的 URI 或本地文件路径 | `"http://localhost:19530"` |
+| `token` | `Optional[str]` | 与 Milvus 服务器进行身份验证的 token | `None` |

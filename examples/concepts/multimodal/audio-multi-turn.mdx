@@ -1,8 +1,8 @@
 ---
-title: Multi-turn Audio Agent
+title: 多轮音频代理
 ---
 
-## Code
+## 代码
 
 ```python
 from agno.agent import Agent
@@ -32,24 +32,24 @@ if agent.run_response.response_audio is not None:
     )
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U openai agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行代理">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/multimodal/audio_multi_turn.py

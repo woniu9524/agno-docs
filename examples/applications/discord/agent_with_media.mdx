@@ -1,8 +1,8 @@
 ---
-title: Agent with Media
+title: 媒体代理
 ---
 
-## Code
+## 代码
 
 ```python cookbook/apps/discord/agent_with_media.py
 from agno.agent import Agent
@@ -10,10 +10,10 @@ from agno.app.discord import DiscordClient
 from agno.models.google import Gemini
 
 media_agent = Agent(
-    name="Media Agent",
+    name="媒体代理",
     model=Gemini(id="gemini-2.0-flash"),
-    description="A Media processing agent",
-    instructions="Analyze images, audios and videos sent by the user",
+    description="一个媒体处理代理",
+    instructions="分析用户发送的图片、音频和视频",
     add_history_to_messages=True,
     num_history_responses=3,
     add_datetime_to_instructions=True,
@@ -25,25 +25,25 @@ if __name__ == "__main__":
      discord_agent.serve()
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API keys">
+  <Step title="设置您的 API 密钥">
     ```bash
     export GOOGLE_API_KEY=xxx
     export DISCORD_BOT_TOKEN=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U agno google-generativeai discord.py
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行代理">
     <CodeGroup>
     ```bash Mac
     python cookbook/apps/discord/agent_with_media.py

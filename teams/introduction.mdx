@@ -1,12 +1,12 @@
 ---
-title: What are Teams?
-sidebarTitle: Overview
-description: Build autonomous multi-agent systems with Agno Teams.
+title: 什么是团队？
+sidebarTitle: 概览
+description: 使用 Agno Teams 构建自主多智能体系统。
 ---
 
-A Team is a collection of Agents (or other sub-teams) that work together to accomplish tasks. Teams can either **"coordinate"**, **"collaborate"** or **"route"** to solve a task.
+团队是由协作完成任务的智能体（或其他子团队）组成的集合。团队可以通过“协调”、“协作”或“路由”来解决任务。
 
-A `Team` has a list of `members` that can be instances of `Agent` or `Team`.
+一个`Team`有一个`members`列表，可以是`Agent`或`Team`的实例。
 
 ```python
 from agno.team import Team
@@ -19,52 +19,49 @@ team = Team(members=[
 ])
 ```
 
-The team will transfer tasks to the members depending on the `mode` of the team.
+团队将根据其`mode`将任务转交给成员。
 
 <Note>
 
-It is recommended to specify the `name` and the `role` fields of the team member, for better identification by the team leader.
+建议为团队成员指定`name`和`role`字段，以便团队领导者更好地识别。
 
 </Note>
 
-## Modes
+## 模式
 
-### Route Mode
+### 路由模式
 
-In [**Route Mode**](/teams/route), the team leader routes the user's request to the most appropriate team member based on the content of the request. The member's response is returned directly to the user and the team leader doesn't interpret/transform the response.
+在[**路由模式**](/teams/route)下，团队领导者根据请求内容将用户的请求路由给最合适的团队成员。成员的响应直接返回给用户，团队领导者不解释/转换响应。
 
 <Note>
 
-In `async` execution, if more than once member is transferred to at once by the team leader, these members are executed concurrently.
+在`async`执行中，如果团队领导者一次将任务转交给多个成员，这些成员将并发执行。
 
 </Note>
 
+### 协调模式
 
-### Coordinate Mode
-
-In [**Coordinate Mode**](/teams/coordinate), the team leader delegates tasks to team members and synthesizes their outputs into a cohesive response. The team leader can send to multiple members at once, or one after the other depending on the request and what the model decides is most appropriate.
+在[**协调模式**](/teams/coordinate)下，团队领导者将任务委托给团队成员，并将他们的输出整合为连贯的响应。团队领导者可以根据请求和模型决定最合适的方式，一次性发送给多个成员，或逐个发送。
 
 <Note>
 
-In `async` execution, if more than once member is transferred to at once by the team leader, these members are executed concurrently.
+在`async`执行中，如果团队领导者一次将任务转交给多个成员，这些成员将并发执行。
 
 </Note>
 
-### Collaborate Mode
+### 协作模式
 
-In [**Collaborate Mode**](/teams/collaborate), all team members are given the same task and the team leader synthesizes their outputs into a cohesive response. 
+在[**协作模式**](/teams/collaborate)下，所有团队成员都获得相同的任务，团队领导者将他们的输出整合为连贯的响应。
 
 <Note>
 
-In `async` execution, all the members are executed concurrently.
+在`async`执行中，所有成员将并发执行。
 
 </Note>
 
+## 团队记忆和历史
 
-
-## Team Memory and History
-
-Teams can maintain memory of previous interactions, enabling contextual awareness:
+团队可以维护先前交互的记忆，从而实现上下文感知：
 
 ```python
 from agno.team import Team
@@ -76,19 +73,19 @@ team_with_memory = Team(
     num_history_runs=5,
 )
 
-# The team will remember previous interactions
+# 团队将记住之前的交互
 team_with_memory.print_response("What are the key challenges in quantum computing?")
 team_with_memory.print_response("Elaborate on the second challenge you mentioned")
 ```
 
-The team can also manage user memories:
+团队还可以管理用户记忆：
 
 ```python
 from agno.team import Team
 from agno.memory.v2.db.sqlite import SqliteMemoryDb
 from agno.memory.v2.memory import Memory
 
-# Create a memory instance with persistent storage
+# 创建一个具有持久化存储的内存实例
 memory_db = SqliteMemoryDb(table_name="memory", db_file="memory.db")
 memory = Memory(db=memory_db)
 
@@ -103,10 +100,9 @@ team_with_memory.print_response("Hi! My name is John Doe.")
 team_with_memory.print_response("What is my name?")
 ```
 
+## 团队知识
 
-## Team Knowledge
-
-Teams can use a knowledge base to store and retrieve information:
+团队可以使用知识库来存储和检索信息：
 
 ```python
 from pathlib import Path
@@ -119,12 +115,12 @@ from agno.team import Team
 from agno.tools.duckduckgo import DuckDuckGoTools
 from agno.vectordb.lancedb import LanceDb, SearchType
 
-# Setup paths
+# 设置路径
 cwd = Path(__file__).parent
 tmp_dir = cwd.joinpath("tmp")
 tmp_dir.mkdir(parents=True, exist_ok=True)
 
-# Initialize knowledge base
+# 初始化知识库
 agno_docs_knowledge = UrlKnowledge(
     urls=["https://docs.agno.com/llms-full.txt"],
     vector_db=LanceDb(
@@ -153,7 +149,7 @@ team_with_knowledge = Team(
 )
 
 if __name__ == "__main__":
-    # Set to False after the knowledge base is loaded
+    # 在知识库加载后设置为 False
     load_knowledge = True
     if load_knowledge:
         agno_docs_knowledge.load()
@@ -161,14 +157,14 @@ if __name__ == "__main__":
     team_with_knowledge.print_response("Tell me about the Agno framework", stream=True)
 ```
 
-The team can also manage user memories:
+团队还可以管理用户记忆：
 
 ```python
 from agno.team import Team
 from agno.memory.v2.db.sqlite import SqliteMemoryDb
 from agno.memory.v2.memory import Memory
 
-# Create a memory instance with persistent storage
+# 创建一个具有持久化存储的内存实例
 memory_db = SqliteMemoryDb(table_name="memory", db_file="memory.db")
 memory = Memory(db=memory_db)
 
@@ -183,9 +179,9 @@ team_with_memory.print_response("Hi! My name is John Doe.")
 team_with_memory.print_response("What is my name?")
 ```
 
-## Session Summaries
+## 会话摘要
 
-To enable session summaries, set `enable_session_summaries=True` on the `Team`.
+要启用会话摘要，请在`Team`上设置`enable_session_summaries=True`。
 
 ```python
 from agno.team import Team
@@ -204,12 +200,11 @@ session_summary = team_with_session_summaries.get_session_summary()
 print("Session Summary: ", session_summary.summary)
 ```
 
+## 示例
 
-## Examples
+### 多语言团队
 
-### Multi-Language Team
-
-Let's walk through a simple example where we use different models to answer questions in different languages. The team consists of three specialized agents and the team leader routes the user's question to the appropriate language agent.
+让我们来看一个简单的例子，我们使用不同的模型来回答不同语言的问题。团队由三个专业化的智能体组成，团队领导者将用户的提问路由给合适的语言智能体。
 
 ```python multilanguage_team.py
 from agno.agent import Agent
@@ -254,17 +249,16 @@ multi_language_team = Team(
 
 
 if __name__ == "__main__":
-    # Ask "How are you?" in all supported languages
-    multi_language_team.print_response("Comment allez-vous?", stream=True)  # French
-    multi_language_team.print_response("How are you?", stream=True)  # English
-    multi_language_team.print_response("你好吗？", stream=True)  # Chinese
-    multi_language_team.print_response("Come stai?", stream=True)  # Italian
+    # 用所有支持的语言问“你好吗？”
+    multi_language_team.print_response("Comment allez-vous?", stream=True)  # 法语
+    multi_language_team.print_response("How are you?", stream=True)  # 英语
+    multi_language_team.print_response("你好吗？", stream=True)  # 中文
+    multi_language_team.print_response("Come stai?", stream=True)  # 意大利语
 ```
 
+### 内容团队
 
-### Content Team
-
-Let's walk through another example where we use two specialized agents to write a blog post. The team leader coordinates the agents to write a blog post.
+让我们来看另一个例子，我们使用两个专门的智能体来撰写博客文章。团队领导者协调智能体来撰写博客文章。
 
 ```python content_team.py
 from agno.agent import Agent
@@ -272,7 +266,7 @@ from agno.models.openai import OpenAIChat
 from agno.team import Team
 from agno.tools.duckduckgo import DuckDuckGoTools
 
-# Create individual specialized agents
+# 创建单独的专业智能体
 researcher = Agent(
     name="Researcher",
     role="Expert at finding information",
@@ -286,7 +280,7 @@ writer = Agent(
     model=OpenAIChat("gpt-4o"),
 )
 
-# Create a team with these agents
+# 创建一个包含这些智能体的团队
 content_team = Team(
     name="Content Team",
     mode="coordinate",
@@ -296,17 +290,17 @@ content_team = Team(
     markdown=True,
 )
 
-# Run the team with a task
+# 运行团队处理任务
 content_team.print_response("Create a short article about quantum computing")
 ```
 
-### Research Team
+### 研究团队
 
-Here's an example of a research team that combines multiple specialized agents:
+这是一个结合了多个专业智能体的研究团队的示例：
 
 <Steps>
-  <Step title="Create HackerNews Team">
-    Create a file `hackernews_team.py`
+  <Step title="创建 HackerNews 团队">
+    创建一个文件 `hackernews_team.py`
 
     ```python hackernews_team.py
     from typing import List
@@ -365,7 +359,7 @@ Here's an example of a research team that combines multiple specialized agents:
         show_members_responses=True,
     )
 
-    # Run the team
+    # 运行团队
     report = hackernews_team.run(
         "What are the top stories on hackernews?"
     ).content
@@ -376,14 +370,14 @@ Here's an example of a research team that combines multiple specialized agents:
     ```
 
   </Step>
-  <Step title="Run the team">
-    Install libraries
+  <Step title="运行团队">
+    安装库
 
     ```shell
     pip install openai duckduckgo-search newspaper4k lxml_html_clean agno
     ```
 
-    Run the team
+    运行团队
 
     ```shell
     python hackernews_team.py
@@ -392,8 +386,8 @@ Here's an example of a research team that combines multiple specialized agents:
   </Step>
 </Steps>
 
-## Developer Resources
+## 开发资源
 
-- View [Usecases](/examples/teams/)
-- View [Examples](/examples/concepts/storage/team_storage)
-- View [Cookbook](https://github.com/agno-agi/agno/tree/main/cookbook/examples/teams)
+- 查看 [用例](/examples/teams/)
+- 查看 [示例](/examples/concepts/storage/team_storage)
+- 查看 [Cookbook](https://github.com/agno-agi/agno/tree/main/cookbook/examples/teams)

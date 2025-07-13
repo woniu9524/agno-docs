@@ -1,25 +1,22 @@
 ---
-title: Finance Agent
+title: 金融代理
 ---
 
-## Code
+## 代码
 
 ```python cookbook/models/xai/finance_agent.py
-"""🗞️ Finance Agent - Your Personal Market Analyst!
+"""🗞️ 金融代理 - 您的个人市场分析师！
 
-This example shows how to create a sophisticated financial analyst that provides
-comprehensive market insights using real-time data. The agent combines stock market data,
-analyst recommendations, company information, and latest news to deliver professional-grade
-financial analysis.
+本示例展示如何创建一个复杂的金融分析师，该分析师利用实时数据提供全面的市场洞察。该代理结合了股市数据、分析师推荐、公司信息和最新新闻，以提供专业级的金融分析。
 
-Example prompts to try:
-- "What's the latest news and financial performance of Apple (AAPL)?"
-- "Give me a detailed analysis of Tesla's (TSLA) current market position"
-- "How are Microsoft's (MSFT) financials looking? Include analyst recommendations"
-- "Analyze NVIDIA's (NVDA) stock performance and future outlook"
-- "What's the market saying about Amazon's (AMZN) latest quarter?"
+可以尝试的示例提示：
+- "苹果公司 (AAPL) 的最新新闻和财务表现如何？"
+- "请详细分析特斯拉 (TSLA) 当前的市场地位"
+- "微软 (MSFT) 的财务状况如何？请包含分析师的推荐意见"
+- "分析英伟达 (NVDA) 的股票表现和未来展望"
+- "市场对亚马逊 (AMZN) 最新季报有什么看法？"
 
-Run: `pip install openai yfinance agno` to install the dependencies
+运行：`pip install openai yfinance agno` 来安装依赖项
 """
 
 from textwrap import dedent
@@ -41,70 +38,70 @@ finance_agent = Agent(
         )
     ],
     instructions=dedent("""\
-        You are a seasoned Wall Street analyst with deep expertise in market analysis! 📊
+        你是一位经验丰富的华尔街分析师，精通市场分析！📊
 
-        Follow these steps for comprehensive financial analysis:
-        1. Market Overview
-           - Latest stock price
-           - 52-week high and low
-        2. Financial Deep Dive
-           - Key metrics (P/E, Market Cap, EPS)
-        3. Professional Insights
-           - Analyst recommendations breakdown
-           - Recent rating changes
+        请遵循以下步骤进行全面的财务分析：
+        1. 市场概览
+           - 最新股价
+           - 52周最高价和最低价
+        2. 财务深度剖析
+           - 关键指标（市盈率、市值、每股收益）
+        3. 专业洞察
+           - 分析师推荐详情
+           - 近期评级变动
 
-        4. Market Context
-           - Industry trends and positioning
-           - Competitive analysis
-           - Market sentiment indicators
+        4. 市场背景
+           - 行业趋势和定位
+           - 竞争分析
+           - 市场情绪指标
 
-        Your reporting style:
-        - Begin with an executive summary
-        - Use tables for data presentation
-        - Include clear section headers
-        - Add emoji indicators for trends (📈 📉)
-        - Highlight key insights with bullet points
-        - Compare metrics to industry averages
-        - Include technical term explanations
-        - End with a forward-looking analysis
+        你的报告风格：
+        - 以执行摘要开头
+        - 使用表格展示数据
+        - 包含清晰的章节标题
+        - 使用表情符号指示趋势（📈 📉）
+        - 使用要点突出关键见解
+        - 将指标与行业平均水平进行比较
+        - 包括技术术语解释
+        - 以前瞻性分析结束
 
-        Risk Disclosure:
-        - Always highlight potential risk factors
-        - Note market uncertainties
-        - Mention relevant regulatory concerns
+        风险披露：
+        - 始终强调潜在风险因素
+        - 注意市场不确定性
+        - 提及相关的监管担忧
     """),
     add_datetime_to_instructions=True,
     markdown=True,
 )
 
-# Example usage with detailed market analysis request
+# 使用详细市场分析请求的示例用法
 finance_agent.print_response(
-    "Write a comprehensive report on TSLA",
+    "撰写一份关于 TSLA 的综合报告",
     stream=True,
     stream_intermediate_steps=True,
 )
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">
     ```bash
     export XAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U openai yfinance agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行代理">
     ```bash
     python cookbook/models/xai/finance_agent.py
     ```
   </Step>
-</Steps> 
+</Steps>

@@ -1,9 +1,9 @@
 ---
-title: Daytona Code Execution
-description: Learn to use Agno's Daytona integration to run your Agent-generated code in a secure sandbox.
+title: Daytona 代码执行
+description: 了解如何使用 Agno 的 Daytona 集成在安全沙箱中运行您的 Agent 生成的代码。
 ---
 
-## Code
+## 代码
 
 ```python cookbook/tools/daytona_tools.py
 from agno.agent import Agent
@@ -12,38 +12,37 @@ from agno.tools.daytona import DaytonaTools
 
 daytona_tools = DaytonaTools()
 
-# Setup an Agent focused on coding tasks, with access to the Daytona tools
+# 设置一个专注于编码任务的 Agent，并允许其访问 Daytona 工具
 agent = Agent(
-    name="Coding Agent with Daytona tools",
+    name="带有 Daytona 工具的编码 Agent",
     agent_id="coding-agent",
     model=Claude(id="claude-sonnet-4-20250514"),
     tools=[daytona_tools],
     markdown=True,
     show_tool_calls=True,
     instructions=[
-        "You are an expert at writing and validating Python code. You have access to a remote, secure Daytona sandbox.",
-        "Your primary purpose is to:",
-        "1. Write clear, efficient Python code based on user requests",
-        "2. Execute and verify the code in the Daytona sandbox",
-        "3. Share the complete code with the user, as this is the main use case",
-        "4. Provide thorough explanations of how the code works",
-        "You can use the run_python_code tool to run Python code in the Daytona sandbox.",
-        "Guidelines:",
-        "- ALWAYS share the complete code with the user, properly formatted in code blocks",
-        "- Verify code functionality by executing it in the sandbox before sharing",
-        "- Iterate and debug code as needed to ensure it works correctly",
-        "- Use pandas, matplotlib, and other Python libraries for data analysis when appropriate",
-        "- Create proper visualizations when requested and add them as image artifacts to show inline",
-        "- Handle file uploads and downloads properly",
-        "- Explain your approach and the code's functionality in detail",
-        "- Format responses with both code and explanations for maximum clarity",
-        "- Handle errors gracefully and explain any issues encountered",
+        "你是编写和验证 Python 代码的专家。你可以访问远程、安全的 Daytona 沙箱。",
+        "你的主要目的是：",
+        "1. 根据用户请求编写清晰、高效的 Python 代码",
+        "2. 在 Daytona 沙箱中执行和验证代码",
+        "3. 与用户共享完整代码，因为这是主要用例",
+        "4. 提供关于代码如何工作的详细解释",
+        "你可以使用 run_python_code 工具在 Daytona 沙箱中运行 Python 代码。",
+        "指南：",
+        "- 始终以代码块的格式将完整代码与用户共享",
+        "- 在共享之前，通过在沙箱中执行来验证代码的功能",
+        "- 根据需要迭代和调试代码以确保其正常工作",
+        "- 在适当的时候使用 pandas、matplotlib 和其他 Python 库进行数据分析",
+        "- 在收到请求时创建适当的可视化，并将它们作为图像工件内联显示",
+        "- 正确处理文件上传和下载",
+        "- 详细解释你的方法和代码的功能",
+        "- 以清晰的代码和解释格式化响应，以获得最大程度的清晰度",
+        "- 优雅地处理错误并解释遇到的任何问题",
     ],
 )
 
 
 agent.print_response(
-    "Write Python code to generate the first 10 Fibonacci numbers and calculate their sum and average"
+    "编写 Python 代码以生成前 10 个斐波那契数并计算它们的总和与平均值"
 )
 ```
-

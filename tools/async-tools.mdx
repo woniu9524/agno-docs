@@ -2,9 +2,9 @@
 title: Async Tools
 ---
 
-Agno Agents can execute multiple tools concurrently, allowing you to process function calls that the model makes efficiently. This is especially valuable when the functions involve time-consuming operations. It improves responsiveness and reduces overall execution time.
+Agno Agents 可以并发执行多个工具，让您能够高效地处理模型进行的函数调用。当函数涉及耗时操作时，这一点尤其有价值。它能提高响应速度并缩短整体执行时间。
 
-Here is an example:
+下面是一个示例：
 
 ```python async_tools.py
 import asyncio
@@ -65,7 +65,7 @@ asyncio.run(
 )
 ```
 
-Run the Agent:
+运行 Agent：
 
 ```bash
 pip install -U agno openai
@@ -75,19 +75,17 @@ export OPENAI_API_KEY=***
 python async_tools.py
 ```
 
-How to use:
+如何使用：
 
-1. Provide your Agent with a list of tools, preferably asynchronous for optimal performance. However, synchronous functions can also be used since they will execute concurrently on separate threads.
-2. Run the Agent using either the `arun` or `aprint_response` method, enabling concurrent execution of tool calls.
+1.  为您的 Agent 提供一个工具列表，最好是异步工具以获得最佳性能。不过，同步函数也可以使用，因为它们将在单独的线程上并发执行。
+2.  使用 `arun` 或 `aprint_response` 方法运行 Agent，以启用工具调用的并发执行。
 
 <Note>
-  Concurrent execution of tools requires a model that supports parallel function
-  calling. For example, OpenAI models have a `parallel_tool_calls` parameter
-  (enabled by default) that allows multiple tool calls to be requested and
-  executed simultaneously.
+  工具的并发执行需要模型支持并行函数调用。例如，OpenAI 模型有一个
+  `parallel_tool_calls` 参数（默认启用），允许同时请求和执行多个工具调用。
 </Note>
 
-In this example, `gpt-4o` makes three simultaneous tool calls to `atask1`, `atask2` and `atask3`. Normally these tool calls would execute sequentially, but using the `aprint_response` function, they run concurrently, improving execution time.
+在此示例中，`gpt-4o` 调用 `atask1`、`atask2` 和 `atask3` 三个工具。通常情况下，这些工具调用会顺序执行，但通过使用 `aprint_response` 函数，它们会并发运行，从而缩短执行时间。
 
 <img
   height="200"

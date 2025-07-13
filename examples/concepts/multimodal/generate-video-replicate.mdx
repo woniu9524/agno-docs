@@ -1,8 +1,8 @@
 ---
-title: Generate Video using Replicate
+title: 使用 Replicate 生成视频
 ---
 
-## Code
+## 代码
 
 ```python
 from agno.agent import Agent
@@ -10,46 +10,46 @@ from agno.models.openai import OpenAIChat
 from agno.tools.replicate import ReplicateTools
 
 video_agent = Agent(
-    name="Video Generator Agent",
+    name="视频生成代理",
     model=OpenAIChat(id="gpt-4o"),
     tools=[
         ReplicateTools(
             model="tencent/hunyuan-video:847dfa8b01e739637fc76f480ede0c1d76408e1d694b830b5dfb8e547bf98405"
         )
     ],
-    description="You are an AI agent that can generate videos using the Replicate API.",
+    description="你是一个可以使用 Replicate API 生成视频的 AI 代理。",
     instructions=[
-        "When the user asks you to create a video, use the `generate_media` tool to create the video.",
-        "Return the URL as raw to the user.",
-        "Don't convert video URL to markdown or anything else.",
+        "当用户要求你创建视频时，使用 `generate_media` 工具来创建视频。",
+        "将 URL 以原始格式返回给用户。",
+        "不要将视频 URL 转换为 Markdown 或其他格式。",
     ],
     markdown=True,
     debug_mode=True,
     show_tool_calls=True,
 )
 
-video_agent.print_response("Generate a video of a horse in the dessert.")
+video_agent.print_response("生成一个关于沙漠中马匹的视频。")
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置你的 API 密钥">
     ```bash
     export OPENAI_API_KEY=xxx
     export REPLICATE_API_TOKEN=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U openai replicate agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行代理">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/multimodal/generate_video_using_replicate.py

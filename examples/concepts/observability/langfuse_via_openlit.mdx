@@ -2,11 +2,11 @@
 title: Langfuse via OpenLIT
 ---
 
-## Overview
+## 概述
 
-This example demonstrates how to use Langfuse via OpenLIT to trace model calls.
+此示例演示了如何通过 OpenLIT 使用 Langfuse 来追踪模型调用。
 
-## Code
+## 代码
 
 ```python
 import base64
@@ -58,23 +58,23 @@ agent = Agent(
 agent.print_response("What is currently trending on Twitter?")
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
-  <Step title="Install Dependencies">
+  <Step title="安装依赖">
     ```bash
     pip install agno openai langfuse openlit opentelemetry-sdk opentelemetry-exporter-otlp
     ```
   </Step>
 
-  <Step title="Set Environment Variables">
+  <Step title="设置环境变量">
     ```bash
-    export LANGFUSE_PUBLIC_KEY=<your-public-key>
-    export LANGFUSE_SECRET_KEY=<your-secret-key>
+    export LANGFUSE_PUBLIC_KEY=<你的公共密钥>
+    export LANGFUSE_SECRET_KEY=<你的密钥>
     ```
   </Step>
 
-  <Step title="Run the Agent">
+  <Step title="运行 Agent">
     <CodeGroup>
     ```bash Mac
     python cookbook/observability/langfuse_via_openlit.py
@@ -87,9 +87,9 @@ agent.print_response("What is currently trending on Twitter?")
   </Step>
 </Steps>
 
-## Notes
+## 注意事项
 
-- **Data Regions**: Adjust the `OTEL_EXPORTER_OTLP_ENDPOINT` for your data region or local deployment as needed:
-  - `https://us.cloud.langfuse.com/api/public/otel` for the US region
-  - `https://cloud.langfuse.com/api/public/otel` for the EU region
-  - `http://localhost:3000/api/public/otel` for local deployment
+- **数据区域**: 根据需要调整 `OTEL_EXPORTER_OTLP_ENDPOINT` 以匹配您的数据区域或本地部署：
+  - `https://us.cloud.langfuse.com/api/public/otel` 适用于美国区域
+  - `https://cloud.langfuse.com/api/public/otel` 适用于欧盟区域
+  - `http://localhost:3000/api/public/otel` 适用于本地部署

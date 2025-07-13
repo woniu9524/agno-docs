@@ -1,8 +1,8 @@
 ---
-title: Multi User State
+title: 多用户状态
 ---
-This example demonstrates how to maintain state for each user in a multi-user environment
-## Code
+本示例演示了如何在多用户环境中维护每个用户状态。
+## 代码
 
 ```python cookbook/agent_concepts/state/session_state_user_id.py
 import json
@@ -11,23 +11,23 @@ from agno.agent import Agent
 from agno.models.openai import OpenAIChat
 from agno.utils.log import log_info
 
-# In-memory database to store user shopping lists
-# Organized by user ID and session ID
+# 用于存储用户购物列表的内存数据库
+# 按用户 ID 和会话 ID 组织
 shopping_list = {}
 
 
 def add_item(agent: Agent, item: str) -> str:
-    """Add an item to the current user's shopping list."""
+    """向当前用户购物列表添加一个商品。"""
     current_user_id = agent.session_state["current_user_id"]
     current_session_id = agent.session_state["current_session_id"]
     shopping_list.setdefault(current_user_id, {}).setdefault(
         current_session_id, []
     ).append(item)
-    return f"Item {item} added to the shopping list"
+    return f"商品 {item} 已添加到购物列表"
 
 
 def remove_item(agent: Agent, item: str) -> str:
-    """Remove an item from the current user's shopping list."""
+    """从当前用户购物列表中移除一个商品。"""
     current_user_id = agent.session_state["current_user_id"]
     current_session_id = agent.session_state["current_session_id"]
 
@@ -35,32 +35,32 @@ def remove_item(agent: Agent, item: str) -> str:
         current_user_id not in shopping_list
         or current_session_id not in shopping_list[current_user_id]
     ):
-        return f"No shopping list found for user {current_user_id} and session {current_session_id}"
+        return f"未找到用户 {current_user_id} 和会话 {current_session_id} 的购物列表"
 
     if item not in shopping_list[current_user_id][current_session_id]:
-        return f"Item '{item}' not found in the shopping list for user {current_user_id} and session {current_session_id}"
+        return f"未在用户 {current_user_id} 和会话 {current_session_id} 的购物列表中找到商品 '{item}'"
 
     shopping_list[current_user_id][current_session_id].remove(item)
-    return f"Item {item} removed from the shopping list"
+    return f"商品 {item} 已从购物列表中移除"
 
 
 def get_shopping_list(agent: Agent) -> str:
-    """Get the current user's shopping list."""
+    """获取当前用户的购物列表。"""
     current_user_id = agent.session_state["current_user_id"]
     current_session_id = agent.session_state["current_session_id"]
-    return f"Shopping list for user {current_user_id} and session {current_session_id}: \n{json.dumps(shopping_list[current_user_id][current_session_id], indent=2)}"
+    return f"用户 {current_user_id} 和会话 {current_session_id} 的购物列表： \n{json.dumps(shopping_list[current_user_id][current_session_id], indent=2)}"
 
 
-# Create an Agent that maintains state
+# 创建一个维护状态的 Agent
 agent = Agent(
     model=OpenAIChat(id="gpt-4o-mini"),
     tools=[add_item, remove_item, get_shopping_list],
-    # Reference the in-memory database
+    # 引用内存数据库
     instructions=[
-        "Current User ID: {current_user_id}",
-        "Current Session ID: {current_session_id}",
+        "当前用户 ID: {current_user_id}",
+        "当前会话 ID: {current_session_id}",
     ],
-    # Important: Add the state in the instructions
+    # 重要：在 instructions 中添加状态
     add_state_in_messages=True,
     markdown=True,
 )
@@ -69,75 +69,75 @@ user_id_1 = "john_doe"
 user_id_2 = "mark_smith"
 user_id_3 = "carmen_sandiago"
 
-# Example usage
+# 示例用法
 agent.print_response(
-    "Add milk, eggs, and bread to the shopping list",
+    "在购物列表中添加牛奶、鸡蛋和面包",
     stream=True,
     user_id=user_id_1,
     session_id="user_1_session_1",
 )
 agent.print_response(
-    "Add tacos to the shopping list",
+    "添加玉米饼到购物列表",
     stream=True,
     user_id=user_id_2,
     session_id="user_2_session_1",
 )
 agent.print_response(
-    "Add apples and grapesto the shopping list",
+    "添加苹果和葡萄到购物列表",
     stream=True,
     user_id=user_id_3,
     session_id="user_3_session_1",
 )
 agent.print_response(
-    "Remove milk from the shopping list",
+    "从购物列表中移除牛奶",
     stream=True,
     user_id=user_id_1,
     session_id="user_1_session_1",
 )
 agent.print_response(
-    "Add minced beef to the shopping list",
+    "添加碎牛肉到购物列表",
     stream=True,
     user_id=user_id_2,
     session_id="user_2_session_1",
 )
 
-# What is on Mark Smith's shopping list?
+# Mark Smith 的购物列表里有什么东西？
 agent.print_response(
-    "What is on Mark Smith's shopping list?",
+    "Mark Smith 的购物列表里有什么东西？",
     stream=True,
     user_id=user_id_2,
     session_id="user_2_session_1",
 )
 
-# New session, so new shopping list
+# 新会话，所以购物列表也新生成的
 agent.print_response(
-    "Add chicken and soup to my list.",
+    "向我的列表添加鸡肉和汤。",
     stream=True,
     user_id=user_id_2,
     session_id="user_3_session_2",
 )
 
-print(f"Final shopping lists: \n{json.dumps(shopping_list, indent=2)}")
+print(f"最终购物列表： \n{json.dumps(shopping_list, indent=2)}")
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U openai agno
     ```
   </Step>
 
-  <Step title="Run Example">
+  <Step title="运行示例">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/state/session_state_user_id.py

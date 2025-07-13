@@ -1,30 +1,30 @@
 ---
-title: Metrics
-description: Understanding team run and session metrics in Agno
+title: 指标
+description: 了解 Agno 中团队运行和会话指标
 ---
 
-## Overview
-When you run a team in Agno, the response you get (**TeamRunResponse**) includes detailed metrics about the run. These metrics help you understand resource usage (like **token usage** and **time**), performance, and other aspects of the model and tool calls across both the team leader and team members.
+## 概览
+当您在 Agno 中运行一个团队时，您收到的响应（`TeamRunResponse`）会包含有关此次运行的详细指标。这些指标可帮助您了解跨团队领导者和团队成员的资源使用情况（例如 **token 使用量**和**时间**）、性能以及模型和工具调用的其他方面。
 
-Metrics are available at multiple levels:
-- **Per-message**: Each message (assistant, tool, etc.) has its own metrics.
-- **Per-tool call**: Each tool execution has its own metrics.
-- **Per-member run**: Each team member run has its own metrics.
-- **Team-level**: The `TeamRunResponse` aggregates metrics across all team leader messages.
-- **Session-level**: Aggregated metrics across all runs in the session, for both the team leader and all team members.
+指标可在多个级别上获取：
+- **每个消息**：每个消息（助手、工具等）都有自己的指标。
+- **每次工具调用**：每次工具执行都有自己的指标。
+- **每个成员运行**：每个团队成员的运行都有自己的指标。
+- **团队级别**：`TeamRunResponse` 会聚合团队领导者消息的指标。
+- **会话级别**：跨会话中所有运行的聚合指标，包括团队领导者和所有团队成员。
 
 <Note>
-Where Metrics Live
-- `TeamRunResponse.metrics`: Aggregated metrics for the team leader's run, as a dictionary.
-- `TeamRunResponse.member_responses`: Individual member responses with their own metrics.
-- `ToolExecution.metrics`: Metrics for each tool call.
-- `Message.metrics`: Metrics for each message (assistant, tool, etc.).
-- `Team.session_metrics`: Session-level metrics for the team leader.
-- `Team.full_team_session_metrics`: Session-level metrics including all team member metrics.
+指标的存储位置
+- `TeamRunResponse.metrics`: 团队领导者运行的聚合指标，以字典形式存储。
+- `TeamRunResponse.member_responses`: 包含各自指标的各个成员响应。
+- `ToolExecution.metrics`: 每个工具调用的指标。
+- `Message.metrics`: 每个消息（助手、工具等）的指标。
+- `Team.session_metrics`: 团队领导者会话级别的指标。
+- `Team.full_team_session_metrics`: 会话级别的指标，包括所有团队成员的指标。
 </Note>
 
-## Example Usage
-Suppose you have a team that performs some tasks and you want to analyze the metrics after running it. Here's how you can access and print the metrics:
+## 示例用法
+假设您有一个执行某些任务的团队，并且您想在运行后分析指标。以下是访问和打印指标的方法：
 
 ```python
 from typing import Iterator
@@ -36,7 +36,7 @@ from agno.tools.yfinance import YFinanceTools
 from agno.utils.pprint import pprint_run_response
 from rich.pretty import pprint
 
-# Create team members
+# 创建团队成员
 stock_searcher = Agent(
     name="Stock Searcher",
     model=OpenAIChat("gpt-4o"),
@@ -44,7 +44,7 @@ stock_searcher = Agent(
     tools=[YFinanceTools()],
 )
 
-# Create the team
+# 创建团队
 team = Team(
     name="Stock Research Team",
     model=OpenAIChat("gpt-4o"),
@@ -52,13 +52,13 @@ team = Team(
     markdown=True,
 )
 
-# Run the team
+# 运行团队
 run_stream: Iterator[RunResponse] = team.run(
     "What is the stock price of NVDA", stream=True
 )
 pprint_run_response(run_stream, markdown=True)
 
-# Print team leader message metrics
+# 打印团队领导者消息指标
 print("---" * 5, "Team Leader Message Metrics", "---" * 5)
 if team.run_response.messages:
     for message in team.run_response.messages:
@@ -71,15 +71,15 @@ if team.run_response.messages:
             pprint(message.metrics)
             print("---" * 20)
 
-# Print aggregated team leader metrics
+# 打印聚合的团队领导者指标
 print("---" * 5, "Aggregated Metrics of Team Agent", "---" * 5)
 pprint(team.run_response.metrics)
 
-# Print team leader session metrics
+# 打印团队领导者会话指标
 print("---" * 5, "Session Metrics", "---" * 5)
 pprint(team.session_metrics)
 
-# Print team member message metrics
+# 打印团队成员消息指标
 print("---" * 5, "Team Member Message Metrics", "---" * 5)
 if team.run_response.member_responses:
     for member_response in team.run_response.member_responses:
@@ -94,96 +94,96 @@ if team.run_response.member_responses:
                     pprint(message.metrics)
                     print("---" * 20)
 
-# Print full team session metrics (including all members)
+# 打印完整的团队会话指标（包括所有成员）
 print("---" * 5, "Full Team Session Metrics", "---" * 5)
 pprint(team.full_team_session_metrics)
 ```
 
-## Team Leader Metrics
+## 团队领导者指标
 
-### Team Leader Message Metrics
+### 团队领导者消息指标
 
-This section provides metrics for each message response from the team leader. All "assistant" responses will have metrics like this, helping you understand the performance and resource usage at the message level.
+本节提供团队领导者每次消息响应的指标。所有“助手”响应都将具有此类指标，帮助您了解消息级别的性能和资源使用情况。
 
 ![Team Leader Message Metrics](../images/team-leader-message-metrics.png)
 
-### Aggregated Team Leader Metrics
+### 聚合团队领导者指标
 
-The aggregated metrics provide a comprehensive view of the team leader's run. This includes a summary of all messages and tool calls, giving you an overall picture of the team leader's performance and resource usage.
+聚合指标提供了团队领导者运行的全面视图。这包括所有消息和工具调用的摘要，让您对团队领导者的性能和资源使用情况有一个总体印象。
 
 ![Aggregated Team Leader Metrics](../images/team-leader-aggregated-metrics.png)
 
-## Team Member Metrics
+## 团队成员指标
 
-### Individual Member Metrics
+### 单个成员指标
 
-Each team member has their own metrics that can be accessed through `team.run_response.member_responses`. This allows you to analyze the performance of individual team members.
+每个团队成员都有自己的指标，可以从 `team.run_response.member_responses` 访问。这使您可以分析各个团队成员的性能。
 
 ![Team Member Message Metrics](../images/team-member-message-metrics.png)
 
-### Member Response Structure
+### 成员响应结构
 
-Each member response contains:
-- `messages`: List of messages with individual metrics
-- `metrics`: Aggregated metrics for that member's run
-- `tools`: Tool executions with their own metrics
+每个成员响应包含：
+- `messages`: 包含单个指标的消息列表
+- `metrics`: 该成员运行的聚合指标
+- `tools`: 各自包含指标的工具执行
 
-## Session-Level Metrics
+## 会话级别指标
 
-### Team Leader Session Metrics
+### 团队领导者会话指标
 
-The `team.session_metrics` provides aggregated metrics across all runs in the session for the team leader only.
+`team.session_metrics` 提供团队领导者在会话中所有运行的聚合指标。
 
 ![Team Leader Session Metrics](../images/team-leader-session-metrics.png)
 
-### Full Team Session Metrics
+### 完整团队会话指标
 
-The `team.full_team_session_metrics` provides comprehensive metrics that include both the team leader and all team members across all runs in the session.
+`team.full_team_session_metrics` 提供全面的指标，包括会话中所有运行的团队领导者和所有团队成员的指标。
 
 ![Full Team Session Metrics](../images/full-team-session-metrics.png)
 
-## How Metrics Are Aggregated
+## 指标如何聚合
 
-### Team Leader Level
-- **Per-message**: Each message (assistant, tool, etc.) has its own metrics object.
-- **Run-level**: `TeamRunResponse.metrics` is a dictionary where each key (e.g., input_tokens) maps to a list of values from all assistant messages in the run.
-- **Session-level**: `team.session_metrics` aggregates metrics across all team leader runs in the session.
+### 团队领导者级别
+- **每个消息**：每个消息（助手、工具等）都有自己的指标对象。
+- **运行级别**：`TeamRunResponse.metrics` 是一个字典，其中每个键（例如 input_tokens）映射到运行中所有助手消息值的列表。
+- **会话级别**：`team.session_metrics` 聚合会话中所有团队领导者运行的指标。
 
-### Team Member Level
-- **Per-member**: Each team member has their own metrics tracked separately.
-- **Member aggregation**: Individual member metrics are aggregated within their respective `RunResponse` objects.
-- **Full team aggregation**: `team.full_team_session_metrics` combines metrics from the team leader and all team members.
+### 团队成员级别
+- **每个成员**：每个团队成员都有自己单独跟踪的指标。
+- **成员聚合**：单个成员的指标在其各自的 `RunResponse` 对象中进行聚合。
+- **完整团队聚合**：`team.full_team_session_metrics` 结合了团队领导者和所有团队成员的指标。
 
-### Cross-Member Aggregation
-- **Session-level**: `team.full_team_session_metrics` provides a complete view of all token usage and performance metrics across the entire team.
+### 跨成员聚合
+- **会话级别**：`team.full_team_session_metrics` 提供了整个团队所有 token 使用量和性能指标的完整视图。
 
-## Accessing Member Metrics Programmatically
+## 以编程方式访问成员指标
 
-You can access individual member metrics in several ways:
+您可以通过多种方式访问单个成员指标：
 
 ```python
-# Access metrics for a specific member
+# 访问特定成员的指标
 for member_response in team.run_response.member_responses:
     print(f"Member: {member_response.member_id}")
     print(f"Member metrics: {member_response.metrics}")
     
-    # Access individual messages
+    # 访问单个消息
     for message in member_response.messages:
         if message.role == "assistant":
             print(f"Message metrics: {message.metrics}")
 ```
 
-## Metrics Comparison
+## 指标比较
 
-| Metric Level | Access Method | Description |
+| 指标级别 | 访问方法 | 描述 |
 |--------------|---------------|-------------|
-| **Team Leader Run** | `team.run_response.metrics` | Aggregated metrics for the current run |
-| **Team Leader Session** | `team.session_metrics` | Aggregated metrics across all team leader runs |
-| **Individual Member** | `member_response.metrics` | Metrics for a specific team member's run |
-| **Full Team Session** | `team.full_team_session_metrics` | Complete team metrics including all members |
+| **团队领导者运行** | `team.run_response.metrics` | 当前运行的聚合指标 |
+| **团队领导者会话** | `team.session_metrics` | 所有团队领导者运行的聚合指标 |
+| **单个成员** | `member_response.metrics` | 特定团队成员运行的指标 |
+| **完整团队会话** | `team.full_team_session_metrics` | 包括所有成员在内的完整团队指标 |
 
-## `MessageMetrics` Params
+## `MessageMetrics` 参数
 <Snippet file="message_metrics_params.mdx" /> 
 
-## `SessionMetrics` Params
-<Snippet file="session_metrics_params.mdx" /> 
+## `SessionMetrics` 参数
+<Snippet file="session_metrics_params.mdx" />

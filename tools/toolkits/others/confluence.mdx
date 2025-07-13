@@ -2,11 +2,11 @@
 title: Confluence
 ---
 
-**ConfluenceTools** enable an Agent to retrieve, create, and update pages in Confluence. They also allow you to explore spaces and page details.
+**ConfluenceTools** 允许 Agent 在 Confluence 中检索、创建和更新页面。它们还允许您探索空间和页面详细信息。
 
-## Prerequisites
+## 前提条件
 
-The following example requires the `atlassian-python-api` library and Confluence credentials. You can obtain an API token by going [here](https://id.atlassian.com/manage-profile/security).
+下面的示例需要 `atlassian-python-api` 库和 Confluence 凭据。您可以通过[此处](https://id.atlassian.com/manage-profile/security)获取 API 令牌。
 
 ```shell
 pip install atlassian-python-api
@@ -20,8 +20,8 @@ export CONFLUENCE_PASSWORD="your-password"
 export CONFLUENCE_API_KEY="your-api-key"
 ```
 
-## Example
-The following agent will retrieve the number of spaces and their names.
+## 示例
+下面的 Agent 将检索空间数量及其名称。
 
 ```python
 from agno.agent import Agent
@@ -41,22 +41,22 @@ agent.print_response("How many spaces are there and what are their names?")
 
 | Parameter | Type     | Default | Description                                                                                                                    |
 | --------- | -------- | ------- | ------------------------------------------------------------------------------------------------------------------------------ |
-| `username`| `str`    | -  | Confluence username. Can also be set via environment variable CONFLUENCE_USERNAME.                                           |
-| `password`| `str`    | -  | Confluence password or API key. Can also be set via environment variables CONFLUENCE_API_KEY or CONFLUENCE_PASSWORD.       |
-| `url`     | `str`    | -  | Confluence instance URL. Can also be set via environment variable CONFLUENCE_URL.                                            |
-| `api_key` | `str`    | -  | Confluence API key (alternative to password).                                                                                 |
-| `ssl_verify` | `bool`    | `True`  | If True, verify the SSL certificate.                                                                                 |
+| `username`| `str`    | -  | Confluence 用户名。也可以通过环境变量 CONFLUENCE_USERNAME 设置。                                           |
+| `password`| `str`    | -  | Confluence 密码或 API 密钥。也可以通过环境变量 CONFLUENCE_API_KEY 或 CONFLUENCE_PASSWORD 设置。       |
+| `url`     | `str`    | -  | Confluence 实例 URL。也可以通过环境变量 CONFLUENCE_URL 设置。                                            |
+| `api_key` | `str`    | -  | Confluence API 密钥（密码的替代选项）。                                                                                 |
+| `ssl_verify` | `bool`    | `True`  | 如果为 True，则验证 SSL 证书。                                                                                 |
 
 ## Toolkit Functions
 
 | Function                                                         | Description                                                                                                                                         |
 | ---------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `get_page_content` | Gets the content of a specific page.                                |
-| `get_all_space_detail`                                         | Gets details about all Confluence spaces.                                                     |
-| `get_space_key`                                 | Gets the Confluence key for the specified space.                                                        |
-| `get_all_page_from_space`                       | Gets details of all pages from the specified space.                                                     |
-| `create_page` | Creates a new Confluence page with the provided title and body.       |
-| `update_page`               | Updates an existing Confluence page.                                    |
+| `get_page_content` | 获取指定页面的内容。                                |
+| `get_all_space_detail`                                         | 获取所有 Confluence 空间 的详细信息。                                                     |
+| `get_space_key`                                 | 获取指定空间的 Confluence 键。                                                        |
+| `get_all_page_from_space`                       | 获取指定空间的所有页面详情。                                                     |
+| `create_page` | 使用提供的标题和正文创建新的 Confluence 页面。       |
+| `update_page`               | 更新现有的 Confluence 页面。                                    |
 
 ## Developer Resources
 

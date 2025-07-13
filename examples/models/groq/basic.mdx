@@ -1,8 +1,8 @@
 ---
-title: Basic Agent
+title: 基础代理
 ---
 
-## Code
+## 代码
 
 ```python cookbook/models/groq/basic.py
 from agno.agent import Agent, RunResponse  # noqa
@@ -15,27 +15,27 @@ agent = Agent(model=Groq(id="llama-3.3-70b-versatile"), markdown=True)
 # print(run.content)
 
 # Print the response on the terminal
-agent.print_response("Share a 2 sentence horror story")
+agent.print_response("写一个两句话的可怕故事")
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">
     ```bash
     export GROQ_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U groq agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行代理">
     <CodeGroup>
     ```bash Mac
     python cookbook/models/groq/basic.py

@@ -1,10 +1,10 @@
 ---
-title: "Autonomous Startup Team"
+title: "自主创业团队"
 ---
 
-This example shows how to create an autonomous startup team that can self-organize and drive innovative projects.
+此示例演示了如何创建一个能够自我组织并推动创新项目的自主创业团队。
 
-## Code
+## 代码
 
 ```python autonomous_startup_team.py
 from agno.agent import Agent
@@ -33,44 +33,44 @@ sales_channel = "sales"
 
 
 legal_compliance_agent = Agent(
-    name="Legal Compliance Agent",
-    role="Legal Compliance",
+    name="法务合规专员",
+    role="法务合规",
     model=OpenAIChat("gpt-4o"),
     tools=[ExaTools()],
     knowledge=knowledge_base,
     instructions=[
-        "You are the Legal Compliance Agent of a startup, responsible for ensuring legal and regulatory compliance.",
-        "Key Responsibilities:",
-        "1. Review and validate all legal documents and contracts",
-        "2. Monitor regulatory changes and update compliance policies",
-        "3. Assess legal risks in business operations and product development",
-        "4. Ensure data privacy and security compliance (GDPR, CCPA, etc.)",
-        "5. Provide legal guidance on intellectual property protection",
-        "6. Create and maintain compliance documentation",
-        "7. Review marketing materials for legal compliance",
-        "8. Advise on employment law and HR policies",
+        "你是创业公司的法务合规专员，负责确保法律和法规的合规性。",
+        "主要职责：",
+        "1. 审核和验证所有法律文件和合同",
+        "2. 监控法规变化并更新合规政策",
+        "3. 评估业务运营和产品开发中的法律风险",
+        "4. 确保数据隐私和安全合规（GDPR、CCPA 等）",
+        "5. 就知识产权保护提供法律指导",
+        "6. 创建和维护合规文档",
+        "7. 审核营销材料的法律合规性",
+        "8. 就雇佣法和人力资源政策提供建议",
     ],
     add_datetime_to_instructions=True,
     markdown=True,
 )
 
 product_manager_agent = Agent(
-    name="Product Manager Agent",
-    role="Product Manager",
+    name="产品经理专员",
+    role="产品经理",
     model=OpenAIChat("gpt-4o"),
     knowledge=knowledge_base,
     instructions=[
-        "You are the Product Manager of a startup, responsible for product strategy and execution.",
-        "Key Responsibilities:",
-        "1. Define and maintain the product roadmap",
-        "2. Gather and analyze user feedback to identify needs",
-        "3. Write detailed product requirements and specifications",
-        "4. Prioritize features based on business impact and user value",
-        "5. Collaborate with technical teams on implementation feasibility",
-        "6. Monitor product metrics and KPIs",
-        "7. Conduct competitive analysis",
-        "8. Lead product launches and go-to-market strategies",
-        "9. Balance user needs with business objectives",
+        "你是创业公司的产品经理，负责产品战略和执行。",
+        "主要职责：",
+        "1. 定义和维护产品路线图",
+        "2. 收集和分析用户反馈以识别需求",
+        "3. 编写详细的产品需求和规范",
+        "4. 根据业务影响和用户价值对功能进行优先级排序",
+        "5. 与技术团队协作以实现实施可行性",
+        "6. 监控产品指标和 KPI",
+        "7. 进行竞争分析",
+        "8. 领导产品发布和上市策略",
+        "9. 平衡用户需求和业务目标",
     ],
     add_datetime_to_instructions=True,
     markdown=True,
@@ -78,49 +78,49 @@ product_manager_agent = Agent(
 )
 
 market_research_agent = Agent(
-    name="Market Research Agent",
-    role="Market Research",
+    name="市场研究专员",
+    role="市场研究",
     model=OpenAIChat("gpt-4o"),
     tools=[DuckDuckGoTools(), ExaTools()],
     knowledge=knowledge_base,
     instructions=[
-        "You are the Market Research Agent of a startup, responsible for market intelligence and analysis.",
-        "Key Responsibilities:",
-        "1. Conduct comprehensive market analysis and size estimation",
-        "2. Track and analyze competitor strategies and offerings",
-        "3. Identify market trends and emerging opportunities",
-        "4. Research customer segments and buyer personas",
-        "5. Analyze pricing strategies in the market",
-        "6. Monitor industry news and developments",
-        "7. Create detailed market research reports",
-        "8. Provide data-driven insights for decision making",
+        "你是创业公司的市场研究专员，负责市场情报和分析。",
+        "主要职责：",
+        "1. 进行全面的市场分析和规模估算",
+        "2. 跟踪和分析竞争对手的策略和产品",
+        "3. 识别市场趋势和新兴机会",
+        "4. 研究客户细分和买家画像",
+        "5. 分析市场上的定价策略",
+        "6. 监控行业新闻和发展",
+        "7. 创建详细的市场研究报告",
+        "8. 为决策提供数据驱动的见解",
     ],
     add_datetime_to_instructions=True,
     markdown=True,
 )
 
 sales_agent = Agent(
-    name="Sales Agent",
-    role="Sales",
+    name="销售专员",
+    role="销售",
     model=OpenAIChat("gpt-4o"),
     tools=[SlackTools()],
     knowledge=knowledge_base,
     instructions=[
-        "You are the Sales & Partnerships Agent of a startup, responsible for driving revenue growth and strategic partnerships.",
-        "Key Responsibilities:",
-        "1. Identify and qualify potential partnership and business opportunities",
-        "2. Evaluate partnership proposals and negotiate terms",
-        "3. Maintain relationships with existing partners and clients",
-        "5. Collaborate with Legal Compliance Agent on contract reviews",
-        "6. Work with Product Manager on feature requests from partners",
-        f"7. Document and communicate all partnership details in #{sales_channel} channel",
+        "你是创业公司的销售与合作专员，负责推动收入增长和战略合作。",
+        "主要职责：",
+        "1. 识别和评估潜在的合作伙伴和商业机会",
+        "2. 评估合作提案并协商条款",
+        "3. 维护与现有合作伙伴和客户的关系",
+        "5. 与法务合规专员协作进行合同审核",
+        "6. 与产品经理合作处理来自合作伙伴的功能请求",
+        f"7. 在 #{sales_channel} 频道记录和沟通所有合作细节",
         "",
-        "Communication Guidelines:",
-        "1. Always respond professionally and promptly to partnership inquiries",
-        "2. Include all relevant details when sharing partnership opportunities",
-        "3. Highlight potential risks and benefits in partnership proposals",
-        "4. Maintain clear documentation of all discussions and agreements",
-        "5. Ensure proper handoff to relevant team members when needed",
+        "沟通指南：",
+        "1. 始终专业且及时地回复合作伙伴的问询",
+        "2. 在分享合作机会时包含所有相关细节",
+        "3. 在合作提案中突出潜在风险和收益",
+        "4. 保持所有讨论和协议的清晰记录",
+        "5. 必要时确保与相关团队成员的适当交接",
     ],
     add_datetime_to_instructions=True,
     markdown=True,
@@ -128,38 +128,38 @@ sales_agent = Agent(
 
 
 financial_analyst_agent = Agent(
-    name="Financial Analyst Agent",
-    role="Financial Analyst",
+    name="财务分析专员",
+    role="财务分析",
     model=OpenAIChat("gpt-4o"),
     knowledge=knowledge_base,
     tools=[YFinanceTools()],
     instructions=[
-        "You are the Financial Analyst of a startup, responsible for financial planning and analysis.",
-        "Key Responsibilities:",
-        "1. Develop financial models and projections",
-        "2. Create and analyze revenue forecasts",
-        "3. Evaluate pricing strategies and unit economics",
-        "4. Prepare investor reports and presentations",
-        "5. Monitor cash flow and burn rate",
-        "6. Analyze market conditions and financial trends",
-        "7. Assess potential investment opportunities",
-        "8. Track key financial metrics and KPIs",
-        "9. Provide financial insights for strategic decisions",
+        "你是创业公司的财务分析师，负责财务规划和分析。",
+        "主要职责：",
+        "1. 开发财务模型和预测",
+        "2. 创建和分析收入预测",
+        "3. 评估定价策略和单位经济效益",
+        "4. 准备投资者报告和演示文稿",
+        "5. 监控现金流和烧钱率",
+        "6. 分析市场状况和财务趋势",
+        "7. 评估潜在的投资机会",
+        "8. 跟踪关键财务指标和 KPI",
+        "9. 为战略决策提供财务见解",
     ],
     add_datetime_to_instructions=True,
     markdown=True,
 )
 
 customer_support_agent = Agent(
-    name="Customer Support Agent",
-    role="Customer Support",
+    name="客户支持专员",
+    role="客户支持",
     model=OpenAIChat("gpt-4o"),
     knowledge=knowledge_base,
     tools=[SlackTools()],
     instructions=[
-        "You are the Customer Support Agent of a startup, responsible for handling customer inquiries and maintaining customer satisfaction.",
-        f"When a user reports an issue or issue or the question you cannot answer, always send it to the #{support_channel} Slack channel with all relevant details.",
-        "Always maintain a professional and helpful demeanor while ensuring proper routing of issues to the right channels.",
+        "你是创业公司的客户支持专员，负责处理客户问询并维护客户满意度。",
+        f"当用户报告问题或提出你无法回答的问题时，请始终将所有相关细节发送到 #{support_channel} Slack 频道。",
+        "始终保持专业和乐于助人的态度，同时确保问题能正确路由到相应的频道。",
     ],
     add_datetime_to_instructions=True,
     markdown=True,
@@ -167,43 +167,43 @@ customer_support_agent = Agent(
 
 
 autonomous_startup_team = Team(
-    name="CEO Agent",
+    name="CEO专员",
     mode="coordinate",
     model=OpenAIChat("gpt-4o"),
     instructions=[
-        "You are the CEO of a startup, responsible for overall leadership and success.",
-        " Always transfer task to product manager agent so it can search the knowledge base.",
-        "Instruct all agents to use the knowledge base to answer questions.",
-        "Key Responsibilities:",
-        "1. Set and communicate company vision and strategy",
-        "2. Coordinate and prioritize team activities",
-        "3. Make high-level strategic decisions",
-        "4. Evaluate opportunities and risks",
-        "5. Manage resource allocation",
-        "6. Drive growth and innovation",
-        "7. When a customer asks for help or reports an issue, immediately delegate to the Customer Support Agent",
-        "8. When any partnership, sales, or business development inquiries come in, immediately delegate to the Sales Agent",
+        "你是创业公司的 CEO，负责整体领导和成功。",
+        "始终将任务转交给产品经理专员，以便其可以搜索知识库。",
+        "指示所有专员使用知识库来回答问题。",
+        "主要职责：",
+        "1. 设定并传达公司愿景和战略",
+        "2. 协调和优先处理团队活动",
+        "3. 做出高层战略决策",
+        "4. 评估机会和风险",
+        "5. 管理资源分配",
+        "6. 驱动增长和创新",
+        "7. 当客户寻求帮助或报告问题时，立即委托给客户支持专员",
+        "8. 当收到任何关于合作、销售或业务发展的问询时，立即委托给销售专员",
         "",
-        "Team Coordination Guidelines:",
-        "1. Product Development:",
-        "   - Consult Product Manager for feature prioritization",
-        "   - Use Market Research for validation",
-        "   - Verify Legal Compliance for new features",
-        "2. Market Entry:",
-        "   - Combine Market Research and Sales insights",
-        "   - Validate financial viability with Financial Analyst",
-        "3. Strategic Planning:",
-        "   - Gather input from all team members",
-        "   - Prioritize based on market opportunity and resources",
-        "4. Risk Management:",
-        "   - Consult Legal Compliance for regulatory risks",
-        "   - Review Financial Analyst's risk assessments",
-        "5. Customer Support:",
-        "   - Ensure all customer inquiries are handled promptly and professionally",
-        "   - Maintain a positive and helpful attitude",
-        "   - Escalate critical issues to the appropriate team",
+        "团队协调指南：",
+        "1. 产品开发：",
+        "   - 咨询产品经理进行功能优先级排序",
+        "   - 使用市场研究进行验证",
+        "   - 验证新功能的法律合规性",
+        "2. 市场进入：",
+        "   - 结合市场研究和销售见解",
+        "   - 由财务分析师验证财务可行性",
+        "3. 战略规划：",
+        "   - 收集所有团队成员的意见",
+        "   - 基于市场机会和资源进行优先级排序",
+        "4. 风险管理：",
+        "   - 咨询法务合规以了解监管风险",
+        "   - 审查财务分析师的风险评估",
+        "5. 客户支持：",
+        "   - 确保所有客户问询都能得到及时和专业的处理",
+        "   - 保持积极和乐于助人的态度",
+        "   - 将关键问题升级给相关团队",
         "",
-        "Always maintain a balanced view of short-term execution and long-term strategy.",
+        "始终对短期执行和长期战略保持平衡的看法。",
     ],
     members=[
         product_manager_agent,
@@ -239,19 +239,19 @@ autonomous_startup_team.print_response(
 )
 ```
 
-## Usage
+## 用法
 
 <Steps>
 
     <Snippet file="create-venv-step.mdx" />
 
-    <Step title="Install required libraries">
+    <Step title="安装所需库">
         ```bash
         pip install openai duckduckgo-search exa_py slack yfinance
         ```
     </Step>
 
-    <Step title="Set environment variables">
+    <Step title="设置环境变量">
         ```bash
         export OPENAI_API_KEY=****
         export SLACK_TOKEN=****
@@ -259,11 +259,10 @@ autonomous_startup_team.print_response(
         ```
     </Step>
 
-    <Step title="Run the agent">
+    <Step title="运行代理">
         ```bash
         python autonomous_startup_team.py
         ```
     </Step>
 
 </Steps>
-

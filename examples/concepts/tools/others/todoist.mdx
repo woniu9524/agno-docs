@@ -1,22 +1,22 @@
 ---
-title: Todoist Tools
+title: Todoist 工具
 ---
 
-## Code
+## 代码
 
 ```python cookbook/tools/todoist_tools.py
 """
-Example showing how to use the Todoist Tools with Agno
+展示如何使用 Todoist 工具的 Agno 示例
 
-Requirements:
-- Sign up/login to Todoist and get a Todoist API Token (get from https://app.todoist.com/app/settings/integrations/developer)
+需求：
+- 注册/登录 Todoist 并获取 Todoist API 令牌（从 https://app.todoist.com/app/settings/integrations/developer 获取）
 - pip install todoist-api-python
 
-Usage:
-- Set the following environment variables:
+用法：
+- 设置以下环境变量：
     export TODOIST_API_TOKEN="your_api_token"
 
-- Or provide them when creating the TodoistTools instance
+- 或在创建 TodoistTools 实例时提供它们
 """
 
 from agno.agent import Agent
@@ -41,42 +41,42 @@ todoist_agent = Agent(
     show_tool_calls=True,
 )
 
-# Example 1: Create a task
+# 示例 1：创建一个任务
 print("\n=== Create a task ===")
 todoist_agent.print_response("Create a todoist task to buy groceries tomorrow at 10am")
 
 
-# Example 2: Delete a task
+# 示例 2：删除一个任务
 print("\n=== Delete a task ===")
 todoist_agent.print_response(
     "Delete the todoist task to buy groceries tomorrow at 10am"
 )
 
 
-# Example 3: Get all tasks
+# 示例 3：获取所有任务
 print("\n=== Get all tasks ===")
 todoist_agent.print_response("Get all the todoist tasks")
 ```
 
-## Usage
+## 用法
 
 <Steps>
-  <Snippet file="create-venv-step.mdx" /> 
+  <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API Token">
+  <Step title="设置您的 API 令牌">
     ```bash
     export TODOIST_API_TOKEN=xxx
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U todoist-api-python openai agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行 Agent">
     <CodeGroup>
     ```bash Mac
     python cookbook/tools/todoist_tools.py
@@ -86,6 +86,5 @@ todoist_agent.print_response("Get all the todoist tasks")
     python cookbook/tools/todoist_tools.py
     ```
     </CodeGroup>
-  </Step>   
+  </Step>
 </Steps>
-

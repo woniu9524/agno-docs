@@ -1,34 +1,34 @@
 ---
-title: Human in the loop
+title: 人机协作
 ---
 
-Human in the loop (HITL) let's you get input from a user before or after executing a tool call.
+人机协作 (HITL) 功能允许你在执行工具调用之前或之后获取用户的输入。
 
-The example below shows how to use a tool hook to get user confirmation before executing a tool call.
+下面的示例展示了如何在执行工具调用之前使用工具钩子获取用户确认。
 
-## Example: Human in the loop using tool hooks
+## 示例：使用工具钩子实现人机协作
 
-This example shows how to:
-- Add hooks to tools for user confirmation
-- Handle user input during tool execution
-- Gracefully cancel operations based on user choice
+本示例演示了如何：
+- 为工具添加用户确认钩子
+- 在工具执行期间处理用户输入
+- 根据用户的选择优雅地取消操作
 
 ```python hitl.py
-"""🤝 Human-in-the-Loop: Adding User Confirmation to Tool Calls
+"""🤝 人机协作：为工具调用添加用户确认
 
-This example shows how to implement human-in-the-loop functionality in your Agno tools.
-It shows how to:
-- Add tool hooks to tools for user confirmation
-- Handle user input during tool execution
-- Gracefully cancel operations based on user choice
+本示例展示了如何在 Agno 工具中实现人机协作功能。
+它演示了如何：
+- 为工具添加用户确认钩子
+- 在工具执行期间处理用户输入
+- 根据用户的选择优雅地取消操作
 
-Some practical applications:
-- Confirming sensitive operations before execution
-- Reviewing API calls before they're made
-- Validating data transformations
-- Approving automated actions in critical systems
+一些实际应用：
+- 在执行前确认敏感操作
+- 在生成 API 调用前进行审查
+- 验证数据转换
+- 在关键系统中批准自动化操作
 
-Run `pip install openai httpx rich agno` to install dependencies.
+运行 `pip install openai httpx rich agno` 来安装依赖项。
 """
 
 import json
@@ -43,61 +43,61 @@ from rich.console import Console
 from rich.pretty import pprint
 from rich.prompt import Prompt
 
-# This is the console instance used by the print_response method
-# We can use this to stop and restart the live display and ask for user confirmation
+# 这是控制台用于 print_response 方法的实例
+# 我们可以使用它来停止和重新启动实时显示并请求用户确认
 console = Console()
 
 
 def confirmation_hook(
     function_name: str, function_call: Callable, arguments: Dict[str, Any]
 ):
-    # Get the live display instance from the console
+    # 从控制台获取实时显示实例
     live = console._live
 
-    # Stop the live display temporarily so we can ask for user confirmation
+    # 暂时停止实时显示，以便我们可以请求用户确认
     live.stop()  # type: ignore
 
-    # Ask for confirmation
-    console.print(f"\nAbout to run [bold blue]{fc.function.name}[/]")
+    # 请求确认
+    console.print(f"\n即将运行 [bold blue]{fc.function.name}[/]")
     message = (
-        Prompt.ask("Do you want to continue?", choices=["y", "n"], default="y")
+        Prompt.ask("是否继续?", choices=["y", "n"], default="y")
         .strip()
         .lower()
     )
 
-    # Restart the live display
+    # 重新启动实时显示
     live.start()  # type: ignore
 
-    # If the user does not want to continue, raise a StopExecution exception
+    # 如果用户不想继续，则引发 StopExecution 异常
     if message != "y":
         raise StopAgentRun(
-            "Tool call cancelled by user",
-            agent_message="Stopping execution as permission was not granted.",
+            "用户已取消工具调用",
+            agent_message="由于未获得权限，将停止执行。",
         )
     
-    # Call the function
+    # 调用函数
     result = function_call(**arguments)
 
-    # Optionally transform the result
+    # 可选地转换结果
 
     return result
 
 
 @tool(tool_hooks=[confirmation_hook])
 def get_top_hackernews_stories(num_stories: int) -> Iterator[str]:
-    """Fetch top stories from Hacker News.
+    """获取 Hacker News 的热门故事。
 
     Args:
-        num_stories (int): Number of stories to retrieve
+        num_stories (int): 要检索的故事数量
 
     Returns:
-        str: JSON string containing story details
+        str: 包含故事详细信息的 JSON 字符串
     """
-    # Fetch top story IDs
+    # 获取热门故事 ID
     response = httpx.get("https://hacker-news.firebaseio.com/v0/topstories.json")
     story_ids = response.json()
 
-    # Yield story details
+    # 返回故事详情
     final_stories = []
     for story_id in story_ids[:num_stories]:
         story_response = httpx.get(
@@ -111,7 +111,7 @@ def get_top_hackernews_stories(num_stories: int) -> Iterator[str]:
     return json.dumps(final_stories)
 
 
-# Initialize the agent with a tech-savvy personality and clear instructions
+# 初始化代理，赋予其技术娴熟的个性并提供清晰的指示
 agent = Agent(
     model=OpenAIChat(id="gpt-4o-mini"),
     tools=[get_top_hackernews_stories],
@@ -119,6 +119,6 @@ agent = Agent(
 )
 
 agent.print_response(
-    "Fetch the top 2 hackernews stories?", stream=True, console=console
+    "获取 Hacker News 的前 2 条热门故事？", stream=True, console=console
 )
 ```

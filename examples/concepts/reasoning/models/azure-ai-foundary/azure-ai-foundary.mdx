@@ -20,34 +20,33 @@ agent = Agent(
 )
 
 agent.print_response(
-    "Solve the trolley problem. Evaluate multiple ethical frameworks. "
-    "Include an ASCII diagram of your solution.",
+    "解决电车难题。评估多种伦理框架。包含解决方案的 ASCII 图。",
     stream=True,
 )
 
 ```
 
-## Usage
+## 用法
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置你的 API 密钥">
     ```bash
     export AZURE_API_KEY=xxx
     export AZURE_ENDPOINT=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U azure-ai-inference agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行 Agent">
     <CodeGroup>
     ```bash Mac
     python cookbook/reasoning/models/azure_ai_foundry/reasoning_model_deepseek.py

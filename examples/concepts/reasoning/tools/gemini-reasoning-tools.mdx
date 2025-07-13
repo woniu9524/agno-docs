@@ -1,8 +1,8 @@
 ---
-title: Gemini with Reasoning Tools
+title: Gemini 与推理工具
 ---
 
-## Code
+## 代码
 
 ```python cookbook/reasoning/tools/gemini_reasoning_tools.py
 from agno.agent import Agent
@@ -25,36 +25,36 @@ reasoning_agent = Agent(
             company_news=True,
         ),
     ],
-    instructions="Use tables where possible",
+    instructions="尽可能使用表格",
     stream_intermediate_steps=True,
     show_tool_calls=True,
     markdown=True,
     debug_mode=True,
 )
 reasoning_agent.print_response(
-    "Write a report comparing NVDA to TSLA.", show_full_reasoning=True
+    "撰写一份比较 NVDA 和 TSLA 的报告。", show_full_reasoning=True
 )
 
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">
     ```bash
     export GOOGLE_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U google-genai agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行 Agent">
     <CodeGroup>
     ```bash Mac
     python cookbook/reasoning/tools/gemini_reasoning_tools.py

@@ -3,29 +3,25 @@ title: GitHub MCP agent
 sidebarTitle: GitHub
 ---
 
-Using the [GitHub MCP server](https://github.com/modelcontextprotocol/servers/tree/main/src/github) to create an Agent that can explore, analyze and provide insights about GitHub repositories:
-
+使用 [GitHub MCP 服务器](https://github.com/modelcontextprotocol/servers/tree/main/src/github) 来创建一个可以探索、分析并提供 GitHub 存储库见解的 Agent：
 
 ```python
-"""🐙 MCP GitHub Agent - Your Personal GitHub Explorer!
+"""🐙 MCP GitHub Agent - 您的专属 GitHub 探索者！
 
-This example shows how to create a GitHub agent that uses MCP to explore,
-analyze, and provide insights about GitHub repositories. The agent leverages the Model
-Context Protocol (MCP) to interact with GitHub, allowing it to answer questions
-about issues, pull requests, repository details and more.
+此示例展示了如何创建一个使用 MCP 来探索、分析并提供 GitHub 存储库见解的 GitHub Agent。该 Agent 利用模型上下文协议 (MCP) 来与 GitHub 交互，使其能够回答有关 issues、pull requests、存储库详细信息等方面的问题。
 
-Example prompts to try:
-- "List open issues in the repository"
-- "Show me recent pull requests"
-- "What are the repository statistics?"
-- "Find issues labeled as bugs"
-- "Show me contributor activity"
+可尝试的示例提示：
+- "列出存储库中未关闭的 issues"
+- "显示我最近的 pull requests"
+- "存储库的统计信息是什么？"
+- "查找标记为 bugs 的 issues"
+- "显示贡献者活动"
 
-Run: `pip install agno mcp openai` to install the dependencies
-Environment variables needed:
-- Create a GitHub personal access token following these steps:
+运行：`pip install agno mcp openai` 来安装依赖项
+需要的环境变量：
+- 按照以下步骤创建 GitHub 个人访问令牌：
     - https://github.com/modelcontextprotocol/servers/tree/main/src/github#setup
-- export GITHUB_TOKEN: Your GitHub personal access token
+- export GITHUB_TOKEN: 您的 GitHub 个人访问令牌
 """
 
 import asyncio
@@ -38,63 +34,63 @@ from mcp import StdioServerParameters
 
 
 async def run_agent(message: str) -> None:
-    """Run the GitHub agent with the given message."""
+    """使用给定的消息运行 GitHub Agent。"""
 
-    # Initialize the MCP server
+    # 初始化 MCP 服务器
     server_params = StdioServerParameters(
         command="npx",
         args=["-y", "@modelcontextprotocol/server-github"],
     )
 
-    # Create a client session to connect to the MCP server
+    # 创建一个客户端会话以连接到 MCP 服务器
     async with MCPTools(server_params=server_params) as mcp_tools:
         agent = Agent(
             tools=[mcp_tools],
             instructions=dedent("""\
-                You are a GitHub assistant. Help users explore repositories and their activity.
+                您是一个 GitHub 助手。帮助用户探索存储库及其活动。
 
-                - Use headings to organize your responses
-                - Be concise and focus on relevant information\
+                - 使用标题来组织您的回复
+                - 简明扼要，专注于相关信息\
             """),
             markdown=True,
             show_tool_calls=True,
         )
 
-        # Run the agent
+        # 运行 Agent
         await agent.aprint_response(message, stream=True)
 
 
-# Example usage
+# 示例用法
 if __name__ == "__main__":
-    # Pull request example
+    # Pull request 示例
     asyncio.run(
         run_agent(
-            "Tell me about Agno. Github repo: https://github.com/agno-agi/agno. You can read the README for more information."
+            "告诉我关于 Agno 的信息。Github 存储库: https://github.com/agno-agi/agno。您可以阅读 README 以获取更多信息。"
         )
     )
 
 
-# More example prompts to explore:
+# 更多可探索的示例提示：
 """
-Issue queries:
-1. "Find issues needing attention"
-2. "Show me issues by label"
-3. "What issues are being actively discussed?"
-4. "Find related issues"
-5. "Analyze issue resolution patterns"
+Issue 查询：
+1. "查找需要关注的 issues"
+2. "按标签显示 issues"
+3. "哪些 issues 正在积极讨论中？"
+4. "查找相关 issues"
+5. "分析 issue 解决模式"
 
-Pull request queries:
-1. "What PRs need review?"
-2. "Show me recent merged PRs"
-3. "Find PRs with conflicts"
-4. "What features are being developed?"
-5. "Analyze PR review patterns"
+Pull request 查询：
+1. "哪些 PRs 需要审查？"
+2. "显示我最近合并的 PRs"
+3. "查找有冲突的 PRs"
+4. "哪些功能正在开发中？"
+5. "分析 PR 审查模式"
 
-Repository queries:
-1. "Show repository health metrics"
-2. "What are the contribution guidelines?"
-3. "Find documentation gaps"
-4. "Analyze code quality trends"
-5. "Show repository activity patterns"
+存储库查询：
+1. "显示存储库健康指标"
+2. "贡献指南是什么？"
+3. "查找文档缺失之处"
+4. "分析代码质量趋势"
+5. "显示存储库活动模式"
 """
 ```

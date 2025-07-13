@@ -1,29 +1,29 @@
 ---
-title: Playground Connection Issues
-sidebarTitle: Playground Connection Issues
+title: Playground 连接问题
+sidebarTitle: Playground 连接问题
 ---
 
-If you're experiencing connection issues in the Agno Playground, particularly when trying to connect to **local endpoints**, this guide will help you resolve them.
+如果您在使用 Agno Playground 时遇到连接问题，特别是在尝试连接到**本地端点**时，本指南将帮助您解决这些问题。
 
-## Browser Compatibility
+## 浏览器兼容性
 
-Some browsers have security restrictions that prevent connections to localhost domains due to mixed content security issues. Here's what you need to know about different browsers:
+某些浏览器因混合内容安全问题，其安全限制会阻止连接到 localhost 域。以下是您需要了解的关于不同浏览器的情况：
 
-### Recommended Browsers
-- **Chrome & Edge**: These browsers work well with local connections by default and are our recommended choices
-- **Firefox**: Generally works well with local connections
+### 推荐浏览器
+- **Chrome 和 Edge**: 这些浏览器默认情况下与本地连接配合良好，是我们的推荐选择。
+- **Firefox**: 通常也能很好地处理本地连接。
 
-### Browsers with Known Issues
-- **Safari**: May block local connections due to its strict security policies
-- **Brave**: Blocks local connections by default due to its shield feature
+### 已知问题浏览器
+- **Safari**: 可能因其严格的安全策略阻止本地连接。
+- **Brave**: 默认情况下会阻止本地连接，这是由于其护盾功能。
 
-## Solutions
+## 解决方案
 
-### For Brave Users
-If you're using Brave browser, you can try these steps:
-1. Click on the Brave shield icon in the address bar
-2. Turn off the shield for the current site
-3. Refresh the endpoint and try connecting again
+### Brave 用户
+如果您使用的是 Brave 浏览器，可以尝试以下步骤：
+1. 点击地址栏中的 Brave 护盾图标。
+2. 关闭当前网站的护盾。
+3. 刷新端点并重试连接。
 
 <video
   autoPlay
@@ -33,29 +33,29 @@ If you're using Brave browser, you can try these steps:
   src="/videos/brave-shields.mp4"
 ></video>
 
-### For Other Browsers
-If you're using Safari or experiencing issues with other browsers, you can use one of these solutions:
+### 其他浏览器用户
+如果您使用的是 Safari 或在使用其他浏览器时遇到问题，可以使用以下解决方案之一：
 
-#### 1. Use Chrome or Edge
-The simplest solution is to use Chrome or Edge browsers which have better support for local connections.
+#### 1. 使用 Chrome 或 Edge
+最简单的解决方案是使用 Chrome 或 Edge 浏览器，它们对本地连接的支持更好。
 
-#### 2. Use Tunneling Services
-You can use tunneling services to expose your local endpoint to the internet:
+#### 2. 使用隧道服务
+您可以使用隧道服务将本地端点暴露给互联网：
 
-##### Using ngrok
-1. Install ngrok from [ngrok.com](https://ngrok.com)
-2. Run your local server
-3. Create a tunnel with ngrok:
+##### 使用 ngrok
+1. 从 [ngrok.com](https://ngrok.com) 安装 ngrok。
+2. 运行您的本地服务器。
+3. 使用 ngrok 创建隧道：
 ```bash
 ngrok http <your-local-port>
 ```
-4. Use the provided ngrok URL in the playground
+4. 在 Playground 中使用提供的 ngrok URL。
 
-##### Using Cloudflare Tunnel
-1. Install Cloudflare Tunnel (cloudflared) from [Cloudflare's website](https://developers.cloudflare.com/cloudflare-one/connections/connect-apps/install-and-setup/installation/)
-2. Authenticate with Cloudflare
-3. Create a tunnel:
+##### 使用 Cloudflare Tunnel
+1. 从 [Cloudflare 网站](https://developers.cloudflare.com/cloudflare-one/connections/connect-apps/install-and-setup/installation/) 安装 Cloudflare Tunnel (cloudflared)。
+2. 认证 Cloudflare。
+3. 创建隧道：
 ```bash
 cloudflared tunnel --url http://localhost:<your-local-port>
 ```
-4. Use the provided Cloudflare URL in the playground
+4. 在 Playground 中使用提供的 Cloudflare URL。

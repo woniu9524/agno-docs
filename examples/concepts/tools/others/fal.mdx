@@ -1,8 +1,8 @@
 ---
-title: Fal Tools
+title: Fal 工具
 ---
 
-## Code
+## 代码
 
 ```python cookbook/tools/fal_tools.py
 from agno.agent import Agent
@@ -10,42 +10,42 @@ from agno.models.openai import OpenAIChat
 from agno.tools.fal import FalTools
 
 fal_agent = Agent(
-    name="Fal Video Generator Agent",
+    name="Fal 视频生成代理",
     model=OpenAIChat(id="gpt-4o"),
     tools=[FalTools("fal-ai/hunyuan-video")],
-    description="You are an AI agent that can generate videos using the Fal API.",
+    description="你是一个可以使用 Fal API 生成视频的 AI 代理。",
     instructions=[
-        "When the user asks you to create a video, use the `generate_media` tool to create the video.",
-        "Return the URL as raw to the user.",
-        "Don't convert video URL to markdown or anything else.",
+        "当用户要求你创建视频时，使用 `generate_media` 工具来创建视频。",
+        "将 URL 以原始形式返回给用户。",
+        "不要将视频 URL 转换为 Markdown 或其他格式。",
     ],
     markdown=True,
     debug_mode=True,
     show_tool_calls=True,
 )
 
-fal_agent.print_response("Generate video of balloon in the ocean")
+fal_agent.print_response("生成海洋中的气球的视频")
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API keys">
+  <Step title="设置您的 API 密钥">
     ```bash
     export FAL_KEY=xxx
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U fal openai agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行代理">
     <CodeGroup>
     ```bash Mac
     python cookbook/tools/fal_tools.py

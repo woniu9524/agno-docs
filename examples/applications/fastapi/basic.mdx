@@ -1,9 +1,9 @@
 ---
-title: Basic
-description: Expose your Agno Agent as a FastAPI app
+title: 基础版
+description: 将您的 Agno Agent 作为 FastAPI 应用公开
 ---
 
-## Code
+## 代码
 
 ```python cookbook/apps/fastapi/basic.py
 from agno.agent import Agent
@@ -11,7 +11,7 @@ from agno.app.fastapi.app import FastAPIApp
 from agno.models.openai import OpenAIChat
 
 basic_agent = Agent(
-    name="Basic Agent",
+    name="基础代理",
     model=OpenAIChat(id="gpt-4o"),
     add_history_to_messages=True,
     num_history_responses=3,
@@ -21,9 +21,9 @@ basic_agent = Agent(
 
 fastapi_app = FastAPIApp(
     agent=basic_agent,
-    name="Basic Agent",
+    name="基础代理",
     app_id="basic_agent",
-    description="A basic agent that can answer questions and help with tasks.",
+    description="一个基础代理，可以回答问题并协助完成任务。",
 )
 
 app = fastapi_app.get_app()
@@ -33,24 +33,24 @@ if __name__ == "__main__":
 
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U agno fastapi uvicorn openai
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行代理">
     <CodeGroup>
     ```bash Mac
     python cookbook/apps/fastapi/basic.py

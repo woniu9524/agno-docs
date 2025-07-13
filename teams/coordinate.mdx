@@ -1,24 +1,24 @@
 ---
-title: Coordinate
+title: 协调
 ---
 
-In **Coordinate Mode**, the Team Leader delegates tasks to team members and synthesizes their outputs into a cohesive response.
+在**协调模式**下，团队负责人将任务分配给团队成员，并将他们的产出整合为一份连贯的响应。
 
-## How Coordinate Mode Works
+## 协调模式如何运作
 
-In "coordinate" mode:
+在“协调”模式下：
 
-1. The team receives a user query
-2. A Team Leader analyzes the query and decides how to break it down into subtasks
-3. The Team Leader delegates specific tasks to appropriate team members
-4. Team members complete their assigned tasks and return their results
-5. The Team Leader synthesizes all outputs into a final, cohesive response
+1. 团队接收用户查询
+2. 团队负责人分析查询并决定如何将其分解为子任务
+3. 团队负责人将具体任务分配给合适的团队成员
+4. 团队成员完成分配的任务并返回结果
+5. 团队负责人将所有产出整合为最终的、连贯的响应
 
-This mode is ideal for complex tasks that require multiple specialized skills, coordination, and synthesis of different outputs.
+此模式非常适合需要多种专业技能、协调和不同输出来进行综合的复杂任务。
 
 <Steps>
-  <Step title="Create a coordinate mode team">
-    Create a file `content_team.py`
+  <Step title="创建一个协调模式团队">
+    创建一个文件 `content_team.py`
 
     ```python content_team.py
 
@@ -79,14 +79,14 @@ This mode is ideal for complex tasks that require multiple specialized skills, c
     ```
   </Step>
 
-  <Step title="Run the team">
-    Install libraries
+  <Step title="运行团队">
+    安装库
 
     ```shell
     pip install openai duckduckgo-search newspaper4k lxml_html_clean
     ```
 
-    Run the team
+    运行团队
 
     ```shell
     python content_team.py
@@ -94,9 +94,9 @@ This mode is ideal for complex tasks that require multiple specialized skills, c
   </Step>
 </Steps>
 
-## Defining Success Criteria
+## 定义成功标准
 
-You can guide the coordinator by specifying success criteria for the team:
+您可以通过为团队指定成功标准来指导协调员：
 
 ```python
 strategy_team = Team(

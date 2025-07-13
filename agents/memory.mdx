@@ -2,19 +2,19 @@
 title: Memory
 ---
 
-Memory gives an Agent the ability to recall relavant information. Memory is a part of the Agent's context that helps it provide the best, most personalized response.
+Memory enables an Agent to recall relevant information. Memory is part of the Agent's context, helping it provide the best, most personalized response.
 
 <Check>
 If the user tells the Agent they like to ski, then future responses can reference this information to provide a more personalized experience.
 </Check>
 
-In Agno, Memory covers chat history, user preferences and any supplemental information about the task at hand. **Agno supports 3 types of memory out of the box:**
+In Agno, Memory covers chat history, user preferences, and any supplemental information about the task at hand. **Agno supports 3 types of memory out of the box:**
 
 1. **Session Storage (chat history and session state):** Session storage saves an Agent's sessions in a database and enables Agents to have multi-turn conversations. Session storage also holds the session state, which is persisted across runs because it is saved to the database after each run. Session storage is a form of short-term memory **called "Storage" in Agno**.
 
 2. **User Memories (user preferences):** The Agent can store insights and facts about the user that it learns through conversation. This helps the agents personalize its response to the user it is interacting with. Think of this as adding "ChatGPT like memory" to your agent. **This is called "Memory" in Agno**.
 
-3. **Session Summaries (chat summary):** The Agent can store a condensed representations of the session, useful when chat histories gets too long. **This is called "Summary" in Agno**.
+3. **Session Summaries (chat summary):** The Agent can store a condensed representation of the session, useful when chat histories get too long. **This is called "Summary" in Agno**.
 
 <Note>
 It is relatively easy to use your own memory implementation using `Agent.context`.
@@ -166,9 +166,9 @@ You can persist this memory in a database by adding a `storage` driver to the Ag
 
 The built-in memory is only available during the current execution cycle. Once the script ends, or the request is over, the built-in memory is lost.
 
-**Storage** help us save Agent sessions and state to a database or file.
+**Storage** helps us save Agent sessions and state to a database or file.
 
-Adding storage to an Agent is as simple as providing a `storage` driver and Agno handles the rest. You can use Sqlite, Postgres, Mongo or any other database you want.
+Adding storage to an Agent is as simple as providing a `storage` driver, and Agno handles the rest. You can use Sqlite, Postgres, Mongo, or any other database you want.
 
 Here's a simple example that demonstrates persistence across execution cycles:
 
@@ -192,7 +192,7 @@ agent.print_response("What was my last question?")
 pprint(agent.get_messages_for_session())
 ```
 
-The first time you run this, the answer to "What was my last question?" will not be available. But run it again and the Agent will able to answer properly. Because we have fixed the session id, the Agent will continue from the same session every time you run the script.
+The first time you run this, the answer to "What was my last question?" will not be available. But run it again, and the Agent will be able to answer properly. Because we have fixed the session id, the Agent will continue from the same session every time you run the script.
 
 Read more in the [storage](/agents/storage) section.
 

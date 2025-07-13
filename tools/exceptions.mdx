@@ -1,15 +1,15 @@
 ---
-title: Exceptions
+title: 异常
 ---
 
-If after a tool call we need to "retry" the model with a different set of instructions or stop the agent, we can raise one of the following exceptions:
+如果在工具调用后我们需要使用不同的指令“重试”模型或停止代理，我们可以引发以下异常之一：
 
-- `RetryAgentRun`: Use this exception when you want to retry the agent run with a different set of instructions.
-- `StopAgentRun`: Use this exception when you want to stop the agent run.
-- `AgentRunException`: A generic exception that can be used to retry the tool call.
+- `RetryAgentRun`：当您想使用不同的指令重试代理运行时，请使用此异常。
+- `StopAgentRun`：当您想停止代理运行时，请使用此异常。
+- `AgentRunException`：一个通用异常，可用于重试工具调用。
 
 
-This example shows how to use the `RetryAgentRun` exception to retry the agent with additional instructions.
+此示例展示了如何使用 `RetryAgentRun` 异常通过附加指令重试代理。
 
 ```python retry_in_tool_call.py
 from agno.agent import Agent
@@ -19,30 +19,30 @@ from agno.utils.log import logger
 
 
 def add_item(agent: Agent, item: str) -> str:
-    """Add an item to the shopping list."""
+    """将商品添加到购物清单。"""
     agent.session_state["shopping_list"].append(item)
     len_shopping_list = len(agent.session_state["shopping_list"])
     if len_shopping_list < 3:
         raise RetryAgentRun(
-            f"Shopping list is: {agent.session_state['shopping_list']}. Minimum 3 items in the shopping list. "
-            + f"Add {3 - len_shopping_list} more items.",
+            f"购物清单：{agent.session_state['shopping_list']}。购物清单最少需要 3 个商品。 "
+            + f"请再添加 {3 - len_shopping_list} 个商品。",
         )
 
-    logger.info(f"The shopping list is now: {agent.session_state.get('shopping_list')}")
-    return f"The shopping list is now: {agent.session_state.get('shopping_list')}"
+    logger.info(f"购物清单现在是：{agent.session_state.get('shopping_list')}")
+    return f"购物清单现在是：{agent.session_state.get('shopping_list')}"
 
 
 agent = Agent(
     model=OpenAIChat(id="gpt-4o-mini"),
-    # Initialize the session state with empty shopping list
+    # 使用空的购物清单初始化会话状态
     session_state={"shopping_list": []},
     tools=[add_item],
     markdown=True,
 )
-agent.print_response("Add milk", stream=True)
-print(f"Final session state: {agent.session_state}")
+agent.print_response("添加牛奶", stream=True)
+print(f"最终会话状态：{agent.session_state}")
 ```
 
 <Tip>
-Make sure to set `AGNO_DEBUG=True` to see the debug logs.
+确保将 `AGNO_DEBUG` 设置为 `True` 以查看调试日志。
 </Tip>

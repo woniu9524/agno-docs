@@ -3,17 +3,17 @@ title: DuckDuckGo
 sidebarTitle: DuckDuckGo
 ---
 
-**DuckDuckGo** enables an Agent to search the web for information.
+**DuckDuckGo** 使 Agent 能够搜索网络信息。
 
-## Prerequisites
+## 前提条件
 
-The following example requires the `duckduckgo-search` library. To install DuckDuckGo, run the following command:
+下面的示例需要 `duckduckgo-search` 库。要安装 DuckDuckGo，请运行以下命令：
 
 ```shell
 pip install -U duckduckgo-search
 ```
 
-## Example
+## 示例
 
 ```python cookbook/tools/duckduckgo.py
 from agno.agent import Agent
@@ -23,26 +23,26 @@ agent = Agent(tools=[DuckDuckGoTools()], show_tool_calls=True)
 agent.print_response("Whats happening in France?", markdown=True)
 ```
 
-## Toolkit Params
+## Toolkit 参数
 
-| Parameter           | Type   | Default | Description                                                                                          |
-| ------------------- | ------ | ------- | ---------------------------------------------------------------------------------------------------- |
-| `search`            | `bool` | `True`  | Enables the use of the `duckduckgo_search` function to search DuckDuckGo for a query.                |
-| `news`              | `bool` | `True`  | Enables the use of the `duckduckgo_news` function to fetch the latest news via DuckDuckGo.           |
-| `fixed_max_results` | `int`  | -       | Sets a fixed number of maximum results to return. No default is provided, must be specified if used. |
-| `headers`           | `Any`  | -       | Accepts any type of header values to be sent with HTTP requests.                                     |
-| `proxy`             | `str`  | -       | Specifies a single proxy address as a string to be used for the HTTP requests.                       |
-| `proxies`           | `Any`  | -       | Accepts a dictionary of proxies to be used for HTTP requests.                                        |
-| `timeout`           | `int`  | `10`    | Sets the timeout for HTTP requests, in seconds.                                                      |
+| 参数           | 类型   | 默认值 | 描述                                                                                                |
+| -------------- | ------ | ------ | --------------------------------------------------------------------------------------------------- |
+| `search`       | `bool` | `True` | 启用 `duckduckgo_search` 函数来搜索 DuckDuckGo 的查询。                                               |
+| `news`         | `bool` | `True` | 启用 `duckduckgo_news` 函数通过 DuckDuckGo 获取最新新闻。                                             |
+| `fixed_max_results` | `int`  | -      | 设置返回结果的最大固定数量。不提供默认值，如果使用则必须指定。                                             |
+| `headers`      | `Any`  | -      | 接受发送 HTTP 请求的任何类型的标头值。                                                              |
+| `proxy`        | `str`  | -      | 指定一个单独的代理地址（字符串）用于 HTTP 请求。                                                    |
+| `proxies`      | `Any`  | -      | 接受一个代理字典用于 HTTP 请求。                                                                    |
+| `timeout`      | `int`  | `10`   | 设置 HTTP 请求的超时时间（秒）。                                                                    |
 
-## Toolkit Functions
+## Toolkit 函数
 
-| Function            | Description                                               |
-| ------------------- | --------------------------------------------------------- |
-| `duckduckgo_search` | Use this function to search DuckDuckGo for a query.       |
-| `duckduckgo_news`   | Use this function to get the latest news from DuckDuckGo. |
+| 函数            | 描述                                          |
+| --------------- | --------------------------------------------- |
+| `duckduckgo_search` | 使用此函数来搜索 DuckDuckGo 的查询。              |
+| `duckduckgo_news`   | 使用此函数从 DuckDuckGo 获取最新新闻。            |
 
-## Developer Resources
+## 开发者资源
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/duckduckgo.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/duckduckgo_tools.py)
+- 查看 [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/duckduckgo.py)
+- 查看 [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/duckduckgo_tools.py)

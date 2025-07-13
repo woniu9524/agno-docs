@@ -1,10 +1,10 @@
 ---
-title: Simple Accuracy
-description: Learn to check how complete, correct and accurate an Agno Agent's response is.
+title: 简单准确性
+description: 了解如何检查 Agno Agent 回答的完整性、正确性和准确性。
 ---
-This example shows a more complex evaluation that compares the full output of the agent for correctness.
+此示例展示了一个更复杂的评估，用于比较 Agent 输出的完整正确性。
 
-## Code
+## 代码
 
 ```python
 from typing import Optional
@@ -28,5 +28,3 @@ evaluation = AccuracyEval(
 result: Optional[AccuracyResult] = evaluation.run(print_results=True)
 assert result is not None and result.avg_score >= 8
 ```
-
-

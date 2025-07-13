@@ -1,25 +1,25 @@
 ---
-title: "Pipedream Auth"
-description: "This example shows how to add authorization when integrating Pipedream MCP servers with Agno Agents."
+title: "Pipedream 认证"
+description: "本示例展示了在集成 Pipedream MCP 服务器时如何添加授权以与 Agno Agents 连接。"
 ---
 
 ## Code
 
 ```python
 """
-🔒 Using Pipedream MCP servers with authentication
+🔒 使用 Pipedream MCP 服务器进行身份验证
 
-This is an example of how to use Pipedream MCP servers with authentication.
-This is useful if your app is interfacing with the MCP servers in behalf of your users.
+这是一个关于如何使用 Pipedream MCP 服务器进行身份验证的示例。
+如果您的应用程序代表用户与 MCP 服务器进行交互，这将非常有用。
 
-1. Get your access token. You can check how in Pipedream's docs: https://pipedream.com/docs/connect/mcp/developers/
-2. Get the URL of the MCP server. It will look like this: https://remote.mcp.pipedream.net/<External user id>/<MCP app slug>
-3. Set the environment variables:
-    - MCP_SERVER_URL: The URL of the MCP server you previously got
-    - MCP_ACCESS_TOKEN: The access token you previously got
-    - PIPEDREAM_PROJECT_ID: The project id of the Pipedream project you want to use
-    - PIPEDREAM_ENVIRONMENT: The environment of the Pipedream project you want to use
-3. Install dependencies: pip install agno mcp-sdk
+1. 获取您的访问令牌。您可以在 Pipedream 的文档中查看如何操作：https://pipedream.com/docs/connect/mcp/developers/
+2. 获取 MCP 服务器的 URL。它看起来会像这样：https://remote.mcp.pipedream.net/<External user id>/<MCP app slug>
+3. 设置环境变量：
+    - MCP_SERVER_URL: 您之前获取的 MCP 服务器的 URL
+    - MCP_ACCESS_TOKEN: 您之前获取的访问令牌
+    - PIPEDREAM_PROJECT_ID: 您想使用的 Pipedream 项目的项目 ID
+    - PIPEDREAM_ENVIRONMENT: 您想使用的 Pipedream 环境的环境
+3. 安装依赖项：pip install agno mcp-sdk
 """
 
 import asyncio
@@ -62,6 +62,6 @@ async def run_agent(task: str) -> None:
 
 
 if __name__ == "__main__":
-    # The agent can read channels, users, messages, etc.
+    # Agent 可以读取 channels, users, messages 等
     asyncio.run(run_agent("Show me the latest message in the channel #general"))
 ```

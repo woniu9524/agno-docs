@@ -1,9 +1,9 @@
 ---
-title: Filtering on ChromaDB
-description: Learn how to filter knowledge base searches using Pdf documents with user-specific metadata in ChromaDB.
+title: 在 ChromaDB 上进行过滤
+description: 学习如何使用具有用户特定元数据的 PDF 文档，对 ChromaDB 中的知识库搜索进行过滤。
 ---
 
-## Code
+## 代码
 
 ```python
 from agno.agent import Agent
@@ -14,18 +14,18 @@ from agno.utils.media import (
 )
 from agno.vectordb.chroma import ChromaDb
 
-# Download all sample CVs and get their paths
+# 下载所有示例简历并获取其路径
 downloaded_cv_paths = download_knowledge_filters_sample_data(
     num_files=5, file_extension=SampleDataFileExtension.PDF
 )
 
-# Initialize ChromaDB
+# 初始化 ChromaDB
 vector_db = ChromaDb(collection="recipes", path="tmp/chromadb", persistent_client=True)
 
-# Step 1: Initialize knowledge base with documents and metadata
+# 第 1 步：使用文档和元数据初始化知识库
 # ------------------------------------------------------------------------------
-# When initializing the knowledge base, we can attach metadata that will be used for filtering
-# This metadata can include user IDs, document types, dates, or any other attributes
+# 在初始化知识库时，我们可以附加用于过滤的元数据
+# 此元数据可以包含用户 ID、文档类型、日期或任何其他属性
 
 knowledge_base = PDFKnowledgeBase(
     path=[
@@ -73,10 +73,10 @@ knowledge_base = PDFKnowledgeBase(
     vector_db=vector_db,
 )
 
-# Load all documents into the vector database
+# 将所有文档加载到向量数据库中
 knowledge_base.load(recreate=True)
 
-# Step 2: Query the knowledge base with different filter combinations
+# 第 2 步：使用不同的过滤组合查询知识库
 # ------------------------------------------------------------------------------
 
 agent = Agent(
@@ -85,22 +85,22 @@ agent = Agent(
 )
 
 agent.print_response(
-    "Tell me about Jordan Mitchell's experience and skills",
+    "告诉我 Jordan Mitchell 的经验和技能",
     knowledge_filters={"user_id": "jordan_mitchell"},
     markdown=True,
 )
 ```
 
-## Usage
+## 用法
 
 <Steps>
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U agno chromadb openai
     ```
   </Step>
 
-  <Step title="Run the example">
+  <Step title="运行示例">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/knowledge/filters/filtering_chroma_db.py

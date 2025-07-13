@@ -1,43 +1,42 @@
 ---
-title: What are Agents?
-sidebarTitle: Overview
-description: Learn about Agno Agents and how they work.
+title: 什么是 Agent？
+sidebarTitle: 总览
+description: 了解 Agno Agent 及其工作原理。
 ---
 
-**Agents** are AI programs that operate autonomously. Traditional software follows a pre-programmed sequence of steps. Agents dynamically determine their course of action using a machine learning **model**.
+**Agent** 是自主运行的 AI 程序。传统软件遵循预先编程的步骤顺序。Agent 使用机器学习**模型**动态确定其行动方案。
 
-The core of an Agent is the **model**, **tools** and **instructions**:
+Agent 的核心是**模型**、**工具**和**指令**：
 
-- **Model:** controls the flow of execution. It decides whether to reason, act or respond.
-- **Tools:** enable an Agent to take actions and interact with external systems.
-- **Instructions:** are how we program the Agent, teaching it how to use tools and respond.
+- **模型：**控制执行流程。它决定是进行推理、执行操作还是响应。
+- **工具：**使 Agent 能够执行操作并与外部系统进行交互。
+- **指令：**是我们编程 Agent 的方式，教它如何使用工具和进行响应。
 
-Agents also have **memory**, **knowledge**, **storage** and the ability to **reason**:
+Agent 还拥有**记忆**、**知识**、**存储**和**推理**能力：
 
-- **Reasoning:** enables Agents to "think" before responding and "analyze" the results of their actions (i.e. tool calls), this improves reliability and quality of responses.
-- **Knowledge:** is domain-specific information that the Agent can **search at runtime** to make better decisions and provide accurate responses (RAG). Knowledge is stored in a vector database and this **search at runtime** pattern is known as Agentic RAG/Agentic Search.
-- **Storage:** is used by Agents to save session history and state in a database. Model APIs are stateless and storage enables us to continue conversations from where they left off. This makes Agents stateful, enabling multi-turn, long-term conversations.
-- **Memory:** gives Agents the ability to store and recall information from previous interactions, allowing them to learn user preferences and personalize their responses.
+- **推理：**使 Agent 能够在响应前“思考”并“分析”其操作（即工具调用）的结果，这提高了响应的可靠性和质量。
+- **知识：**是 Agent 可以**在运行时搜索**的领域特定信息，以做出更好的决策并提供准确的响应（RAG）。知识存储在矢量数据库中，这种**在运行时搜索**的模式被称为 Agentic RAG/Agentic Search。
+- **存储：**用于 Agent 将会话历史记录和状态保存在数据库中。模型 API 是无状态的，而存储使我们能够从中断的地方继续对话。这使得 Agent 具有状态，从而能够进行多轮、长期的对话。
+- **记忆：**使 Agent 能够存储和回忆先前交互中的信息，从而使它们能够学习用户偏好并个性化其响应。
 
 <img height="200" src="/images/agent.png" style={{ borderRadius: "8px" }} />
 
 <Check>
-If this is your first time building agents, [follow these examples](/introduction/agents#basic-agent) before diving into advanced concepts.
+如果您是第一次构建 Agent，请在深入研究高级概念之前，[遵循这些示例](/introduction/agents#basic-agent)。
 </Check>
 
-## Example: Research Agent
+## 示例：研究 Agent
 
-Let's build a research agent using Exa to showcase how to guide the Agent to produce the report in a specific format. In advanced cases, we should use [Structured Outputs](/agents/structured-output) instead.
+让我们使用 Exa 构建一个研究 Agent，以展示如何指导 Agent 以特定格式生成报告。在高级场景中，我们应该改用 [结构化输出](/agents/structured-output)。
 
 <Note>
-  The description and instructions are converted to the system message and the
-  input is passed as the user message. Set `debug_mode=True` to view logs behind
-  the scenes.
+  描述和指令已转换为系统消息，输入作为用户消息传递。设置
+  `debug_mode=True` 可查看后台日志。
 </Note>
 
 <Steps>
-  <Step title="Create Research Agent">
-    Create a file `research_agent.py`
+  <Step title="创建研究 Agent">
+    创建一个文件 `research_agent.py`
 
     ```python research_agent.py
     from datetime import datetime
@@ -54,91 +53,89 @@ Let's build a research agent using Exa to showcase how to guide the Agent to pro
         model=OpenAIChat(id="gpt-4o"),
         tools=[ExaTools(start_published_date=today, type="keyword")],
         description=dedent("""\
-            You are Professor X-1000, a distinguished AI research scientist with expertise
-            in analyzing and synthesizing complex information. Your specialty lies in creating
-            compelling, fact-based reports that combine academic rigor with engaging narrative.
+            您是 X-1000 教授，一位杰出的 AI 研究科学家，精通分析和综合复杂信息。您的专长在于创建引人入胜、基于事实的报告，将学术严谨性与引人入胜的叙事相结合。
 
-            Your writing style is:
-            - Clear and authoritative
-            - Engaging but professional
-            - Fact-focused with proper citations
-            - Accessible to educated non-specialists\
+            您的写作风格是：
+            - 清晰且权威
+            - 引人入胜但专业
+            - 以事实为导向，带有适当的引用
+            - 受过教育的非专业人士易于理解\
         """),
         instructions=dedent("""\
-            Begin by running 3 distinct searches to gather comprehensive information.
-            Analyze and cross-reference sources for accuracy and relevance.
-            Structure your report following academic standards but maintain readability.
-            Include only verifiable facts with proper citations.
-            Create an engaging narrative that guides the reader through complex topics.
-            End with actionable takeaways and future implications.\
+            首先进行 3 次不同的搜索以收集全面信息。
+            分析和交叉引用来源的准确性和相关性。
+            遵循学术标准构建报告，同时保持可读性。
+            仅包含可验证的事实和恰当的引用。
+            创作引人入胜的叙事，引导读者了解复杂主题。
+            最后给出可操作的要点和未来启示。\
         """),
         expected_output=dedent("""\
-        A professional research report in markdown format:
+        专业的 markdown 格式研究报告：
 
-        # {Compelling Title That Captures the Topic's Essence}
+        # {引人入胜的标题，抓住主题精髓}
 
-        ## Executive Summary
-        {Brief overview of key findings and significance}
+        ## 执行摘要
+        {对主要发现和意义的简要概述}
 
-        ## Introduction
-        {Context and importance of the topic}
-        {Current state of research/discussion}
+        ## 引言
+        {主题的背景和重要性}
+        {研究/讨论的当前状态}
 
-        ## Key Findings
-        {Major discoveries or developments}
-        {Supporting evidence and analysis}
+        ## 主要发现
+        {重大发现或发展}
+        {支持性证据和分析}
 
-        ## Implications
-        {Impact on field/society}
-        {Future directions}
+        ## 意义
+        {对该领域/社会的影响}
+        {未来方向}
 
-        ## Key Takeaways
-        - {Bullet point 1}
-        - {Bullet point 2}
-        - {Bullet point 3}
+        ## 主要收获
+        - {要点 1}
+        - {要点 2}
+        - {要点 3}
 
-        ## References
-        - [Source 1](link) - Key finding/quote
-        - [Source 2](link) - Key finding/quote
-        - [Source 3](link) - Key finding/quote
+        ## 参考资料
+        - [来源 1](链接) - 主要发现/引文
+        - [来源 2](链接) - 主要发现/引文
+        - [来源 3](链接) - 主要发现/引文
 
         ---
-        Report generated by Professor X-1000
-        Advanced Research Systems Division
-        Date: {current_date}\
+        报告由 X-1000 教授生成
+        高级研究系统部
+        日期：{当前日期}\
         """),
         markdown=True,
         show_tool_calls=True,
         add_datetime_to_instructions=True,
     )
 
-    # Example usage
+    # 示例用法
     if __name__ == "__main__":
-        # Generate a research report on a cutting-edge topic
+        # 生成关于前沿主题的研究报告
         agent.print_response(
-            "Research the latest developments in brain-computer interfaces", stream=True
+            "研究脑机接口的最新进展", stream=True
         )
 
-    # More example prompts to try:
+    # 更多示例提示供尝试：
     """
-    Try these research topics:
-    1. "Analyze the current state of solid-state batteries"
-    2. "Research recent breakthroughs in CRISPR gene editing"
-    3. "Investigate the development of autonomous vehicles"
-    4. "Explore advances in quantum machine learning"
-    5. "Study the impact of artificial intelligence on healthcare"
+    尝试这些研究主题：
+    1. "分析固态电池的当前状态"
+    2. "研究 CRISPR 基因编辑的最新突破"
+    3. "调查自动驾驶汽车的发展"
+    4. "探索量子机器学习的进展"
+    5. "研究人工智能对医疗保健的影响"
     """
     ```
 
   </Step>
-  <Step title="Run the agent">
-    Install libraries
+  <Step title="运行 Agent">
+    安装库
 
     ```shell
     pip install openai exa-py agno
     ```
 
-    Run the agent
+    运行 Agent
 
     ```shell
     python research_agent.py

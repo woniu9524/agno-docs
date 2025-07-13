@@ -1,10 +1,10 @@
 ---
-title: Agent Metrics
+title: Agent 指标
 ---
 
-This example shows how to get the metrics of an agent run.
+本示例展示了如何获取 agent 运行的指标。
 
-## Code
+## 代码
 
 ```python cookbook/agent_concepts/other/agent_metrics.py
 from typing import Iterator
@@ -26,44 +26,44 @@ run_stream: Iterator[RunResponse] = agent.run(
 )
 pprint_run_response(run_stream, markdown=True)
 
-# Print metrics per message
+# 打印每个消息的指标
 if agent.run_response.messages:
     for message in agent.run_response.messages:
         if message.role == "assistant":
             if message.content:
-                print(f"Message: {message.content}")
+                print(f"消息: {message.content}")
             elif message.tool_calls:
-                print(f"Tool calls: {message.tool_calls}")
-            print("---" * 5, "Metrics", "---" * 5)
+                print(f"工具调用: {message.tool_calls}")
+            print("---" * 5, "指标", "---" * 5)
             pprint(message.metrics)
             print("---" * 20)
 
-# Print the metrics
-print("---" * 5, "Aggregated Metrics", "---" * 5)
+# 打印指标
+print("---" * 5, "聚合指标", "---" * 5)
 pprint(agent.run_response.metrics)
-# Print the session metrics
-print("---" * 5, "Session Metrics", "---" * 5)
+# 打印会话指标
+print("---" * 5, "会话指标", "---" * 5)
 pprint(agent.session_metrics)
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U openai agno yfinance rich
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行 Agent">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/other/agent_metrics.py
@@ -74,4 +74,4 @@ pprint(agent.session_metrics)
     ```
     </CodeGroup>
   </Step>
-</Steps> 
+</Steps>

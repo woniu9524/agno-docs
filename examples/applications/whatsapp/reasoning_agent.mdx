@@ -1,10 +1,10 @@
 ---
-title: Reasoning Agent
+title: 推理代理
 ---
 
-This example shows how to use the reasoning with whatsapp app.
+此示例展示了如何使用 WhatsApp 应用进行推理。
 
-## Code
+## 代码
 
 ```python cookbook/apps/whatsapp/reasoning_agent.py
 from agno.agent import Agent
@@ -44,24 +44,24 @@ if __name__ == "__main__":
 
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">
     ```bash
     export ANTHROPIC_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U agno anthropic yfinance "uvicorn[standard]"
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行代理">
     <CodeGroup>
     ```bash Mac
     python cookbook/apps/whatsapp/reasoning_agent.py
@@ -72,4 +72,4 @@ if __name__ == "__main__":
     ```
     </CodeGroup>
   </Step>
-</Steps> 
+</Steps>

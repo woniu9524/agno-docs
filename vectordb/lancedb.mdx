@@ -1,15 +1,15 @@
 ---
-title: LanceDB Agent Knowledge
+title: LanceDB Agent 知识
 sidebarTitle: LanceDB
 ---
 
-## Setup
+## 设置
 
 ```shell
 pip install lancedb
 ```
 
-## Example
+## 示例
 
 ```python agent_with_knowledge.py
 import typer
@@ -28,7 +28,7 @@ vector_db = LanceDb(
     search_type=SearchType.keyword,
 )
 
-# Knowledge Base
+# 知识库
 knowledge_base = PDFUrlKnowledgeBase(
     urls=["https://agno-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
     vector_db=vector_db,
@@ -58,33 +58,33 @@ def lancedb_agent(user: str = "user"):
         agent.print_response(message)
 
 if __name__ == "__main__":
-    # Comment out after first run
+    # 首次运行时注释此行
     knowledge_base.load(recreate=True)
 
     typer.run(lancedb_agent)
 ```
 
-<Card title="Async Support ⚡">
+<Card title="异步支持 ⚡">
   <div className="mt-2">
     <p>
-      LanceDB also supports asynchronous operations, enabling concurrency and leading to better performance.
+      LanceDB 还支持异步操作，可实现并发并带来更好的性能。
     </p>
     
     ```python async_lance_db.py
-    # install lancedb - `pip install lancedb`
+    # 安装 lancedb - `pip install lancedb`
     import asyncio
 
     from agno.agent import Agent
     from agno.knowledge.pdf_url import PDFUrlKnowledgeBase
     from agno.vectordb.lancedb import LanceDb
 
-    # Initialize LanceDB
+    # 初始化 LanceDB
     vector_db = LanceDb(
         table_name="recipes",
-        uri="tmp/lancedb",  # You can change this path to store data elsewhere
+        uri="tmp/lancedb",  # 您可以将此路径更改为存储其他数据的位置
     )
 
-    # Create knowledge base
+    # 创建知识库
     knowledge_base = PDFUrlKnowledgeBase(
         urls=["https://agno-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
         vector_db=vector_db,
@@ -92,24 +92,24 @@ if __name__ == "__main__":
     agent = Agent(knowledge=knowledge_base, show_tool_calls=True, debug_mode=True)
 
     if __name__ == "__main__":
-        # Load knowledge base asynchronously
-        asyncio.run(knowledge_base.aload(recreate=False))  # Comment out after first run
+        # 异步加载知识库
+        asyncio.run(knowledge_base.aload(recreate=False))  # 首次运行时注释此行
 
-        # Create and use the agent asynchronously
+        # 异步创建并使用 Agent
         asyncio.run(agent.aprint_response("How to make Tom Kha Gai", markdown=True))
     ```
     
     <Tip className="mt-4">
-      Use <code>aload()</code> and <code>aprint_response()</code> methods with <code>asyncio.run()</code> for non-blocking operations in high-throughput applications.
+      在吞吐量高的应用程序中使用 <code>aload()</code> 和 <code>aprint_response()</code> 方法配合 <code>asyncio.run()</code> 进行非阻塞操作。
     </Tip>
   </div>
 </Card>
 
-## LanceDb Params
+## LanceDb 参数
 
 <Snippet file="vectordb_lancedb_params.mdx" />
 
-## Developer Resources
+## 开发者资源
 
-- View [Cookbook (Sync)](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/vector_dbs/lance_db/lance_db.py)
-- View [Cookbook (Async)](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/vector_dbs/lance_db/async_lance_db.py)
+- 查看[食谱 (同步)](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/vector_dbs/lance_db/lance_db.py)
+- 查看[食谱 (异步)](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/vector_dbs/lance_db/async_lance_db.py)

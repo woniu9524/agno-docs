@@ -1,8 +1,8 @@
 ---
-title: Image to Text Agent
+title: 图片转文字代理
 ---
 
-## Code
+## 代码
 
 ```python
 from pathlib import Path
@@ -14,41 +14,41 @@ from agno.models.openai import OpenAIChat
 agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
     agent_id="image-to-text",
-    name="Image to Text Agent",
+    name="图片转文字代理",
     markdown=True,
     debug_mode=True,
     show_tool_calls=True,
     instructions=[
-        "You are an AI agent that can generate text descriptions based on an image.",
-        "You have to return a text response describing the image.",
+        "你是一个可以根据图像生成文字描述的 AI 代理。",
+        "你必须返回一个描述图像的文本响应。",
     ],
 )
 image_path = Path(__file__).parent.joinpath("sample.jpg")
 agent.print_response(
-    "Write a 3 sentence fiction story about the image",
+    "写一个关于这张图片的 3 句小说故事",
     images=[Image(filepath=image_path)],
     stream=True,
 )
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置你的 API 密钥">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U openai agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行代理">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/multimodal/image_to_text_agent.py

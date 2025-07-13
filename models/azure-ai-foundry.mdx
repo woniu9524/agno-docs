@@ -1,37 +1,37 @@
 ---
 title: Azure AI Foundry
-description: Learn how to use Azure AI Foundry models in Agno.
+description: 了解如何在 Agno 中使用 Azure AI Foundry 模型。
 ---
 
-Use various open source models hosted on Azure's infrastructure. Learn more [here](https://learn.microsoft.com/azure/ai-services/models).
+使用托管在 Azure 基础架构上的各种开源模型。在此处了解更多信息。
 
-Azure AI Foundry provides access to models like `Phi`, `Llama`, `Mistral`, `Cohere` and more.
+Azure AI Foundry 提供对 `Phi`、`Llama`、`Mistral`、`Cohere` 等模型的访问。
 
-## Authentication
+## 身份验证
 
-Navigate to Azure AI Foundry on the [Azure Portal](https://portal.azure.com/) and create a service. Then set your environment variables:
+导航到 [Azure Portal](https://portal.azure.com/) 中的 Azure AI Foundry 并创建一个服务。然后设置您的环境变量：
 
 <CodeGroup>
 
 ```bash Mac
 export AZURE_API_KEY=***
-export AZURE_ENDPOINT=***  # Of the form https://<your-host-name>.<your-azure-region>.models.ai.azure.com/models
-# Optional:
+export AZURE_ENDPOINT=***  # 格式为 https://<your-host-name>.<your-azure-region>.models.ai.azure.com/models
+# 可选：
 # export AZURE_API_VERSION=***
 ```
 
 ```bash Windows
-setx AZURE_API_KEY ***  # Of the form https://<your-host-name>.<your-azure-region>.models.ai.azure.com/models
+setx AZURE_API_KEY ***  # 格式为 https://<your-host-name>.<your-azure-region>.models.ai.azure.com/models
 setx AZURE_ENDPOINT ***
-# Optional:
+# 可选：
 # setx AZURE_API_VERSION ***
 ```
 
 </CodeGroup>
 
-## Example
+## 示例
 
-Use `AzureAIFoundry` with your `Agent`:
+将 `AzureAIFoundry` 与您的 `Agent` 一起使用：
 
 <CodeGroup>
 
@@ -44,18 +44,16 @@ agent = Agent(
     markdown=True
 )
 
-# Print the response on the terminal
-agent.print_response("Share a 2 sentence horror story.")
+# 在终端上打印响应
+agent.print_response("写一个两句话的恐怖故事。")
 ```
 
 </CodeGroup>
 
-## Advanced Examples
+## 高级示例
 
-View more examples [here](../examples/models/azure/ai_foundry).
+在此处查看更多示例。
 
-## Parameters
+## 参数
 
-<Snippet file="model-azure-ai-foundry-params.mdx" />
-
-`AzureAIFoundry` is a subclass of the [Model](/reference/models/model) class and has access to the same params. 
+`AzureAIFoundry` 是 `Model` 类的子类，可以访问相同的参数。

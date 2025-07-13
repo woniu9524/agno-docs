@@ -1,25 +1,25 @@
 ---
-title: Qdrant FastEmbed Embedder
+title: Qdrant FastEmbed 嵌入器
 sidebarTitle: FastEmbed
 ---
 
-The `FastEmbedEmbedder` class is used to embed text data into vectors using the [FastEmbed](https://qdrant.github.io/fastembed/).
+`FastEmbedEmbedder` 类用于通过 [FastEmbed](https://qdrant.github.io/fastembed/) 将文本数据嵌入为向量。
 
-## Usage
+## 用法
 
 ```python cookbook/embedders/qdrant_fastembed.py
 from agno.agent import AgentKnowledge
 from agno.vectordb.pgvector import PgVector
 from agno.embedder.fastembed import FastEmbedEmbedder
 
-# Embed sentence in database
+# 将句子嵌入数据库
 embeddings = FastEmbedEmbedder().get_embedding("The quick brown fox jumps over the lazy dog.")
 
-# Print the embeddings and their dimensions
+# 打印嵌入和它们的维度
 print(f"Embeddings: {embeddings[:5]}")
 print(f"Dimensions: {len(embeddings)}")
 
-# Use an embedder in a knowledge base
+# 在知识库中使用嵌入器
 knowledge_base = AgentKnowledge(
     vector_db=PgVector(
         db_url="postgresql+psycopg://ai:ai@localhost:5532/ai",
@@ -30,12 +30,12 @@ knowledge_base = AgentKnowledge(
 )
 ```
 
-## Params
+## 参数
 
-| Parameter    | Type  | Default                  | Description                                    |
-| ------------ | ----- | ------------------------ | ---------------------------------------------- |
-| `dimensions` | `int` | -                        | The dimensionality of the generated embeddings |
-| `model`      | `str` | `BAAI/bge-small-en-v1.5` | The name of the qdrant_fastembed model to use  |
+| 参数    | 类型  | 默认                  | 描述                                   |
+| ------- | ----- | -------------------- | -------------------------------------- |
+| `dimensions` | `int` | -                    | 生成的嵌入的维度                       |
+| `model`      | `str` | `BAAI/bge-small-en-v1.5` | 要使用的 qdrant_fastembed 模型名称 |
 
-## Developer Resources
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/embedders/qdrant_fastembed.py)
+## 开发者资源
+- 查看 [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/embedders/qdrant_fastembed.py)

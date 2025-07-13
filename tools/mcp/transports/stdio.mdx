@@ -1,19 +1,19 @@
 ---
-title: Stdio Transport
+title: Stdio 传输
 sidebarTitle: stdio
 ---
 
-Transports in the Model Context Protocol (MCP) define how messages are sent and received. The Agno integration supports the three existing types:
-[stdio](https://modelcontextprotocol.io/docs/concepts/transports#standard-input%2Foutput-stdio),
-[SSE](https://modelcontextprotocol.io/docs/concepts/transports#server-sent-events-sse) and
-[Streamable HTTP](https://modelcontextprotocol.io/specification/draft/basic/transports#streamable-http).
+模型上下文协议 (MCP) 中的传输定义了消息的发送和接收方式。Agno 集成支持已有的三种类型：
+[stdio](https://modelcontextprotocol.io/docs/concepts/transports#standard-input%2Foutput-stdio)，
+[SSE](https://modelcontextprotocol.io/docs/concepts/transports#server-sent-events-sse) 和
+[Streamable HTTP](https://modelcontextprotocol.io/specification/draft/basic/transports#streamable-http)。
 
-The stdio (standard input/output) transport is the default one in Agno's integration. It works best for local integrations.
+stdio（标准输入/输出）传输是 Agno 集成的默认传输方式。它最适合本地集成。
 
-To use it, simply initialize the `MCPTools` class with its `command` argument.
-The command you want to pass is the one used to run the MCP server the agent will have access to.
+要使用它，只需使用 `command` 参数初始化 `MCPTools` 类即可。
+您要传递的命令是用于运行代理可以访问的 MCP 服务器的命令。
 
-For example `uvx mcp-server-git`, which runs a [git MCP server](https://github.com/modelcontextprotocol/servers/tree/main/src/git):
+例如 `uvx mcp-server-git`，它运行一个 [git MCP 服务器](https://github.com/modelcontextprotocol/servers/tree/main/src/git)：
 
 ```python
 from agno.agent import Agent
@@ -26,7 +26,7 @@ async with MCPTools(command=f"uvx mcp-server-git") as mcp_tools:
 ```
 
 
-You can also use multiple MCP servers at once, with the `MultiMCPTools` class. For example:
+您也可以一次使用多个 MCP 服务器，使用 `MultiMCPTools` 类。例如：
 
 
 ```python
@@ -38,7 +38,7 @@ from agno.tools.mcp import MultiMCPTools
 
 
 async def run_agent(message: str) -> None:
-    """Run the Airbnb and Google Maps agent with the given message."""
+    """使用给定的消息运行 Airbnb 和 Google Maps 代理。"""
 
     env = {
         **os.environ,
@@ -61,9 +61,9 @@ async def run_agent(message: str) -> None:
         await agent.aprint_response(message, stream=True)
 
 
-# Example usage
+# 示例用法
 if __name__ == "__main__":
-    # Pull request example
+    # Pull request 示例
     asyncio.run(
         run_agent(
             "What listings are available in Cape Town for 2 people for 3 nights from 1 to 4 August 2025?"

@@ -1,8 +1,8 @@
 ---
-title: Airflow Tools
+title: Airflow 工具
 ---
 
-## Code
+## 代码
 
 ```python cookbook/tools/airflow_tools.py
 from agno.agent import Agent
@@ -29,18 +29,18 @@ default_args = {
     'retry_delay': timedelta(minutes=5),
 }
 
-# Using 'schedule' instead of deprecated 'schedule_interval'
+# 使用 'schedule' 代替已弃用的 'schedule_interval'
 with DAG(
     'example_dag',
     default_args=default_args,
-    description='A simple example DAG',
-    schedule='@daily',  # Changed from schedule_interval
+    description='一个简单的示例 DAG',
+    schedule='@daily',  # 从 schedule_interval 更改
     catchup=False
 ) as dag:
 
     def print_hello():
         print("Hello from Airflow!")
-        return "Hello task completed"
+        return "Hello 任务已完成"
 
     task = PythonOperator(
         task_id='hello_task',
@@ -49,28 +49,28 @@ with DAG(
     )
 """
 
-agent.run(f"Save this DAG file as 'example_dag.py': {dag_content}")
-agent.print_response("Read the contents of 'example_dag.py'")
+agent.run(f"将此 DAG 文件保存为 'example_dag.py': {dag_content}")
+agent.print_response("读取 'example_dag.py' 的内容")
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U apache-airflow openai agno
     ```
   </Step>
 
-  <Step title="Set your API key">
+  <Step title="设置你的 API 密钥">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行 Agent">
     <CodeGroup>
     ```bash Mac
     python cookbook/tools/airflow_tools.py

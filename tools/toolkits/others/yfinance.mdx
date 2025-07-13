@@ -2,19 +2,19 @@
 title: Yfinance
 ---
 
-**YFinanceTools** enable an Agent to access stock data, financial information and more from Yahoo Finance.
+**YFinanceTools** 可以让代理访问 Yahoo Finance 提供的股票数据、财务信息等。
 
-## Prerequisites
+## 前提条件
 
-The following example requires the `yfinance` library.
+以下示例需要 `yfinance` 库。
 
 ```shell
 pip install -U yfinance
 ```
 
-## Example
+## 示例
 
-The following agent will provide information about the stock price and analyst recommendations for NVDA (Nvidia Corporation).
+以下代理将提供有关 NVDA（英伟达公司）的股票价格和分析师建议的信息。
 
 ```python cookbook/tools/yfinance_tools.py
 from agno.agent import Agent
@@ -29,35 +29,35 @@ agent = Agent(
 agent.print_response("Share the NVDA stock price and analyst recommendations", markdown=True)
 ```
 
-## Toolkit Params
+## Toolkit 参数
 
-| Parameter                 | Type | Default | Description                                                                    |
-| ------------------------- | ---- | ------- | ------------------------------------------------------------------------------ |
-| `stock_price`             | `bool` | `True`  | Enables the functionality to retrieve current stock price information.         |
-| `company_info`            | `bool` | `False` | Enables the functionality to retrieve detailed company information.            |
-| `stock_fundamentals`      | `bool` | `False` | Enables the functionality to retrieve fundamental data about a stock.          |
-| `income_statements`       | `bool` | `False` | Enables the functionality to retrieve income statements of a company.          |
-| `key_financial_ratios`    | `bool` | `False` | Enables the functionality to retrieve key financial ratios for a company.      |
-| `analyst_recommendations` | `bool` | `False` | Enables the functionality to retrieve analyst recommendations for a stock.     |
-| `company_news`            | `bool` | `False` | Enables the functionality to retrieve the latest news related to a company.    |
-| `technical_indicators`    | `bool` | `False` | Enables the functionality to retrieve technical indicators for stock analysis. |
-| `historical_prices`       | `bool` | `False` | Enables the functionality to retrieve historical price data for a stock.       |
+| 参数                 | 类型    | 默认值 | 描述                                                               |
+| -------------------- | ------- | ------ | ------------------------------------------------------------------ |
+| `stock_price`        | `bool`  | `True` | 启用获取当前股票价格信息的功能。                                       |
+| `company_info`       | `bool`  | `False`| 启用获取公司详细信息的功能。                                         |
+| `stock_fundamentals` | `bool`  | `False`| 启用获取股票基本数据的功能。                                         |
+| `income_statements`    | `bool`  | `False`| 启用获取公司损益表的功能。                                           |
+| `key_financial_ratios` | `bool`  | `False`| 启用获取公司关键财务比率的功能。                                         |
+| `analyst_recommendations` | `bool`  | `False`| 启用获取股票分析师建议的功能。                                       |
+| `company_news`       | `bool`  | `False`| 启用获取公司相关最新消息的功能。                                       |
+| `technical_indicators` | `bool`  | `False`| 启用获取用于股票分析的技术指标的功能。                               |
+| `historical_prices`  | `bool`  | `False`| 启用获取股票历史价格数据的功能。                                       |
 
-## Toolkit Functions
+## Toolkit 功能
 
-| Function                      | Description                                                      |
-| ----------------------------- | ---------------------------------------------------------------- |
-| `get_current_stock_price`     | This function retrieves the current stock price of a company.    |
-| `get_company_info`            | This function retrieves detailed information about a company.    |
-| `get_historical_stock_prices` | This function retrieves historical stock prices for a company.   |
-| `get_stock_fundamentals`      | This function retrieves fundamental data about a stock.          |
-| `get_income_statements`       | This function retrieves income statements of a company.          |
-| `get_key_financial_ratios`    | This function retrieves key financial ratios for a company.      |
-| `get_analyst_recommendations` | This function retrieves analyst recommendations for a stock.     |
-| `get_company_news`            | This function retrieves the latest news related to a company.    |
-| `get_technical_indicators`    | This function retrieves technical indicators for stock analysis. |
+| 功能                       | 描述                             |
+| -------------------------- | -------------------------------- |
+| `get_current_stock_price`  | 此函数检索公司的当前股票价格。     |
+| `get_company_info`         | 此函数检索公司的详细信息。         |
+| `get_historical_stock_prices`| 此函数检索公司的历史股票价格。     |
+| `get_stock_fundamentals`   | 此函数检索股票的基本数据。         |
+| `get_income_statements`    | 此函数检索公司的损益表。           |
+| `get_key_financial_ratios` | 此函数检索公司的关键财务比率。     |
+| `get_analyst_recommendations`| 此函数检索股票的分析师建议。       |
+| `get_company_news`         | 此函数检索与公司相关的最新消息。   |
+| `get_technical_indicators` | 此函数检索用于股票分析的技术指标。 |
 
-## Developer Resources
+## 开发者资源
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/yfinance.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/yfinance_tools.py)
+- 查看 [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/yfinance.py)
+- 查看 [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/yfinance_tools.py)

@@ -1,66 +1,66 @@
 ---
-title: Agent State
+title: Agent 状态
 ---
 
-**State** is any kind of data the Agent needs to maintain throughout runs.
+**状态** 是 Agent 在运行期间需要维护的任何类型的数据。
 
 <Check>
-A simple yet common use case for Agents is to manage lists, items and other "information" for a user. For example, a shopping list, a todo list, a wishlist, etc.
+Agent 一个简洁但常见的用例是为用户管理列表、项目和其他“信息”。例如，购物列表、待办事项列表、愿望清单等。
 
-This can be easily managed using the `session_state`. The Agent updates the `session_state` in tool calls and exposes them to the Model in the `description` and `instructions`.
+可以使用 `session_state` 轻松管理。Agent 在工具调用中更新 `session_state`，并在 `description` 和 `instructions` 中将其暴露给模型。
 </Check>
 
-Agno's provides a powerful and elegant state management system, here's how it works:
+Agno 提供了一个强大而优雅的状态管理系统，其工作原理如下：
 
-- The `Agent` has a `session_state` parameter.
-- We add our state variables to this `session_state` dictionary.
-- We update the `session_state` dictionary in tool calls or other functions.
-- We share the current `session_state` with the Model in the `description` and `instructions`.
-- The `session_state` is stored with Agent sessions and is persisted in a database. Meaning, it is available across execution cycles.
+- `Agent` 具有 `session_state` 参数。
+- 我们将状态变量添加到此 `session_state` 字典中。
+- 我们在工具调用或其他函数中更新 `session_state` 字典。
+- 我们在 `description` 和 `instructions` 中与模型共享当前的 `session_state`。
+- `session_state` 与 Agent 会话一起存储，并持久化到数据库中。这意味着它在执行周期之间可用。
 
-Here's an example of an Agent managing a shopping list:
+以下 Agent 管理购物列表的示例：
 
 ```python session_state.py
 from agno.agent import Agent
 from agno.models.openai import OpenAIChat
 
-# Define a tool that increments our counter and returns the new value
+# 定义一个工具，该工具递增我们的计数器并返回新值
 def add_item(agent: Agent, item: str) -> str:
-    """Add an item to the shopping list."""
+    """将商品添加到购物列表中。"""
     agent.session_state["shopping_list"].append(item)
-    return f"The shopping list is now {agent.session_state['shopping_list']}"
+    return f"购物列表现在是 {agent.session_state['shopping_list']}"
 
 
-# Create an Agent that maintains state
+# 创建一个维护状态的 Agent
 agent = Agent(
     model=OpenAIChat(id="gpt-4o-mini"),
-    # Initialize the session state with a counter starting at 0
+    # 使用从 0 开始的计数器初始化会话状态
     session_state={"shopping_list": []},
     tools=[add_item],
-    # You can use variables from the session state in the instructions
-    instructions="Current state (shopping list) is: {shopping_list}",
-    # Important: Add the state to the messages
+    # 您可以在指令中使用来自会话状态的变量
+    instructions="当前状态（购物列表）是：{shopping_list}",
+    # 重要：将状态添加到消息中
     add_state_in_messages=True,
     markdown=True,
 )
 
-# Example usage
-agent.print_response("Add milk, eggs, and bread to the shopping list", stream=True)
-print(f"Final session state: {agent.session_state}")
+# 用法示例
+agent.print_response("将牛奶、鸡蛋和面包添加到购物列表中", stream=True)
+print(f"最终的会话状态：{agent.session_state}")
 ```
 
 <Tip>
-This is as good and elegant as state management gets.
+这是状态管理所能达到的最佳状态了。
 </Tip>
 
-## Maintaining state across multiple runs
+## 在多个运行中维护状态
 
-A big advantage of **sessions** is the ability to maintain state across multiple runs. For example, let's say the agent is helping a user keep track of their shopping list.
+**会话**的一个巨大优势是能够跨多次运行维护状态。例如，假设 Agent 正在帮助用户跟踪他们的购物列表。
 
 <Note>
-By setting `add_state_in_messages=True`, the keys of the `session_state` dictionary are available in the `description` and `instructions` as variables.
+通过设置 `add_state_in_messages=True`，`session_state` 字典的键可以在 `description` 和 `instructions` 中作为变量使用。
 
-Use this pattern to add the shopping_list to the instructions directly.
+使用此模式将 shopping_list 直接添加到指令中。
 </Note>
 
 ```python shopping_list.py
@@ -70,85 +70,85 @@ from agno.agent import Agent
 from agno.models.openai import OpenAIChat
 
 
-# Define tools to manage our shopping list
+# 定义管理我们购物列表的工具
 def add_item(agent: Agent, item: str) -> str:
-    """Add an item to the shopping list and return confirmation."""
-    # Add the item if it's not already in the list
+    """将商品添加到购物列表中并返回确认。"""
+    # 如果商品不在列表中，则添加它
     if item.lower() not in [i.lower() for i in agent.session_state["shopping_list"]]:
         agent.session_state["shopping_list"].append(item)
-        return f"Added '{item}' to the shopping list"
+        return f"已将 '{item}' 添加到购物列表中"
     else:
-        return f"'{item}' is already in the shopping list"
+        return f"'{item}' 已经在购物列表中"
 
 
 def remove_item(agent: Agent, item: str) -> str:
-    """Remove an item from the shopping list by name."""
-    # Case-insensitive search
+    """按名称从购物列表中删除商品。"""
+    # 区分大小写的搜索
     for i, list_item in enumerate(agent.session_state["shopping_list"]):
         if list_item.lower() == item.lower():
             agent.session_state["shopping_list"].pop(i)
-            return f"Removed '{list_item}' from the shopping list"
+            return f"已从购物列表中移除 '{list_item}'"
 
-    return f"'{item}' was not found in the shopping list"
+    return f"在购物列表中未找到 '{item}'"
 
 
 def list_items(agent: Agent) -> str:
-    """List all items in the shopping list."""
+    """列出购物列表中的所有商品。"""
     shopping_list = agent.session_state["shopping_list"]
 
     if not shopping_list:
-        return "The shopping list is empty."
+        return "购物列表是空的。"
 
     items_text = "\n".join([f"- {item}" for item in shopping_list])
-    return f"Current shopping list:\n{items_text}"
+    return f"当前购物列表：\n{items_text}"
 
 
-# Create a Shopping List Manager Agent that maintains state
+# 创建一个维护状态的购物列表管理器 Agent
 agent = Agent(
     model=OpenAIChat(id="gpt-4o-mini"),
-    # Initialize the session state with an empty shopping list
+    # 使用空的购物列表初始化会话状态
     session_state={"shopping_list": []},
     tools=[add_item, remove_item, list_items],
-    # You can use variables from the session state in the instructions
+    # 您可以在指令中使用来自会话状态的变量
     instructions=dedent("""\
-        Your job is to manage a shopping list.
+        你的任务是管理一个购物列表。
 
-        The shopping list starts empty. You can add items, remove items by name, and list all items.
+        购物列表开始时是空的。你可以添加商品、按名称删除商品以及列出所有商品。
 
-        Current shopping list: {shopping_list}
+        当前购物列表：{shopping_list}
     """),
     show_tool_calls=True,
     add_state_in_messages=True,
     markdown=True,
 )
 
-# Example usage
-agent.print_response("Add milk, eggs, and bread to the shopping list", stream=True)
-print(f"Session state: {agent.session_state}")
+# 用法示例
+agent.print_response("将牛奶、鸡蛋和面包添加到购物列表中", stream=True)
+print(f"会话状态：{agent.session_state}")
 
-agent.print_response("I got bread", stream=True)
-print(f"Session state: {agent.session_state}")
+agent.print_response("我拿到了面包", stream=True)
+print(f"会话状态：{agent.session_state}")
 
-agent.print_response("I need apples and oranges", stream=True)
-print(f"Session state: {agent.session_state}")
+agent.print_response("我需要苹果和橙子", stream=True)
+print(f"会话状态：{agent.session_state}")
 
-agent.print_response("whats on my list?", stream=True)
-print(f"Session state: {agent.session_state}")
+agent.print_response("我的列表上有什么？", stream=True)
+print(f"会话状态：{agent.session_state}")
 
-agent.print_response("Clear everything from my list and start over with just bananas and yogurt", stream=True)
-print(f"Session state: {agent.session_state}")
+agent.print_response("清空我的列表并重新开始，只保留香蕉和酸奶", stream=True)
+print(f"会话状态：{agent.session_state}")
 ```
 
 <Tip>
-We love how elegantly we can maintain and pass on state across multiple runs.
+我们很喜欢能在多个运行中如此优雅地维护和传递状态。
 </Tip>
 
-## Using state in instructions
+## 在指令中使用状态
 
-You can use variables from the session state in the instructions by setting `add_state_in_messages=True`.
+通过设置 `add_state_in_messages=True`，您可以在指令中使用来自会话状态的变量。
 
 <Tip>
-Don't use the f-string syntax in the instructions. Directly use the `{key}` syntax, Agno substitutes the values for you.
+不要在指令中使用 f-string 语法。直接使用 `{key}` 语法，Agno 会为您替换值。
 </Tip>
 
 ```python state_in_instructions.py
@@ -160,61 +160,61 @@ from agno.models.openai import OpenAIChat
 
 agent = Agent(
     model=OpenAIChat(id="gpt-4o-mini"),
-    # Initialize the session state with a variable
+    # 使用变量初始化会话状态
     session_state={"user_name": "John"},
-    # You can use variables from the session state in the instructions
-    instructions="Users name is {user_name}",
+    # 您可以在指令中使用来自会话状态的变量
+    instructions="用户的名字是 {user_name}",
     show_tool_calls=True,
     add_state_in_messages=True,
     markdown=True,
 )
 
-agent.print_response("What is my name?", stream=True)
+agent.print_response("我的名字是什么？", stream=True)
 ```
 
-## Persisting state in database
+## 在数据库中持久化状态
 
-`session_state` is part of the Agent session and is saved to the database after each run if a `storage` driver is provided.
+`session_state` 是 Agent 会话的一部分，如果提供了 `storage` 驱动程序，它会在每次运行后保存到数据库中。
 
-Here's an example of an Agent that maintains a shopping list and persists the state in a database. Run this script multiple times to see the state being persisted.
+以下 Agent 维护购物列表并将其状态持久化到数据库的示例。多次运行此脚本以查看状态的持久化。
 
 ```python session_state_storage.py
-"""Run `pip install agno openai sqlalchemy` to install dependencies."""
+"""运行 `pip install agno openai sqlalchemy` 来安装依赖项。"""
 
 from agno.agent import Agent
 from agno.models.openai import OpenAIChat
 from agno.storage.sqlite import SqliteStorage
 
 
-# Define a tool that adds an item to the shopping list
+# 定义一个将商品添加到购物列表的工具
 def add_item(agent: Agent, item: str) -> str:
-    """Add an item to the shopping list."""
+    """将商品添加到购物列表中。"""
     if item not in agent.session_state["shopping_list"]:
         agent.session_state["shopping_list"].append(item)
-    return f"The shopping list is now {agent.session_state['shopping_list']}"
+    return f"购物列表现在是 {agent.session_state['shopping_list']}"
 
 
 agent = Agent(
     model=OpenAIChat(id="gpt-4o-mini"),
-    # Fix the session id to continue the same session across execution cycles
+    # 固定会话 ID，以便在执行周期中继续相同的会话
     session_id="fixed_id_for_demo",
-    # Initialize the session state with an empty shopping list
+    # 使用空的购物列表初始化会话状态
     session_state={"shopping_list": []},
-    # Add a tool that adds an item to the shopping list
+    # 添加一个将商品添加到购物列表的工具
     tools=[add_item],
-    # Store the session state in a SQLite database
+    # 将会话状态存储在 SQLite 数据库中
     storage=SqliteStorage(table_name="agent_sessions", db_file="tmp/data.db"),
-    # Add the current shopping list from the state in the instructions
-    instructions="Current shopping list is: {shopping_list}",
-    # Important: Set `add_state_in_messages=True`
-    # to make `{shopping_list}` available in the instructions
+    # 在指令中添加当前的购物列表状态
+    instructions="当前购物列表是：{shopping_list}",
+    # 重要：设置 `add_state_in_messages=True`
+    # 使 `{shopping_list}` 在指令中可用
     add_state_in_messages=True,
     markdown=True,
 )
 
-# Example usage
-agent.print_response("What's on my shopping list?", stream=True)
-print(f"Session state: {agent.session_state}")
-agent.print_response("Add milk, eggs, and bread", stream=True)
-print(f"Session state: {agent.session_state}")
+# 用法示例
+agent.print_response("我的购物列表有什么？", stream=True)
+print(f"会话状态：{agent.session_state}")
+agent.print_response("添加牛奶、鸡蛋和面包", stream=True)
+print(f"会话状态：{agent.session_state}")
 ```

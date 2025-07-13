@@ -1,8 +1,8 @@
 ---
-title: MilvusDB Hybrid Search
+title: MilvusDB 混合搜索
 ---
 
-## Code
+## 代码
 
 ```python cookbook/agent_concepts/knowledge/vector_dbs/milvus_db/milvus_db_hybrid_search.py
 import typer
@@ -36,30 +36,30 @@ def milvusdb_agent(user: str = "user"):
 
 
 if __name__ == "__main__":
-    # Comment out after first run
+    # 第一次运行时注释掉此行
     knowledge_base.load(recreate=True)
 
     typer.run(milvusdb_agent)
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U pymilvus tantivy pypdf openai agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行 Agent">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/knowledge/vector_dbs/milvus_db/milvus_db_hybrid_search.py

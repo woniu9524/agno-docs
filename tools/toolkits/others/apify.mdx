@@ -2,56 +2,56 @@
 title: Apify
 ---
 
-This guide demonstrates how to integrate and use [Apify](https://apify.com/actors) Actors within the Agno framework to enhance your AI agents with web scraping, crawling, data extraction, and web automation capabilities.
+本指南演示了如何在 Agno 框架中集成和使用 [Apify](https://apify.com/actors) Actor，以增强 AI Agent 的网络抓取、爬取、数据提取和网络自动化功能。
 
-## What is Apify?
+## 什么是 Apify？
 
-[Apify](https://apify.com/) is a platform that provides:
-- Data collection services for AI Agents, specializing in extracting data from social media, search engines, online maps, e-commerce sites, travel portals, or general websites
-- A marketplace of ready-to-use Actors (specialized tools) for various data tasks
-- Infrastructure to run and monetize our own AI Agents
+[Apify](https://apify.com/) 是一个提供以下服务的平台：
+- 为 AI Agent 提供数据收集服务，专注于从社交媒体、搜索引擎、在线地图、电子商务网站、旅游门户或常规网站提取数据
+- 一个包含各种数据任务的现成 Actor（专用工具）的市场
+- 运行和变现我们自己 AI Agent 的基础设施
 
-## Prerequisites
+## 前提条件
 
-1. Sign up for an [Apify account](https://console.apify.com/sign-up)
-2. Obtain your Apify API token (can be obtained from [Apify](https://docs.apify.com/platform/integrations/api))
-3. Install the required packages:
+1. 注册一个 [Apify 账户](https://console.apify.com/sign-up)
+2. 获取您的 Apify API 令牌（可从 [Apify](https://docs.apify.com/platform/integrations/api) 获取）
+3. 安装所需包：
 
 ```bash
 pip install agno apify-client
 ```
 
-## Basic Usage
+## 基本用法
 
-The Agno framework makes it easy to integrate Apify Actors into your agents. Here's a simple example:
+Agno 框架让集成 Apify Actor 到您的 Agent 中变得十分简单。以下是一个简单的示例：
 
 ```python
 from agno.agent import Agent
 from agno.tools.apify import ApifyTools
 
-# Create an agent with ApifyTools
+# 创建一个包含 ApifyTools 的 Agent
 agent = Agent(
     tools=[
         ApifyTools(
-            actors=["apify/rag-web-browser"],  # Specify which Apify Actors to use, use multiple ones if needed
-            apify_api_token="your_apify_api_key"  # Or set the APIFY_API_TOKEN environment variable 
+            actors=["apify/rag-web-browser"],  # 指定要使用的 Apify Actor，如果需要，可使用多个
+            apify_api_token="your_apify_api_key"  # 或者设置 APIFY_API_TOKEN 环境变量
         )
     ],
     show_tool_calls=True,
     markdown=True
 )
 
-# Use the agent to get website content
+# 使用 Agent 获取网站内容
 agent.print_response("What information can you find on https://docs.agno.com/introduction ?", markdown=True)
 ```
 
-## Available Apify Tools
+## 可用的 Apify 工具
 
-You can easily integrate any Apify Actor as a tool. Here are some examples:
+您可以轻松地将任何 Apify Actor 集成作为工具。以下是一些示例：
 
 ### 1. RAG Web Browser
 
-The [RAG Web Browser](https://apify.com/apify/rag-web-browser) Actor is specifically designed for AI and LLM applications. It searches the web for a query or processes a URL, then cleans and formats the content for your agent. This tool is enabled by default.
+[RAG Web Browser](https://apify.com/apify/rag-web-browser) Actor 专为 AI 和 LLM 应用而设计。它会搜索查询的网页或处理 URL，然后清理和格式化内容供您的 Agent 使用。此工具默认启用。
 
 ```python
 from agno.agent import Agent
@@ -65,13 +65,13 @@ agent = Agent(
     markdown=True
 )
 
-# Search for information and process the results
+# 搜索信息并处理结果
 agent.print_response("What are the latest developments in large language models?", markdown=True)
 ```
 
 ### 2. Website Content Crawler
 
-This tool uses Apify's [Website Content Crawler](https://apify.com/apify/website-content-crawler) Actor to extract text content from websites, making it perfect for RAG applications.
+此工具使用 Apify 的 [Website Content Crawler](https://apify.com/apify/website-content-crawler) Actor 来提取网站的文本内容，非常适合 RAG 应用。
 
 ```python
 from agno.agent import Agent
@@ -84,13 +84,13 @@ agent = Agent(
     markdown=True
 )
 
-# Ask the agent to process web content
+# 让 Agent 处理网页内容
 agent.print_response("Summarize the content from https://docs.agno.com/introduction", markdown=True)
 ```
 
 ### 3. Google Places Crawler
 
-The [Google Places Crawler](https://apify.com/compass/crawler-google-places) extracts data about businesses from Google Maps and Google Places.
+[Google Places Crawler](https://apify.com/compass/crawler-google-places) 从 Google Maps 和 Google Places 提取有关企业的数据。
 
 ```python
 from agno.agent import Agent
@@ -103,15 +103,15 @@ agent = Agent(
     show_tool_calls=True
 )
 
-# Find business information in a specific location
+# 查找特定位置的企业信息
 agent.print_response("What are the top-rated restaurants in San Francisco?", markdown=True)
 agent.print_response("Find coffee shops in Prague", markdown=True)
 ```
 
-## Example Scenarios
+## 示例场景
 
 ### RAG Web Browser + Google Places Crawler
-This example combines web search with local business data to provide comprehensive information about a topic:
+此示例结合了网络搜索和本地企业数据，以提供关于主题的全面信息：
 
 ```python
 from agno.agent import Agent
@@ -127,32 +127,32 @@ agent = Agent(
     show_tool_calls=True
 )
 
-# Get general information and local businesses
+# 获取一般信息和本地商家信息
 agent.print_response(
     """
-    I'm traveling to Tokyo next month.
-    1. Research the best time to visit and major attractions
-    2. Find one good rated sushi restaurants near Shinjuku
-    Compile a comprehensive travel guide with this information.
+    我下个月要去东京旅行。
+    1. 研究最佳旅行时间和主要景点
+    2. 在新宿附近找一家评价好的寿司餐厅
+    根据这些信息整理一份全面的旅行指南。
     """,
     markdown=True
 )
 ```
 
-## Toolkit Params
+## Toolkit 参数
 
-| Parameter                    | Type                | Default | Description                                                        |
-| ---------------------------- | ------------------- | ------- | ------------------------------------------------------------------ |
-| `apify_api_token`            | `str`               | `None`  | Apify API token (or set via APIFY_API_TOKEN environment variable)  |
-| `actors`                     | `str` or `List[str]`| `None`  | Single Actor ID or list of Actor IDs to register                   |
+| 参数                    | 类型                | 默认值 | 描述                                                         |
+| ----------------------- | ------------------- | ------- | ------------------------------------------------------------ |
+| `apify_api_token`       | `str`               | `None`  | Apify API 令牌（或通过 APIFY_API_TOKEN 环境变量设置）            |
+| `actors`                | `str` 或 `List[str]`| `None`  | 单个 Actor ID 或要注册的 Actor ID 列表                        |
 
-## Developer Resources
+## 开发者资源
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/apify.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/apify_tools.py)
+- 查看 [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/apify.py)
+- 查看 [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/apify_tools.py)
 
-## Resources
+## 资源
 
-- [Apify Actor Documentation](https://docs.apify.com/Actors)
-- [Apify Store - Browse available Actors](https://apify.com/store)
-- [How to build and monetize an AI agent on Apify](https://blog.apify.com/how-to-build-an-ai-agent/)
+- [Apify Actor 文档](https://docs.apify.com/Actors)
+- [Apify Store - 浏览可用 Actor](https://apify.com/store)
+- [如何在 Apify 上构建和变现 AI Agent](https://blog.apify.com/how-to-build-an-ai-agent/)

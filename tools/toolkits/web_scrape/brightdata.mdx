@@ -1,36 +1,36 @@
 ---
 title: BrightData
-description:  BrightDataTools enable an Agent to perform web scraping, search engine queries, screenshots, and structured data extraction using BrightData's API.
+description:  BrightDataTools 使 Agent 能够使用 BrightData 的 API 进行网页抓取、搜索引擎查询、截屏以及结构化数据提取。
 ---
 
-**BrightDataTools** provide comprehensive web scraping capabilities including markdown conversion, screenshots, search engine results, and structured data feeds from various platforms like LinkedIn, Amazon, Instagram, and more.
+**BrightDataTools** 提供全面的网页抓取功能，包括 Markdown 转换、截屏、搜索引擎结果以及来自 LinkedIn、Amazon、Instagram 等众多平台的结构化数据源。
 
-## Prerequisites
+## 先决条件
 
-The following examples require the `requests` library.
+以下示例需要 `requests` 库。
 
 ```shell
 pip install -U requests
 ```
 
-You'll also need a BrightData API key. Set the `BRIGHT_DATA_API_KEY` environment variable:
+您还需要一个 BrightData API 密钥。设置 `BRIGHT_DATA_API_KEY` 环境变量：
 
 ```shell
 export BRIGHT_DATA_API_KEY="YOUR_BRIGHTDATA_API_KEY"
 ```
 
-Optionally, you can configure zone settings:
+可选地，您可以配置区域设置：
 
 ```shell
 export BRIGHT_DATA_WEB_UNLOCKER_ZONE="your_web_unlocker_zone"
 export BRIGHT_DATA_SERP_ZONE="your_serp_zone"
 ```
 
-## Examples
+## 示例
 
-### Basic Web Scraping
+### 基本网页抓取
 
-Extract structured data from platforms like LinkedIn, Amazon, etc.:
+从 LinkedIn、Amazon 等平台提取结构化数据：
 
 ```python
 from agno.agent import Agent
@@ -49,93 +49,93 @@ agent = Agent(
     show_tool_calls=True,
 )
 
-# Example 1: Scrape a webpage as Markdown
+# 示例 1：将网页抓取为 Markdown
 agent.print_response(
     "Scrape this webpage as markdown: https://docs.agno.com/introduction",
 )
 ```
 
-## Toolkit Parameters
+## Toolkit 参数
 
-These parameters are passed to the `BrightDataTools` constructor.
+这些参数将传递给 `BrightDataTools` 构造函数。
 
-| Parameter              | Type            | Default            | Description                                                                                           |
-| ---------------------- | --------------- | ------------------ | ----------------------------------------------------------------------------------------------------- |
-| `api_key`              | `Optional[str]` | `None`             | BrightData API key. If not provided, uses `BRIGHT_DATA_API_KEY` environment variable.                |
-| `serp_zone`            | `str`           | `"serp_api"`       | Zone for search engine requests. Can be overridden with `BRIGHT_DATA_SERP_ZONE` environment variable. |
-| `web_unlocker_zone`    | `str`           | `"web_unlocker1"`  | Zone for web scraping requests. Can be overridden with `BRIGHT_DATA_WEB_UNLOCKER_ZONE` environment variable. |
-| `scrape_as_markdown`   | `bool`          | `True`             | Enable the `scrape_as_markdown` tool.                                                                |
-| `get_screenshot`       | `bool`          | `False`            | Enable the `get_screenshot` tool.                                                                    |
-| `search_engine`        | `bool`          | `True`             | Enable the `search_engine` tool.                                                                     |
-| `web_data_feed`        | `bool`          | `True`             | Enable the `web_data_feed` tool.                                                                     |
-| `verbose`              | `bool`          | `False`            | Enable verbose logging.                                                                               |
-| `timeout`              | `int`           | `600`              | Timeout in seconds for web data feed requests.                                                       |
+| 参数              | 类型            | 默认值            | 描述                                                                                                   |
+| -------------------| --------------- | ------------------ | ------------------------------------------------------------------------------------------------------ |
+| `api_key`          | `Optional[str]` | `None`             | BrightData API 密钥。如果未提供，则使用 `BRIGHT_DATA_API_KEY`环境变量。                                       |
+| `serp_zone`        | `str`           | `"serp_api"`       | 用于搜索引擎请求的区域。可以通过 `BRIGHT_DATA_SERP_ZONE` 环境变量进行覆盖。                                         |
+| `web_unlocker_zone`| `str`           | `"web_unlocker1"`  | 用于网页抓取请求的区域。可以通过 `BRIGHT_DATA_WEB_UNLOCKER_ZONE` 环境变量进行覆盖。                                     |
+| `scrape_as_markdown`| `bool`          | `True`             | 启用 `scrape_as_markdown` 工具。                                                                     |
+| `get_screenshot`   | `bool`          | `False`            | 启用 `get_screenshot` 工具。                                                                         |
+| `search_engine`    | `bool`          | `True`             | 启用 `search_engine` 工具。                                                                          |
+| `web_data_feed`    | `bool`          | `True`             | 启用 `web_data_feed` 工具。                                                                          |
+| `verbose`          | `bool`          | `False`            | 启用详细日志记录。                                                                                   |
+| `timeout`          | `int`           | `600`              | 数据源请求的超时（秒）。                                                                                 |
 
-## Toolkit Functions
+## Toolkit 函数
 
-| Function             | Description                                                                                                                                                                                  |
-| -------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `scrape_as_markdown` | Scrapes a webpage and returns content in Markdown format. Parameters: `url` (str) - URL to scrape.                                                                                         |
-| `get_screenshot`     | Captures a screenshot of a webpage and adds it as an image artifact. Parameters: `url` (str) - URL to screenshot, `output_path` (str, optional) - Output path (default: "screenshot.png"). |
-| `search_engine`      | Searches using Google, Bing, or Yandex and returns results in Markdown. Parameters: `query` (str), `engine` (str, default: "google"), `num_results` (int, default: 10), `language` (Optional[str]), `country_code` (Optional[str]). |
-| `web_data_feed`      | Retrieves structured data from various sources like LinkedIn, Amazon, Instagram, etc. Parameters: `source_type` (str), `url` (str), `num_of_reviews` (Optional[int]).                     |
+| 函数             | 描述                                                                                                                                                                                           |
+| ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `scrape_as_markdown` | 抓取网页并以 Markdown 格式返回内容。参数：`url` (str) - 要抓取的 URL。                                                                                                                            |
+| `get_screenshot`     | 捕获网页的屏幕截图并将其添加为图像工件。参数：`url` (str) - 要截屏的 URL，`output_path` (str, optional) - 输出路径（默认为 "screenshot.png"）。                                                                   |
+| `search_engine`    | 使用 Google、Bing 或 Yandex 进行搜索并以 Markdown 格式返回结果。参数：`query` (str), `engine` (str, default: "google"), `num_results` (int, default: 10), `language` (Optional[str]), `country_code` (Optional[str])。 |
+| `web_data_feed`      | 从 LinkedIn、Amazon、Instagram 等各种来源检索结构化数据。参数：`source_type` (str), `url` (str), `num_of_reviews` (Optional[int])。                                                                                            |
 
-## Supported Data Sources
+## 支持的数据源
 
-The `web_data_feed` function supports the following source types:
+`web_data_feed` 函数支持以下数据源类型：
 
-### E-commerce
-- `amazon_product` - Amazon product details
-- `amazon_product_reviews` - Amazon product reviews
-- `amazon_product_search` - Amazon product search results
-- `walmart_product` - Walmart product details
-- `walmart_seller` - Walmart seller information
-- `ebay_product` - eBay product details
-- `homedepot_products` - Home Depot products
-- `zara_products` - Zara products
-- `etsy_products` - Etsy products
-- `bestbuy_products` - Best Buy products
+### 电子商务
+- `amazon_product` - Amazon 产品详情
+- `amazon_product_reviews` - Amazon 产品评论
+- `amazon_product_search` - Amazon 产品搜索结果
+- `walmart_product` - Walmart 产品详情
+- `walmart_seller` - Walmart 卖家信息
+- `ebay_product` - eBay 产品详情
+- `homedepot_products` - Home Depot 产品
+- `zara_products` - Zara 产品
+- `etsy_products` - Etsy 产品
+- `bestbuy_products` - Best Buy 产品
 
-### Professional Networks
-- `linkedin_person_profile` - LinkedIn person profiles
-- `linkedin_company_profile` - LinkedIn company profiles
-- `linkedin_job_listings` - LinkedIn job listings
-- `linkedin_posts` - LinkedIn posts
-- `linkedin_people_search` - LinkedIn people search results
+### 专业网络
+- `linkedin_person_profile` - LinkedIn 个人资料
+- `linkedin_company_profile` - LinkedIn 公司资料
+- `linkedin_job_listings` - LinkedIn 工作列表
+- `linkedin_posts` - LinkedIn 帖子
+- `linkedin_people_search` - LinkedIn 人员搜索结果
 
-### Social Media
-- `instagram_profiles` - Instagram profiles
-- `instagram_posts` - Instagram posts
-- `instagram_reels` - Instagram reels
-- `instagram_comments` - Instagram comments
-- `facebook_posts` - Facebook posts
-- `facebook_marketplace_listings` - Facebook Marketplace listings
-- `facebook_company_reviews` - Facebook company reviews
-- `facebook_events` - Facebook events
-- `tiktok_profiles` - TikTok profiles
-- `tiktok_posts` - TikTok posts
-- `tiktok_shop` - TikTok shop
-- `tiktok_comments` - TikTok comments
-- `x_posts` - X (Twitter) posts
+### 社交媒体
+- `instagram_profiles` - Instagram 个人资料
+- `instagram_posts` - Instagram 帖子
+- `instagram_reels` - Instagram Reels
+- `instagram_comments` - Instagram 评论
+- `facebook_posts` - Facebook 帖子
+- `facebook_marketplace_listings` - Facebook Marketplace 列表
+- `facebook_company_reviews` - Facebook 公司评论
+- `facebook_events` - Facebook 活动
+- `tiktok_profiles` - TikTok 个人资料
+- `tiktok_posts` - TikTok 帖子
+- `tiktok_shop` - TikTok Shop
+- `tiktok_comments` - TikTok 评论
+- `x_posts` - X (Twitter) 帖子
 
-### Other Platforms
-- `google_maps_reviews` - Google Maps reviews
-- `google_shopping` - Google Shopping results
-- `google_play_store` - Google Play Store apps
-- `apple_app_store` - Apple App Store apps
-- `youtube_profiles` - YouTube profiles
-- `youtube_videos` - YouTube videos
-- `youtube_comments` - YouTube comments
-- `reddit_posts` - Reddit posts
-- `zillow_properties_listing` - Zillow property listings
-- `booking_hotel_listings` - Booking.com hotel listings
-- `crunchbase_company` - Crunchbase company data
-- `zoominfo_company_profile` - ZoomInfo company profiles
-- `reuter_news` - Reuters news
-- `github_repository_file` - GitHub repository files
-- `yahoo_finance_business` - Yahoo Finance business data
+### 其他平台
+- `google_maps_reviews` - Google Maps 评论
+- `google_shopping` - Google Shopping 结果
+- `google_play_store` - Google Play 商店应用
+- `apple_app_store` - Apple App Store 应用
+- `youtube_profiles` - YouTube 个人资料
+- `youtube_videos` - YouTube 视频
+- `youtube_comments` - YouTube 评论
+- `reddit_posts` - Reddit 帖子
+- `zillow_properties_listing` - Zillow 房源列表
+- `booking_hotel_listings` - Booking.com 酒店列表
+- `crunchbase_company` - Crunchbase 公司数据
+- `zoominfo_company_profile` - ZoomInfo 公司资料
+- `reuter_news` - Reuters 新闻
+- `github_repository_file` - GitHub 存储库文件
+- `yahoo_finance_business` - Yahoo Finance 商业数据
 
-## Developer Resources
+## 开发者资源
 
-- View [Tools Source](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/brightdata.py)
-- View [Cookbook Example](https://github.com/agno-agi/agno/blob/main/cookbook/tools/brightdata_tools.py)
+- 查看 [工具源码](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/brightdata.py)
+- 查看 [Cookbook 示例](https://github.com/agno-agi/agno/blob/main/cookbook/tools/brightdata_tools.py)

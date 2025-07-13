@@ -1,8 +1,8 @@
 ---
-title: Agent with Structured Outputs
+title: 结构化输出的 Agent
 ---
 
-## Code
+## 代码
 
 ```python cookbook/models/openai/responses/structured_output.py
 from typing import List
@@ -15,40 +15,40 @@ from rich.pretty import pprint  # noqa
 
 class MovieScript(BaseModel):
     setting: str = Field(
-        ..., description="Provide a nice setting for a blockbuster movie."
+        ..., description="为一部大片提供一个绝佳的场景。"
     )
     ending: str = Field(
         ...,
-        description="Ending of the movie. If not available, provide a happy ending.",
+        description="电影的结局。如果不可用，请提供一个圆满的结局。",
     )
     genre: str = Field(
         ...,
-        description="Genre of the movie. If not available, select action, thriller or romantic comedy.",
+        description="电影的类型。如果不可用，请选择动作片、惊悚片或浪漫喜剧。",
     )
-    name: str = Field(..., description="Give a name to this movie")
-    characters: List[str] = Field(..., description="Name of characters for this movie.")
+    name: str = Field(..., description="给这部电影起个名字")
+    characters: List[str] = Field(..., description="这部电影的角色名字。")
     storyline: str = Field(
-        ..., description="3 sentence storyline for the movie. Make it exciting!"
+        ..., description="电影的故事梗概，共 3 句话。要够刺激！"
     )
 
 
-# Agent that uses JSON mode
+# 使用 JSON 模式的 Agent
 json_mode_agent = Agent(
     model=OpenAIResponses(id="gpt-4o"),
-    description="You write movie scripts.",
+    description="你负责编写电影剧本。",
     response_model=MovieScript,
     use_json_mode=True,
 )
 
-# Agent that uses structured outputs
+# 使用结构化输出的 Agent
 structured_output_agent = Agent(
     model=OpenAIResponses(id="gpt-4o"),  
-    description="You write movie scripts.",
+    description="你负责编写电影剧本。",
     response_model=MovieScript,
 )
 
 
-# Get the response in a variable
+# 将响应获取到变量中
 # json_mode_response: RunResponse = json_mode_agent.run("New York")
 # pprint(json_mode_response.content)
 # structured_output_response: RunResponse = structured_output_agent.run("New York")
@@ -58,24 +58,24 @@ json_mode_agent.print_response("New York")
 structured_output_agent.print_response("New York")
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U openai agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行 Agent">
     <CodeGroup>
     ```bash Mac
     python cookbook/models/openai/responses/structured_output.py

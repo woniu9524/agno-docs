@@ -1,56 +1,56 @@
 ---
-title: Personalized Email Generator
+title: 个性化邮件生成器
 ---
 
 
-This workflow helps sales professionals craft highly personalized cold emails by:
-1. Researching target companies through their websites
-2. Analyzing their business model, tech stack, and unique attributes
-3. Generating personalized email drafts
-4. Sending test emails to yourself for review before actual outreach
+此工作流通过以下方式帮助销售专业人士撰写高度个性化的冷邮件：
+1. 通过网站研究目标公司
+2. 分析其商业模式、技术栈和独特属性
+3. 生成个性化的邮件草稿
+4. 在实际外联前，先发送测试邮件给自己以供审阅
 
-Why is this helpful?
+为什么这很有帮助？
 --------------------------------------------------------------------------------
-• You always have an extra review step—emails are sent to you first.
-  This ensures you can fine-tune messaging before reaching your actual prospect.
-• Ideal for iterating on tone, style, and personalization en masse.
+• 您始终多了一个审阅步骤——邮件会先发送给您。
+  这样可以确保您在触达实际潜在客户之前微调消息。
+• 非常适合批量迭代语气、风格和个性化设置。
 
-Who should use this?
+谁应该使用这个？
 --------------------------------------------------------------------------------
-• SDRs, Account Executives, Business Development Managers
-• Founders, Marketing Professionals, B2B Sales Representatives
-• Anyone building relationships or conducting outreach at scale
+• SDR、客户主管、业务发展经理
+• 创始人、营销专业人士、B2B 销售代表
+• 任何大规模建立关系或进行外联的人
 
-Example use cases:
+示例用例：
 --------------------------------------------------------------------------------
-• SaaS sales outreach
-• Consulting service proposals
-• Partnership opportunities
-• Investor relations
-• Recruitment outreach
-• Event invitations
+• SaaS 销售外联
+• 咨询服务提案
+• 合作机会
+• 投资者关系
+• 招聘外联
+• 活动邀请
 
-Quick Start:
+快速开始：
 --------------------------------------------------------------------------------
-1. Install dependencies:
+1. 安装依赖项：
    pip install openai agno
 
-2. Set environment variables:
+2. 设置环境变量：
    - export OPENAI_API_KEY="xxxx"
 
-3. Update sender_details_dict with YOUR info.
+3. 使用您的信息更新 `sender_details_dict`。
 
-4. Add target companies to "leads" dictionary.
+4. 将目标公司添加到“leads”字典中。
 
-5. Run:
+5. 运行：
    python personalized_email_generator.py
 
-The script will send draft emails to your email first if DEMO_MODE=False.
-If DEMO_MODE=True, it prints the email to the console for review.
+如果 `DEMO_MODE`=False，脚本将首先将草稿邮件发送给您。
+如果 `DEMO_MODE`=True，它会将邮件打印到控制台供您审阅。
 
-Then you can confidently send the refined emails to your prospects!
+然后，您可以放心地将优化后的邮件发送给您的潜在客户！
 
-## Code
+## 代码
 
 ```python personalized_email_generator.py
 import json
@@ -67,13 +67,13 @@ from agno.utils.pprint import pprint_run_response
 from agno.workflow import RunResponse, Workflow
 from pydantic import BaseModel, Field
 
-# Demo mode
-# - set to True to print email to console
-# - set to False to send to yourself
+# 演示模式
+# - 设置为 True 将邮件打印到控制台
+# - 设置为 False 将邮件发送给您自己
 DEMO_MODE = True
 today = datetime.now().strftime("%Y-%m-%d")
 
-# Example leads - Replace with your actual targets
+# 示例潜在客户 - 替换为您的实际目标
 leads: Dict[str, Dict[str, str]] = {
     "Notion": {
         "name": "Notion",
@@ -81,13 +81,13 @@ leads: Dict[str, Dict[str, str]] = {
         "contact_name": "Ivan Zhao",
         "position": "CEO",
     },
-    # Add more companies as needed
+    # 根据需要添加更多公司
 }
 
-# Updated sender details for an AI analytics company
+# 更新后的 AI 分析公司发送者详细信息
 sender_details_dict: Dict[str, str] = {
     "name": "Sarah Chen",
-    "email": "your.email@company.com",  # Your email goes here
+    "email": "your.email@company.com",  # 在此处填写您的邮箱
     "organization": "Data Consultants Inc",
     "service_offered": "We help build data products and offer data consulting services",
     "calendar_link": "https://calendly.com/data-consultants-inc",
@@ -97,7 +97,7 @@ sender_details_dict: Dict[str, str] = {
 }
 
 email_template = """\
-Hey [RECIPIENT_NAME]
+嘿 [RECIPIENT_NAME]
 
 [PERSONAL_NOTE]
 
@@ -107,174 +107,171 @@ Hey [RECIPIENT_NAME]
 
 [SOCIAL_PROOF]
 
-Here's my cal link if you're open to a call: [CALENDAR_LINK] ☕️
+这是我的日历链接，如果您方便的话可以安排通话：[CALENDAR_LINK] ☕️
 
 [SIGNATURE]
 
-P.S. You can also dm me on X\
+P.S. 您也可以在 X 上给我发私信\
 """
 
 
 class CompanyInfo(BaseModel):
     """
-    Stores in-depth data about a company gathered during the research phase.
+    存储在研究阶段收集到的公司深度数据。
     """
 
-    # Basic Information
-    company_name: str = Field(..., description="Company name")
-    website_url: str = Field(..., description="Company website URL")
+    # 基本信息
+    company_name: str = Field(..., description="公司名称")
+    website_url: str = Field(..., description="公司网站 URL")
 
-    # Business Details
-    industry: Optional[str] = Field(None, description="Primary industry")
-    core_business: Optional[str] = Field(None, description="Main business focus")
-    business_model: Optional[str] = Field(None, description="B2B, B2C, etc.")
+    # 业务详情
+    industry: Optional[str] = Field(None, description="主要行业")
+    core_business: Optional[str] = Field(None, description="主要业务焦点")
+    business_model: Optional[str] = Field(None, description="B2B, B2C 等")
 
-    # Marketing Information
-    motto: Optional[str] = Field(None, description="Company tagline/slogan")
-    value_proposition: Optional[str] = Field(None, description="Main value proposition")
+    # 营销信息
+    motto: Optional[str] = Field(None, description="公司标语/口号")
+    value_proposition: Optional[str] = Field(None, description="主要价值主张")
     target_audience: Optional[List[str]] = Field(
-        None, description="Target customer segments"
+        None, description="目标客户细分"
     )
 
-    # Company Metrics
-    company_size: Optional[str] = Field(None, description="Employee count range")
-    founded_year: Optional[int] = Field(None, description="Year founded")
-    locations: Optional[List[str]] = Field(None, description="Office locations")
+    # 公司指标
+    company_size: Optional[str] = Field(None, description="员工数量范围")
+    founded_year: Optional[int] = Field(None, description="成立年份")
+    locations: Optional[List[str]] = Field(None, description="办公室地点")
 
-    # Technical Details
-    technologies: Optional[List[str]] = Field(None, description="Technology stack")
-    integrations: Optional[List[str]] = Field(None, description="Software integrations")
+    # 技术详情
+    technologies: Optional[List[str]] = Field(None, description="技术栈")
+    integrations: Optional[List[str]] = Field(None, description="软件集成")
 
-    # Market Position
-    competitors: Optional[List[str]] = Field(None, description="Main competitors")
+    # 市场地位
+    competitors: Optional[List[str]] = Field(None, description="主要竞争对手")
     unique_selling_points: Optional[List[str]] = Field(
-        None, description="Key differentiators"
+        None, description="关键差异化因素"
     )
-    market_position: Optional[str] = Field(None, description="Market positioning")
+    market_position: Optional[str] = Field(None, description="市场定位")
 
-    # Social Proof
-    customers: Optional[List[str]] = Field(None, description="Notable customers")
-    case_studies: Optional[List[str]] = Field(None, description="Success stories")
-    awards: Optional[List[str]] = Field(None, description="Awards and recognition")
+    # 社会证明
+    customers: Optional[List[str]] = Field(None, description="知名客户")
+    case_studies: Optional[List[str]] = Field(None, description="成功案例")
+    awards: Optional[List[str]] = Field(None, description="奖项和认可")
 
-    # Recent Activity
-    recent_news: Optional[List[str]] = Field(None, description="Recent news/updates")
-    blog_topics: Optional[List[str]] = Field(None, description="Recent blog topics")
+    # 近期动态
+    recent_news: Optional[List[str]] = Field(None, description="近期新闻/更新")
+    blog_topics: Optional[List[str]] = Field(None, description="近期博客主题")
 
-    # Pain Points & Opportunities
-    challenges: Optional[List[str]] = Field(None, description="Potential pain points")
-    growth_areas: Optional[List[str]] = Field(None, description="Growth opportunities")
+    # 痛点与机遇
+    challenges: Optional[List[str]] = Field(None, description="潜在痛点")
+    growth_areas: Optional[List[str]] = Field(None, description="增长机遇")
 
-    # Contact Information
-    email_address: Optional[str] = Field(None, description="Contact email")
-    phone: Optional[str] = Field(None, description="Contact phone")
+    # 联系信息
+    email_address: Optional[str] = Field(None, description="联系邮箱")
+    phone: Optional[str] = Field(None, description="联系电话")
     social_media: Optional[Dict[str, str]] = Field(
-        None, description="Social media links"
+        None, description="社交媒体链接"
     )
 
-    # Additional Fields
-    pricing_model: Optional[str] = Field(None, description="Pricing strategy and tiers")
-    user_base: Optional[str] = Field(None, description="Estimated user base size")
-    key_features: Optional[List[str]] = Field(None, description="Main product features")
+    # 附加字段
+    pricing_model: Optional[str] = Field(None, description="定价策略和层级")
+    user_base: Optional[str] = Field(None, description="预计用户基础规模")
+    key_features: Optional[List[str]] = Field(None, description="主要产品功能")
     integration_ecosystem: Optional[List[str]] = Field(
-        None, description="Integration partners"
+        None, description="集成合作伙伴"
     )
     funding_status: Optional[str] = Field(
-        None, description="Latest funding information"
+        None, description="最新融资信息"
     )
     growth_metrics: Optional[Dict[str, str]] = Field(
-        None, description="Key growth indicators"
+        None, description="关键增长指标"
     )
 
 
 class PersonalisedEmailGenerator(Workflow):
     """
-    Personalized email generation system that:
+    个性化邮件生成系统，该系统：
 
-    1. Scrapes the target company's website
-    2. Gathers essential info (tech stack, position in market, new updates)
-    3. Generates a personalized cold email used for B2B outreach
+    1. 抓取目标公司网站
+    2. 收集基本信息（技术栈、市场地位、最新动态）
+    3. 生成个性化的冷邮件，用于 B2B 外联
 
-    This workflow is designed to help you craft outreach that resonates
-    specifically with your prospect, addressing known challenges and
-    highlighting tailored solutions.
+    此工作流旨在帮助您根据潜在客户的具体情况，解决已知挑战并突出显示量身定制的解决方案，从而撰写具有吸引力的外联邮件。
     """
 
     description: str = dedent("""\
-        AI-Powered B2B Outreach Workflow:
+        AI 驱动的 B2B 外联工作流：
         --------------------------------------------------------
-        1. Research & Analyze
-        2. Generate Personalized Email
-        3. Send Draft to Yourself
+        1. 研究与分析
+        2. 生成个性化邮件
+        3. 将草稿发送给您自己
         --------------------------------------------------------
-        This creates a frictionless review layer, letting you refine each
-        email before sending it to real prospects.
-        Perfect for data-driven, personalized B2B outreach at scale.
+        这创建了一个无缝的审阅层，让您在发送给真实潜在客户之前可以优化每封邮件。
+        非常适合数据驱动的、个性化的、大规模的 B2B 外联。
     """)
 
     scraper: Agent = Agent(
         model=OpenAIChat(id="gpt-4o"),
         tools=[ExaTools()],
         description=dedent("""\
-            You are an expert SaaS business analyst specializing in:
+            您是专注于以下领域的专业 SaaS 业务分析师：
 
-            🔍 Product Intelligence
-            - Feature analysis
-            - User experience evaluation
-            - Integration capabilities
-            - Platform scalability
-            - Enterprise readiness
+            🔍 产品智能
+            - 功能分析
+            - 用户体验评估
+            - 集成能力
+            - 平台可扩展性
+            - 企业就绪度
 
-            📊 Market Position Analysis
-            - Competitive advantages
-            - Market penetration
-            - Growth trajectory
-            - Enterprise adoption
-            - International presence
+            📊 市场地位分析
+            - 竞争优势
+            - 市场渗透率
+            - 增长轨迹
+            - 企业采用情况
+            - 国际业务
 
-            💡 Technical Architecture
-            - Infrastructure setup
-            - Security standards
-            - API capabilities
-            - Data management
-            - Compliance status
+            💡 技术架构
+            - 基础设施设置
+            - 安全标准
+            - API 能力
+            - 数据管理
+            - 合规状态
 
-            🎯 Business Intelligence
-            - Revenue model analysis
-            - Customer acquisition strategy
-            - Enterprise pain points
-            - Scaling challenges
-            - Integration opportunities\
+            🎯 商业智能
+            - 收入模式分析
+            - 客户获取策略
+            - 企业痛点
+            - 扩展挑战
+            - 集成机会\
         """),
         instructions=dedent("""\
-            1. Start with the company website and analyze:
-            - Homepage messaging
-            - Product/service pages
-            - About us section
-            - Blog content
-            - Case studies
-            - Team pages
+            1. 从公司网站开始，分析：
+            - 主页消息传递
+            - 产品/服务页面
+            - 关于我们部分
+            - 博客内容
+            - 案例研究
+            - 团队页面
 
-            2. Look for specific details about:
-            - Recent company news
-            - Customer testimonials
-            - Technology partnerships
-            - Industry awards
-            - Growth indicators
+            2. 查找有关以下内容的具体详细信息：
+            - 公司近期新闻
+            - 客户评价
+            - 技术合作伙伴关系
+            - 行业奖项
+            - 增长指标
 
-            3. Identify potential pain points:
-            - Scaling challenges
-            - Market pressures
-            - Technical limitations
-            - Operational inefficiencies
+            3. 识别潜在痛点：
+            - 可扩展性挑战
+            - 市场压力
+            - 技术限制
+            - 运营效率低下
 
-            4. Focus on actionable insights that could:
-            - Drive business growth
-            - Improve operations
-            - Enhance customer experience
-            - Increase market share
+            4. 专注于可行的见解，这些见解可能：
+            - 推动业务增长
+            - 改进运营
+            - 提升客户体验
+            - 增加市场份额
 
-            Remember: Quality over quantity. Focus on insights that could lead to meaningful business conversations.\
+            请记住：质量重于数量。专注于可能带来有意义的业务对话的见解。\
         """),
         response_model=CompanyInfo,
     )
@@ -282,60 +279,58 @@ class PersonalisedEmailGenerator(Workflow):
     email_creator: Agent = Agent(
         model=OpenAIChat(id="gpt-4o"),
         description=dedent("""\
-            You are writing for a friendly, empathetic 20-year-old sales rep whose
-            style is cool, concise, and respectful. Tone is casual yet professional.
+            您的写作风格是一位友好、有同理心的 20 岁销售代表，风格酷、简洁且尊重。语气休闲但专业。
 
-            - Be polite but natural, using simple language.
-            - Never sound robotic or use big cliché words like "delve", "synergy" or "revolutionary."
-            - Clearly address problems the prospect might be facing and how we solve them.
-            - Keep paragraphs short and friendly, with a natural voice.
-            - End on a warm, upbeat note, showing willingness to help.\
+            - 礼貌但自然，使用简单的语言。
+            - 永远不要听起来像机器人，或使用像“深入研究”、“协同作用”或“革命性”这样的大俗语。
+            - 清晰地解决潜在客户可能面临的问题以及我们如何解决它们。
+            - 段落要简短友好，语气自然。
+            - 以温暖、积极的语调结束，表达乐于助人的意愿。\
         """),
         instructions=dedent("""\
-            Please craft a highly personalized email that has:
+            请写一封高度个性化的邮件，其中包含：
 
-            1. A simple, personal subject line referencing the problem or opportunity.
-            2. At least one area for improvement or highlight from research.
-            3. A quick explanation of how we can help them (no heavy jargon).
-            4. References a known challenge from the research.
-            5. Avoid words like "delve", "explore", "synergy", "amplify", "game changer", "revolutionary", "breakthrough".
-            6. Use first-person language ("I") naturally.
-            7. Maintain a 20-year-old’s friendly style—brief and to the point.
-            8. Avoid placing the recipient's name in the subject line.
+            1. 一个简单、个性化的主题行，引用问题或机会。
+            2. 至少一个来自研究的改进领域或亮点。
+            3. 简要说明我们如何帮助他们（没有生硬的行话）。
+            4. 引用研究中已知的挑战。
+            5. 避免使用“深入研究”、“探索”、“协同”、“增强”、“改变游戏规则”、“革命性”、“突破性”等词语。
+            6. 自然地使用第一人称语言（“我”）。
+            7. 保持 20 岁青年的友好风格——简洁明了。
+            8. 避免在主题行中放置收件人姓名。
 
-            Use the following structural template, but ensure the final tone
-            feels personal and conversation-like, not automatically generated:
+            使用以下结构模板，但确保最终语气感觉个性化且对话化，而不是自动生成的：
             ----------------------------------------------------------------------
             """)
-        + "Email Template to work with:\n"
+        + "要使用的邮件模板:\n"
         + email_template,
         markdown=False,
         add_datetime_to_instructions=True,
     )
 
     def get_cached_company_data(self, company_name: str) -> Optional[CompanyInfo]:
-        """Retrieve cached company research data"""
-        logger.info(f"Checking cache for company data: {company_name}")
+        """检索缓存的公司研究数据"""
+        logger.info(f"正在检查缓存中的公司数据：{company_name}")
         cached_data = self.session_state.get("company_research", {}).get(company_name)
         if cached_data:
             return CompanyInfo.model_validate(cached_data)
         return None
 
     def cache_company_data(self, company_name: str, company_data: CompanyInfo):
-        """Cache company research data"""
-        logger.info(f"Caching company data for: {company_name}")
+        """缓存公司研究数据"""
+        logger.info(f"正在缓存 {company_name} 的公司数据")
         self.session_state.setdefault("company_research", {})
         self.session_state["company_research"][company_name] = company_data.model_dump()
         self.write_to_storage()
 
     def get_cached_email(self, company_name: str) -> Optional[str]:
-        """Retrieve cached email content"""
-        logger.info(f"Checking cache for email: {company_name}")
+        """检索缓存的邮件内容"""
+        logger.info(f"正在检查缓存中的邮件：{company_name}")
         return self.session_state.get("generated_emails", {}).get(company_name)
 
     def cache_email(self, company_name: str, email_content: str):
-        """Cache generated email content"""
-        logger.info(f"Caching email for: {company_name}")
+        """缓存生成的邮件内容"""
+        logger.info(f"正在缓存 {company_name} 的邮件")
         self.session_state.setdefault("generated_emails", {})
         self.session_state["generated_emails"][company_name] = email_content
         self.write_to_storage()
@@ -346,64 +341,64 @@ class PersonalisedEmailGenerator(Workflow):
         use_email_cache: bool = True,
     ) -> Iterator[RunResponse]:
         """
-        Orchestrates the entire personalized marketing workflow:
+        协调整个个性化营销工作流：
 
-        1. Looks up or retrieves from cache the company's data.
-        2. If uncached, uses the scraper agent to research the company website.
-        3. Passes that data to the email_creator agent to generate a targeted email.
-        4. Yields the generated email content for review or distribution.
+        1. 查找或从缓存中检索公司数据。
+        2. 如果未缓存，则使用 scraper agent 研究公司网站。
+        3. 将该数据传递给 email_creator agent 以生成有针对性的邮件。
+        4. 产生生成的邮件内容以供审阅或分发。
         """
-        logger.info("Starting personalized marketing workflow...")
+        logger.info("正在启动个性化营销工作流...")
 
         for company_name, company_info in leads.items():
             try:
-                logger.info(f"Processing company: {company_name}")
+                logger.info(f"正在处理公司：{company_name}")
 
-                # Check email cache first
+                # 首先检查邮件缓存
                 if use_email_cache:
                     cached_email = self.get_cached_email(company_name)
                     if cached_email:
-                        logger.info(f"Using cached email for {company_name}")
+                        logger.info(f"正在为 {company_name} 使用缓存的邮件")
                         yield RunResponse(content=cached_email)
                         continue
 
-                # 1. Research Phase with caching
+                # 1. 研究阶段（带缓存）
                 company_data = None
                 if use_research_cache:
                     company_data = self.get_cached_company_data(company_name)
                     if company_data:
-                        logger.info(f"Using cached company data for {company_name}")
+                        logger.info(f"正在为 {company_name} 使用缓存的公司数据")
 
                 if not company_data:
-                    logger.info("Starting company research...")
+                    logger.info("正在开始公司研究...")
                     scraper_response = self.scraper.run(
                         json.dumps(company_info, indent=4)
                     )
 
                     if not scraper_response or not scraper_response.content:
                         logger.warning(
-                            f"No data returned for {company_name}. Skipping."
+                            f"未能为 {company_name} 返回数据。正在跳过。"
                         )
                         continue
 
                     company_data = scraper_response.content
                     if not isinstance(company_data, CompanyInfo):
                         logger.error(
-                            f"Invalid data format for {company_name}. Skipping."
+                            f"{company_name} 的数据格式无效。正在跳过。"
                         )
                         continue
 
-                    # Cache the research results
+                    # 缓存研究结果
                     self.cache_company_data(company_name, company_data)
 
-                # 2. Generate email
-                logger.info("Generating personalized email...")
+                # 2. 生成邮件
+                logger.info("正在生成个性化邮件...")
                 email_context = json.dumps(
                     {
                         "contact_name": company_info.get(
-                            "contact_name", "Decision Maker"
+                            "contact_name", "决策者"
                         ),
-                        "position": company_info.get("position", "Leader"),
+                        "position": company_info.get("position", "领导者"),
                         "company_info": company_data.model_dump(),
                         "recipient_email": sender_details_dict["email"],
                         "sender_details": sender_details_dict,
@@ -411,35 +406,35 @@ class PersonalisedEmailGenerator(Workflow):
                     indent=4,
                 )
                 yield from self.email_creator.run(
-                    f"Generate a personalized email using this context:\n{email_context}",
+                    f"请使用此上下文生成一封个性化邮件：\n{email_context}",
                     stream=True,
                 )
 
-                # Cache the generated email content
+                # 缓存生成的邮件内容
                 self.cache_email(company_name, self.email_creator.run_response.content)
 
-                # Obtain final email content:
+                # 获取最终邮件内容：
                 email_content = self.email_creator.run_response.content
 
-                # 3. If not in demo mode, you'd handle sending the email here.
-                #    Implementation details omitted.
+                # 3. 如果不是演示模式，您将在此处处理发送邮件的逻辑。
+                #    实现细节已省略。
                 if not DEMO_MODE:
                     logger.info(
-                        "Production mode: Attempting to send email to yourself..."
+                        "生产模式：正在尝试将邮件发送给自己..."
                     )
-                    # Implementation for sending the email goes here.
+                    # 在此处放置发送邮件的实现。
 
             except Exception as e:
-                logger.error(f"Error processing {company_name}: {e}")
+                logger.error(f"处理 {company_name} 时出错：{e}")
                 raise
 
 
 def main():
     """
-    Main entry point for running the personalized email generator workflow.
+    运行个性化邮件生成器工作流的主入口点。
     """
     try:
-        # Create workflow with SQLite storage
+        # 使用 SQLite 存储创建工作流
         workflow = PersonalisedEmailGenerator(
             session_id="personalized-email-generator",
             storage=SqliteStorage(
@@ -448,18 +443,18 @@ def main():
             ),
         )
 
-        # Run workflow with caching
+        # 运行带缓存的工作流
         responses = workflow.run(
             use_research_cache=True,
             use_email_cache=False,
         )
 
-        # Process and pretty-print responses
+        # 处理并美化打印响应
         pprint_run_response(responses, markdown=True)
 
-        logger.info("Workflow completed successfully!")
+        logger.info("工作流成功完成！")
     except Exception as e:
-        logger.error(f"Workflow failed: {e}")
+        logger.error(f"工作流失败：{e}")
         raise
 
 
@@ -467,18 +462,18 @@ if __name__ == "__main__":
     main()
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install openai exa_py agno
     ```
   </Step>
 
-  <Step title="Run the agent">
+  <Step title="运行代理">
     ```bash
     python personalized_email_generator.py
     ```

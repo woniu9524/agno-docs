@@ -1,8 +1,8 @@
 ---
-title: Multimodal Agent
+title: 多模态代理
 ---
 
-## Code
+## 代码
 
 ```python cookbook/models/ollama/image_agent_bytes.py
 from pathlib import Path
@@ -18,34 +18,34 @@ agent = Agent(
 
 image_path = Path(__file__).parent.joinpath("sample.jpg")
 agent.print_response(
-    "Write a 3 sentence fiction story about the image",
+    "写一个关于这张图片的3句话的虚构故事",
     images=[Image(filepath=image_path)],
 )
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install Ollama">
-    Follow the [installation guide](https://github.com/ollama/ollama?tab=readme-ov-file#macos) and run:
+  <Step title="安装 Ollama">
+    遵循[安装指南](https://github.com/ollama/ollama?tab=readme-ov-file#macos)并运行：
     ```bash
     ollama pull gemma3
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U ollama agno
     ```
   </Step>
 
-  <Step title="Add sample image">
-    Place a sample image named `sample.jpg` in the same directory as your script, or update the `image_path` to point to your desired image.
+  <Step title="添加示例图片">
+    在脚本的同一目录下放置一个名为 `sample.jpg` 的示例图片，或者更新 `image_path` 以指向您想要的图片。
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行代理">
     <CodeGroup>
     ```bash Mac
     python cookbook/models/ollama/image_agent_bytes.py

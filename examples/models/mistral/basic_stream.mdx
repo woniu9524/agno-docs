@@ -1,8 +1,8 @@
 ---
-title: Streaming Agent
+title: 流式处理 Agent
 ---
 
-## Code
+## 代码
 
 ```python cookbook/models/mistral/basic_stream.py
 from agno.agent import Agent, RunResponse  # noqa
@@ -24,27 +24,27 @@ agent = Agent(
 #     print(chunk.content)
 
 # Print the response in the terminal
-agent.print_response("Share a 2 sentence horror story", stream=True)
+agent.print_response("分享一个两句的恐怖故事", stream=True)
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">
     ```bash
     export MISTRAL_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U mistralai agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行 Agent">
     <CodeGroup>
     ```bash Mac
     python cookbook/models/mistral/basic_stream.py

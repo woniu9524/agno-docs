@@ -1,8 +1,8 @@
 ---
-title: Agent with PDF Input (URL)
+title: 具有 PDF 输入的代理 (URL)
 ---
 
-## Code
+## 代码
 
 ```python cookbook/models/openai/responses/pdf_input_url.py
 from agno.agent import Agent
@@ -16,32 +16,32 @@ agent = Agent(
 )
 
 agent.print_response(
-    "Summarize the contents of the attached file and search the web for more information.",
+    "总结附件文件的内容，并搜索网络以获取更多信息。",
     files=[File(url="https://agno-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf")],
 )
 
-print("Citations:")
+print("引用:")
 print(agent.run_response.citations)
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置你的 API 密钥">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U openai agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行代理">
     <CodeGroup>
     ```bash Mac
     python cookbook/models/openai/responses/pdf_input_url.py

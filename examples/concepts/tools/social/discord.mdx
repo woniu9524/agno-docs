@@ -1,8 +1,8 @@
 ---
-title: Discord Tools
+title: Discord 工具
 ---
 
-## Code
+## 代码
 
 ```python cookbook/tools/discord_tools.py
 from agno.agent import Agent
@@ -19,8 +19,8 @@ discord_tools = DiscordTools(
 discord_agent = Agent(
     name="Discord Agent",
     instructions=[
-        "You are a Discord bot that can perform various operations.",
-        "You can send messages, read message history, manage channels, and delete messages.",
+        "你是一个可以执行各种操作的 Discord 机器人。",
+        "你可以发送消息、读取消息历史记录、管理频道以及删除消息。",
     ],
     tools=[discord_tools],
     show_tool_calls=True,
@@ -31,37 +31,37 @@ channel_id = "YOUR_CHANNEL_ID"
 server_id = "YOUR_SERVER_ID"
 
 discord_agent.print_response(
-    f"Send a message 'Hello from Agno!' to channel {channel_id}", stream=True
+    f"向频道 {channel_id} 发送消息 'Hello from Agno!'", stream=True
 )
 
-discord_agent.print_response(f"Get information about channel {channel_id}", stream=True)
+discord_agent.print_response(f"获取频道 {channel_id} 的信息", stream=True)
 
-discord_agent.print_response(f"List all channels in server {server_id}", stream=True)
+discord_agent.print_response(f"列出服务器 {server_id} 中的所有频道", stream=True)
 
 discord_agent.print_response(
-    f"Get the last 5 messages from channel {channel_id}", stream=True
+    f"获取频道 {channel_id} 的最后 5 条消息", stream=True
 )
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your Discord token">
+  <Step title="设置你的 Discord Token">
     ```bash
     export DISCORD_BOT_TOKEN=xxx
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U discord.py openai agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行 Agent">
     <CodeGroup>
     ```bash Mac
     python cookbook/tools/discord_tools.py

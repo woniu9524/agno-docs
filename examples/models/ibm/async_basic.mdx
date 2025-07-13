@@ -1,8 +1,8 @@
 ---
-title: Async Basic Agent
+title: 异步基础代理
 ---
 
-## Code
+## 代码
 
 ```python cookbook/models/ibm/watsonx/async_basic.py
 import asyncio
@@ -20,25 +20,25 @@ agent = Agent(model=WatsonX(id="ibm/granite-20b-code-instruct"), markdown=True)
 asyncio.run(agent.aprint_response("Share a 2 sentence horror story"))
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">
     ```bash
     export IBM_WATSONX_API_KEY=xxx
     export IBM_WATSONX_PROJECT_ID=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U ibm-watsonx-ai agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行代理">
     <CodeGroup>
     ```bash Mac
     python cookbook/models/ibm/watsonx/async_basic.py
@@ -51,4 +51,4 @@ asyncio.run(agent.aprint_response("Share a 2 sentence horror story"))
   </Step>
 </Steps>
 
-This example shows how to use the asynchronous API of Agno with IBM WatsonX. It creates an agent and uses `asyncio.run()` to execute the asynchronous `aprint_response` method. 
+本示例展示了如何将 Agno 的异步 API 与 IBM WatsonX 结合使用。它会创建一个代理并使用 `asyncio.run()` 来执行异步的 `aprint_response` 方法。

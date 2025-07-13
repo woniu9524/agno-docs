@@ -1,30 +1,29 @@
 ---
-title: Evals on the Agno platform
-description: You can track your evaluation runs on the Agno platform
-sidebarTitle: Platform
+title: 在 Agno 平台进行评估
+description: 您可以在 Agno 平台上跟踪您的评估运行情况
+sidebarTitle: 平台
 ---
 
 <img height="200" src="/images/accuracy-eval-on-platform.png" style={{ borderRadius: "8px" }} />
 
+## 跟踪您的评估
 
-## Track your evaluations
-
-Apart from running your evaluations on the CLI, you can also track them on the Agno platform. This is useful to keep track of results and share them with your team.
-Do it following these steps:
+除了在 CLI 上运行评估外，您还可以在 Agno 平台上跟踪您的评估。这有助于跟踪结果并与团队共享。
+请按照以下步骤进行操作：
 
 <Steps>
 
-<Step title="Authenticate">
-  You can authenticate using your CLI or API key.
+<Step title="身份验证">
+  您可以使用 CLI 或 API 密钥进行身份验证。
 
-  **Using your CLI:**
+  **使用您的 CLI：**
 ```bash
 ag setup
 ```
 
-**Using your API key:**
+**使用您的 API 密钥：**
 
-Get your API key from [Agno App](https://app.agno.com/settings) and use it to link your locally running agents to the Agno platform.
+从 [Agno App](https://app.agno.com/settings) 获取您的 API 密钥，并使用它将您本地运行的代理连接到 Agno 平台。
 
 ```bash
 export AGNO_API_KEY=your_api_key_here
@@ -32,8 +31,8 @@ export AGNO_API_KEY=your_api_key_here
 
 </Step>
 
-<Step title="Track your evaluations">
-  When running an evaluation, set `monitoring=True` to track all its runs on the Agno platform:
+<Step title="跟踪您的评估">
+  在运行评估时，将 `monitoring` 设置为 `True` 即可在 Agno 平台上跟踪所有运行情况：
   ```python
 from agno.agent import Agent
 from agno.eval.accuracy import AccuracyEval
@@ -51,13 +50,12 @@ evaluation = AccuracyEval(
 result = evaluation.run(print_results=True)
   ```
 
-  You can also set the `AGNO_MONITOR` environment variable to `true` to track all evaluation runs.
+  您还可以将 `AGNO_MONITOR` 环境变量设置为 `true` 来跟踪所有评估运行。
 </Step>
 
-<Step title="View your evaluations">
-    You can now view your evaluations on the Agno platform at [app.agno.com/evaluations](https://app.agno.com/evaluations).
+<Step title="查看您的评估">
+    您现在可以在 Agno 平台上的 [app.agno.com/evaluations](https://app.agno.com/evaluations) 查看您的评估结果。
 </Step>
 </Steps>
 
-
-<Info>Facing issues? Check out our [troubleshooting guide](/faq/cli-auth)</Info>
+<Info>遇到问题？请查看我们的 [故障排除指南](/faq/cli-auth)</Info>

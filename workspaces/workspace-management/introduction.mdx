@@ -1,14 +1,14 @@
 ---
-title: Introduction
+title: 简介
 ---
 
-**Agno Workspaces** are standardized codebases for running Agentic Systems locally using Docker and in production on AWS. They help us manage our Agentic System as code.
+**Agno Workspaces** 是用于通过 Docker 在本地运行 Agentic Systems 和在 AWS 上进行生产的标准代码库。它们帮助我们像管理代码一样来管理我们的 Agentic System。
 
 ![workspace](/images/workspace.png)
 
-## Create a new workspace
+## 创建新的工作区
 
-Run `ag ws create` to create a new workspace, the command will ask your for a starter template and workspace name.
+运行 `ag ws create` 来创建一个新的工作区，该命令会询问你关于起始模板和工作区名称。
 
 <CodeGroup>
 
@@ -26,9 +26,9 @@ ag ws create -t agent-api-aws -n agent-api
 
 </CodeGroup>
 
-## Start workspace resources
+## 启动工作区资源
 
-Run `ag ws up` to start i.e. create workspace resources
+运行 `ag ws up` 来启动，即创建工作区资源。
 
 <CodeGroup>
 
@@ -50,9 +50,9 @@ ag ws up -e dev -i docker
 
 </CodeGroup>
 
-## Stop workspace resources
+## 停止工作区资源
 
-Run `ag ws down` to stop i.e. delete workspace resources
+运行 `ag ws down` 来停止，即删除工作区资源。
 
 <CodeGroup>
 
@@ -74,9 +74,9 @@ ag ws down -e dev -i docker
 
 </CodeGroup>
 
-## Patch workspace resources
+## 补丁工作区资源
 
-Run `ag ws patch` to patch i.e. update workspace resources
+运行 `ag ws patch` 来打补丁，即更新工作区资源。
 
 <CodeGroup>
 
@@ -102,13 +102,13 @@ ag ws patch -e dev -i docker
 
 <Note>
 
-The `patch` command in under development for some resources. Use `restart` if needed
+部分资源的 `patch` 命令正在开发中。如有需要，请使用 `restart` 命令。
 
 </Note>
 
-## Restart workspace
+## 重启工作区
 
-Run `ag ws restart` to stop resources and start them again
+运行 `ag ws restart` 来停止资源并重新启动它们。
 
 <CodeGroup>
 
@@ -130,9 +130,9 @@ ag ws restart -e dev -i docker
 
 </CodeGroup>
 
-## Setup existing workspace
+## 设置现有工作区
 
-If you clone the codebase directly (eg: if your coworker created it) - run `ag ws setup` to set it up locally
+如果你直接克隆了代码库（例如，如果你的同事创建了它），请运行 `ag ws setup` 在本地进行设置。
 
 <CodeGroup>
 
@@ -146,13 +146,13 @@ ag ws setup -d
 
 </CodeGroup>
 
-## Command Options
+## 命令选项
 
-<Note>Run `ag ws up --help` to view all options</Note>
+<Note>运行 `ag ws up --help` 查看所有选项</Note>
 
-### Environment (`--env`)
+### 环境 (`--env`)
 
-Use the `--env` or `-e` flag to filter the environment (dev/prd)
+使用 `--env` 或 `-e` 标志来过滤环境（dev/prd）。
 
 <CodeGroup>
 
@@ -170,9 +170,9 @@ ag ws up -e dev
 
 </CodeGroup>
 
-### Infra (`--infra`)
+### 基础设施 (`--infra`)
 
-Use the `--infra` or `-i` flag to filter the infra (docker/aws/k8s)
+使用 `--infra` 或 `-i` 标志来过滤基础设施（docker/aws/k8s）。
 
 <CodeGroup>
 
@@ -190,9 +190,9 @@ ag ws up -i docker
 
 </CodeGroup>
 
-### Group (`--group`)
+### 组 (`--group`)
 
-Use the `--group` or `-g` flag to filter by resource group.
+使用 `--group` 或 `-g` 标志来按资源组进行过滤。
 
 <CodeGroup>
 
@@ -220,9 +220,9 @@ ag ws up \
 
 </CodeGroup>
 
-### Name (`--name`)
+### 名称 (`--name`)
 
-Use the `--name` or `-n` flag to filter by resource name
+使用 `--name` 或 `-n` 标志来按资源名称进行过滤。
 
 <CodeGroup>
 
@@ -250,9 +250,9 @@ ag ws up \
 
 </CodeGroup>
 
-### Type (`--type`)
+### 类型 (`--type`)
 
-Use the `--type` or `-t` flag to filter by resource type.
+使用 `--type` 或 `-t` 标志来按资源类型进行过滤。
 
 <CodeGroup>
 
@@ -280,9 +280,9 @@ ag ws up \
 
 </CodeGroup>
 
-### Dry Run (`--dry-run`)
+### 试运行 (`--dry-run`)
 
-The `--dry-run` or `-dr` flag can be used to **dry-run** the command. `ag ws up -dr` will only print resources, not create them.
+可以使用 `--dry-run` 或 `-dr` 标志来**试运行**命令。`ag ws up -dr` 只会打印资源，而不会创建它们。
 
 <CodeGroup>
 
@@ -310,9 +310,9 @@ ag ws up \
 
 </CodeGroup>
 
-### Show Debug logs (`--debug`)
+### 显示调试日志 (`--debug`)
 
-Use the `--debug` or `-d` flag to show debug logs.
+使用 `--debug` 或 `-d` 标志来显示调试日志。
 
 <CodeGroup>
 
@@ -340,9 +340,9 @@ ag ws up \
 
 </CodeGroup>
 
-### Force recreate images & containers (`-f`)
+### 强制重新创建镜像和容器 (`-f`)
 
-Use the `--force` or `-f` flag to force recreate images & containers
+使用 `--force` 或 `-f` 标志来强制重新创建镜像和容器。
 
 <CodeGroup>
 

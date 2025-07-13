@@ -1,14 +1,14 @@
 ---
-title: Introduction
+title: 介绍
 ---
 
-Resources are the infrastructure components for your application. Similar to [Apps](/workspaces/apps/introduction), we define them as python classes and create using `ag start` or `ag ws up`.
+资源是您应用程序的基础设施组件。与 [应用](/workspaces/apps/introduction) 类似，我们将它们定义为 Python 类并通过 `ag start` 或 `ag ws up` 创建。
 
-## Examples
+## 示例
 
-- **Local Resources**: Docker containers and images
-- **Cloud Resources**: RDS database, S3 bucket, ECS services, task definitions, security groups
-- **Kubernetes Resources**: Services, deployments
+- **本地资源**: Docker 容器和镜像
+- **云资源**: RDS 数据库, S3 存储桶, ECS 服务, 任务定义, 安全组
+- **Kubernetes 资源**: 服务, 部署
 
 <CodeGroup>
 
@@ -35,7 +35,7 @@ dev_image = DockerImage(
 ```python S3 Bucket
 from agno.aws.resource.s3 import S3Bucket
 
-# -*- S3 bucket called my-bucket
+# -*- 一个名为 my-bucket 的 S3 存储桶
 prd_bucket = S3Bucket(name="my-bucket")
 ```
 
@@ -43,10 +43,10 @@ prd_bucket = S3Bucket(name="my-bucket")
 from pathlib import Path
 from agno.aws.resource.secret import SecretsManager
 
-# -*- Secret called my-secret
+# -*- 一个名为 my-secret 的 Secret
 my_secret = SecretsManager(
     name="my-secret",
-    # Read secret variables from my_secrets.yml
+    # 从 my_secrets.yml 读取 secret 变量
     secret_files=[Path('my_secrets.yml')],
 )
 ```
@@ -55,17 +55,17 @@ my_secret = SecretsManager(
 from pathlib import Path
 from agno.aws.resource.secret import SecretsManager
 
-# -*- Database Secret
+# -*- 数据库 Secret
 db_secret = SecretsManager(
     name="my-db-secret",
-    # Read secret variables from db_secrets.yml
+    # 从 db_secrets.yml 读取 secret 变量
     secret_files=[Path('db_secrets.yml')],
 )
 
-# -*- Database Subnet Group
+# -*- 数据库子网组
 db_subnet_group = DbSubnetGroup(name="my-db-sg")
 
-# -*- Database Instance
+# -*- 数据库实例
 db = DbInstance(
     name="my-db",
     db_name="llm",
@@ -87,17 +87,17 @@ db = DbInstance(
 
 <Tip>
 
-Each Resource is a pydantic object providing input and type validation.
+每个资源都是一个 pydantic 对象，提供输入和类型验证。
 
 </Tip>
 
-## Motivation
+## 驱动力
 
-Resources provide the **"Infrastructure Layer"** for our AI products. The software we write needs to be served by an Application, which in turn needs to run on an Infrastructure Resoure.
+资源为我们的 AI 产品提供了**“基础设施层”**。我们编写的软件需要由一个应用程序提供服务，而该应用程序又需要在基础设施资源上运行。
 
-Defining **Applications as Code** and **Infrastructure as Code** allows us completely write our application as python code - providing numerous benefits like re-usability, version control, unit testing, formatting.
+将**应用程序定义为代码**和**基础设施定义为代码**使我们能够完全用 Python 代码编写应用程序——这提供了许多优势，例如可重用性、版本控制、单元测试和格式化。
 
-Agno currently provides:
+Agno 目前提供：
 
-- [Docker Resources](/workspaces/resources/docker/introduction)
-- [AWS Resources](/workspaces/resources/aws/introduction)
+- [Docker 资源](/workspaces/resources/docker/introduction)
+- [AWS 资源](/workspaces/resources/aws/introduction)

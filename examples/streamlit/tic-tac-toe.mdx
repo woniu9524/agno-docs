@@ -1,14 +1,14 @@
 ---
-title: Tic Tac Toe Battle
+title: 井字棋大战
 ---
 
-Tic Tac Toe Battle is a tic-tac-toe game where multiple AI agents compete against each other, demonstrating the power of multi-agent systems in complex game environments.
+井字棋大战是一个井字棋游戏，多个 AI 代理在此相互竞争，展示了多代理系统在复杂游戏环境中的强大能力。
 
-### Key Capabilities
-- Multi-Agent System: Features X and O Piece Agents for move selection
-- Move Validation: Dedicated Board Agent ensures game rule compliance
-- Game Coordination: Master Agent oversees the game flow and end conditions
-- Interactive UI: Built with Streamlit for real-time game visualization
+### 主要功能
+- 多代理系统：包含用于落子选择的 X 和 O 棋子代理
+- 落子校验：专门的棋盘代理确保游戏规则的遵守
+- 游戏协调：主代理负责监督游戏流程和结束条件
+- 交互式用户界面：使用 Streamlit 构建，实现实时游戏可视化
 
 <video
   autoPlay
@@ -18,68 +18,68 @@ Tic Tac Toe Battle is a tic-tac-toe game where multiple AI agents compete agains
   src="/videos/tic-tac-toe.mp4"
 ></video>
 
-### System Components
-- X Piece Agent: Strategizes and selects moves for X pieces
-- O Piece Agent: Controls and determines moves for O pieces
-- Board Agent: Validates all proposed moves against game rules
-- Master Agent: Coordinates the game flow and monitors game status
+### 系统组件
+- X 棋子代理：为 X 棋子进行策略制定和落子选择
+- O 棋子代理：控制和决定 O 棋子的落子
+- 棋盘代理：根据游戏规则校验所有拟议落子
+- 主代理：协调游戏流程并监控游戏状态
 
-### Advanced Features
-The system demonstrates complex agent interactions where each AI component has a specific role. The agents communicate and coordinate to create a complete tic-tac-toe experience, showcasing how multiple specialized AIs can work together effectively.
+### 高级特性
+该系统展示了复杂的代理交互，其中每个 AI 组件都有特定的角色。代理们通过沟通与协调，创造了完整的井字棋体验，展示了多个专业化 AI 如何有效地协同工作。
 
-### Code
-The complete code is available in the [Agno repository](https://github.com/agno-agi/agno/tree/main/cookbook/examples/streamlit_apps/tic_tac_toe).
+### 代码
+完整代码可在 [Agno 仓库](https://github.com/agno-agi/agno/tree/main/cookbook/examples/streamlit_apps/tic_tac_toe) 获取。
 
-### Usage
+### 使用方法
 <Steps>
-  <Step title="Clone the repository">
+  <Step title="克隆仓库">
     ```bash
     git clone https://github.com/agno-agi/agno.git
     cd agno
     ```
   </Step>
 
-  <Step title="Create a Virtual Environment">
+  <Step title="创建虚拟环境">
     ```bash
     python3 -m venv .venv
-    source .venv/bin/activate  # On Windows use: .venv\Scripts\activate
+    source .venv/bin/activate  # Windows 系统请使用: .venv\Scripts\activate
     ```
   </Step>
 
-  <Step title="Install Dependencies">
+  <Step title="安装依赖">
     ```bash
     pip install -r cookbook/examples/streamlit_apps/tic_tac_toe/requirements.txt
     ```
   </Step>
 
-  <Step title="Set up API Keys">
-    The Tic Tac Toe Battle supports multiple AI models:
+  <Step title="设置 API 密钥">
+    井字棋大战支持多种 AI 模型：
 
     ```bash
-    # Required for OpenAI models (GPT-4, GPT-3.5)
+    # OpenAI 模型（GPT-4、GPT-3.5）必需
     export OPENAI_API_KEY=your_api_key_here
     
-    # Optional - for additional models
-    export ANTHROPIC_API_KEY=your_api_key_here  # For Claude models
-    export GOOGLE_API_KEY=your_api_key_here     # For Gemini models
-    export GROQ_API_KEY=your_api_key_here       # For Groq models
+    # 可选 - 用于更多模型
+    export ANTHROPIC_API_KEY=your_api_key_here  # 用于 Claude 模型
+    export GOOGLE_API_KEY=your_api_key_here     # 用于 Gemini 模型
+    export GROQ_API_KEY=your_api_key_here       # 用于 Groq 模型
     ```
   </Step>
 
-  <Step title="Launch the App">
+  <Step title="启动应用">
     ```bash
     streamlit run cookbook/examples/streamlit_apps/tic_tac_toe/app.py
     ```
   </Step>
 
-  <Step title="Open the App">
-    Then, open http://localhost:8501 in your browser to start watching the AI agents play tic-tac-toe.
+  <Step title="打开应用">
+    然后在浏览器中打开 http://localhost:8501，开始观看 AI 代理们玩井字棋。
   </Step>
 </Steps>
 
-### Pro Tips
-- Watch Complete Games: Observe full matches to understand agent decision-making
-- Monitor Agent Interactions: Pay attention to how agents communicate and coordinate
-- Try Different Models: Experiment with various AI models to see different playing styles
+### 高级技巧
+- 观看完整对局：观察完整的比赛以理解代理的决策过程
+- 监控代理交互：留意代理们是如何沟通和协调的
+- 尝试不同的模型：试验各种 AI 模型，观察不同的对战风格
 
-Need help? Join our [Discourse community](https://agno.link/community) for support!
+需要帮助？加入我们的 [Discourse 社区](https://agno.link/community) 寻求支持！

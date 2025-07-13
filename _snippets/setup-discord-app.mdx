@@ -1,55 +1,55 @@
-## Setup and Configuration
+## 设置与配置
 <Steps>
 
-<Step title="Prerequisites">
-Ensure you have the following:
+<Step title="先决条件">
+请确保您拥有以下条件：
 - Python 3.7+
-- A Discord account with server management permissions
-- Required Python packages (will be installed in later steps)
+- 一个拥有服务器管理权限的 Discord 账户
+- 所需的 Python 包（将在后续步骤中安装）
 </Step>
 
-<Step title="Create a Discord Application">
-1. Go to [Discord Developer Portal](https://discord.com/developers/applications)
-2. Click "New Application"
-3. Provide an application name (e.g., "My Agno Bot")
-4. Accept the Developer Terms of Service
-5. Click "Create"
+<Step title="创建 Discord 应用">
+1. 前往 [Discord 开发者门户](https://discord.com/developers/applications)
+2. 点击“New Application”（新建应用）
+3. 提供一个应用名称（例如，“My Agno Bot”）
+4. 接受开发者服务条款
+5. 点击“Create”（创建）
 </Step>
 
-<Step title="Create a Bot User">
-1. In your application settings, navigate to the "Bot" section
-2. Click "Add Bot"
-3. Confirm by clicking "Yes, do it!"
-4. Under the "Token" section, click "Copy" to copy your bot token
-5. Save this token securely (you'll need it later)
+<Step title="创建 Bot 用户">
+1. 在您的应用设置中，导航至“Bot”部分
+2. 点击“Add Bot”（添加 Bot）
+3. 通过点击“Yes, do it!”（是的，就这么做！）进行确认
+4. 在“Token”部分下，点击“Copy”（复制）以复制您的 Bot 令牌
+5. 将此令牌安全地保存起来（稍后需要用到）
 </Step>
 
-<Step title="Configure Bot Permissions and Intents">
-1. In the Bot settings, scroll down to "Privileged Gateway Intents"
-2. Enable the following intents:
-   - **Presence Intent** (optional, for user status)
-   - **Server Members Intent** (for member-related events)
-   - **Message Content Intent** (required for reading message content)
-3. Under "Bot Permissions", ensure your bot has:
-   - Send Messages
-   - Read Message History
-   - Create Public Threads
-   - Use Slash Commands (optional)
+<Step title="配置 Bot 权限和意图">
+1. 在 Bot 设置中，向下滚动至“Privileged Gateway Intents”（特权网关意图）
+2. 启用以下意图：
+   - **Presence Intent** （可选，用于用户状态）
+   - **Server Members Intent** （用于成员相关的事件）
+   - **Message Content Intent** （读取消息内容必需）
+3. 在“Bot Permissions”（Bot 权限）下，确保您的 Bot 具有：
+   - Send Messages（发送消息）
+   - Read Message History（读取消息历史）
+   - Create Public Threads（创建公开话题）
+   - Use Slash Commands（使用斜杠命令）（可选）
 </Step>
 
-<Step title="Setup Environment Variables">
-Create a `.envrc` file in your project root with the following content, replacing the placeholder with your actual bot token:
+<Step title="设置环境变量">
+在项目根目录下创建一个 `.envrc` 文件，其中包含以下内容，将占位符替换为您真实的 Bot 令牌：
 ```bash
 export DISCORD_BOT_TOKEN="your_bot_token_here"
 ```
 
-Find your bot token in the Discord Developer Portal under "Bot" > "Token".
+在 Discord 开发者门户的“Bot” > “Token”下找到您的 Bot 令牌。
 
-Ensure this file is sourced by your shell (e.g., by using `direnv allow`).
+确保您的 shell 已加载此文件（例如，通过使用 `direnv allow`）。
 </Step>
 
-<Step title="Install Required Packages">
-Install the necessary Python packages:
+<Step title="安装所需包">
+安装必要的 Python 包：
 ```bash
 pip install discord.py agno
 ```
@@ -57,31 +57,31 @@ pip install discord.py agno
 
 </Step>
 
-<Step title="Invite Bot to Your Discord Server">
-1. In your application settings, go to "OAuth2" > "URL Generator"
-2. Under "Scopes", select:
+<Step title="将 Bot 邀请到您的 Discord 服务器">
+1. 在您的应用设置中，前往“OAuth2” > “URL Generator”（URL 生成器）
+2. 在“Scopes”（范围）下，选择：
    - `bot`
-   - `applications.commands` (if using slash commands)
-3. Under "Bot Permissions", select the permissions your bot needs:
-   - **Send Messages**
-   - **Create Public Threads**
-   - **Read Message History**
-   - **Attach Files**
-   - **Embed Links**
-   - **Use External Emojis** (optional)
-4. Copy the generated URL, navigate to it in your browser, and select the server where you want to add the bot
+   - `applications.commands` （如果使用斜杠命令）
+3. 在“Bot Permissions”（Bot 权限）下，选择您的 Bot 所需的权限：
+   - **Send Messages**（发送消息）
+   - **Create Public Threads**（创建公开话题）
+   - **Read Message History**（读取消息历史）
+   - **Attach Files**（附加文件）
+   - **Embed Links**（嵌入链接）
+   - **Use External Emojis**（使用外部表情符号）（可选）
+4. 复制生成的 URL，在浏览器中访问它，并选择您想添加 Bot 的服务器
 </Step>
 
-<Step title="Test Your Bot">
-1. Start your bot application
-2. Go to your Discord server
-3. Send a message in any channel where your bot has access
-4. Your bot should automatically create a thread and respond
-5. If using a media bot, try uploading an image or file to test media processing
+<Step title="测试您的 Bot">
+1. 启动您的 Bot 应用
+2. 前往您的 Discord 服务器
+3. 在您的 Bot 有权访问的任何频道中发送一条消息
+4. 您的 Bot 应该会自动创建一个话题并进行回复
+5. 如果您使用的是媒体 Bot，尝试上传图片或文件来测试媒体处理
 </Step>
 
 </Steps>
 
 <Callout type="warning">
-**Security Note**: Never commit your Discord bot token to version control. Always use environment variables or secure configuration management for sensitive data.
+**安全提示**: 切勿将您的 Discord Bot 令牌提交到版本控制中。请始终使用环境变量或安全的配置管理来处理敏感数据。
 </Callout>

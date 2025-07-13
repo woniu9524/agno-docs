@@ -1,20 +1,20 @@
 ---
 title: "Pipedream LinkedIn"
-description: "This example shows how to use the LinkedIn Pipedream MCP server with Agno Agents."
+description: "此示例演示了如何将 Pipedream MCP 服务器与 Agno Agents 结合使用以访问 LinkedIn。"
 ---
 
-## Code
+## 代码
 
 ```python
 """
 💻 Pipedream LinkedIn MCP
 
-This example shows how to use Pipedream MCP servers (in this case the LinkedIn one) with Agno Agents.
+此示例展示了如何使用 Pipedream MCP 服务器（在此场景中为 LinkedIn）和 Agno Agents。
 
-1. Connect your Pipedream and LinkedIn accounts: https://mcp.pipedream.com/app/linkedin
-2. Get your Pipedream MCP server url: https://mcp.pipedream.com/app/linkedin
-3. Set the MCP_SERVER_URL environment variable to the MCP server url you got above
-4. Install dependencies: pip install agno mcp-sdk
+1. 连接您的 Pipedream 和 LinkedIn 账户：https://mcp.pipedream.com/app/linkedin
+2. 获取您的 Pipedream MCP 服务器网址：https://mcp.pipedream.com/app/linkedin
+3. 将 MCP_SERVER_URL 环境变量设置为您上面获取的 MCP 服务器网址
+4. 安装依赖项：pip install agno mcp-sdk
 """
 
 import asyncio
@@ -48,6 +48,6 @@ async def run_agent(task: str) -> None:
 
 if __name__ == "__main__":
     asyncio.run(
-        run_agent("Check the Pipedream organization on LinkedIn and tell me about it")
+        run_agent("在 LinkedIn 上查看 Pipedream 组织并告诉我相关信息")
     )
 ```

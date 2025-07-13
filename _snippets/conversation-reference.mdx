@@ -1,88 +1,87 @@
 <ResponseField name="llm" type="LLM">
-  LLM to use for this conversation
+  用于此对话的 LLM
 </ResponseField>
 <ResponseField name="introduction" type="str">
-  Add an introduction (from the LLM) to the chat history
+  向聊天记录中添加介绍（来自 LLM）
 </ResponseField>
 
 <ResponseField name="user_name" type="str">
-  Name of the user participating in this conversation.
+  参与此对话的用户的名字。
 </ResponseField>
 <ResponseField name="user_type" type="str">
-  Type of the user participating in this conversation.
+  参与此对话的用户的类型。
 </ResponseField>
 
 <ResponseField name="id" type="str">
-  Unique ID that can be used to continue the conversation across sessions.
+  一个唯一的 ID，可用于跨会话继续对话。
 </ResponseField>
 <ResponseField name="name" type="str">
-  Conversation name
+  对话名称
 </ResponseField>
 <ResponseField name="is_active" type="bool">
-  True if this conversation is active i.e. not ended
+  如果此对话正在进行（即未结束），则为 True
 </ResponseField>
 <ResponseField name="meta_data" type="Dict[str, Any]">
-  Metadata associated with this conversation
+  与此对话相关的元数据
 </ResponseField>
 <ResponseField name="extra_data" type="Dict[str, Any]">
-  Extra data associated with this conversation
+  与此对话相关的额外数据
 </ResponseField>
 <ResponseField name="created_at" type="datetime">
-  The timestamp of when this conversation was created in the database
+  对话在数据库中创建的时间戳
 </ResponseField>
 <ResponseField name="updated_at" type="datetime">
-  The timestamp of when this conversation was updated in the database
+  对话在数据库中更新的时间戳
 </ResponseField>
 <ResponseField name="monitoring" type="bool">
-  Monitor conversations on agno.com
+  监控 agno.com 上的对话
 </ResponseField>
 
 <ResponseField name="memory" type="ConversationMemory">
-  Conversation Memory
+  对话记忆
 </ResponseField> <ResponseField name="add_chat_history_to_prompt" type="bool">
-  Add chat history to the prompt sent to the LLM.
+  将聊天记录添加到发送给 LLM 的提示中。
 </ResponseField> <ResponseField name="add_chat_history_to_messages" type="bool">
-  Add chat history to the messages sent to the LLM.
+  将聊天记录添加到发送给 LLM 的消息中。
 </ResponseField> <ResponseField name="num_history_messages" type="int">
-  Number of previous messages to add to prompt or messages sent to the LLM.
+  要添加到发送给 LLM 的提示或消息中的先前消息数量。
 </ResponseField>
 
 <ResponseField name="knowledge_base" type="KnowledgeBase">
-  Conversation Knowledge Base
+  对话知识库
 </ResponseField> <ResponseField name="add_references_to_prompt" type="bool">
-  Add references from the knowledge base to the prompt sent to the LLM.
+  将知识库中的引用添加到发送给 LLM 的提示中。
 </ResponseField>
 
 <ResponseField name="storage" type="ConversationStorage">
-  Conversation Storage
+  对话存储
 </ResponseField> <ResponseField name="create_storage" type="bool">
-  Create table if it doesn't exist
+  如果表不存在，则创建表
 </ResponseField>
 
 <ResponseField name="function_calls" type="bool">
-  Makes the conversation Autonomous by letting the LLM call functions to achieve
-  tasks.
+  通过允许 LLM 调用函数来完成任务，使对话具有自主性。
 </ResponseField>
 <ResponseField name="default_functions" type="bool">
-  Add a list of default functions to the LLM
+  向 LLM 添加默认函数列表
 </ResponseField>
 <ResponseField name="show_function_calls" type="bool">
-  Show function calls in LLM messages.
+  在 LLM 消息中显示函数调用。
 </ResponseField>
 <ResponseField name="functions" type="List[Callable]">
-  A list of functions to add to the LLM.
+  要添加到 LLM 的函数列表。
 </ResponseField>
 <ResponseField name="function_registries" type="List[FunctionRegistry]">
-  A list of function registries to add to the LLM.
+  要添加到 LLM 的函数注册表列表。
 </ResponseField>
 
 <ResponseField name="system_prompt" type="str">
-  Provide the system prompt as a string
+  将系统提示提供为字符串
 </ResponseField>
 <ResponseField name="system_prompt_function" type="Callable[..., Optional[str]]">
-  Function to build the system prompt.
+  用于构建系统提示的函数。
 
-Signature:
+签名：
 
 ```python
 def system_prompt_function(conversation: Conversation) -> str:
@@ -91,19 +90,19 @@ def system_prompt_function(conversation: Conversation) -> str:
 
 </ResponseField>
 
-This function is provided the `Conversation` as an argument and should return the system_prompt as a string.
+此函数将 `Conversation` 作为参数提供，并应返回系统提示字符串。
 
 <ResponseField name="use_default_system_prompt" type="bool">
-  If True, the conversation provides a default system prompt
+  如果为 True，则对话提供默认系统提示
 </ResponseField>
 
 <ResponseField name="user_prompt" type="str">
-  Provide the user prompt as a string. This will ignore the message provided to the chat function
+  将用户提示作为字符串提供。这将忽略传递给 chat 函数的消息
 </ResponseField>
 <ResponseField name="user_prompt_function" type="Callable[..., str]">
-Function to build the user prompt.
+用于构建用户提示的函数。
 
-Signature:
+签名：
 
 ```python
 def custom_user_prompt_function(
@@ -115,21 +114,21 @@ def custom_user_prompt_function(
     ...
 ```
 
-This function is provided the `Conversation` object and the input `message` as arguments. It should return the `user_prompt` as a string.
+此函数将 `Conversation` 对象和输入 `message` 作为参数提供。它应返回用户提示字符串。
 
-If `add_references_to_prompt` is True, then `references` are also provided as an argument.
+如果 `add_references_to_prompt` 为 True，则还将提供 `references` 作为参数。
 
-If `add_chat_history_to_prompt` is True, then `chat_history` is also provided as an argument.
+如果 `add_chat_history_to_prompt` 为 True，则还将提供 `chat_history` 作为参数。
 
 </ResponseField>
 <ResponseField name="use_default_user_prompt" type="bool">
-If True, the conversation provides a default system user
+如果为 True，则对话提供默认系统用户
 </ResponseField>
 
 <ResponseField name="references_function" type="Callable[..., Optional[str]]">
-Function to build references for the default `user_prompt`. This function, if provided, is called when `add_references_to_prompt` is True
+用于为默认 `user_prompt` 构建引用的函数。如果提供了此函数，则在 `add_references_to_prompt` 为 True 时调用它
 
-Signature:
+签名：
 
 ```python
 def references(conversation: Conversation, query: str) -> Optional[str]:
@@ -138,9 +137,9 @@ def references(conversation: Conversation, query: str) -> Optional[str]:
 
 </ResponseField>
 <ResponseField name="chat_history_function" type="Callable[..., Optional[str]]">
-Function to build the chat_history for the default `user_prompt`. This function, if provided, is called when `add_chat_history_to_prompt` is True
+用于为默认 `user_prompt` 构建聊天记录的函数。如果提供了此函数，则在 `add_chat_history_to_prompt` 为 True 时调用它
 
-Signature:
+签名：
 
 ```python
 def chat_history(conversation: Conversation, query: str) -> Optional[str]:
@@ -150,5 +149,5 @@ def chat_history(conversation: Conversation, query: str) -> Optional[str]:
 </ResponseField>
 
 <ResponseField name="debug_mode" type="bool">
-  If True, show debug logs
+  如果为 True，显示调试日志
 </ResponseField>

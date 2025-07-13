@@ -2,23 +2,23 @@
 title: Lumalabs
 ---
 
-**LumaLabTools** enables an Agent to generate media using the [Lumalabs platform](https://lumalabs.ai/dream-machine).
+**LumaLabTools** 允许 Agent 使用 [Lumalabs 平台](https://lumalabs.ai/dream-machine) 生成媒体。
 
-## Prerequisites
+## 先决条件
 
 ```shell
 export LUMAAI_API_KEY=***
 ```
 
-The following example requires the `lumaai` library. To install the Lumalabs client, run the following command:
+以下示例需要 `lumaai` 库。要安装 Lumalabs 客户端，请运行以下命令：
 
 ```shell
 pip install -U lumaai
 ```
 
-## Example
+## 示例
 
-The following agent will use Lumalabs to generate any video requested by the user.
+下面的 Agent 将使用 Lumalabs 根据用户请求生成任何视频。
 
 ```python cookbook/tools/lumalabs_tool.py
 from agno.agent import Agent
@@ -28,42 +28,42 @@ from agno.tools.lumalab import LumaLabTools
 luma_agent = Agent(
     name="Luma Video Agent",
     model=OpenAIChat(id="gpt-4o"),
-    tools=[LumaLabTools()],  # Using the LumaLab tool we created
+    tools=[LumaLabTools()],  # 使用我们创建的 LumaLab 工具
     markdown=True,
     debug_mode=True,
     show_tool_calls=True,
     instructions=[
-        "You are an agent designed to generate videos using the Luma AI API.",
-        "You can generate videos in two ways:",
-        "1. Text-to-Video Generation:",
-        "2. Image-to-Video Generation:",
-        "Choose the appropriate function based on whether the user provides image URLs or just a text prompt.",
-        "The video will be displayed in the UI automatically below your response, so you don't need to show the video URL in your response.",
+        "你是一个用于使用 Luma AI API 生成视频的 Agent。",
+        "你可以通过两种方式生成视频：",
+        "1. 文本到视频生成：",
+        "2. 图像到视频生成：",
+        "根据用户提供的是图片 URL 还是仅提示词来选择合适的函数。",
+        "视频将自动显示在你的响应下方的 UI 中，因此你无需在响应中显示视频 URL。",
     ],
     system_message=(
-        "Use generate_video for text-to-video requests and image_to_video for image-based "
-        "generation. Don't modify default parameters unless specifically requested. "
-        "Always provide clear feedback about the video generation status."
+        "对于文本到视频请求使用 generate_video，对于基于图像的生成使用 image_to_video。"
+        "除非特别要求，否则不要修改默认参数。 "
+        "始终提供关于视频生成状态的清晰反馈。"
     ),
 )
 
 luma_agent.run("Generate a video of a car in a sky")
 ```
 
-## Toolkit Params
+## Toolkit 参数
 
-| Parameter | Type  | Default | Description                                          |
-| --------- | ----- | ------- | ---------------------------------------------------- |
-| `api_key` | `str` | `None`  | If you want to manually supply the Lumalabs API key. |
+| 参数名   | 类型   | 默认值 | 描述                           |
+| -------- | ------ | ------ | ------------------------------ |
+| `api_key` | `str` | `None` | 如果你想手动提供 Lumalabs API 密钥。 |
 
-## Toolkit Functions
+## Toolkit 功能
 
-| Function         | Description                                                           |
-| ---------------- | --------------------------------------------------------------------- |
-| `generate_video` | Generate a video from a prompt.                                       |
-| `image_to_video` | Generate a video from a prompt, a starting image and an ending image. |
+| 功能         | 描述                                                           |
+| ------------ | -------------------------------------------------------------- |
+| `generate_video` | 从提示词生成视频。                                             |
+| `image_to_video` | 从提示词、起始图像和结束图像生成视频。 |
 
-## Developer Resources
+## 开发者资源
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/lumalabs.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/lumalabs_tools.py)
+- 查看 [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/lumalabs.py)
+- 查看 [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/lumalabs_tools.py)

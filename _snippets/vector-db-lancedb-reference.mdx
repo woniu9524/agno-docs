@@ -1,13 +1,13 @@
-| Parameter | Type | Default | Description |
+| 参数 | 类型 | 默认值 | 描述 |
 | --------- | ---- | ------- | ----------- |
-| `uri` | `lancedb.URI` | `"/tmp/lancedb"` | URI path or connection string for LanceDB |
-| `table` | `Optional[lancedb.db.LanceTable]` | `None` | Pre-configured LanceDB table instance |
-| `table_name` | `Optional[str]` | `None` | Name of the table to store vectors and metadata |
-| `connection` | `Optional[lancedb.LanceDBConnection]` | `None` | Pre-configured LanceDB connection |
-| `api_key` | `Optional[str]` | `None` | API key for cloud LanceDB authentication |
-| `embedder` | `Optional[Embedder]` | `OpenAIEmbedder()` | Embedder instance to generate embeddings |
-| `search_type` | `SearchType` | `SearchType.vector` | Type of search to perform (vector, keyword, or hybrid) |
-| `distance` | `Distance` | `Distance.cosine` | Distance metric to use for similarity search |
-| `nprobes` | `Optional[int]` | `None` | Number of probes for approximate nearest neighbor search |
-| `reranker` | `Optional[Reranker]` | `None` | Optional reranker instance to rerank search results |
-| `use_tantivy` | `bool` | `True` | Whether to use Tantivy for full-text search indexing |
+| `uri` | `lancedb.URI` | `"/tmp/lancedb"` | LanceDB 的 URI 路径或连接字符串 |
+| `table` | `Optional[lancedb.db.LanceTable]` | `None` | 预配置的 LanceDB 表实例 |
+| `table_name` | `Optional[str]` | `None` | 用于存储向量和元数据的表名 |
+| `connection` | `Optional[lancedb.LanceDBConnection]` | `None` | 预配置的 LanceDB 连接 |
+| `api_key` | `Optional[str]` | `None` | 云端 LanceDB 身份验证的 API 密钥 |
+| `embedder` | `Optional[Embedder]` | `OpenAIEmbedder()` | 用于生成嵌入的 embedder 实例 |
+| `search_type` | `SearchType` | `SearchType.vector` | 要执行的搜索类型 (vector、keyword 或 hybrid) |
+| `distance` | `Distance` | `Distance.cosine` | 用于相似性搜索的距离度量 |
+| `nprobes` | `Optional[int]` | `None` | 近似最近邻搜索的探测次数 |
+| `reranker` | `Optional[Reranker]` | `None` | 用于对搜索结果进行重新排序的可选 reranker 实例 |
+| `use_tantivy` | `bool` | `True` | 是否使用 Tantivy 进行全文搜索索引 |

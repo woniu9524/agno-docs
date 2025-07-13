@@ -1,62 +1,62 @@
-## Running in Production
+## 在生产环境中运行
 
-This repository includes a `Dockerfile` for building a production-ready container image of the application.
+本仓库包含一个 `Dockerfile`，用于构建适用于生产环境的容器镜像版本的应用程序。
 
-The general process to run in production is:
+在生产环境中运行的一般流程是：
 
-1.  Update the `scripts/build_image.sh` file and set your `IMAGE_NAME` and `IMAGE_TAG` variables.
-2.  Build and push the image to your container registry:
+1.  更新 `scripts/build_image.sh` 文件并设置您的 `IMAGE_NAME` 和 `IMAGE_TAG` 变量。
+2.  构建镜像并将其推送到您的容器镜像仓库：
     ```bash
     ./scripts/build_image.sh
     ```
-3.  Run in your cloud provider of choice.
+3.  在您选择的云服务提供商上运行。
 
-### Detailed Steps
+### 详细步骤
 
-#### 1. Configure for Production
+#### 1. 为生产环境进行配置
 
-- Ensure your production environment variables (e.g., `OPENAI_API_KEY`, database connection strings) are securely managed. Most cloud providers offer a way to set these as environment variables for your deployed service.
-- Review the agent configurations in the `/agents` directory and ensure they are set up for your production needs (e.g., correct model versions, any production-specific settings).
+-   确保您的生产环境环境变量（例如 `OPENAI_API_KEY`、数据库连接字符串）得到安全管理。大多数云服务提供商都提供一种方法，将这些作为环境变量设置给您部署的服务。
+-   检查 `/agents` 目录中的代理配置，并确保它们已根据您的生产需求进行设置（例如，正确的模型版本，任何特定于生产的设置）。
 
-#### 2. Build Your Production Docker Image
+#### 2. 构建您的生产 Docker 镜像
 
-Update the `scripts/build_image.sh` script to set your desired `IMAGE_NAME` and `IMAGE_TAG` (e.g., `your-repo/agent-api:v1.0.0`).
+更新 `scripts/build_image.sh` 脚本，设置您想要的 `IMAGE_NAME` 和 `IMAGE_TAG`（例如 `your-repo/agent-api:v1.0.0`）。
 
-Run the script to build and push the image:
+运行脚本来构建和推送镜像：
 
 ```bash
 ./scripts/build_image.sh
 ```
 
-#### 3. Deploy to a Cloud Service
+#### 3. 部署到云服务
 
-With your image in a registry, you can deploy it to various cloud services that support containerized applications. Some common options include:
+将镜像推送到镜像仓库后，您可以将其部署到支持容器化应用程序的各种云服务。一些常见的选项包括：
 
-**Serverless Container Platforms:**
+**无服务器容器平台：**
 
--   [Google Cloud Run](https://cloud.google.com/run): A fully managed platform that automatically scales your stateless containers.
--   [AWS App Runner](https://aws.amazon.com/apprunner/): Makes it easy to deploy containerized web applications and APIs at scale.
--   [Azure Container Apps](https://azure.microsoft.com/en-us/products/container-apps): Build and deploy modern apps and microservices using serverless containers.
+-   [Google Cloud Run](https://cloud.google.com/run)：一个全托管平台，可自动扩展您的无状态容器。
+-   [AWS App Runner](https://aws.amazon.com/apprunner/)：轻松大规模部署容器化的 Web 应用程序和 API。
+-   [Azure Container Apps](https://azure.microsoft.com/en-us/products/container-apps/)：使用无服务器容器构建和部署现代应用程序和微服务。
 
-**Container Orchestration Services:**
+**容器编排服务：**
 
--   [Amazon Elastic Container Service (ECS)](https://aws.amazon.com/ecs/): Often used with AWS Fargate for serverless compute or EC2 instances.
--   [Google Kubernetes Engine (GKE)](https://cloud.google.com/kubernetes-engine): Managed Kubernetes service.
--   [Azure Kubernetes Service (AKS)](https://azure.microsoft.com/en-us/services/kubernetes-service/): Managed Kubernetes service.
+-   [Amazon Elastic Container Service (ECS)](https://aws.amazon.com/ecs/)：通常与 AWS Fargate 结合用于无服务器计算，或与 EC2 实例结合使用。
+-   [Google Kubernetes Engine (GKE)](https://cloud.google.com/kubernetes-engine)：托管的 Kubernetes 服务。
+-   [Azure Kubernetes Service (AKS)](https://azure.microsoft.com/en-us/services/kubernetes-service/)：托管的 Kubernetes 服务。
 
-**Platform as a Service (PaaS) with Docker Support:**
+**支持 Docker 的平台即服务 (PaaS)：**
 
--   [Railway.app](https://railway.app/): Simple deployment from a Dockerfile.
--   [Render](https://render.com/): Simplifies deploying Docker containers, databases, and static sites.
--   [Heroku](https://www.heroku.com/): Supports deploying Docker containers.
+-   [Railway.app](https://railway.app/)：从 Dockerfile 轻松部署。
+-   [Render](https://render.com/)：简化 Docker 容器、数据库和静态站点的部署。
+-   [Heroku](https://www.heroku.com/)：支持部署 Docker 容器。
 
-**Specialized Platforms:**
+**专业平台：**
 
--   [Modal](https://modal.com/): Platform for running Python code in the cloud, can serve web endpoints.
+-   [Modal](https://modal.com/)：用于在云端运行 Python 代码的平台，可以提供 Web 端点。
 
-The specific deployment steps will vary depending on the chosen provider. Generally, you'll point the service to your container image in the registry and configure port mapping (application runs on port `8000` by default), environment variables, scaling, and database connections.
+具体的部署步骤将因所选提供商而异。通常，您需要将服务指向镜像仓库中的容器镜像，并配置端口映射（应用程序默认在端口 `8000` 上运行）、环境变量、扩展和数据库连接。
 
-#### 4. Database Configuration
+#### 4. 数据库配置
 
-The default `docker-compose.yml` sets up a PostgreSQL database for local development. In production, use a managed database service (e.g., AWS RDS, Google Cloud SQL, Azure Database for PostgreSQL).
-Ensure your deployed application is configured with the correct database connection URL for your production database, usually via environment variables.
+默认的 `docker-compose.yml` 文件为本地开发设置了一个 PostgreSQL 数据库。在生产环境中，请使用托管数据库服务（例如 AWS RDS、Google Cloud SQL、Azure Database for PostgreSQL）。
+确保您的已部署应用程序配置了生产数据库的正确数据库连接 URL，通常通过环境变量进行配置。

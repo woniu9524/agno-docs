@@ -1,9 +1,9 @@
 ---
-title: Research Team
-description: Expose your Agno Team as a AG-UI compatible app
+title: 研究团队
+description: 将您的 Agno 团队公开为兼容 AG-UI 的应用
 ---
 
-## Code
+## 代码
 
 ```python cookbook/apps/agui/research_team.py
 from agno.agent.agent import Agent
@@ -13,17 +13,17 @@ from agno.team.team import Team
 
 researcher = Agent(
     name="researcher",
-    role="Research Assistant",
+    role="研究助理",
     model=OpenAIChat(id="gpt-4o"),
-    instructions="You are a research assistant. Find information and provide detailed analysis.",
+    instructions="你是一名研究助理。查找信息并提供详细分析。",
     markdown=True,
 )
 
 writer = Agent(
     name="writer",
-    role="Content Writer",
+    role="内容撰写员",
     model=OpenAIChat(id="gpt-4o"),
-    instructions="You are a content writer. Create well-structured content based on research.",
+    instructions="你是一名内容撰写员。根据研究创建结构良好的内容。",
     markdown=True,
 )
 
@@ -31,8 +31,8 @@ research_team = Team(
     members=[researcher, writer],
     name="research_team",
     instructions="""
-    You are a research team that helps users with research and content creation.
-    First, use the researcher to gather information, then use the writer to create content.
+    你是一个研究团队，可以帮助用户进行研究和内容创作。
+    首先，使用研究员收集信息，然后使用撰写员创建内容。
     """,
     show_tool_calls=True,
     show_members_responses=True,
@@ -42,9 +42,9 @@ research_team = Team(
 
 agui_app = AGUIApp(
     team=research_team,
-    name="Research Team AG-UI",
+    name="研究团队 AG-UI",
     app_id="research_team_agui",
-    description="A research team that demonstrates AG-UI protocol integration.",
+    description="一个展示 AG-UI 协议集成的研究团队。",
 )
 
 app = agui_app.get_app()
@@ -53,4 +53,4 @@ if __name__ == "__main__":
     agui_app.serve(app="research_team:app", port=8000, reload=True)
 ```
 
-You can see instructions on how to setup an AG-UI compatible front-end to use this with in the [AG-UI App](/applications/ag-ui/introduction) page.
+您可以在 [AG-UI 应用](/applications/ag-ui/introduction) 页面找到有关如何设置兼容 AG-UI 的前端以使用此功能的说明。

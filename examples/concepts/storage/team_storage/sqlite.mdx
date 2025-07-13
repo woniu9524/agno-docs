@@ -1,17 +1,17 @@
 ---
-title: Sqlite Team Storage
+title: Sqlite Team 存储
 sidebarTitle: Sqlite
 ---
 
-Agno supports using Sqlite as a storage backend for Teams using the `SqliteStorage` class.
+Agno 支持使用 `SqliteStorage` 类将 Sqlite 用作团队的存储后端。
 
-## Usage
+## 用法
 
-You need to provide either `db_url`, `db_file` or `db_engine`. The following example uses `db_file`.
+你需要提供 `db_url`、`db_file` 或 `db_engine` 中的一个。以下示例使用了 `db_file`。
 
 ```python sqlite_storage_for_team.py
 """
-Run: `pip install openai duckduckgo-search newspaper4k lxml_html_clean agno` to install the dependencies
+运行：`pip install openai duckduckgo-search newspaper4k lxml_html_clean agno` 来安装依赖项
 """
 
 from typing import List
@@ -34,14 +34,14 @@ class Article(BaseModel):
 hn_researcher = Agent(
     name="HackerNews Researcher",
     model=OpenAIChat("gpt-4o"),
-    role="Gets top stories from hackernews.",
+    role="从 hacker news 获取热门故事。",
     tools=[HackerNewsTools()],
 )
 
 web_searcher = Agent(
     name="Web Searcher",
     model=OpenAIChat("gpt-4o"),
-    role="Searches the web for information on a topic",
+    role="搜索与主题相关的信息",
     tools=[DuckDuckGoTools()],
     add_datetime_to_instructions=True,
 )
@@ -56,9 +56,9 @@ hn_team = Team(
         table_name="team_sessions", db_file="tmp/data.db", auto_upgrade_schema=True
     ),
     instructions=[
-        "First, search hackernews for what the user is asking about.",
-        "Then, ask the web searcher to search for each story to get more information.",
-        "Finally, provide a thoughtful and engaging summary.",
+        "首先，在 hacker news 上搜索用户想要了解的内容。",
+        "然后，让网络搜索器搜索每条信息以获取更多信息。",
+        "最后，提供一个深思熟虑且引人入胜的总结。",
     ],
     response_model=Article,
     show_tool_calls=True,
@@ -67,13 +67,13 @@ hn_team = Team(
     show_members_responses=True,
 )
 
-hn_team.print_response("Write an article about the top 2 stories on hackernews")
+hn_team.print_response("写一篇关于 hacker news 上排名前 2 的故事的文章")
 ```
 
-## Params
+## 参数
 
 <Snippet file="storage-sqlite-params.mdx" />
 
-## Developer Resources
+## 开发者资源
 
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/storage/sqllite_storage/sqlite_storage_for_team.py)
+- 查看 [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/storage/sqllite_storage/sqlite_storage_for_team.py)

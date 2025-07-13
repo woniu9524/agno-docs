@@ -1,49 +1,49 @@
 ---
-title: Introduction
+title: 引言
 ---
 
-Apps are tools like `FastAPI`, `PgVector`, `Streamlit`, `Jupyter`, `Django` that we define as python classes and run using `ag start` or `ag ws up`.
+App គឺជាเครื่องมือต่างๆ เช่น `FastAPI`, `PgVector`, `Streamlit`, `Jupyter`, `Django` ที่เรากำหนดเป็นคลาส python และรันโดยใช้ `ag start` หรือ `ag ws up`
 
-When running Apps using agno, think of them as infrastructure as code but at a higher level of abstraction. Instead of defining containers, volumes etc. we define the application we want to run. We run **Applications as Code** instead of Infrastructure as Code.
+เมื่อรัน App โดยใช้ agno ให้คิดว่ามันเป็น infrastructure as code แต่มีระดับ abstraction ที่สูงกว่า แทนที่จะกำหนด containers, volumes และอื่นๆ เรามากำหนดแอปพลิเคชันที่เราต้องการรัน เรากำลังรัน **Applications as Code** แทน Infrastructure as Code
 
-The same `App` can run on docker, AWS (ECS) or Kubernetes (EKS). The App creates the underlying resources like LoadBalancers, Services, Deployments. As the underlying resources become more complex, the concept of Apps become more appealing.
+App เดียวกันสามารถรันบน docker, AWS (ECS) หรือ Kubernetes (EKS) App จะสร้างทรัพยากรพื้นฐาน เช่น LoadBalancers, Services, Deployments เมื่อทรัพยากรพื้นฐานมีความซับซ้อนมากขึ้น แนวคิดของ App จะน่าสนใจยิ่งขึ้น
 
-## Example
+## ตัวอย่าง
 
-Lets run a Jupyter notebook and PgVector on docker.
+มาลองรัน Jupyter notebook และ PgVector บน docker กัน
 
-Copy the following contents to a file `resources.py` and run `ag start resources.py`
+คัดลอกเนื้อหาต่อไปนี้ไปยังไฟล์ `resources.py` และรัน `ag start resources.py`
 
 ```python resources.py
 from agno.docker.app.jupyter import Jupyter
 from agno.docker.app.postgres import PgVectorDb
 from agno.docker.resources import DockerResources
 
-# -*- PgVector running on port 5432:5432
+# PgVector ทำงานบนพอร์ต 5432:5432
 vector_db = PgVectorDb(pg_user="ai", pg_password="ai", pg_database="ai")
 
-# -*- Jupyter running on port 8888:8888
+# Jupyter ทำงานบนพอร์ต 8888:8888
 jupyter = Jupyter(mount_workspace=True)
 
-# -*- DockerResources
+# DockerResources
 dev_docker_resources = DockerResources(apps=[vector_db, jupyter])
 ```
 
-- Each App is a pydantic object providing input and type validation.
-- Note how the `mount_workspace` automatically mounts the directory
-- Note how `PgVectorDb` sets the required settings and creates the volume.
+- แต่ละ App เป็น pydantic object ที่มีการตรวจสอบอินพุตและไทป์
+- สังเกตว่า `mount_workspace` ทำการ mount directory โดยอัตโนมัติ
+- สังเกตว่า `PgVectorDb` ตั้งค่าที่จำเป็นและสร้าง volume
 
-While this is a simple example, these concepts become very powerful for complex applications.
+แม้ว่านี่จะเป็นตัวอย่างที่เรียบง่าย แต่แนวคิดเหล่านี้จะมีประสิทธิภาพอย่างมากสำหรับแอปพลิเคชันที่ซับซ้อน
 
-## Motivation
+## แรงจูงใจ
 
-Apps provide the **"Application Layer"** for our AI products.
+App จะเป็น **"Application Layer"** สำหรับผลิตภัณฑ์ AI ของเรา
 
-The software we write needs to be served by an Application, and this Application needs to **run the same** locally for development and in the cloud for production. By defining **Applications as Code**, we bring the benefits of **Infrastructure as Code** to the software layer.
+ซอฟต์แวร์ที่เราเขียนจำเป็นต้องถูกให้บริการโดย Application และ Application นี้จำเป็นต้อง **ทำงานเหมือนกัน** ในเครื่องสำหรับการพัฒนาและบนคลาวด์สำหรับการผลิต โดยการกำหนด **Applications as Code** เรานำประโยชน์ของ **Infrastructure as Code** มาสู่ชั้นซอฟต์แวร์
 
-Defining **Applications as Code** also allows us to package "software systems" into templates. Meaning every agno template can run locally using docker or on AWS with 1 command.
+การกำหนด **Applications as Code** ยังช่วยให้เราสามารถแพ็ก "ระบบซอฟต์แวร์" เป็นเทมเพลตได้ ซึ่งหมายความว่าเทมเพลต agno ทุกตัวสามารถรันในเครื่องโดยใช้ docker หรือบน AWS ได้ด้วยคำสั่งเดียว
 
-Finally, defining **Applications as python objects** means we can import them in our code like regular objects making the following code possible:
+สุดท้าย การกำหนด **Applications เป็น python objects** หมายความว่าเราสามารถ import มันในโค้ดของเราเหมือนกับอ็อบเจกต์ทั่วไป ทำให้โค้ดต่อไปนี้เป็นไปได้:
 
 ```python
 from resources import vector_db
@@ -51,10 +51,10 @@ from resources import vector_db
 db_url=vector_db.get_db_connection_local()
 ```
 
-Checkout some example apps you can run on docker:
+ลองดูตัวอย่าง App ที่คุณสามารถรันบน docker ได้:
 
 - [PgVector](storage/postgres)
 
-Defining **Applications as Code** offers many benefits, such as:
+การกำหนด **Applications as Code** มีประโยชน์มากมาย เช่น:
 
 - [Install requirements on startup](/workspaces/workspace-management/install)

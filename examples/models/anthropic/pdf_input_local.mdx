@@ -1,8 +1,8 @@
 ---
-title: PDF Input Local Agent
+title: PDF 输入本地代理
 ---
 
-## Code
+## 代码
 
 ```python cookbook/models/anthropic/pdf_input_local.py
 from pathlib import Path
@@ -13,7 +13,7 @@ from agno.utils.media import download_file
 
 pdf_path = Path(__file__).parent.joinpath("ThaiRecipes.pdf")
 
-# Download the file using the download_file function
+# 使用 download_file 函数下载文件
 download_file(
     "https://agno-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf", str(pdf_path)
 )
@@ -24,7 +24,7 @@ agent = Agent(
 )
 
 agent.print_response(
-    "Summarize the contents of the attached file.",
+    "总结附件文件的内容。",
     files=[
         File(
             filepath=pdf_path,
@@ -32,28 +32,28 @@ agent.print_response(
     ],
 )
 
-print("Citations:")
+print("引文:")
 print(agent.run_response.citations)
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">
     ```bash
     export ANTHROPIC_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U anthropic agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行代理">
     <CodeGroup>
     ```bash Mac
     python cookbook/models/anthropic/pdf_input_local.py

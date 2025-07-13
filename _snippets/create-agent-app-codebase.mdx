@@ -1,6 +1,6 @@
-## Create your Agent App codebase
+## 创建你的 Agent App 代码库
 
-Create your codebase using the `agent-app` template, give it any name you like.
+使用 `agent-app` 模板创建你的代码库，你可以给它起任何你喜欢的名字。
 
 <CodeGroup>
 
@@ -14,22 +14,22 @@ ag ws create --template agent-app --name agent-app
 
 </CodeGroup>
 
-This will create a folder named `agent-app` with the following structure:
+这将创建一个名为 `agent-app` 的文件夹，结构如下：
 
 ```bash
-agent-app                     # root directory
-├── agents                  # your Agents go here
-├── api                     # your Api routes go here
-├── ui                      # your Streamlit apps go here
-├── db                      # your database tables go here
-├── Dockerfile              # Dockerfile for the application
-├── pyproject.toml          # python project definition
-├── requirements.txt        # python dependencies generated using pyproject.toml
-├── scripts                 # helper scripts
-├── utils                   # shared utilities
-└── workspace               # Agno workspace directory
-    ├── dev_resources.py    # dev resources running locally
-    ├── prd_resources.py    # production resources running on AWS
-    ├── secrets             # secrets
-    └── settings.py         # Agno workspace settings
+agent-app                     # 根目录
+├── agents                  # 你的 Agents 放在这里
+├── api                     # 你的 API 路由放在这里
+├── ui                      # 你的 Streamlit 应用放在这里
+├── db                      # 你的数据库表放在这里
+├── Dockerfile              # 应用程序的 Dockerfile
+├── pyproject.toml          # Python 项目定义
+├── requirements.txt        # 使用 pyproject.toml 生成的 Python 依赖
+├── scripts                 # 辅助脚本
+├── utils                   # 共享工具
+└── workspace               # Agno 工作区目录
+    ├── dev_resources.py    # 本地运行的开发资源
+    ├── prd_resources.py    # 在 AWS 上运行的生产资源
+    ├── secrets             # 敏感信息
+    └── settings.py         # Agno 工作区设置
 ```

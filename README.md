@@ -1,22 +1,22 @@
-# Agno Docs
+# Agno Docs 文档
 
-## Development
+## 开发
 
-Install the [Mintlify CLI](https://www.npmjs.com/package/mintlify) to run documentation site locally:
+安装 [Mintlify CLI](https://www.npmjs.com/package/mintlify) 以在本地运行文档站点：
 
 ```
 npm i -g mint
 ```
 
-Run the following command at the root of your documentation (where mint.json is)
+在你的文档根目录（即 `mint.json` 所在位置）下运行以下命令：
 
 ```
 mint dev
 ```
 
-## Publishing Changes
+## 发布更改
 
-Publish changes by pushing to the main branch
+通过推送到主分支来发布更改：
 
 ```
 git add .
@@ -24,7 +24,7 @@ git commit -m "update message"
 git push
 ```
 
-## Troubleshooting
+## 故障排除
 
-- Mintlify dev isn't running - Run `mint update` it'll update dependencies.
-- Page loads as a 404 - Make sure you are running in a folder with `docs.json`
+- Mintlify 开发环境未运行 - 运行 `mint update` 来更新依赖项。
+- 页面加载为 404 错误 - 确保你在包含 `docs.json` 的文件夹中运行。

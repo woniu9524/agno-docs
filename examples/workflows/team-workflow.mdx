@@ -1,12 +1,10 @@
 ---
 title: Team Workflow
 ---
-**TeamWorkflow** generates summarised reports on top reddit and hackernews posts. 
-This example demonstrates the usage of teams as nodes of a workflow.
+**TeamWorkflow** 会生成关于热门 Reddit 和 Hacker News帖子的摘要报告。
+本示例演示了工作流节点中团队的用法。
 
-Create a file `team_worklfow.py` with the following code:
-
-
+创建一个名为 `team_worklfow.py` 的文件，其中包含以下代码：
 
 ```python team_worklfow.py
 
@@ -118,18 +116,18 @@ if __name__ == "__main__":
     pprint_run_response(report, markdown=True, show_time=True)
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install openai newspaper4k exa_py agno
     ```
   </Step>
 
-  <Step title="Run the workflow">
+  <Step title="运行工作流">
     ```bash
     python team_worklfow.py
     ```

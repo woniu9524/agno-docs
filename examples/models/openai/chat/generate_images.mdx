@@ -1,8 +1,8 @@
 ---
-title: Generate Images
+title: 生成图片
 ---
 
-## Code
+## 代码
 
 ```python cookbook/models/openai/chat/generate_images.py
 from agno.agent import Agent
@@ -18,7 +18,7 @@ image_agent = Agent(
     show_tool_calls=True,
 )
 
-image_agent.print_response("Generate an image of a white siamese cat")
+image_agent.print_response("生成一张白色暹罗猫的图片")
 
 images = image_agent.get_images()
 if images and isinstance(images, list):
@@ -27,24 +27,24 @@ if images and isinstance(images, list):
         print(image_url)
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置你的 API 密钥">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U openai agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行 Agent">
     <CodeGroup>
     ```bash Mac
     python cookbook/models/openai/chat/generate_images.py

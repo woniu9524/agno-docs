@@ -1,9 +1,9 @@
 ---
-title: Multiple Agents Sharing Memory
+title: 多个 Agent 共享内存
 ---
-In this example, we have two agents that share the same memory.
+在这个示例中，我们有两个共享相同内存的 Agent。
 
-## Code
+## 代码
 
 ```python cookbook/agent_concepts/memory/09_agents_share_memory.py
 
@@ -16,67 +16,67 @@ from rich.pretty import pprint
 
 memory_db = SqliteMemoryDb(table_name="memory", db_file="tmp/memory.db")
 
-# No need to set the model, it gets set by the agent to the agent's model
+# 无需设置模型，它将由 Agent 设置为该 Agent 的模型
 memory = Memory(db=memory_db)
 
-# Reset the memory for this example
+# 为此示例重置内存
 memory.clear()
 
 john_doe_id = "john_doe@example.com"
 
 chat_agent = Agent(
     model=Gemini(id="gemini-2.0-flash-exp"),
-    description="You are a helpful assistant that can chat with users",
+    description="你是一个能与用户聊天的乐于助人的助手",
     memory=memory,
     enable_user_memories=True,
 )
 
 chat_agent.print_response(
-    "My name is John Doe and I like to hike in the mountains on weekends.",
+    "我叫 John Doe，周末喜欢在山里徒步。",
     stream=True,
     user_id=john_doe_id,
 )
 
-chat_agent.print_response("What are my hobbies?", stream=True, user_id=john_doe_id)
+chat_agent.print_response("我的爱好是什么？", stream=True, user_id=john_doe_id)
 
 
 research_agent = Agent(
     model=Gemini(id="gemini-2.0-flash-exp"),
-    description="You are a research assistant that can help users with their research questions",
+    description="你是一个研究助手，可以帮助用户解答研究问题",
     tools=[DuckDuckGoTools(cache_results=True)],
     memory=memory,
     enable_user_memories=True,
 )
 
 research_agent.print_response(
-    "I love asking questions about quantum computing. What is the latest news on quantum computing?",
+    "我喜欢问关于量子计算的问题。关于量子计算的最新消息是什么？",
     stream=True,
     user_id=john_doe_id,
 )
 
 memories = memory.get_user_memories(user_id=john_doe_id)
-print("Memories about John Doe:")
+print("关于 John Doe 的内存信息：")
 pprint(memories)
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">
     ```bash
     export GOOGLE_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U agno google-generativeai duckduckgo-search
     ```
   </Step>
 
-  <Step title="Run Example">
+  <Step title="运行示例">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/memory/09_agents_share_memory.py

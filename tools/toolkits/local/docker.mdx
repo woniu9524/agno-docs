@@ -2,19 +2,19 @@
 title: Docker
 ---
 
-**DockerTools** enable an Agent to interact with Docker containers, images, volumes, and networks.
+**DockerTools** 使 Agent 能够与 Docker 容器、镜像、卷和网络进行交互。
 
-## Prerequisites
+## 先决条件
 
-The Docker tools require the `docker` Python package. You'll also need Docker installed and running on your system.
+Docker 工具需要 `docker` Python 包。您还需要在系统上安装并运行 Docker。
 
 ```shell
 pip install docker
 ```
 
-## Example
+## 示例
 
-The following example creates an agent that can manage Docker resources:
+以下示例创建了一个可以管理 Docker 资源的 Agent：
 
 ```python cookbook/tools/docker_tools.py
 import sys
@@ -30,102 +30,101 @@ try:
         enable_network_management=True,
     )
 
-    # Create an agent with Docker tools
+    # 使用 Docker 工具创建 Agent
     docker_agent = Agent(
         name="Docker Agent",
         instructions=[
-            "You are a Docker management assistant that can perform various Docker operations.",
-            "You can manage containers, images, volumes, and networks.",
+            "您是一个 Docker 管理助手，可以执行各种 Docker 操作。",
+            "您可以管理容器、镜像、卷和网络。",
         ],
         tools=[docker_tools],
         show_tool_calls=True,
         markdown=True,
     )
 
-    # Example: List all running Docker containers
+    # 示例：列出所有正在运行的 Docker 容器
     docker_agent.print_response("List all running Docker containers", stream=True)
 
-    # Example: Pull and run an NGINX container
+    # 示例：拉取并运行一个 NGINX 容器
     docker_agent.print_response("Pull the latest nginx image", stream=True)
     docker_agent.print_response("Run an nginx container named 'web-server' on port 8080", stream=True)
 
 except ValueError as e:
     print(f"\n❌ Docker Tool Error: {e}")
-    print("\n🔍 Troubleshooting steps:")
+    print("\n🔍 故障排除步骤：")
 
     if sys.platform == "darwin":  # macOS
-        print("1. Ensure Docker Desktop is running")
-        print("2. Check Docker Desktop settings")
-        print("3. Try running 'docker ps' in terminal to verify access")
+        print("1. 确保 Docker Desktop 正在运行")
+        print("2. 检查 Docker Desktop 设置")
+        print("3. 尝试在终端中运行 'docker ps' 来验证访问权限")
 
     elif sys.platform == "linux":
-        print("1. Check if Docker service is running:")
+        print("1. 检查 Docker 服务是否正在运行：")
         print("   systemctl status docker")
-        print("2. Make sure your user has permissions to access Docker:")
+        print("2. 确保您的用户有权限访问 Docker：")
         print("   sudo usermod -aG docker $USER")
 
     elif sys.platform == "win32":
-        print("1. Ensure Docker Desktop is running")
-        print("2. Check Docker Desktop settings")
+        print("1. 确保 Docker Desktop 正在运行")
+        print("2. 检查 Docker Desktop 设置")
 ```
 
-## Toolkit Params
+## 工具包参数
 
-| Parameter                    | Type   | Default | Description                                        |
-| ---------------------------- | ------ | ------- | -------------------------------------------------- |
-| `enable_container_management` | `bool` | `True`  | Enables container management functions (list, start, stop, etc.) |
-| `enable_image_management`    | `bool` | `True`  | Enables image management functions (pull, build, etc.) |
-| `enable_volume_management`   | `bool` | `False` | Enables volume management functions |
-| `enable_network_management`  | `bool` | `False` | Enables network management functions |
+| 参数                    | 类型   | 默认值 | 描述                                      |
+| ----------------------- | ------ | ------ | ----------------------------------------- |
+| `enable_container_management` | `bool` | `True` | 启用容器管理功能（列出、启动、停止等） |
+| `enable_image_management`   | `bool` | `True` | 启用镜像管理功能（拉取、构建等）      |
+| `enable_volume_management`  | `bool` | `False`| 启用卷管理功能                         |
+| `enable_network_management` | `bool` | `False`| 启用网络管理功能                       |
 
-## Toolkit Functions
+## 工具包函数
 
-### Container Management
+### 容器管理
 
-| Function           | Description                                                  |
-| ------------------ | ------------------------------------------------------------ |
-| `list_containers`  | Lists all containers or only running containers              |
-| `start_container`  | Starts a stopped container                                   |
-| `stop_container`   | Stops a running container                                    |
-| `remove_container` | Removes a container                                          |
-| `get_container_logs` | Retrieves logs from a container                            |
-| `inspect_container` | Gets detailed information about a container                 |
-| `run_container`    | Creates and starts a new container                           |
-| `exec_in_container` | Executes a command inside a running container               |
+| 函数                  | 描述                                     |
+| --------------------- | ---------------------------------------- |
+| `list_containers`     | 列出所有容器或仅运行的容器               |
+| `start_container`     | 启动已停止的容器                         |
+| `stop_container`      | 停止运行的容器                           |
+| `remove_container`    | 删除容器                                 |
+| `get_container_logs`  | 从容器检索日志                           |
+| `inspect_container`   | 获取容器的详细信息                       |
+| `run_container`       | 创建并启动新容器                         |
+| `exec_in_container`   | 在运行的容器中执行命令                   |
 
-### Image Management
+### 镜像管理
 
-| Function           | Description                                                  |
-| ------------------ | ------------------------------------------------------------ |
-| `list_images`      | Lists all images on the system                               |
-| `pull_image`       | Pulls an image from a registry                               |
-| `remove_image`     | Removes an image                                             |
-| `build_image`      | Builds an image from a Dockerfile                            |
-| `tag_image`        | Tags an image                                                |
-| `inspect_image`    | Gets detailed information about an image                     |
+| 函数           | 描述                             |
+| -------------- | -------------------------------- |
+| `list_images`  | 列出系统上的所有镜像             |
+| `pull_image`   | 从注册中心拉取镜像               |
+| `remove_image` | 删除镜像                         |
+| `build_image`  | 从 Dockerfile 构建镜像           |
+| `tag_image`    | 为镜像打标签                     |
+| `inspect_image`| 获取镜像的详细信息               |
 
-### Volume Management
+### 卷管理
 
-| Function           | Description                                                  |
-| ------------------ | ------------------------------------------------------------ |
-| `list_volumes`     | Lists all volumes                                            |
-| `create_volume`    | Creates a new volume                                         |
-| `remove_volume`    | Removes a volume                                             |
-| `inspect_volume`   | Gets detailed information about a volume                     |
+| 函数             | 描述                           |
+| ---------------- | ------------------------------ |
+| `list_volumes`   | 列出所有卷                     |
+| `create_volume`  | 创建新卷                       |
+| `remove_volume`  | 删除卷                         |
+| `inspect_volume` | 获取卷的详细信息               |
 
-### Network Management
+### 网络管理
 
-| Function                          | Description                                      |
-| --------------------------------- | ------------------------------------------------ |
-| `list_networks`                   | Lists all networks                               |
-| `create_network`                  | Creates a new network                            |
-| `remove_network`                  | Removes a network                                |
-| `inspect_network`                 | Gets detailed information about a network        |
-| `connect_container_to_network`    | Connects a container to a network                |
-| `disconnect_container_from_network` | Disconnects a container from a network         |
+| 函数                               | 描述                               |
+| ---------------------------------- | ---------------------------------- |
+| `list_networks`                    | 列出所有网络                       |
+| `create_network`                   | 创建新网络                         |
+| `remove_network`                   | 删除网络                           |
+| `inspect_network`                  | 获取网络的详细信息                 |
+| `connect_container_to_network`     | 将容器连接到网络                   |
+| `disconnect_container_from_network`| 将容器从网络断开连接               |
 
+## 开发人员资源
 
-## Developer Resources
-
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/docker.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/docker_tools.py)
+- 查看 [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/docker.py)
+- 查看 [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/docker_tools.py)

@@ -3,25 +3,25 @@ title: Daytona
 description: Enable your Agents to run code in a remote, secure sandbox.
 ---
 
-**Daytona** offers secure and elastic infrastructure for runnning your AI-generated code. At Agno, we integrate with it to enable your Agents and Teams to run code in your Daytona sandboxes.
+**Daytona** 提供安全且弹性的基础设施来运行您 AI 生成的代码。在 Agno，我们与它集成，使您的 Agents 和 Teams 能够在您的 Daytona 沙箱中运行代码。
 
-## Prerequisites
+## 先决条件
 
-The Daytona tools require the `daytona_sdk` Python package:
+Daytona 工具需要 `daytona_sdk` Python 包：
 
 ```shell
 pip install daytona_sdk
 ```
 
-You will also need a Daytona API key. You can get it from your [Daytona account](https://app.daytona.io/account):
+您还需要一个 Daytona API 密钥。您可以从您的 [Daytona 账户](https://app.daytona.io/account) 获取：
 
 ```shell
 export DAYTONA_API_KEY=your_api_key
 ```
 
-## Example
+## 示例
 
-The following example demonstrates how to create an agent that can run Python code in a Daytona sandbox:
+以下示例展示了如何创建一个能够运行 Python 代码的 Daytona 沙箱代理：
 
 ```python cookbook/tools/daytona_tools.py
 from agno.agent import Agent
@@ -30,7 +30,7 @@ from agno.tools.daytona import DaytonaTools
 
 daytona_tools = DaytonaTools()
 
-# Setup an Agent focused on coding tasks, with access to the Daytona tools
+# 设置一个专注于编码任务的 Agent，并允许其访问 Daytona 工具
 agent = Agent(
     name="Coding Agent with Daytona tools",
     agent_id="coding-agent",
@@ -59,39 +59,39 @@ agent = Agent(
     ],
 )
 
-# Example: Generate Fibonacci numbers
+# 示例：生成斐波那契数列
 agent.print_response(
     "Write Python code to generate the first 10 Fibonacci numbers and calculate their sum and average"
 )
 ```
 
 
-## Toolkit Params
+## Toolkit 参数
 
-| Parameter            | Type   | Default | Description                                        |
-| -------------------- | ------ | ------- | -------------------------------------------------- |
-| `api_key`            | `str`  | `None`  | Daytona API key. If not provided, uses DAYTONA_API_KEY env var. |
-| `api_url`            | `str`  | `None`  | Daytona API URL. If not provided, uses DAYTONA_API_URL env var or the Daytona default. |
-| `sandbox_language`   | `CodeLanguage`  | `Python`  | The programming language to run on the sandbox |
-| `sandbox_target_region` | `str` | `None`  | The region where the sandbox will be created |
-| `sandbox_os`         | `str`  | `None`  | The operating system to run on the sandbox (default: ubuntu) |
-| `sandbox_os_user`    | `str`  | `None`  | The user to run the sandbox as (default: root) |
-| `sandbox_env_vars`   | `dict` | `None`  | The environment variables to set in the sandbox |
-| `sandbox_labels`     | `dict` | `None`  | The labels to set in the sandbox |
-| `sandbox_public`     | `bool` | `None`  | Whether the sandbox should be public |
-| `sandbox_auto_stop_interval` | `int` | `None`  | The interval in seconds at which the sandbox will be automatically stopped |
-| `organization_id`    | `str`  | `None`  | The organization ID to use for the sandbox |
-| `timeout`            | `int`  | `300`   | Timeout in seconds for communication with the sandbox (default: 5 minutes) |
+| 参数            | 类型   | 默认值 | 描述                                        |
+| --------------- | ------ | ------- | ------------------------------------------- |
+| `api_key`            | `str`  | `None`  | Daytona API 密钥。如果未提供，则使用 DAYTONA_API_KEY 环境变量。 |
+| `api_url`            | `str`  | `None`  | Daytona API URL。如果未提供，则使用 DAYTONA_API_URL 环境变量或 Daytona 默认值。 |
+| `sandbox_language`   | `CodeLanguage`  | `Python`  | 在沙箱中运行的编程语言。 |
+| `sandbox_target_region` | `str` | `None`  | 将创建沙箱的区域。 |
+| `sandbox_os`         | `str`  | `None`  | 在沙箱中运行的操作系统（默认：ubuntu）。 |
+| `sandbox_os_user`    | `str`  | `None`  | 作为哪个用户运行沙箱（默认：root）。 |
+| `sandbox_env_vars`   | `dict` | `None`  | 将在沙箱中设置的环境变量。 |
+| `sandbox_labels`     | `dict` | `None`  | 将在沙箱中设置的标签。 |
+| `sandbox_public`     | `bool` | `None`  | 沙箱是否应公开。 |
+| `sandbox_auto_stop_interval` | `int` | `None`  | 沙箱将自动停止的间隔（秒）。 |
+| `organization_id`    | `str`  | `None`  | 将用于沙箱的组织 ID。 |
+| `timeout`            | `int`  | `300`   | 与沙箱通信的超时（秒）（默认：5 分钟）。 |
 
-### Code Execution Tools
+### 代码执行工具
 
-| Function           | Description                                                  |
-| ------------------ | ------------------------------------------------------------ |
-| `run_python_code`  | Run Python code in the contextual Daytona sandbox               |
-| `run_code`         | Run non-Python code in the contextual Daytona sandbox               |
+| 函数           | 描述                                                  |
+| -------------- | ----------------------------------------------------- |
+| `run_python_code`  | 在上下文 Daytona 沙箱中运行 Python 代码。                |
+| `run_code`         | 在上下文 Daytona 沙箱中运行非 Python 代码。                |
 
-## Developer Resources
+## 开发者资源
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/daytona.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/daytona_tools.py)
-- View [Daytona Documentation](https://www.daytona.io/docs/)
+- 查看 [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/daytona.py)
+- 查看 [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/daytona_tools.py)
+- 查看 [Daytona 文档](https://www.daytona.io/docs/)

@@ -1,18 +1,17 @@
 ---
-title: Image Generation
+title: 图像生成
 ---
 
-This example shows how to create an AI agent that generates images using DALL-E.
-You can use this agent to create various types of images, from realistic photos to artistic
-illustrations and creative concepts.
+这个示例展示了如何创建一个使用 DALL-E 生成图像的 AI 代理。
+您可以使用此代理创建各种类型的图像，从逼真的照片到艺术插画和创意概念。
 
-Example prompts to try:
-- "Create a surreal painting of a floating city in the clouds at sunset"
-- "Generate a photorealistic image of a cozy coffee shop interior"
-- "Design a cute cartoon mascot for a tech startup"
-- "Create an artistic portrait of a cyberpunk samurai"
+可尝试的示例提示：
+- "在日落时分创作一幅漂浮在云端的超现实主义城市绘画"
+- "生成一个舒适咖啡馆内部的逼真照片"
+- "为一个科技初创公司设计一个可爱的卡通吉祥物"
+- "创作一个赛博朋克武士的艺术肖像"
 
-## Code
+## 代码
 
 ```python image_generation.py
 from textwrap import dedent
@@ -21,64 +20,63 @@ from agno.agent import Agent
 from agno.models.openai import OpenAIChat
 from agno.tools.dalle import DalleTools
 
-# Create an Creative AI Artist Agent
+# 创建一个创意 AI 艺术家代理
 image_agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
     tools=[DalleTools()],
     description=dedent("""\
-        You are an experienced AI artist with expertise in various artistic styles,
-        from photorealism to abstract art. You have a deep understanding of composition,
-        color theory, and visual storytelling.\
+        你是一位经验丰富的 AI 艺术家，精通从照片写实主义到抽象艺术的各种艺术风格。
+        你对构图、色彩理论和视觉叙事有着深刻的理解。\
     """),
     instructions=dedent("""\
-        As an AI artist, follow these guidelines:
-        1. Analyze the user's request carefully to understand the desired style and mood
-        2. Before generating, enhance the prompt with artistic details like lighting, perspective, and atmosphere
-        3. Use the `create_image` tool with detailed, well-crafted prompts
-        4. Provide a brief explanation of the artistic choices made
-        5. If the request is unclear, ask for clarification about style preferences
+        作为一名 AI 艺术家，请遵循以下指南：
+        1. 仔细分析用户的请求，理解想要的风格和情绪。
+        2. 生成之前，用光照、视角和氛围等艺术细节来优化提示词。
+        3. 使用 `create_image` 工具，并提供详细、精心设计的提示词。
+        4. 简要解释所做的艺术选择。
+        5. 如果请求不明确，请就风格偏好进行澄清。
 
-        Always aim to create visually striking and meaningful images that capture the user's vision!\
+        始终以创造视觉上引人注目且有意义的图像为目标，捕捉用户的愿景！\
     """),
     markdown=True,
     show_tool_calls=True,
 )
 
-# Example usage
+# 示例用法
 image_agent.print_response(
-    "Create a magical library with floating books and glowing crystals", stream=True
+    "创建一个有漂浮书籍和发光水晶的魔法图书馆", stream=True
 )
 
-# Retrieve and display generated images
+# 检索并显示生成的图像
 images = image_agent.get_images()
 if images and isinstance(images, list):
     for image_response in images:
         image_url = image_response.url
-        print(f"Generated image URL: {image_url}")
+        print(f"生成的图像 URL: {image_url}")
 
-# More example prompts to try:
+# 更多可尝试的示例提示：
 """
-Try these creative prompts:
-1. "Generate a steampunk-style robot playing a violin"
-2. "Design a peaceful zen garden during cherry blossom season"
-3. "Create an underwater city with bioluminescent buildings"
-4. "Generate a cozy cabin in a snowy forest at night"
-5. "Create a futuristic cityscape with flying cars and skyscrapers"
+尝试这些创意提示：
+1. "生成一个正在演奏小提琴的蒸汽朋克风格机器人"
+2. "设计一个宁静的禅意花园，展示樱花盛开的季节"
+3. "创造一个拥有生物发光建筑的海底城市"
+4. "生成一张夜晚的雪林中舒适小屋的图片"
+5. "创作一个拥有飞行汽车和摩天大楼的未来城市景观"
 """
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install openai agno
     ```
   </Step>
 
-  <Step title="Run the agent">
+  <Step title="运行代理">
     ```bash
     python image_generation.py
     ```

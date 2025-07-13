@@ -1,8 +1,8 @@
 ---
-title: Async Streaming Agent
+title: 异步流式代理
 ---
 
-## Code
+## 代码
 
 ```python cookbook/models/ibm/watsonx/async_basic_stream.py
 import asyncio
@@ -14,34 +14,34 @@ agent = Agent(
     model=WatsonX(id="ibm/granite-20b-code-instruct"), debug_mode=True, markdown=True
 )
 
-# Get the response in a variable
+# 获取响应到一个变量
 # run_response: Iterator[RunResponse] = agent.run("Share a 2 sentence horror story", stream=True)
 # for chunk in run_response:
 #     print(chunk.content)
 
-# Print the response in the terminal
+# 在终端打印响应
 asyncio.run(agent.aprint_response("Share a 2 sentence horror story", stream=True))
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置你的 API 密钥">
     ```bash
     export IBM_WATSONX_API_KEY=xxx
     export IBM_WATSONX_PROJECT_ID=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U ibm-watsonx-ai agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行代理">
     <CodeGroup>
     ```bash Mac
     python cookbook/models/ibm/watsonx/async_basic_stream.py
@@ -54,4 +54,4 @@ asyncio.run(agent.aprint_response("Share a 2 sentence horror story", stream=True
   </Step>
 </Steps>
 
-This example combines asynchronous execution with streaming. It creates an agent with `debug_mode=True` for additional logging and uses the asynchronous API with streaming to get and display responses as they're generated. 
+此示例结合了异步执行和流式传输。它创建了一个 `debug_mode=True` 的代理以获得额外的日志记录，并使用带有流式传输的异步 API 来获取和显示正在生成的响应。

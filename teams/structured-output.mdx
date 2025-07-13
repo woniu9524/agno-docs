@@ -1,12 +1,12 @@
 ---
-title: Structured Output
+title: 结构化输出
 ---
 
-Teams can generate structured data using Pydantic models, just like individual agents. This feature is perfect for coordinated data extraction, analysis, and report generation where multiple agents work together to produce a structured result.
+团队可以像单个代理一样，使用 Pydantic 模型生成结构化数据。此功能非常适合协调数据提取、分析和报告生成，其中多个代理协同工作以产生结构化结果。
 
-## Example
+## 示例
 
-Let's create a Stock Research Team that produces a structured `StockReport`.
+让我们创建一个生成结构化 `StockReport` 的股票研究团队。
 
 ```python stock_team.py
 from typing import List
@@ -26,18 +26,18 @@ class CompanyAnalysis(BaseModel):
     analysis: str
 
 class StockReport(BaseModel):
-    symbol: str = Field(..., description="Stock ticker symbol")
-    company_name: str = Field(..., description="Full company name")
-    current_price: str = Field(..., description="Current stock price")
-    analysis: str = Field(..., description="Comprehensive analysis combining multiple perspectives")
-    recommendation: str = Field(..., description="Investment recommendation: Buy, Hold, or Sell")
+    symbol: str = Field(..., description="股票代码符号")
+    company_name: str = Field(..., description="完整公司名称")
+    current_price: str = Field(..., description="当前股票价格")
+    analysis: str = Field(..., description="结合多种视角的全面分析")
+    recommendation: str = Field(..., description="投资建议：买入、持有或卖出")
 
-# Create specialized agents
+# 创建专业代理
 stock_searcher = Agent(
-    name="Stock Searcher",
+    name="股票搜索器",
     model=OpenAIChat("gpt-4o"),
     response_model=StockAnalysis,
-    role="Searches for current stock information and price data.",
+    role="搜索当前股票信息和价格数据。",
     tools=[
         YFinanceTools(
             stock_price=True,
@@ -47,9 +47,9 @@ stock_searcher = Agent(
 )
 
 company_info_agent = Agent(
-    name="Company Info Searcher", 
+    name="公司信息搜索器", 
     model=OpenAIChat("gpt-4o"),
-    role="Researches company fundamentals and recent news.",
+    role="研究公司基本面和近期新闻。",
     response_model=CompanyAnalysis,
     tools=[
         YFinanceTools(
@@ -60,9 +60,9 @@ company_info_agent = Agent(
     ],
 )
 
-# Create team with structured output
+# 创建具有结构化输出的团队
 stock_research_team = Team(
-    name="Stock Research Team",
+    name="股票研究团队",
     mode="coordinate",
     model=OpenAIChat("gpt-4o"),
     members=[stock_searcher, company_info_agent],
@@ -71,28 +71,28 @@ stock_research_team = Team(
     show_members_responses=True,
 )
 
-stock_research_team.print_response("Give me a comprehensive stock report for NVDA")
+stock_research_team.print_response("给我一份关于 NVDA 的全面股票报告")
 ```
 
-The team will coordinate between its members and produce a structured `StockReport` object:
+该团队将协调其成员之间进行工作，并生成一个结构化的 `StockReport` 对象：
 
 ```python
 StockReport(
 │   symbol='NVDA',
 │   company_name='NVIDIA Corporation',
 │   current_price='$875.42',
-│   analysis='NVIDIA continues to dominate the AI chip market with strong demand for its H100 and upcoming H200 GPUs. The company has shown exceptional growth in data center revenue, driven by enterprise AI adoption and cloud provider expansion. Recent partnerships with major tech companies strengthen its market position, though competition from AMD and Intel is intensifying.',
+│   analysis='NVIDIA 通过 H100 和即将推出的 H200 GPU 的强劲需求，继续主导人工智能芯片市场。由于企业人工智能的采用和云计算提供商的扩展，该公司在数据中心收入方面表现出卓越的增长。与主要科技公司的近期合作关系巩固了其市场地位，尽管来自 AMD 和英特尔的竞争正在加剧。',
 │   recommendation='Buy'
 )
 ```
 
-## Using a Parser Model
+## 使用解析器模型
 
-You can use an additional model to parse and structure the output from your primary model. This approach is particularly effective when the primary model is optimized for reasoning tasks, as such models may not consistently produce detailed structured responses.
+您可以使用额外的模型来解析和结构化主模型的输出。当主模型针对推理任务进行了优化时，这种方法特别有效，因为此类模型可能无法始终产生详细的结构化响应。
 
 ```python
 team = Team(
-    name="Stock Research Team",
+    name="股票研究团队",
     mode="coordinate",
     model=Claude(id="claude-sonnet-4-20250514"),
     members=[stock_searcher, company_info_agent],
@@ -101,11 +101,11 @@ team = Team(
 )
 ```
 
-You can also provide a custom `parser_model_prompt` to your Parser Model.
+您还可以为 Parser Model 提供自定义的 `parser_model_prompt`。
 
-## Streaming Structured Output
+## 流式传输结构化输出
 
-Teams support streaming with structured output, where the `content` event contains the complete structured result as a single event.
+团队支持流式传输与结构化输出，其中 `content` 事件包含完整的结构化结果作为单个事件。
 
 ```python streaming_team.py
 from typing import List
@@ -116,30 +116,30 @@ from agno.team.team import Team
 from agno.tools.yfinance import YFinanceTools
 
 class MarketAnalysis(BaseModel):
-    sector: str = Field(..., description="Market sector being analyzed")
-    key_trends: List[str] = Field(..., description="Major trends affecting the sector")
-    top_performers: List[str] = Field(..., description="Best performing stocks in the sector")
-    market_outlook: str = Field(..., description="Overall market outlook and predictions")
-    risk_factors: List[str] = Field(..., description="Key risks to consider")
+    sector: str = Field(..., description="正在分析的市场领域")
+    key_trends: List[str] = Field(..., description="影响该领域的关键趋势")
+    top_performers: List[str] = Field(..., description="该领域表现最佳的股票")
+    market_outlook: str = Field(..., description="整体市场前景和预测")
+    risk_factors: List[str] = Field(..., description="需要考虑的关键风险因素")
 
-# Create research agents
+# 创建研究代理
 trend_analyst = Agent(
-    name="Trend Analyst",
+    name="趋势分析师",
     model=OpenAIChat("gpt-4o"),
-    role="Analyzes market trends and sector performance.",
+    role="分析市场趋势和行业表现。",
     tools=[YFinanceTools(stock_price=True, analyst_recommendations=True)]
 )
 
 risk_assessor = Agent(
-    name="Risk Assessor", 
+    name="风险评估师", 
     model=OpenAIChat("gpt-4o"),
-    role="Identifies and evaluates market risks and opportunities.",
+    role="识别和评估市场风险与机遇。",
     tools=[YFinanceTools(company_news=True, company_info=True)]
 )
 
-# Create streaming team
+# 创建流式传输团队
 market_research_team = Team(
-    name="Market Research Team",
+    name="市场研究团队",
     mode="coordinate", 
     model=OpenAIChat("gpt-4o"),
     members=[trend_analyst, risk_assessor],
@@ -148,18 +148,18 @@ market_research_team = Team(
     show_members_responses=True,
 )
 
-# Stream the team response
+# 流式传输团队响应
 market_research_team.print_response(
-    "Analyze the technology sector for Q1 2024", 
+    "分析 2024 年第一季度科技行业", 
     stream=True, 
     stream_intermediate_steps=True
 )
 ```
 
 <Note>
-When streaming with teams and structured output, you'll see intermediate steps from individual team members, but the final structured result is delivered as a single complete chunk rather than being streamed progressively.
+当使用团队和结构化输出进行流式传输时，您将看到来自个别团队成员的中间步骤，但最终的结构化结果是作为一个完整的块交付的，而不是渐进式流式传输的。
 </Note>
 
 
-## Developer Resources
-- View [Streaming Team Output](https://github.com/agno-agi/agno/blob/main/cookbook/teams/structured_output_streaming.py)
+## 开发者资源
+- 查看 [流式传输团队输出](https://github.com/agno-agi/agno/blob/main/cookbook/teams/structured_output_streaming.py)

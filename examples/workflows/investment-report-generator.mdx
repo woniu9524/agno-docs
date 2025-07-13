@@ -1,31 +1,29 @@
 ---
-title: Investment Report Generator
+title: 投资报告生成器
 ---
 
-This advanced example shows how to build a sophisticated investment analysis system that combines
-market research, financial analysis, and portfolio management. The workflow uses a three-stage
-approach:
-1. Comprehensive stock analysis and market research
-2. Investment potential evaluation and ranking
-3. Strategic portfolio allocation recommendations
+这个高级示例展示了如何构建一个复杂的投资分析系统，该系统结合了市场研究、财务分析和投资组合管理。该工作流采用了三阶段方法：
+1. 全面的股票分析和市场研究
+2. 投资潜力评估和排名
+3. 战略性投资组合配置建议
 
-Key capabilities:
-- Real-time market data analysis
-- Professional financial research
-- Investment risk assessment
-- Portfolio allocation strategy
-- Detailed investment rationale
+主要功能：
+- 实时市场数据分析
+- 专业财务研究
+- 投资风险评估
+- 投资组合配置策略
+- 详细的投资逻辑
 
-Example companies to analyze:
-- "AAPL, MSFT, GOOGL" (Tech Giants)
-- "NVDA, AMD, INTC" (Semiconductor Leaders)
-- "TSLA, F, GM" (Automotive Innovation)
-- "JPM, BAC, GS" (Banking Sector)
-- "AMZN, WMT, TGT" (Retail Competition)
-- "PFE, JNJ, MRNA" (Healthcare Focus)
-- "XOM, CVX, BP" (Energy Sector)
+需要分析的公司示例：
+- "AAPL, MSFT, GOOGL" (科技巨头)
+- "NVDA, AMD, INTC" (半导体领导者)
+- "TSLA, F, GM" (汽车创新)
+- "JPM, BAC, GS" (银行业)
+- "AMZN, WMT, TGT" (零售业竞争)
+- "PFE, JNJ, MRNA" (医疗保健重点)
+- "XOM, CVX, BP" (能源行业)
 
-Run `pip install openai yfinance agno` to install dependencies.
+运行 `pip install openai yfinance agno` 来安装依赖。
 """
 
 
@@ -52,172 +50,168 @@ investment_report = str(reports_dir.joinpath("investment_report.md"))
 
 
 class InvestmentReportGenerator(Workflow):
-    """Advanced workflow for generating professional investment analysis with strategic recommendations."""
+    """高级工作流，用于生成专业的投资分析和战略建议。"""
 
     description: str = dedent("""\
-    An intelligent investment analysis system that produces comprehensive financial research and
-    strategic investment recommendations. This workflow orchestrates multiple AI agents to analyze
-    market data, evaluate investment potential, and create detailed portfolio allocation strategies.
-    The system excels at combining quantitative analysis with qualitative insights to deliver
-    actionable investment advice.
+    一个智能投资分析系统，能够产出全面的财务研究和战略性投资建议。该工作流协调多个 AI 代理来分析市场数据、评估投资潜力并创建详细的投资组合配置策略。该系统擅长将量化分析与定性见解相结合，提供可操作的投资建议。
     """)
 
     stock_analyst: Agent = Agent(
-        name="Stock Analyst",
+        name="股票分析师",
         tools=[
             YFinanceTools(
                 company_info=True, analyst_recommendations=True, company_news=True
             )
         ],
         description=dedent("""\
-        You are MarketMaster-X, an elite Senior Investment Analyst at Goldman Sachs with expertise in:
+        你是 MarketMaster-X，高盛的顶级高级投资分析师，专长于：
 
-        - Comprehensive market analysis
-        - Financial statement evaluation
-        - Industry trend identification
-        - News impact assessment
-        - Risk factor analysis
-        - Growth potential evaluation\
+        - 全面的市场分析
+        - 财务报表评估
+        - 行业趋势识别
+        - 新闻影响评估
+        - 风险因素分析
+        - 增长潜力评估\
         """),
         instructions=dedent("""\
-        1. Market Research 📊
-           - Analyze company fundamentals and metrics
-           - Review recent market performance
-           - Evaluate competitive positioning
-           - Assess industry trends and dynamics
-        2. Financial Analysis 💹
-           - Examine key financial ratios
-           - Review analyst recommendations
-           - Analyze recent news impact
-           - Identify growth catalysts
-        3. Risk Assessment 🎯
-           - Evaluate market risks
-           - Assess company-specific challenges
-           - Consider macroeconomic factors
-           - Identify potential red flags
-        Note: This analysis is for educational purposes only.\
+        1. 市场研究 📊
+           - 分析公司基本面和指标
+           - 查看近期市场表现
+           - 评估竞争格局
+           - 评估行业趋势和动态
+        2. 财务分析 💹
+           - 审查关键财务比率
+           - 查看分析师建议
+           - 分析近期新闻影响
+           - 识别增长催化剂
+        3. 风险评估 🎯
+           - 评估市场风险
+           - 评估公司特定挑战
+           - 考虑宏观经济因素
+           - 识别潜在的危险信号
+        注意：此分析仅用于教育目的。\
         """),
-        expected_output="Comprehensive market analysis report in markdown format",
+        expected_output="全面的市场分析报告（markdown 格式）",
         save_response_to_file=stock_analyst_report,
     )
 
     research_analyst: Agent = Agent(
-        name="Research Analyst",
+        name="研究分析师",
         description=dedent("""\
-        You are ValuePro-X, an elite Senior Research Analyst at Goldman Sachs specializing in:
+        你是 ValuePro-X，高盛的顶级高级研究分析师，专长于：
 
-        - Investment opportunity evaluation
-        - Comparative analysis
-        - Risk-reward assessment
-        - Growth potential ranking
-        - Strategic recommendations\
+        - 投资机会评估
+        - 比较分析
+        - 风险回报评估
+        - 增长潜力排名
+        - 战略建议\
         """),
         instructions=dedent("""\
-        1. Investment Analysis 🔍
-           - Evaluate each company's potential
-           - Compare relative valuations
-           - Assess competitive advantages
-           - Consider market positioning
-        2. Risk Evaluation 📈
-           - Analyze risk factors
-           - Consider market conditions
-           - Evaluate growth sustainability
-           - Assess management capability
-        3. Company Ranking 🏆
-           - Rank based on investment potential
-           - Provide detailed rationale
-           - Consider risk-adjusted returns
-           - Explain competitive advantages\
+        1. 投资分析 🔍
+           - 评估每家公司的潜力
+           - 比较相对估值
+           - 评估竞争优势
+           - 考虑市场定位
+        2. 风险评估 📈
+           - 分析风险因素
+           - 考虑市场状况
+           - 评估增长可持续性
+           - 评估管理能力
+        3. 公司排名 🏆
+           - 根据投资潜力排名
+           - 提供详细理由
+           - 考虑风险调整后的回报
+           - 解释竞争优势\
         """),
-        expected_output="Detailed investment analysis and ranking report in markdown format",
+        expected_output="详细的投资分析和排名报告（markdown 格式）",
         save_response_to_file=research_analyst_report,
     )
 
     investment_lead: Agent = Agent(
-        name="Investment Lead",
+        name="投资主管",
         description=dedent("""\
-        You are PortfolioSage-X, a distinguished Senior Investment Lead at Goldman Sachs expert in:
+        你是 PortfolioSage-X，高盛的杰出高级投资主管，专长于：
 
-        - Portfolio strategy development
-        - Asset allocation optimization
-        - Risk management
-        - Investment rationale articulation
-        - Client recommendation delivery\
+        - 投资组合策略制定
+        - 资产配置优化
+        - 风险管理
+        - 投资逻辑阐述
+        - 客户建议交付\
         """),
         instructions=dedent("""\
-        1. Portfolio Strategy 💼
-           - Develop allocation strategy
-           - Optimize risk-reward balance
-           - Consider diversification
-           - Set investment timeframes
-        2. Investment Rationale 📝
-           - Explain allocation decisions
-           - Support with analysis
-           - Address potential concerns
-           - Highlight growth catalysts
-        3. Recommendation Delivery 📊
-           - Present clear allocations
-           - Explain investment thesis
-           - Provide actionable insights
-           - Include risk considerations\
+        1. 投资组合策略 💼
+           - 制定配置策略
+           - 优化风险回报平衡
+           - 考虑多元化
+           - 设定投资时间框架
+        2. 投资逻辑 📝
+           - 解释配置决策
+           - 用分析支持
+           - 处理潜在疑虑
+           - 强调增长催化剂
+        3. 建议交付 📊
+           - 展示清晰的配置
+           - 解释投资理念
+           - 提供可操作的见解
+           - 包括风险考量\
         """),
         save_response_to_file=investment_report,
     )
 
     def run(self, companies: str) -> Iterator[RunResponse]:
-        logger.info(f"Getting investment reports for companies: {companies}")
+        logger.info(f"正在获取公司 {companies} 的投资报告")
         initial_report: RunResponse = self.stock_analyst.run(companies)
         if initial_report is None or not initial_report.content:
             yield RunResponse(
                 run_id=self.run_id,
-                content="Sorry, could not get the stock analyst report.",
+                content="抱歉，无法获取股票分析师报告。",
             )
             return
 
-        logger.info("Ranking companies based on investment potential.")
+        logger.info("正在根据投资潜力对公司进行排名。")
         ranked_companies: RunResponse = self.research_analyst.run(
             initial_report.content
         )
         if ranked_companies is None or not ranked_companies.content:
             yield RunResponse(
-                run_id=self.run_id, content="Sorry, could not get the ranked companies."
+                run_id=self.run_id, content="抱歉，无法获取排名后的公司列表。"
             )
             return
 
         logger.info(
-            "Reviewing the research report and producing an investment proposal."
+            "正在审查研究报告并生成投资建议。"
         )
         yield from self.investment_lead.run(ranked_companies.content, stream=True)
 
 
-# Run the workflow if the script is executed directly
+# 如果脚本直接执行，则运行工作流
 if __name__ == "__main__":
     import random
 
     from rich.prompt import Prompt
 
-    # Example investment scenarios to showcase the analyzer's capabilities
+    # 示例投资场景，展示分析器的功能
     example_scenarios = [
-        "AAPL, MSFT, GOOGL",  # Tech Giants
-        "NVDA, AMD, INTC",  # Semiconductor Leaders
-        "TSLA, F, GM",  # Automotive Innovation
-        "JPM, BAC, GS",  # Banking Sector
-        "AMZN, WMT, TGT",  # Retail Competition
-        "PFE, JNJ, MRNA",  # Healthcare Focus
-        "XOM, CVX, BP",  # Energy Sector
+        "AAPL, MSFT, GOOGL",  # 科技巨头
+        "NVDA, AMD, INTC",  # 半导体领导者
+        "TSLA, F, GM",  # 汽车创新
+        "JPM, BAC, GS",  # 银行业
+        "AMZN, WMT, TGT",  # 零售业竞争
+        "PFE, JNJ, MRNA",  # 医疗保健重点
+        "XOM, CVX, BP",  # 能源行业
     ]
 
-    # Get companies from user with example suggestion
+    # 从用户那里获取公司信息，并提供示例建议
     companies = Prompt.ask(
-        "[bold]Enter company symbols (comma-separated)[/bold] "
-        "(or press Enter for a suggested portfolio)\n✨",
+        "[bold]请输入公司股票代码（逗号分隔）[/bold] "
+        "(或按 Enter 键获取建议组合)\n✨",
         default=random.choice(example_scenarios),
     )
 
-    # Convert companies to URL-safe string for session_id
+    # 将公司信息转换为 URL 安全的字符串以用作 session_id
     url_safe_companies = companies.lower().replace(" ", "-").replace(",", "")
 
-    # Initialize the investment analyst workflow
+    # 初始化投资分析师工作流
     investment_report_generator = InvestmentReportGenerator(
         session_id=f"investment-report-{url_safe_companies}",
         storage=SqliteStorage(
@@ -226,25 +220,25 @@ if __name__ == "__main__":
         ),
     )
 
-    # Execute the workflow
+    # 执行工作流
     report: Iterator[RunResponse] = investment_report_generator.run(companies=companies)
 
-    # Print the report
+    # 打印报告
     pprint_run_response(report, markdown=True)
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install openai yfinance agno
     ```
   </Step>
 
-  <Step title="Run the agent">
+  <Step title="运行代理">
     ```bash
     python investment_report_generator.py
     ```

@@ -1,13 +1,13 @@
 ---
-title: Tokens-per-minute rate limiting
-sidebarTitle: TPM rate limiting
+title: 每分钟令牌数速率限制
+sidebarTitle: 每分钟令牌数速率限制
 ---
 
 ![Chat with pdf](/images/tpm_issues.png)
 
-If you face any problems with proprietary models (like OpenAI models) where you are rate limited, we provide the option to set `exponential_backoff=True` and to change `delay_between_retries` to a value in seconds (defaults to 1 second).
+如果您在使用专有模型（如 OpenAI 模型）时遇到被限制速率的问题，我们提供了设置 `exponential_backoff=True` 的选项，并将 `delay_between_retries` 的值更改为秒（默认为 1 秒）。
 
-For example:
+例如：
 ```python
 from agno.agent import Agent
 from agno.models.openai import OpenAIChat
@@ -22,6 +22,6 @@ agent = Agent(
 agent.print_response("Tell me about a breaking news story from New York.", stream=True)
 ```
 
-See our [models documentation](../models/) for specific information about rate limiting.
+有关速率限制的具体信息，请参阅我们的 [模型文档](../models/)。
 
-In the case of OpenAI, they have tier based rate limits. See the [docs](https://platform.openai.com/docs/guides/rate-limits/usage-tiers) for more information.
+对于 OpenAI，它们有基于级别的速率限制。有关更多信息，请参见 [文档](https://platform.openai.com/docs/guides/rate-limits/usage-tiers)。

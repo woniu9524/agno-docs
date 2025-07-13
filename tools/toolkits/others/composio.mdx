@@ -2,20 +2,20 @@
 title: Composio
 ---
 
-[**ComposioTools**](https://docs.composio.dev/framework/phidata) enable an Agent to work with tools like Gmail, Salesforce, Github, etc.
+[**ComposioTools**](https://docs.composio.dev/framework/phidata) 使代理能够使用 Gmail、Salesforce、Github 等工具。
 
-## Prerequisites
+## 前提条件
 
-The following example requires the `composio-agno` library.
+以下示例需要 `composio-agno` 库。
 
 ```shell
 pip install composio-agno
-composio add github # Login into Github
+composio add github # 登录 Github
 ```
 
-## Example
+## 示例
 
-The following agent will use Github Tool from Composio Toolkit to star a repo.
+以下代理将使用 Composio Toolkit 中的 Github 工具来 star 一个仓库。
 
 ```python cookbook/tools/composio_tools.py
 from agno.agent import Agent
@@ -31,16 +31,16 @@ agent = Agent(tools=composio_tools, show_tool_calls=True)
 agent.print_response("Can you star agno-agi/agno repo?")
 ```
 
-## Toolkit Params
+## Toolkit 参数
 
-The following parameters are used when calling the GitHub star repository action:
+调用 GitHub star 仓库操作时使用以下参数：
 
-| Parameter | Type | Default | Description |
+| 参数 | 类型 | 默认值 | 描述 |
 |-----------|------|---------|-------------|
-| `owner` | `str` | - | The owner of the repository to star. |
-| `repo` | `str` | - | The name of the repository to star. |
+| `owner` | `str` | - | 要 star 的仓库的所有者。 |
+| `repo` | `str` | - | 要 star 的仓库的名称。 |
 
 ## Toolkit Functions
 
-Composio Toolkit provides 1000+ functions to connect to different software tools.
-Open this [link](https://composio.dev/tools) to view the complete list of functions.
+Composio Toolkit 提供 1000 多个函数来连接不同的软件工具。
+打开此 [链接](https://composio.dev/tools) 查看完整的函数列表。

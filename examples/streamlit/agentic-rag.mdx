@@ -5,19 +5,19 @@ title: Agentic RAG
 This example application shows how to build a sophisticated RAG (Retrieval Augmented Generation) system that leverages search of a knowledge base with LLMs to provide deep insights into the data.
 
 
-## The agent can:
-- Process and understand documents from multiple sources (PDFs, websites, text files)
-- Build a searchable knowledge base using vector embeddings
-- Maintain conversation context and memory across sessions
-- Provide relevant citations and sources for its responses
-- Generate summaries and extract key insights
-- Answer follow-up questions and clarifications
+## 该代理可以：
+- 处理和理解来自多个来源（PDF、网站、文本文件）的文档
+- 使用向量嵌入构建可搜索的知识库
+- 跨会话维护对话上下文和记忆
+- 为其响应提供相关的引文和来源
+- 生成摘要并提取关键见解
+- 回答后续问题和澄清
 
-## The agent uses:
-- Vector similarity search for relevant document retrieval
-- Conversation memory for contextual responses
-- Citation tracking for source attribution
-- Dynamic knowledge base updates
+## 该代理使用：
+- 用于相关文档检索的向量相似性搜索
+- 用于上下文响应的对话记忆
+- 用于来源归属的引文跟踪
+- 动态知识库更新
 
 <video
   autoPlay
@@ -27,51 +27,51 @@ This example application shows how to build a sophisticated RAG (Retrieval Augme
   src="/videos/agentic_rag.mp4"
 ></video>
 
-## Example queries to try:
-- "What are the key points from this document?"
-- "Can you summarize the main arguments and supporting evidence?"
-- "What are the important statistics and findings?"
-- "How does this relate to [topic X]?"
-- "What are the limitations or gaps in this analysis?"
-- "Can you explain [concept X] in more detail?"
-- "What other sources support or contradict these claims?"
+## 可尝试的示例查询：
+- "这份文件的关键要点是什么？"
+- "你能总结一下主要的论点和支持证据吗？"
+- "重要的统计数据和发现是什么？"
+- "这与[主题X]有什么关系？"
+- "这份分析的局限性或差距是什么？"
+- "你能更详细地解释一下[概念X]吗？"
+- "还有哪些其他来源支持或反驳这些说法？"
 
-## Code
+## 代码
 
-The complete code is available in the [Agno repository](https://github.com/agno-agi/agno).
+完整的代码可在 [Agno 存储库](https://github.com/agno-agi/agno) 中找到。
 
-## Usage
+## 用法
 
 <Steps>
-  <Step title="Clone the repository">
+  <Step title="克隆存储库">
     ```bash
     git clone https://github.com/agno-agi/agno.git
     cd agno
     ```
   </Step>
 
-  <Step title="Create virtual environment">
+  <Step title="创建虚拟环境">
     ```bash
     python3 -m venv .venv
     source .venv/bin/activate
     ```
   </Step>
 
-  <Step title="Install dependencies">
+  <Step title="安装依赖项">
     ```bash
     pip install -r cookbook/examples/streamlit_apps/agentic_rag/requirements.txt
     ```
   </Step>
 
-  <Step title="Run PgVector">
-    First, install [Docker Desktop](https://docs.docker.com/desktop/install/mac-install/).
+  <Step title="运行 PgVector">
+    首先，安装 [Docker Desktop](https://docs.docker.com/desktop/install/mac-install/)。
 
-    Then run either using the helper script:
+    然后使用辅助脚本运行：
     ```bash
     ./cookbook/scripts/run_pgvector.sh
     ```
 
-    Or directly with Docker:
+    或直接使用 Docker 运行：
     ```bash
     docker run -d \
       -e POSTGRES_DB=ai \
@@ -86,7 +86,7 @@ The complete code is available in the [Agno repository](https://github.com/agno-
   </Step>
 
 
-  <Step title="Set up API keys">
+  <Step title="设置 API 密钥">
     ```bash
     # Required
     export OPENAI_API_KEY=***
@@ -95,15 +95,15 @@ The complete code is available in the [Agno repository](https://github.com/agno-
     export GOOGLE_API_KEY=***
 
     ```
-    We recommend using gpt-4o for optimal performance.
+    我们建议使用 gpt-4o 以获得最佳性能。
   </Step>
 
-  <Step title="Launch the app">
+  <Step title="启动应用程序">
     ```bash
     streamlit run cookbook/examples/streamlit_apps/agentic_rag/app.py
     ```
-    Open [localhost:8501](http://localhost:8501) to start using the Agentic RAG.
+    打开 [localhost:8501](http://localhost:8501) 开始使用 Agentic RAG。
   </Step>
 </Steps>
 
-Need help? Join our [Discourse community](https://community.agno.com) for support!
+需要帮助？加入我们的 [Discourse 社区](https://community.agno.com) 以获得支持！

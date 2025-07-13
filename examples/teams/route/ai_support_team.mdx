@@ -1,10 +1,10 @@
 ---
-title: "AI Support Team"
+title: "AI 支持团队"
 ---
 
-This example illustrates how to create an AI support team that can route customer inquiries to the appropriate agent based on the nature of the inquiry.
+本示例说明了如何创建一个 AI 支持团队，该团队可以根据客户咨询的性质，将其路由到合适的客服人员。
 
-## Code
+## 代码
 
 ```python ai_support_team.py
 
@@ -19,9 +19,9 @@ from agno.vectordb.pgvector.pgvector import PgVector
 
 knowledge_base = WebsiteKnowledgeBase(
     urls=["https://docs.agno.com/introduction"],
-    # Number of links to follow from the seed URLs
+    # 要从种子 URL 跟踪的链接数量
     max_links=10,
-    # Table name: ai.website_documents
+    # 表名: ai.website_documents
     vector_db=PgVector(
         table_name="website_documents",
         db_url="postgresql+psycopg://ai:ai@localhost:5532/ai",
@@ -32,61 +32,61 @@ support_channel = "testing"
 feedback_channel = "testing"
 
 doc_researcher_agent = Agent(
-    name="Doc researcher Agent",
-    role="Search the knowledge base for information",
+    name="文档研究员 Agent",
+    role="在知识库中搜索信息",
     model=OpenAIChat(id="gpt-4o"),
     tools=[DuckDuckGoTools(), ExaTools()],
     knowledge=knowledge_base,
     search_knowledge=True,
     instructions=[
-        "You are a documentation expert for given product. Search the knowledge base thoroughly to answer user questions.",
-        "Always provide accurate information based on the documentation.",
-        "If the question matches an FAQ, provide the specific FAQ answer from the documentation.",
-        "When relevant, include direct links to specific documentation pages that address the user's question.",
-        "If you're unsure about an answer, acknowledge it and suggest where the user might find more information.",
-        "Format your responses clearly with headings, bullet points, and code examples when appropriate.",
-        "Always verify that your answer directly addresses the user's specific question.",
-        "If you cannot find the answer in the documentation knowledge base, use the DuckDuckGoTools or ExaTools to search the web for relevant information to answer the user's question.",
+        "你是给定产品的文档专家。请仔细搜索知识库以回答用户的问题。",
+        "始终根据文档提供准确的信息。",
+        "如果问题与常见问题解答匹配，请提供文档中的具体常见问题解答。",
+        "在相关时，包含指向解决用户问题的特定文档页面的直接链接。",
+        "如果您对答案不确定，请承认这一点并建议用户可以在哪里找到更多信息。",
+        "根据需要使用标题、项目符号和代码示例清晰地格式化您的响应。",
+        "始终验证您的答案是否直接解决了用户提出的具体问题。",
+        "如果您在知识库文档中找不到答案，请使用 DuckDuckGoTools 或 ExaTools 在网上搜索相关信息来回答用户的问题。",
     ],
 )
 
 
 escalation_manager_agent = Agent(
-    name="Escalation Manager Agent",
-    role="Escalate the issue to the slack channel",
+    name="升级经理 Agent",
+    role="将问题升级到 slack 频道",
     model=OpenAIChat(id="gpt-4o"),
     tools=[SlackTools()],
     instructions=[
-        "You are an escalation manager responsible for routing critical issues to the support team.",
-        f"When a user reports an issue, always send it to the #{support_channel} Slack channel with all relevant details using the send_message toolkit function.",
-        "Include the user's name, contact information (if available), and a clear description of the issue.",
-        "After escalating the issue, respond to the user confirming that their issue has been escalated.",
-        "Your response should be professional and reassuring, letting them know the support team will address it soon.",
-        "Always include a ticket or reference number if available to help the user track their issue.",
-        "Never attempt to solve technical problems yourself - your role is strictly to escalate and communicate.",
+        "您是负责将关键问题路由到支持团队的升级经理。",
+        f"当用户报告问题时，请始终使用 send_message 工具函数将其与所有相关详细信息一起发送到 #{support_channel} Slack 频道。",
+        "包括用户的姓名、联系信息（如果可用）以及问题的清晰描述。",
+        "升级问题后，回复用户，确认他们的问题已得到升级。",
+        "您的回复应专业且令人安心，让他们知道支持团队将很快处理。",
+        "请始终包含票证或参考号（如果可用），以帮助用户跟踪他们的问题。",
+        "切勿尝试自己解决技术问题——您的职责严格是升级和沟通。",
     ],
 )
 
 feedback_collector_agent = Agent(
-    name="Feedback Collector Agent",
-    role="Collect feedback from the user",
+    name="反馈收集员 Agent",
+    role="收集用户反馈",
     model=OpenAIChat(id="gpt-4o"),
     tools=[SlackTools()],
-    description="You are an AI agent that can collect feedback from the user.",
+    description="您是一个可以收集用户反馈的 AI Agent。",
     instructions=[
-        "You are responsible for collecting user feedback about the product or feature requests.",
-        f"When a user provides feedback or suggests a feature, use the Slack tool to send it to the #{feedback_channel} channel using the send_message toolkit function.",
-        "Include all relevant details from the user's feedback in your Slack message.",
-        "After sending the feedback to Slack, respond to the user professionally, thanking them for their input.",
-        "Your response should acknowledge their feedback and assure them that it will be taken into consideration.",
-        "Be warm and appreciative in your tone, as user feedback is valuable for improving our product.",
-        "Do not promise specific timelines or guarantee that their suggestions will be implemented.",
+        "您负责收集用户关于产品或功能请求的反馈。",
+        f"当用户提供反馈或建议功能时，请使用 Slack 工具通过 send_message 工具函数将其发送到 #{feedback_channel} 频道。",
+        "在您的 Slack 消息中包含用户反馈的所有相关详细信息。",
+        "将反馈发送到 Slack 后，请专业地回复用户，感谢他们的贡献。",
+        "您的回复应确认他们的反馈，并向他们保证他们的反馈将被考虑在内。",
+        "在语气上要热情和感激，因为用户反馈对于改进我们的产品非常有价值。",
+        "不要承诺具体的时间表或保证他们的建议将被采纳。",
     ],
 )
 
 
 customer_support_team = Team(
-    name="Customer Support Team",
+    name="客户支持团队",
     mode="route",
     model=OpenAIChat("gpt-4.5-preview"),
     enable_team_history=True,
@@ -96,19 +96,19 @@ customer_support_team = Team(
     debug_mode=True,
     show_members_responses=True,
     instructions=[
-        "You are the lead customer support agent responsible for classifying and routing customer inquiries.",
-        "Carefully analyze each user message and determine if it is: a question that needs documentation research, a bug report that requires escalation, or product feedback.",
-        "For general questions about the product, route to the doc_researcher_agent who will search documentation for answers.",
-        "If the doc_researcher_agent cannot find an answer to a question, escalate it to the escalation_manager_agent.",
-        "For bug reports or technical issues, immediately route to the escalation_manager_agent.",
-        "For feature requests or product feedback, route to the feedback_collector_agent.",
-        "Always provide a clear explanation of why you're routing the inquiry to a specific agent.",
-        "After receiving a response from the appropriate agent, relay that information back to the user in a professional and helpful manner.",
-        "Ensure a seamless experience for the user by maintaining context throughout the conversation.",
+        "您是负责分类和路由客户咨询的首席客户支持代理。",
+        "仔细分析每条用户消息，判断它是：需要文档研究的问题、需要升级的错误报告、还是产品反馈。",
+        "对于产品的一般问题，请路由到 doc_researcher_agent，它将搜索文档以获取答案。",
+        "如果 doc_researcher_agent 找不到问题的答案，则将其路由到 escalation_manager_agent。",
+        "对于错误报告或技术问题，请立即路由到 escalation_manager_agent。",
+        "对于功能请求或产品反馈，请路由到 feedback_collector_agent。",
+        "始终清楚地解释您将咨询路由到特定代理的原因。",
+        "在收到相应代理的回复后，以专业且有帮助的方式将该信息传达给用户。",
+        "通过在整个对话中保持上下文，确保用户获得无缝的体验。",
     ],
 )
 
-# Add in the query and the agent redirects it to the appropriate agent
+# 添加查询，代理会将其重定向到相应的代理
 customer_support_team.print_response(
     "Hi Team, I want to build an educational platform where the models are have access to tons of study materials, How can Agno platform help me build this?",
     stream=True,
@@ -127,20 +127,19 @@ customer_support_team.print_response(
 # )
 ```
 
-
-## Usage
+## 用法
 
 <Steps>
 
     <Snippet file="create-venv-step.mdx" />
 
-    <Step title="Install required libraries">
+    <Step title="安装所需的库">
         ```bash
         pip install openai duckduckgo-search slack_sdk exa_py
         ```
     </Step>
 
-    <Step title="Set environment variables">
+    <Step title="设置环境变量">
         ```bash
         export OPENAI_API_KEY=****
         export SLACK_TOKEN=****
@@ -148,11 +147,10 @@ customer_support_team.print_response(
         ```
     </Step>
 
-    <Step title="Run the agent">
+    <Step title="运行 Agent">
         ```bash
         python ai_support_team.py
         ```
     </Step>
 
 </Steps>
-

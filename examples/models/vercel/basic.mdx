@@ -1,8 +1,8 @@
 ---
-title: Basic Agent
+title: 基础 Agent
 ---
 
-## Code
+## 代码
 
 ```python cookbook/models/vercel/basic.py
 from agno.agent import Agent, RunResponse  # noqa
@@ -18,24 +18,24 @@ agent = Agent(model=v0(id="v0-1.0-md"), markdown=True)
 agent.print_response("Share a 2 sentence horror story")
 ```
 
-## Usage  
+## 使用方法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置你的 API 密钥">
     ```bash
     export V0_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U openai agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行 Agent">
     <CodeGroup>
     ```bash Mac
     python cookbook/models/vercel/basic.py

@@ -1,20 +1,20 @@
 ---
-title: Reasoning Tools
-sidebarTitle: Reasoning Tools
+title: 推理工具
+sidebarTitle: 推理工具
 ---
 
-The `ReasoningTools` toolkit allows an Agent to use reasoning like any other tool, at any point during execution. Unlike traditional approaches that reason once at the start to create a fixed plan, this enables the Agent to reflect after each step, adjust its thinking, and update its actions on the fly.
+`ReasoningTools` 工具包允许 Agent 在执行过程中的任何时间点像使用其他工具一样使用推理。与在开始时进行一次推理以创建固定计划的传统方法不同，这使得 Agent 在每一步之后都能进行反思，即时调整其思路和更新其操作。
 
-We've found that this approach significantly improves an Agent's ability to solve complex problems it would otherwise fail to handle. By giving the Agent space to "think" about its actions, it can examine its own responses more deeply, question its assumptions, and approach the problem from different angles.
+我们发现这种方法显著提高了 Agent 解决复杂问题的能力，否则它将无法处理。通过为 Agent 提供“思考”其操作的空间，它可以更深入地检查自己的响应，质疑其假设，并从不同角度处理问题。
 
-The toolkit includes the following tools:
+该工具包包含以下工具：
 
-- `think`: This tool is used as a scratchpad by the Agent to reason about the question and work through it step by step. It helps break down complex problems into smaller, manageable chunks and track the reasoning process.
-- `analyze`: This tool is used to analyze the results from a reasoning step and determine the next actions.
+- `think`：此工具用作 Agent 的记事本，用于推理问题并逐步解决。它有助于将复杂问题分解成更小、可管理的部分，并跟踪推理过程。
+- `analyze`：此工具用于分析推理步骤的结果并确定后续操作。
 
-## Example
+## 示例
 
-Here's an example of how to use the `ReasoningTools` toolkit:
+以下是如何使用 `ReasoningTools` 工具包的示例：
 
 ```python
 from agno.agent import Agent
@@ -33,15 +33,15 @@ thinking_agent = Agent(
             company_news=True,
         ),
     ],
-    instructions="Use tables where possible",
+    instructions="尽可能使用表格",
     show_tool_calls=True,
     markdown=True,
 )
 
-thinking_agent.print_response("Write a report comparing NVDA to TSLA", stream=True)
+thinking_agent.print_response("撰写一份比较 NVDA 和 TSLA 的报告", stream=True)
 ```
 
-The toolkit comes with default instructions and few-shot examples to help the Agent use the tool effectively. Here is how you can enable them:
+该工具包随附默认说明和少量示例，以帮助 Agent 有效地使用该工具。以下是启用它们的方法：
 
 ```python
 reasoning_agent = Agent(
@@ -57,7 +57,7 @@ reasoning_agent = Agent(
 )
 ```
 
-`ReasoningTools` can be used with any model provider that supports function calling. Here is an example with of a reasoning Agent using `OpenAIChat`:
+`ReasoningTools` 可与支持函数调用的任何模型提供商一起使用。以下是使用 `OpenAIChat` 的推理 Agent 的示例：
 
 ```python
 from textwrap import dedent
@@ -70,36 +70,36 @@ reasoning_agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
     tools=[ReasoningTools(add_instructions=True)],
     instructions=dedent("""\
-        You are an expert problem-solving assistant with strong analytical skills! 🧠
+        你是一位专业的解决问题助手，拥有强大的分析能力！🧠
 
-        Your approach to problems:
-        1. First, break down complex questions into component parts
-        2. Clearly state your assumptions
-        3. Develop a structured reasoning path
-        4. Consider multiple perspectives
-        5. Evaluate evidence and counter-arguments
-        6. Draw well-justified conclusions
+        你的解题方法：
+        1. 首先，将复杂问题分解为组成部分
+        2. 清楚地说明你的假设
+        3. 制定结构化的推理路径
+        4. 考虑多种观点
+        5. 评估证据和反驳论点
+        6. 得出有充分依据的结论
 
-        When solving problems:
-        - Use explicit step-by-step reasoning
-        - Identify key variables and constraints
-        - Explore alternative scenarios
-        - Highlight areas of uncertainty
-        - Explain your thought process clearly
-        - Consider both short and long-term implications
-        - Evaluate trade-offs explicitly
+        在解决问题时：
+        - 使用明确的逐步推理
+        - 确定关键变量和约束条件
+        - 探索替代方案
+        - 突出不确定性领域
+        - 清晰地解释你的思路过程
+        - 考虑短期和长期影响
+        - 明确评估权衡取舍
 
-        For quantitative problems:
-        - Show your calculations
-        - Explain the significance of numbers
-        - Consider confidence intervals when appropriate
-        - Identify source data reliability
+        对于定量问题：
+        - 展示你的计算过程
+        - 解释数字的意义
+        - 在适当的时候考虑置信区间
+        - 确定源数据的可靠性
 
-        For qualitative reasoning:
-        - Assess how different factors interact
-        - Consider psychological and social dynamics
-        - Evaluate practical constraints
-        - Address value considerations
+        对于定性推理：
+        - 评估不同因素如何相互作用
+        - 考虑心理和社会动态
+        - 评估实际约束
+        - 解决价值考量
         \
     """),
     add_datetime_to_instructions=True,
@@ -109,24 +109,20 @@ reasoning_agent = Agent(
 )
 ```
 
-This Agent can be used to ask questions that elicit thoughtful analysis, such as:
+此 Agent 可用于提出需要深思熟虑的问题，例如：
 
 ```python
 reasoning_agent.print_response(
-    "A startup has $500,000 in funding and needs to decide between spending it on marketing or "
-    "product development. They want to maximize growth and user acquisition within 12 months. "
-    "What factors should they consider and how should they analyze this decision?",
+    "一家初创公司拥有 50 万美元的资金，需要在营销或产品开发之间进行选择。他们希望在 12 个月内最大限度地实现增长和用户获取。他们应该考虑哪些因素以及如何分析这个决策？",
     stream=True
 )
 ```
 
-or,
+或者，
 
 ```python
 reasoning_agent.print_response(
-    "Solve this logic puzzle: A man has to take a fox, a chicken, and a sack of grain across a river. "
-    "The boat is only big enough for the man and one item. If left unattended together, the fox will "
-    "eat the chicken, and the chicken will eat the grain. How can the man get everything across safely?",
+    "解决这个逻辑谜题：一个人必须带一只狐狸、一只鸡和一袋谷物过河。船只仅够容纳人和一件物品。如果无人看管，狐狸会吃鸡，鸡会吃谷物。人如何才能安全地将所有物品运过去？",
     stream=True,
 )
 ```

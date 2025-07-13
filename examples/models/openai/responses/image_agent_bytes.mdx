@@ -1,8 +1,8 @@
 ---
-title: Image Agent (Bytes Content)
+title: 图片代理 (字节内容)
 ---
 
-## Code
+## 代码
 
 ```python cookbook/models/openai/responses/image_agent_bytes.py
 from pathlib import Path
@@ -22,15 +22,15 @@ agent = Agent(
 image_path = Path(__file__).parent.joinpath("sample.jpg")
 
 download_image(
-    url="https://upload.wikimedia.org/wikipedia/commons/0/0c/GoldenGateBridge-001.jpg",
+    url="https://upload.wikimedia.org/wikipedia/commons/0/04/GoldenGateBridge-001.jpg",
     output_path=str(image_path),
 )
 
-# Read the image file content as bytes
+# 将图片文件内容读取为字节
 image_bytes = image_path.read_bytes()
 
 agent.print_response(
-    "Tell me about this image and give me the latest news about it.",
+    "告诉我关于这张图片的信息，并提供与之相关的最新新闻。",
     images=[
         Image(content=image_bytes),
     ],
@@ -38,24 +38,24 @@ agent.print_response(
 )
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置你的 API 密钥">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U openai agno googlesearch-python
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行代理">
     <CodeGroup>
     ```bash Mac
     python cookbook/models/openai/responses/image_agent_bytes.py

@@ -1,8 +1,8 @@
 ---
-title: Agent with Memory
+title: 带记忆的 Agent
 ---
 
-## Code
+## 代码
 
 ```python cookbook/models/vllm/memory.py
 from agno.agent import Agent
@@ -26,7 +26,7 @@ agent = Agent(
     ),
 )
 
-# Share personal details; the agent should remember them.
+# 分享个人信息；Agent 应该能够记住它们。
 agent.print_response("My name is John Billings.", stream=True)
 print("Current memories →")
 pprint(agent.memory.memories)
@@ -45,33 +45,33 @@ pprint(agent.memory.memories)
 print("Summary →")
 pprint(agent.memory.summaries)
 
-# Ask the agent to recall
+# 让 Agent 回忆信息
 agent.print_response(
     "What have we been talking about, do you know my name?", stream=True
 )
 ```
 <Note>
-  Ensure Postgres database is running.
+  请确保 Postgres 数据库正在运行。
 </Note>
 
-## Usage
+## 使用方法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Start Postgres database">
+  <Step title="启动 Postgres 数据库">
     ```bash
     ./cookbook/scripts/run_pgvector.sh
     ```
   </Step>
 
-  <Step title="Install Libraries">
+  <Step title="安装库">
     ```bash
     pip install -U agno openai vllm sqlalchemy psycopg[binary] pgvector
     ```
   </Step>
 
-  <Step title="Start vLLM server">
+  <Step title="启动 vLLM 服务器">
     ```bash
     vllm serve microsoft/Phi-3-mini-128k-instruct \
         --dtype float32 \
@@ -80,9 +80,9 @@ agent.print_response(
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行 Agent">
     ```bash
     python cookbook/models/vllm/memory.py
     ```
   </Step>
-</Steps> 
+</Steps>

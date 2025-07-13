@@ -1,9 +1,9 @@
 ---
-title: Reliability with Multiple Tools
-description: Learn how to assert an Agno Agent is making multiple expected tool calls.
+title: 多工具可靠性
+description: 了解如何断言 Agno Agent 正在进行多个预期的工具调用。
 ---
 
-## Code
+## 代码
 
 ```python
 from typing import Optional
@@ -21,7 +21,7 @@ def multiply_and_exponentiate():
         tools=[CalculatorTools(add=True, multiply=True, exponentiate=True)],
     )
     response: RunResponse = agent.run(
-        "What is 10*5 then to the power of 2? do it step by step"
+        "10*5是多少，然后2的多少次方？请一步一步来"
     )
     evaluation = ReliabilityEval(
         agent_response=response,
@@ -34,4 +34,3 @@ def multiply_and_exponentiate():
 if __name__ == "__main__":
     multiply_and_exponentiate()
 ```
-

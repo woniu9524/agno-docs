@@ -1,14 +1,14 @@
-## Production Django app
+## 生产 Django 应用
 
-**Open the LoadBalancer DNS** to view your Django App running on AWS.
+**打开负载均衡器 DNS** 以查看您的 Django 应用在 AWS 上运行。
 
 ![django-app-django-prd](/images/django-app-django-prd.png)
 
-### Production Django Admin
+### 生产 Django 管理后台
 
-Open the **LoadBalancer DNS** + `/admin` page to view the Django admin site.
+打开 **负载均衡器 DNS** + `/admin` 页面以查看 Django 管理后台。
 
-Create an admin user by SSH-ing into the production container:
+通过 SSH 进入生产容器来创建一个管理员用户：
 
 ```bash
 ECS_CLUSTER=django-prd
@@ -22,6 +22,6 @@ aws ecs execute-command --cluster $ECS_CLUSTER \
     --command "python manage.py createsuperuser"
 ```
 
-Log in to the admin panel:
+登录管理后台：
 
 ![django-app-django-admin-prd](/images/django-app-django-admin-prd.png)

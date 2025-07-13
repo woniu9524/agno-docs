@@ -1,18 +1,18 @@
 ---
-title: Writing your own tools
-description: Learn how to write your own tools and how to use the `@tool` decorator to modify the behavior of a tool.
+title: 编写自己的工具
+description: 了解如何编写自己的工具以及如何使用 `@tool` 装饰器来修改工具的行为。
 ---
 
-In most production cases, you will need to write your own tools. Which is why we're focused on provide the best tool-use experience in Agno.
+在大多数生产场景中，您都需要编写自己的工具。这就是为什么 Agno 专注于提供最佳的工具使用体验。
 
-The rule is simple:
+规则很简单：
 
-- Any python function can be used as a tool by an Agent.
-- Use the `@tool` decorator to modify what happens before and after this tool is called.
+- 任何 Python 函数都可以被 Agent 用作工具。
+- 使用 `@tool` 装饰器来修改该工具调用之前和之后发生的事情。
 
-## Any python function can be used as a tool
+## 任何 Python 函数都可以用作工具
 
-For example, here's how to use a `get_top_hackernews_stories` function as a tool:
+例如，以下是如何将 `get_top_hackernews_stories` 函数用作工具：
 
 ```python hn_agent.py
 import json
@@ -22,20 +22,20 @@ from agno.agent import Agent
 
 def get_top_hackernews_stories(num_stories: int = 10) -> str:
     """
-    Use this function to get top stories from Hacker News.
+    使用此函数获取 Hacker News 的热门故事。
 
     Args:
-        num_stories (int): Number of stories to return. Defaults to 10.
+        num_stories (int): 要返回的故事数量。默认为 10。
 
     Returns:
-        str: JSON string of top stories.
+        str: 热门故事的 JSON 字符串。
     """
 
-    # Fetch top story IDs
+    # 获取热门故事 ID
     response = httpx.get('https://hacker-news.firebaseio.com/v0/topstories.json')
     story_ids = response.json()
 
-    # Fetch story details
+    # 获取故事详情
     stories = []
     for story_id in story_ids[:num_stories]:
         story_response = httpx.get(f'https://hacker-news.firebaseio.com/v0/item/{story_id}.json')
@@ -46,22 +46,22 @@ def get_top_hackernews_stories(num_stories: int = 10) -> str:
     return json.dumps(stories)
 
 agent = Agent(tools=[get_top_hackernews_stories], show_tool_calls=True, markdown=True)
-agent.print_response("Summarize the top 5 stories on hackernews?", stream=True)
+agent.print_response("总结 Hacker News 的前 5 个故事？", stream=True)
 ```
 
-## Magic of the @tool decorator
+## `@tool` 装饰器的魔力
 
-To modify the behavior of a tool, use the `@tool` decorator. Some notable features:
+要修改工具的行为，请使用 `@tool` 装饰器。一些值得注意的特性：
 
-- `requires_confirmation=True`: Requires user confirmation before execution.
-- `requires_user_input=True`: Requires user input before execution. Use `user_input_fields` to specify which fields require user input.
-- `external_execution=True`: The tool will be executed outside of the agent's control.
-- `show_result=True`: Show the output of the tool call in the Agent's response. Without this flag, the result of the tool call is sent to the model for further processing.
-- `stop_after_tool_call=True`: Stop the agent run after the tool call.
-- `tool_hooks`: Run custom logic before and after this tool call.
-- `cache_results=True`: Cache the tool result to avoid repeating the same call. Use `cache_dir` and `cache_ttl` to configure the cache.
+- `requires_confirmation=True`: 在执行前需要用户确认。
+- `requires_user_input=True`: 在执行前需要用户输入。使用 `user_input_fields` 指定需要用户输入的字段。
+- `external_execution=True`: 工具将在 Agent 的控制之外执行。
+- `show_result=True`: 在 Agent 的响应中显示工具调用的输出。没有此标志，工具调用的结果将被发送到模型进行进一步处理。
+- `stop_after_tool_call=True`: 在工具调用后停止 Agent 运行。
+- `tool_hooks`: 在此工具调用之前和之后运行自定义逻辑。
+- `cache_results=True`: 缓存工具结果以避免重复相同的调用。使用 `cache_dir` 和 `cache_ttl` 配置缓存。
 
-Here's an example that uses many possible parameters on the `@tool` decorator.
+这是一个使用 `@tool` 装饰器上许多可能参数的示例。
 
 ```python advanced_tool.py
 import httpx
@@ -70,65 +70,65 @@ from agno.tools import tool
 from typing import Any, Callable, Dict
 
 def logger_hook(function_name: str, function_call: Callable, arguments: Dict[str, Any]):
-    """Hook function that wraps the tool execution"""
-    print(f"About to call {function_name} with arguments: {arguments}")
+    """包装工具执行的 Hook 函数"""
+    print(f"即将调用 {function_name}，参数为：{arguments}")
     result = function_call(**arguments)
-    print(f"Function call completed with result: {result}")
+    print(f"函数调用完成，结果为：{result}")
     return result
 
 @tool(
-    name="fetch_hackernews_stories",                # Custom name for the tool (otherwise the function name is used)
-    description="Get top stories from Hacker News",  # Custom description (otherwise the function docstring is used)
-    show_result=True,                               # Show result after function call
-    stop_after_tool_call=True,                      # Return the result immediately after the tool call and stop the agent
-    tool_hooks=[logger_hook],                       # Hook to run before and after execution
-    requires_confirmation=True,                     # Requires user confirmation before execution
-    cache_results=True,                             # Enable caching of results
-    cache_dir="/tmp/agno_cache",                    # Custom cache directory
-    cache_ttl=3600                                  # Cache TTL in seconds (1 hour)
+    name="fetch_hackernews_stories",                # 工具的自定义名称（否则使用函数名称）
+    description="获取 Hacker News 的热门故事",  # 自定义描述（否则使用函数文档字符串）
+    show_result=True,                               # 函数调用后显示结果
+    stop_after_tool_call=True,                      # 工具调用后立即返回结果并停止 Agent
+    tool_hooks=[logger_hook],                       # 在执行前后运行的 Hook
+    requires_confirmation=True,                     # 在执行前需要用户确认
+    cache_results=True,                             # 启用结果缓存
+    cache_dir="/tmp/agno_cache",                    # 自定义缓存目录
+    cache_ttl=3600                                  # 缓存的 TTL（以秒为单位，1 小时）
 )
 def get_top_hackernews_stories(num_stories: int = 5) -> str:
     """
-    Fetch the top stories from Hacker News.
+    从 Hacker News 获取热门故事。
 
     Args:
-        num_stories: Number of stories to fetch (default: 5)
+        num_stories: 要获取的故事数量（默认：5）
 
     Returns:
-        str: The top stories in text format
+        str: 以文本格式的热门故事
     """
-    # Fetch top story IDs
+    # 获取热门故事 ID
     response = httpx.get("https://hacker-news.firebaseio.com/v0/topstories.json")
     story_ids = response.json()
 
-    # Get story details
+    # 获取故事详情
     stories = []
     for story_id in story_ids[:num_stories]:
         story_response = httpx.get(f"https://hacker-news.firebaseio.com/v0/item/{story_id}.json")
         story = story_response.json()
-        stories.append(f"{story.get('title')} - {story.get('url', 'No URL')}")
+        stories.append(f"{story.get('title')} - {story.get('url', '无 URL')}")
 
     return "\n".join(stories)
 
 agent = Agent(tools=[get_top_hackernews_stories])
-agent.print_response("Show me the top news from Hacker News")
+agent.print_response("给我看看 Hacker News 的热门新闻")
 ```
 
-### @tool Parameters Reference
+### `@tool` 参数参考
 
-| Parameter | Type | Description |
+| 参数 | 类型 | 描述 |
 |-----------|------|-------------|
-| `name` | `str` | Override for the function name |
-| `description` | `str` | Override for the function description |
-| `show_result` | `bool` | If True, shows the result after function call |
-| `stop_after_tool_call` | `bool` | If True, the agent will stop after the function call |
-| `tool_hooks` | `list[Callable]` | List of hooks that wrap the function execution |
-| `pre_hook` | `Callable` | Hook to run before the function is executed |
-| `post_hook` | `Callable` | Hook to run after the function is executed |
-| `requires_confirmation` | `bool` | If True, requires user confirmation before execution |
-| `requires_user_input` | `bool` | If True, requires user input before execution |
-| `user_input_fields` | `list[str]` | List of fields that require user input |
-| `external_execution` | `bool` | If True, the tool will be executed outside of the agent's control |
-| `cache_results` | `bool` | If True, enable caching of function results |
-| `cache_dir` | `str` | Directory to store cache files |
-| `cache_ttl` | `int` | Time-to-live for cached results in seconds (default: 3600) |
+| `name` | `str` | 函数名称的替代名称 |
+| `description` | `str` | 函数描述的替代描述 |
+| `show_result` | `bool` | 如果为 True，则在函数调用后显示结果 |
+| `stop_after_tool_call` | `bool` | 如果为 True，Agent 将在函数调用后停止 |
+| `tool_hooks` | `list[Callable]` | 包装函数执行的 Hook 列表 |
+| `pre_hook` | `Callable` | 在函数执行前运行的 Hook |
+| `post_hook` | `Callable` | 在函数执行后运行的 Hook |
+| `requires_confirmation` | `bool` | 如果为 True，则在执行前需要用户确认 |
+| `requires_user_input` | `bool` | 如果为 True，则在执行前需要用户输入 |
+| `user_input_fields` | `list[str]` | 需要用户输入的字段列表 |
+| `external_execution` | `bool` | 如果为 True，工具将在 Agent 的控制之外执行 |
+| `cache_results` | `bool` | 如果为 True，则启用函数结果的缓存 |
+| `cache_dir` | `str` | 用于存储缓存文件的目录 |
+| `cache_ttl` | `int` | 缓存结果的生存时间（以秒为单位，默认为 3600） |

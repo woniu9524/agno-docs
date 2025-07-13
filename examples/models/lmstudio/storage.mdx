@@ -1,8 +1,8 @@
 ---
-title: Agent with Storage
+title: 带存储的代理
 ---
 
-## Code
+## 代码
 
 ```python cookbook/models/lmstudio/storage.py
 from agno.agent import Agent
@@ -22,19 +22,18 @@ agent.print_response("How many people live in Canada?")
 agent.print_response("What is their national anthem called?")
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install LM Studio">
+  <Step title="安装 LM Studio">
 
-    Install LM Studio from [here](https://lmstudio.ai/download) and download the
-    model you want to use.
+    从 [此处](https://lmstudio.ai/download) 下载 LM Studio，并下载您想使用的模型。
 
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
 
     ```bash
     pip install -U sqlalchemy psycopg duckduckgo-search agno
@@ -42,7 +41,7 @@ agent.print_response("What is their national anthem called?")
 
   </Step>
 
-  <Step title="Run PgVector">
+  <Step title="运行 PgVector">
 
     ```bash
     docker run -d \
@@ -58,7 +57,7 @@ agent.print_response("What is their national anthem called?")
 
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行代理">
 
     <CodeGroup>
     ```bash Mac

@@ -1,12 +1,11 @@
 ---
-title: Memory References
+title: 内存引用
 ---
 
-This example shows how to use the `add_memory_references` parameter in the Agent config to
-add references to the user memories to the Agent.
+此示例展示了如何在 Agent 配置中使用 `add_memory_references` 参数将用户内存的引用添加到 Agent 中。
 
 
-## Code
+## 代码
 
 ```12_memory_references.py
 from agno.agent.agent import Agent
@@ -29,7 +28,7 @@ agent = Agent(
     add_memory_references=True,  # Add pre existing memories to the Agent but don't create new ones
 )
 
-# Alternatively, you can create/update user memories but not add them to the Agent
+# 也可以创建/更新用户内存但不将它们添加到 Agent 中
 # agent = Agent(
 #     model=Gemini(id="gemini-2.0-flash-exp"),
 #     memory=memory,
@@ -40,18 +39,18 @@ agent = Agent(
 agent.print_response("What are my hobbies?", user_id="john_doe@example.com")
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U agno
     ```
   </Step>
 
-  <Step title="Run Example">
+  <Step title="运行示例">
     <CodeGroup>
     ```bash Mac
     python 12_memory_references.py
@@ -62,4 +61,4 @@ agent.print_response("What are my hobbies?", user_id="john_doe@example.com")
     ```
     </CodeGroup>
   </Step>
-</Steps> 
+</Steps>

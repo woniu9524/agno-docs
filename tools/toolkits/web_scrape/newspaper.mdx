@@ -2,19 +2,19 @@
 title: Newspaper
 ---
 
-**NewspaperTools** enable an Agent to read news articles using the Newspaper4k library.
+**NewspaperTools** 支持 Agent 使用 Newspaper4k 库阅读新闻文章。
 
-## Prerequisites
+## 前置条件
 
-The following example requires the `newspaper3k` library.
+以下示例需要 `newspaper3k` 库。
 
 ```shell
 pip install -U newspaper3k
 ```
 
-## Example
+## 示例
 
-The following agent will summarize the wikipedia article on language models.
+下面的 Agent 将总结维基百科关于语言模型的文章。
 
 ```python cookbook/tools/newspaper_tools.py
 from agno.agent import Agent
@@ -24,19 +24,19 @@ agent = Agent(tools=[NewspaperTools()])
 agent.print_response("Please summarize https://en.wikipedia.org/wiki/Language_model")
 ```
 
-## Toolkit Params
+## Toolkit 参数
 
-| Parameter          | Type   | Default | Description                                                   |
-| ------------------ | ------ | ------- | ------------------------------------------------------------- |
-| `get_article_text` | `bool` | `True`  | Enables the functionality to retrieve the text of an article. |
+| 参数           | 类型   | 默认值 | 描述                                                     |
+| -------------- | ------ | ------ | -------------------------------------------------------- |
+| `get_article_text` | `bool` | `True` | 启用检索文章文本的功能。                                       |
 
-## Toolkit Functions
+## Toolkit 函数
 
-| Function           | Description                                                                                                                                                                             |
-| ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `get_article_text` | Retrieves the text of an article from a specified URL. Parameters include `url` for the URL of the article. Returns the text of the article or an error message if the retrieval fails. |
+| 函数           | 描述                                                                                                                               |
+| -------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| `get_article_text` | 从指定的 URL 检索文章文本。参数包括文章的 URL `url`。返回文章文本或检索失败时的错误消息。 |
 
-## Developer Resources
+## 开发者资源
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/newspaper.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/newspaper_tools.py)
+- 查看 [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/newspaper.py)
+- 查看 [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/newspaper_tools.py)

@@ -1,50 +1,50 @@
 ---
-title: Use Custom Domain and HTTPS
-sidebarTitle: Custom Domain & HTTPS
+title: 使用自定义域名和 HTTPS
+sidebarTitle: 自定义域名与 HTTPS
 ---
 
-## Use a custom domain
+## 使用自定义域名
 
-1. Register your domain with [Route 53](https://us-east-1.console.aws.amazon.com/route53/).
-2. Point the domain to the loadbalancer DNS.
+1. 在 [Route 53](https://us-east-1.console.aws.amazon.com/route53/) 注册您的域名。
+2. 将域名指向负载均衡器 DNS。
 
-### Custom domain for your Streamlit App
+### Streamlit 应用的自定义域名
 
-Create a record in the Route53 console to point `app.[YOUR_DOMAIN]` to the Streamlit App.
+在 Route53 控制台中创建一个记录，将 `app.[YOUR_DOMAIN]` 指向 Streamlit 应用。
 
 <img src="/images/llm-app-aidev-run.png" alt="llm-app-aidev-run" />
 
-You can visit the app at [http://app.aidev.run](http://app.aidev.run)
+您可以通过 [http://app.aidev.run](http://app.aidev.run) 访问该应用
 
-<Note>Note the `http` in the domain name.</Note>
+<Note>请注意域名中的 `http`。</Note>
 
-### Custom domain for your FastAPI App
+### FastAPI 应用的自定义域名
 
-Create a record in the Route53 console to point `api.[YOUR_DOMAIN]` to the FastAPI App.
+在 Route53 控制台中创建一个记录，将 `api.[YOUR_DOMAIN]` 指向 FastAPI 应用。
 
 <img src="/images/llm-api-aidev-run.png" alt="llm-api-aidev-run" />
 
-You can access the api at [http://api.aidev.run](http://api.aidev.run)
+您可以通过 [http://api.aidev.run](http://api.aidev.run) 访问该 API
 
-<Note>Note the `http` in the domain name.</Note>
+<Note>请注意域名中的 `http`。</Note>
 
-## Add HTTPS
+## 添加 HTTPS
 
-To add HTTPS:
+要添加 HTTPS：
 
-1. Create a certificate using [AWS ACM](https://us-east-1.console.aws.amazon.com/acm). Request a certificat for `*.[YOUR_DOMAIN]`
+1. 使用 [AWS ACM](https://us-east-1.console.aws.amazon.com/acm) 创建证书。为 `*.[YOUR_DOMAIN]` 请求一个证书。
 
 <img src="/images/llm-app-request-cert.png" alt="llm-app-request-cert" />
 
-2. Creating records in Route 53.
+2. 在 Route 53 中创建记录。
 
 <img src="/images/llm-app-validate-cert.png" alt="llm-app-validate-cert" />
 
-3. Add the certificate ARN to Apps
+3. 将证书 ARN 添加到应用。
 
-<Note>Make sure the certificate is `Issued` before adding it to your Apps</Note>
+<Note>请确保在添加到应用之前证书状态为 `Issued`。</Note>
 
-Update the `llm-app/workspace/prd_resources.py` file and add the `load_balancer_certificate_arn` to the `FastAPI` and `Streamlit` Apps.
+更新 `llm-app/workspace/prd_resources.py` 文件，并将 `load_balancer_certificate_arn` 添加到 `FastAPI` 和 `Streamlit` 应用。
 
 ```python workspace/prd_resources.py
 
@@ -67,9 +67,9 @@ prd_fastapi = FastApi(
 )
 ```
 
-4. Create new Loadbalancer Listeners
+4. 创建新的负载均衡器监听器。
 
-Create new listeners for the loadbalancer to pickup the HTTPs configuration.
+创建新的负载均衡器监听器以应用 HTTPS 配置。
 
 <CodeGroup>
 
@@ -83,11 +83,11 @@ ag ws up -e prd -i aws -n listener
 
 </CodeGroup>
 
-<Note>The certificate should be `Issued` before applying it.</Note>
+<Note>在应用证书之前，证书状态应为 `Issued`。</Note>
 
-After this, `https` should be working on your custom domain.
+完成此操作后，您的自定义域名应能正常工作使用 `https`。
 
-5. Update existing listeners to redirect HTTP to HTTPS
+5. 更新现有监听器以将 HTTP 重定向到 HTTPS。
 
 <CodeGroup>
 
@@ -101,4 +101,4 @@ ag ws patch -e prd -i aws -n listener
 
 </CodeGroup>
 
-After this, all HTTP requests should redirect to HTTPS automatically.
+完成此操作后，所有 HTTP 请求都应自动重定向到 HTTPS。

@@ -1,9 +1,9 @@
 ---
-title: Game Generator
+title: 游戏生成器
 ---
-**GameGenerator** generates HTML5 games based on user descriptions.
+**GameGenerator** 根据用户描述生成 HTML5 游戏。
 
-Create a file `game_generator.py` with the following code:
+创建一个名为 `game_generator.py` 的文件，其中包含以下代码：
 
 ```python game_generator.py
 import json
@@ -28,47 +28,46 @@ game_output_path.unlink(missing_ok=True)
 
 
 class GameOutput(BaseModel):
-    reasoning: str = Field(..., description="Explain your reasoning")
-    code: str = Field(..., description="The html5 code for the game")
-    instructions: str = Field(..., description="Instructions how to play the game")
+    reasoning: str = Field(..., description="解释你的推理过程")
+    code: str = Field(..., description="游戏的 HTML5 代码")
+    instructions: str = Field(..., description="游戏玩法说明")
 
 
 class QAOutput(BaseModel):
-    reasoning: str = Field(..., description="Explain your reasoning")
-    correct: bool = Field(False, description="Does the game pass your criteria?")
+    reasoning: str = Field(..., description="解释你的推理过程")
+    correct: bool = Field(False, description="游戏是否通过了你的标准检查？")
 
 
 class GameGenerator(Workflow):
     # This description is only used in the workflow UI
-    description: str = "Generator for single-page HTML5 games"
+    description: str = "单页 HTML5 游戏生成器"
 
     game_developer: Agent = Agent(
-        name="Game Developer Agent",
-        description="You are a game developer that produces working HTML5 code.",
+        name="游戏开发者代理",
+        description="你是一名游戏开发者，负责制作可运行的 HTML5 代码。",
         model=OpenAIChat(id="gpt-4o"),
         instructions=[
-            "Create a game based on the user's prompt. "
-            "The game should be HTML5, completely self-contained and must be runnable simply by opening on a browser",
-            "Ensure the game has a alert that pops up if the user dies and then allows the user to restart or exit the game.",
-            "Ensure instructions for the game are displayed on the HTML page."
-            "Use user-friendly colours and make the game canvas large enough for the game to be playable on a larger screen.",
+            "根据用户的提示创建一个游戏。该游戏应为 HTML5，完全独立，并且只需在浏览器中打开即可运行。",
+            "确保游戏在用户死亡时弹出一个提示框，并允许用户重新开始或退出游戏。",
+            "确保游戏说明显示在 HTML 页面上。",
+            "使用用户友好的颜色，并使游戏画布足够大，以便在更大的屏幕上也能玩。",
         ],
         response_model=GameOutput,
     )
 
     qa_agent: Agent = Agent(
-        name="QA Agent",
+        name="QA 代理",
         model=OpenAIChat(id="gpt-4o"),
-        description="You are a game QA and you evaluate html5 code for correctness.",
+        description="你是一名游戏 QA，负责评估 HTML5 代码的正确性。",
         instructions=[
-            "You will be given some HTML5 code."
-            "Your task is to read the code and evaluate it for correctness, but also that it matches the original task description.",
+            "你将获得一些 HTML5 代码。"
+            "你的任务是阅读代码，评估其正确性，并确保它符合原始任务描述。",
         ],
         response_model=QAOutput,
     )
 
     def run(self, game_description: str) -> Iterator[RunResponse]:
-        logger.info(f"Game description: {game_description}")
+        logger.info(f"游戏描述： {game_description}")
 
         game_output = self.game_developer.run(game_description)
 
@@ -78,16 +77,16 @@ class GameGenerator(Workflow):
             and isinstance(game_output.content, GameOutput)
         ):
             game_code = game_output.content.code
-            logger.info(f"Game code: {game_code}")
+            logger.info(f"游戏代码： {game_code}")
         else:
             yield RunResponse(
                 run_id=self.run_id,
                 event=RunEvent.workflow_completed,
-                content="Sorry, could not generate a game.",
+                content="抱歉，无法生成游戏。",
             )
             return
 
-        logger.info("QA'ing the game code")
+        logger.info("正在对游戏代码进行 QA")
         qa_input = {
             "game_description": game_description,
             "game_code": game_code,
@@ -97,7 +96,7 @@ class GameGenerator(Workflow):
         if qa_output and qa_output.content and isinstance(qa_output.content, QAOutput):
             logger.info(qa_output.content)
             if not qa_output.content.correct:
-                raise Exception(f"QA failed for code: {game_code}")
+                raise Exception(f"QA 失败的代码： {game_code}")
 
             # Store the resulting code
             game_output_path.write_text(game_code)
@@ -111,7 +110,7 @@ class GameGenerator(Workflow):
             yield RunResponse(
                 run_id=self.run_id,
                 event=RunEvent.workflow_completed,
-                content="Sorry, could not QA the game.",
+                content="抱歉，无法对游戏进行 QA。",
             )
             return
 
@@ -121,9 +120,9 @@ if __name__ == "__main__":
     from rich.prompt import Prompt
 
     game_description = Prompt.ask(
-        "[bold]Describe the game you want to make (keep it simple)[/bold]\n✨",
+        "[bold]描述您想制作的游戏（保持简单）[/bold]\n✨",
         # default="An asteroids game."
-        default="An asteroids game. Make sure the asteroids move randomly and are random sizes. They should continually spawn more and become more difficult over time. Keep score. Make my spaceship's movement realistic.",
+        default="一个街机风格的躲避游戏。玩家控制一个在屏幕底部左右移动的小方块，需要躲避从屏幕顶部随机出现的下落方块。当玩家被方块击中时，游戏结束，并显示得分。尝试随机生成方块的颜色和大小，增加难度。考虑加入一个简单的得分系统。",
     )
 
     hash_of_description = hash_string_sha256(game_description)
@@ -148,18 +147,18 @@ if __name__ == "__main__":
     if game_output_path.exists():
         open_html_file(game_output_path)
 ```
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install openai agno
     ```
   </Step>
 
-  <Step title="Run the agent">
+  <Step title="运行代理">
     ```bash
     python game_generator.py.py
     ```

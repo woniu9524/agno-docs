@@ -1,8 +1,8 @@
 ---
-title: Video to Shorts Agent
+title: 视频转短视频代理
 ---
 
-## Code
+## 代码
 
 ```python
 import subprocess
@@ -20,65 +20,65 @@ output_dir = Path("tmp/shorts")
 
 agent = Agent(
     name="Video2Shorts",
-    description="Process videos and generate engaging shorts.",
+    description="处理视频并生成引人入胜的短视频。",
     model=Gemini(id="gemini-2.0-flash-exp"),
     markdown=True,
     debug_mode=True,
     instructions=[
-        "Analyze the provided video directly—do NOT reference or analyze any external sources or YouTube videos.",
-        "Identify engaging moments that meet the specified criteria for short-form content.",
-        """Provide your analysis in a **table format** with these columns:
-   - Start Time | End Time | Description | Importance Score""",
-        "Ensure all timestamps use MM:SS format and importance scores range from 1-10. ",
-        "Focus only on segments between 15 and 60 seconds long.",
-        "Base your analysis solely on the provided video content.",
-        "Deliver actionable insights to improve the identified segments for short-form optimization.",
+        "直接分析提供的视频——**请勿**引用或分析任何外部来源或 YouTube 视频。",
+        "识别符合短内容格式要求的吸引人片段。",
+        """以**表格格式**提供您的分析，包含以下列：
+   - 开始时间 | 结束时间 | 描述 | 重要性得分""",
+        "确保所有时间戳都使用 MM:SS 格式，重要性得分范围为 1-10。",
+        "仅关注时长在 15 到 60 秒之间的片段。",
+        "分析仅基于提供的视频内容。",
+        "提供可操作的见解，以改进已识别片段以优化短内容。",
     ],
 )
 
-# Upload and process video
+# 上传并处理视频
 video_file = upload_file(video_path)
 while video_file.state.name == "PROCESSING":
     time.sleep(2)
     video_file = get_file(video_file.name)
 
-# Multimodal Query for Video Analysis
+# 多模态查询视频分析
 query = """
-You are an expert in video content creation, specializing in crafting engaging short-form content for platforms like YouTube Shorts and Instagram Reels. Your task is to analyze the provided video and identify segments that maximize viewer engagement.
+您是视频内容创作专家，擅长为 YouTube Shorts 和 Instagram Reels 等平台制作吸引人的短视频。您的任务是分析提供的视频并识别能最大程度吸引观众的片段。
 
-For each video, you'll:
+对于每个视频，您将：
 
-1. Identify key moments that will capture viewers' attention, focusing on:
-   - High-energy sequences
-   - Emotional peaks
-   - Surprising or unexpected moments
-   - Strong visual and audio elements
-   - Clear narrative segments with compelling storytelling
+1. 识别能吸引观众注意力的关键时刻，重点关注：
+   - 高能序列
+   - 情感爆发点
+   - 令人惊讶或意想不到的时刻
+   - 强大的视听元素
+   - 具有引人入胜的故事的清晰叙事片段
 
-2. Extract segments that work best for short-form content, considering:
-   - Optimal length (strictly 15–60 seconds)
-   - Natural start and end points that ensure smooth transitions
-   - Engaging pacing that maintains viewer attention
-   - Audio-visual harmony for an immersive experience
-   - Vertical format compatibility and adjustments if necessary
+2. 提取最适合短视频内容的片段，考虑：
+   - 最佳时长（严格控制在 15-60 秒）
+   - 能确保流畅过渡的自然起始和结束点
+   - 能保持观众注意力的吸引人节奏
+   - 视听协调以获得沉浸式体验
+   - 垂直格式兼容性和必要的调整
 
-3. Provide a detailed analysis of each segment, including:
-   - Precise timestamps (Start Time | End Time in MM:SS format)
-   - A clear description of why the segment would be engaging
-   - Suggestions on how to enhance the segment for short-form content
-   - An importance score (1-10) based on engagement potential
+3. 提供每个片段的详细分析，包括：
+   - 精确的时间戳（开始时间 | 结束时间，MM:SS 格式）
+   - 对该片段为何吸引人的清晰描述
+   - 关于如何增强该片段以适应短视频内容的建议
+   - 基于吸引力潜力的重要性得分（1-10）
 
-Your goal is to identify moments that are visually compelling, emotionally engaging, and perfectly optimized for short-form platforms.
+您的目标是识别在视觉上引人注目、情感上吸引人且针对短视频平台进行了完美优化的时刻。
 """
 
-# Generate Video Analysis
+# 生成视频分析
 response = agent.run(query, videos=[Video(content=video_file)])
 
-# Create output directory
+# 创建输出目录
 output_dir = Path(output_dir)
 output_dir.mkdir(parents=True, exist_ok=True)
 
-# Extract and cut video segments
+# 提取和剪辑视频片段
 def extract_segments(response_text):
     import re
 
@@ -122,54 +122,54 @@ def extract_segments(response_text):
                     {"path": output_path, "description": description, "score": score}
                 )
             except subprocess.CalledProcessError:
-                print(f"Failed to process segment: {start_time} - {end_time}")
+                print(f"处理片段失败: {start_time} - {end_time}")
 
     return segments
 
 logger.debug(f"{response.content}")
 
-# Process segments
+# 处理片段
 shorts = extract_segments(response.content)
 
-# Print results
-print("\n--- Generated Shorts ---")
+# 打印结果
+print("\n--- 生成的短视频 ---")
 for short in shorts:
-    print(f"Short at {short['path']}")
-    print(f"Description: {short['description']}")
-    print(f"Engagement Score: {short['score']}/10\n")
+    print(f"短视频位置: {short['path']}")
+    print(f"描述: {short['description']}")
+    print(f"吸引力得分: {short['score']}/10\n")
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">
     ```bash
     export GOOGLE_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U opencv-python google-generativeai sqlalchemy ffmpeg-python agno
     ```
   </Step>
 
-  <Step title="Install ffmpeg">
+  <Step title="安装 ffmpeg">
     <CodeGroup>
     ```bash Mac
     brew install ffmpeg
     ```
 
     ```bash Windows
-    # Install ffmpeg using chocolatey or download from https://ffmpeg.org/download.html
+    # 使用 chocolatey 安装 ffmpeg 或从 https://ffmpeg.org/download.html 下载
     choco install ffmpeg
     ```
     </CodeGroup>
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行代理">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/multimodal/video_to_shorts.py

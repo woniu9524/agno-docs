@@ -1,10 +1,10 @@
 ---
-title: Agent With User Memory
+title: 具有用户记忆的代理
 ---
 
-This example shows how to use  memory with whatsapp app.
+本示例展示了如何在 WhatsApp 应用中使用内存。
 
-## Code
+## 代码
 
 ```python cookbook/apps/whatsapp/agent_with_user_memory.py
 from textwrap import dedent
@@ -27,21 +27,21 @@ memory = Memory(
     db=memory_db,
     memory_manager=MemoryManager(
         memory_capture_instructions="""\
-                        Collect User\'s name,
-                        Collect Information about user\'s passion and hobbies,
-                        Collect Information about the users likes and dislikes,
-                        Collect information about what the user is doing with their life right now
+                        收集用户的名字，
+                        收集关于用户热情和爱好的信息，
+                        收集关于用户喜好和不喜好的信息，
+                        收集用户目前生活状况的信息
                     """,
         model=Gemini(id="gemini-2.0-flash"),
     ),
 )
 
 
-# Reset the memory for this example
+# 重置此示例的内存
 memory.clear()
 
 personal_agent = Agent(
-    name="Basic Agent",
+    name="基本代理",
     model=Gemini(id="gemini-2.0-flash"),
     tools=[GoogleSearchTools()],
     add_history_to_messages=True,
@@ -51,9 +51,9 @@ personal_agent = Agent(
     memory=memory,
     enable_agentic_memory=True,
     instructions=dedent("""
-        You are a personal AI friend of the user, your purpose is to chat with the user about things and make them feel good.
-        First introduce yourself and ask for their name then, ask about themeselves, their hobbies, what they like to do and what they like to talk about.
-        Use Google Search tool to find latest infromation about things in the conversations
+        你是用户的人工智能好友，你的目的是与用户聊些事情并让他们感觉良好。
+        首先介绍你自己并询问他们的名字，然后询问关于他们自己、他们的爱好、他们喜欢做什么以及他们喜欢谈论什么。
+        使用 Google Search 工具查找对话中事物的最新信息
                         """),
     debug_mode=True,
 )
@@ -61,9 +61,9 @@ personal_agent = Agent(
 
 whatsapp_app = WhatsappAPI(
     agent=personal_agent,
-    name="Agent with User Memory",
+    name="具有用户记忆的代理",
     app_id="agent_with_user_memory",
-    description="A agent that can chat with the user about things and make them feel good.",
+    description="一个可以与用户聊些事情并让他们感觉良好的代理。",
 )
 
 app = whatsapp_app.get_app()
@@ -73,24 +73,24 @@ if __name__ == "__main__":
 
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">
     ```bash
     export GOOGLE_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U agno google-generativeai google-api-python-client "uvicorn[standard]"
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行代理">
     <CodeGroup>
     ```bash Mac
     python cookbook/apps/whatsapp/agent_with_user_memory.py
@@ -101,4 +101,4 @@ if __name__ == "__main__":
     ```
     </CodeGroup>
   </Step>
-</Steps> 
+</Steps>

@@ -1,27 +1,27 @@
 ---
-title: What are Agents?
-description: "**Agents are AI programs that operate autonomously.**"
-sidebarTitle: Your first Agents
+title: 什么是 Agents？
+description: "**Agents 是自主运行的 AI 程序。**"
+sidebarTitle: 你的第一个 Agents
 ---
 
-Traditional software follows a pre-programmed sequence of steps. Agents dynamically determine their course of action using a machine learning **model**, its core components are:
+传统的软件遵循预先编程的步骤顺序。Agents 使用机器学习**模型**动态确定其行动方案，其核心组件包括：
 
-- **Model:** controls the flow of execution. It decides whether to reason, act or respond.
-- **Tools:** enable an Agent to take actions and interact with external systems.
-- **Instructions:** are how we program the Agent, teaching it how to use tools and respond.
+- **Model:** 控制执行流程。它决定是进行推理、行动还是响应。
+- **Tools:** 使 Agent 能够采取行动并与外部系统进行交互。
+- **Instructions:** 是我们对 Agent 进行编程的方式，教它如何使用工具和进行响应。
 
-Agents also have **memory**, **knowledge**, **storage** and the ability to **reason**:
+Agents 还拥有**记忆**、**知识**、**存储**和**推理**能力：
 
-- **Reasoning:** enables Agents to "think" before responding and "analyze" the results of their actions (i.e. tool calls), this improves reliability and quality of responses.
-- **Knowledge:** is domain-specific information that the Agent can **search at runtime** to make better decisions and provide accurate responses (RAG). Knowledge is stored in a vector database and this **search at runtime** pattern is known as Agentic RAG/Agentic Search.
-- **Storage:** is used by Agents to save session history and state in a database. Model APIs are stateless and storage enables us to continue conversations from where they left off. This makes Agents stateful, enabling multi-turn, long-term conversations.
-- **Memory:** gives Agents the ability to store and recall information from previous interactions, allowing them to learn user preferences and personalize their responses.
+- **Reasoning:** 使 Agents 在响应前能够“思考”并“分析”其行动（即工具调用）的结果，这提高了响应的可靠性和质量。
+- **Knowledge:** 是 Agent 在**运行时搜索**以做出更好决策和提供准确响应的领域特定信息（RAG）。知识存储在向量数据库中，这种**运行时搜索**模式称为 Agentic RAG/Agentic Search。
+- **Storage:** 用于 Agents 将会话历史和状态保存到数据库。模型 API 是无状态的，而存储使我们能够从中断的地方继续对话。这使得 Agents 具有状态，能够实现多轮、长期的对话。
+- **Memory:** 使 Agents 能够存储和回忆先前交互的信息，从而允许它们学习用户偏好并个性化其响应。
 
-<Check>Let's build a few Agents to see how they work.</Check>
+<Check>让我们构建几个 Agents 来看看它们是如何工作的。</Check>
 
-## Level 1: Agents with tools and instructions
+## Level 1: 具有工具和指令的 Agents
 
-The simplest Agent has a model, a tool and instructions. Let's build an Agent that can fetch data using the `yfinance` library, along with instructions to display the results in a table.
+最简单的 Agent 拥有模型、工具和指令。让我们构建一个可以使用 `yfinance` 库获取数据的 Agent，并附带显示结果的表格的指令。
 
 ```python level_1_agent.py
 from agno.agent import Agent
@@ -37,10 +37,10 @@ agent = Agent(
 agent.print_response("What is the stock price of Apple?", stream=True)
 ```
 
-Create a virtual environment, install dependencies, export your API key and run the Agent.
+创建虚拟环境，安装依赖项，导出你的 API 密钥并运行 Agent。
 
 <Steps>
-  <Step title="Setup your virtual environment">
+  <Step title="设置你的虚拟环境">
 
     <CodeGroup>
     ```bash Mac
@@ -55,7 +55,7 @@ Create a virtual environment, install dependencies, export your API key and run 
     </CodeGroup>
 
   </Step>
-  <Step title="Install dependencies">
+  <Step title="安装依赖项">
 
     <CodeGroup>
     ```bash Mac
@@ -68,7 +68,7 @@ Create a virtual environment, install dependencies, export your API key and run 
     </CodeGroup>
 
   </Step>
-  <Step title="Export your Anthropic key">
+  <Step title="导出你的 Anthropic 密钥">
 
     <CodeGroup>
     ```bash Mac
@@ -81,7 +81,7 @@ Create a virtual environment, install dependencies, export your API key and run 
     </CodeGroup>
 
   </Step>
-  <Step title="Run the agent">
+  <Step title="运行 Agent">
 
     ```shell
     python agent_with_tools.py
@@ -91,18 +91,18 @@ Create a virtual environment, install dependencies, export your API key and run 
 </Steps>
 
 <Note>
-Set `debug_mode=True` or `export AGNO_DEBUG=true` to see the system prompt and user messages.
+设置 `debug_mode=True` 或 `export AGNO_DEBUG=true` 以查看系统提示和用户消息。
 </Note>
 
-## Level 2: Agents with knowledge and storage
+## Level 2: 具有知识和存储的 Agents
 
-**Knowledge:** While models have a large amount of training data, we almost always need to give them domain-specific information to make better decisions and provide accurate responses (RAG). We store this information in a vector database and let the Agent **search** it at runtime.
+**Knowledge:** 虽然模型拥有大量的训练数据，但我们几乎总是需要为它们提供特定领域的信息，以便做出更好的决策和提供准确的响应（RAG）。我们将这些信息存储在向量数据库中，并让 Agent 在运行时进行**搜索**。
 
-**Storage:** Model APIs are stateless and `Storage` drivers save chat history and state to a database. When the Agent runs, it reads the chat history and state from the database and add it to the messages list, resuming the conversation and making the Agent stateful.
+**Storage:** 模型 API 是无状态的，`Storage` 驱动程序将聊天历史和状态保存到数据库。当 Agent 运行时，它从数据库读取聊天历史和状态，并将其添加到消息列表中，从而恢复对话并使 Agent 具有状态。
 
-In this example, we'll use:
-- `UrlKnowledge` to load Agno documentation to LanceDB, using OpenAI for embeddings.
-- `SqliteStorage` to save the Agent's session history and state in a database.
+在这个示例中，我们将使用：
+- `UrlKnowledge` 来加载 Agno 文档到 LanceDB，使用 OpenAI 进行嵌入。
+- `SqliteStorage` 来将 Agent 的会话历史和状态保存在数据库中。
 
 ```python level_2_agent.py
 from agno.agent import Agent
@@ -112,20 +112,20 @@ from agno.models.anthropic import Claude
 from agno.storage.sqlite import SqliteStorage
 from agno.vectordb.lancedb import LanceDb, SearchType
 
-# Load Agno documentation in a knowledge base
-# You can also use `https://docs.agno.com/llms-full.txt` for the full documentation
+# 在知识库中加载 Agno 文档
+# 你也可以使用 `https://docs.agno.com/llms-full.txt` 来获取完整文档
 knowledge = UrlKnowledge(
     urls=["https://docs.agno.com/introduction.md"],
     vector_db=LanceDb(
         uri="tmp/lancedb",
         table_name="agno_docs",
         search_type=SearchType.hybrid,
-        # Use OpenAI for embeddings
+        # 使用 OpenAI 进行嵌入
         embedder=OpenAIEmbedder(id="text-embedding-3-small", dimensions=1536),
     ),
 )
 
-# Store agent sessions in a SQLite database
+# 将 Agent 会话存储在 SQLite 数据库中
 storage = SqliteStorage(table_name="agent_sessions", db_file="tmp/agent.db")
 
 agent = Agent(
@@ -138,24 +138,24 @@ agent = Agent(
     knowledge=knowledge,
     storage=storage,
     add_datetime_to_instructions=True,
-    # Add the chat history to the messages
+    # 将聊天历史添加到消息中
     add_history_to_messages=True,
-    # Number of history runs
+    # 历史运行次数
     num_history_runs=3,
     markdown=True,
 )
 
 if __name__ == "__main__":
-    # Load the knowledge base, comment out after first run
-    # Set recreate to True to recreate the knowledge base if needed
+    # 加载知识库，首次运行时请注释掉此行
+    # 如果需要重新创建知识库，请将 recreate 设置为 True
     agent.knowledge.load(recreate=False)
     agent.print_response("What is Agno?", stream=True)
 ```
 
-Install dependencies, export your `OPENAI_API_KEY` and run the Agent
+安装依赖项，导出你的 `OPENAI_API_KEY` 并运行 Agent
 
 <Steps>
-  <Step title="Install new dependencies">
+  <Step title="安装新依赖项">
 
     <CodeGroup>
     ```bash Mac
@@ -168,7 +168,7 @@ Install dependencies, export your `OPENAI_API_KEY` and run the Agent
     </CodeGroup>
 
   </Step>
-  <Step title="Run the agent">
+  <Step title="运行 Agent">
 
     ```shell
     python level_2_agent.py
@@ -177,10 +177,10 @@ Install dependencies, export your `OPENAI_API_KEY` and run the Agent
   </Step>
 </Steps>
 
-## Level 3: Agents with memory and reasoning
+## Level 3: 具有记忆和推理的 Agents
 
-- **Reasoning:** enables Agents to **"think" & "analyze"**, improving reliability and quality. `ReasoningTools` is one of the best approaches to improve an Agent's response quality.
-- **Memory:** enables Agents to classify, store and recall user preferences, personalizing their responses. Memory helps the Agent build personas and learn from previous interactions.
+- **Reasoning:** 使 Agents 能够**“思考”和“分析”**，提高可靠性和质量。`ReasoningTools`是提高 Agent 回应质量的最佳方法之一。
+- **Memory:** 使 Agents 能够对用户偏好进行分类、存储和回忆，从而实现个性化响应。记忆帮助 Agent 构建用户画像并从先前的互动中学习。
 
 ```python level_3_agent.py
 from agno.agent import Agent
@@ -191,11 +191,11 @@ from agno.tools.reasoning import ReasoningTools
 from agno.tools.yfinance import YFinanceTools
 
 memory = Memory(
-    # Use any model for creating and managing memories
+    # 使用任何模型来创建和管理记忆
     model=Claude(id="claude-sonnet-4-20250514"),
-    # Store memories in a SQLite database
+    # 将记忆存储在 SQLite 数据库中
     db=SqliteMemoryDb(table_name="user_memories", db_file="tmp/agent.db"),
-    # We disable deletion by default, enable it if needed
+    # 默认禁用删除，如果需要请启用
     delete_memories=True,
     clear_memories=True,
 )
@@ -206,7 +206,7 @@ agent = Agent(
         ReasoningTools(add_instructions=True),
         YFinanceTools(stock_price=True, analyst_recommendations=True, company_info=True, company_news=True),
     ],
-    # User ID for storing memories, `default` if not provided
+    # 用于存储记忆的用户 ID，如果未提供则为 `default`
     user_id="ava",
     instructions=[
         "Use tables to display data.",
@@ -214,20 +214,20 @@ agent = Agent(
         "Only include the report in your response. No other text.",
     ],
     memory=memory,
-    # Let the Agent manage its memories
+    # 让 Agent 管理其记忆
     enable_agentic_memory=True,
     markdown=True,
 )
 
 if __name__ == "__main__":
-    # This will create a memory that "ava's" favorite stocks are NVIDIA and TSLA
+    # 这将创建一个记忆，其中“ava”喜欢的股票是 NVIDIA 和 TSLA
     agent.print_response(
         "My favorite stocks are NVIDIA and TSLA",
         stream=True,
         show_full_reasoning=True,
         stream_intermediate_steps=True,
     )
-    # This will use the memory to answer the question
+    # 这将利用记忆来回答问题
     agent.print_response(
         "Can you compare my favorite stocks?",
         stream=True,
@@ -236,10 +236,10 @@ if __name__ == "__main__":
     )
 ```
 
-Run the Agent
+运行 Agent
 
 ```shell
 python level_3_agent.py
 ```
 
-<Tip>You can use the `Memory` and `Reasoning` separately, you don't need to use them together.</Tip>
+<Tip>你可以单独使用 `Memory` 和 `Reasoning`，不必同时使用它们。</Tip>

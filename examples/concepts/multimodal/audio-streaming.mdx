@@ -1,8 +1,8 @@
 ---
-title: Audio Streaming Agent
+title: 音频流代理
 ---
 
-## Code
+## 代码
 
 ```python
 import base64
@@ -11,9 +11,9 @@ from agno.agent import Agent
 from agno.models.openai import OpenAIChat
 from typing import Iterator
 
-# Audio Configuration
+# 音频配置
 SAMPLE_RATE = 24000  # Hz (24kHz)
-CHANNELS = 1  # Mono
+CHANNELS = 1  # 单声道
 SAMPLE_WIDTH = 2  # Bytes (16 bits)
 
 agent = Agent(
@@ -22,16 +22,16 @@ agent = Agent(
         modalities=["text", "audio"],
         audio={
             "voice": "alloy",
-            "format": "pcm16",  # Required for streaming
+            "format": "pcm16",  # 流式传输必需
         },
     ),
     debug_mode=True,
     add_history_to_messages=True,
 )
 
-# Question with streaming
+# 流式提问
 output_stream: Iterator[RunResponse] = agent.run(
-    "Is a golden retriever a good family dog?", 
+    "金毛寻回犬适合做家庭犬吗？", 
     stream=True
 )
 
@@ -49,28 +49,28 @@ with wave.open("tmp/answer_1.wav", "wb") as wav_file:
                     pcm_bytes = base64.b64decode(response.response_audio.content)
                     wav_file.writeframes(pcm_bytes)
                 except Exception as e:
-                    print(f"Error decoding audio: {e}")
+                    print(f"解码音频时出错: {e}")
 print()
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U openai agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行代理">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/multimodal/audio_streaming.py

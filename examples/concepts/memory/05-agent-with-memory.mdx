@@ -1,14 +1,14 @@
 ---
-title: Agent With Memory
+title: 具有记忆的 Agent
 ---
 
-This example shows you how to use persistent memory with an Agent.
+本示例展示了如何使用持久化记忆与 Agent 进行交互。
 
-After each run, user memories are created/updated.
+每次运行后都会创建/更新用户的记忆。
 
-To enable this, set `enable_user_memories=True` in the Agent config.
+要启用此功能，请在 Agent 配置中将 `enable_user_memories` 设置为 `True`。
 
-## Code
+## 代码
 
 ```python cookbook/agent_concepts/memory/06_agent_with_memory.py
 from agno.agent.agent import Agent
@@ -21,10 +21,10 @@ from utils import print_chat_history
 
 memory_db = SqliteMemoryDb(table_name="memory", db_file="tmp/memory.db")
 
-# No need to set the model, it gets set by the agent to the agent's model
+# 无需设置模型，Agent 会自动为其设置
 memory = Memory(db=memory_db)
 
-# Reset the memory for this example
+# 重置此示例的记忆
 memory.clear()
 
 session_id = "session_1"
@@ -50,7 +50,7 @@ agent.print_response(
     "What are my hobbies?", stream=True, user_id=john_doe_id, session_id=session_id
 )
 
-# -*- Print the chat history
+# -*- 打印聊天记录
 session_run = memory.runs[session_id][-1]
 print_chat_history(session_run)
 
@@ -65,34 +65,34 @@ agent.print_response(
     session_id=session_id,
 )
 
-# -*- Print the chat history
+# -*- 打印聊天记录
 session_run = memory.runs[session_id][-1]
 print_chat_history(session_run)
 
-# You can also get the user memories from the agent
+# 你也可以从 Agent 获取用户记忆
 memories = agent.get_user_memories(user_id=john_doe_id)
 print("John Doe's memories:")
 pprint(memories)
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置你的 API 密钥">
     ```bash
     export GOOGLE_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U agno google-generativeai
     ```
   </Step>
 
-  <Step title="Run Example">
+  <Step title="运行示例">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/memory/06_agent_with_memory.py

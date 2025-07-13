@@ -1,25 +1,25 @@
 ---
-title: SentenceTransformers Embedder
+title: SentenceTransformers 嵌入器
 sidebarTitle: SentenceTransformers
 ---
 
-The `SentenceTransformerEmbedder` class is used to embed text data into vectors using the [SentenceTransformers](https://www.sbert.net/) library.
+`SentenceTransformerEmbedder` 类用于使用 [SentenceTransformers](https://www.sbert.net/) 库将文本数据嵌入到向量中。
 
-## Usage
+## 用法
 
 ```python cookbook/embedders/sentence_transformer_embedder.py
 from agno.agent import AgentKnowledge
 from agno.vectordb.pgvector import PgVector
 from agno.embedder.sentence_transformer import SentenceTransformerEmbedder
 
-# Embed sentence in database
+# 将句子嵌入数据库
 embeddings = SentenceTransformerEmbedder().get_embedding("The quick brown fox jumps over the lazy dog.")
 
-# Print the embeddings and their dimensions
+# 打印嵌入向量及其维度
 print(f"Embeddings: {embeddings[:5]}")
 print(f"Dimensions: {len(embeddings)}")
 
-# Use an embedder in a knowledge base
+# 在知识库中使用嵌入器
 knowledge_base = AgentKnowledge(
     vector_db=PgVector(
         db_url="postgresql+psycopg://ai:ai@localhost:5532/ai",
@@ -30,13 +30,13 @@ knowledge_base = AgentKnowledge(
 )
 ```
 
-## Params
+## 参数
 
-| Parameter                     | Type               | Default             | Description                                                  |
-| ----------------------------- | ------------------ | ------------------- | ------------------------------------------------------------ |
-| `dimensions`                  | `int`              | -                   | The dimensionality of the generated embeddings               |
-| `model`                       | `str`              | `all-mpnet-base-v2` | The name of the SentenceTransformers model to use            |
-| `sentence_transformer_client` | `Optional[Client]` | -                   | Optional pre-configured SentenceTransformers client instance |
+| 参数 | 类型 | 默认值 | 描述 |
+| --- | --- | --- | --- |
+| `dimensions` | `int` | - | 生成的嵌入向量的维度 |
+| `model` | `str` | `all-mpnet-base-v2` | 要使用的 SentenceTransformers 模型名称 |
+| `sentence_transformer_client` | `Optional[Client]` | - | 可选的预配置 SentenceTransformers 客户端实例 |
 
-## Developer Resources
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/embedders/sentence_transformer_embedder.py)
+## 开发人员资源
+- 查看 [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/embedders/sentence_transformer_embedder.py)

@@ -2,19 +2,19 @@
 title: Custom API
 ---
 
-**CustomApiTools** enable an Agent to make HTTP requests to any external API with customizable authentication and parameters.
+**CustomApiTools** 使代理能够通过可自定义的身份验证和参数向任何外部 API 发出 HTTP 请求。
 
-## Prerequisites
+## 先决条件
 
-The following example requires the `requests` library.
+以下示例需要 `requests` 库。
 
 ```shell
 pip install requests
 ```
 
-## Example
+## 示例
 
-The following agent will use CustomApiTools to make API calls to the Dog CEO API.
+以下代理将使用 CustomApiTools 向 Dog CEO API 发出 API 调用。
 
 ```python cookbook/tools/custom_api_tools.py
 from agno.agent import Agent
@@ -26,31 +26,31 @@ agent = Agent(
 )
 
 agent.print_response(
-    'Make API calls to the following two different endpoints: /breeds/image/random and /breeds/list/all to get a random dog image and list of dog breeds respectively. Use GET method for both calls.'
+    '向以下两个不同端点发出 API 调用：/breeds/image/random 和 /breeds/list/all，分别获取随机的狗图片和狗品种列表。两个调用均使用 GET 方法。'
 )
 ```
 
-## Toolkit Params
+## Toolkit 参数
 
-| Parameter     | Type                | Default | Description                                                |
-| ------------- | ------------------- | ------- | ---------------------------------------------------------- |
-| `base_url`    | `str`               | `None`  | Base URL for API calls                                     |
-| `username`    | `str`               | `None`  | Username for basic authentication                          |
-| `password`    | `str`               | `None`  | Password for basic authentication                          |
-| `api_key`     | `str`               | `None`  | API key for bearer token authentication                    |
-| `headers`     | `Dict[str, str]`    | `{}`    | Default headers to include in requests                     |
-| `verify_ssl`  | `bool`              | `True`  | Whether to verify SSL certificates                         |
-| `timeout`     | `int`               | `30`    | Request timeout in seconds                                 |
-| `make_request`| `bool`              | `True`  | Whether to register the make_request function              |
+| 参数        | 类型                | 默认值 | 描述                                      |
+| ----------- | ------------------- | ------ | ----------------------------------------- |
+| `base_url`  | `str`               | `None` | API 调用的基 URL                          |
+| `username`  | `str`               | `None` | 基本身份验证的用户名                      |
+| `password`  | `str`               | `None` | 基本身份验证的密码                      |
+| `api_key`   | `str`               | `None` | Bearer token 身份验证的 API 密钥        |
+| `headers`   | `Dict[str, str]`    | `{}`   | 请求中包含的默认标头                      |
+| `verify_ssl`| `bool`              | `True` | 是否验证 SSL 证书                         |
+| `timeout`   | `int`               | `30`   | 请求超时（秒）                          |
+| `make_request`| `bool`              | `True` | 是否注册 make_request 函数              |
 
-## Toolkit Functions
+## Toolkit 函数
 
-| Function       | Description                                                                                                                                                |
-| -------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `make_request` | Makes an HTTP request to the API. Takes method (GET, POST, etc.), endpoint, and optional params, data, headers, and json_data parameters.                  |
+| 函数         | 描述                                                                                                                                |
+| ------------ | ----------------------------------------------------------------------------------------------------------------------------------- |
+| `make_request` | 向 API 发出 HTTP 请求。接受 method (GET, POST, 等)、endpoint 以及可选的 params、data、headers 和 json_data 参数。 |
 
-## Developer Resources
+## 开发者资源
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/api.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/custom_api_tools.py)
+- 查看 [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/api.py)
+- 查看 [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/custom_api_tools.py)
 ```

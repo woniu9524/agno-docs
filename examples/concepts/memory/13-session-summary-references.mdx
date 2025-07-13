@@ -2,11 +2,10 @@
 title: Session Summary References
 ---
 
-This example shows how to use the `add_session_summary_references` parameter in the Agent config to
-add references to the session summaries to the Agent.
+此示例展示了如何在 Agent 配置中使用 `add_session_summary_references` 参数将会话摘要的引用添加到 Agent 中。
 
 
-## Code
+## 代码
 
 ```13_session_summary_references.py
 from agno.agent.agent import Agent
@@ -53,18 +52,18 @@ agent = Agent(
 agent.print_response("What are my hobbies?", user_id=user_id)
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U agno
     ```
   </Step>
 
-  <Step title="Run Example">
+  <Step title="运行示例">
     <CodeGroup>
     ```bash Mac
     python 13_session_summary_references.py
@@ -75,4 +74,4 @@ agent.print_response("What are my hobbies?", user_id=user_id)
     ```
     </CodeGroup>
   </Step>
-</Steps> 
+</Steps>

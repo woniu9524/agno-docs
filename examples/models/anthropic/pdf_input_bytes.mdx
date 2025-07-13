@@ -1,5 +1,5 @@
 ---
-title: PDF Input Bytes Agent
+title: PDF 输入字节代理
 ---
 
 ## Code
@@ -41,22 +41,22 @@ print(agent.run_response.citations)
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置你的 API 密钥">
     ```bash
     export ANTHROPIC_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U anthropic agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行代理">
     <CodeGroup>
     ```bash Mac
-    python cookbook/models/anthropic/pdf_input_bytes.py 
+    python cookbook/models/anthropic/pdf_input_bytes.py
     ```
 
     ```bash Windows

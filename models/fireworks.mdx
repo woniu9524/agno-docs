@@ -1,13 +1,13 @@
 ---
 title: Fireworks
-description: Learn how to use Fireworks models in Agno.
+description: 了解如何在 Agno 中使用 Fireworks 模型。
 ---
 
-Fireworks is a platform for providing endpoints for Large Language models.
+Fireworks 是一个为大型语言模型提供端点的平台。
 
-## Authentication
+## 身份验证
 
-Set your `FIREWORKS_API_KEY` environment variable. Get your key from [here](https://fireworks.ai/account/api-keys).
+设置您的 `FIREWORKS_API_KEY` 环境变量。从[此处](https://fireworks.ai/account/api-keys)获取您的密钥。
 
 <CodeGroup>
 
@@ -21,14 +21,14 @@ setx FIREWORKS_API_KEY ***
 
 </CodeGroup>
 
-## Prompt caching
+## 提示缓存
 
-Prompt caching will happen automatically using our `Fireworks` model. You can read more about how Fireworks handle caching in [their docs](https://docs.fireworks.ai/guides/prompt-caching#using-prompt-caching).
+提示缓存将使用我们的 `Fireworks` 模型自动进行。您可以在[他们的文档](https://docs.fireworks.ai/guides/prompt-caching#using-prompt-caching)中了解更多关于 Fireworks 如何处理缓存的信息。
 
 
-## Example
+## 示例
 
-Use `Fireworks` with your `Agent`:
+将 `Fireworks` 与您的 `Agent` 一起使用：
 
 <CodeGroup>
 
@@ -41,17 +41,17 @@ agent = Agent(
     markdown=True
 )
 
-# Print the response in the terminal
-agent.print_response("Share a 2 sentence horror story.")
+# 在终端打印响应
+agent.print_response("写一个两句话的恐怖故事。")
 
 ```
 
 </CodeGroup>
 
-<Note> View more examples [here](../examples/models/fireworks). </Note>
+<Note> 在[此处](../examples/models/fireworks)查看更多示例。 </Note>
 
-## Params
+## 参数
 
 <Snippet file="model-fireworks-params.mdx" />
 
-`Fireworks` also supports the params of [OpenAI](/reference/models/openai).
+`Fireworks` 也支持 [OpenAI](/reference/models/openai) 的参数。

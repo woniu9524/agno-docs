@@ -2,9 +2,9 @@
 title: Telegram
 ---
 
-**TelegramTools** enable an Agent to send messages to a Telegram chat using the Telegram Bot API.
+**TelegramTools** 使代理能够使用 Telegram Bot API 向 Telegram 聊天发送消息。
 
-## Prerequisites
+## 先决条件
 
 
 
@@ -16,19 +16,19 @@ pip install -U agno httpx
 export TELEGRAM_TOKEN=***
 ```
 
-## Example
+## 示例
 
-The following agent will send a message to a Telegram chat.
+下面的代理将向 Telegram 聊天发送消息。
 
 ```python cookbook/tools/tavily_tools.py
 from agno.agent import Agent
 from agno.tools.telegram import TelegramTools
 
-# How to get the token and chat_id:
-# 1. Create a new bot with BotFather on Telegram. https://core.telegram.org/bots/features#creating-a-new-bot
-# 2. Get the token from BotFather.
-# 3. Send a message to the bot.
-# 4. Get the chat_id by going to the URL:
+# 如何获取 token 和 chat_id：
+# 1. 在 Telegram 上使用 BotFather 创建一个新机器人。https://core.telegram.org/bots/features#creating-a-new-bot
+# 2. 从 BotFather 获取 token。
+# 3. 向机器人发送消息。
+# 4. 通过访问以下 URL 获取 chat_id：
 #    https://api.telegram.org/bot/<your-bot-token>/getUpdates
 
 telegram_token = "<enter-your-bot-token>"
@@ -39,23 +39,23 @@ agent = Agent(
     tools=[TelegramTools(token=telegram_token, chat_id=chat_id)],
 )
 
-agent.print_response("Send message to telegram chat a paragraph about the moon")
+agent.print_response("向 Telegram 聊天发送一段关于月球的文字")
 ```
 
-## Toolkit Params
+## Toolkit 参数
 
-| Parameter | Type | Default | Description |
+| 参数 | 类型 | 默认值 | 描述 |
 |-----------|------|---------|-------------|
-| `token` | `Optional[str]` | `None` | Telegram Bot API token. If not provided, will check TELEGRAM_TOKEN environment variable. |
-| `chat_id` | `Union[str, int]` | - | The ID of the chat to send messages to. |
+| `token` | `Optional[str]` | `None` | Telegram Bot API token。如果未提供，将检查 TELEGRAM_TOKEN 环境变量。 |
+| `chat_id` | `Union[str, int]` | - | 要发送消息的聊天 ID。 |
 
-## Toolkit Functions
+## Toolkit 函数
 
-| Function | Description |
+| 函数 | 描述 |
 |----------|-------------|
-| `send_message` | Sends a message to the specified Telegram chat. Takes a message string as input and returns the API response as text. If an error occurs, returns an error message. |
+| `send_message` | 向指定的 Telegram 聊天发送消息。接受消息字符串作为输入，并以文本形式返回 API 响应。如果发生错误，则返回错误消息。 |
 
-## Developer Resources
+## 开发者资源
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/telegram.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/telegram_tools.py)
+- 查看 [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/telegram.py)
+- 查看 [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/telegram_tools.py)

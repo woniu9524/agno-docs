@@ -1,8 +1,8 @@
 ---
-title: Streaming Agent
+title: 流式代理
 ---
 
-## Code
+## 代码
 
 ```python cookbook/models/vercel/basic_stream.py
 from typing import Iterator  # noqa
@@ -11,33 +11,33 @@ from agno.models.vercel import v0
 
 agent = Agent(model=v0(id="v0-1.0-md"), markdown=True)
 
-# Get the response in a variable
-# run_response: Iterator[RunResponse] = agent.run("Share a 2 sentence horror story", stream=True)
+# 将响应存储在变量中
+# run_response: Iterator[RunResponse] = agent.run("分享一个两句话的恐怖故事", stream=True)
 # for chunk in run_response:
 #     print(chunk.content)
 
-# Print the response in the terminal
-agent.print_response("Share a 2 sentence horror story", stream=True)
+# 在终端中打印响应
+agent.print_response("分享一个两句话的恐怖故事", stream=True)
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置你的 API 密钥">
     ```bash
     export V0_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U openai agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行代理">
     <CodeGroup>
     ```bash Mac
     python cookbook/models/vercel/basic_stream.py

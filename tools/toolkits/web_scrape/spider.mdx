@@ -2,19 +2,19 @@
 title: Spider
 ---
 
-**SpiderTools** is an open source web Scraper & Crawler that returns LLM-ready data. To start using Spider, you need an API key from the [Spider dashboard](https://spider.cloud).
+**SpiderTools** 是一个开源的 Web 抓取器和爬虫，可返回 LLM 就绪数据。要开始使用 Spider，您需要从 [Spider 控制面板](https://spider.cloud) 获取 API 密钥。
 
-## Prerequisites
+## 先决条件
 
-The following example requires the `spider-client` library.
+以下示例需要 `spider-client` 库。
 
 ```shell
 pip install -U spider-client
 ```
 
-## Example
+## 示例
 
-The following agent will run a search query to get the latest news in USA and scrape the first search result. The agent will return the scraped data in markdown format.
+以下代理将运行一个搜索查询以获取美国最新新闻，并抓取第一个搜索结果。该代理将以 markdown 格式返回抓取的数据。
 
 ```python cookbook/tools/spider_tools.py
 from agno.agent import Agent
@@ -24,22 +24,22 @@ agent = Agent(tools=[SpiderTools()])
 agent.print_response('Can you scrape the first search result from a search on "news in USA"?', markdown=True)
 ```
 
-## Toolkit Params
+## Toolkit 参数
 
-| Parameter     | Type  | Default | Description                                    |
-| ------------- | ----- | ------- | ---------------------------------------------- |
-| `max_results` | `int` | -       | The maximum number of search results to return |
-| `url`         | `str` | -       | The url to be scraped or crawled               |
+| 参数 (Parameter) | 类型 (Type) | 默认值 (Default) | 描述 (Description)                                  |
+| ----------------- | ----------- | ---------------- | --------------------------------------------------- |
+| `max_results`     | `int`       | -                | 要返回的最大搜索结果数                              |
+| `url`             | `str`       | -                | 要抓取或爬取的 URL                                  |
 
-## Toolkit Functions
+## Toolkit 函数
 
-| Function | Description                           |
-| -------- | ------------------------------------- |
-| `search` | Searches the web for the given query. |
-| `scrape` | Scrapes the given url.                |
-| `crawl`  | Crawls the given url.                 |
+| 函数 (Function) | 描述 (Description)                       |
+| --------------- | ---------------------------------------- |
+| `search`        | 为给定查询搜索网络。                     |
+| `scrape`        | 抓取给定的 URL。                         |
+| `crawl`         | 爬取给定的 URL。                         |
 
-## Developer Resources
+## 开发者资源
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/spider.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/spider_tools.py)
+- 查看 [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/spider.py)
+- 查看 [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/spider_tools.py)

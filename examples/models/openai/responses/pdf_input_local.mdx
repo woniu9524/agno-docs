@@ -1,8 +1,8 @@
 ---
-title: Agent with PDF Input (Local File)
+title: Agent 通过 PDF 输入（本地文件）
 ---
 
-## Code
+## 代码
 
 ```python cookbook/models/openai/responses/pdf_input_local.py
 from pathlib import Path
@@ -14,7 +14,7 @@ from agno.utils.media import download_file
 
 pdf_path = Path(__file__).parent.joinpath("ThaiRecipes.pdf")
 
-# Download the file using the download_file function
+# 使用 download_file 函数下载文件
 download_file(
     "https://agno-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf", str(pdf_path)
 )
@@ -27,30 +27,30 @@ agent = Agent(
 )
 
 agent.print_response(
-    "Summarize the contents of the attached file.",
+    "总结附件内容。",
     files=[File(filepath=pdf_path)],
 )
-agent.print_response("Suggest me a recipe from the attached file.")
+agent.print_response("从附件中推荐一个食谱。")
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U openai agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行 Agent">
     <CodeGroup>
     ```bash Mac
     python cookbook/models/openai/responses/pdf_input_local.py

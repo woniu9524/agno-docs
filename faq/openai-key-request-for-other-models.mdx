@@ -1,19 +1,19 @@
 ---
-title: OpenAI Key Request While Using Other Models
-sidebarTitle: OpenAI Key Request While Using Other Models
+title: 使用其他模型时请求 OpenAI 密钥
+sidebarTitle: 使用其他模型时请求 OpenAI 密钥
 ---
 
-If you see a request for an OpenAI API key but haven't explicitly configured OpenAI, it's because Agno uses OpenAI models by default in several places, including:
+如果您看到请求 OpenAI API 密钥但您尚未显式配置 OpenAI，那是因为 Agno 在多个地方默认使用 OpenAI 模型，包括：
 
-- The default model when unspecified in `Agent`
-- The default embedder is OpenAIEmbedder with VectorDBs, unless specified
+- 在 `Agent` 中未指定时的默认模型
+- 默认嵌入器是 `OpenAIEmbedder` 和 VectorDBs，除非另有指定
 
 
-## Quick fix: Configure a Different Model
+## 快速修复：配置不同的模型
 
-It is best to specify the model for the agent explicitly, otherwise it would default to `OpenAIChat`.
+最好显式指定代理的模型，否则它将默认为 `OpenAIChat`。
 
-For example, to use Google's Gemini instead of OpenAI:
+例如，要使用 Google 的 Gemini 而不是 OpenAI：
 
 ```python
 from agno.agent import Agent, RunResponse
@@ -24,31 +24,31 @@ agent = Agent(
     markdown=True,
 )
 
-# Print the response in the terminal
-agent.print_response("Share a 2 sentence horror story.")
+# 在终端中打印响应
+agent.print_response("写一个两句的恐怖故事。")
 ```
 
-For more details on configuring different model providers, check our [models documentation](../models/)
+有关配置不同模型提供商的更多详细信息，请查阅我们的[模型文档](../models/)
 
-## Quick fix: Configure a Different Embedder
+## 快速修复：配置不同的嵌入器
 
-The same applies to embeddings. If you want to use a different embedder instead of `OpenAIEmbedder`, configure it explicitly.
+嵌入也是如此。如果您想使用不同的嵌入器而不是 `OpenAIEmbedder`，请显式配置它。
 
-For example, to use Google's Gemini as an embedder, use `GeminiEmbedder`:
+例如，要将 Google 的 Gemini 用作嵌入器，请使用 `GeminiEmbedder`：
 
 ```python
 from agno.agent import AgentKnowledge
 from agno.vectordb.pgvector import PgVector
 from agno.embedder.google import GeminiEmbedder
 
-# Embed sentence in database
-embeddings = GeminiEmbedder().get_embedding("The quick brown fox jumps over the lazy dog.")
+# 在数据库中嵌入句子
+embeddings = GeminiEmbedder().get_embedding("敏捷的棕色狐狸跳过懒狗。")
 
-# Print the embeddings and their dimensions
+# 打印嵌入及其维度
 print(f"Embeddings: {embeddings[:5]}")
 print(f"Dimensions: {len(embeddings)}")
 
-# Use an embedder in a knowledge base
+# 在知识库中使用嵌入器
 knowledge_base = AgentKnowledge(
     vector_db=PgVector(
         db_url="postgresql+psycopg://ai:ai@localhost:5532/ai",
@@ -59,4 +59,4 @@ knowledge_base = AgentKnowledge(
 )
 ```
 
-For more details on configuring different model providers, check our [Embeddings documentation](../embedder/)
+有关配置不同模型提供商的更多详细信息，请查阅我们的[嵌入器文档](../embedder/)

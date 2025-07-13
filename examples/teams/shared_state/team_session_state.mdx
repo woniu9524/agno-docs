@@ -1,10 +1,10 @@
 ---
-title: "Team Session State"
+title: "团队会话状态"
 ---
 
-This example demonstrates how a shared team_session_state can propagate and persist across nested agents and subteams, enabling seamless state management for collaborative tasks.
+此示例演示了共享的 `team_session_state` 如何在嵌套的代理和子团队之间传播和持久化，从而为协作任务实现无缝的状态管理。
 
-## Code
+## 代码
 
 ```python cookbook/teams/team_with_nested_shared_state.py
 
@@ -13,154 +13,154 @@ from agno.models.openai.chat import OpenAIChat
 from agno.team import Team
 
 
-# Define tools to manage our shopping list
+# 定义用于管理购物列表的工具
 def add_item(agent: Agent, item: str) -> str:
-    """Add an item to the shopping list and return confirmation.
+    """将物品添加到购物列表并返回确认。
 
     Args:
-        item (str): The item to add to the shopping list.
+        item (str): 要添加到购物列表的物品。
     """
-    # Add the item if it's not already in the list
+    # 如果物品已存在，则不添加
     if item.lower() not in [
         i.lower() for i in agent.team_session_state["shopping_list"]
     ]:
         agent.team_session_state["shopping_list"].append(item)
-        return f"Added '{item}' to the shopping list"
+        return f"已将 '{item}' 添加到购物列表"
     else:
-        return f"'{item}' is already in the shopping list"
+        return f"'{item}' 已在购物列表中"
 
 
 def remove_item(agent: Agent, item: str) -> str:
-    """Remove an item from the shopping list by name.
+    """按名称从购物列表中移除物品。
 
     Args:
-        item (str): The item to remove from the shopping list.
+        item (str): 要从购物列表中移除的物品。
     """
-    # Case-insensitive search
+    # 不区分大小写的搜索
     for i, list_item in enumerate(agent.team_session_state["shopping_list"]):
         if list_item.lower() == item.lower():
             agent.team_session_state["shopping_list"].pop(i)
-            return f"Removed '{list_item}' from the shopping list"
+            return f"已从购物列表中移除 '{list_item}'"
 
-    return f"'{item}' was not found in the shopping list. Current shopping list: {agent.team_session_state['shopping_list']}"
+    return f"在购物列表中未找到 '{item}'。当前购物列表：{agent.team_session_state['shopping_list']}"
 
 
 def remove_all_items(agent: Agent) -> str:
-    """Remove all items from the shopping list."""
+    """移除购物列表中的所有物品。"""
     agent.team_session_state["shopping_list"] = []
-    return "All items removed from the shopping list"
+    return "已移除购物列表中的所有物品"
 
 
 shopping_list_agent = Agent(
-    name="Shopping List Agent",
-    role="Manage the shopping list",
+    name="购物列表代理",
+    role="管理购物列表",
     agent_id="shopping_list_manager",
     model=OpenAIChat(id="gpt-4o-mini"),
     tools=[add_item, remove_item, remove_all_items],
     instructions=[
-        "Manage the shopping list by adding and removing items",
-        "Always confirm when items are added or removed",
-        "If the task is done, update the session state to log the changes & chores you've performed",
+        "通过添加和移除物品来管理购物列表",
+        "添加或移除物品时，请始终确认",
+        "如果任务完成，请更新会话状态以记录您所做的更改和任务",
     ],
 )
 
 
-# Shopping management team - new layer for handling all shopping list modifications
+# 购物管理团队 - 用于处理所有购物列表修改的新层
 shopping_mgmt_team = Team(
-    name="Shopping Management Team",
+    name="购物管理团队",
     team_id="shopping_management",
     mode="coordinate",
     model=OpenAIChat(id="gpt-4o-mini"),
     show_tool_calls=True,
     members=[shopping_list_agent],
     instructions=[
-        "Manage adding and removing items from the shopping list using the Shopping List Agent",
-        "Forward requests to add or remove items to the Shopping List Agent",
+        "使用购物列表代理管理购物列表的添加和移除",
+        "将添加或移除物品的请求转发给购物列表代理",
     ],
 )
 
 
 def get_ingredients(agent: Agent) -> str:
-    """Retrieve ingredients from the shopping list to use for recipe suggestions.
+    """从购物列表中检索食材以用于菜谱建议。
 
     Args:
-        meal_type (str): Type of meal to suggest (breakfast, lunch, dinner, snack, or any)
+        meal_type (str): 要建议的餐点类型（早餐、午餐、晚餐、零食或任意）
     """
     shopping_list = agent.team_session_state["shopping_list"]
 
     if not shopping_list:
-        return "The shopping list is empty. Add some ingredients first to get recipe suggestions."
+        return "购物列表为空。请先添加一些食材以获取菜谱建议。"
 
-    # Just return the ingredients - the agent will create recipes
-    return f"Available ingredients from shopping list: {', '.join(shopping_list)}"
+    # 只返回食材 - 代理将创建菜谱
+    return f"购物列表中可用的食材：{', '.join(shopping_list)}"
 
 
 recipe_agent = Agent(
-    name="Recipe Suggester",
+    name="菜谱建议者",
     agent_id="recipe_suggester",
-    role="Suggest recipes based on available ingredients",
+    role="根据可用食材建议菜谱",
     model=OpenAIChat(id="gpt-4o-mini"),
     tools=[get_ingredients],
     instructions=[
-        "First, use the get_ingredients tool to get the current ingredients from the shopping list",
-        "After getting the ingredients, create detailed recipe suggestions based on those ingredients",
-        "Create at least 3 different recipe ideas using the available ingredients",
-        "For each recipe, include: name, ingredients needed (highlighting which ones are from the shopping list), and brief preparation steps",
-        "Be creative but practical with recipe suggestions",
-        "Consider common pantry items that people usually have available in addition to shopping list items",
-        "Consider dietary preferences if mentioned by the user",
-        "If no meal type is specified, suggest a variety of options (breakfast, lunch, dinner, snacks)",
+        "首先，使用 get_ingredients 工具从购物列表中获取当前食材",
+        "获取食材后，根据这些食材创建详细的菜谱建议",
+        "使用可用食材创建至少 3 种不同的菜谱创意",
+        "对于每个菜谱，包括：名称、所需食材（标出哪些来自购物列表）以及简要的准备步骤",
+        "保持菜谱建议的创意性和实用性",
+        "考虑人们通常除了购物列表项之外还拥有的常见食品柜物品",
+        "考虑用户提到的饮食偏好",
+        "如果未指定餐点类型，请建议多种选项（早餐、午餐、晚餐、零食）",
     ],
 )
 
 
 def list_items(team: Team) -> str:
-    """List all items in the shopping list."""
+    """列出购物列表中的所有物品。"""
     shopping_list = team.team_session_state["shopping_list"]
 
     if not shopping_list:
-        return "The shopping list is empty."
+        return "购物列表为空。"
 
     items_text = "\n".join([f"- {item}" for item in shopping_list])
-    return f"Current shopping list:\n{items_text}"
+    return f"当前购物列表：\n{items_text}"
 
 
-# Create meal planning subteam
+# 创建膳食计划子团队
 meal_planning_team = Team(
-    name="Meal Planning Team",
+    name="膳食计划团队",
     team_id="meal_planning",
     mode="coordinate",
     model=OpenAIChat(id="gpt-4o-mini"),
     members=[recipe_agent],
     instructions=[
-        "You are a meal planning team that suggests recipes based on shopping list items.",
-        "IMPORTANT: When users ask 'What can I make with these ingredients?' or any recipe-related questions, IMMEDIATELY forward the EXACT SAME request to the recipe_agent WITHOUT asking for further information.",
-        "DO NOT ask the user for ingredients - the recipe_agent will work with what's already in the shopping list.",
-        "Your primary job is to forward recipe requests directly to the recipe_agent without modification.",
+        "您是一个膳食计划团队，根据购物列表项建议菜谱。",
+        "重要提示：当用户询问“用这些食材能做什么？”或任何与菜谱相关的问题时，请立即将完全相同的请求转发给菜谱代理，无需询问更多信息。",
+        "请勿向用户索要食材 - 菜谱代理将使用购物列表中已有的食材。",
+        "您的主要工作是直接将菜谱请求转发给菜谱代理，不做修改。",
     ],
 )
 
 
 def add_chore(team: Team, chore: str, priority: str = "medium") -> str:
-    """Add a chore to the list with priority level.
+    """添加一个带优先级的待办事项。
 
     Args:
-        chore (str): The chore to add to the list
-        priority (str): Priority level of the chore (low, medium, high)
+        chore (str): 要添加到列表中的待办事项
+        priority (str): 待办事项的优先级（低、中、高）
 
     Returns:
-        str: Confirmation message
+        str: 确认消息
     """
-    # Initialize chores list if it doesn't exist
+    # 如果不存在，则初始化待办事项列表
     if "chores" not in team.session_state:
         team.session_state["chores"] = []
 
-    # Validate priority
+    # 验证优先级
     valid_priorities = ["low", "medium", "high"]
     if priority.lower() not in valid_priorities:
-        priority = "medium"  # Default to medium if invalid
+        priority = "medium"  # 如果无效，则默认为中等
 
-    # Add the chore with timestamp and priority
+    # 添加带有时间戳和优先级的待办事项
     from datetime import datetime
 
     chore_entry = {
@@ -171,11 +171,11 @@ def add_chore(team: Team, chore: str, priority: str = "medium") -> str:
 
     team.session_state["chores"].append(chore_entry)
 
-    return f"Added chore: '{chore}' with {priority} priority"
+    return f"已添加待办事项：'{chore}', 优先级：{priority}"
 
 
 shopping_team = Team(
-    name="Shopping List Team",
+    name="购物列表团队",
     mode="coordinate",
     model=OpenAIChat(id="gpt-4o-mini"),
     team_session_state={"shopping_list": []},
@@ -189,71 +189,69 @@ shopping_team = Team(
     show_tool_calls=True,
     markdown=True,
     instructions=[
-        "You are a team that manages a shopping list & helps plan meals using that list.",
-        "If you need to add or remove items from the shopping list, forward the full request to the Shopping Management Team.",
-        "IMPORTANT: If the user asks about recipes or what they can make with ingredients, IMMEDIATELY forward the EXACT request to the meal_planning_team with NO additional questions.",
-        "Example: When user asks 'What can I make with these ingredients?', you should simply forward this exact request to meal_planning_team without asking for more information.",
-        "If you need to list the items in the shopping list, use the list_items tool.",
-        "If the user got something from the shopping list, it means it can be removed from the shopping list.",
-        "After each completed task, use the add_chore tool to log exactly what was done with high priority.",
+        "您是一个管理购物列表并帮助规划膳食的团队。",
+        "如果您需要添加或移除购物列表中的物品，请将完整请求转发给购物管理团队。",
+        "重要提示：如果您收到关于菜谱或使用食材做什么的询问，请立即将完全相同的请求转发给膳食计划团队，不做额外询问。",
+        "示例：当用户询问“用这些食材能做什么？”时，您应该直接将此确切请求转发给膳食计划团队，而无需询问更多信息。",
+        "如果您需要列出购物列表中的物品，请使用 list_items 工具。",
+        "如果用户已获取购物列表中的某项物品，则表示可以从购物列表中将其移除。",
+        "在每项任务完成后，使用 add_chore 工具以高优先级记录所完成的工作。",
     ],
     show_members_responses=True,
 )
 
-# Example usage
+# 示例用法
 shopping_team.print_response(
-    "Add milk, eggs, and bread to the shopping list", stream=True
+    "将牛奶、鸡蛋和面包添加到购物列表", stream=True
 )
-print(f"Session state: {shopping_team.team_session_state}")
+print(f"会话状态：{shopping_team.team_session_state}")
 
-shopping_team.print_response("I got bread", stream=True)
-print(f"Session state: {shopping_team.team_session_state}")
+shopping_team.print_response("我拿到了面包", stream=True)
+print(f"会话状态：{shopping_team.team_session_state}")
 
-shopping_team.print_response("I need apples and oranges", stream=True)
-print(f"Session state: {shopping_team.team_session_state}")
+shopping_team.print_response("我需要苹果和橙子", stream=True)
+print(f"会话状态：{shopping_team.team_session_state}")
 
-shopping_team.print_response("whats on my list?", stream=True)
-print(f"Session state: {shopping_team.team_session_state}")
+shopping_team.print_response("我的列表里有什么？", stream=True)
+print(f"会话状态：{shopping_team.team_session_state}")
 
-# Try the meal planning feature
-shopping_team.print_response("What can I make with these ingredients?", stream=True)
-print(f"Session state: {shopping_team.team_session_state}")
+# 尝试膳食计划功能
+shopping_team.print_response("用这些食材能做什么？", stream=True)
+print(f"会话状态：{shopping_team.team_session_state}")
 
 shopping_team.print_response(
-    "Clear everything from my list and start over with just bananas and yogurt",
+    "清空我的列表，然后只从香蕉和酸奶开始",
     stream=True,
 )
-print(f"Shared Session state: {shopping_team.team_session_state}")
+print(f"共享会话状态：{shopping_team.team_session_state}")
 
 
-print(f"Team session state: {shopping_team.session_state}")
+print(f"团队会话状态：{shopping_team.session_state}")
 
 ```
 
-
-## Usage
+## 用法
 
 <Steps>
 
     <Snippet file="create-venv-step.mdx" />
 
-    <Step title="Install required libraries">
+    <Step title="安装所需库">
         ```bash
         pip install openai
         ```
     </Step>
 
-    <Step title="Set environment variables">
+    <Step title="设置环境变量">
         ```bash
         export OPENAI_API_KEY=****
         ```
     </Step>
 
-    <Step title="Run the agent">
+    <Step title="运行代理">
         ```bash
         python cookbook/teams/team_with_nested_shared_state.py
         ```
     </Step>
 
 </Steps>
-

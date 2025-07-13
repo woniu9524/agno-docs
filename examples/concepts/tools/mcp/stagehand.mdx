@@ -1,43 +1,43 @@
 ---
 title: Stagehand MCP agent
 sidebarTitle: Stagehand
-description: A web scraping agent that uses the Stagehand MCP server to automate browser interactions and create a structured content digest from Hacker News.
+description: 一个使用 Stagehand MCP 服务器的网页抓取代理，用于自动化浏览器交互并从 Hacker News 创建结构化的内容摘要。
 ---
 
-## Key Features
+## 主要功能
 
-- **Safe Navigation**: Proper initialization sequence prevents common browser automation errors
-- **Structured Data Extraction**: Methodical approach to extracting and organizing web content
-- **Flexible Output**: Creates well-structured digests with headlines, summaries, and insights
+- **安全导航**: 正确的初始化顺序可防止常见的浏览器自动化错误
+- **结构化数据提取**: 有条理地提取和组织网页内容的方法
+- **灵活输出**: 创建包含标题、摘要和见解的结构化摘要
 
-## Prerequisites
+## 先决条件
 
-Before running this example, you'll need:
+在运行此示例之前，您需要：
 
-- **Browserbase Account**: Get API credentials from [Browserbase](https://browserbase.com)
-- **OpenAI API Key**: Get an API Key from [OpenAI](https://platform.openai.com/settings/organization/api-keys)
+- **Browserbase 账户**: 从 [Browserbase](https://browserbase.com) 获取 API 凭证
+- **OpenAI API 密钥**: 从 [OpenAI](https://platform.openai.com/settings/organization/api-keys) 获取 API 密钥
 
-## Setup Instructions
+## 设置说明
 
-### 1. Clone and Build Stagehand MCP Server
+### 1. 克隆并构建 Stagehand MCP 服务器
 ```bash
 git clone https://github.com/browserbase/mcp-server-browserbase
 
-# Navigate to the stagehand directory
+# 进入 stagehand 目录
 cd mcp-server-browserbase/stagehand
 
-# Install dependencies and build
+# 安装依赖并构建
 npm install
 npm run build
 ```
 
-### 2. Install Python Dependencies
+### 2. 安装 Python 依赖
 
 ```bash
 pip install agno mcp openai
 ```
 
-### 3. Set Environment Variables
+### 3. 设置环境变量
 
 ```bash
 export BROWSERBASE_API_KEY=your_browserbase_api_key
@@ -45,7 +45,7 @@ export BROWSERBASE_PROJECT_ID=your_browserbase_project_id
 export OPENAI_API_KEY=your_openai_api_key
 ```
 
-## Code Example
+## 代码示例
 
 ```python
 import asyncio
@@ -61,7 +61,7 @@ from mcp import StdioServerParameters
 async def run_agent(message: str) -> None:
     server_params = StdioServerParameters(
         command="node",
-        # Update this path to the location where you cloned the repository
+        # 将此路径更新为您克隆存储库的位置
         args=["mcp-server-browserbase/stagehand/dist/index.js"],
         env=environ.copy(),
     )
@@ -71,29 +71,29 @@ async def run_agent(message: str) -> None:
             model=OpenAIChat(id="gpt-4o"),
             tools=[mcp_tools],
             instructions=dedent("""\
-                You are a web scraping assistant that creates concise reader's digests from Hacker News.
+                您是一位网页抓取助手，可以从 Hacker News 创建简洁的读者摘要。
 
-                CRITICAL INITIALIZATION RULES - FOLLOW EXACTLY:
-                1. NEVER use screenshot tool until AFTER successful navigation
-                2. ALWAYS start with stagehand_navigate first
-                3. Wait for navigation success message before any other actions
-                4. If you see initialization errors, restart with navigation only
-                5. Use stagehand_observe and stagehand_extract to explore pages safely
+                关键初始化规则 - 严格遵守：
+                1. 在成功导航**之后**才能使用截图工具
+                2. **始终先**使用 stagehand_navigate
+                3. 在执行任何其他操作之前等待导航成功消息
+                4. 如果看到初始化错误，请仅重启导航
+                5. 使用 stagehand_observe 和 stagehand_extract 安全地浏览页面
 
-                Available tools and safe usage order:
-                - stagehand_navigate: Use FIRST to initialize browser
-                - stagehand_extract: Use to extract structured data from pages
-                - stagehand_observe: Use to find elements and understand page structure
-                - stagehand_act: Use to click links and navigate to comments
-                - screenshot: Use ONLY after navigation succeeds and page loads
+                可用工具和安全使用顺序：
+                - stagehand_navigate：**首先**用于初始化浏览器
+                - stagehand_extract：用于从页面提取结构化数据
+                - stagehand_observe：用于查找元素和理解页面结构
+                - stagehand_act：用于点击链接和导航到评论
+                - screenshot：仅在导航成功且页面加载后使用
 
-                Your goal is to create a comprehensive but concise digest that includes:
-                - Top headlines with brief summaries
-                - Key themes and trends
-                - Notable comments and insights
-                - Overall tech news landscape overview
+                您的目标是创建一个全面而简洁的摘要，包括：
+                - 带有简短摘要的顶部标题
+                - 关键主题和趋势
+                - 值得注意的评论和见解
+                - 整体科技新闻格局概览
 
-                Be methodical, extract structured data, and provide valuable insights.
+                请有条理地提取结构化数据，并提供有价值的见解。
             """),
             markdown=True,
             show_tool_calls=True,
@@ -104,18 +104,18 @@ async def run_agent(message: str) -> None:
 if __name__ == "__main__":
     asyncio.run(
         run_agent(
-            "Create a comprehensive Hacker News Reader's Digest from https://news.ycombinator.com"
+            "从 https://news.ycombinator.com 创建一份全面的 Hacker News 读者摘要"
         )
     )
 ```
-## Available Tools
+## 可用工具
 
-The Stagehand MCP server provides several tools for web automation:
+Stagehand MCP 服务器提供了几个用于 Web 自动化的工具：
 
-| Tool | Purpose | Usage Notes |
+| 工具 | 目的 | 使用说明 |
 |------|---------|-------------|
-| `stagehand_navigate` | Navigate to web pages | **Use first** for initialization |
-| `stagehand_extract` | Extract structured data | Safe for content extraction |
-| `stagehand_observe` | Find elements and understand page structure | Good for exploration |
-| `stagehand_act` | Interact with page elements | Click, type, scroll actions |
-| `screenshot` | Take screenshots | **Use only after** navigation succeeds |
+| `stagehand_navigate` | 导航到网页 | **首先使用**进行初始化 |
+| `stagehand_extract` | 提取结构化数据 | 安全用于内容提取 |
+| `stagehand_observe` | 查找元素和理解页面结构 | 适合探索 |
+| `stagehand_act` | 与页面元素交互 | 点击、输入、滚动等操作 |
+| `screenshot` | 截屏 | **仅在**导航成功后使用 |

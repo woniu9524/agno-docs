@@ -1,25 +1,25 @@
 ---
 title: Cohere
-description: Learn how to use Cohere models in Agno.
+description: 了解如何在 Agno 中使用 Cohere 模型。
 ---
 
-Leverage Cohere's powerful command models and more.
+利用 Cohere 强大的 command 模型等。
 
-[Cohere](https://cohere.com) has a wide range of models and is really good for fine-tuning. See their library of models [here](https://docs.cohere.com/v2/docs/models).
+[Cohere](https://cohere.com) 拥有广泛的模型，并且非常适合进行微调。在此处查看其模型库：[here](https://docs.cohere.com/v2/docs/models)。
 
-We recommend experimenting to find the best-suited model for your use-case. Here are some general recommendations:
+我们建议进行实验以找到最适合您用例的模型。以下是一些通用建议：
 
-- `command` model is good for most basic use-cases.
-- `command-light` model is good for smaller tasks and faster inference.
-- `command-r7b-12-2024` model is good with RAG tasks, complex reasoning and multi-step tasks.
+- `command` 模型适用于大多数基本用例。
+- `command-light` 模型适用于小型任务和更快的推理。
+- `command-r7b-12-2024` 模型适用于 RAG 任务、复杂推理和多步任务。
 
-Cohere also supports fine-tuning models. Here is a [guide](https://docs.cohere.com/v2/docs/fine-tuning) on how to do it.
+Cohere 还支持模型微调。这是如何操作的指南：[guide](https://docs.cohere.com/v2/docs/fine-tuning)。
 
-Cohere has tier-based rate limits. See the [docs](https://docs.cohere.com/v2/docs/rate-limits) for more information.
+Cohere 具有基于层级的速率限制。有关更多信息，请参阅[文档](https://docs.cohere.com/v2/docs/rate-limits)。
 
-## Authentication
+## 身份验证
 
-Set your `CO_API_KEY` environment variable. Get your key from [here](https://dashboard.cohere.com/api-keys).
+设置您的 `CO_API_KEY` 环境变量。在此处获取您的密钥：[here](https://dashboard.cohere.com/api-keys)。
 
 <CodeGroup>
 
@@ -33,9 +33,9 @@ setx CO_API_KEY ***
 
 </CodeGroup>
 
-## Example
+## 示例
 
-Use `Cohere` with your `Agent`:
+在您的 `Agent` 中使用 `Cohere`：
 
 <CodeGroup>
 
@@ -48,17 +48,17 @@ agent = Agent(
     markdown=True
 )
 
-# Print the response in the terminal
+# 在终端中打印响应
 agent.print_response("Share a 2 sentence horror story.")
 
 ```
 
 </CodeGroup>
 
-<Note> View more examples [here](../examples/models/cohere). </Note>
+<Note> 在此处查看更多示例：[here](../examples/models/cohere)。 </Note>
 
-## Params
+## 参数
 
 <Snippet file="model-cohere-params.mdx" />
 
-`Cohere` is a subclass of the [Model](/reference/models/model) class and has access to the same params.
+`Cohere` 是 `Model` 类的一个子类，可以访问相同的参数。

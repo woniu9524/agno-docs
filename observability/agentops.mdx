@@ -1,52 +1,52 @@
 ---
 title: AgentOps
-description: Integrate Agno with AgentOps to send traces and logs to a centralized observability platform.
+description: 将 Agno 与 AgentOps 集成，将跟踪和日志发送到集中的可观察性平台。
 ---
 
-## Integrating Agno with AgentOps
+## 将 Agno 与 AgentOps 集成
 
-[AgentOps](https://app.agentops.ai/) provides automatic instrumentation for your Agno agents to track all operations including agent interactions, team coordination, tool usage, and workflow execution.
+[AgentOps](https://app.agentops.ai/) 为您的 Agno 代理提供自动检测功能，以跟踪所有操作，包括代理交互、团队协调、工具使用和工作流执行。
 
-## Prerequisites
+## 先决条件
 
-1. **Install AgentOps**
+1. **安装 AgentOps**
 
-   Ensure you have the AgentOps package installed:
+   确保已安装 AgentOps 包：
 
    ```bash
    pip install agentops
    ```
 
-2. **Authentication**
-   Go to [AgentOps](https://app.agentops.ai/) and copy your API key
+2. **身份验证**
+   前往 [AgentOps](https://app.agentops.ai/) 并复制您的 API 密钥
    ```bash
    export AGENTOPS_API_KEY=<your-api-key>
    ```
 
-## Logging Model Calls with AgentOps
+## 使用 AgentOps 记录模型调用
 
-This example demonstrates how to use AgentOps to log model calls.
+此示例演示如何使用 AgentOps 记录模型调用。
 
 ```python
 import agentops
 from agno.agent import Agent
 from agno.models.openai import OpenAIChat
 
-# Initialize AgentOps
+# 初始化 AgentOps
 agentops.init()
 
-# Create and run an agent
+# 创建并运行代理
 agent = Agent(model=OpenAIChat(id="gpt-4o"))
 response = agent.run("Share a 2 sentence horror story")
 
-# Print the response
+# 打印响应
 print(response.content)
 ```
 
-## Notes
+## 注意事项
 
-- **Environment Variables**: Ensure your environment variable is correctly set for the AgentOps API key.
-- **Initialization**: Call `agentops.init()` to initialize AgentOps.
-- **AgentOps Docs**: [AgentOps Docs](https://docs.agentops.ai/v2/integrations/agno)
+- **环境变量**: 确保您的环境变量已正确设置为 AgentOps API 密钥。
+- **初始化**: 调用 `agentops.init()` 来初始化 AgentOps。
+- **AgentOps 文档**: [AgentOps Docs](https://docs.agentops.ai/v2/integrations/agno)
 
-Following these steps will integrate Agno with AgentOps, providing comprehensive logging and visualization for your AI agents’ model calls.
+遵循这些步骤将 Agno 与 AgentOps 集成，为您的 AI 代理的模型调用提供全面的日志记录和可视化。

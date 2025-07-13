@@ -1,8 +1,8 @@
 ---
-<title>Agent with Structured Outputs</title>
+<title>具有结构化输出的代理</title>
 ---
 
-## Code
+## 代码
 
 ```python cookbook/models/meta/structured_output.py
 from typing import List
@@ -11,12 +11,12 @@ from agno.agent import Agent
 from agno.models.meta import Llama
 
 class MovieScript(BaseModel):
-    name: str = Field(..., description="Name of the movie.")
-    setting: str = Field(..., description="Provide a setting for the movie.")
-    ending: str = Field(..., description="Describe the movie ending.")
-    genre: str = Field(..., description="Genre of the movie.")
-    characters: List[str] = Field(..., description="List of characters.")
-    storyline: str = Field(..., description="A 3-sentence storyline.")
+    name: str = Field(..., description="电影名称。")
+    setting: str = Field(..., description="为电影提供一个背景设定。")
+    ending: str = Field(..., description="描述电影的结局。")
+    genre: str = Field(..., description="电影的类型。")
+    characters: List[str] = Field(..., description="角色列表。")
+    storyline: str = Field(..., description="一个三句话的故事梗概。")
 
 agent = Agent(
     model=Llama(id="Llama-3.3-70B"),
@@ -24,27 +24,27 @@ agent = Agent(
     markdown=True,
 )
 
-agent.print_response("Generate a movie script outline for a sci-fi adventure.")
+agent.print_response("为科幻冒险生成电影剧本大纲。")
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your LLAMA API key">
+  <Step title="设置您的 LLAMA API 密钥">
     ```bash
     export LLAMA_API_KEY=YOUR_API_KEY
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install llama-api-client agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行代理">
     <CodeGroup>
     ```bash Mac
     python cookbook/models/meta/structured_output.py
@@ -55,4 +55,4 @@ agent.print_response("Generate a movie script outline for a sci-fi adventure.")
     ```
     </CodeGroup>
   </Step>
-</Steps> 
+</Steps>

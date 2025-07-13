@@ -1,15 +1,15 @@
 ---
-title: Redis Workflow Storage
+title: Redis 工作流存储
 sidebarTitle: Redis
 ---
 
-Agno supports using Redis as a storage backend for Workflows using the `RedisStorage` class.
+Agno 支持使用 `RedisStorage` 类将 Redis 作为工作流的存储后端。
 
-## Usage
+## 用法
 
-### Run Redis
+### 运行 Redis
 
-Install [docker desktop](https://docs.docker.com/desktop/install/mac-install/) and run **Redis** on port **6379** using:
+安装 [docker desktop](https://docs.docker.com/desktop/install/mac-install/) 并使用以下命令在端口 **6379** 上运行 **Redis**：
 
 ```bash
 docker run --name my-redis -p 6379:6379 -d redis
@@ -17,7 +17,7 @@ docker run --name my-redis -p 6379:6379 -d redis
 
 ```python redis_storage_for_workflow.py
 """
-Run: `pip install openai httpx newspaper4k redis agno` to install the dependencies
+运行：`pip install openai httpx newspaper4k redis agno` 来安装依赖项
 """
 
 import json
@@ -32,59 +32,58 @@ from agno.utils.log import logger
 from agno.utils.pprint import pprint_run_response
 from agno.workflow import Workflow
 
-# Initialize Redis storage with default local connection
+# 使用默认的本地连接初始化 Redis 存储
 storage = RedisStorage(
-    # Prefix for Redis keys to namespace the sessions
+    # 用于命名会话的 Redis 键前缀
     prefix="agno_test",
-    # Redis host address
+    # Redis 主机地址
     host="localhost",
-    # Redis port number
+    # Redis 端口号
     port=6379,
 )
 
 
 class HackerNewsReporter(Workflow):
     description: str = (
-        "Get the top stories from Hacker News and write a report on them."
+        "获取 Hacker News 的热门新闻并撰写报告。"
     )
 
     hn_agent: Agent = Agent(
-        description="Get the top stories from hackernews. "
-        "Share all possible information, including url, score, title and summary if available.",
+        description="获取 Hacker News 的热门新闻。分享所有可能的信息，包括 URL、分数、标题和摘要（如果可用）。",
         show_tool_calls=True,
     )
 
     writer: Agent = Agent(
         tools=[Newspaper4kTools()],
-        description="Write an engaging report on the top stories from hackernews.",
+        description="撰写一篇引人入胜的 Hacker News 热门新闻报告。",
         instructions=[
-            "You will be provided with top stories and their links.",
-            "Carefully read each article and think about the contents",
-            "Then generate a final New York Times worthy article",
-            "Break the article into sections and provide key takeaways at the end.",
-            "Make sure the title is catchy and engaging.",
-            "Share score, title, url and summary of every article.",
-            "Give the section relevant titles and provide details/facts/processes in each section."
-            "Ignore articles that you cannot read or understand.",
-            "REMEMBER: you are writing for the New York Times, so the quality of the article is important.",
+            "您将收到热门新闻及其链接。",
+            "仔细阅读每篇文章并思考其内容。",
+            "然后生成最终的《纽约时报》风格的文章。",
+            "将文章分成几个部分，并在最后提供要点。",
+            "确保标题吸引人且引人入胜。",
+            "分享每篇文章的分数、标题、URL 和摘要。",
+            "为每个部分提供相关的标题，并在每个部分中提供详细信息/事实/流程。",
+            "忽略无法阅读或理解的文章。",
+            "请记住：您是为《纽约时报》写作，因此文章的质量很重要。",
         ],
     )
 
     def get_top_hackernews_stories(self, num_stories: int = 10) -> str:
-        """Use this function to get top stories from Hacker News.
+        """使用此函数获取 Hacker News 的热门新闻。
 
         Args:
-            num_stories (int): Number of stories to return. Defaults to 10.
+            num_stories (int): 要返回的新闻数量。默认为 10。
 
         Returns:
-            str: JSON string of top stories.
+            str: 热门新闻的 JSON 字符串。
         """
 
-        # Fetch top story IDs
+        # 获取热门新闻的 ID
         response = httpx.get("https://hacker-news.firebaseio.com/v0/topstories.json")
         story_ids = response.json()
 
-        # Fetch story details
+        # 获取新闻详情
         stories = []
         for story_id in story_ids[:num_stories]:
             story_response = httpx.get(
@@ -96,34 +95,34 @@ class HackerNewsReporter(Workflow):
         return json.dumps(stories)
 
     def run(self, num_stories: int = 5) -> Iterator[RunResponse]:
-        # Set the tools for hn_agent here to avoid circular reference
+        # 在此处设置 hn_agent 的工具，以避免循环引用
         self.hn_agent.tools = [self.get_top_hackernews_stories]
 
-        logger.info(f"Getting top {num_stories} stories from HackerNews.")
+        logger.info(f"正在从 HackerNews 获取前 {num_stories} 条新闻。")
         top_stories: RunResponse = self.hn_agent.run(num_stories=num_stories)
         if top_stories is None or not top_stories.content:
             yield RunResponse(
-                run_id=self.run_id, content="Sorry, could not get the top stories."
+                run_id=self.run_id, content="抱歉，无法获取热门新闻。"
             )
             return
 
-        logger.info("Reading each story and writing a report.")
+        logger.info("正在阅读每篇新闻并撰写报告。")
         yield from self.writer.run(top_stories.content, stream=True)
 
 
 if __name__ == "__main__":
-    # Run workflow
+    # 运行工作流
     report: Iterator[RunResponse] = HackerNewsReporter(
         storage=storage, debug_mode=False
     ).run(num_stories=5)
-    # Print the report
+    # 打印报告
     pprint_run_response(report, markdown=True, show_time=True)
 ```
 
-## Params
+## 参数
 
 <Snippet file="storage-redis-params.mdx" />
 
-## Developer Resources
+## 开发者资源
 
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/storage/redis_storage/redis_storage_for_workflow.py)
+- 查看 [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/storage/redis_storage/redis_storage_for_workflow.py)

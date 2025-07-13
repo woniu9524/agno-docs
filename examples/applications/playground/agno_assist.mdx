@@ -4,7 +4,7 @@ title: Agno Assist
 
 ## Code
 
-```python cookbook/apps/playground/agno_assist.py 
+```python cookbook/apps/playground/agno_assist.py
 from textwrap import dedent
 
 from agno.agent import Agent
@@ -171,8 +171,6 @@ if __name__ == "__main__":
     if load_kb:
         agent_knowledge.load(recreate=True)
     playground.serve(app="agno_assist:app", reload=True)
-
-
 ```
 
 ## Usage
@@ -180,20 +178,20 @@ if __name__ == "__main__":
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API keys">
+  <Step title="设置 API 密钥">
     ```bash
     export OPENAI_API_KEY=xxx
     export ELEVEN_LABS_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U agno "uvicorn[standard]" openai lancedb elevenlabs
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行 Agent">
     <CodeGroup>
     ```bash Mac
     python cookbook/apps/playground/agno_assist.py
@@ -204,4 +202,4 @@ if __name__ == "__main__":
     ```
     </CodeGroup>
   </Step>
-</Steps> 
+</Steps>

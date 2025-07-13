@@ -1,8 +1,8 @@
 ---
-title: Spider Tools
+title: Spider 工具
 ---
 
-## Code
+## 代码
 
 ```python cookbook/tools/spider_tools.py
 from agno.agent import Agent
@@ -16,24 +16,24 @@ agent = Agent(
 agent.print_response("Crawl https://example.com and extract all links")
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置你的 API 密钥">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U scrapy openai agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行 Agent">
     <CodeGroup>
     ```bash Mac
     python cookbook/tools/spider_tools.py

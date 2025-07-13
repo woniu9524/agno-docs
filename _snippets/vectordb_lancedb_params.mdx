@@ -1,13 +1,13 @@
-| Parameter     | Type           | Default | Description                                                                                                            |
-| ------------- | -------------- | ------- | ---------------------------------------------------------------------------------------------------------------------- |
-| `uri`         | `str`          | -       | The URI to connect to.                                                                                                 |
-| `table`       | `LanceTable`   | -       | The Lance table to use.                                                                                                |
-| `table_name`  | `str`          | -       | The name of the table to use.                                                                                          |
-| `connection`  | `DBConnection` | -       | The database connection to use.                                                                                        |
-| `api_key`     | `str`          | -       | The API key to use.                                                                                                    |
-| `embedder`    | `Embedder`     | -       | The embedder to use.                                                                                                   |
-| `search_type` | `SearchType`   | vector  | The search type to use.                                                                                                |
-| `distance`    | `Distance`     | cosine  | The distance to use.                                                                                                   |
-| `nprobes`     | `int`          | -       | The number of probes to use. [More Info](https://lancedb.github.io/lancedb/ann_indexes/#use-gpu-to-build-vector-index) |
-| `reranker`    | `Reranker`     | -       | The reranker to use. [More Info](https://lancedb.github.io/lancedb/hybrid_search/eval/)                                |
-| `use_tantivy` | `bool`         | -       | Whether to use tantivy.                                                                                                |
+| 参数     | 类型           | 默认 | 描述                                                                                                                                 |
+| -------- | -------------- | ---- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| `uri`    | `str`          | -    | 要连接的 URI。                                                                                                                        |
+| `table`  | `LanceTable`   | -    | 要使用的 Lance 表。                                                                                                                   |
+| `table_name` | `str`          | -    | 要使用的表的名称。                                                                                                                    |
+| `connection` | `DBConnection` | -    | 要使用的数据库连接。                                                                                                                |
+| `api_key` | `str`          | -    | 要使用的 API 密钥。                                                                                                                   |
+| `embedder` | `Embedder`     | -    | 要使用的 embedder。                                                                                                                   |
+| `search_type` | `SearchType`   | vector | 要使用的搜索类型。                                                                                                                    |
+| `distance` | `Distance`     | cosine | 要使用的距离。                                                                                                                        |
+| `nprobes` | `int`          | -    | 要使用的探针数量。[更多信息](https://lancedb.github.io/lancedb/ann_indexes/#use-gpu-to-build-vector-index)                                          |
+| `reranker` | `Reranker`     | -    | 要使用的 reranker。[更多信息](https://lancedb.github.io/lancedb/hybrid_search/eval/)                                                         |
+| `use_tantivy` | `bool`         | -    | 是否使用 tantivy。                                                                                                                    |

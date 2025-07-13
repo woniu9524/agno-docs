@@ -1,5 +1,5 @@
 ---
-title: Reasoning Agent
+title: 推理代理
 ---
 
 ## Code
@@ -11,7 +11,7 @@ from agno.agent import Agent
 from agno.cli.console import console
 from agno.models.openai import OpenAIChat
 
-task = "9.11 and 9.9 -- which is bigger?"
+task = "9.11 和 9.9 -- 哪个更大？"
 
 regular_agent = Agent(model=OpenAIChat(id="gpt-4o"), markdown=True)
 reasoning_agent = Agent(
@@ -20,20 +20,20 @@ reasoning_agent = Agent(
     markdown=True,
 )
 
-console.rule("[bold green]Regular Agent[/bold green]")
+console.rule("[bold green]常规代理[/bold green]")
 asyncio.run(regular_agent.aprint_response(task, stream=True))
-console.rule("[bold yellow]Reasoning Agent[/bold yellow]")
+console.rule("[bold yellow]推理代理[/bold yellow]")
 asyncio.run(
     reasoning_agent.aprint_response(task, stream=True, show_full_reasoning=True)
 )
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install libraries">
+  <Step title="安装库">
 
     ```bash
     pip install -U openai agno
@@ -41,7 +41,7 @@ asyncio.run(
 
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行代理">
 
     <CodeGroup>
 

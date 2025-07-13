@@ -1,13 +1,12 @@
 ---
-title: LightRAG Knowledge Base
-description: Learn how to use LightRAG, a fast graph-based retrieval-augmented generation system for enhanced knowledge querying.
+title: LightRAG 知识库
+description: 学习如何使用 LightRAG，一个基于图的快速检索增强生成系统，用于增强知识查询。
 sidebarTitle: LightRAG
 ---
 
-The **LightRAGKnowledgeBase** integrates with a [LightRAG Server](https://github.com/HKUDS/LightRAG), a simple and fast retrieval-augmented generation system that uses graph structures to enhance document retrieval and knowledge querying capabilities.
+**LightRAGKnowledgeBase** 与 [LightRAG Server](https://github.com/HKUDS/LightRAG) 集成，后者是一个简单快速的检索增强生成系统，利用图结构来增强文档检索和知识查询能力。
 
-## Usage
-
+## 用法
 
 ```python knowledge_base.py
 import asyncio
@@ -16,55 +15,54 @@ from agno.agent import Agent
 from agno.knowledge.light_rag import LightRagKnowledgeBase, lightrag_retriever
 from agno.models.anthropic import Claude
 
-# Create a knowledge base, loaded with documents from a URL
+# 创建一个知识库，加载来自 URL 的文档
 knowledge_base = LightRagKnowledgeBase(
     lightrag_server_url="http://localhost:9621",
-    path="tmp/",  # Load documents from a local directory
-    urls=["https://docs.agno.com/introduction/agents.md"],  # Load documents from a URL
+    path="tmp/",  # 从本地目录加载文档
+    urls=["https://docs.agno.com/introduction/agents.md"],  # 从 URL 加载文档
 )
 
-# Load the knowledge base with the documents from the local directory and the URL
+# 加载知识库，包括来自本地目录和 URL 的文档
 asyncio.run(knowledge_base.load())
 
-# Load the knowledge base with the text
+# 加载知识库中的文本
 asyncio.run(
-    knowledge_base.load_text(text="Agno is the best framework for building Agents")
+    knowledge_base.load_text(text="Agno 是构建 Agent 的最佳框架")
 )
 
 ```
 
-Then use the `lightrag_knowledge_base` with an Agent:
+然后将 `lightrag_knowledge_base` 与 Agent 一起使用：
 
 ```python agent.py
-# Create an agent with the knowledge base and the retriever
+# 创建一个 Agent，使用知识库和检索器
 agent = Agent(
     model=Claude(id="claude-3-7-sonnet-latest"),
-    # Agentic RAG is enabled by default when `knowledge` is provided to the Agent.
+    # 当向 Agent 提供 `knowledge` 时，Agentic RAG 默认启用。
     knowledge=knowledge_base,
     retriever=lightrag_retriever,
-    # search_knowledge=True gives the Agent the ability to search on demand
-    # search_knowledge is True by default
+    # `search_knowledge=True` 使 Agent 能够按需搜索
+    # `search_knowledge` 默认为 True
     search_knowledge=True,
     instructions=[
-        "Include sources in your response.",
-        "Always search your knowledge before answering the question.",
-        "Use the async_search method to search the knowledge base.",
+        "在你的回答中包含来源。",
+        "在回答问题前，始终搜索你的知识。",
+        "使用 async_search 方法搜索知识库。",
     ],
     markdown=True,
 )
 
-asyncio.run(agent.aprint_response("What are Agno Agents?"))
+asyncio.run(agent.aprint_response("什么是 Agno Agents?"))
 ```
 
-## Params
+## 参数
 
-| Parameter | Type | Default | Description |
+| 参数 | 类型 | 默认值 | 描述 |
 |-----------|------|---------|-------------|
-| `lightrag_server_url` | `str` | - | URL to LightRAG server. |
-| `path` | `Union[str, Path]` | - | Path to documents. Can point to a single file or directory of files. |
-| `url` | `str` | - | URLs of the website to read. |
+| `lightrag_server_url` | `str` | - | LightRAG 服务器的 URL。 |
+| `path` | `Union[str, Path]` | - | 文档路径。可以指向单个文件或文件目录。 |
+| `url` | `str` | - | 要读取的网站的 URL。 |
 
+## 开发者资源
 
-## Developer Resources
-
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/agentic_search/lightrag) 
+- 查看 [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/agentic_search/lightrag)
